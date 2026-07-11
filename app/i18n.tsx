@@ -73,7 +73,7 @@ export type Dict = {
 };
 
 const FR: Dict = {
-  nav: ['Accueil', 'Préparer le voyage', 'Arrivée', 'Départ', 'Informations pratiques', 'Services locaux', 'La région', 'Contact'],
+  nav: ['Accueil', 'Préparer le voyage', 'Informations pratiques', 'Services locaux', 'La région', 'Contact'],
   region: 'Sicile',
   tagline: 'un village du sud-est de la Sicile',
   subLabels: ['un hameau marin de Scicli', 'dans la province de Raguse'],
@@ -219,7 +219,7 @@ const FR: Dict = {
 };
 
 const IT: Dict = {
-  nav: ['Home', 'Preparare il viaggio', 'Arrivo', 'Partenza', 'Informazioni pratiche', 'Servizi locali', 'La regione', 'Contatti'],
+  nav: ['Home', 'Preparare il viaggio', 'Informazioni pratiche', 'Servizi locali', 'La regione', 'Contatti'],
   region: 'Sicilia',
   tagline: 'un villaggio del sud-est della Sicilia',
   subLabels: ['un borgo marinaro di Scicli', 'in provincia di Ragusa'],

@@ -1,13 +1,19 @@
 'use client';
 
+import Marquee from './Marquee';
 import { NAV, SITE } from './data';
 import { useI18n } from './i18n';
 
 export default function Footer() {
   const { t } = useI18n();
   return (
-    <footer className="mt-24 border-t px-5 pb-10 pt-16 md:px-10" style={{ borderColor: 'var(--cava-line)' }}>
-      <div className="mx-auto flex max-w-[110rem] flex-col gap-12">
+    <footer className="mt-24">
+      {/* Bandeau défilant en haut du footer */}
+      <div className="border-y py-6" style={{ borderColor: 'var(--cava-line)' }}>
+        <Marquee items={[SITE.name, 'Scicli', 'Raguse', 'Val di Noto', t.region]} duration={38} />
+      </div>
+
+      <div className="mx-auto flex max-w-[110rem] flex-col gap-12 px-5 pb-10 pt-16 md:px-10">
         <div className="flex flex-col justify-between gap-10 md:flex-row">
           <div className="max-w-sm">
             <p className="text-[clamp(1.8rem,4vw,2.6rem)] leading-[1]" style={{ fontWeight: 500 }}>

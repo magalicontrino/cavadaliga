@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
+import PageHeader from '../PageHeader';
 import { useI18n } from '../i18n';
 
 export default function PreparerLeVoyage() {
@@ -24,18 +25,7 @@ export default function PreparerLeVoyage() {
     <main>
       <Nav current="/preparer-le-voyage" />
 
-      <header className="mx-auto max-w-[110rem] px-5 pb-16 pt-[22vh] md:px-10">
-        <Reveal className="flex items-center gap-3" y="3vh">
-          <span className="h-[0.4rem] w-[0.4rem] rounded-full" style={{ background: 'var(--cava-pink)' }} />
-          <span className="text-[12px] font-medium uppercase tracking-[0.28em]">{p.eyebrow}</span>
-        </Reveal>
-        <Reveal as="h1" delay={80} className="mt-6 max-w-[20ch] text-[clamp(2.4rem,6vw,4.4rem)] leading-[1.02]" style={{ fontWeight: 400 }}>
-          {p.title}
-        </Reveal>
-        <Reveal as="p" delay={160} className="mt-8 max-w-[54ch] text-[clamp(1.05rem,2vw,1.35rem)] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
-          {p.intro}
-        </Reveal>
-      </header>
+      <PageHeader title={p.title} intro={p.intro} />
 
       {/* Groupes */}
       <section className="mx-auto max-w-[110rem] px-5 md:px-10">

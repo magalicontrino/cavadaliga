@@ -62,54 +62,19 @@ export default function CavaHome() {
         <Marquee items={['Cava d’Aliga', 'Scicli', 'Raguse', 'Val di Noto', t.region]} duration={38} />
       </section>
 
-      {/* ---------- Points forts (style éditorial audacieux) ---------- */}
-      <section className="mx-auto max-w-[110rem] px-5 py-24 md:px-10 md:py-32">
-        <div className="grid gap-14 md:grid-cols-3 md:gap-10">
-          {t.highlights.map((h, i) => (
-            <Reveal key={h.value} delay={i * 100} className="flex flex-col gap-6 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
-              <span aria-hidden style={{ color: 'var(--cava-pink)' }}>
-                {HIGHLIGHT_GLYPHS[i]}
-              </span>
-              <span
-                className="text-[clamp(2.6rem,6vw,4.6rem)] uppercase leading-[0.9] tracking-[-0.02em]"
-                style={{ fontWeight: 900 }}
-              >
-                {h.value}
-              </span>
-              <span className="max-w-[24ch] text-[15px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
-                {h.label}
-              </span>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* ---------- Les 4 rubriques (CTA à badge rotatif) ---------- */}
-      <section className="mx-auto max-w-6xl px-5 pb-4 pt-16 md:px-10 md:pb-6 md:pt-24">
-        <Reveal className="flex items-end justify-between gap-6">
-          <h2 className="text-[clamp(1.9rem,4.5vw,3.2rem)] uppercase leading-[1.05] tracking-[-0.01em]" style={{ fontWeight: 800 }}>
-            {(() => {
-              const words = t.everythingForStay.split(' ');
-              const last = words.pop();
-              return (
-                <>
-                  {words.join(' ')}{' '}
-                  <span
-                    className="inline-block whitespace-nowrap rounded-full border-2 px-4 pb-1 pt-0.5 leading-none"
-                    style={{ borderColor: 'var(--cava-ink)' }}
-                  >
-                    {last}
-                  </span>
-                </>
-              );
-            })()}
+      {/* ---------- Interstitiel plein écran « CONTRINO » (typo extrudée noir & gris) ---------- */}
+      <section className="flex min-h-[100svh] items-center justify-center overflow-hidden px-5">
+        <Reveal>
+          <h2
+            className="cava-bigword text-center uppercase leading-[0.8] tracking-[-0.03em]"
+            style={{ fontWeight: 900, fontSize: 'clamp(4rem, 20vw, 20rem)' }}
+          >
+            Contrino
           </h2>
-          <span className="hidden text-[14px] md:block" style={{ color: 'var(--cava-muted)' }}>
-            5 {t.sectionsWord}
-          </span>
         </Reveal>
       </section>
 
+      {/* ---------- Les rubriques (CTA à badge rotatif) ---------- */}
       <CtaBadge
         href="/informations-pratiques"
         eyebrow={t.pages['informations-pratiques'].eyebrow}
