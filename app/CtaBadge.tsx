@@ -2,7 +2,7 @@
 
 import Reveal from './Reveal';
 import { SITE } from './data';
-import { useI18n, type PageKey } from './i18n';
+import { useI18n } from './i18n';
 
 // Étoile plate (accent), même glyphe que les points forts de l'accueil.
 const STAR = (
@@ -13,33 +13,37 @@ const STAR = (
 
 /**
  * Section CTA éditoriale (style « Cyclops ») : grand titre gras avec le dernier
- * mot dans une pilule + badge circulaire rotatif cliquable menant à la page.
+ * mot dans une pilule + badge circulaire rotatif cliquable menant à `href`.
  * `flip` inverse la disposition (badge à gauche) pour alterner d'une section à l'autre.
  */
 export default function CtaBadge({
-  pageKey,
+  href,
+  eyebrow,
+  title,
   circleId,
   flip = false,
 }: {
-  pageKey: PageKey;
+  href: string;
+  eyebrow: string;
+  title: string;
   circleId: string;
   flip?: boolean;
 }) {
   const { t } = useI18n();
-  const p = t.pages[pageKey];
-  const words = p.title.split(' ');
+  const words = title.split(' ');
   const last = words.pop();
-  const circleText = `${p.eyebrow} · ${SITE.name} · ${t.region} · `.toUpperCase();
+  const circleText = `${eyebrow} · ${SITE.name} · ${t.region} · `.toUpperCase();
 
   return (
-    <section className="mx-auto max-w-[110rem] px-5 md:px-10">
+    <section className="mx-auto max-w-6xl px-5 md:px-10">
       <div
-        className={`flex flex-col items-start gap-12 border-t pt-14 md:items-center md:justify-between md:pt-20 ${
+        className={`flex flex-col items-start gap-10 border-t pb-14 pt-14 md:items-center md:gap-16 md:pb-20 md:pt-20 ${
           flip ? 'md:flex-row-reverse' : 'md:flex-row'
         }`}
         style={{ borderColor: 'var(--cava-ink)' }}
       >
-        <div className="max-w-[22ch]">
+        {/* Texte */}
+        <div className={`flex flex-col gap-5 md:flex-1 ${flip ? 'md:items-end md:text-right' : 'md:items-start'}`}>
           <Reveal>
             <span aria-hidden style={{ color: 'var(--cava-pink)' }}>
               {STAR}
@@ -48,7 +52,7 @@ export default function CtaBadge({
           <Reveal
             as="h2"
             delay={60}
-            className="mt-4 text-[clamp(2.2rem,5.5vw,4rem)] uppercase leading-[0.95] tracking-[-0.01em]"
+            className="text-[clamp(2.4rem,6vw,4.6rem)] uppercase leading-[0.92] tracking-[-0.02em]"
             style={{ fontWeight: 900 }}
           >
             {words.join(' ')}{' '}
@@ -61,11 +65,12 @@ export default function CtaBadge({
           </Reveal>
         </div>
 
-        <Reveal delay={120}>
+        {/* Badge rotatif */}
+        <Reveal delay={120} className="shrink-0">
           <a
-            href={`/${pageKey}`}
-            className="cava-circlebadge group relative inline-flex h-44 w-44 items-center justify-center"
-            aria-label={p.eyebrow}
+            href={href}
+            className="cava-circlebadge group relative inline-flex h-44 w-44 items-center justify-center md:h-48 md:w-48"
+            aria-label={eyebrow}
           >
             <svg viewBox="0 0 200 200" className="cava-circlebadge-spin h-full w-full" aria-hidden>
               <defs>

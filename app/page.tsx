@@ -7,15 +7,8 @@ import Photo from './Photo';
 import Marquee from './Marquee';
 import Footer from './Footer';
 import CtaBadge from './CtaBadge';
-import { SITE, INDEX_CARDS, GALLERY } from './data';
+import { SITE, GALLERY } from './data';
 import { useI18n } from './i18n';
-
-// Fond couleur de marque des cartes d'index (selon tone).
-const TONE_BG: Record<string, string> = {
-  ink: 'linear-gradient(145deg, #3a3838 0%, #201f1f 100%)',
-  terra: 'linear-gradient(145deg, #b95555 0%, #8c3838 100%)',
-  pink: 'linear-gradient(145deg, #ef3f7d 0%, #c71d5b 100%)',
-};
 
 // Glyphes géométriques plats (SVG inline, style « geometric shapes flat »)
 // utilisés comme accents des points forts. currentColor = couleur du parent.
@@ -49,18 +42,20 @@ export default function CavaHome() {
             {HIGHLIGHT_GLYPHS[0]}
           </span>
         </Reveal>
-        <Reveal as="h2" delay={60} className="mt-4 text-[clamp(2.8rem,9vw,7rem)] uppercase leading-[0.88] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+        <Reveal as="h2" delay={60} className="mt-4 text-[clamp(2.6rem,8.5vw,6.6rem)] uppercase leading-[0.95] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
           {t.welcome}
           <br />
-          {SITE.name}
+          <span
+            className="mt-3 inline-block whitespace-nowrap rounded-full border-2 px-5 pb-1.5 pt-1 leading-none"
+            style={{ borderColor: 'var(--cava-ink)' }}
+          >
+            {SITE.name}
+          </span>
         </Reveal>
         <Reveal as="p" delay={140} className="mt-8 max-w-[42ch] text-[clamp(1.05rem,2vw,1.35rem)] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
           {t.intro}
         </Reveal>
       </section>
-
-      {/* ---------- CTA vers Informations pratiques (badge rotatif) ---------- */}
-      <CtaBadge pageKey="informations-pratiques" circleId="cava-circle-info" />
 
       {/* ---------- Bandeau défilant ---------- */}
       <section className="border-y py-6" style={{ borderColor: 'var(--cava-line)' }}>
@@ -89,9 +84,9 @@ export default function CavaHome() {
         </div>
       </section>
 
-      {/* ---------- Index des sections (cœur instructif) ---------- */}
-      <section className="mx-auto max-w-[110rem] px-5 py-16 md:px-10">
-        <Reveal className="mb-12 flex items-end justify-between gap-6">
+      {/* ---------- Les 4 rubriques (CTA à badge rotatif) ---------- */}
+      <section className="mx-auto max-w-6xl px-5 pb-4 pt-16 md:px-10 md:pb-6 md:pt-24">
+        <Reveal className="flex items-end justify-between gap-6">
           <h2 className="text-[clamp(1.9rem,4.5vw,3.2rem)] uppercase leading-[1.05] tracking-[-0.01em]" style={{ fontWeight: 800 }}>
             {(() => {
               const words = t.everythingForStay.split(' ');
@@ -110,44 +105,43 @@ export default function CavaHome() {
             })()}
           </h2>
           <span className="hidden text-[14px] md:block" style={{ color: 'var(--cava-muted)' }}>
-            {INDEX_CARDS.length} {t.sectionsWord}
+            5 {t.sectionsWord}
           </span>
         </Reveal>
-
-        <div className="grid gap-5 md:grid-cols-2">
-          {INDEX_CARDS.map((c, i) => (
-            <Reveal key={c.href} delay={i * 90}>
-              <a
-                href={c.href}
-                className="cava-indexcard group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-2xl p-8 text-white"
-                style={{ background: TONE_BG[c.tone] }}
-              >
-                {/* Grand numéro typographique en contour (animé au survol) */}
-                <span aria-hidden className="cava-indexcard-num pointer-events-none absolute -bottom-6 right-3 text-[clamp(6rem,15vw,11rem)]">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                {/* Haut : flèche */}
-                <div className="relative flex items-start justify-end">
-                  <span className="cava-indexcard-arrow text-2xl leading-none">↗</span>
-                </div>
-                {/* Bas : filet + titre + description */}
-                <div className="relative">
-                  <span aria-hidden className="cava-indexcard-rule mb-5 block h-px" />
-                  <h3 className="cava-indexcard-title text-[clamp(1.6rem,3.2vw,2.4rem)] uppercase leading-[1] tracking-[-0.01em]" style={{ fontWeight: 800 }}>
-                    {t.indexCards[i].title}
-                  </h3>
-                  <p className="mt-3 max-w-[32ch] text-[14px] leading-[1.5] opacity-85">{t.indexCards[i].desc}</p>
-                </div>
-              </a>
-            </Reveal>
-          ))}
-        </div>
       </section>
 
-      {/* ---------- CTA vers Services locaux (badge rotatif, inversé) ---------- */}
-      <div className="pt-20 md:pt-28">
-        <CtaBadge pageKey="services-locaux" circleId="cava-circle-services" flip />
-      </div>
+      <CtaBadge
+        href="/informations-pratiques"
+        eyebrow={t.pages['informations-pratiques'].eyebrow}
+        title={t.pages['informations-pratiques'].title}
+        circleId="cava-c-info"
+      />
+      <CtaBadge
+        href="/services-locaux"
+        eyebrow={t.pages['services-locaux'].eyebrow}
+        title={t.pages['services-locaux'].title}
+        circleId="cava-c-services"
+        flip
+      />
+      <CtaBadge
+        href="/la-region"
+        eyebrow={t.pages['la-region'].eyebrow}
+        title={t.pages['la-region'].title}
+        circleId="cava-c-region"
+      />
+      <CtaBadge
+        href="/preparer-le-voyage"
+        eyebrow={t.prepare.eyebrow}
+        title={t.prepare.title}
+        circleId="cava-c-prepare"
+        flip
+      />
+      <CtaBadge
+        href="/contact"
+        eyebrow={t.pages.contact.eyebrow}
+        title={t.pages.contact.title}
+        circleId="cava-c-contact"
+      />
 
       {/* ---------- Aperçu galerie ---------- */}
       <section className="mx-auto max-w-[110rem] px-5 py-24 md:px-10">

@@ -1,17 +1,19 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Reveal from './Reveal';
 import Photo from './Photo';
 import { SITE } from './data';
 import { useI18n } from './i18n';
 
 // Les 3 cartes photo empilées et en éventail du hero. `tx` = décalage
-// horizontal (éventail), `rot` = inclinaison. Couleurs de repli = palette.
+// horizontal (éventail), `rot` = inclinaison. `src` pointe directement sur
+// les visuels /public/deco/ (existants) ; ordre = arrière → avant (la figue
+// de Barbarie est la carte de devant, n°1). Repli couleur = palette (tone).
 const CARDS = [
-  { cls: 'third', tone: 'terra', rot: -15, tx: '-20%', src: '/picture-sicile/hero-3.jpg', deco: '/deco/figue-barbarie.jpg', alt: 'La mer et les rochers de Cava d’Aliga' },
-  { cls: 'second', tone: 'pink', rot: -7, tx: '-9%', src: '/picture-sicile/hero-2.jpg', deco: '/deco/carte-pop.jpg', alt: 'Le hameau marin de Cava d’Aliga' },
-  { cls: 'first', tone: 'ink', rot: 4, tx: '4%', src: '/picture-sicile/hero-1.jpg', deco: '/deco/testa-di-moro.jpg', alt: 'La côte de Cava d’Aliga' },
+  { cls: 'third', tone: 'ink', rot: -15, tx: '-20%', src: '/deco/testa-di-moro.jpg', alt: 'Céramique sicilienne Testa di Moro' },
+  { cls: 'second', tone: 'pink', rot: -7, tx: '-9%', src: '/deco/carte-pop.jpg', alt: 'Carte du jeu de Scopa sicilien' },
+  { cls: 'first', tone: 'terra', rot: 4, tx: '4%', src: '/deco/figue-barbarie.jpg', alt: 'Figues de Barbarie de Sicile' },
 ] as const;
 
 const CARD_W = 'min(46vh, 330px)';
@@ -40,6 +42,31 @@ export default function Hero() {
       c.style.setProperty('--py', '0px');
     });
   }
+
+  // Éventail piloté par le scroll : en haut les cartes sont quasi empilées
+  // (--fan proche de 0), en descendant elles s'écartent (--fan grandit).
+  useEffect(() => {
+    const el = stackRef.current;
+    if (!el) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const vh = window.innerHeight || 1;
+      const progress = Math.min(Math.max(window.scrollY / (vh * 0.7), 0), 1);
+      el.style.setProperty('--fan', String(0.18 + progress * 0.92));
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   return (
     <section className="relative min-h-[100svh] overflow-x-clip pb-[12vh] pt-[14vh]">
@@ -124,13 +151,12 @@ export default function Hero() {
               style={{
                 width: CARD_W,
                 height: CARD_H,
-                transform: `translate(calc(-50% + ${c.tx} + var(--px, 0px)), calc(-50% + var(--py, 0px))) rotate(${c.rot}deg)`,
+                transform: `translate(calc(-50% + (${c.tx} * var(--fan, 1)) + var(--px, 0px)), calc(-50% + var(--py, 0px))) rotate(calc(${c.rot}deg * var(--fan, 1)))`,
                 zIndex: i + 1,
               }}
             >
               <Photo
                 src={c.src}
-                fallback={c.deco}
                 alt={c.alt}
                 tone={c.tone}
                 label="Photo Sicile"
