@@ -1,0 +1,138 @@
+'use client';
+
+/**
+ * Jeu d'icônes « ligne » maison — style wayfinding élégant (inspiration
+ * Streamline Guidance), sans dépendance externe. Trait fin en currentColor,
+ * viewBox 24×24, bouts arrondis. Ajouter une entrée = ajouter un cas ici.
+ */
+export type IconName =
+  | 'key'
+  | 'home'
+  | 'info'
+  | 'pin'
+  | 'fork'
+  | 'bag'
+  | 'sun'
+  | 'phone'
+  | 'landmark'
+  | 'wave'
+  | 'cone'
+  | 'compass';
+
+const PATHS: Record<IconName, React.ReactNode> = {
+  // Clé — arrivée & départ
+  key: (
+    <>
+      <circle cx="8" cy="8" r="4" />
+      <path d="M11 11l8 8M16 16l2-2M18.5 18.5l2-2" />
+    </>
+  ),
+  // Maison — l'appartement
+  home: (
+    <>
+      <path d="M4 11l8-6 8 6" />
+      <path d="M6 10v9h12v-9" />
+      <path d="M10 19v-5h4v5" />
+    </>
+  ),
+  // Info — bon à savoir
+  info: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 11v5" />
+      <path d="M12 8h.01" />
+    </>
+  ),
+  // Épingle — sur place
+  pin: (
+    <>
+      <path d="M12 21c4-4.5 6-7.6 6-10.5A6 6 0 006 10.5C6 13.4 8 16.5 12 21z" />
+      <circle cx="12" cy="10.5" r="2.2" />
+    </>
+  ),
+  // Couverts — manger & boire
+  fork: (
+    <>
+      <path d="M7 3v7a2 2 0 002 2h0v9" />
+      <path d="M7 3v5M10 3v5" />
+      <path d="M16 3c-1.6 0-2.5 2-2.5 5S15 13 16 13v8" />
+    </>
+  ),
+  // Cabas — courses & marchés
+  bag: (
+    <>
+      <path d="M6 8h12l-1 12H7L6 8z" />
+      <path d="M9 8a3 3 0 016 0" />
+    </>
+  ),
+  // Soleil — plage & loisirs
+  sun: (
+    <>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4" />
+    </>
+  ),
+  // Téléphone — contacts utiles
+  phone: (
+    <path d="M6 4h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a2 2 0 01-2 2A15 15 0 014 6a2 2 0 012-2z" />
+  ),
+  // Édifice à colonnes — villes baroques
+  landmark: (
+    <>
+      <path d="M4 9l8-5 8 5" />
+      <path d="M4 9h16" />
+      <path d="M6 9v8M10 9v8M14 9v8M18 9v8" />
+      <path d="M4 20h16" />
+    </>
+  ),
+  // Vagues — mer & nature
+  wave: (
+    <>
+      <path d="M3 8c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2 2 2 4 2" />
+      <path d="M3 13c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2 2 2 4 2" />
+      <path d="M3 18c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2 2 2 4 2" />
+    </>
+  ),
+  // Cornet — saveurs
+  cone: (
+    <>
+      <path d="M8 9a4 4 0 018 0" />
+      <path d="M7.5 10.5h9L12 21z" />
+      <path d="M9 13.5l6 0M10 17l4 0" />
+    </>
+  ),
+  // Boussole — excursions
+  compass: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M15.5 8.5l-2 5-5 2 2-5z" />
+    </>
+  ),
+};
+
+export default function Icon({
+  name,
+  className = '',
+  size = 24,
+}: {
+  name: IconName;
+  className?: string;
+  size?: number;
+}) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      {PATHS[name]}
+    </svg>
+  );
+}

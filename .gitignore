@@ -1,0 +1,10 @@
+/node_modules
+/.next
+/out
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+.env*
+
+# Dossier de sources graphiques locales (images/PDF lourds, non utilisés par le site)
+/deco sicile/
