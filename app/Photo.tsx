@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { withBase } from './data';
 
 const TONES: Record<string, string> = {
   ink: 'linear-gradient(135deg, #3a3838 0%, #2e2d2d 100%)',
@@ -39,7 +40,8 @@ export default function Photo({
   const imgRef = useRef<HTMLImageElement>(null);
   const bg = TONES[tone] ?? TONES.sand;
 
-  const current = step === 'primary' ? src : step === 'fallback' ? fallback : null;
+  const raw = step === 'primary' ? src : step === 'fallback' ? fallback : null;
+  const current = raw ? withBase(raw) : null;
 
   function handleError() {
     setStep((s) => (s === 'primary' && fallback ? 'fallback' : 'gradient'));

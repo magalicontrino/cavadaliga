@@ -1,7 +1,7 @@
 'use client';
 
 import Reveal from './Reveal';
-import { SITE } from './data';
+import { SITE, withBase } from './data';
 import { useI18n } from './i18n';
 
 // Étoile plate (accent), même glyphe que les points forts de l'accueil.
@@ -68,7 +68,7 @@ export default function CtaBadge({
         {/* Badge rotatif */}
         <Reveal delay={120} className="shrink-0">
           <a
-            href={href}
+            href={withBase(href)}
             className="cava-circlebadge group relative inline-flex h-44 w-44 items-center justify-center md:h-48 md:w-48"
             aria-label={eyebrow}
           >

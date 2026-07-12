@@ -1,6 +1,12 @@
 // Données STRUCTURELLES du site Cava d'Aliga (indépendantes de la langue).
 // Tout le texte visible vit dans app/i18n.tsx (FR / IT / EN).
 
+// Sous-chemin de base (rempli en prod GitHub Pages, vide en local/dev).
+// À appliquer aux <a href> et <img src> internes bruts (que Next ne préfixe
+// pas automatiquement, contrairement à <Link>/next/image).
+export const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+export const withBase = (p: string) => (p.startsWith('/') ? `${BASE}${p}` : p);
+
 export const SITE = {
   name: "Cava d'Aliga",
   email: 'magalicontrino@hotmail.fr',

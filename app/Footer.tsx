@@ -1,7 +1,7 @@
 'use client';
 
 import Marquee from './Marquee';
-import { NAV, SITE } from './data';
+import { NAV, SITE, withBase } from './data';
 import { useI18n } from './i18n';
 
 export default function Footer() {
@@ -32,7 +32,7 @@ export default function Footer() {
 
           <nav className="grid grid-cols-2 gap-x-10 gap-y-2">
             {NAV.map((item, i) => (
-              <a key={item.href} href={item.href} className="cava-navlink text-[14px]" style={{ color: 'var(--cava-muted)' }}>
+              <a key={item.href} href={withBase(item.href)} className="cava-navlink text-[14px]" style={{ color: 'var(--cava-muted)' }}>
                 {t.nav[i]}
               </a>
             ))}

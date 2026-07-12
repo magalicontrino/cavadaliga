@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { NAV, SITE } from './data';
+import { NAV, SITE, withBase } from './data';
 import { useI18n, LangSwitcher } from './i18n';
 
 /**
@@ -23,9 +23,9 @@ export default function Nav({ current }: { current?: string }) {
     <header className="absolute inset-x-0 top-0 z-50">
       <div className="mx-auto flex max-w-[110rem] items-center justify-between px-5 py-5 md:px-10">
         {/* Logo rond (carte de Scopa) */}
-        <a href="/" aria-label={SITE.name} className="block h-14 w-14 overflow-hidden rounded-full ring-1 ring-black/10 transition-transform duration-300 hover:scale-105">
+        <a href={withBase('/')} aria-label={SITE.name} className="block h-14 w-14 overflow-hidden rounded-full ring-1 ring-black/10 transition-transform duration-300 hover:scale-105">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/deco/logo-scopa.jpg" alt={SITE.name} className="h-full w-full object-cover" />
+          <img src={withBase('/deco/logo-scopa.jpg')} alt={SITE.name} className="h-full w-full object-cover" />
         </a>
 
         {/* Sélecteur de langue IT · FR · EN */}
@@ -56,9 +56,9 @@ export default function Nav({ current }: { current?: string }) {
         style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)' }}
       >
         <div className="mx-auto flex w-full max-w-[110rem] items-center justify-between px-5 py-5 md:px-10">
-          <a href="/" onClick={() => setOpen(false)} aria-label={SITE.name} className="block h-14 w-14 overflow-hidden rounded-full">
+          <a href={withBase('/')} onClick={() => setOpen(false)} aria-label={SITE.name} className="block h-14 w-14 overflow-hidden rounded-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/deco/logo-scopa.jpg" alt={SITE.name} className="h-full w-full object-cover" />
+            <img src={withBase('/deco/logo-scopa.jpg')} alt={SITE.name} className="h-full w-full object-cover" />
           </a>
           <div className="flex items-center gap-6">
             <LangSwitcher tone="light" />
@@ -76,7 +76,7 @@ export default function Nav({ current }: { current?: string }) {
           {NAV.map((item, i) => (
             <a
               key={item.href}
-              href={item.href}
+              href={withBase(item.href)}
               onClick={() => setOpen(false)}
               aria-current={current === item.href ? 'page' : undefined}
               className="border-b py-[1.4vh] text-[clamp(1.5rem,5.2vh,3.4rem)] leading-[1.1] transition-transform duration-300 hover:translate-x-2 aria-[current=page]:opacity-60"
