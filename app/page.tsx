@@ -4,11 +4,22 @@ import Nav from './Nav';
 import Hero from './Hero';
 import Reveal from './Reveal';
 import Photo from './Photo';
-import Marquee from './Marquee';
 import Footer from './Footer';
 import CtaBadge from './CtaBadge';
-import { SITE, GALLERY } from './data';
+import { SITE } from './data';
 import { useI18n } from './i18n';
+
+// Bandeau d'images défilant de la galerie (visuels présents dans /public/deco/).
+const GALLERY_STRIP = [
+  '/deco/figue-barbarie.jpg',
+  '/deco/carte-pop.jpg',
+  '/deco/spaghetti.jpg',
+  '/deco/testa-di-moro.jpg',
+  '/deco/glace.jpg',
+  '/deco/ceramique-maure.jpg',
+  '/deco/soleil-sicilien.png',
+  '/deco/figue-barbarie-2.jpg',
+];
 
 // Glyphes géométriques plats (SVG inline, style « geometric shapes flat »)
 // utilisés comme accents des points forts. currentColor = couleur du parent.
@@ -57,68 +68,34 @@ export default function CavaHome() {
         </Reveal>
       </section>
 
-      {/* ---------- Bandeau défilant ---------- */}
-      <section className="border-y py-6" style={{ borderColor: 'var(--cava-line)' }}>
-        <Marquee items={['Cava d’Aliga', 'Scicli', 'Raguse', 'Val di Noto', t.region]} duration={38} />
-      </section>
-
       {/* ---------- Les rubriques (CTA à badge rotatif) ---------- */}
-      <CtaBadge
-        href="/informations-pratiques"
-        eyebrow={t.pages['informations-pratiques'].eyebrow}
-        title={t.pages['informations-pratiques'].title}
-        circleId="cava-c-info"
-      />
-      <CtaBadge
-        href="/services-locaux"
-        eyebrow={t.pages['services-locaux'].eyebrow}
-        title={t.pages['services-locaux'].title}
-        circleId="cava-c-services"
-        flip
-      />
-      <CtaBadge
-        href="/la-region"
-        eyebrow={t.pages['la-region'].eyebrow}
-        title={t.pages['la-region'].title}
-        circleId="cava-c-region"
-      />
-      <CtaBadge
-        href="/preparer-le-voyage"
-        eyebrow={t.prepare.eyebrow}
-        title={t.prepare.title}
-        circleId="cava-c-prepare"
-        flip
-      />
-      <CtaBadge
-        href="/contact"
-        eyebrow={t.pages.contact.eyebrow}
-        title={t.pages.contact.title}
-        circleId="cava-c-contact"
-      />
+      {/* Titre = mini-phrase incluant le nom de la rubrique (t.ctaTitles) */}
+      <CtaBadge href="/informations-pratiques" title={t.ctaTitles[0]} circleId="cava-c-info" />
+      <CtaBadge href="/services-locaux" title={t.ctaTitles[1]} circleId="cava-c-services" flip />
+      <CtaBadge href="/la-region" title={t.ctaTitles[2]} circleId="cava-c-region" />
+      <CtaBadge href="/preparer-le-voyage" title={t.ctaTitles[3]} circleId="cava-c-prepare" flip />
+      <CtaBadge href="/contact" title={t.ctaTitles[4]} circleId="cava-c-contact" />
 
-      {/* ---------- Aperçu galerie ---------- */}
-      <section className="mx-auto max-w-[110rem] px-5 py-24 md:px-10">
-        <Reveal as="h2" className="mb-10 text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.05]" style={{ fontWeight: 500 }}>
+      {/* ---------- Galerie : bandeau d'images défilant ---------- */}
+      <section className="py-24 md:py-28">
+        <Reveal
+          as="h2"
+          className="mx-auto mb-10 max-w-[110rem] px-5 text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.05] md:px-10"
+          style={{ fontWeight: 500 }}
+        >
           {t.tasteOfSicily}
         </Reveal>
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          {GALLERY.map((g, i) => (
-            <Reveal
-              key={g.src}
-              delay={(i % 4) * 80}
-              className={i === 0 ? 'col-span-2 row-span-2' : ''}
-            >
-              <Photo
-                src={g.src}
-                fallback={g.deco}
-                alt={t.galleryAlt[i]}
-                tone={i % 2 === 0 ? 'terra' : 'pink'}
-                label="Photo à venir"
-                className={`w-full overflow-hidden rounded-xl ${i === 0 ? 'aspect-square' : 'aspect-[4/5]'}`}
-                imgClassName="transition-transform duration-700 hover:scale-105"
-              />
-            </Reveal>
-          ))}
+        <div className="overflow-hidden">
+          <div className="cava-marquee-track" style={{ ['--cava-marquee-duration' as string]: '55s' }}>
+            {[...GALLERY_STRIP, ...GALLERY_STRIP].map((src, i) => (
+              <div
+                key={i}
+                className="mx-2 aspect-[3/4] h-[clamp(200px,26vh,320px)] shrink-0 overflow-hidden rounded-xl"
+              >
+                <Photo src={src} alt={t.tasteOfSicily} tone={i % 2 === 0 ? 'terra' : 'pink'} className="h-full w-full" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

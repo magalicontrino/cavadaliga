@@ -10,25 +10,17 @@ export default function Footer() {
     <footer className="mt-24">
       {/* Bandeau défilant en haut du footer */}
       <div className="border-y py-6" style={{ borderColor: 'var(--cava-line)' }}>
-        <Marquee items={[SITE.name, 'Scicli', 'Raguse', 'Val di Noto', t.region]} duration={38} />
+        <Marquee items={['Scicli', 'Ragusa', 'Modica', 'Noto', 'Donnalucata', 'Marina di Ragusa']} duration={38} />
       </div>
 
       <div className="mx-auto flex max-w-[110rem] flex-col gap-12 px-5 pb-10 pt-16 md:px-10">
         <div className="flex flex-col justify-between gap-10 md:flex-row">
-          <div className="max-w-sm">
-            <p className="text-[clamp(1.8rem,4vw,2.6rem)] leading-[1]" style={{ fontWeight: 500 }}>
-              {SITE.name}
-            </p>
-            <p className="mt-3 text-[14px]" style={{ color: 'var(--cava-muted)' }}>
-              {t.subLabels.join(' · ')}
-            </p>
-            <a
-              href={`mailto:${SITE.email}`}
-              className="cava-navlink mt-5 inline-block text-[14px]"
-            >
-              {t.writeUs}
-            </a>
-          </div>
+          <a
+            href={`mailto:${SITE.email}`}
+            className="cava-navlink inline-block self-start text-[14px]"
+          >
+            {t.writeUs}
+          </a>
 
           <nav className="grid grid-cols-2 gap-x-10 gap-y-2">
             {NAV.map((item, i) => (

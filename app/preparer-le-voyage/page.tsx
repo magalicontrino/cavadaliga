@@ -5,6 +5,7 @@ import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
+import Shape from '../Shape';
 import { useI18n } from '../i18n';
 
 export default function PreparerLeVoyage() {
@@ -33,7 +34,9 @@ export default function PreparerLeVoyage() {
           {p.groups.map((g, i) => (
             <Reveal key={g.title} delay={(i % 2) * 90} className="flex flex-col gap-5 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
               <div className="flex items-center gap-3">
-                <span className="text-2xl leading-none" aria-hidden>{g.icon}</span>
+                <span aria-hidden style={{ color: 'var(--cava-pink)' }}>
+                  <Shape index={i} size={30} />
+                </span>
                 <h2 className="text-[clamp(1.4rem,3vw,2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
                   {g.title}
                 </h2>
@@ -74,7 +77,9 @@ export default function PreparerLeVoyage() {
       <section className="mx-auto max-w-[110rem] px-5 pb-24 pt-16 md:px-10">
         <Reveal className="rounded-2xl p-8 text-white md:p-12" style={{ background: 'var(--cava-ink)' }}>
           <div className="mb-8 flex items-center gap-3">
-            <span className="text-2xl leading-none" aria-hidden>✅</span>
+            <span aria-hidden style={{ color: 'var(--cava-pink)' }}>
+              <Shape index={5} size={30} />
+            </span>
             <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
               {p.checklistTitle}
             </h2>

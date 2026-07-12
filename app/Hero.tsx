@@ -19,6 +19,9 @@ const CARDS = [
 const CARD_W = 'min(46vh, 330px)';
 const CARD_H = 'min(64vh, 460px)';
 
+// Mots défilants du wordmark géant (au lieu de répéter le nom du site).
+const WORDMARK = ['Sicilia', 'Mare', 'Sole', 'Dolce vita', 'Mediterraneo', 'Barocco'];
+
 export default function Hero() {
   const { t } = useI18n();
   const stackRef = useRef<HTMLDivElement | null>(null);
@@ -117,13 +120,13 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[100svh]">
         <Reveal y="4vh" delay={220} className="absolute inset-x-0 bottom-5 select-none overflow-x-clip">
           <div className="cava-marquee-track" style={{ ['--cava-marquee-duration' as string]: '130s' }}>
-            {Array.from({ length: 8 }).map((_, i) => (
+            {[...WORDMARK, ...WORDMARK].map((word, i) => (
               <span
                 key={i}
                 className="mx-6 inline-flex items-center gap-6 text-[clamp(3rem,15vw,13rem)] leading-[0.9] tracking-[-0.02em]"
                 style={{ fontWeight: 500, color: 'var(--cava-ink)' }}
               >
-                {SITE.name}
+                {word}
                 <span className="inline-block rounded-full" style={{ background: 'var(--cava-pink)', width: '0.2em', height: '0.2em' }} />
               </span>
             ))}

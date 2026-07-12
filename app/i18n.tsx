@@ -59,6 +59,9 @@ export type Dict = {
   highlights: { value: string; label: string }[];
   everythingForStay: string;
   sectionsWord: string;
+  // Titres des CTA de l'accueil (ordre : infos pratiques, services locaux,
+  // région, préparer le voyage, contact) — mini-phrases avec le nom de rubrique.
+  ctaTitles: string[];
   indexCards: { title: string; desc: string }[];
   tasteOfSicily: string;
   galleryAlt: string[];
@@ -78,7 +81,7 @@ const FR: Dict = {
   tagline: 'un village du sud-est de la Sicile',
   subLabels: ['un hameau marin de Scicli', 'dans la province de Raguse'],
   writeUs: 'Nous écrire',
-  intro: 'Un séjour au cœur de la Sicile. Bienvenue dans notre appartement de plain-pied, à seulement quelques mètres de la mer.',
+  intro: 'L’appartement de famille où nous avons grandi, de plain-pied et à quelques mètres de la mer.',
   welcome: 'Bienvenue',
   highlights: [
     { value: 'Plain-pied', label: 'Un appartement de plain-pied, accessible et lumineux' },
@@ -87,6 +90,13 @@ const FR: Dict = {
   ],
   everythingForStay: 'Tout pour votre séjour',
   sectionsWord: 'rubriques',
+  ctaTitles: [
+    'Toutes les informations pratiques',
+    'Nos services locaux',
+    'Découvrir la région',
+    'Bien préparer le voyage',
+    'Nous contacter',
+  ],
   indexCards: [
     { title: 'Informations pratiques', desc: 'Arrivée, départ, équipements, wifi, tout pour un séjour sans accroc.' },
     { title: 'Services locaux & contacts utiles', desc: 'Commerces, restaurants, marchés et bonnes adresses autour de nous.' },
@@ -224,7 +234,7 @@ const IT: Dict = {
   tagline: 'un villaggio del sud-est della Sicilia',
   subLabels: ['un borgo marinaro di Scicli', 'in provincia di Ragusa'],
   writeUs: 'Scrivici',
-  intro: 'Un soggiorno nel cuore della Sicilia. Benvenuti nel nostro appartamento al piano terra, a pochi metri dal mare.',
+  intro: 'L’appartamento di famiglia dove siamo cresciuti, al piano terra e a pochi metri dal mare.',
   welcome: 'Benvenuti',
   highlights: [
     { value: 'Piano terra', label: 'Un appartamento al piano terra, accessibile e luminoso' },
@@ -233,6 +243,13 @@ const IT: Dict = {
   ],
   everythingForStay: 'Tutto per il vostro soggiorno',
   sectionsWord: 'sezioni',
+  ctaTitles: [
+    'Tutte le informazioni pratiche',
+    'I nostri servizi locali',
+    'Scoprire la regione',
+    'Preparare bene il viaggio',
+    'Contattaci',
+  ],
   indexCards: [
     { title: 'Informazioni pratiche', desc: 'Arrivo, partenza, dotazioni, wifi, tutto per un soggiorno senza pensieri.' },
     { title: 'Servizi locali e contatti utili', desc: 'Negozi, ristoranti, mercati e i nostri indirizzi preferiti nei dintorni.' },
@@ -370,7 +387,7 @@ const EN: Dict = {
   tagline: 'a village in south-east Sicily',
   subLabels: ['a seaside hamlet of Scicli', 'in the province of Ragusa'],
   writeUs: 'Write to us',
-  intro: 'A stay in the heart of Sicily. Welcome to our ground-floor apartment, just a few metres from the sea.',
+  intro: 'The family apartment where we grew up, on the ground floor and a few metres from the sea.',
   welcome: 'Welcome',
   highlights: [
     { value: 'Ground floor', label: 'A ground-floor apartment, accessible and bright' },
@@ -379,6 +396,13 @@ const EN: Dict = {
   ],
   everythingForStay: 'Everything for your stay',
   sectionsWord: 'sections',
+  ctaTitles: [
+    'All the practical information',
+    'Our local services',
+    'Discover the region',
+    'Everything to plan your trip',
+    'Get in contact',
+  ],
   indexCards: [
     { title: 'Practical information', desc: 'Arrival, departure, amenities, wifi — everything for a smooth stay.' },
     { title: 'Local services & useful contacts', desc: 'Shops, restaurants, markets and our favourite spots nearby.' },

@@ -1,7 +1,7 @@
 'use client';
 
 import Reveal from './Reveal';
-import { SITE, withBase } from './data';
+import { withBase } from './data';
 import { useI18n } from './i18n';
 
 // Étoile plate (accent), même glyphe que les points forts de l'accueil.
@@ -18,13 +18,11 @@ const STAR = (
  */
 export default function CtaBadge({
   href,
-  eyebrow,
   title,
   circleId,
   flip = false,
 }: {
   href: string;
-  eyebrow: string;
   title: string;
   circleId: string;
   flip?: boolean;
@@ -32,7 +30,7 @@ export default function CtaBadge({
   const { t } = useI18n();
   const words = title.split(' ');
   const last = words.pop();
-  const circleText = `${eyebrow} · ${SITE.name} · ${t.region} · `.toUpperCase();
+  const circleText = `${t.region} · Mare · Sole · Barocco · Dolce vita · `.toUpperCase();
 
   return (
     <section className="mx-auto max-w-6xl px-5 md:px-10">
@@ -70,7 +68,7 @@ export default function CtaBadge({
           <a
             href={withBase(href)}
             className="cava-circlebadge group relative inline-flex h-44 w-44 items-center justify-center md:h-48 md:w-48"
-            aria-label={eyebrow}
+            aria-label={title}
           >
             <svg viewBox="0 0 200 200" className="cava-circlebadge-spin h-full w-full" aria-hidden>
               <defs>
