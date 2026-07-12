@@ -235,20 +235,6 @@
   }
 }
 
-/* --- Grand mot « extrudé » noir & gris (interstitiel plein écran) --- */
-.cava-bigword {
-  color: var(--cava-ink);
-  text-shadow:
-    0.014em 0.014em 0 #c9c7c2,
-    0.028em 0.028em 0 #c9c7c2,
-    0.042em 0.042em 0 #c9c7c2,
-    0.056em 0.056em 0 #c9c7c2,
-    0.07em 0.07em 0 #c9c7c2,
-    0.084em 0.084em 0 #c9c7c2,
-    0.098em 0.098em 0 #c9c7c2,
-    0.112em 0.112em 0 #c9c7c2;
-}
-
 /* --- Cartes photo empilées du hero (parallaxe souris) -------------- */
 .cava-herocard {
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);

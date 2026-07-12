@@ -62,18 +62,6 @@ export default function CavaHome() {
         <Marquee items={['Cava d’Aliga', 'Scicli', 'Raguse', 'Val di Noto', t.region]} duration={38} />
       </section>
 
-      {/* ---------- Interstitiel plein écran « CONTRINO » (typo extrudée noir & gris) ---------- */}
-      <section className="flex min-h-[100svh] items-center justify-center overflow-hidden px-5">
-        <Reveal>
-          <h2
-            className="cava-bigword text-center uppercase leading-[0.8] tracking-[-0.03em]"
-            style={{ fontWeight: 900, fontSize: 'clamp(4rem, 20vw, 20rem)' }}
-          >
-            Contrino
-          </h2>
-        </Reveal>
-      </section>
-
       {/* ---------- Les rubriques (CTA à badge rotatif) ---------- */}
       <CtaBadge
         href="/informations-pratiques"
