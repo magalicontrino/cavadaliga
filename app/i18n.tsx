@@ -52,7 +52,7 @@ export type Dict = {
   nav: string[]; // ordre = NAV (Accueil, Préparer le voyage, Infos pratiques, Services locaux, La région, Contact)
   region: string;
   tagline: string;
-  subLabels: [string, string];
+  subLabels: string[];
   writeUs: string;
   intro: string;
   welcome: string;
@@ -79,7 +79,7 @@ const FR: Dict = {
   nav: ['Accueil', 'Préparer le voyage', 'Informations pratiques', 'Services locaux', 'La région', 'Contact'],
   region: 'Sicile',
   tagline: 'un village du sud-est de la Sicile',
-  subLabels: ['près de Scicli', 'dans la province de Raguse'],
+  subLabels: ['Près de Scicli dans la province de Raguse'],
   writeUs: 'Nous écrire',
   intro: 'L’appartement de famille où nous avons grandi, à quelques mètres de la mer.',
   welcome: 'Bienvenue',
@@ -232,7 +232,7 @@ const IT: Dict = {
   nav: ['Home', 'Preparare il viaggio', 'Informazioni pratiche', 'Servizi locali', 'La regione', 'Contatti'],
   region: 'Sicilia',
   tagline: 'un villaggio del sud-est della Sicilia',
-  subLabels: ['vicino a Scicli', 'in provincia di Ragusa'],
+  subLabels: ['Vicino a Scicli in provincia di Ragusa'],
   writeUs: 'Scrivici',
   intro: 'L’appartamento di famiglia dove siamo cresciuti, a pochi metri dal mare.',
   welcome: 'Benvenuti',
@@ -385,7 +385,7 @@ const EN: Dict = {
   nav: ['Home', 'Plan your trip', 'Practical information', 'Local services', 'The region', 'Contact'],
   region: 'Sicily',
   tagline: 'a village in south-east Sicily',
-  subLabels: ['near Scicli', 'in the province of Ragusa'],
+  subLabels: ['Near Scicli in the province of Ragusa'],
   writeUs: 'Write to us',
   intro: 'The family apartment where we grew up, a few metres from the sea.',
   welcome: 'Welcome',
