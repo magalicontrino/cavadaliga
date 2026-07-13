@@ -28,7 +28,7 @@ export default function Salva() {
     <main>
       <Nav current="/salva" />
 
-      <PageHeader title={s.title} intro={s.intro} />
+      <PageHeader title={s.title} intro={s.intro} stackPill />
 
       <section className="mx-auto max-w-[110rem] px-5 pb-24 md:px-10">
         {/* Galerie en maçonnerie (masonry) — colonnes CSS, chaque photo garde

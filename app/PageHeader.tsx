@@ -14,7 +14,16 @@ const STAR = (
  * de l'accueil) : étoile + grand titre gras en capitales avec le dernier mot
  * enfermé dans une pilule, puis l'intro en dessous.
  */
-export default function PageHeader({ title, intro }: { title: string; intro: string }) {
+export default function PageHeader({
+  title,
+  intro,
+  stackPill = false,
+}: {
+  title: string;
+  intro: string;
+  // Force la pilule (dernier mot) sur une nouvelle ligne.
+  stackPill?: boolean;
+}) {
   const words = title.split(' ');
   const last = words.pop();
 
@@ -31,9 +40,10 @@ export default function PageHeader({ title, intro }: { title: string; intro: str
         className="mt-4 text-[clamp(2.4rem,7vw,5.6rem)] uppercase leading-[0.95] tracking-[-0.02em]"
         style={{ fontWeight: 900 }}
       >
-        {words.join(' ')}{' '}
+        {words.join(' ')}
+        {stackPill ? <br /> : ' '}
         <span
-          className="inline-block whitespace-nowrap rounded-full border-2 px-4 pb-1 pt-0.5 leading-none"
+          className={`inline-block whitespace-nowrap rounded-full border-2 px-4 pb-1 pt-0.5 leading-none ${stackPill ? 'mt-2' : ''}`}
           style={{ borderColor: 'var(--cava-ink)' }}
         >
           {last}
