@@ -12,10 +12,8 @@ import { useI18n } from '../i18n';
 // de photo, un dégradé sobre + libellé s'affiche (voir Photo.tsx).
 const TONES = ['ink', 'terra', 'pink', 'sand'] as const;
 // Légendes optionnelles par numéro de photo (rien = pas de légende).
-const CAPTIONS: Record<number, string> = {
-  17: 'Avec Manon et Ève',
-};
-const SALVA = Array.from({ length: 17 }, (_, i) => ({
+const CAPTIONS: Record<number, string> = {};
+const SALVA = Array.from({ length: 18 }, (_, i) => ({
   src: `/picture-sicile/salva-${i + 1}.jpg`,
   caption: CAPTIONS[i + 1],
 }));
