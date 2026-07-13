@@ -66,10 +66,10 @@ export default function CavaHome() {
         </Reveal>
         <Reveal delay={220} className="mt-14">
           <Photo
-            src="/picture-sicile/appartement.jpg"
-            alt={t.apartmentAlt}
+            src="/picture-sicile/cava-daliga.jpg"
+            alt={t.cavaAlt}
             tone="sand"
-            label="Photo de l’appartement à venir"
+            label="Photo de Cava d’Aliga à venir"
             className="aspect-[16/10] w-full rounded-2xl md:aspect-[2.2/1]"
           />
         </Reveal>

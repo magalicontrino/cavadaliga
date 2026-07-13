@@ -66,6 +66,7 @@ export type Dict = {
   tasteOfSicily: string;
   galleryAlt: string[];
   apartmentAlt: string;
+  cavaAlt: string;
   scicliAlt: string;
   placesTitle: string;
   salvaPage: { title: string; intro: string };
@@ -116,6 +117,7 @@ const FR: Dict = {
     'Coucher de soleil sur la côte sicilienne',
   ],
   apartmentAlt: 'Le salon de l’appartement de famille à Cava d’Aliga',
+  cavaAlt: 'La plage et le village de Cava d’Aliga',
   scicliAlt: 'Vue panoramique de Scicli, ville baroque du Val di Noto',
   placesTitle: 'Les lieux autour de nous',
   salvaPage: { title: 'Les photos de Salva', intro: 'Au fil des années.' },
@@ -274,6 +276,7 @@ const IT: Dict = {
     'Tramonto sulla costa siciliana',
   ],
   apartmentAlt: 'Il soggiorno dell’appartamento di famiglia a Cava d’Aliga',
+  cavaAlt: 'La spiaggia e il paese di Cava d’Aliga',
   scicliAlt: 'Vista panoramica di Scicli, città barocca del Val di Noto',
   placesTitle: 'I luoghi intorno a noi',
   salvaPage: { title: 'Le foto di Salva', intro: 'Nel corso degli anni.' },
@@ -432,6 +435,7 @@ const EN: Dict = {
     'Sunset over the Sicilian coast',
   ],
   apartmentAlt: 'The living room of the family apartment in Cava d’Aliga',
+  cavaAlt: 'The beach and village of Cava d’Aliga',
   scicliAlt: 'Panoramic view of Scicli, baroque town of the Val di Noto',
   placesTitle: 'The places around us',
   salvaPage: { title: 'The photos of Salva', intro: 'Over the years.' },
