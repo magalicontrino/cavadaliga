@@ -11,7 +11,14 @@ import { useI18n } from '../i18n';
 // Pas de repli déco (illustrations siciliennes) pour des portraits : à défaut
 // de photo, un dégradé sobre + libellé s'affiche (voir Photo.tsx).
 const TONES = ['ink', 'terra', 'pink', 'sand'] as const;
-const SALVA = Array.from({ length: 16 }, (_, i) => ({ src: `/picture-sicile/salva-${i + 1}.jpg` }));
+// Légendes optionnelles par numéro de photo (rien = pas de légende).
+const CAPTIONS: Record<number, string> = {
+  17: 'Avec Manon et Ève',
+};
+const SALVA = Array.from({ length: 17 }, (_, i) => ({
+  src: `/picture-sicile/salva-${i + 1}.jpg`,
+  caption: CAPTIONS[i + 1],
+}));
 
 export default function Salva() {
   const { t } = useI18n();
@@ -26,14 +33,19 @@ export default function Salva() {
       <section className="mx-auto max-w-[110rem] px-5 pb-24 md:px-10">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SALVA.map((photo, i) => (
-            <Reveal key={photo.src} delay={(i % 3) * 90}>
+            <Reveal key={photo.src} delay={(i % 3) * 90} className="flex flex-col gap-3">
               <Photo
                 src={photo.src}
-                alt={`${s.title} — ${i + 1}`}
+                alt={photo.caption ?? `${s.title} — ${i + 1}`}
                 tone={TONES[i % TONES.length]}
                 label={`${s.title} — photo à venir`}
                 className="aspect-[3/4] w-full rounded-2xl"
               />
+              {photo.caption && (
+                <span className="text-[13px] uppercase tracking-[0.18em]" style={{ color: 'var(--cava-muted)' }}>
+                  {photo.caption}
+                </span>
+              )}
             </Reveal>
           ))}
         </div>
