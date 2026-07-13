@@ -67,6 +67,7 @@ export type Dict = {
   galleryAlt: string[];
   apartmentAlt: string;
   scicliAlt: string;
+  placesTitle: string;
   ctaEyebrow: string;
   ctaTitle: string;
   question: string;
@@ -115,6 +116,7 @@ const FR: Dict = {
   ],
   apartmentAlt: 'Le salon de l’appartement de famille à Cava d’Aliga',
   scicliAlt: 'Vue panoramique de Scicli, ville baroque du Val di Noto',
+  placesTitle: 'Les lieux autour de nous',
   ctaEyebrow: 'Envie de venir ?',
   ctaTitle: 'Écrivez-nous pour réserver votre séjour',
   question: 'Une question sur votre séjour ?',
@@ -271,6 +273,7 @@ const IT: Dict = {
   ],
   apartmentAlt: 'Il soggiorno dell’appartamento di famiglia a Cava d’Aliga',
   scicliAlt: 'Vista panoramica di Scicli, città barocca del Val di Noto',
+  placesTitle: 'I luoghi intorno a noi',
   ctaEyebrow: 'Voglia di venire?',
   ctaTitle: 'Scriveteci per prenotare il vostro soggiorno',
   question: 'Una domanda sul vostro soggiorno?',
@@ -427,6 +430,7 @@ const EN: Dict = {
   ],
   apartmentAlt: 'The living room of the family apartment in Cava d’Aliga',
   scicliAlt: 'Panoramic view of Scicli, baroque town of the Val di Noto',
+  placesTitle: 'The places around us',
   ctaEyebrow: 'Ready to come?',
   ctaTitle: 'Write to us to book your stay',
   question: 'A question about your stay?',
