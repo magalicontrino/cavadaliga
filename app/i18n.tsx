@@ -211,8 +211,9 @@ const FR: Dict = {
       { icon: '⚡', title: 'Électricité', items: ['Interrupteurs à activer dehors, sur la terrasse de devant, à droite de la porte.'] },
       { icon: '💧', title: 'Eau', items: ['Dans la rue : descendre à droite, au coin.', 'Ouvrir la deuxième vanne en partant du bas → en parallèle = OUVERT (perpendiculaire = FERMÉ).'] },
       { icon: '🔥', title: 'Gaz', items: ['Un monsieur près de la place (en haut) livre à domicile.', 'Coordonnées à venir.'] },
+      { icon: '📶', title: 'Wifi', items: ['Réseau : cacestlaissetomber', 'Mot de passe : jamonito'] },
     ],
-    toCome: 'Clés, wifi et conseils du premier jour (courses, boulangerie, pharmacie, essence) : bientôt en ligne.',
+    toCome: 'Clés et conseils du premier jour (courses, boulangerie, pharmacie, essence) : bientôt en ligne.',
   },
   depart: {
     eyebrow: 'Départ',
@@ -364,8 +365,9 @@ const IT: Dict = {
       { icon: '⚡', title: 'Elettricità', items: ['Interruttori da attivare fuori, sulla terrazza davanti, a destra della porta.'] },
       { icon: '💧', title: 'Acqua', items: ['In strada: scendere a destra, all’angolo.', 'Aprire la seconda valvola dal basso → in parallelo = APERTA (perpendicolare = CHIUSA).'] },
       { icon: '🔥', title: 'Gas', items: ['Un signore vicino alla piazza (in alto) consegna a domicilio.', 'Contatti in arrivo.'] },
+      { icon: '📶', title: 'Wifi', items: ['Rete: cacestlaissetomber', 'Password: jamonito'] },
     ],
-    toCome: 'Chiavi, wifi e consigli per il primo giorno (spesa, panetteria, farmacia, benzina): presto online.',
+    toCome: 'Chiavi e consigli per il primo giorno (spesa, panetteria, farmacia, benzina): presto online.',
   },
   depart: {
     eyebrow: 'Partenza',
@@ -517,8 +519,9 @@ const EN: Dict = {
       { icon: '⚡', title: 'Electricity', items: ['Switches to turn on outside, on the front terrace, to the right of the door.'] },
       { icon: '💧', title: 'Water', items: ['In the street: go down to the right, at the corner.', 'Open the second valve from the bottom → parallel = OPEN (perpendicular = CLOSED).'] },
       { icon: '🔥', title: 'Gas', items: ['A gentleman near the square (uptown) delivers to your door.', 'Contact details coming soon.'] },
+      { icon: '📶', title: 'Wifi', items: ['Network: cacestlaissetomber', 'Password: jamonito'] },
     ],
-    toCome: 'Keys, wifi and first-day tips (groceries, bakery, pharmacy, petrol): coming online soon.',
+    toCome: 'Keys and first-day tips (groceries, bakery, pharmacy, petrol): coming online soon.',
   },
   depart: {
     eyebrow: 'Departure',
