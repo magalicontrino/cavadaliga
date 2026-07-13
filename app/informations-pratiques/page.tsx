@@ -4,6 +4,7 @@ import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
+import OpIcon, { type OpIconName } from '../OpIcon';
 import { InfoBlocks } from '../SectionShell';
 import { PAGE_ICONS } from '../data';
 import { useI18n } from '../i18n';
@@ -75,8 +76,8 @@ export default function InformationsPratiques() {
               style={{ background: 'var(--cava-bg)' }}
             >
               <div className="flex items-center gap-3">
-                <span aria-hidden className="text-[26px] leading-none">
-                  {g.icon}
+                <span aria-hidden className="leading-none" style={{ color: 'var(--cava-pink)' }}>
+                  <OpIcon name={g.icon as OpIconName} size={26} />
                 </span>
                 <h3 className="text-[clamp(1.2rem,2.4vw,1.6rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
                   {g.title}
