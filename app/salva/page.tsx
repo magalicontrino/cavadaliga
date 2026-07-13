@@ -29,15 +29,18 @@ export default function Salva() {
       <PageHeader title={s.title} intro={s.intro} />
 
       <section className="mx-auto max-w-[110rem] px-5 pb-24 md:px-10">
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Galerie en maçonnerie (masonry) — colonnes CSS, chaque photo garde
+            ses proportions. break-inside-avoid empêche de couper une tuile. */}
+        <div className="columns-2 gap-5 lg:columns-3 [&>*]:mb-5">
           {SALVA.map((photo, i) => (
-            <Reveal key={photo.src} delay={(i % 3) * 90} className="flex flex-col gap-3">
+            <Reveal key={photo.src} delay={(i % 3) * 90} className="flex break-inside-avoid flex-col gap-3">
               <Photo
+                natural
                 src={photo.src}
                 alt={photo.caption ?? `${s.title} — ${i + 1}`}
                 tone={TONES[i % TONES.length]}
                 label={`${s.title} — photo à venir`}
-                className="aspect-[3/4] w-full rounded-2xl"
+                className="w-full rounded-2xl"
               />
               {photo.caption && (
                 <span className="text-[13px] uppercase tracking-[0.18em]" style={{ color: 'var(--cava-muted)' }}>

@@ -26,6 +26,7 @@ export default function Photo({
   className = '',
   imgClassName = '',
   label,
+  natural = false,
 }: {
   src: string;
   fallback?: string;
@@ -34,6 +35,9 @@ export default function Photo({
   className?: string;
   imgClassName?: string;
   label?: string;
+  // `natural` : l'image garde ses proportions (hauteur auto) — pour une
+  // galerie en maçonnerie. Sinon, elle remplit un cadre (object-cover).
+  natural?: boolean;
 }) {
   // Étape courante de la cascade : image principale → déco → dégradé.
   const [step, setStep] = useState<'primary' | 'fallback' | 'gradient'>('primary');
@@ -65,10 +69,10 @@ export default function Photo({
           alt={alt}
           loading="lazy"
           onError={handleError}
-          className={`h-full w-full object-cover ${imgClassName}`}
+          className={`w-full ${natural ? 'block h-auto' : 'h-full object-cover'} ${imgClassName}`}
         />
       ) : (
-        <div className="flex h-full w-full items-end p-4">
+        <div className={`flex w-full items-end p-4 ${natural ? 'aspect-[3/4]' : 'h-full'}`}>
           <span
             className="text-[11px] font-medium uppercase tracking-[0.18em]"
             style={{ color: tone === 'sand' ? '#8a8378' : 'rgba(255,255,255,0.75)' }}
