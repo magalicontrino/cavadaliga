@@ -68,6 +68,7 @@ export type Dict = {
   apartmentAlt: string;
   scicliAlt: string;
   placesTitle: string;
+  salvaPage: { title: string; intro: string };
   ctaEyebrow: string;
   ctaTitle: string;
   question: string;
@@ -79,7 +80,7 @@ export type Dict = {
 };
 
 const FR: Dict = {
-  nav: ['Accueil', 'Préparer le voyage', 'Informations pratiques', 'Services locaux', 'La région', 'Contact'],
+  nav: ['Accueil', 'Préparer le voyage', 'Informations pratiques', 'Services locaux', 'La région', 'Salva', 'Contact'],
   region: 'Sicile',
   tagline: 'un village du sud-est de la Sicile',
   subLabels: ['Près de Scicli dans la province de Raguse'],
@@ -117,6 +118,7 @@ const FR: Dict = {
   apartmentAlt: 'Le salon de l’appartement de famille à Cava d’Aliga',
   scicliAlt: 'Vue panoramique de Scicli, ville baroque du Val di Noto',
   placesTitle: 'Les lieux autour de nous',
+  salvaPage: { title: 'Salva', intro: 'Quelques photos de Salva, au fil des années.' },
   ctaEyebrow: 'Envie de venir ?',
   ctaTitle: 'Écrivez-nous pour réserver votre séjour',
   question: 'Une question sur votre séjour ?',
@@ -236,7 +238,7 @@ const FR: Dict = {
 };
 
 const IT: Dict = {
-  nav: ['Home', 'Preparare il viaggio', 'Informazioni pratiche', 'Servizi locali', 'La regione', 'Contatti'],
+  nav: ['Home', 'Preparare il viaggio', 'Informazioni pratiche', 'Servizi locali', 'La regione', 'Salva', 'Contatti'],
   region: 'Sicilia',
   tagline: 'un villaggio del sud-est della Sicilia',
   subLabels: ['Vicino a Scicli in provincia di Ragusa'],
@@ -274,6 +276,7 @@ const IT: Dict = {
   apartmentAlt: 'Il soggiorno dell’appartamento di famiglia a Cava d’Aliga',
   scicliAlt: 'Vista panoramica di Scicli, città barocca del Val di Noto',
   placesTitle: 'I luoghi intorno a noi',
+  salvaPage: { title: 'Salva', intro: 'Qualche foto di Salva, negli anni.' },
   ctaEyebrow: 'Voglia di venire?',
   ctaTitle: 'Scriveteci per prenotare il vostro soggiorno',
   question: 'Una domanda sul vostro soggiorno?',
@@ -393,7 +396,7 @@ const IT: Dict = {
 };
 
 const EN: Dict = {
-  nav: ['Home', 'Plan your trip', 'Practical information', 'Local services', 'The region', 'Contact'],
+  nav: ['Home', 'Plan your trip', 'Practical information', 'Local services', 'The region', 'Salva', 'Contact'],
   region: 'Sicily',
   tagline: 'a village in south-east Sicily',
   subLabels: ['Near Scicli in the province of Ragusa'],
@@ -431,6 +434,7 @@ const EN: Dict = {
   apartmentAlt: 'The living room of the family apartment in Cava d’Aliga',
   scicliAlt: 'Panoramic view of Scicli, baroque town of the Val di Noto',
   placesTitle: 'The places around us',
+  salvaPage: { title: 'Salva', intro: 'A few photos of Salva, over the years.' },
   ctaEyebrow: 'Ready to come?',
   ctaTitle: 'Write to us to book your stay',
   question: 'A question about your stay?',

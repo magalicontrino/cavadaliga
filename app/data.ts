@@ -21,6 +21,7 @@ export const NAV = [
   { href: '/informations-pratiques' },
   { href: '/services-locaux' },
   { href: '/la-region' },
+  { href: '/salva' },
   { href: '/contact' },
 ] as const;
 
