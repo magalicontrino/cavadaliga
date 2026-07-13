@@ -11,7 +11,7 @@ import { useI18n } from '../i18n';
 // Pas de repli déco (illustrations siciliennes) pour des portraits : à défaut
 // de photo, un dégradé sobre + libellé s'affiche (voir Photo.tsx).
 const TONES = ['ink', 'terra', 'pink', 'sand'] as const;
-const SALVA = Array.from({ length: 15 }, (_, i) => ({ src: `/picture-sicile/salva-${i + 1}.jpg` }));
+const SALVA = Array.from({ length: 16 }, (_, i) => ({ src: `/picture-sicile/salva-${i + 1}.jpg` }));
 
 export default function Salva() {
   const { t } = useI18n();
