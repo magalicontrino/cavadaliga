@@ -16,7 +16,6 @@ const GALLERY_STRIP = [
   '/deco/spaghetti.jpg',
   '/deco/testa-di-moro.jpg',
   '/deco/glace.jpg',
-  '/deco/ceramique-maure.jpg',
   '/deco/soleil-sicilien.png',
   '/deco/figue-barbarie-2.jpg',
 ];
@@ -69,7 +68,6 @@ export default function CavaHome() {
         <Reveal delay={220} className="mt-14">
           <Photo
             src="/picture-sicile/appartement.jpg"
-            fallback="/deco/ceramique-maure.jpg"
             alt={t.apartmentAlt}
             tone="sand"
             label="Photo de l’appartement à venir"
