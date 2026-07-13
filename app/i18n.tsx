@@ -65,6 +65,8 @@ export type Dict = {
   indexCards: { title: string; desc: string }[];
   tasteOfSicily: string;
   galleryAlt: string[];
+  apartmentAlt: string;
+  scicliAlt: string;
   ctaEyebrow: string;
   ctaTitle: string;
   question: string;
@@ -111,6 +113,8 @@ const FR: Dict = {
     'La plage de Cava d’Aliga',
     'Coucher de soleil sur la côte sicilienne',
   ],
+  apartmentAlt: 'Le salon de l’appartement de famille à Cava d’Aliga',
+  scicliAlt: 'Vue panoramique de Scicli, ville baroque du Val di Noto',
   ctaEyebrow: 'Envie de venir ?',
   ctaTitle: 'Écrivez-nous pour réserver votre séjour',
   question: 'Une question sur votre séjour ?',
@@ -265,6 +269,8 @@ const IT: Dict = {
     'La spiaggia di Cava d’Aliga',
     'Tramonto sulla costa siciliana',
   ],
+  apartmentAlt: 'Il soggiorno dell’appartamento di famiglia a Cava d’Aliga',
+  scicliAlt: 'Vista panoramica di Scicli, città barocca del Val di Noto',
   ctaEyebrow: 'Voglia di venire?',
   ctaTitle: 'Scriveteci per prenotare il vostro soggiorno',
   question: 'Una domanda sul vostro soggiorno?',
@@ -419,6 +425,8 @@ const EN: Dict = {
     'The beach of Cava d’Aliga',
     'Sunset over the Sicilian coast',
   ],
+  apartmentAlt: 'The living room of the family apartment in Cava d’Aliga',
+  scicliAlt: 'Panoramic view of Scicli, baroque town of the Val di Noto',
   ctaEyebrow: 'Ready to come?',
   ctaTitle: 'Write to us to book your stay',
   question: 'A question about your stay?',

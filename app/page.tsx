@@ -66,6 +66,16 @@ export default function CavaHome() {
         <Reveal as="p" delay={140} className="mt-8 max-w-[42ch] text-[clamp(1.05rem,2vw,1.35rem)] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
           {t.intro}
         </Reveal>
+        <Reveal delay={220} className="mt-14">
+          <Photo
+            src="/picture-sicile/appartement.jpg"
+            fallback="/deco/ceramique-maure.jpg"
+            alt={t.apartmentAlt}
+            tone="sand"
+            label="Photo de l’appartement à venir"
+            className="aspect-[16/10] w-full rounded-2xl md:aspect-[2.2/1]"
+          />
+        </Reveal>
       </section>
 
       {/* ---------- Les rubriques (CTA à badge rotatif) ---------- */}
