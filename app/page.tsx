@@ -16,7 +16,6 @@ const GALLERY_STRIP = [
   '/deco/spaghetti.jpg',
   '/deco/testa-di-moro.jpg',
   '/deco/glace.jpg',
-  '/deco/soleil-sicilien.png',
   '/deco/figue-barbarie-2.jpg',
 ];
 
