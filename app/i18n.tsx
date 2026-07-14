@@ -70,7 +70,7 @@ export type Dict = {
   scicliAlt: string;
   placesTitle: string;
   salvaPage: { title: string; intro: string };
-  calendarPage: { title: string; intro: string; legend: { occupied: string; tentative: string; free: string } };
+  calendarPage: { title: string; intro: string; festivalsTitle: string; legend: { occupied: string; tentative: string; free: string; festival: string } };
   ctaEyebrow: string;
   ctaTitle: string;
   question: string;
@@ -122,7 +122,7 @@ const FR: Dict = {
   scicliAlt: 'Vue panoramique de Scicli, ville baroque du Val di Noto',
   placesTitle: 'Les lieux autour de nous',
   salvaPage: { title: 'Les photos de Salva', intro: 'Au fil des années.' },
-  calendarPage: { title: 'Le calendrier', intro: 'Les périodes où la maison est occupée, pour se coordonner en famille.', legend: { occupied: 'Occupé', tentative: 'À confirmer', free: 'Libre' } },
+  calendarPage: { title: 'Le calendrier', intro: 'Les périodes où la maison est occupée, pour se coordonner en famille.', festivalsTitle: 'Fêtes siciliennes', legend: { occupied: 'Occupé', tentative: 'À confirmer', free: 'Libre', festival: 'Fête sicilienne' } },
   ctaEyebrow: 'Envie de venir ?',
   ctaTitle: 'Écrivez-nous pour réserver votre séjour',
   question: 'Une question sur votre séjour ?',
@@ -282,7 +282,7 @@ const IT: Dict = {
   scicliAlt: 'Vista panoramica di Scicli, città barocca del Val di Noto',
   placesTitle: 'I luoghi intorno a noi',
   salvaPage: { title: 'Le foto di Salva', intro: 'Nel corso degli anni.' },
-  calendarPage: { title: 'Il calendario', intro: 'I periodi in cui la casa è occupata, per coordinarsi in famiglia.', legend: { occupied: 'Occupato', tentative: 'Da confermare', free: 'Libero' } },
+  calendarPage: { title: 'Il calendario', intro: 'I periodi in cui la casa è occupata, per coordinarsi in famiglia.', festivalsTitle: 'Feste siciliane', legend: { occupied: 'Occupato', tentative: 'Da confermare', free: 'Libero', festival: 'Festa siciliana' } },
   ctaEyebrow: 'Voglia di venire?',
   ctaTitle: 'Scriveteci per prenotare il vostro soggiorno',
   question: 'Una domanda sul vostro soggiorno?',
@@ -442,7 +442,7 @@ const EN: Dict = {
   scicliAlt: 'Panoramic view of Scicli, baroque town of the Val di Noto',
   placesTitle: 'The places around us',
   salvaPage: { title: 'The photos of Salva', intro: 'Over the years.' },
-  calendarPage: { title: 'The calendar', intro: 'When the house is occupied, so the family can coordinate.', legend: { occupied: 'Occupied', tentative: 'To confirm', free: 'Free' } },
+  calendarPage: { title: 'The calendar', intro: 'When the house is occupied, so the family can coordinate.', festivalsTitle: 'Sicilian festivals', legend: { occupied: 'Occupied', tentative: 'To confirm', free: 'Free', festival: 'Sicilian festival' } },
   ctaEyebrow: 'Ready to come?',
   ctaTitle: 'Write to us to book your stay',
   question: 'A question about your stay?',

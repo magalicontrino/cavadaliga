@@ -22,6 +22,18 @@ const STAYS: Stay[] = [
   { label: 'Marie & Guillaume', start: '2026-10-17', end: '2026-11-01' },
 ];
 
+// ─────────────────────────────────────────────────────────────────────────
+// Fêtes siciliennes & événements — À COMPLÉTER ici (une ligne = un jour).
+// label = nom court affiché ; city = lieu (dans l'infobulle et la liste).
+// ─────────────────────────────────────────────────────────────────────────
+type Event = { date: string; label: string; city?: string };
+const EVENTS: Event[] = [
+  { date: '2026-08-15', label: 'Ferragosto', city: 'partout' },
+  { date: '2026-08-16', label: 'San Rocco', city: 'Scicli' },
+  { date: '2026-08-29', label: 'San Giovanni', city: 'Raguse' },
+  { date: '2026-08-30', label: 'San Corrado', city: 'Noto' },
+];
+
 // Mois affichés : [année, mois 0-indexé].
 const MONTHS: [number, number][] = [
   [2026, 6], [2026, 7], [2026, 8], [2026, 9], [2026, 10],
@@ -72,6 +84,17 @@ function weekSegments(week: (Date | null)[]): Seg[] {
   return segs;
 }
 
+// Fêtes tombant dans une semaine → { label, city, col }.
+function weekEvents(week: (Date | null)[]) {
+  const out: { label: string; city?: string; col: number }[] = [];
+  week.forEach((d, col) => {
+    if (!d) return;
+    const v = ymd(d);
+    EVENTS.filter((e) => ymd(parse(e.date)) === v).forEach((e) => out.push({ label: e.label, city: e.city, col }));
+  });
+  return out;
+}
+
 export default function Calendrier() {
   const { t, lang } = useI18n();
   const c = t.calendarPage;
@@ -97,6 +120,10 @@ export default function Calendrier() {
           <span className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full" style={{ background: TENTATIVE }} />
             {c.legend.tentative}
+          </span>
+          <span className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full" style={{ background: 'var(--cava-pink)' }} />
+            {c.legend.festival}
           </span>
           <span className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full border" style={{ borderColor: 'var(--cava-line)' }} />
@@ -150,6 +177,20 @@ export default function Calendrier() {
                           );
                         })}
                       </div>
+                      {weekEvents(week).length > 0 && (
+                        <div className="mt-0.5 grid grid-cols-7 gap-x-1">
+                          {weekEvents(week).map((ev, ei) => (
+                            <div
+                              key={ei}
+                              style={{ gridColumn: `${ev.col + 1}`, background: 'var(--cava-pink)' }}
+                              className="truncate rounded-full px-1.5 py-0.5 text-center text-[10px] leading-tight text-white"
+                              title={`${ev.label}${ev.city ? ` — ${ev.city}` : ''}`}
+                            >
+                              {ev.label}
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -157,6 +198,29 @@ export default function Calendrier() {
             );
           })}
         </div>
+
+        {/* Récapitulatif des fêtes siciliennes */}
+        {EVENTS.length > 0 && (
+          <Reveal className="mt-16">
+            <h2 className="mb-6 flex items-center gap-2 text-[clamp(1.2rem,2.4vw,1.6rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+              <span className="inline-block h-3 w-3 rounded-full" style={{ background: 'var(--cava-pink)' }} />
+              {c.festivalsTitle}
+            </h2>
+            <ul className="flex flex-col gap-2">
+              {EVENTS.map((e) => (
+                <li key={e.date} className="flex gap-3 text-[15px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
+                  <span className="min-w-[7rem] capitalize" style={{ color: 'var(--cava-ink)' }}>
+                    {new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long' }).format(parse(e.date))}
+                  </span>
+                  <span>
+                    {e.label}
+                    {e.city ? ` — ${e.city}` : ''}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        )}
       </section>
 
       <Footer />
