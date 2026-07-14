@@ -10,13 +10,16 @@ import { SITE } from './data';
 import { useI18n } from './i18n';
 
 // Bandeau d'images défilant de la galerie (visuels présents dans /public/deco/).
+// Ordre pensé pour que deux visuels SEMBLABLES (les 2 figuiers de Barbarie)
+// ne soient jamais côte à côte — y compris au raccord de boucle (dernier ↔
+// premier, car le bandeau répète cette liste).
 const GALLERY_STRIP = [
   '/deco/figue-barbarie.jpg',
   '/deco/carte-pop.jpg',
   '/deco/spaghetti.jpg',
+  '/deco/figue-barbarie-2.jpg',
   '/deco/testa-di-moro.jpg',
   '/deco/glace.jpg',
-  '/deco/figue-barbarie-2.jpg',
 ];
 
 // Glyphes géométriques plats (SVG inline, style « geometric shapes flat »)
