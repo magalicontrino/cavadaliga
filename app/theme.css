@@ -207,6 +207,35 @@
   color: #fff;
 }
 
+/* --- Liens géants du footer (maximaliste) -------------------------- */
+.cava-footlink {
+  color: var(--cava-ink);
+  transition:
+    color 0.35s ease,
+    padding-left 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cava-footlink:hover {
+  color: var(--cava-pink);
+  padding-left: 0.75rem;
+}
+.cava-footlink-arrow {
+  opacity: 0;
+  transform: translate(-0.6rem, 0.6rem);
+  transition:
+    opacity 0.35s ease,
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cava-footlink:hover .cava-footlink-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-footlink,
+  .cava-footlink-arrow {
+    transition: none;
+  }
+}
+
 /* --- Badge circulaire rotatif (CTA) -------------------------------- */
 @keyframes cava-spin {
   to {
