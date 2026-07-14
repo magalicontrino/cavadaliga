@@ -4,7 +4,25 @@ import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
+import Icon from '../Icon';
+import Shape from '../Shape';
 import { useI18n } from '../i18n';
+
+// Forme géométrique (picto) par événement — voir app/Shape.tsx.
+const SHAPE_BY_TITLE: Record<string, number> = {
+  "Passi d'amare": 6, // feuille
+  Cinemàre: 7, // lune
+  'Il Matrimonio': 4, // losange
+  'Bruca Senza Frontiere': 8, // cible
+  'Bruca Party': 5, // étoile
+};
+
+// Lien Google Maps + requêtes précises par lieu (nom local pour bien trouver).
+const mapsUrl = (q: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+const PLACE_MAP: Record<string, string> = {
+  'Piazza Morana': 'Piazza Morana, Bruca, Scicli',
+  'Plage de Bruca': 'Spiaggia di Bruca, Scicli',
+};
 
 // ─────────────────────────────────────────────────────────────────────────
 // Périodes d'occupation de la maison — FACILES À METTRE À JOUR ici.
@@ -236,24 +254,44 @@ export default function Calendrier() {
           <p className="mt-2 max-w-[62ch] text-[15px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
             {c.programNote}
           </p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
             {PROGRAM.map((ev) => (
               <div
                 key={ev.dates[0]}
-                className="flex flex-col gap-2 rounded-2xl border p-6"
-                style={{ borderColor: 'var(--cava-line)', borderLeftColor: ev.color, borderLeftWidth: 4 }}
+                className="flex flex-col gap-2 rounded-2xl border-2 p-6"
+                style={{ borderColor: 'var(--cava-ink)', background: 'var(--cava-bg)', boxShadow: '6px 6px 0 var(--cava-pink)' }}
               >
-                <span className="text-[12px] uppercase tracking-[0.08em]" style={{ color: ev.color, fontWeight: 600 }}>
-                  {ev.dates.map((d) => new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long' }).format(parse(d))).join(' · ')} · {ev.time}
+                <span className="flex items-center gap-3 font-mono text-[12px] uppercase tracking-[0.06em]" style={{ color: 'var(--cava-ink)' }}>
+                  <span aria-hidden className="shrink-0" style={{ color: 'var(--cava-pink)' }}>
+                    <Shape index={SHAPE_BY_TITLE[ev.title] ?? 0} size={30} />
+                  </span>
+                  {ev.dates.map((d) => new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long' }).format(parse(d))).join(' · ')}
                 </span>
-                <h3 className="text-[clamp(1.05rem,2vw,1.35rem)] leading-[1.15]" style={{ fontWeight: 600 }}>
+                <h3 className="mt-1 text-[clamp(1.1rem,2vw,1.5rem)] uppercase leading-[1.05]" style={{ fontWeight: 800 }}>
                   {ev.title}
-                  {ev.film && (
-                    <span style={{ fontWeight: 400, fontStyle: 'italic' }}> — {ev.film}</span>
-                  )}
+                  {ev.film && <span className="italic" style={{ fontWeight: 400 }}> — {ev.film}</span>}
                 </h3>
-                <p className="text-[14px] leading-[1.4]" style={{ color: 'var(--cava-muted)' }}>{ev.type}</p>
-                <p className="text-[13px]" style={{ color: 'var(--cava-muted)' }}>{ev.place}</p>
+                <p className="font-mono text-[12px] uppercase tracking-[0.03em]" style={{ color: 'var(--cava-muted)' }}>{ev.type}</p>
+                <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+                  <a
+                    href={mapsUrl(PLACE_MAP[ev.place] ?? ev.place)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 font-mono text-[12px] uppercase underline-offset-2 hover:underline"
+                    style={{ color: 'var(--cava-ink)' }}
+                  >
+                    <span aria-hidden style={{ color: 'var(--cava-pink)' }}>
+                      <Icon name="pin" size={14} />
+                    </span>
+                    {ev.place}
+                  </a>
+                  <span
+                    className="rounded-md font-mono text-[13px] uppercase tracking-[0.04em]"
+                    style={{ background: 'var(--cava-pink)', color: 'var(--cava-ink)', padding: '4px 10px', fontWeight: 700 }}
+                  >
+                    {ev.time}
+                  </span>
+                </div>
               </div>
             ))}
           </div>
