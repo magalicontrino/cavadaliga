@@ -207,6 +207,11 @@
   color: #fff;
 }
 
+/* --- Galerie : pause du défilement au survol (pour cliquer) -------- */
+.cava-gallery:hover .cava-marquee-track {
+  animation-play-state: paused;
+}
+
 /* --- Liens géants du footer (maximaliste) -------------------------- */
 .cava-footlink {
   color: var(--cava-ink);

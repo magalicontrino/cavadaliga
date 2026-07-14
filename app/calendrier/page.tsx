@@ -5,17 +5,7 @@ import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon from '../Icon';
-import Shape from '../Shape';
 import { useI18n } from '../i18n';
-
-// Forme géométrique (picto) par événement — voir app/Shape.tsx.
-const SHAPE_BY_TITLE: Record<string, number> = {
-  "Passi d'amare": 6, // feuille
-  Cinemàre: 7, // lune
-  'Il Matrimonio': 4, // losange
-  'Bruca Senza Frontiere': 8, // cible
-  'Bruca Party': 5, // étoile
-};
 
 // Lien Google Maps + requêtes précises par lieu (nom local pour bien trouver).
 const mapsUrl = (q: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
@@ -44,6 +34,7 @@ const STAYS: Stay[] = [
 // Fêtes siciliennes & événements — À COMPLÉTER ici (une ligne = un jour).
 // label = nom court affiché ; city = lieu (dans l'infobulle et la liste).
 // ─────────────────────────────────────────────────────────────────────────
+// Descriptions traduites dans app/i18n.tsx (c.festivalDescs, même ordre).
 type Event = { date: string; label: string; city?: string };
 const EVENTS: Event[] = [
   { date: '2026-08-15', label: 'Ferragosto', city: 'partout' },
@@ -261,10 +252,8 @@ export default function Calendrier() {
                 className="flex flex-col gap-2 rounded-2xl border-2 p-6"
                 style={{ borderColor: 'var(--cava-ink)', background: 'var(--cava-bg)', boxShadow: '6px 6px 0 var(--cava-pink)' }}
               >
-                <span className="flex items-center gap-3 font-mono text-[12px] uppercase tracking-[0.06em]" style={{ color: 'var(--cava-ink)' }}>
-                  <span aria-hidden className="shrink-0" style={{ color: 'var(--cava-pink)' }}>
-                    <Shape index={SHAPE_BY_TITLE[ev.title] ?? 0} size={30} />
-                  </span>
+                <span className="flex items-center gap-2.5 font-mono text-[12px] uppercase tracking-[0.06em]" style={{ color: 'var(--cava-ink)' }}>
+                  <span aria-hidden className="inline-block h-2.5 w-2.5 shrink-0 rounded-[3px]" style={{ background: 'var(--cava-ink)' }} />
                   {ev.dates.map((d) => new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long' }).format(parse(d))).join(' · ')}
                 </span>
                 <h3 className="mt-1 text-[clamp(1.1rem,2vw,1.5rem)] uppercase leading-[1.05]" style={{ fontWeight: 800 }}>
@@ -331,23 +320,24 @@ export default function Calendrier() {
         {/* Récapitulatif des fêtes siciliennes */}
         {EVENTS.length > 0 && (
           <Reveal className="mt-16">
-            <h2 className="mb-6 flex items-center gap-2 text-[clamp(1.2rem,2.4vw,1.6rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
-              <span className="inline-block h-3 w-3 rounded-full" style={{ background: 'var(--cava-pink)' }} />
+            <h2 className="mb-8 flex items-center gap-3 text-[clamp(2.2rem,8vw,5rem)] uppercase leading-[0.9] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+              <span className="inline-block h-4 w-4 rounded-full" style={{ background: 'var(--cava-pink)' }} />
               {c.festivalsTitle}
             </h2>
-            <ul className="flex flex-col gap-2">
-              {EVENTS.map((e) => (
-                <li key={e.date} className="flex gap-3 text-[15px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
-                  <span className="min-w-[7rem] capitalize" style={{ color: 'var(--cava-ink)' }}>
+            <div className="mt-10 grid gap-x-12 gap-y-12 md:grid-cols-2">
+              {EVENTS.map((e, i) => (
+                <div key={e.date} className="border-l pl-6" style={{ borderColor: 'var(--cava-ink)' }}>
+                  <p className="text-[14px] uppercase tracking-[0.12em]" style={{ fontWeight: 700 }}>{e.label}</p>
+                  <p className="mt-1 text-[12px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-muted)' }}>
                     {new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long' }).format(parse(e.date))}
-                  </span>
-                  <span>
-                    {e.label}
                     {e.city ? ` — ${e.city}` : ''}
-                  </span>
-                </li>
+                  </p>
+                  {c.festivalDescs[i] && (
+                    <p className="mt-6 text-[15px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>{c.festivalDescs[i]}</p>
+                  )}
+                </div>
               ))}
-            </ul>
+            </div>
           </Reveal>
         )}
       </section>

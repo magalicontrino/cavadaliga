@@ -6,6 +6,7 @@ import Reveal from './Reveal';
 import Photo from './Photo';
 import Footer from './Footer';
 import CtaBadge from './CtaBadge';
+import Gallery from './Gallery';
 import { SITE } from './data';
 import { useI18n } from './i18n';
 
@@ -84,7 +85,6 @@ export default function CavaHome() {
       <CtaBadge href="/services-locaux" title={t.ctaTitles[1]} circleId="cava-c-services" flip />
       <CtaBadge href="/la-region" title={t.ctaTitles[2]} circleId="cava-c-region" />
       <CtaBadge href="/preparer-le-voyage" title={t.ctaTitles[3]} circleId="cava-c-prepare" flip />
-      <CtaBadge href="/contact" title={t.ctaTitles[4]} circleId="cava-c-contact" />
 
       {/* ---------- Galerie : bandeau d'images défilant ---------- */}
       <section className="py-24 md:py-28">
@@ -95,18 +95,7 @@ export default function CavaHome() {
         >
           {t.tasteOfSicily}
         </Reveal>
-        <div className="overflow-hidden">
-          <div className="cava-marquee-track" style={{ ['--cava-marquee-duration' as string]: '55s' }}>
-            {[...GALLERY_STRIP, ...GALLERY_STRIP].map((src, i) => (
-              <div
-                key={i}
-                className="mx-2 aspect-[3/4] h-[clamp(200px,26vh,320px)] shrink-0 overflow-hidden rounded-xl"
-              >
-                <Photo src={src} alt={t.tasteOfSicily} tone={i % 2 === 0 ? 'terra' : 'pink'} className="h-full w-full" />
-              </div>
-            ))}
-          </div>
-        </div>
+        <Gallery images={GALLERY_STRIP} />
       </section>
 
       {/* ---------- CTA contact (ouvert, sans boîte) ---------- */}

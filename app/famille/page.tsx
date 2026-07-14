@@ -26,10 +26,23 @@ export default function Salva() {
 
   return (
     <main>
-      <Nav current="/salva" />
+      <Nav current="/famille" />
 
       <PageHeader title={s.title} intro={s.intro} stackPill />
 
+      {/* Histoire de la famille — bloc éditorial (filet + label + colonne) */}
+      <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
+        <Reveal className="border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+            <span className="text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-muted)' }}>
+              {s.historyTitle}
+            </span>
+            <p className="max-w-[64ch] text-[clamp(1rem,1.6vw,1.2rem)] leading-[1.7]">{s.historyText}</p>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Galerie souvenirs */}
       <section className="mx-auto max-w-[110rem] px-5 pb-24 md:px-10">
         {/* Galerie en maçonnerie (masonry) — colonnes CSS, chaque photo garde
             ses proportions. break-inside-avoid empêche de couper une tuile. */}
@@ -52,6 +65,18 @@ export default function Salva() {
             </Reveal>
           ))}
         </div>
+      </section>
+
+      {/* Arbre généalogique (participatif — à venir) */}
+      <section className="mx-auto max-w-[110rem] px-5 pb-24 md:px-10">
+        <Reveal className="rounded-2xl border-2 border-dashed p-8 text-center md:p-12" style={{ borderColor: 'var(--cava-line)' }}>
+          <h2 className="text-[clamp(1.6rem,4vw,2.6rem)] leading-[1.05]" style={{ fontWeight: 600 }}>
+            {s.treeTitle}
+          </h2>
+          <p className="mx-auto mt-3 max-w-[48ch] text-[15px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+            {s.treeNote}
+          </p>
+        </Reveal>
       </section>
 
       <Footer />
