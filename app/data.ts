@@ -22,6 +22,7 @@ export const NAV = [
   { href: '/services-locaux' },
   { href: '/la-region' },
   { href: '/salva' },
+  { href: '/calendrier' },
   { href: '/contact' },
 ] as const;
 
