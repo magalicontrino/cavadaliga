@@ -9,8 +9,8 @@ export default function Footer() {
   const { t } = useI18n();
   return (
     <footer className="mt-24 border-t" style={{ borderColor: 'var(--cava-line)' }}>
-      {/* Bandeau défilant */}
-      <div className="border-b py-6" style={{ borderColor: 'var(--cava-line)' }}>
+      {/* Bandeau défilant — fond noir contrasté */}
+      <div className="py-6" style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)' }}>
         <Marquee items={['Scicli', 'Ragusa', 'Modica', 'Noto', 'Donnalucata', 'Marina di Ragusa']} duration={38} />
       </div>
 
