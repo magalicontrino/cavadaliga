@@ -17,7 +17,12 @@ export type IconName =
   | 'landmark'
   | 'wave'
   | 'cone'
-  | 'compass';
+  | 'compass'
+  | 'droplet'
+  | 'citrus'
+  | 'leaf'
+  | 'instagram'
+  | 'map';
 
 const PATHS: Record<IconName, React.ReactNode> = {
   // Clé — arrivée & départ
@@ -106,6 +111,37 @@ const PATHS: Record<IconName, React.ReactNode> = {
     <>
       <circle cx="12" cy="12" r="8.5" />
       <path d="M15.5 8.5l-2 5-5 2 2-5z" />
+    </>
+  ),
+  // Goutte — huile d'olive
+  droplet: <path d="M12 3.5s6 6.2 6 10.5a6 6 0 01-12 0c0-4.3 6-10.5 6-10.5z" />,
+  // Agrume (tranche) — agrumes & épices
+  citrus: (
+    <>
+      <circle cx="12" cy="12" r="8" />
+      <path d="M12 4v16M4 12h16M6.3 6.3l11.4 11.4M17.7 6.3L6.3 17.7" />
+    </>
+  ),
+  // Feuille — plantes & fleurs
+  leaf: (
+    <>
+      <path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z" />
+      <path d="M5 19c3-3 6-5 9-6.5" />
+    </>
+  ),
+  // Instagram — réseaux
+  instagram: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="4.5" />
+      <circle cx="12" cy="12" r="3.6" />
+      <path d="M16.6 7.4h.01" />
+    </>
+  ),
+  // Carte — section carte
+  map: (
+    <>
+      <path d="M9 4L3 6.5v13.5L9 17.5l6 2.5 6-2.5V6L15 8.5 9 6z" />
+      <path d="M9 4v13.5M15 8.5V22" />
     </>
   ),
 };

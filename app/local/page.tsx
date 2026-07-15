@@ -4,14 +4,20 @@ import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
+import Icon, { type IconName } from '../Icon';
 import { useI18n } from '../i18n';
 
-// Page « Local » — répertoire des producteurs et artisans responsables du
-// sud-est de la Sicile (huile d'olive, agrumes, épices, chocolat, plantes…).
-// Les catégories sont un cadre ; on y ajoutera les adresses au fil des trouvailles.
+// Page « Local » — producteurs et artisans responsables du sud-est de la Sicile.
+// Carte en tête, cartes par catégorie (picto + liens Google Maps / Instagram),
+// puis une carte « Marchés » avec la liste des marchés.
+const CAT_ICONS: IconName[] = ['cone', 'droplet', 'citrus', 'leaf'];
+const MAP_QUERY = 'Cava d’Aliga, Scicli';
+
 export default function Local() {
   const { t } = useI18n();
   const p = t.localPage;
+  const mapEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&z=10&output=embed`;
+  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_QUERY)}`;
 
   return (
     <main>
@@ -19,7 +25,30 @@ export default function Local() {
 
       <PageHeader title={p.title} intro={p.intro} />
 
-      <section className="mx-auto max-w-[110rem] px-5 pb-8 md:px-10">
+      {/* Carte — première section, clic → Google Maps */}
+      <section className="mx-auto max-w-[110rem] px-5 md:px-10">
+        <Reveal className="overflow-hidden rounded-2xl border" style={{ borderColor: 'var(--cava-line)' }}>
+          <iframe
+            title="Carte des adresses locales"
+            src={mapEmbed}
+            className="block h-[300px] w-full md:h-[440px]"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </Reveal>
+        <a
+          href={mapLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="cava-navlink mt-4 inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.14em]"
+          style={{ color: 'var(--cava-muted)' }}
+        >
+          <Icon name="pin" size={16} /> {p.mapLabel} <span aria-hidden>↗</span>
+        </a>
+      </section>
+
+      {/* Catégories — cartes avec picto + liens (Maps + Instagram) */}
+      <section className="mx-auto max-w-[110rem] px-5 pt-10 md:px-10">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {p.categories.map((c, i) => (
             <Reveal
@@ -28,8 +57,11 @@ export default function Local() {
               className="flex flex-col gap-4 rounded-2xl border p-8 md:p-10"
               style={{ background: 'var(--cava-bg)', borderColor: 'var(--cava-line)' }}
             >
-              <span className="font-mono text-[12px] tracking-[0.1em]" style={{ color: 'var(--cava-pink)' }}>
-                {String(i + 1).padStart(2, '0')}
+              <span
+                className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-ink)' }}
+              >
+                <Icon name={CAT_ICONS[i] ?? 'bag'} size={24} />
               </span>
               <h2 className="text-[clamp(1.3rem,2.6vw,1.9rem)] leading-[1.1]" style={{ fontWeight: 600 }}>
                 {c.title}
@@ -41,18 +73,31 @@ export default function Local() {
               {c.spots.length > 0 && (
                 <ul className="mt-1 flex flex-col gap-3">
                   {c.spots.map((s) => (
-                    <li key={s.url}>
+                    <li key={s.url} className="flex flex-wrap items-center gap-x-4 gap-y-1">
                       <a
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="cava-navlink inline-flex items-start gap-2 text-[15px] leading-[1.4]"
                       >
-                        <span className="mt-2 h-[6px] w-[6px] shrink-0 rounded-full" style={{ background: 'var(--cava-pink)' }} />
+                        <span className="mt-0.5 shrink-0" style={{ color: 'var(--cava-pink)' }}>
+                          <Icon name="pin" size={16} />
+                        </span>
                         <span>
                           {s.label} <span aria-hidden>↗</span>
                         </span>
                       </a>
+                      {s.instagram && (
+                        <a
+                          href={s.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="cava-navlink inline-flex items-center gap-1.5 text-[13px]"
+                          style={{ color: 'var(--cava-muted)' }}
+                        >
+                          <Icon name="instagram" size={16} /> Instagram
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -60,11 +105,56 @@ export default function Local() {
             </Reveal>
           ))}
         </div>
+      </section>
 
-        <Reveal className="mt-10 text-[14px] italic" style={{ color: 'var(--cava-muted)' }}>
-          {p.note}
+      {/* Marchés — carte dédiée + liste des marchés */}
+      <section className="mx-auto max-w-[110rem] px-5 pt-5 md:px-10">
+        <Reveal
+          className="rounded-2xl border p-8 md:p-10"
+          style={{ background: 'var(--cava-bg)', borderColor: 'var(--cava-line)' }}
+        >
+          <div className="flex items-center gap-4">
+            <span
+              className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
+              style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-ink)' }}
+            >
+              <Icon name="bag" size={24} />
+            </span>
+            <h2 className="text-[clamp(1.4rem,3vw,2.1rem)] leading-[1.1]" style={{ fontWeight: 600 }}>
+              {p.markets.title}
+            </h2>
+          </div>
+          <p className="mt-4 max-w-[64ch] text-[15px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+            {p.markets.desc}
+          </p>
+          <ul className="mt-6 flex flex-col gap-3 border-t pt-6" style={{ borderColor: 'var(--cava-line)' }}>
+            {p.markets.list.map((m) => (
+              <li key={m.url}>
+                <a
+                  href={m.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cava-navlink inline-flex items-start gap-2 text-[15px] leading-[1.5]"
+                >
+                  <span className="mt-0.5 shrink-0" style={{ color: 'var(--cava-pink)' }}>
+                    <Icon name="pin" size={16} />
+                  </span>
+                  <span>
+                    {m.label} <span aria-hidden>↗</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </Reveal>
       </section>
+
+      <Reveal
+        className="mx-auto max-w-[110rem] px-5 pb-24 pt-8 text-[14px] italic md:px-10"
+        style={{ color: 'var(--cava-muted)' }}
+      >
+        {p.note}
+      </Reveal>
 
       <Footer />
     </main>

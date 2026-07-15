@@ -75,7 +75,14 @@ export type Dict = {
   regionHighlights: string[][]; // points forts par lieu, même ordre que PLACES
   unescoLabel: string; // badge patrimoine mondial UNESCO
   regionHere: string; // distance affichée pour Cava d'Aliga (la maison)
-  localPage: { title: string; intro: string; note: string; categories: { title: string; desc: string; spots: { label: string; url: string }[] }[] };
+  localPage: {
+    title: string;
+    intro: string;
+    note: string;
+    mapLabel: string;
+    categories: { title: string; desc: string; spots: { label: string; url: string; instagram?: string }[] }[];
+    markets: { title: string; desc: string; list: { label: string; url: string }[] };
+  };
   salvaPage: { title: string; intro: string; historyTitle: string; historyText: string; treeTitle: string; treeNote: string; treePaternal: string; treeMaternal: string; treeWife1: string; treeWife2: string; treeAdd: string; treeAddSubject: string; treeExample: string };
   calendarPage: { title: string; intro: string; festivalsTitle: string; programTitle: string; programNote: string; programMore: string; socialsTitle: string; festivalDescs: string[]; legend: { occupied: string; tentative: string; free: string; festival: string } };
   ctaEyebrow: string;
@@ -159,27 +166,19 @@ const FR: Dict = {
     title: 'Local & responsable',
     intro: 'Nos adresses pour consommer local et responsable : de petits producteurs et artisans du sud-est de la Sicile, choisis pour la qualité de leurs produits et pour faire vivre l’agriculture de la région.',
     note: 'Nous complétons cette page au fil de nos trouvailles — adresses et contacts à venir.',
+    mapLabel: 'Ouvrir dans Google Maps',
     categories: [
       {
         title: 'Chocolat de Modica',
         desc: 'La capitale du chocolat travaillé à froid (recette d’origine aztèque), à ~30 min.',
-        spots: [{ label: 'Antica Dolceria Bonajuto — Modica, la plus ancienne (depuis 1880)', url: 'https://www.bonajuto.it' }],
+        spots: [{ label: 'Antica Dolceria Bonajuto — Modica, la plus ancienne (depuis 1880)', url: 'https://www.bonajuto.it', instagram: 'https://www.instagram.com/bonajuto/' }],
       },
       {
         title: 'Huile d’olive — DOP Monti Iblei',
         desc: 'Chiaramonte Gulfi, « ville de l’huile », et ses moulins primés (Tonda Iblea).',
         spots: [
-          { label: 'Frantoi Cutrera — Chiaramonte Gulfi', url: 'https://www.google.com/maps/search/?api=1&query=Frantoi+Cutrera+Chiaramonte+Gulfi' },
+          { label: 'Frantoi Cutrera — Chiaramonte Gulfi', url: 'https://www.google.com/maps/search/?api=1&query=Frantoi+Cutrera+Chiaramonte+Gulfi', instagram: 'https://www.instagram.com/frantoi_cutrera/' },
           { label: 'Gatto Frantoio — Chiaramonte Gulfi', url: 'https://www.gattofrantoio.com' },
-        ],
-      },
-      {
-        title: 'Marchés & producteurs',
-        desc: 'Fruits, légumes, fromages et poisson du jour, directement des producteurs.',
-        spots: [
-          { label: 'Marché de Scicli — mardi matin, Piazza Olimpiadi', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli' },
-          { label: 'Marché fermier de Marina di Ragusa — vendredi matin (juin–sept.)', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa' },
-          { label: 'Marché au poisson de Donnalucata — poisson frais du jour', url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata' },
         ],
       },
       {
@@ -193,6 +192,15 @@ const FR: Dict = {
         spots: [{ label: 'Pépinières autour de Scicli', url: 'https://www.google.com/maps/search/?api=1&query=vivaio+Scicli' }],
       },
     ],
+    markets: {
+      title: 'Marchés',
+      desc: 'Fruits, légumes, fromages et poisson du jour, directement des producteurs.',
+      list: [
+        { label: 'Marché de Scicli — mardi matin, Piazza Olimpiadi', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli' },
+        { label: 'Marché fermier de Marina di Ragusa — vendredi matin (juin–sept.)', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa' },
+        { label: 'Marché au poisson de Donnalucata — poisson frais du jour', url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata' },
+      ],
+    },
   },
   salvaPage: { title: 'La famille', intro: 'Photos, souvenirs et histoire de la famille, au fil des années.', historyTitle: 'Histoire de la famille', historyText: "De génération en génération, cette maison de Cava d’Aliga rassemble la famille. On écrira bientôt son histoire ici — les origines, les étés partagés et les visages qui l’ont fait vivre.", treeTitle: 'Arbre généalogique', treeNote: 'Bientôt : un arbre participatif où chacun pourra ajouter sa branche.', treePaternal: 'Grands-parents paternels', treeMaternal: 'Grands-parents maternels', treeWife1: '1re épouse', treeWife2: '2e épouse', treeAdd: '+ Ajouter ma branche', treeAddSubject: 'Arbre généalogique — ma branche', treeExample: 'Structure d’exemple — dites-nous les vrais liens et on complète.' },
   calendarPage: { title: 'Le calendrier', intro: 'Les périodes où la maison est occupée, pour se coordonner en famille.', festivalsTitle: 'Fêtes siciliennes', programTitle: 'Événements à venir', programNote: 'Sotto il cielo di Bruca — le programme de l’été, à deux pas de la maison. Suivez les couleurs.', programMore: 'Détails et horaires sur Instagram', socialsTitle: 'À suivre', festivalDescs: ["Le grand jour de l’été italien. Héritée des Feriae Augusti romaines et associée à l’Assomption, la fête réunit familles et villages autour de la mer : baignades, grands repas, processions et feux d’artifice animent toute la Sicile.", "Saint Roch, invoqué depuis des siècles contre les épidémies, protège de nombreuses communautés siciliennes. À Scicli, sa statue est portée en procession dans les ruelles, au son des fanfares et sous les illuminations de fête.", "Saint Jean-Baptiste est le patron de Raguse, dont la cathédrale lui est dédiée. Le 29 août, jour de sa décollation, la ville s’illumine : procession solennelle de la statue du saint et grand feu d’artifice au-dessus de la vieille ville.", "Saint Conrad Confalonieri, ermite vénéré comme patron de Noto. Le dernier dimanche d’août, son urne d’argent traverse les rues baroques dans une immense ferveur populaire, entre cierges, fleurs et cortèges."], legend: { occupied: 'Occupé', tentative: 'En attente', free: 'Libre', festival: 'Fête sicilienne' } },
@@ -394,27 +402,19 @@ const IT: Dict = {
     title: 'Locale & responsabile',
     intro: 'I nostri indirizzi per un consumo locale e responsabile: piccoli produttori e artigiani del sud-est della Sicilia, scelti per la qualità dei loro prodotti e per sostenere l’agricoltura della regione.',
     note: 'Completiamo questa pagina man mano che scopriamo — indirizzi e contatti in arrivo.',
+    mapLabel: 'Apri in Google Maps',
     categories: [
       {
         title: 'Cioccolato di Modica',
         desc: 'La capitale del cioccolato lavorato a freddo (ricetta di origine azteca), a ~30 min.',
-        spots: [{ label: 'Antica Dolceria Bonajuto — Modica, la più antica (dal 1880)', url: 'https://www.bonajuto.it' }],
+        spots: [{ label: 'Antica Dolceria Bonajuto — Modica, la più antica (dal 1880)', url: 'https://www.bonajuto.it', instagram: 'https://www.instagram.com/bonajuto/' }],
       },
       {
         title: 'Olio d’oliva — DOP Monti Iblei',
         desc: 'Chiaramonte Gulfi, « città dell’olio », e i suoi frantoi premiati (Tonda Iblea).',
         spots: [
-          { label: 'Frantoi Cutrera — Chiaramonte Gulfi', url: 'https://www.google.com/maps/search/?api=1&query=Frantoi+Cutrera+Chiaramonte+Gulfi' },
+          { label: 'Frantoi Cutrera — Chiaramonte Gulfi', url: 'https://www.google.com/maps/search/?api=1&query=Frantoi+Cutrera+Chiaramonte+Gulfi', instagram: 'https://www.instagram.com/frantoi_cutrera/' },
           { label: 'Gatto Frantoio — Chiaramonte Gulfi', url: 'https://www.gattofrantoio.com' },
-        ],
-      },
-      {
-        title: 'Mercati & produttori',
-        desc: 'Frutta, verdura, formaggi e pesce del giorno, direttamente dai produttori.',
-        spots: [
-          { label: 'Mercato di Scicli — martedì mattina, Piazza Olimpiadi', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli' },
-          { label: 'Mercato degli agricoltori di Marina di Ragusa — venerdì mattina (giu–set)', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa' },
-          { label: 'Mercato del pesce di Donnalucata — pesce fresco del giorno', url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata' },
         ],
       },
       {
@@ -428,6 +428,15 @@ const IT: Dict = {
         spots: [{ label: 'Vivai attorno a Scicli', url: 'https://www.google.com/maps/search/?api=1&query=vivaio+Scicli' }],
       },
     ],
+    markets: {
+      title: 'Mercati',
+      desc: 'Frutta, verdura, formaggi e pesce del giorno, direttamente dai produttori.',
+      list: [
+        { label: 'Mercato di Scicli — martedì mattina, Piazza Olimpiadi', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli' },
+        { label: 'Mercato degli agricoltori di Marina di Ragusa — venerdì mattina (giu–set)', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa' },
+        { label: 'Mercato del pesce di Donnalucata — pesce fresco del giorno', url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata' },
+      ],
+    },
   },
   salvaPage: { title: 'La famiglia', intro: 'Foto, ricordi e storia della famiglia, nel corso degli anni.', historyTitle: 'Storia della famiglia', historyText: "Di generazione in generazione, questa casa di Cava d’Aliga riunisce la famiglia. Presto ne racconteremo qui la storia — le origini, le estati condivise e i volti che l’hanno animata.", treeTitle: 'Albero genealogico', treeNote: 'Presto: un albero partecipativo dove ognuno potrà aggiungere il proprio ramo.', treePaternal: 'Nonni paterni', treeMaternal: 'Nonni materni', treeWife1: '1ª moglie', treeWife2: '2ª moglie', treeAdd: '+ Aggiungi il mio ramo', treeAddSubject: 'Albero genealogico — il mio ramo', treeExample: 'Struttura di esempio — diteci i legami reali e completiamo.' },
   calendarPage: { title: 'Il calendario', intro: 'I periodi in cui la casa è occupata, per coordinarsi in famiglia.', festivalsTitle: 'Feste siciliane', programTitle: 'Prossimi eventi', programNote: 'Sotto il cielo di Bruca — il programma dell’estate, a due passi da casa. Seguite i colori.', programMore: 'Dettagli e orari su Instagram', socialsTitle: 'Da seguire', festivalDescs: ["Il grande giorno dell’estate italiana. Erede delle Feriae Augusti romane e legata all’Assunzione, la festa riunisce famiglie e paesi in riva al mare: bagni, grandi pranzi, processioni e fuochi d’artificio animano tutta la Sicilia.", "San Rocco, invocato da secoli contro le epidemie, protegge molte comunità siciliane. A Scicli la sua statua è portata in processione tra i vicoli, tra bande musicali e luminarie di festa.", "San Giovanni Battista è il patrono di Ragusa, a cui è dedicata la cattedrale. Il 29 agosto, giorno della sua decollazione, la città si illumina: solenne processione della statua e grande spettacolo pirotecnico sopra la città vecchia.", "San Corrado Confalonieri, eremita venerato come patrono di Noto. L’ultima domenica d’agosto, la sua urna d’argento attraversa le vie barocche in una grande devozione popolare, tra ceri, fiori e cortei."], legend: { occupied: 'Occupato', tentative: 'In attesa', free: 'Libero', festival: 'Festa siciliana' } },
@@ -629,27 +638,19 @@ const EN: Dict = {
     title: 'Local & responsible',
     intro: 'Our addresses for local, responsible shopping: small producers and artisans of south-east Sicily, chosen for the quality of their products and to support the region’s farming.',
     note: 'We complete this page as we make new finds — addresses and contacts coming soon.',
+    mapLabel: 'Open in Google Maps',
     categories: [
       {
         title: 'Modica chocolate',
         desc: 'The capital of cold-worked chocolate (an Aztec-origin recipe), ~30 min away.',
-        spots: [{ label: 'Antica Dolceria Bonajuto — Modica, the oldest (since 1880)', url: 'https://www.bonajuto.it' }],
+        spots: [{ label: 'Antica Dolceria Bonajuto — Modica, the oldest (since 1880)', url: 'https://www.bonajuto.it', instagram: 'https://www.instagram.com/bonajuto/' }],
       },
       {
         title: 'Olive oil — DOP Monti Iblei',
         desc: 'Chiaramonte Gulfi, “town of oil”, and its award-winning mills (Tonda Iblea).',
         spots: [
-          { label: 'Frantoi Cutrera — Chiaramonte Gulfi', url: 'https://www.google.com/maps/search/?api=1&query=Frantoi+Cutrera+Chiaramonte+Gulfi' },
+          { label: 'Frantoi Cutrera — Chiaramonte Gulfi', url: 'https://www.google.com/maps/search/?api=1&query=Frantoi+Cutrera+Chiaramonte+Gulfi', instagram: 'https://www.instagram.com/frantoi_cutrera/' },
           { label: 'Gatto Frantoio — Chiaramonte Gulfi', url: 'https://www.gattofrantoio.com' },
-        ],
-      },
-      {
-        title: 'Markets & producers',
-        desc: 'Fruit, vegetables, cheese and the day’s catch, straight from the producers.',
-        spots: [
-          { label: 'Scicli market — Tuesday morning, Piazza Olimpiadi', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli' },
-          { label: 'Marina di Ragusa farmers’ market — Friday morning (Jun–Sep)', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa' },
-          { label: 'Donnalucata fish market — fresh catch of the day', url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata' },
         ],
       },
       {
@@ -663,6 +664,15 @@ const EN: Dict = {
         spots: [{ label: 'Nurseries around Scicli', url: 'https://www.google.com/maps/search/?api=1&query=vivaio+Scicli' }],
       },
     ],
+    markets: {
+      title: 'Markets',
+      desc: 'Fruit, vegetables, cheese and the day’s catch, straight from the producers.',
+      list: [
+        { label: 'Scicli market — Tuesday morning, Piazza Olimpiadi', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli' },
+        { label: 'Marina di Ragusa farmers’ market — Friday morning (Jun–Sep)', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa' },
+        { label: 'Donnalucata fish market — fresh catch of the day', url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata' },
+      ],
+    },
   },
   salvaPage: { title: 'The family', intro: 'Photos, memories and family history, over the years.', historyTitle: 'Family history', historyText: "From one generation to the next, this house in Cava d’Aliga brings the family together. Its story will soon be written here — the origins, the shared summers and the faces that made it live.", treeTitle: 'Family tree', treeNote: 'Coming soon: a collaborative tree where everyone can add their branch.', treePaternal: 'Paternal grandparents', treeMaternal: 'Maternal grandparents', treeWife1: '1st wife', treeWife2: '2nd wife', treeAdd: '+ Add my branch', treeAddSubject: 'Family tree — my branch', treeExample: 'Example structure — tell us the real relationships and we’ll complete it.' },
   calendarPage: { title: 'The calendar', intro: 'When the house is occupied, so the family can coordinate.', festivalsTitle: 'Sicilian festivals', programTitle: 'Upcoming events', programNote: 'Sotto il cielo di Bruca — the summer programme, steps from the house. Follow the colours.', programMore: 'Details and times on Instagram', socialsTitle: 'Follow', festivalDescs: ["The high point of the Italian summer. Descended from the Roman Feriae Augusti and tied to the Assumption, the holiday gathers families and villages by the sea: swimming, big meals, processions and fireworks all across Sicily.", "Saint Roch, invoked for centuries against epidemics, protects many Sicilian communities. In Scicli his statue is carried in procession through the alleys, amid brass bands and festive lights.", "Saint John the Baptist is the patron of Ragusa, whose cathedral is dedicated to him. On 29 August, the day of his beheading, the town lights up: a solemn procession of the statue and a grand fireworks display over the old town.", "Saint Conrad Confalonieri, a hermit venerated as Noto’s patron. On the last Sunday of August, his silver urn moves through the baroque streets in great popular devotion, among candles, flowers and processions."], legend: { occupied: 'Occupied', tentative: 'Pending', free: 'Free', festival: 'Sicilian festival' } },
