@@ -7,12 +7,6 @@ import Photo from './Photo';
 import Footer from './Footer';
 import CtaBadge from './CtaBadge';
 import Gallery from './Gallery';
-import PrepareSection from './PrepareSection';
-import PracticalSection from './PracticalSection';
-import ServicesSection from './ServicesSection';
-import RegionSection from './RegionSection';
-import FamilySection from './FamilySection';
-import CalendarSection from './CalendarSection';
 import { SITE } from './data';
 import { useI18n } from './i18n';
 
@@ -50,7 +44,7 @@ const HIGHLIGHT_GLYPHS = [
 export default function CavaHome() {
   const { t } = useI18n();
   return (
-    <main id="top">
+    <main>
       <Nav current="/" />
       <Hero />
 
@@ -85,12 +79,12 @@ export default function CavaHome() {
         </Reveal>
       </section>
 
-      {/* ---------- Les rubriques (CTA à badge rotatif → ancres) ---------- */}
+      {/* ---------- Les rubriques (CTA à badge rotatif) ---------- */}
       {/* Titre = mini-phrase incluant le nom de la rubrique (t.ctaTitles) */}
-      <CtaBadge href="#informations-pratiques" title={t.ctaTitles[0]} circleId="cava-c-info" />
-      <CtaBadge href="#services-locaux" title={t.ctaTitles[1]} circleId="cava-c-services" flip />
-      <CtaBadge href="#la-region" title={t.ctaTitles[2]} circleId="cava-c-region" />
-      <CtaBadge href="#preparer-le-voyage" title={t.ctaTitles[3]} circleId="cava-c-prepare" flip />
+      <CtaBadge href="/informations-pratiques" title={t.ctaTitles[0]} circleId="cava-c-info" />
+      <CtaBadge href="/services-locaux" title={t.ctaTitles[1]} circleId="cava-c-services" flip />
+      <CtaBadge href="/la-region" title={t.ctaTitles[2]} circleId="cava-c-region" />
+      <CtaBadge href="/preparer-le-voyage" title={t.ctaTitles[3]} circleId="cava-c-prepare" flip />
 
       {/* ---------- Galerie : bandeau d'images défilant ---------- */}
       <section className="py-24 md:py-28">
@@ -103,14 +97,6 @@ export default function CavaHome() {
         </Reveal>
         <Gallery images={GALLERY_STRIP} />
       </section>
-
-      {/* ---------- Toutes les rubriques, empilées sur la page unique ---------- */}
-      <PrepareSection />
-      <PracticalSection />
-      <ServicesSection />
-      <RegionSection />
-      <FamilySection />
-      <CalendarSection />
 
       {/* ---------- CTA contact (ouvert, sans boîte) ---------- */}
       <section className="mx-auto max-w-[110rem] px-5 py-20 md:px-10 md:py-28">

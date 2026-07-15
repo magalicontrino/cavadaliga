@@ -1,11 +1,13 @@
 'use client';
 
-import Reveal from './Reveal';
-import Photo from './Photo';
-import SectionHeading from './SectionHeading';
-import { InfoBlocks } from './SectionShell';
-import { PAGE_ICONS } from './data';
-import { useI18n } from './i18n';
+import Nav from '../Nav';
+import Footer from '../Footer';
+import Reveal from '../Reveal';
+import Photo from '../Photo';
+import PageHeader from '../PageHeader';
+import { InfoBlocks } from '../SectionShell';
+import { PAGE_ICONS } from '../data';
+import { useI18n } from '../i18n';
 
 // Lieux autour de Cava d'Aliga — vraies photos dans /public/picture-sicile/,
 // repli /public/deco/ tant que la photo n'est pas déposée. Légendes = noms
@@ -17,16 +19,17 @@ const PLACES = [
   { src: '/picture-sicile/punta-pisciotto.jpg', deco: '/deco/figue-barbarie.jpg', label: 'Punta Pisciotto' },
 ];
 
-// Rubrique « La région » — panorama + galerie de lieux + blocs.
-export default function RegionSection() {
+export default function LaRegion() {
   const { t } = useI18n();
   const p = t.pages['la-region'];
 
   return (
-    <>
-      <SectionHeading id="la-region" title={p.title} intro={p.intro} />
+    <main>
+      <Nav current="/la-region" />
 
-      {/* Panorama de Scicli */}
+      <PageHeader title={p.title} intro={p.intro} />
+
+      {/* Panorama de Scicli en tête de page */}
       <section className="mx-auto max-w-[110rem] px-5 md:px-10">
         <Reveal>
           <Photo
@@ -42,7 +45,11 @@ export default function RegionSection() {
 
       {/* Galerie légendée : les lieux autour de nous */}
       <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
-        <Reveal as="h3" className="mb-8 text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+        <Reveal
+          as="h2"
+          className="mb-8 text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]"
+          style={{ fontWeight: 500 }}
+        >
           {t.placesTitle}
         </Reveal>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -66,10 +73,12 @@ export default function RegionSection() {
 
       {/* Rubriques */}
       {p.blocks && (
-        <div className="mx-auto max-w-[110rem] px-5 pb-8 pt-16 md:px-10">
+        <div className="mx-auto max-w-[110rem] px-5 pb-24 pt-16 md:px-10">
           <InfoBlocks blocks={p.blocks} icons={PAGE_ICONS['la-region']} />
         </div>
       )}
-    </>
+
+      <Footer />
+    </main>
   );
 }

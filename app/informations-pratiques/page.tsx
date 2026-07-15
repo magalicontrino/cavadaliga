@@ -1,21 +1,24 @@
 'use client';
 
-import Reveal from './Reveal';
-import SectionHeading from './SectionHeading';
-import OpIcon, { type OpIconName } from './OpIcon';
-import { InfoBlocks } from './SectionShell';
-import { PAGE_ICONS } from './data';
-import { useI18n } from './i18n';
+import Nav from '../Nav';
+import Footer from '../Footer';
+import Reveal from '../Reveal';
+import PageHeader from '../PageHeader';
+import OpIcon, { type OpIconName } from '../OpIcon';
+import { InfoBlocks } from '../SectionShell';
+import { PAGE_ICONS } from '../data';
+import { useI18n } from '../i18n';
 
-// Rubrique « Informations pratiques » — blocs + arrivée (adresse, wifi, maison).
-export default function PracticalSection() {
+export default function InformationsPratiques() {
   const { t } = useI18n();
   const p = t.pages['informations-pratiques'];
   const a = t.arrivee;
 
   return (
-    <>
-      <SectionHeading id="informations-pratiques" title={p.title} intro={p.intro} />
+    <main>
+      <Nav current="/informations-pratiques" />
+
+      <PageHeader title={p.title} intro={p.intro} />
 
       {/* Rubriques en préparation */}
       {p.blocks && (
@@ -25,14 +28,14 @@ export default function PracticalSection() {
       )}
 
       {/* Arrivée : adresse + fonctionnement de la maison (wifi inclus) */}
-      <section className="mx-auto max-w-[110rem] px-5 pb-8 pt-16 md:px-10">
+      <section className="mx-auto max-w-[110rem] px-5 pb-24 pt-16 md:px-10">
         <Reveal className="mb-8 flex flex-col gap-2">
           <span className="text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             {a.eyebrow}
           </span>
-          <h3 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+          <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
             {a.title}
-          </h3>
+          </h2>
         </Reveal>
 
         {/* Adresse + lien Google Maps */}
@@ -76,9 +79,9 @@ export default function PracticalSection() {
                 <span aria-hidden className="leading-none" style={{ color: 'var(--cava-pink)' }}>
                   <OpIcon name={g.icon as OpIconName} size={26} />
                 </span>
-                <h4 className="text-[clamp(1.2rem,2.4vw,1.6rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+                <h3 className="text-[clamp(1.2rem,2.4vw,1.6rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
                   {g.title}
-                </h4>
+                </h3>
               </div>
               {g.items && g.items.length > 0 && (
                 <ul className="flex flex-col gap-3">
@@ -98,6 +101,8 @@ export default function PracticalSection() {
           {a.toCome}
         </Reveal>
       </section>
-    </>
+
+      <Footer />
+    </main>
   );
 }

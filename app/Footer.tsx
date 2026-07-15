@@ -31,7 +31,7 @@ export default function Footer() {
           {NAV.map((item, i) => (
             <a
               key={item.href}
-              href={item.href.startsWith('#') ? item.href : withBase(item.href)}
+              href={withBase(item.href)}
               className="cava-footlink group flex items-center justify-between border-b py-4 md:py-5"
               style={{ borderColor: 'var(--cava-line)' }}
             >
