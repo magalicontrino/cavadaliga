@@ -7,6 +7,7 @@ import Photo from './Photo';
 import Footer from './Footer';
 import CtaBadge from './CtaBadge';
 import Gallery from './Gallery';
+import Weather from './Weather';
 import { SITE } from './data';
 import { useI18n } from './i18n';
 
@@ -55,15 +56,8 @@ export default function CavaHome() {
             {HIGHLIGHT_GLYPHS[0]}
           </span>
         </Reveal>
-        <Reveal as="h2" delay={60} className="mt-4 text-[clamp(2.6rem,8.5vw,6.6rem)] uppercase leading-[0.95] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
-          {t.welcome}
-          <br />
-          <span
-            className="mt-3 inline-block whitespace-nowrap rounded-full border-2 px-5 pb-1.5 pt-1 leading-none"
-            style={{ borderColor: 'var(--cava-ink)' }}
-          >
-            {SITE.name}
-          </span>
+        <Reveal delay={60} className="mt-4">
+          <Weather />
         </Reveal>
         <Reveal as="p" delay={140} className="mt-8 max-w-[42ch] text-[clamp(1.05rem,2vw,1.35rem)] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
           {t.intro}
