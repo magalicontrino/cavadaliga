@@ -212,6 +212,67 @@
   animation-play-state: paused;
 }
 
+/* --- Arbre généalogique (org-chart pur CSS) ------------------------ */
+.cava-tree ul {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin: 0;
+  padding: 26px 0 0 0;
+  list-style: none;
+}
+.cava-tree > ul {
+  padding-top: 0;
+}
+.cava-tree li {
+  position: relative;
+  padding: 26px 12px 0;
+  text-align: center;
+  list-style: none;
+}
+.cava-tree li::before,
+.cava-tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  width: 50%;
+  height: 26px;
+  border-top: 1.5px solid var(--cava-line);
+}
+.cava-tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 1.5px solid var(--cava-line);
+}
+.cava-tree li:only-child {
+  padding-top: 0;
+}
+.cava-tree li:only-child::before,
+.cava-tree li:only-child::after {
+  display: none;
+}
+.cava-tree li:first-child::before,
+.cava-tree li:last-child::after {
+  border: 0 none;
+}
+.cava-tree li:last-child::before {
+  border-right: 1.5px solid var(--cava-line);
+  border-radius: 0 8px 0 0;
+}
+.cava-tree li:first-child::after {
+  border-radius: 8px 0 0 0;
+}
+.cava-tree ul ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 26px;
+  border-left: 1.5px solid var(--cava-line);
+}
+
 /* --- Liens géants du footer (maximaliste) -------------------------- */
 .cava-footlink {
   color: var(--cava-ink);

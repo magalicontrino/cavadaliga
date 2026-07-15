@@ -5,6 +5,7 @@ import Footer from '../Footer';
 import Reveal from '../Reveal';
 import Photo from '../Photo';
 import PageHeader from '../PageHeader';
+import FamilyTree from '../FamilyTree';
 import { useI18n } from '../i18n';
 
 // Galerie souvenir de Salva — vraies photos dans /public/picture-sicile/.
@@ -67,15 +68,29 @@ export default function Salva() {
         </div>
       </section>
 
-      {/* Arbre généalogique (participatif — à venir) */}
+      {/* Arbre généalogique (structure d'exemple ; participatif à venir) */}
       <section className="mx-auto max-w-[110rem] px-5 pb-24 md:px-10">
-        <Reveal className="rounded-2xl border-2 border-dashed p-8 text-center md:p-12" style={{ borderColor: 'var(--cava-line)' }}>
+        <Reveal>
           <h2 className="text-[clamp(1.6rem,4vw,2.6rem)] leading-[1.05]" style={{ fontWeight: 600 }}>
             {s.treeTitle}
           </h2>
-          <p className="mx-auto mt-3 max-w-[48ch] text-[15px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+          <p className="mt-3 max-w-[52ch] text-[15px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
             {s.treeNote}
           </p>
+          <div className="mt-12">
+            <FamilyTree />
+          </div>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <span
+              className="inline-flex items-center rounded-full border-2 border-dashed px-5 py-2 text-[13px]"
+              style={{ borderColor: 'var(--cava-pink)', color: 'var(--cava-pink)', fontWeight: 500 }}
+            >
+              {s.treeAdd}
+            </span>
+            <span className="text-[13px]" style={{ color: 'var(--cava-muted)' }}>
+              {s.treeExample}
+            </span>
+          </div>
         </Reveal>
       </section>
 
