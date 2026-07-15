@@ -21,8 +21,8 @@ export const NAV = [
   { href: '/informations-pratiques' },
   { href: '/services-locaux' },
   { href: '/la-region' },
-  { href: '/famille' },
   { href: '/calendrier' },
+  { href: '/famille' },
 ] as const;
 
 // Cartes d'index — structure (libellés via i18n.indexCards, même ordre).
