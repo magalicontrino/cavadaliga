@@ -195,10 +195,12 @@ const FR: Dict = {
         title: 'Rejoindre Casa Cava d’Aliga',
         links: [
           { label: 'AST — horaires', url: 'https://www.astsicilia.it/' },
+          { label: 'Trenitalia', url: 'https://www.trenitalia.com/' },
           { label: 'Goldcar', url: 'https://www.goldcar.es/' },
         ],
         items: [
           'Bus AST — depuis l’aéroport de Catane vers Modica, Scicli, Donnalucata et Pozzallo (horaires sur astsicilia.it).',
+          'Train — la ligne régionale relie Modica, Scicli, Pozzallo et Raguse (horaires et billets sur trenitalia.com).',
           'Location de voiture — pratique pour explorer la région ; nous conseillons Goldcar, à l’aéroport de Catane. À la sortie de l’aéroport, prenez à droite : tous les loueurs sont regroupés au même endroit.',
           'Important : la carte de crédit doit être au nom de la personne qui a réservé. Goldcar bloque une caution (environ 950 € à ce jour) si vous ne prenez pas l’assurance, qui reste facultative.',
           'Chauffeur privé — Giovanni, notre perle (+39 380 313 8948) : 10 € de Donnalucata à l’appartement, 20 € de Pozzallo, 150 € depuis l’aéroport de Catane. Jusqu’à 5-6 personnes. À prévenir à l’avance selon ses disponibilités (prévoyez un plan B).',
@@ -359,10 +361,12 @@ const IT: Dict = {
         title: 'Raggiungere Casa Cava d’Aliga',
         links: [
           { label: 'AST — orari', url: 'https://www.astsicilia.it/' },
+          { label: 'Trenitalia', url: 'https://www.trenitalia.com/' },
           { label: 'Goldcar', url: 'https://www.goldcar.es/' },
         ],
         items: [
           'Bus AST — dall’aeroporto di Catania verso Modica, Scicli, Donnalucata e Pozzallo (orari su astsicilia.it).',
+          'Treno — la linea regionale collega Modica, Scicli, Pozzallo e Ragusa (orari e biglietti su trenitalia.com).',
           'Noleggio auto — comodo per esplorare la regione; consigliamo Goldcar, all’aeroporto di Catania. All’uscita dell’aeroporto, girate a destra: tutti gli autonoleggi sono riuniti nello stesso punto.',
           'Importante: la carta di credito deve essere intestata alla persona che ha prenotato. Goldcar blocca una cauzione (circa 950 € a oggi) se non si prende l’assicurazione, che resta facoltativa.',
           'Autista privato — Giovanni, la nostra perla (+39 380 313 8948): 10 € da Donnalucata all’appartamento, 20 € da Pozzallo, 150 € dall’aeroporto di Catania. Fino a 5-6 persone. Da avvisare in anticipo in base alla disponibilità (tenete un piano B).',
@@ -523,10 +527,12 @@ const EN: Dict = {
         title: 'Reach Casa Cava d’Aliga',
         links: [
           { label: 'AST — timetables', url: 'https://www.astsicilia.it/' },
+          { label: 'Trenitalia', url: 'https://www.trenitalia.com/' },
           { label: 'Goldcar', url: 'https://www.goldcar.es/' },
         ],
         items: [
           'AST bus — from Catania airport to Modica, Scicli, Donnalucata and Pozzallo (timetables on astsicilia.it).',
+          'Train — the regional line links Modica, Scicli, Pozzallo and Ragusa (timetables and tickets on trenitalia.com).',
           'Car rental — handy for exploring the region; we recommend Goldcar, at Catania airport. As you leave the airport, turn right: all the rental companies are grouped in the same spot.',
           'Important: the credit card must be in the name of the person who booked. Goldcar holds a deposit (around €950 as of today) if you decline the insurance, which is optional.',
           'Private driver — Giovanni, our gem (+39 380 313 8948): €10 from Donnalucata to the apartment, €20 from Pozzallo, €150 from Catania airport. Up to 5-6 people. Book ahead subject to availability (keep a plan B).',
