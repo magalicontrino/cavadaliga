@@ -6,6 +6,7 @@ import Reveal from '../Reveal';
 import Photo from '../Photo';
 import PageHeader from '../PageHeader';
 import FamilyTree from '../FamilyTree';
+import { SITE } from '../data';
 import { useI18n } from '../i18n';
 
 // Galerie souvenir de Salva — vraies photos dans /public/picture-sicile/.
@@ -81,12 +82,13 @@ export default function Salva() {
             <FamilyTree />
           </div>
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <span
-              className="inline-flex items-center rounded-full border-2 border-dashed px-5 py-2 text-[13px]"
+            <a
+              href={`mailto:${SITE.email}?subject=${encodeURIComponent(s.treeAddSubject)}`}
+              className="cava-treeadd inline-flex items-center rounded-full border-2 border-dashed px-5 py-2 text-[13px]"
               style={{ borderColor: 'var(--cava-pink)', color: 'var(--cava-pink)', fontWeight: 500 }}
             >
               {s.treeAdd}
-            </span>
+            </a>
             <span className="text-[13px]" style={{ color: 'var(--cava-muted)' }}>
               {s.treeExample}
             </span>

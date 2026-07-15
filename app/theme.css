@@ -273,6 +273,24 @@
   border-left: 1.5px solid var(--cava-line);
 }
 
+/* --- Bouton « + Ajouter ma branche » (arbre) ----------------------- */
+.cava-treeadd {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+.cava-treeadd:hover {
+  background: var(--cava-pink);
+  color: #fff;
+  transform: scale(1.04);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-treeadd {
+    transition: none;
+  }
+}
+
 /* --- Liens géants du footer (maximaliste) -------------------------- */
 .cava-footlink {
   color: var(--cava-ink);
