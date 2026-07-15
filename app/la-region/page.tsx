@@ -17,6 +17,7 @@ const PLACES = [
   { src: '/picture-sicile/scicli.jpg', deco: '/deco/motif-1.jpg', label: 'Scicli' },
   { src: '/picture-sicile/bruca.jpg', deco: '/deco/figue-barbarie.jpg', label: 'Bruca' },
   { src: '/picture-sicile/sampieri.jpg', deco: '/deco/spaghetti.jpg', label: 'Sampieri' },
+  { src: '/picture-sicile/punta-pisciotto.jpg', deco: '/deco/figue-barbarie-2.jpg', label: 'Punta Pisciotto' },
 ];
 
 export default function LaRegion() {
