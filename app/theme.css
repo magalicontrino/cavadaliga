@@ -207,6 +207,26 @@
   color: #fff;
 }
 
+/* --- Carrousel glissable (sans lightbox) --------------------------- */
+.cava-carousel {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  cursor: grab;
+  scroll-snap-type: x mandatory;
+}
+.cava-carousel::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+.cava-carousel:active {
+  cursor: grabbing;
+}
+/* Les images ne captent pas le pointeur → le glisser agit sur la piste. */
+.cava-carousel img {
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
+
 /* --- Galerie : pause du défilement au survol (pour cliquer) -------- */
 .cava-gallery:hover .cava-marquee-track {
   animation-play-state: paused;

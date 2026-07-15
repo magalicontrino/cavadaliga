@@ -12,8 +12,8 @@ import { useI18n } from '../i18n';
 // dans le tableau au fil du temps. Vide → visuel provisoire « photo à venir ».
 // unesco:true = badge « Patrimoine mondial UNESCO ». Noms propres = mêmes 3 langues.
 const PLACES = [
-  { images: ['/picture-sicile/cava-daliga.jpg'], label: 'Cava d’Aliga', tone: 'sand', unesco: false },
-  { images: ['/picture-sicile/scicli.jpg'], label: 'Scicli', tone: 'sand', unesco: true },
+  { images: ['/picture-sicile/cava-daliga.jpg', '/picture-sicile/cava-daliga-c.jpg'], label: 'Cava d’Aliga', tone: 'sand', unesco: false },
+  { images: ['/picture-sicile/scicli.jpg', '/picture-sicile/scicli-b.jpg'], label: 'Scicli', tone: 'sand', unesco: true },
   { images: ['/picture-sicile/bruca.jpg'], label: 'Bruca', tone: 'sand', unesco: false },
   { images: ['/picture-sicile/sampieri.jpg'], label: 'Sampieri', tone: 'sand', unesco: false },
   { images: ['/picture-sicile/punta-pisciotto.jpg'], label: 'Punta Pisciotto', tone: 'sand', unesco: false },
