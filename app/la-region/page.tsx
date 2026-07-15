@@ -7,8 +7,6 @@ import Reveal from '../Reveal';
 import Photo from '../Photo';
 import Lightbox from '../Lightbox';
 import PageHeader from '../PageHeader';
-import { InfoBlocks } from '../SectionShell';
-import { PAGE_ICONS } from '../data';
 import { useI18n } from '../i18n';
 
 // Lieux autour de Cava d'Aliga — vraies photos dans /public/picture-sicile/,
@@ -83,6 +81,17 @@ export default function LaRegion() {
                   >
                     {t.regionPlaces[i]}
                   </p>
+
+                  {t.regionHighlights[i] && t.regionHighlights[i].length > 0 && (
+                    <ul className="mt-7 flex max-w-[48ch] flex-col gap-3">
+                      {t.regionHighlights[i].map((h) => (
+                        <li key={h} className="flex gap-3 text-[15px] leading-[1.5]" style={{ color: 'var(--cava-ink)' }}>
+                          <span className="mt-2 h-[6px] w-[6px] shrink-0 rounded-full" style={{ background: 'var(--cava-pink)' }} />
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </Reveal>
             );
@@ -92,12 +101,7 @@ export default function LaRegion() {
         <Lightbox images={PLACES.map((pl) => pl.src)} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />
       </section>
 
-      {/* Rubriques */}
-      {p.blocks && (
-        <div className="mx-auto max-w-[110rem] px-5 pb-24 pt-16 md:px-10">
-          <InfoBlocks blocks={p.blocks} icons={PAGE_ICONS['la-region']} />
-        </div>
-      )}
+      <div className="pb-24" />
 
       <Footer />
     </main>
