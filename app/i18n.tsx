@@ -194,6 +194,10 @@ const FR: Dict = {
       {
         icon: '🚗',
         title: 'Rejoindre Casa Cava d’Aliga',
+        links: [
+          { label: 'AST — horaires', url: 'https://www.astsicilia.it/' },
+          { label: 'Goldcar', url: 'https://www.goldcar.es/' },
+        ],
         items: [
           'Bus AST — depuis l’aéroport de Catane vers Modica, Scicli, Donnalucata et Pozzallo (horaires sur astsicilia.it).',
           'Location de voiture — pratique pour explorer la région ; nous conseillons Goldcar, à l’aéroport de Catane. À la sortie de l’aéroport, prenez à droite : tous les loueurs sont regroupés au même endroit.',
@@ -355,6 +359,10 @@ const IT: Dict = {
       {
         icon: '🚗',
         title: 'Raggiungere Casa Cava d’Aliga',
+        links: [
+          { label: 'AST — orari', url: 'https://www.astsicilia.it/' },
+          { label: 'Goldcar', url: 'https://www.goldcar.es/' },
+        ],
         items: [
           'Bus AST — dall’aeroporto di Catania verso Modica, Scicli, Donnalucata e Pozzallo (orari su astsicilia.it).',
           'Noleggio auto — comodo per esplorare la regione; consigliamo Goldcar, all’aeroporto di Catania. All’uscita dell’aeroporto, girate a destra: tutti gli autonoleggi sono riuniti nello stesso punto.',
@@ -516,6 +524,10 @@ const EN: Dict = {
       {
         icon: '🚗',
         title: 'Reach Casa Cava d’Aliga',
+        links: [
+          { label: 'AST — timetables', url: 'https://www.astsicilia.it/' },
+          { label: 'Goldcar', url: 'https://www.goldcar.es/' },
+        ],
         items: [
           'AST bus — from Catania airport to Modica, Scicli, Donnalucata and Pozzallo (timetables on astsicilia.it).',
           'Car rental — handy for exploring the region; we recommend Goldcar, at Catania airport. As you leave the airport, turn right: all the rental companies are grouped in the same spot.',
