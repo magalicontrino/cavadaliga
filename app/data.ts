@@ -20,6 +20,7 @@ export const NAV = [
   { href: '/preparer-le-voyage' },
   { href: '/informations-pratiques' },
   { href: '/services-locaux' },
+  { href: '/local' },
   { href: '/la-region' },
   { href: '/calendrier' },
 ] as const;

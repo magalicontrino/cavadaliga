@@ -1,36 +1,31 @@
 'use client';
 
-import { useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
-import Photo from '../Photo';
-import Lightbox from '../Lightbox';
+import Carousel from '../Carousel';
 import PageHeader from '../PageHeader';
 import { useI18n } from '../i18n';
 
 // Lieux autour de Cava d'Aliga (ordre = i18n regionPlaces / regionHighlights).
-// photo:true = vraie photo dans /public/picture-sicile/ (cliquable → lightbox).
-// photo:false = ville d'excursion en attente de photo (visuel provisoire).
+// images[] = photos du lieu (carrousel, sans lightbox). Ajouter d'autres photos
+// dans le tableau au fil du temps. Vide → visuel provisoire « photo à venir ».
 // unesco:true = badge « Patrimoine mondial UNESCO ». Noms propres = mêmes 3 langues.
 const PLACES = [
-  { src: '/picture-sicile/cava-daliga.jpg', label: 'Cava d’Aliga', tone: 'sand', photo: true, unesco: false },
-  { src: '/picture-sicile/scicli.jpg', label: 'Scicli', tone: 'sand', photo: true, unesco: true },
-  { src: '/picture-sicile/bruca.jpg', label: 'Bruca', tone: 'sand', photo: true, unesco: false },
-  { src: '/picture-sicile/sampieri.jpg', label: 'Sampieri', tone: 'sand', photo: true, unesco: false },
-  { src: '/picture-sicile/punta-pisciotto.jpg', label: 'Punta Pisciotto', tone: 'sand', photo: true, unesco: false },
-  { src: '/picture-sicile/modica.jpg', label: 'Modica', tone: 'terra', photo: false, unesco: true },
-  { src: '/picture-sicile/ragusa.jpg', label: 'Raguse', tone: 'ink', photo: false, unesco: true },
-  { src: '/picture-sicile/noto.jpg', label: 'Noto', tone: 'pink', photo: false, unesco: true },
-  { src: '/picture-sicile/siracusa.jpg', label: 'Syracuse', tone: 'terra', photo: false, unesco: true },
+  { images: ['/picture-sicile/cava-daliga.jpg'], label: 'Cava d’Aliga', tone: 'sand', unesco: false },
+  { images: ['/picture-sicile/scicli.jpg'], label: 'Scicli', tone: 'sand', unesco: true },
+  { images: ['/picture-sicile/bruca.jpg'], label: 'Bruca', tone: 'sand', unesco: false },
+  { images: ['/picture-sicile/sampieri.jpg'], label: 'Sampieri', tone: 'sand', unesco: false },
+  { images: ['/picture-sicile/punta-pisciotto.jpg'], label: 'Punta Pisciotto', tone: 'sand', unesco: false },
+  { images: [], label: 'Modica', tone: 'terra', unesco: true },
+  { images: [], label: 'Raguse', tone: 'ink', unesco: true },
+  { images: [], label: 'Noto', tone: 'pink', unesco: true },
+  { images: [], label: 'Syracuse', tone: 'terra', unesco: true },
 ] as const;
-// Images de la lightbox = uniquement les lieux avec une vraie photo.
-const GALLERY = PLACES.filter((pl) => pl.photo).map((pl) => pl.src);
 
 export default function LaRegion() {
   const { t } = useI18n();
   const p = t.pages['la-region'];
-  const [open, setOpen] = useState<number | null>(null);
 
   return (
     <main>
@@ -51,37 +46,17 @@ export default function LaRegion() {
         <div className="mt-14 flex flex-col gap-16 md:mt-20 md:gap-28">
           {PLACES.map((place, i) => {
             const flip = i % 2 === 1;
-            const galleryIndex = place.photo ? GALLERY.indexOf(place.src) : -1;
             return (
               <Reveal key={place.label} className="grid items-center gap-8 md:grid-cols-2 md:gap-16">
-                {/* Photo — cliquable (→ lightbox) si vraie photo, sinon visuel provisoire */}
-                {place.photo ? (
-                  <button
-                    type="button"
-                    onClick={() => setOpen(galleryIndex)}
-                    aria-label={`Agrandir la photo — ${place.label}`}
-                    className={`group block w-full cursor-zoom-in overflow-hidden rounded-2xl ${flip ? 'md:order-2' : ''}`}
-                  >
-                    <Photo
-                      src={place.src}
-                      alt={place.label}
-                      tone={place.tone}
-                      label={`${place.label} — photo à venir`}
-                      className="aspect-[4/3] w-full"
-                      imgClassName="transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </button>
-                ) : (
-                  <div className={`w-full overflow-hidden rounded-2xl ${flip ? 'md:order-2' : ''}`}>
-                    <Photo
-                      src={place.src}
-                      alt={place.label}
-                      tone={place.tone}
-                      label={`${place.label} — photo à venir`}
-                      className="aspect-[4/3] w-full"
-                    />
-                  </div>
-                )}
+                {/* Carrousel de photos (sans lightbox) */}
+                <div className={flip ? 'md:order-2' : ''}>
+                  <Carousel
+                    images={place.images}
+                    alt={place.label}
+                    tone={place.tone}
+                    label={`${place.label} — photo à venir`}
+                  />
+                </div>
 
                 {/* Fiche : numéro + (badge UNESCO) + nom + histoire */}
                 <div className={flip ? 'md:order-1' : ''}>
@@ -126,8 +101,6 @@ export default function LaRegion() {
             );
           })}
         </div>
-
-        <Lightbox images={GALLERY} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />
       </section>
 
       <div className="pb-24" />

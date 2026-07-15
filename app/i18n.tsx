@@ -74,6 +74,7 @@ export type Dict = {
   regionPlaces: string[]; // histoires des lieux, même ordre que PLACES (la-region)
   regionHighlights: string[][]; // points forts par lieu, même ordre que PLACES
   unescoLabel: string; // badge patrimoine mondial UNESCO
+  localPage: { title: string; intro: string; note: string; categories: { title: string; desc: string }[] };
   salvaPage: { title: string; intro: string; historyTitle: string; historyText: string; treeTitle: string; treeNote: string; treePaternal: string; treeMaternal: string; treeWife1: string; treeWife2: string; treeAdd: string; treeAddSubject: string; treeExample: string };
   calendarPage: { title: string; intro: string; festivalsTitle: string; programTitle: string; programNote: string; programMore: string; socialsTitle: string; festivalDescs: string[]; legend: { occupied: string; tentative: string; free: string; festival: string } };
   ctaEyebrow: string;
@@ -87,7 +88,7 @@ export type Dict = {
 };
 
 const FR: Dict = {
-  nav: ['La famille', 'Le voyage', 'Infos pratiques', 'Nos adresses', 'La région', 'Calendrier'],
+  nav: ['La famille', 'Le voyage', 'Infos pratiques', 'Nos adresses', 'Local', 'La région', 'Calendrier'],
   region: 'Sicile',
   tagline: 'un village du sud-est de la Sicile',
   subLabels: ['Près de Scicli dans la province de Raguse'],
@@ -139,7 +140,7 @@ const FR: Dict = {
     'Ancienne rivale d’Athènes, Syracuse fut l’une des plus grandes cités du monde grec. L’île d’Ortygie mêle temples antiques, ruelles baroques et bord de mer ; son parc archéologique abrite un théâtre grec et l’Oreille de Denys.',
   ],
   regionHighlights: [
-    ['Plages et criques de la côte sud, baignade à deux pas.', 'Marchés et petits producteurs locaux.'],
+    ['Plages et criques de la côte sud, baignade à deux pas.'],
     ['Centre baroque classé au patrimoine mondial de l’UNESCO.', 'Escapades vers Raguse Ibla, Modica et Noto — et le chocolat de Modica.'],
     ['Réserves naturelles et sentiers le long de la côte.', 'Baignade tranquille, loin de la foule.'],
     ['L’une des plus longues plages de sable de la côte.', 'Trattorias de poisson, cannoli et vins locaux.'],
@@ -150,6 +151,19 @@ const FR: Dict = {
     ['Ortygie : le Duomo bâti sur un temple grec et la fontaine Aréthuse.', 'Parc archéologique : théâtre grec et Oreille de Denys.'],
   ],
   unescoLabel: 'Patrimoine mondial UNESCO',
+  localPage: {
+    title: 'Local & responsable',
+    intro: 'Nos adresses pour consommer local et responsable : de petits producteurs et artisans du sud-est de la Sicile, choisis pour la qualité de leurs produits et pour faire vivre l’agriculture de la région.',
+    note: 'Nous complétons cette page au fil de nos trouvailles — adresses et contacts à venir.',
+    categories: [
+      { title: 'Huile d’olive', desc: 'Huiles extra-vierges pressées dans les petits moulins des monts Iblei.' },
+      { title: 'Agrumes & citrons', desc: 'Citrons, oranges et confitures des vergers voisins.' },
+      { title: 'Piment & épices', desc: 'Piment, origan, herbes séchées et sel de mer.' },
+      { title: 'Chocolat', desc: 'Le fameux chocolat de Modica et les douceurs artisanales.' },
+      { title: 'Plantes & fleurs', desc: 'Pépinières et fleurs locales pour la maison et le jardin.' },
+      { title: 'Marchés & producteurs', desc: 'Marchés hebdomadaires et petits producteurs à rencontrer.' },
+    ],
+  },
   salvaPage: { title: 'La famille', intro: 'Photos, souvenirs et histoire de la famille, au fil des années.', historyTitle: 'Histoire de la famille', historyText: "De génération en génération, cette maison de Cava d’Aliga rassemble la famille. On écrira bientôt son histoire ici — les origines, les étés partagés et les visages qui l’ont fait vivre.", treeTitle: 'Arbre généalogique', treeNote: 'Bientôt : un arbre participatif où chacun pourra ajouter sa branche.', treePaternal: 'Grands-parents paternels', treeMaternal: 'Grands-parents maternels', treeWife1: '1re épouse', treeWife2: '2e épouse', treeAdd: '+ Ajouter ma branche', treeAddSubject: 'Arbre généalogique — ma branche', treeExample: 'Structure d’exemple — dites-nous les vrais liens et on complète.' },
   calendarPage: { title: 'Le calendrier', intro: 'Les périodes où la maison est occupée, pour se coordonner en famille.', festivalsTitle: 'Fêtes siciliennes', programTitle: 'Événements à venir', programNote: 'Sotto il cielo di Bruca — le programme de l’été, à deux pas de la maison. Suivez les couleurs.', programMore: 'Détails et horaires sur Instagram', socialsTitle: 'À suivre', festivalDescs: ["Le grand jour de l’été italien. Héritée des Feriae Augusti romaines et associée à l’Assomption, la fête réunit familles et villages autour de la mer : baignades, grands repas, processions et feux d’artifice animent toute la Sicile.", "Saint Roch, invoqué depuis des siècles contre les épidémies, protège de nombreuses communautés siciliennes. À Scicli, sa statue est portée en procession dans les ruelles, au son des fanfares et sous les illuminations de fête.", "Saint Jean-Baptiste est le patron de Raguse, dont la cathédrale lui est dédiée. Le 29 août, jour de sa décollation, la ville s’illumine : procession solennelle de la statue du saint et grand feu d’artifice au-dessus de la vieille ville.", "Saint Conrad Confalonieri, ermite vénéré comme patron de Noto. Le dernier dimanche d’août, son urne d’argent traverse les rues baroques dans une immense ferveur populaire, entre cierges, fleurs et cortèges."], legend: { occupied: 'Occupé', tentative: 'En attente', free: 'Libre', festival: 'Fête sicilienne' } },
   ctaEyebrow: 'Envie de venir ?',
@@ -280,7 +294,7 @@ const FR: Dict = {
 };
 
 const IT: Dict = {
-  nav: ['La famiglia', 'Il viaggio', 'Info pratiche', 'I nostri indirizzi', 'La regione', 'Calendario'],
+  nav: ['La famiglia', 'Il viaggio', 'Info pratiche', 'I nostri indirizzi', 'Locale', 'La regione', 'Calendario'],
   region: 'Sicilia',
   tagline: 'un villaggio del sud-est della Sicilia',
   subLabels: ['Vicino a Scicli in provincia di Ragusa'],
@@ -332,7 +346,7 @@ const IT: Dict = {
     'Antica rivale di Atene, Siracusa fu una delle più grandi città del mondo greco. L’isola di Ortigia unisce templi antichi, vicoli barocchi e mare; il parco archeologico custodisce un teatro greco e l’Orecchio di Dioniso.',
   ],
   regionHighlights: [
-    ['Spiagge e cale della costa sud, bagno a due passi.', 'Mercati e piccoli produttori locali.'],
+    ['Spiagge e cale della costa sud, bagno a due passi.'],
     ['Centro barocco patrimonio mondiale dell’UNESCO.', 'Gite verso Ragusa Ibla, Modica e Noto — e il cioccolato di Modica.'],
     ['Riserve naturali e sentieri lungo la costa.', 'Bagni tranquilli, lontano dalla folla.'],
     ['Una delle spiagge di sabbia più lunghe della costa.', 'Trattorie di pesce, cannoli e vini locali.'],
@@ -343,6 +357,19 @@ const IT: Dict = {
     ['Ortigia: il Duomo su un tempio greco e la fonte Aretusa.', 'Parco archeologico: teatro greco e Orecchio di Dioniso.'],
   ],
   unescoLabel: 'Patrimonio mondiale UNESCO',
+  localPage: {
+    title: 'Locale & responsabile',
+    intro: 'I nostri indirizzi per un consumo locale e responsabile: piccoli produttori e artigiani del sud-est della Sicilia, scelti per la qualità dei loro prodotti e per sostenere l’agricoltura della regione.',
+    note: 'Completiamo questa pagina man mano che scopriamo — indirizzi e contatti in arrivo.',
+    categories: [
+      { title: 'Olio d’oliva', desc: 'Oli extravergini spremuti nei piccoli frantoi dei monti Iblei.' },
+      { title: 'Agrumi & limoni', desc: 'Limoni, arance e marmellate dei frutteti vicini.' },
+      { title: 'Peperoncino & spezie', desc: 'Peperoncino, origano, erbe essiccate e sale marino.' },
+      { title: 'Cioccolato', desc: 'Il celebre cioccolato di Modica e i dolci artigianali.' },
+      { title: 'Piante & fiori', desc: 'Vivai e fiori locali per la casa e il giardino.' },
+      { title: 'Mercati & produttori', desc: 'Mercati settimanali e piccoli produttori da incontrare.' },
+    ],
+  },
   salvaPage: { title: 'La famiglia', intro: 'Foto, ricordi e storia della famiglia, nel corso degli anni.', historyTitle: 'Storia della famiglia', historyText: "Di generazione in generazione, questa casa di Cava d’Aliga riunisce la famiglia. Presto ne racconteremo qui la storia — le origini, le estati condivise e i volti che l’hanno animata.", treeTitle: 'Albero genealogico', treeNote: 'Presto: un albero partecipativo dove ognuno potrà aggiungere il proprio ramo.', treePaternal: 'Nonni paterni', treeMaternal: 'Nonni materni', treeWife1: '1ª moglie', treeWife2: '2ª moglie', treeAdd: '+ Aggiungi il mio ramo', treeAddSubject: 'Albero genealogico — il mio ramo', treeExample: 'Struttura di esempio — diteci i legami reali e completiamo.' },
   calendarPage: { title: 'Il calendario', intro: 'I periodi in cui la casa è occupata, per coordinarsi in famiglia.', festivalsTitle: 'Feste siciliane', programTitle: 'Prossimi eventi', programNote: 'Sotto il cielo di Bruca — il programma dell’estate, a due passi da casa. Seguite i colori.', programMore: 'Dettagli e orari su Instagram', socialsTitle: 'Da seguire', festivalDescs: ["Il grande giorno dell’estate italiana. Erede delle Feriae Augusti romane e legata all’Assunzione, la festa riunisce famiglie e paesi in riva al mare: bagni, grandi pranzi, processioni e fuochi d’artificio animano tutta la Sicilia.", "San Rocco, invocato da secoli contro le epidemie, protegge molte comunità siciliane. A Scicli la sua statua è portata in processione tra i vicoli, tra bande musicali e luminarie di festa.", "San Giovanni Battista è il patrono di Ragusa, a cui è dedicata la cattedrale. Il 29 agosto, giorno della sua decollazione, la città si illumina: solenne processione della statua e grande spettacolo pirotecnico sopra la città vecchia.", "San Corrado Confalonieri, eremita venerato come patrono di Noto. L’ultima domenica d’agosto, la sua urna d’argento attraversa le vie barocche in una grande devozione popolare, tra ceri, fiori e cortei."], legend: { occupied: 'Occupato', tentative: 'In attesa', free: 'Libero', festival: 'Festa siciliana' } },
   ctaEyebrow: 'Voglia di venire?',
@@ -473,7 +500,7 @@ const IT: Dict = {
 };
 
 const EN: Dict = {
-  nav: ['The family', 'The trip', 'Practical info', 'Our spots', 'The region', 'Calendar'],
+  nav: ['The family', 'The trip', 'Practical info', 'Our spots', 'Local', 'The region', 'Calendar'],
   region: 'Sicily',
   tagline: 'a village in south-east Sicily',
   subLabels: ['Near Scicli in the province of Ragusa'],
@@ -525,7 +552,7 @@ const EN: Dict = {
     'Once a rival of Athens, Syracuse was one of the greatest cities of the Greek world. Its island of Ortygia blends ancient temples, Baroque lanes and seafront; its archaeological park holds a Greek theatre and the Ear of Dionysius.',
   ],
   regionHighlights: [
-    ['Beaches and coves of the south coast, a swim away.', 'Local markets and small producers.'],
+    ['Beaches and coves of the south coast, a swim away.'],
     ['Baroque centre listed as a UNESCO World Heritage site.', 'Day trips to Ragusa Ibla, Modica and Noto — and Modica chocolate.'],
     ['Nature reserves and coastal trails.', 'Quiet swims, away from the crowds.'],
     ['One of the longest sandy beaches on the coast.', 'Fish trattorias, cannoli and local wines.'],
@@ -536,6 +563,19 @@ const EN: Dict = {
     ['Ortygia: the Duomo built on a Greek temple, and the Arethusa spring.', 'Archaeological park: Greek theatre and the Ear of Dionysius.'],
   ],
   unescoLabel: 'UNESCO World Heritage',
+  localPage: {
+    title: 'Local & responsible',
+    intro: 'Our addresses for local, responsible shopping: small producers and artisans of south-east Sicily, chosen for the quality of their products and to support the region’s farming.',
+    note: 'We complete this page as we make new finds — addresses and contacts coming soon.',
+    categories: [
+      { title: 'Olive oil', desc: 'Extra-virgin oils pressed in the small mills of the Iblei mountains.' },
+      { title: 'Citrus & lemons', desc: 'Lemons, oranges and preserves from nearby orchards.' },
+      { title: 'Chilli & spices', desc: 'Chilli, oregano, dried herbs and sea salt.' },
+      { title: 'Chocolate', desc: 'The famous Modica chocolate and artisan sweets.' },
+      { title: 'Plants & flowers', desc: 'Local nurseries and flowers for the house and garden.' },
+      { title: 'Markets & producers', desc: 'Weekly markets and small producers to meet.' },
+    ],
+  },
   salvaPage: { title: 'The family', intro: 'Photos, memories and family history, over the years.', historyTitle: 'Family history', historyText: "From one generation to the next, this house in Cava d’Aliga brings the family together. Its story will soon be written here — the origins, the shared summers and the faces that made it live.", treeTitle: 'Family tree', treeNote: 'Coming soon: a collaborative tree where everyone can add their branch.', treePaternal: 'Paternal grandparents', treeMaternal: 'Maternal grandparents', treeWife1: '1st wife', treeWife2: '2nd wife', treeAdd: '+ Add my branch', treeAddSubject: 'Family tree — my branch', treeExample: 'Example structure — tell us the real relationships and we’ll complete it.' },
   calendarPage: { title: 'The calendar', intro: 'When the house is occupied, so the family can coordinate.', festivalsTitle: 'Sicilian festivals', programTitle: 'Upcoming events', programNote: 'Sotto il cielo di Bruca — the summer programme, steps from the house. Follow the colours.', programMore: 'Details and times on Instagram', socialsTitle: 'Follow', festivalDescs: ["The high point of the Italian summer. Descended from the Roman Feriae Augusti and tied to the Assumption, the holiday gathers families and villages by the sea: swimming, big meals, processions and fireworks all across Sicily.", "Saint Roch, invoked for centuries against epidemics, protects many Sicilian communities. In Scicli his statue is carried in procession through the alleys, amid brass bands and festive lights.", "Saint John the Baptist is the patron of Ragusa, whose cathedral is dedicated to him. On 29 August, the day of his beheading, the town lights up: a solemn procession of the statue and a grand fireworks display over the old town.", "Saint Conrad Confalonieri, a hermit venerated as Noto’s patron. On the last Sunday of August, his silver urn moves through the baroque streets in great popular devotion, among candles, flowers and processions."], legend: { occupied: 'Occupied', tentative: 'Pending', free: 'Free', festival: 'Sicilian festival' } },
   ctaEyebrow: 'Ready to come?',
