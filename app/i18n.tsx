@@ -82,7 +82,7 @@ export type Dict = {
 };
 
 const FR: Dict = {
-  nav: ['Accueil', 'Préparer le voyage', 'Informations pratiques', 'Services locaux', 'La région', 'La famille', 'Calendrier', 'Contact'],
+  nav: ['Accueil', 'Préparer le voyage', 'Informations pratiques', 'Services locaux', 'La région', 'La famille', 'Calendrier'],
   region: 'Sicile',
   tagline: 'un village du sud-est de la Sicile',
   subLabels: ['Près de Scicli dans la province de Raguse'],
@@ -242,7 +242,7 @@ const FR: Dict = {
 };
 
 const IT: Dict = {
-  nav: ['Home', 'Preparare il viaggio', 'Informazioni pratiche', 'Servizi locali', 'La regione', 'La famiglia', 'Calendario', 'Contatti'],
+  nav: ['Home', 'Preparare il viaggio', 'Informazioni pratiche', 'Servizi locali', 'La regione', 'La famiglia', 'Calendario'],
   region: 'Sicilia',
   tagline: 'un villaggio del sud-est della Sicilia',
   subLabels: ['Vicino a Scicli in provincia di Ragusa'],
@@ -402,7 +402,7 @@ const IT: Dict = {
 };
 
 const EN: Dict = {
-  nav: ['Home', 'Plan your trip', 'Practical information', 'Local services', 'The region', 'The family', 'Calendar', 'Contact'],
+  nav: ['Home', 'Plan your trip', 'Practical information', 'Local services', 'The region', 'The family', 'Calendar'],
   region: 'Sicily',
   tagline: 'a village in south-east Sicily',
   subLabels: ['Near Scicli in the province of Ragusa'],
