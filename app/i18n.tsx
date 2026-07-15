@@ -26,6 +26,7 @@ type PrepareContent = {
   intro: string;
   groups: PrepareGroup[];
   checklistTitle: string;
+  checklistNote: string;
   checklist: string[];
 };
 type ArriveeContent = {
@@ -204,11 +205,14 @@ const FR: Dict = {
           'Location de voiture — pratique pour explorer la région ; nous conseillons Goldcar, à l’aéroport de Catane. À la sortie de l’aéroport, prenez à droite : tous les loueurs sont regroupés au même endroit.',
           'Important : la carte de crédit doit être au nom de la personne qui a réservé. Goldcar bloque une caution (environ 950 € à ce jour) si vous ne prenez pas l’assurance, qui reste facultative.',
           'Chauffeur privé — Giovanni, notre perle (+39 380 313 8948) : 10 € de Donnalucata à l’appartement, 20 € de Pozzallo, 150 € depuis l’aéroport de Catane. Jusqu’à 5-6 personnes. À prévenir à l’avance selon ses disponibilités (prévoyez un plan B).',
+          'Ne comptez pas trouver de Uber : l’application ne couvre pas cette région rurale (en Italie, Uber ne fonctionne qu’à Rome et Milan, et seulement avec des taxis/chauffeurs licenciés). Ici, on compte sur Giovanni, un taxi local ou le bus.',
         ],
       },
     ],
     checklistTitle: 'Check-list avant de partir',
+    checklistNote: 'Surtout pour Mag, qui a oublié les clés la dernière fois.',
     checklist: [
+      'Les clés de l’appartement',
       'Passeport / carte d’identité valides',
       'Billets d’avion et confirmation de location',
       'Permis de conduire (et permis international si besoin)',
@@ -370,11 +374,14 @@ const IT: Dict = {
           'Noleggio auto — comodo per esplorare la regione; consigliamo Goldcar, all’aeroporto di Catania. All’uscita dell’aeroporto, girate a destra: tutti gli autonoleggi sono riuniti nello stesso punto.',
           'Importante: la carta di credito deve essere intestata alla persona che ha prenotato. Goldcar blocca una cauzione (circa 950 € a oggi) se non si prende l’assicurazione, che resta facoltativa.',
           'Autista privato — Giovanni, la nostra perla (+39 380 313 8948): 10 € da Donnalucata all’appartamento, 20 € da Pozzallo, 150 € dall’aeroporto di Catania. Fino a 5-6 persone. Da avvisare in anticipo in base alla disponibilità (tenete un piano B).',
+          'Non contate di trovare Uber: l’app non copre questa zona rurale (in Italia Uber funziona solo a Roma e Milano, e soltanto con taxi/autisti con licenza). Qui si conta su Giovanni, un taxi locale o il bus.',
         ],
       },
     ],
     checklistTitle: 'Check-list prima di partire',
+    checklistNote: 'Soprattutto per Mag, che l’ultima volta ha dimenticato le chiavi.',
     checklist: [
+      'Le chiavi dell’appartamento',
       'Passaporto / carta d’identità validi',
       'Biglietti aerei e conferma della prenotazione',
       'Patente di guida (e patente internazionale se serve)',
@@ -536,11 +543,14 @@ const EN: Dict = {
           'Car rental — handy for exploring the region; we recommend Goldcar, at Catania airport. As you leave the airport, turn right: all the rental companies are grouped in the same spot.',
           'Important: the credit card must be in the name of the person who booked. Goldcar holds a deposit (around €950 as of today) if you decline the insurance, which is optional.',
           'Private driver — Giovanni, our gem (+39 380 313 8948): €10 from Donnalucata to the apartment, €20 from Pozzallo, €150 from Catania airport. Up to 5-6 people. Book ahead subject to availability (keep a plan B).',
+          'Don’t count on finding an Uber: the app doesn’t cover this rural area (in Italy, Uber only runs in Rome and Milan, and only with licensed taxis/drivers). Here you rely on Giovanni, a local taxi or the bus.',
         ],
       },
     ],
     checklistTitle: 'Checklist before you go',
+    checklistNote: 'Especially for Mag, who forgot the keys last time.',
     checklist: [
+      'The apartment keys',
       'Valid passport / ID card',
       'Flight tickets and booking confirmation',
       'Driving licence (and international permit if needed)',

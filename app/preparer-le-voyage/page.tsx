@@ -76,7 +76,7 @@ export default function PreparerLeVoyage() {
       {/* Check-list cochable */}
       <section className="mx-auto max-w-[110rem] px-5 pb-24 pt-16 md:px-10">
         <Reveal className="rounded-2xl p-8 text-white md:p-12" style={{ background: 'var(--cava-ink)' }}>
-          <div className="mb-8 flex items-center gap-3">
+          <div className="mb-2 flex items-center gap-3">
             <span aria-hidden style={{ color: 'var(--cava-pink)' }}>
               <Shape index={5} size={30} />
             </span>
@@ -84,6 +84,9 @@ export default function PreparerLeVoyage() {
               {p.checklistTitle}
             </h2>
           </div>
+          <p className="mb-8 text-[14px] italic" style={{ color: 'rgba(255,255,255,0.6)' }}>
+            {p.checklistNote}
+          </p>
           <ul className="grid gap-x-10 gap-y-1 md:grid-cols-2">
             {p.checklist.map((c, i) => {
               const on = checked.has(i);
