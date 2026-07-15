@@ -82,13 +82,6 @@ export default function CavaHome() {
 
       {/* ---------- Galerie : bandeau d'images défilant ---------- */}
       <section className="py-24 md:py-28">
-        <Reveal
-          as="h2"
-          className="mx-auto mb-10 max-w-[110rem] px-5 text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.05] md:px-10"
-          style={{ fontWeight: 500 }}
-        >
-          {t.tasteOfSicily}
-        </Reveal>
         <Gallery images={GALLERY_STRIP} />
       </section>
 

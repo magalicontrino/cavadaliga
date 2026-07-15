@@ -16,8 +16,11 @@ const CARDS = [
   { cls: 'first', tone: 'terra', rot: 4, tx: '4%', src: '/deco/figue-barbarie.jpg', alt: 'Figues de Barbarie de Sicile' },
 ] as const;
 
-const CARD_W = 'min(46vh, 330px)';
-const CARD_H = 'min(64vh, 460px)';
+// Taille des cartes : bornée aussi par la LARGEUR d'écran (vw) pour rester
+// adaptée sur mobile (sinon 46vh donne des cartes ~330px sur un tél. étroit).
+// Sur desktop, ce sont les bornes vh/px qui dominent → dimensions inchangées.
+const CARD_W = 'min(60vw, 46vh, 330px)';
+const CARD_H = 'min(84vw, 64vh, 460px)';
 
 // Mots défilants du wordmark géant (au lieu de répéter le nom du site).
 const WORDMARK = ['Sicilia', 'Mare', 'Sole', 'Dolce vita', 'Mediterraneo', 'Barocco'];
