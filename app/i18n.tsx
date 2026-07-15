@@ -74,7 +74,7 @@ export type Dict = {
   regionPlaces: string[]; // histoires des lieux, même ordre que PLACES (la-region)
   regionHighlights: string[][]; // points forts par lieu, même ordre que PLACES
   unescoLabel: string; // badge patrimoine mondial UNESCO
-  localPage: { title: string; intro: string; note: string; categories: { title: string; desc: string }[] };
+  localPage: { title: string; intro: string; note: string; categories: { title: string; desc: string; spots: { label: string; url: string }[] }[] };
   salvaPage: { title: string; intro: string; historyTitle: string; historyText: string; treeTitle: string; treeNote: string; treePaternal: string; treeMaternal: string; treeWife1: string; treeWife2: string; treeAdd: string; treeAddSubject: string; treeExample: string };
   calendarPage: { title: string; intro: string; festivalsTitle: string; programTitle: string; programNote: string; programMore: string; socialsTitle: string; festivalDescs: string[]; legend: { occupied: string; tentative: string; free: string; festival: string } };
   ctaEyebrow: string;
@@ -134,6 +134,7 @@ const FR: Dict = {
     'Petite plage entre Donnalucata et Sampieri, Bruca est un coin tranquille au sable clair, qui s’anime l’été autour de sa communauté : concerts, cinéma en plein air et fêtes du Comitato Bruca.',
     'Ancien village de pêcheurs aux maisons colorées, Sampieri déroule l’une des plus longues plages de la côte. Son charme suranné en a fait un décor récurrent des tournages de Montalbano.',
     'Sur le promontoire se dressent les ruines de la Fornace Penna, une briqueterie du début du XXᵉ siècle ravagée par un incendie en 1924. Sa silhouette face à la mer — « la Mànnara » de Montalbano — est devenue iconique.',
+    'Station balnéaire animée de Ragusa, Marina di Ragusa aligne une longue plage de sable (Pavillon Bleu), un port de plaisance et une promenade qui s’animent surtout l’été — baignades, apéritifs et soirées au bord de l’eau.',
     'Ville baroque étagée dans une gorge, Modica est mondialement connue pour son chocolat travaillé à froid selon une recette d’origine aztèque. Son église San Giorgio compte parmi les chefs-d’œuvre du baroque sicilien.',
     'Perchée sur un éperon rocheux, Raguse se partage entre la ville haute et Ibla, son cœur baroque labyrinthique. Le duomo San Giorgio y domine une place en pente bordée de palais.',
     'Capitale du baroque du Val di Noto, Noto fut entièrement reconstruite en pierre dorée après le séisme de 1693. Son corso aligne cathédrale, palais et églises d’une théâtralité éblouissante, surtout au coucher du soleil.',
@@ -145,6 +146,7 @@ const FR: Dict = {
     ['Réserves naturelles et sentiers le long de la côte.', 'Baignade tranquille, loin de la foule.'],
     ['L’une des plus longues plages de sable de la côte.', 'Trattorias de poisson, cannoli et vins locaux.'],
     ['Exploration des ruines de la Fornace Penna au coucher du soleil.', 'Idées d’excursions et d’itinéraires selon la durée du séjour.'],
+    ['Longue plage de sable, Pavillon Bleu.', 'Port de plaisance, promenade et vie nocturne estivale.'],
     ['Chocolat de Modica IGP à déguster chez les maîtres chocolatiers.', 'L’escalier et la façade de San Giorgio, joyaux du baroque.'],
     ['Flânerie dans les ruelles d’Ibla, la vieille ville.', 'Jardin Ibleo et panoramas sur la vallée.'],
     ['Corso Vittorio Emanuele et sa cathédrale au coucher du soleil.', 'Glaces et granite chez les glaciers réputés.'],
@@ -156,12 +158,38 @@ const FR: Dict = {
     intro: 'Nos adresses pour consommer local et responsable : de petits producteurs et artisans du sud-est de la Sicile, choisis pour la qualité de leurs produits et pour faire vivre l’agriculture de la région.',
     note: 'Nous complétons cette page au fil de nos trouvailles — adresses et contacts à venir.',
     categories: [
-      { title: 'Huile d’olive', desc: 'Huiles extra-vierges pressées dans les petits moulins des monts Iblei.' },
-      { title: 'Agrumes & citrons', desc: 'Citrons, oranges et confitures des vergers voisins.' },
-      { title: 'Piment & épices', desc: 'Piment, origan, herbes séchées et sel de mer.' },
-      { title: 'Chocolat', desc: 'Le fameux chocolat de Modica et les douceurs artisanales.' },
-      { title: 'Plantes & fleurs', desc: 'Pépinières et fleurs locales pour la maison et le jardin.' },
-      { title: 'Marchés & producteurs', desc: 'Marchés hebdomadaires et petits producteurs à rencontrer.' },
+      {
+        title: 'Chocolat de Modica',
+        desc: 'La capitale du chocolat travaillé à froid (recette d’origine aztèque), à ~30 min.',
+        spots: [{ label: 'Antica Dolceria Bonajuto — Modica, la plus ancienne (depuis 1880)', url: 'https://www.bonajuto.it' }],
+      },
+      {
+        title: 'Huile d’olive — DOP Monti Iblei',
+        desc: 'Chiaramonte Gulfi, « ville de l’huile », et ses moulins primés (Tonda Iblea).',
+        spots: [
+          { label: 'Frantoi Cutrera — Chiaramonte Gulfi', url: 'https://www.google.com/maps/search/?api=1&query=Frantoi+Cutrera+Chiaramonte+Gulfi' },
+          { label: 'Gatto Frantoio — Chiaramonte Gulfi', url: 'https://www.gattofrantoio.com' },
+        ],
+      },
+      {
+        title: 'Marchés & producteurs',
+        desc: 'Fruits, légumes, fromages et poisson du jour, directement des producteurs.',
+        spots: [
+          { label: 'Marché de Scicli — mardi matin, Piazza Olimpiadi', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli' },
+          { label: 'Marché fermier de Marina di Ragusa — vendredi matin (juin–sept.)', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa' },
+          { label: 'Marché au poisson de Donnalucata — poisson frais du jour', url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata' },
+        ],
+      },
+      {
+        title: 'Agrumes, piment & épices',
+        desc: 'Citrons, oranges, piment, origan et sel de mer se trouvent sur les marchés et chez les petits producteurs voisins.',
+        spots: [],
+      },
+      {
+        title: 'Plantes & fleurs',
+        desc: 'Pépinières locales pour fleurir la maison et le jardin.',
+        spots: [{ label: 'Pépinières autour de Scicli', url: 'https://www.google.com/maps/search/?api=1&query=vivaio+Scicli' }],
+      },
     ],
   },
   salvaPage: { title: 'La famille', intro: 'Photos, souvenirs et histoire de la famille, au fil des années.', historyTitle: 'Histoire de la famille', historyText: "De génération en génération, cette maison de Cava d’Aliga rassemble la famille. On écrira bientôt son histoire ici — les origines, les étés partagés et les visages qui l’ont fait vivre.", treeTitle: 'Arbre généalogique', treeNote: 'Bientôt : un arbre participatif où chacun pourra ajouter sa branche.', treePaternal: 'Grands-parents paternels', treeMaternal: 'Grands-parents maternels', treeWife1: '1re épouse', treeWife2: '2e épouse', treeAdd: '+ Ajouter ma branche', treeAddSubject: 'Arbre généalogique — ma branche', treeExample: 'Structure d’exemple — dites-nous les vrais liens et on complète.' },
@@ -340,6 +368,7 @@ const IT: Dict = {
     'Piccola spiaggia tra Donnalucata e Sampieri, Bruca è un angolo tranquillo dalla sabbia chiara, che d’estate si anima attorno alla sua comunità: concerti, cinema all’aperto e feste del Comitato Bruca.',
     'Antico borgo di pescatori dalle case colorate, Sampieri offre una delle spiagge più lunghe della costa. Il suo fascino d’altri tempi ne ha fatto un set ricorrente delle riprese di Montalbano.',
     'Sul promontorio si ergono le rovine della Fornace Penna, una fabbrica di mattoni di inizio Novecento distrutta da un incendio nel 1924. La sua sagoma di fronte al mare — « la Mànnara » di Montalbano — è diventata iconica.',
+    'Vivace località balneare di Ragusa, Marina di Ragusa allinea una lunga spiaggia di sabbia (Bandiera Blu), un porto turistico e un lungomare che si animano soprattutto d’estate — bagni, aperitivi e serate in riva al mare.',
     'Città barocca adagiata in una gola, Modica è celebre nel mondo per il suo cioccolato lavorato a freddo secondo una ricetta di origine azteca. La chiesa di San Giorgio è tra i capolavori del barocco siciliano.',
     'Arroccata su uno sperone roccioso, Ragusa si divide tra la città alta e Ibla, il suo cuore barocco labirintico. Il duomo di San Giorgio domina una piazza in pendenza cinta di palazzi.',
     'Capitale del barocco del Val di Noto, Noto fu interamente ricostruita in pietra dorata dopo il terremoto del 1693. Il corso allinea cattedrale, palazzi e chiese di abbagliante teatralità, soprattutto al tramonto.',
@@ -351,6 +380,7 @@ const IT: Dict = {
     ['Riserve naturali e sentieri lungo la costa.', 'Bagni tranquilli, lontano dalla folla.'],
     ['Una delle spiagge di sabbia più lunghe della costa.', 'Trattorie di pesce, cannoli e vini locali.'],
     ['Esplorazione delle rovine della Fornace Penna al tramonto.', 'Idee di gite e itinerari secondo la durata del soggiorno.'],
+    ['Lunga spiaggia di sabbia, Bandiera Blu.', 'Porto turistico, lungomare e vita notturna estiva.'],
     ['Cioccolato di Modica IGP da gustare dai maestri cioccolatieri.', 'La scalinata e la facciata di San Giorgio, gioielli del barocco.'],
     ['Passeggiata tra i vicoli di Ibla, la città vecchia.', 'Giardino Ibleo e panorami sulla valle.'],
     ['Corso Vittorio Emanuele e la sua cattedrale al tramonto.', 'Gelati e granite dalle gelaterie rinomate.'],
@@ -362,12 +392,38 @@ const IT: Dict = {
     intro: 'I nostri indirizzi per un consumo locale e responsabile: piccoli produttori e artigiani del sud-est della Sicilia, scelti per la qualità dei loro prodotti e per sostenere l’agricoltura della regione.',
     note: 'Completiamo questa pagina man mano che scopriamo — indirizzi e contatti in arrivo.',
     categories: [
-      { title: 'Olio d’oliva', desc: 'Oli extravergini spremuti nei piccoli frantoi dei monti Iblei.' },
-      { title: 'Agrumi & limoni', desc: 'Limoni, arance e marmellate dei frutteti vicini.' },
-      { title: 'Peperoncino & spezie', desc: 'Peperoncino, origano, erbe essiccate e sale marino.' },
-      { title: 'Cioccolato', desc: 'Il celebre cioccolato di Modica e i dolci artigianali.' },
-      { title: 'Piante & fiori', desc: 'Vivai e fiori locali per la casa e il giardino.' },
-      { title: 'Mercati & produttori', desc: 'Mercati settimanali e piccoli produttori da incontrare.' },
+      {
+        title: 'Cioccolato di Modica',
+        desc: 'La capitale del cioccolato lavorato a freddo (ricetta di origine azteca), a ~30 min.',
+        spots: [{ label: 'Antica Dolceria Bonajuto — Modica, la più antica (dal 1880)', url: 'https://www.bonajuto.it' }],
+      },
+      {
+        title: 'Olio d’oliva — DOP Monti Iblei',
+        desc: 'Chiaramonte Gulfi, « città dell’olio », e i suoi frantoi premiati (Tonda Iblea).',
+        spots: [
+          { label: 'Frantoi Cutrera — Chiaramonte Gulfi', url: 'https://www.google.com/maps/search/?api=1&query=Frantoi+Cutrera+Chiaramonte+Gulfi' },
+          { label: 'Gatto Frantoio — Chiaramonte Gulfi', url: 'https://www.gattofrantoio.com' },
+        ],
+      },
+      {
+        title: 'Mercati & produttori',
+        desc: 'Frutta, verdura, formaggi e pesce del giorno, direttamente dai produttori.',
+        spots: [
+          { label: 'Mercato di Scicli — martedì mattina, Piazza Olimpiadi', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli' },
+          { label: 'Mercato degli agricoltori di Marina di Ragusa — venerdì mattina (giu–set)', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa' },
+          { label: 'Mercato del pesce di Donnalucata — pesce fresco del giorno', url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata' },
+        ],
+      },
+      {
+        title: 'Agrumi, peperoncino & spezie',
+        desc: 'Limoni, arance, peperoncino, origano e sale marino si trovano ai mercati e dai piccoli produttori vicini.',
+        spots: [],
+      },
+      {
+        title: 'Piante & fiori',
+        desc: 'Vivai locali per abbellire la casa e il giardino.',
+        spots: [{ label: 'Vivai attorno a Scicli', url: 'https://www.google.com/maps/search/?api=1&query=vivaio+Scicli' }],
+      },
     ],
   },
   salvaPage: { title: 'La famiglia', intro: 'Foto, ricordi e storia della famiglia, nel corso degli anni.', historyTitle: 'Storia della famiglia', historyText: "Di generazione in generazione, questa casa di Cava d’Aliga riunisce la famiglia. Presto ne racconteremo qui la storia — le origini, le estati condivise e i volti che l’hanno animata.", treeTitle: 'Albero genealogico', treeNote: 'Presto: un albero partecipativo dove ognuno potrà aggiungere il proprio ramo.', treePaternal: 'Nonni paterni', treeMaternal: 'Nonni materni', treeWife1: '1ª moglie', treeWife2: '2ª moglie', treeAdd: '+ Aggiungi il mio ramo', treeAddSubject: 'Albero genealogico — il mio ramo', treeExample: 'Struttura di esempio — diteci i legami reali e completiamo.' },
@@ -546,6 +602,7 @@ const EN: Dict = {
     'A small beach between Donnalucata and Sampieri, Bruca is a quiet spot with pale sand that comes alive in summer around its community: concerts, open-air cinema and Comitato Bruca festivities.',
     'A former fishing village with colourful houses, Sampieri unrolls one of the longest beaches on the coast. Its old-world charm has made it a recurring filming location for Montalbano.',
     'On the headland stand the ruins of the Fornace Penna, an early-20th-century brickworks destroyed by fire in 1924. Its silhouette against the sea — Montalbano’s « Mànnara » — has become iconic.',
+    'A lively seaside resort of Ragusa, Marina di Ragusa lines up a long sandy beach (Blue Flag), a marina and a promenade that come alive in summer — swimming, aperitivi and evenings by the water.',
     'A Baroque town cascading down a gorge, Modica is world-famous for its cold-worked chocolate, made to an Aztec-origin recipe. Its church of San Giorgio ranks among the masterpieces of Sicilian Baroque.',
     'Perched on a rocky spur, Ragusa is split between the upper town and Ibla, its labyrinthine Baroque heart. The San Giorgio cathedral crowns a sloping square lined with palaces.',
     'The capital of Val di Noto Baroque, Noto was entirely rebuilt in golden stone after the 1693 earthquake. Its avenue lines up cathedral, palaces and churches of dazzling theatricality, especially at sunset.',
@@ -557,6 +614,7 @@ const EN: Dict = {
     ['Nature reserves and coastal trails.', 'Quiet swims, away from the crowds.'],
     ['One of the longest sandy beaches on the coast.', 'Fish trattorias, cannoli and local wines.'],
     ['Explore the Fornace Penna ruins at sunset.', 'Trip and itinerary ideas to suit the length of your stay.'],
+    ['Long sandy beach with a Blue Flag.', 'Marina, promenade and lively summer nights.'],
     ['Taste Modica PGI chocolate at the master chocolatiers.', 'The staircase and façade of San Giorgio, Baroque gems.'],
     ['Wander the lanes of Ibla, the old town.', 'Giardino Ibleo and valley views.'],
     ['Corso Vittorio Emanuele and its cathedral at sunset.', 'Ice cream and granita at renowned gelaterie.'],
@@ -568,12 +626,38 @@ const EN: Dict = {
     intro: 'Our addresses for local, responsible shopping: small producers and artisans of south-east Sicily, chosen for the quality of their products and to support the region’s farming.',
     note: 'We complete this page as we make new finds — addresses and contacts coming soon.',
     categories: [
-      { title: 'Olive oil', desc: 'Extra-virgin oils pressed in the small mills of the Iblei mountains.' },
-      { title: 'Citrus & lemons', desc: 'Lemons, oranges and preserves from nearby orchards.' },
-      { title: 'Chilli & spices', desc: 'Chilli, oregano, dried herbs and sea salt.' },
-      { title: 'Chocolate', desc: 'The famous Modica chocolate and artisan sweets.' },
-      { title: 'Plants & flowers', desc: 'Local nurseries and flowers for the house and garden.' },
-      { title: 'Markets & producers', desc: 'Weekly markets and small producers to meet.' },
+      {
+        title: 'Modica chocolate',
+        desc: 'The capital of cold-worked chocolate (an Aztec-origin recipe), ~30 min away.',
+        spots: [{ label: 'Antica Dolceria Bonajuto — Modica, the oldest (since 1880)', url: 'https://www.bonajuto.it' }],
+      },
+      {
+        title: 'Olive oil — DOP Monti Iblei',
+        desc: 'Chiaramonte Gulfi, “town of oil”, and its award-winning mills (Tonda Iblea).',
+        spots: [
+          { label: 'Frantoi Cutrera — Chiaramonte Gulfi', url: 'https://www.google.com/maps/search/?api=1&query=Frantoi+Cutrera+Chiaramonte+Gulfi' },
+          { label: 'Gatto Frantoio — Chiaramonte Gulfi', url: 'https://www.gattofrantoio.com' },
+        ],
+      },
+      {
+        title: 'Markets & producers',
+        desc: 'Fruit, vegetables, cheese and the day’s catch, straight from the producers.',
+        spots: [
+          { label: 'Scicli market — Tuesday morning, Piazza Olimpiadi', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli' },
+          { label: 'Marina di Ragusa farmers’ market — Friday morning (Jun–Sep)', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa' },
+          { label: 'Donnalucata fish market — fresh catch of the day', url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata' },
+        ],
+      },
+      {
+        title: 'Citrus, chilli & spices',
+        desc: 'Lemons, oranges, chilli, oregano and sea salt are found at the markets and from nearby small producers.',
+        spots: [],
+      },
+      {
+        title: 'Plants & flowers',
+        desc: 'Local nurseries to brighten the house and garden.',
+        spots: [{ label: 'Nurseries around Scicli', url: 'https://www.google.com/maps/search/?api=1&query=vivaio+Scicli' }],
+      },
     ],
   },
   salvaPage: { title: 'The family', intro: 'Photos, memories and family history, over the years.', historyTitle: 'Family history', historyText: "From one generation to the next, this house in Cava d’Aliga brings the family together. Its story will soon be written here — the origins, the shared summers and the faces that made it live.", treeTitle: 'Family tree', treeNote: 'Coming soon: a collaborative tree where everyone can add their branch.', treePaternal: 'Paternal grandparents', treeMaternal: 'Maternal grandparents', treeWife1: '1st wife', treeWife2: '2nd wife', treeAdd: '+ Add my branch', treeAddSubject: 'Family tree — my branch', treeExample: 'Example structure — tell us the real relationships and we’ll complete it.' },

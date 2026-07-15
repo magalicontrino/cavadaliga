@@ -37,6 +37,26 @@ export default function Local() {
               <p className="text-[15px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
                 {c.desc}
               </p>
+
+              {c.spots.length > 0 && (
+                <ul className="mt-1 flex flex-col gap-3">
+                  {c.spots.map((s) => (
+                    <li key={s.url}>
+                      <a
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="cava-navlink inline-flex items-start gap-2 text-[15px] leading-[1.4]"
+                      >
+                        <span className="mt-2 h-[6px] w-[6px] shrink-0 rounded-full" style={{ background: 'var(--cava-pink)' }} />
+                        <span>
+                          {s.label} <span aria-hidden>↗</span>
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </Reveal>
           ))}
         </div>

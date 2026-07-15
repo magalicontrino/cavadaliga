@@ -17,6 +17,7 @@ const PLACES = [
   { images: ['/picture-sicile/bruca.jpg'], label: 'Bruca', tone: 'sand', unesco: false },
   { images: ['/picture-sicile/sampieri.jpg'], label: 'Sampieri', tone: 'sand', unesco: false },
   { images: ['/picture-sicile/punta-pisciotto.jpg'], label: 'Punta Pisciotto', tone: 'sand', unesco: false },
+  { images: [], label: 'Marina di Ragusa', tone: 'pink', unesco: false },
   { images: [], label: 'Modica', tone: 'terra', unesco: true },
   { images: [], label: 'Raguse', tone: 'ink', unesco: true },
   { images: [], label: 'Noto', tone: 'pink', unesco: true },
