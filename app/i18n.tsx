@@ -138,7 +138,7 @@ const FR: Dict = {
         { title: 'Arrivée & départ', items: ['Horaires de check-in / check-out.', 'Remise des clés et instructions d’accès.'] },
         { title: 'L’appartement', items: ['Équipements (cuisine, wifi, climatisation, linge).', 'Capacité et configuration des couchages.'] },
         { title: 'Bon à savoir', items: ['Règles de la maison.', 'Tri des déchets et vie du hameau.'] },
-        { title: 'Sur place', items: ['Commerces et pharmacie les plus proches.', 'Numéros utiles en cas d’imprévu.'] },
+        { title: 'Contacts utiles', items: ['Médecin, pharmacie, taxi.', 'Numéros d’urgence en Italie.'] },
       ],
     },
     'services-locaux': {
@@ -149,7 +149,6 @@ const FR: Dict = {
         { title: 'Manger & boire', items: ['Restaurants et trattorias que nous aimons.', 'Glaciers, cafés et spécialités siciliennes.'] },
         { title: 'Courses & marchés', items: ['Épiceries et supermarchés proches.', 'Jours et lieux des marchés.'] },
         { title: 'Plage & loisirs', items: ['Plages et criques recommandées.', 'Locations (transats, bateaux, vélos).'] },
-        { title: 'Contacts utiles', items: ['Médecin, pharmacie, taxi.', 'Numéros d’urgence en Italie.'] },
       ],
     },
     'la-region': {
@@ -303,7 +302,7 @@ const IT: Dict = {
         { title: 'Arrivo & partenza', items: ['Orari di check-in / check-out.', 'Consegna delle chiavi e istruzioni per l’accesso.'] },
         { title: 'L’appartamento', items: ['Dotazioni (cucina, wifi, aria condizionata, biancheria).', 'Capienza e configurazione dei letti.'] },
         { title: 'Buono a sapersi', items: ['Regole della casa.', 'Raccolta differenziata e vita del borgo.'] },
-        { title: 'Sul posto', items: ['Negozi e farmacia più vicini.', 'Numeri utili in caso di imprevisto.'] },
+        { title: 'Contatti utili', items: ['Medico, farmacia, taxi.', 'Numeri di emergenza in Italia.'] },
       ],
     },
     'services-locaux': {
@@ -314,7 +313,6 @@ const IT: Dict = {
         { title: 'Mangiare & bere', items: ['Ristoranti e trattorie che amiamo.', 'Gelaterie, caffè e specialità siciliane.'] },
         { title: 'Spesa & mercati', items: ['Alimentari e supermercati vicini.', 'Giorni e luoghi dei mercati.'] },
         { title: 'Spiaggia & tempo libero', items: ['Spiagge e cale consigliate.', 'Noleggi (lettini, barche, bici).'] },
-        { title: 'Contatti utili', items: ['Medico, farmacia, taxi.', 'Numeri di emergenza in Italia.'] },
       ],
     },
     'la-region': {
@@ -468,7 +466,7 @@ const EN: Dict = {
         { title: 'Arrival & departure', items: ['Check-in / check-out times.', 'Key handover and access instructions.'] },
         { title: 'The apartment', items: ['Amenities (kitchen, wifi, air conditioning, linen).', 'Capacity and bedding layout.'] },
         { title: 'Good to know', items: ['House rules.', 'Waste sorting and life in the hamlet.'] },
-        { title: 'On site', items: ['Nearest shops and pharmacy.', 'Useful numbers in case of need.'] },
+        { title: 'Useful contacts', items: ['Doctor, pharmacy, taxi.', 'Emergency numbers in Italy.'] },
       ],
     },
     'services-locaux': {
@@ -479,7 +477,6 @@ const EN: Dict = {
         { title: 'Eat & drink', items: ['Restaurants and trattorias we love.', 'Gelato, cafés and Sicilian specialities.'] },
         { title: 'Groceries & markets', items: ['Nearby grocery stores and supermarkets.', 'Market days and locations.'] },
         { title: 'Beach & leisure', items: ['Recommended beaches and coves.', 'Rentals (sunbeds, boats, bikes).'] },
-        { title: 'Useful contacts', items: ['Doctor, pharmacy, taxi.', 'Emergency numbers in Italy.'] },
       ],
     },
     'la-region': {

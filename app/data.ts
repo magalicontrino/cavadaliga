@@ -38,8 +38,8 @@ export const INDEX_CARDS = [
 // Les noms correspondent à app/Icon.tsx.
 import type { IconName } from './Icon';
 export const PAGE_ICONS: Record<'informations-pratiques' | 'services-locaux' | 'la-region', IconName[]> = {
-  'informations-pratiques': ['key', 'home', 'info', 'pin'],
-  'services-locaux': ['fork', 'bag', 'sun', 'phone'],
+  'informations-pratiques': ['key', 'home', 'info', 'phone'],
+  'services-locaux': ['fork', 'bag', 'sun'],
   'la-region': ['landmark', 'wave', 'cone', 'compass'],
 };
 
