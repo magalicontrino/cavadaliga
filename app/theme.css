@@ -282,7 +282,7 @@
 }
 .cava-treeadd:hover {
   background: var(--cava-pink);
-  color: #fff;
+  color: #fff !important;
   transform: scale(1.04);
 }
 @media (prefers-reduced-motion: reduce) {
