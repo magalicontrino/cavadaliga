@@ -15,23 +15,15 @@ export const SITE = {
 } as const;
 
 // Menu principal — hrefs (les libellés viennent de i18n, même ordre)
+// Site sur une seule page : le menu fait défiler jusqu'aux ancres des rubriques.
 export const NAV = [
-  { href: '/' },
-  { href: '/preparer-le-voyage' },
-  { href: '/informations-pratiques' },
-  { href: '/services-locaux' },
-  { href: '/la-region' },
-  { href: '/famille' },
-  { href: '/calendrier' },
-] as const;
-
-// Cartes d'index — structure (libellés via i18n.indexCards, même ordre).
-// Plus de photo ni picto : fond couleur de marque (tone) + numéro typographique.
-export const INDEX_CARDS = [
-  { href: '/informations-pratiques', tone: 'ink' },
-  { href: '/services-locaux', tone: 'terra' },
-  { href: '/la-region', tone: 'pink' },
-  { href: '/preparer-le-voyage', tone: 'ink' },
+  { href: '#top' },
+  { href: '#preparer-le-voyage' },
+  { href: '#informations-pratiques' },
+  { href: '#services-locaux' },
+  { href: '#la-region' },
+  { href: '#famille' },
+  { href: '#calendrier' },
 ] as const;
 
 // Icônes des cartes de chaque page « à blocs » (même ordre que t.pages[x].blocks).

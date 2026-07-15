@@ -66,7 +66,7 @@ export default function CtaBadge({
         {/* Badge rotatif */}
         <Reveal delay={120} className="shrink-0">
           <a
-            href={withBase(href)}
+            href={href.startsWith('#') ? href : withBase(href)}
             className="cava-circlebadge group relative inline-flex h-44 w-44 items-center justify-center md:h-48 md:w-48"
             aria-label={title}
           >

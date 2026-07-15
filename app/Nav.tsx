@@ -76,7 +76,7 @@ export default function Nav({ current }: { current?: string }) {
           {NAV.map((item, i) => (
             <a
               key={item.href}
-              href={withBase(item.href)}
+              href={item.href.startsWith('#') ? item.href : withBase(item.href)}
               onClick={() => setOpen(false)}
               aria-current={current === item.href ? 'page' : undefined}
               className="border-b py-[1.4vh] text-[clamp(1.5rem,5.2vh,3.4rem)] leading-[1.1] transition-transform duration-300 hover:translate-x-2 aria-[current=page]:opacity-60"

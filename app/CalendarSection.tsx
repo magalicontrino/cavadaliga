@@ -1,11 +1,9 @@
 'use client';
 
-import Nav from '../Nav';
-import Footer from '../Footer';
-import Reveal from '../Reveal';
-import PageHeader from '../PageHeader';
-import Icon from '../Icon';
-import { useI18n } from '../i18n';
+import Reveal from './Reveal';
+import SectionHeading from './SectionHeading';
+import Icon from './Icon';
+import { useI18n } from './i18n';
 
 // Lien Google Maps + requêtes précises par lieu (nom local pour bien trouver).
 const mapsUrl = (q: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
@@ -32,9 +30,8 @@ const STAYS: Stay[] = [
 
 // ─────────────────────────────────────────────────────────────────────────
 // Fêtes siciliennes & événements — À COMPLÉTER ici (une ligne = un jour).
-// label = nom court affiché ; city = lieu (dans l'infobulle et la liste).
-// ─────────────────────────────────────────────────────────────────────────
 // Descriptions traduites dans app/i18n.tsx (c.festivalDescs, même ordre).
+// ─────────────────────────────────────────────────────────────────────────
 type Event = { date: string; label: string; city?: string };
 const EVENTS: Event[] = [
   { date: '2026-08-15', label: 'Ferragosto', city: 'partout' },
@@ -45,7 +42,7 @@ const EVENTS: Event[] = [
 
 // ─────────────────────────────────────────────────────────────────────────
 // Programme « Sotto il cielo di Bruca — Estate 2026 » — événements à venir.
-// Source : Instagram @brucasenzafrontiere (couleurs reprises de leur calendrier).
+// Source : Instagram @brucasenzafrontiere.
 // ─────────────────────────────────────────────────────────────────────────
 type ProgramEvent = { dates: string[]; color: string; title: string; type: string; time: string; place: string; film?: string };
 const PROGRAM: ProgramEvent[] = [
@@ -131,7 +128,7 @@ function weekEvents(week: (Date | null)[]) {
   return out;
 }
 
-export default function Calendrier() {
+export default function CalendarSection() {
   const { t, lang } = useI18n();
   const c = t.calendarPage;
   const locale = LOCALES[lang] ?? 'fr-FR';
@@ -141,12 +138,10 @@ export default function Calendrier() {
   );
 
   return (
-    <main>
-      <Nav current="/calendrier" />
+    <>
+      <SectionHeading id="calendrier" title={c.title} intro={c.intro} />
 
-      <PageHeader title={c.title} intro={c.intro} />
-
-      <section className="mx-auto max-w-[110rem] px-5 pb-24 md:px-10">
+      <section className="mx-auto max-w-[110rem] px-5 pb-8 md:px-10">
         {/* Légende */}
         <Reveal className="mb-10 flex flex-wrap gap-x-6 gap-y-2 text-[13px]" style={{ color: 'var(--cava-muted)' }}>
           <span className="flex items-center gap-2">
@@ -173,9 +168,9 @@ export default function Calendrier() {
             const monthName = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(new Date(y, m, 1));
             return (
               <Reveal key={`${y}-${m}`} className="flex flex-col gap-3">
-                <h2 className="text-[clamp(1.2rem,2.4vw,1.6rem)] capitalize leading-[1.1]" style={{ fontWeight: 500 }}>
+                <h3 className="text-[clamp(1.2rem,2.4vw,1.6rem)] capitalize leading-[1.1]" style={{ fontWeight: 500 }}>
                   {monthName}
-                </h2>
+                </h3>
                 {/* En-têtes des jours */}
                 <div className="grid grid-cols-7 text-center text-[11px] uppercase tracking-[0.06em]" style={{ color: 'var(--cava-muted)' }}>
                   {weekdays.map((w, i) => (
@@ -239,9 +234,9 @@ export default function Calendrier() {
 
         {/* Événements à venir — programme « Sotto il cielo di Bruca » */}
         <Reveal className="mt-16">
-          <h2 className="text-[clamp(1.2rem,2.4vw,1.6rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+          <h3 className="text-[clamp(1.2rem,2.4vw,1.6rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
             {c.programTitle}
-          </h2>
+          </h3>
           <p className="mt-2 max-w-[62ch] text-[15px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
             {c.programNote}
           </p>
@@ -256,10 +251,10 @@ export default function Calendrier() {
                   <span aria-hidden className="inline-block h-2.5 w-2.5 shrink-0 rounded-[3px]" style={{ background: 'var(--cava-ink)' }} />
                   {ev.dates.map((d) => new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long' }).format(parse(d))).join(' · ')}
                 </span>
-                <h3 className="mt-1 text-[clamp(1.1rem,2vw,1.5rem)] uppercase leading-[1.05]" style={{ fontWeight: 800 }}>
+                <h4 className="mt-1 text-[clamp(1.1rem,2vw,1.5rem)] uppercase leading-[1.05]" style={{ fontWeight: 800 }}>
                   {ev.title}
                   {ev.film && <span className="italic" style={{ fontWeight: 400 }}> — {ev.film}</span>}
-                </h3>
+                </h4>
                 <p className="font-mono text-[12px] uppercase tracking-[0.03em]" style={{ color: 'var(--cava-muted)' }}>{ev.type}</p>
                 <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
                   <a
@@ -297,9 +292,9 @@ export default function Calendrier() {
 
         {/* Réseaux à suivre */}
         <Reveal className="mt-16">
-          <h2 className="text-[clamp(1.2rem,2.4vw,1.6rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+          <h3 className="text-[clamp(1.2rem,2.4vw,1.6rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
             {c.socialsTitle}
-          </h2>
+          </h3>
           <div className="mt-6 flex flex-wrap gap-3">
             {SOCIALS.map((s) => (
               <a
@@ -320,10 +315,10 @@ export default function Calendrier() {
         {/* Récapitulatif des fêtes siciliennes */}
         {EVENTS.length > 0 && (
           <Reveal className="mt-16">
-            <h2 className="mb-8 flex items-center gap-3 text-[clamp(2.2rem,8vw,5rem)] uppercase leading-[0.9] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            <h3 className="mb-8 flex items-center gap-3 text-[clamp(2.2rem,8vw,5rem)] uppercase leading-[0.9] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
               <span className="inline-block h-4 w-4 rounded-full" style={{ background: 'var(--cava-pink)' }} />
               {c.festivalsTitle}
-            </h2>
+            </h3>
             <div className="mt-10 grid gap-x-12 gap-y-12 md:grid-cols-2">
               {EVENTS.map((e, i) => (
                 <div key={e.date} className="border-l pl-6" style={{ borderColor: 'var(--cava-ink)' }}>
@@ -341,8 +336,6 @@ export default function Calendrier() {
           </Reveal>
         )}
       </section>
-
-      <Footer />
-    </main>
+    </>
   );
 }

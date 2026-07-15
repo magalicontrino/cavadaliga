@@ -1,14 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import Nav from '../Nav';
-import Footer from '../Footer';
-import Reveal from '../Reveal';
-import PageHeader from '../PageHeader';
-import Shape from '../Shape';
-import { useI18n } from '../i18n';
+import Reveal from './Reveal';
+import Shape from './Shape';
+import SectionHeading from './SectionHeading';
+import { useI18n } from './i18n';
 
-export default function PreparerLeVoyage() {
+// Rubrique « Préparer le voyage » — groupes de conseils + check-list cochable.
+export default function PrepareSection() {
   const { t } = useI18n();
   const p = t.prepare;
   const [checked, setChecked] = useState<Set<number>>(new Set());
@@ -23,10 +22,8 @@ export default function PreparerLeVoyage() {
   }
 
   return (
-    <main>
-      <Nav current="/preparer-le-voyage" />
-
-      <PageHeader title={p.title} intro={p.intro} />
+    <>
+      <SectionHeading id="preparer-le-voyage" title={p.title} intro={p.intro} />
 
       {/* Groupes */}
       <section className="mx-auto max-w-[110rem] px-5 md:px-10">
@@ -37,9 +34,9 @@ export default function PreparerLeVoyage() {
                 <span aria-hidden style={{ color: 'var(--cava-pink)' }}>
                   <Shape index={i} size={30} />
                 </span>
-                <h2 className="text-[clamp(1.4rem,3vw,2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+                <h3 className="text-[clamp(1.4rem,3vw,2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
                   {g.title}
-                </h2>
+                </h3>
               </div>
 
               {g.links && g.links.length > 0 && (
@@ -74,15 +71,15 @@ export default function PreparerLeVoyage() {
       </section>
 
       {/* Check-list cochable */}
-      <section className="mx-auto max-w-[110rem] px-5 pb-24 pt-16 md:px-10">
+      <section className="mx-auto max-w-[110rem] px-5 pb-8 pt-16 md:px-10">
         <Reveal className="rounded-2xl p-8 text-white md:p-12" style={{ background: 'var(--cava-ink)' }}>
           <div className="mb-8 flex items-center gap-3">
             <span aria-hidden style={{ color: 'var(--cava-pink)' }}>
               <Shape index={5} size={30} />
             </span>
-            <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+            <h3 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
               {p.checklistTitle}
-            </h2>
+            </h3>
           </div>
           <ul className="grid gap-x-10 gap-y-1 md:grid-cols-2">
             {p.checklist.map((c, i) => {
@@ -115,8 +112,6 @@ export default function PreparerLeVoyage() {
           </ul>
         </Reveal>
       </section>
-
-      <Footer />
-    </main>
+    </>
   );
 }
