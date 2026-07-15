@@ -16,13 +16,12 @@ export const SITE = {
 
 // Menu principal — hrefs (les libellés viennent de i18n, même ordre)
 export const NAV = [
-  { href: '/' },
+  { href: '/famille' },
   { href: '/preparer-le-voyage' },
   { href: '/informations-pratiques' },
   { href: '/services-locaux' },
   { href: '/la-region' },
   { href: '/calendrier' },
-  { href: '/famille' },
 ] as const;
 
 // Cartes d'index — structure (libellés via i18n.indexCards, même ordre).
