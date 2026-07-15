@@ -107,17 +107,29 @@ export default function CavaHome() {
           <p className="max-w-[16ch] text-[clamp(2.2rem,7vw,4.6rem)] leading-[1.04]" style={{ fontWeight: 400 }}>
             {t.ctaTitle}
           </p>
-          <a href={`mailto:${SITE.email}`} className="cava-pill mt-2 inline-flex items-center px-7 py-3 text-[15px]">
-            {t.writeUs}
-          </a>
           <a
             href={SITE.instagram.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="cava-navlink text-[13px] uppercase tracking-[0.16em]"
+            className="cava-navlink mt-2 text-[13px] uppercase tracking-[0.16em]"
             style={{ color: 'var(--cava-muted)' }}
           >
             Instagram {SITE.instagram.handle}
+          </a>
+          <a
+            href={`mailto:${SITE.email}`}
+            className="cava-footlink group mt-8 flex w-full items-center justify-between border-b border-t py-4 text-left md:py-5"
+            style={{ borderColor: 'var(--cava-line)' }}
+          >
+            <span
+              className="text-[clamp(1.7rem,7vw,4.5rem)] uppercase leading-[0.95] tracking-[-0.02em]"
+              style={{ fontWeight: 900 }}
+            >
+              {t.contactLink}
+            </span>
+            <span className="cava-cta-arrow text-[clamp(1.4rem,3.5vw,2.6rem)]" aria-hidden>
+              ↗
+            </span>
           </a>
         </Reveal>
       </section>

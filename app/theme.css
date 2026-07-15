@@ -291,6 +291,19 @@
   }
 }
 
+/* --- Flèche du lien Contact (CTA accueil) : visible, glisse au survol */
+.cava-cta-arrow {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cava-footlink:hover .cava-cta-arrow {
+  transform: translate(0.35rem, -0.35rem);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-cta-arrow {
+    transition: none;
+  }
+}
+
 /* --- Liens géants du footer (maximaliste) -------------------------- */
 .cava-footlink {
   color: var(--cava-ink);

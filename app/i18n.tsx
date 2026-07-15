@@ -54,6 +54,7 @@ export type Dict = {
   tagline: string;
   subLabels: string[];
   writeUs: string;
+  contactLink: string;
   intro: string;
   welcome: string;
   highlights: { value: string; label: string }[];
@@ -87,6 +88,7 @@ const FR: Dict = {
   tagline: 'un village du sud-est de la Sicile',
   subLabels: ['Près de Scicli dans la province de Raguse'],
   writeUs: 'Nous écrire',
+  contactLink: 'Contact',
   intro: 'L’appartement de famille où nous avons grandi, à quelques mètres de la mer.',
   welcome: 'Bienvenue',
   highlights: [
@@ -247,6 +249,7 @@ const IT: Dict = {
   tagline: 'un villaggio del sud-est della Sicilia',
   subLabels: ['Vicino a Scicli in provincia di Ragusa'],
   writeUs: 'Scrivici',
+  contactLink: 'Contatti',
   intro: 'L’appartamento di famiglia dove siamo cresciuti, a pochi metri dal mare.',
   welcome: 'Benvenuti',
   highlights: [
@@ -407,6 +410,7 @@ const EN: Dict = {
   tagline: 'a village in south-east Sicily',
   subLabels: ['Near Scicli in the province of Ragusa'],
   writeUs: 'Write to us',
+  contactLink: 'Contact',
   intro: 'The family apartment where we grew up, a few metres from the sea.',
   welcome: 'Welcome',
   highlights: [
