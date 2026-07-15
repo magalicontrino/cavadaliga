@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
 import Photo from '../Photo';
+import Lightbox from '../Lightbox';
 import PageHeader from '../PageHeader';
 import FamilyTree from '../FamilyTree';
 import { SITE } from '../data';
@@ -25,6 +27,7 @@ const SALVA = Array.from({ length: 20 }, (_, i) => ({
 export default function Salva() {
   const { t } = useI18n();
   const s = t.salvaPage;
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
     <main>
@@ -51,14 +54,22 @@ export default function Salva() {
         <div className="columns-2 gap-5 sm:columns-3 lg:columns-4 [&>*]:mb-5">
           {SALVA.map((photo, i) => (
             <Reveal key={photo.src} delay={(i % 3) * 90} className="flex break-inside-avoid flex-col gap-3">
-              <Photo
-                natural
-                src={photo.src}
-                alt={photo.caption ?? `${s.title} — ${i + 1}`}
-                tone={TONES[i % TONES.length]}
-                label={`${s.title} — photo à venir`}
-                className="w-full rounded-2xl"
-              />
+              <button
+                type="button"
+                onClick={() => setOpen(i)}
+                aria-label="Agrandir la photo"
+                className="block w-full cursor-zoom-in"
+              >
+                <Photo
+                  natural
+                  src={photo.src}
+                  alt={photo.caption ?? `${s.title} — ${i + 1}`}
+                  tone={TONES[i % TONES.length]}
+                  label={`${s.title} — photo à venir`}
+                  className="w-full rounded-2xl"
+                  imgClassName="transition-transform duration-500 hover:scale-[1.03]"
+                />
+              </button>
               {photo.caption && (
                 <span className="text-[13px] uppercase tracking-[0.18em]" style={{ color: 'var(--cava-muted)' }}>
                   {photo.caption}
@@ -67,6 +78,8 @@ export default function Salva() {
             </Reveal>
           ))}
         </div>
+
+        <Lightbox images={SALVA.map((p) => p.src)} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />
       </section>
 
       {/* Arbre généalogique (structure d'exemple ; participatif à venir) */}

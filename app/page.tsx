@@ -74,11 +74,12 @@ export default function CavaHome() {
       </section>
 
       {/* ---------- Les rubriques (CTA à badge rotatif) ---------- */}
-      {/* Titre = mini-phrase incluant le nom de la rubrique (t.ctaTitles) */}
-      <CtaBadge href="/informations-pratiques" title={t.ctaTitles[0]} circleId="cava-c-info" />
-      <CtaBadge href="/services-locaux" title={t.ctaTitles[1]} circleId="cava-c-services" flip />
-      <CtaBadge href="/la-region" title={t.ctaTitles[2]} circleId="cava-c-region" />
-      <CtaBadge href="/preparer-le-voyage" title={t.ctaTitles[3]} circleId="cava-c-prepare" flip />
+      {/* Ordre cohérent avec le menu : voyage → infos → adresses → région.
+          Titre = mini-phrase incluant le nom de la rubrique (t.ctaTitles). */}
+      <CtaBadge href="/preparer-le-voyage" title={t.ctaTitles[3]} circleId="cava-c-prepare" />
+      <CtaBadge href="/informations-pratiques" title={t.ctaTitles[0]} circleId="cava-c-info" flip />
+      <CtaBadge href="/services-locaux" title={t.ctaTitles[1]} circleId="cava-c-services" />
+      <CtaBadge href="/la-region" title={t.ctaTitles[2]} circleId="cava-c-region" flip />
 
       {/* ---------- Galerie : bandeau d'images défilant ---------- */}
       <section className="py-24 md:py-28">
