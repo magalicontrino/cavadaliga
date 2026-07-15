@@ -37,7 +37,7 @@ export default function PageHeader({
       <Reveal
         as="h1"
         delay={60}
-        className="mt-4 text-[clamp(2.4rem,7vw,5.6rem)] uppercase leading-[0.95] tracking-[-0.02em]"
+        className="mt-4 max-w-[16ch] text-[clamp(2.4rem,7vw,5.6rem)] uppercase leading-[0.95] tracking-[-0.02em]"
         style={{ fontWeight: 900 }}
       >
         {words.join(' ')}
