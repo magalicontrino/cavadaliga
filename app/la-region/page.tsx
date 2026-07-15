@@ -9,16 +9,23 @@ import Lightbox from '../Lightbox';
 import PageHeader from '../PageHeader';
 import { useI18n } from '../i18n';
 
-// Lieux autour de Cava d'Aliga — vraies photos dans /public/picture-sicile/,
-// repli /public/deco/ tant que la photo n'est pas déposée. Légendes = noms
-// de lieux (noms propres, identiques dans les 3 langues).
+// Lieux autour de Cava d'Aliga (ordre = i18n regionPlaces / regionHighlights).
+// photo:true = vraie photo dans /public/picture-sicile/ (cliquable → lightbox).
+// photo:false = ville d'excursion en attente de photo (visuel provisoire).
+// unesco:true = badge « Patrimoine mondial UNESCO ». Noms propres = mêmes 3 langues.
 const PLACES = [
-  { src: '/picture-sicile/cava-daliga.jpg', deco: '/deco/glace.jpg', label: 'Cava d’Aliga' },
-  { src: '/picture-sicile/scicli.jpg', deco: '/deco/motif-1.jpg', label: 'Scicli' },
-  { src: '/picture-sicile/bruca.jpg', deco: '/deco/figue-barbarie.jpg', label: 'Bruca' },
-  { src: '/picture-sicile/sampieri.jpg', deco: '/deco/spaghetti.jpg', label: 'Sampieri' },
-  { src: '/picture-sicile/punta-pisciotto.jpg', deco: '/deco/figue-barbarie-2.jpg', label: 'Punta Pisciotto' },
-];
+  { src: '/picture-sicile/cava-daliga.jpg', label: 'Cava d’Aliga', tone: 'sand', photo: true, unesco: false },
+  { src: '/picture-sicile/scicli.jpg', label: 'Scicli', tone: 'sand', photo: true, unesco: true },
+  { src: '/picture-sicile/bruca.jpg', label: 'Bruca', tone: 'sand', photo: true, unesco: false },
+  { src: '/picture-sicile/sampieri.jpg', label: 'Sampieri', tone: 'sand', photo: true, unesco: false },
+  { src: '/picture-sicile/punta-pisciotto.jpg', label: 'Punta Pisciotto', tone: 'sand', photo: true, unesco: false },
+  { src: '/picture-sicile/modica.jpg', label: 'Modica', tone: 'terra', photo: false, unesco: true },
+  { src: '/picture-sicile/ragusa.jpg', label: 'Raguse', tone: 'ink', photo: false, unesco: true },
+  { src: '/picture-sicile/noto.jpg', label: 'Noto', tone: 'pink', photo: false, unesco: true },
+  { src: '/picture-sicile/siracusa.jpg', label: 'Syracuse', tone: 'terra', photo: false, unesco: true },
+] as const;
+// Images de la lightbox = uniquement les lieux avec une vraie photo.
+const GALLERY = PLACES.filter((pl) => pl.photo).map((pl) => pl.src);
 
 export default function LaRegion() {
   const { t } = useI18n();
@@ -44,31 +51,53 @@ export default function LaRegion() {
         <div className="mt-14 flex flex-col gap-16 md:mt-20 md:gap-28">
           {PLACES.map((place, i) => {
             const flip = i % 2 === 1;
+            const galleryIndex = place.photo ? GALLERY.indexOf(place.src) : -1;
             return (
               <Reveal key={place.label} className="grid items-center gap-8 md:grid-cols-2 md:gap-16">
-                {/* Photo cliquable → lightbox */}
-                <button
-                  type="button"
-                  onClick={() => setOpen(i)}
-                  aria-label={`Agrandir la photo — ${place.label}`}
-                  className={`group block w-full cursor-zoom-in overflow-hidden rounded-2xl ${flip ? 'md:order-2' : ''}`}
-                >
-                  <Photo
-                    src={place.src}
-                    fallback={place.deco}
-                    alt={place.label}
-                    tone="sand"
-                    label={`${place.label} — photo à venir`}
-                    className="aspect-[4/3] w-full"
-                    imgClassName="transition-transform duration-700 group-hover:scale-105"
-                  />
-                </button>
+                {/* Photo — cliquable (→ lightbox) si vraie photo, sinon visuel provisoire */}
+                {place.photo ? (
+                  <button
+                    type="button"
+                    onClick={() => setOpen(galleryIndex)}
+                    aria-label={`Agrandir la photo — ${place.label}`}
+                    className={`group block w-full cursor-zoom-in overflow-hidden rounded-2xl ${flip ? 'md:order-2' : ''}`}
+                  >
+                    <Photo
+                      src={place.src}
+                      alt={place.label}
+                      tone={place.tone}
+                      label={`${place.label} — photo à venir`}
+                      className="aspect-[4/3] w-full"
+                      imgClassName="transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </button>
+                ) : (
+                  <div className={`w-full overflow-hidden rounded-2xl ${flip ? 'md:order-2' : ''}`}>
+                    <Photo
+                      src={place.src}
+                      alt={place.label}
+                      tone={place.tone}
+                      label={`${place.label} — photo à venir`}
+                      className="aspect-[4/3] w-full"
+                    />
+                  </div>
+                )}
 
-                {/* Fiche : numéro + nom + histoire */}
+                {/* Fiche : numéro + (badge UNESCO) + nom + histoire */}
                 <div className={flip ? 'md:order-1' : ''}>
                   <span className="font-mono text-[13px] tracking-[0.1em]" style={{ color: 'var(--cava-pink)' }}>
                     {String(i + 1).padStart(2, '0')} / {String(PLACES.length).padStart(2, '0')}
                   </span>
+                  {place.unesco && (
+                    <div className="mt-3">
+                      <span
+                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.14em]"
+                        style={{ background: 'var(--cava-pink)', color: '#fff', fontWeight: 700 }}
+                      >
+                        <span aria-hidden>★</span> {t.unescoLabel}
+                      </span>
+                    </div>
+                  )}
                   <h3
                     className="mt-3 text-[clamp(2rem,5vw,3.4rem)] uppercase leading-[0.98] tracking-[-0.02em]"
                     style={{ fontWeight: 900 }}
@@ -98,7 +127,7 @@ export default function LaRegion() {
           })}
         </div>
 
-        <Lightbox images={PLACES.map((pl) => pl.src)} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />
+        <Lightbox images={GALLERY} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />
       </section>
 
       <div className="pb-24" />

@@ -73,6 +73,7 @@ export type Dict = {
   placesTitle: string;
   regionPlaces: string[]; // histoires des lieux, même ordre que PLACES (la-region)
   regionHighlights: string[][]; // points forts par lieu, même ordre que PLACES
+  unescoLabel: string; // badge patrimoine mondial UNESCO
   salvaPage: { title: string; intro: string; historyTitle: string; historyText: string; treeTitle: string; treeNote: string; treePaternal: string; treeMaternal: string; treeWife1: string; treeWife2: string; treeAdd: string; treeAddSubject: string; treeExample: string };
   calendarPage: { title: string; intro: string; festivalsTitle: string; programTitle: string; programNote: string; programMore: string; socialsTitle: string; festivalDescs: string[]; legend: { occupied: string; tentative: string; free: string; festival: string } };
   ctaEyebrow: string;
@@ -132,6 +133,10 @@ const FR: Dict = {
     'Petite plage entre Donnalucata et Sampieri, Bruca est un coin tranquille au sable clair, qui s’anime l’été autour de sa communauté : concerts, cinéma en plein air et fêtes du Comitato Bruca.',
     'Ancien village de pêcheurs aux maisons colorées, Sampieri déroule l’une des plus longues plages de la côte. Son charme suranné en a fait un décor récurrent des tournages de Montalbano.',
     'Sur le promontoire se dressent les ruines de la Fornace Penna, une briqueterie du début du XXᵉ siècle ravagée par un incendie en 1924. Sa silhouette face à la mer — « la Mànnara » de Montalbano — est devenue iconique.',
+    'Ville baroque étagée dans une gorge, Modica est mondialement connue pour son chocolat travaillé à froid selon une recette d’origine aztèque. Son église San Giorgio compte parmi les chefs-d’œuvre du baroque sicilien.',
+    'Perchée sur un éperon rocheux, Raguse se partage entre la ville haute et Ibla, son cœur baroque labyrinthique. Le duomo San Giorgio y domine une place en pente bordée de palais.',
+    'Capitale du baroque du Val di Noto, Noto fut entièrement reconstruite en pierre dorée après le séisme de 1693. Son corso aligne cathédrale, palais et églises d’une théâtralité éblouissante, surtout au coucher du soleil.',
+    'Ancienne rivale d’Athènes, Syracuse fut l’une des plus grandes cités du monde grec. L’île d’Ortygie mêle temples antiques, ruelles baroques et bord de mer ; son parc archéologique abrite un théâtre grec et l’Oreille de Denys.',
   ],
   regionHighlights: [
     ['Plages et criques de la côte sud, baignade à deux pas.', 'Marchés et petits producteurs locaux.'],
@@ -139,7 +144,12 @@ const FR: Dict = {
     ['Réserves naturelles et sentiers le long de la côte.', 'Baignade tranquille, loin de la foule.'],
     ['L’une des plus longues plages de sable de la côte.', 'Trattorias de poisson, cannoli et vins locaux.'],
     ['Exploration des ruines de la Fornace Penna au coucher du soleil.', 'Idées d’excursions et d’itinéraires selon la durée du séjour.'],
+    ['Chocolat de Modica IGP à déguster chez les maîtres chocolatiers.', 'L’escalier et la façade de San Giorgio, joyaux du baroque.'],
+    ['Flânerie dans les ruelles d’Ibla, la vieille ville.', 'Jardin Ibleo et panoramas sur la vallée.'],
+    ['Corso Vittorio Emanuele et sa cathédrale au coucher du soleil.', 'Glaces et granite chez les glaciers réputés.'],
+    ['Ortygie : le Duomo bâti sur un temple grec et la fontaine Aréthuse.', 'Parc archéologique : théâtre grec et Oreille de Denys.'],
   ],
+  unescoLabel: 'Patrimoine mondial UNESCO',
   salvaPage: { title: 'La famille', intro: 'Photos, souvenirs et histoire de la famille, au fil des années.', historyTitle: 'Histoire de la famille', historyText: "De génération en génération, cette maison de Cava d’Aliga rassemble la famille. On écrira bientôt son histoire ici — les origines, les étés partagés et les visages qui l’ont fait vivre.", treeTitle: 'Arbre généalogique', treeNote: 'Bientôt : un arbre participatif où chacun pourra ajouter sa branche.', treePaternal: 'Grands-parents paternels', treeMaternal: 'Grands-parents maternels', treeWife1: '1re épouse', treeWife2: '2e épouse', treeAdd: '+ Ajouter ma branche', treeAddSubject: 'Arbre généalogique — ma branche', treeExample: 'Structure d’exemple — dites-nous les vrais liens et on complète.' },
   calendarPage: { title: 'Le calendrier', intro: 'Les périodes où la maison est occupée, pour se coordonner en famille.', festivalsTitle: 'Fêtes siciliennes', programTitle: 'Événements à venir', programNote: 'Sotto il cielo di Bruca — le programme de l’été, à deux pas de la maison. Suivez les couleurs.', programMore: 'Détails et horaires sur Instagram', socialsTitle: 'À suivre', festivalDescs: ["Le grand jour de l’été italien. Héritée des Feriae Augusti romaines et associée à l’Assomption, la fête réunit familles et villages autour de la mer : baignades, grands repas, processions et feux d’artifice animent toute la Sicile.", "Saint Roch, invoqué depuis des siècles contre les épidémies, protège de nombreuses communautés siciliennes. À Scicli, sa statue est portée en procession dans les ruelles, au son des fanfares et sous les illuminations de fête.", "Saint Jean-Baptiste est le patron de Raguse, dont la cathédrale lui est dédiée. Le 29 août, jour de sa décollation, la ville s’illumine : procession solennelle de la statue du saint et grand feu d’artifice au-dessus de la vieille ville.", "Saint Conrad Confalonieri, ermite vénéré comme patron de Noto. Le dernier dimanche d’août, son urne d’argent traverse les rues baroques dans une immense ferveur populaire, entre cierges, fleurs et cortèges."], legend: { occupied: 'Occupé', tentative: 'En attente', free: 'Libre', festival: 'Fête sicilienne' } },
   ctaEyebrow: 'Envie de venir ?',
@@ -316,6 +326,10 @@ const IT: Dict = {
     'Piccola spiaggia tra Donnalucata e Sampieri, Bruca è un angolo tranquillo dalla sabbia chiara, che d’estate si anima attorno alla sua comunità: concerti, cinema all’aperto e feste del Comitato Bruca.',
     'Antico borgo di pescatori dalle case colorate, Sampieri offre una delle spiagge più lunghe della costa. Il suo fascino d’altri tempi ne ha fatto un set ricorrente delle riprese di Montalbano.',
     'Sul promontorio si ergono le rovine della Fornace Penna, una fabbrica di mattoni di inizio Novecento distrutta da un incendio nel 1924. La sua sagoma di fronte al mare — « la Mànnara » di Montalbano — è diventata iconica.',
+    'Città barocca adagiata in una gola, Modica è celebre nel mondo per il suo cioccolato lavorato a freddo secondo una ricetta di origine azteca. La chiesa di San Giorgio è tra i capolavori del barocco siciliano.',
+    'Arroccata su uno sperone roccioso, Ragusa si divide tra la città alta e Ibla, il suo cuore barocco labirintico. Il duomo di San Giorgio domina una piazza in pendenza cinta di palazzi.',
+    'Capitale del barocco del Val di Noto, Noto fu interamente ricostruita in pietra dorata dopo il terremoto del 1693. Il corso allinea cattedrale, palazzi e chiese di abbagliante teatralità, soprattutto al tramonto.',
+    'Antica rivale di Atene, Siracusa fu una delle più grandi città del mondo greco. L’isola di Ortigia unisce templi antichi, vicoli barocchi e mare; il parco archeologico custodisce un teatro greco e l’Orecchio di Dioniso.',
   ],
   regionHighlights: [
     ['Spiagge e cale della costa sud, bagno a due passi.', 'Mercati e piccoli produttori locali.'],
@@ -323,7 +337,12 @@ const IT: Dict = {
     ['Riserve naturali e sentieri lungo la costa.', 'Bagni tranquilli, lontano dalla folla.'],
     ['Una delle spiagge di sabbia più lunghe della costa.', 'Trattorie di pesce, cannoli e vini locali.'],
     ['Esplorazione delle rovine della Fornace Penna al tramonto.', 'Idee di gite e itinerari secondo la durata del soggiorno.'],
+    ['Cioccolato di Modica IGP da gustare dai maestri cioccolatieri.', 'La scalinata e la facciata di San Giorgio, gioielli del barocco.'],
+    ['Passeggiata tra i vicoli di Ibla, la città vecchia.', 'Giardino Ibleo e panorami sulla valle.'],
+    ['Corso Vittorio Emanuele e la sua cattedrale al tramonto.', 'Gelati e granite dalle gelaterie rinomate.'],
+    ['Ortigia: il Duomo su un tempio greco e la fonte Aretusa.', 'Parco archeologico: teatro greco e Orecchio di Dioniso.'],
   ],
+  unescoLabel: 'Patrimonio mondiale UNESCO',
   salvaPage: { title: 'La famiglia', intro: 'Foto, ricordi e storia della famiglia, nel corso degli anni.', historyTitle: 'Storia della famiglia', historyText: "Di generazione in generazione, questa casa di Cava d’Aliga riunisce la famiglia. Presto ne racconteremo qui la storia — le origini, le estati condivise e i volti che l’hanno animata.", treeTitle: 'Albero genealogico', treeNote: 'Presto: un albero partecipativo dove ognuno potrà aggiungere il proprio ramo.', treePaternal: 'Nonni paterni', treeMaternal: 'Nonni materni', treeWife1: '1ª moglie', treeWife2: '2ª moglie', treeAdd: '+ Aggiungi il mio ramo', treeAddSubject: 'Albero genealogico — il mio ramo', treeExample: 'Struttura di esempio — diteci i legami reali e completiamo.' },
   calendarPage: { title: 'Il calendario', intro: 'I periodi in cui la casa è occupata, per coordinarsi in famiglia.', festivalsTitle: 'Feste siciliane', programTitle: 'Prossimi eventi', programNote: 'Sotto il cielo di Bruca — il programma dell’estate, a due passi da casa. Seguite i colori.', programMore: 'Dettagli e orari su Instagram', socialsTitle: 'Da seguire', festivalDescs: ["Il grande giorno dell’estate italiana. Erede delle Feriae Augusti romane e legata all’Assunzione, la festa riunisce famiglie e paesi in riva al mare: bagni, grandi pranzi, processioni e fuochi d’artificio animano tutta la Sicilia.", "San Rocco, invocato da secoli contro le epidemie, protegge molte comunità siciliane. A Scicli la sua statua è portata in processione tra i vicoli, tra bande musicali e luminarie di festa.", "San Giovanni Battista è il patrono di Ragusa, a cui è dedicata la cattedrale. Il 29 agosto, giorno della sua decollazione, la città si illumina: solenne processione della statua e grande spettacolo pirotecnico sopra la città vecchia.", "San Corrado Confalonieri, eremita venerato come patrono di Noto. L’ultima domenica d’agosto, la sua urna d’argento attraversa le vie barocche in una grande devozione popolare, tra ceri, fiori e cortei."], legend: { occupied: 'Occupato', tentative: 'In attesa', free: 'Libero', festival: 'Festa siciliana' } },
   ctaEyebrow: 'Voglia di venire?',
@@ -500,6 +519,10 @@ const EN: Dict = {
     'A small beach between Donnalucata and Sampieri, Bruca is a quiet spot with pale sand that comes alive in summer around its community: concerts, open-air cinema and Comitato Bruca festivities.',
     'A former fishing village with colourful houses, Sampieri unrolls one of the longest beaches on the coast. Its old-world charm has made it a recurring filming location for Montalbano.',
     'On the headland stand the ruins of the Fornace Penna, an early-20th-century brickworks destroyed by fire in 1924. Its silhouette against the sea — Montalbano’s « Mànnara » — has become iconic.',
+    'A Baroque town cascading down a gorge, Modica is world-famous for its cold-worked chocolate, made to an Aztec-origin recipe. Its church of San Giorgio ranks among the masterpieces of Sicilian Baroque.',
+    'Perched on a rocky spur, Ragusa is split between the upper town and Ibla, its labyrinthine Baroque heart. The San Giorgio cathedral crowns a sloping square lined with palaces.',
+    'The capital of Val di Noto Baroque, Noto was entirely rebuilt in golden stone after the 1693 earthquake. Its avenue lines up cathedral, palaces and churches of dazzling theatricality, especially at sunset.',
+    'Once a rival of Athens, Syracuse was one of the greatest cities of the Greek world. Its island of Ortygia blends ancient temples, Baroque lanes and seafront; its archaeological park holds a Greek theatre and the Ear of Dionysius.',
   ],
   regionHighlights: [
     ['Beaches and coves of the south coast, a swim away.', 'Local markets and small producers.'],
@@ -507,7 +530,12 @@ const EN: Dict = {
     ['Nature reserves and coastal trails.', 'Quiet swims, away from the crowds.'],
     ['One of the longest sandy beaches on the coast.', 'Fish trattorias, cannoli and local wines.'],
     ['Explore the Fornace Penna ruins at sunset.', 'Trip and itinerary ideas to suit the length of your stay.'],
+    ['Taste Modica PGI chocolate at the master chocolatiers.', 'The staircase and façade of San Giorgio, Baroque gems.'],
+    ['Wander the lanes of Ibla, the old town.', 'Giardino Ibleo and valley views.'],
+    ['Corso Vittorio Emanuele and its cathedral at sunset.', 'Ice cream and granita at renowned gelaterie.'],
+    ['Ortygia: the Duomo built on a Greek temple, and the Arethusa spring.', 'Archaeological park: Greek theatre and the Ear of Dionysius.'],
   ],
+  unescoLabel: 'UNESCO World Heritage',
   salvaPage: { title: 'The family', intro: 'Photos, memories and family history, over the years.', historyTitle: 'Family history', historyText: "From one generation to the next, this house in Cava d’Aliga brings the family together. Its story will soon be written here — the origins, the shared summers and the faces that made it live.", treeTitle: 'Family tree', treeNote: 'Coming soon: a collaborative tree where everyone can add their branch.', treePaternal: 'Paternal grandparents', treeMaternal: 'Maternal grandparents', treeWife1: '1st wife', treeWife2: '2nd wife', treeAdd: '+ Add my branch', treeAddSubject: 'Family tree — my branch', treeExample: 'Example structure — tell us the real relationships and we’ll complete it.' },
   calendarPage: { title: 'The calendar', intro: 'When the house is occupied, so the family can coordinate.', festivalsTitle: 'Sicilian festivals', programTitle: 'Upcoming events', programNote: 'Sotto il cielo di Bruca — the summer programme, steps from the house. Follow the colours.', programMore: 'Details and times on Instagram', socialsTitle: 'Follow', festivalDescs: ["The high point of the Italian summer. Descended from the Roman Feriae Augusti and tied to the Assumption, the holiday gathers families and villages by the sea: swimming, big meals, processions and fireworks all across Sicily.", "Saint Roch, invoked for centuries against epidemics, protects many Sicilian communities. In Scicli his statue is carried in procession through the alleys, amid brass bands and festive lights.", "Saint John the Baptist is the patron of Ragusa, whose cathedral is dedicated to him. On 29 August, the day of his beheading, the town lights up: a solemn procession of the statue and a grand fireworks display over the old town.", "Saint Conrad Confalonieri, a hermit venerated as Noto’s patron. On the last Sunday of August, his silver urn moves through the baroque streets in great popular devotion, among candles, flowers and processions."], legend: { occupied: 'Occupied', tentative: 'Pending', free: 'Free', festival: 'Sicilian festival' } },
   ctaEyebrow: 'Ready to come?',
