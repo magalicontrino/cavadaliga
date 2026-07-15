@@ -132,7 +132,7 @@ const FR: Dict = {
   pages: {
     'informations-pratiques': {
       eyebrow: 'Informations pratiques',
-      title: 'Tout pour un séjour sans accroc',
+      title: 'Infos pratiques',
       intro: "Arrivée, départ, équipements de l'appartement et petits conseils pour profiter pleinement de votre séjour à Cava d'Aliga.",
       blocks: [
         { title: 'Arrivée & départ', items: ['Horaires de check-in / check-out.', 'Remise des clés et instructions d’accès.'] },
@@ -296,7 +296,7 @@ const IT: Dict = {
   pages: {
     'informations-pratiques': {
       eyebrow: 'Informazioni pratiche',
-      title: 'Tutto per un soggiorno senza pensieri',
+      title: 'Info pratiche',
       intro: 'Arrivo, partenza, dotazioni dell’appartamento e piccoli consigli per godervi appieno il vostro soggiorno a Cava d’Aliga.',
       blocks: [
         { title: 'Arrivo & partenza', items: ['Orari di check-in / check-out.', 'Consegna delle chiavi e istruzioni per l’accesso.'] },
@@ -460,7 +460,7 @@ const EN: Dict = {
   pages: {
     'informations-pratiques': {
       eyebrow: 'Practical information',
-      title: 'Everything for a smooth stay',
+      title: 'Practical info',
       intro: 'Arrival, departure, apartment amenities and a few tips to make the most of your stay in Cava d’Aliga.',
       blocks: [
         { title: 'Arrival & departure', items: ['Check-in / check-out times.', 'Key handover and access instructions.'] },
