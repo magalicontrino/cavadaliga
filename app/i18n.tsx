@@ -83,7 +83,7 @@ export type Dict = {
 };
 
 const FR: Dict = {
-  nav: ['Accueil', 'Préparer le voyage', 'Informations pratiques', 'Services locaux', 'La région', 'La famille', 'Calendrier'],
+  nav: ['Accueil', 'Préparer le voyage', 'Informations pratiques', 'Bonnes adresses', 'La région', 'La famille', 'Calendrier'],
   region: 'Sicile',
   tagline: 'un village du sud-est de la Sicile',
   subLabels: ['Près de Scicli dans la province de Raguse'],
@@ -100,7 +100,7 @@ const FR: Dict = {
   sectionsWord: 'rubriques',
   ctaTitles: [
     'Toutes les informations pratiques',
-    'Nos services locaux',
+    'Nos bonnes adresses',
     'Découvrir la région',
     'Bien préparer le voyage',
     'Nous contacter',
@@ -248,7 +248,7 @@ const FR: Dict = {
 };
 
 const IT: Dict = {
-  nav: ['Home', 'Preparare il viaggio', 'Informazioni pratiche', 'Servizi locali', 'La regione', 'La famiglia', 'Calendario'],
+  nav: ['Home', 'Preparare il viaggio', 'Informazioni pratiche', 'I nostri indirizzi', 'La regione', 'La famiglia', 'Calendario'],
   region: 'Sicilia',
   tagline: 'un villaggio del sud-est della Sicilia',
   subLabels: ['Vicino a Scicli in provincia di Ragusa'],
@@ -265,7 +265,7 @@ const IT: Dict = {
   sectionsWord: 'sezioni',
   ctaTitles: [
     'Tutte le informazioni pratiche',
-    'I nostri servizi locali',
+    'I nostri indirizzi',
     'Scoprire la regione',
     'Preparare bene il viaggio',
     'Contattaci',
@@ -413,7 +413,7 @@ const IT: Dict = {
 };
 
 const EN: Dict = {
-  nav: ['Home', 'Plan your trip', 'Practical information', 'Local services', 'The region', 'The family', 'Calendar'],
+  nav: ['Home', 'Plan your trip', 'Practical information', 'Favourite spots', 'The region', 'The family', 'Calendar'],
   region: 'Sicily',
   tagline: 'a village in south-east Sicily',
   subLabels: ['Near Scicli in the province of Ragusa'],
@@ -430,7 +430,7 @@ const EN: Dict = {
   sectionsWord: 'sections',
   ctaTitles: [
     'All the practical information',
-    'Our local services',
+    'Our favourite spots',
     'Discover the region',
     'Everything to plan your trip',
     'Get in contact',
