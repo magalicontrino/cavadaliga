@@ -12,16 +12,16 @@ import { useI18n } from '../i18n';
 // dans le tableau au fil du temps. Vide → visuel provisoire « photo à venir ».
 // unesco:true = badge « Patrimoine mondial UNESCO ». Noms propres = mêmes 3 langues.
 const PLACES = [
-  { images: ['/picture-sicile/cava-daliga.jpg', '/picture-sicile/cava-daliga-c.jpg'], label: 'Cava d’Aliga', tone: 'sand', unesco: false },
-  { images: ['/picture-sicile/scicli.jpg', '/picture-sicile/scicli-b.jpg'], label: 'Scicli', tone: 'sand', unesco: true },
-  { images: ['/picture-sicile/bruca.jpg'], label: 'Bruca', tone: 'sand', unesco: false },
-  { images: ['/picture-sicile/sampieri.jpg'], label: 'Sampieri', tone: 'sand', unesco: false },
-  { images: ['/picture-sicile/punta-pisciotto.jpg'], label: 'Punta Pisciotto', tone: 'sand', unesco: false },
-  { images: [], label: 'Marina di Ragusa', tone: 'pink', unesco: false },
-  { images: [], label: 'Modica', tone: 'terra', unesco: true },
-  { images: [], label: 'Raguse', tone: 'ink', unesco: true },
-  { images: [], label: 'Noto', tone: 'pink', unesco: true },
-  { images: [], label: 'Syracuse', tone: 'terra', unesco: true },
+  { images: ['/picture-sicile/cava-daliga.jpg', '/picture-sicile/cava-daliga-c.jpg'], label: 'Cava d’Aliga', tone: 'sand', km: 0, unesco: false },
+  { images: ['/picture-sicile/scicli.jpg', '/picture-sicile/scicli-b.jpg'], label: 'Scicli', tone: 'sand', km: 8, unesco: true },
+  { images: ['/picture-sicile/bruca.jpg'], label: 'Bruca', tone: 'sand', km: 4, unesco: false },
+  { images: ['/picture-sicile/sampieri.jpg'], label: 'Sampieri', tone: 'sand', km: 5, unesco: false },
+  { images: ['/picture-sicile/punta-pisciotto.jpg'], label: 'Punta Pisciotto', tone: 'sand', km: 6, unesco: false },
+  { images: [], label: 'Marina di Ragusa', tone: 'pink', km: 13, unesco: false },
+  { images: [], label: 'Modica', tone: 'terra', km: 20, unesco: true },
+  { images: [], label: 'Raguse', tone: 'ink', km: 28, unesco: true },
+  { images: [], label: 'Noto', tone: 'pink', km: 55, unesco: true },
+  { images: [], label: 'Syracuse', tone: 'terra', km: 85, unesco: true },
 ] as const;
 
 export default function LaRegion() {
@@ -63,6 +63,7 @@ export default function LaRegion() {
                 <div className={flip ? 'md:order-1' : ''}>
                   <span className="font-mono text-[13px] tracking-[0.1em]" style={{ color: 'var(--cava-pink)' }}>
                     {String(i + 1).padStart(2, '0')} / {String(PLACES.length).padStart(2, '0')}
+                    <span style={{ color: 'var(--cava-muted)' }}> · {place.km === 0 ? t.regionHere : `≈ ${place.km} km`}</span>
                   </span>
                   {place.unesco && (
                     <div className="mt-3">
