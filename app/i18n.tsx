@@ -84,7 +84,7 @@ export type Dict = {
 };
 
 const FR: Dict = {
-  nav: ['Accueil', 'Le voyage', 'Infos pratiques', 'Bonnes adresses', 'La région', 'La famille', 'Calendrier'],
+  nav: ['Accueil', 'Le voyage', 'Infos pratiques', 'Nos adresses', 'La région', 'La famille', 'Calendrier'],
   region: 'Sicile',
   tagline: 'un village du sud-est de la Sicile',
   subLabels: ['Près de Scicli dans la province de Raguse'],
@@ -101,7 +101,7 @@ const FR: Dict = {
   sectionsWord: 'rubriques',
   ctaTitles: [
     'Toutes les informations pratiques',
-    'Nos bonnes adresses',
+    'Nos adresses',
     'Découvrir la région',
     'Bien préparer le voyage',
     'Nous contacter',
@@ -144,7 +144,7 @@ const FR: Dict = {
     },
     'services-locaux': {
       eyebrow: 'Services locaux & contacts utiles',
-      title: 'Nos bonnes adresses autour de vous',
+      title: 'Nos adresses autour de vous',
       intro: "Commerces, restaurants, marchés et contacts utiles : nos recommandations personnelles pour vivre Cava d'Aliga comme à la maison.",
       blocks: [
         { title: 'Manger & boire', items: ['Restaurants et trattorias que nous aimons.', 'Glaciers, cafés et spécialités siciliennes.'] },
@@ -424,7 +424,7 @@ const IT: Dict = {
 };
 
 const EN: Dict = {
-  nav: ['Home', 'The trip', 'Practical info', 'Favourite spots', 'The region', 'The family', 'Calendar'],
+  nav: ['Home', 'The trip', 'Practical info', 'Our spots', 'The region', 'The family', 'Calendar'],
   region: 'Sicily',
   tagline: 'a village in south-east Sicily',
   subLabels: ['Near Scicli in the province of Ragusa'],
@@ -441,7 +441,7 @@ const EN: Dict = {
   sectionsWord: 'sections',
   ctaTitles: [
     'All the practical information',
-    'Our favourite spots',
+    'Our spots',
     'Discover the region',
     'Everything to plan your trip',
     'Get in contact',
@@ -484,7 +484,7 @@ const EN: Dict = {
     },
     'services-locaux': {
       eyebrow: 'Local services & useful contacts',
-      title: 'Our favourite spots nearby',
+      title: 'Our spots nearby',
       intro: 'Shops, restaurants, markets and useful contacts: our personal recommendations to live Cava d’Aliga like a local.',
       blocks: [
         { title: 'Eat & drink', items: ['Restaurants and trattorias we love.', 'Gelato, cafés and Sicilian specialities.'] },
