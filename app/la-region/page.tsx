@@ -14,9 +14,9 @@ import { useI18n } from '../i18n';
 // de lieux (noms propres, identiques dans les 3 langues).
 const PLACES = [
   { src: '/picture-sicile/cava-daliga.jpg', deco: '/deco/glace.jpg', label: 'Cava d’Aliga' },
+  { src: '/picture-sicile/scicli.jpg', deco: '/deco/motif-1.jpg', label: 'Scicli' },
+  { src: '/picture-sicile/bruca.jpg', deco: '/deco/figue-barbarie.jpg', label: 'Bruca' },
   { src: '/picture-sicile/sampieri.jpg', deco: '/deco/spaghetti.jpg', label: 'Sampieri' },
-  { src: '/picture-sicile/scicli-centro.jpg', deco: '/deco/motif-1.jpg', label: 'Scicli' },
-  { src: '/picture-sicile/punta-pisciotto.jpg', deco: '/deco/figue-barbarie.jpg', label: 'Punta Pisciotto' },
 ];
 
 export default function LaRegion() {
