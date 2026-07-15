@@ -15,7 +15,7 @@ import { useI18n } from '../i18n';
 const TONES = ['ink', 'terra', 'pink', 'sand'] as const;
 // Légendes optionnelles par numéro de photo (rien = pas de légende).
 const CAPTIONS: Record<number, string> = {
-  20: 'Avec Manon et Ève',
+  20: 'Avec Manon et Eve',
 };
 const SALVA = Array.from({ length: 20 }, (_, i) => ({
   src: `/picture-sicile/salva-${i + 1}.jpg`,
