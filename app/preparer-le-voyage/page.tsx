@@ -28,22 +28,34 @@ export default function PreparerLeVoyage() {
 
       <PageHeader title={p.title} intro={p.intro} />
 
-      {/* Groupes */}
+      {/* Rubriques — empilées les unes sous les autres, style éditorial façon
+          CTA de l'accueil (grand titre en capitales, filet, sans cadre). */}
       <section className="mx-auto max-w-[110rem] px-5 md:px-10">
-        <div className="grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
-          {p.groups.map((g, i) => (
-            <Reveal key={g.title} delay={(i % 2) * 90} className="flex flex-col gap-5 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
-              <div className="flex items-center gap-3">
-                <span aria-hidden style={{ color: 'var(--cava-pink)' }}>
-                  <Shape index={i} size={30} />
+        {p.groups.map((g, gi) => {
+          const words = g.title.split(' ');
+          const last = words.pop();
+          return (
+            <Reveal
+              key={g.title}
+              delay={(gi % 2) * 80}
+              className="border-t py-12 md:py-16"
+              style={{ borderColor: 'var(--cava-ink)' }}
+            >
+              <h2
+                className="text-[clamp(1.9rem,5.5vw,3.6rem)] uppercase leading-[0.98] tracking-[-0.02em]"
+                style={{ fontWeight: 900 }}
+              >
+                {words.join(' ')}{' '}
+                <span
+                  className="inline-block whitespace-nowrap rounded-full border-2 px-3 pb-0.5 pt-0 leading-none"
+                  style={{ borderColor: 'var(--cava-ink)' }}
+                >
+                  {last}
                 </span>
-                <h2 className="text-[clamp(1.4rem,3vw,2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
-                  {g.title}
-                </h2>
-              </div>
+              </h2>
 
               {g.links && g.links.length > 0 && (
-                <div className="flex flex-wrap gap-3">
+                <div className="mt-6 flex flex-wrap gap-3">
                   {g.links.map((l) => (
                     <a
                       key={l.url}
@@ -59,18 +71,22 @@ export default function PreparerLeVoyage() {
               )}
 
               {g.items && g.items.length > 0 && (
-                <ul className="flex flex-col gap-3">
+                <ul className="mt-7 flex max-w-[80ch] flex-col gap-4">
                   {g.items.map((it) => (
-                    <li key={it} className="flex gap-3 text-[15px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
-                      <span className="mt-2 h-[6px] w-[6px] shrink-0 rounded-full" style={{ background: 'var(--cava-pink)' }} />
+                    <li
+                      key={it}
+                      className="flex gap-3 text-[clamp(1rem,1.5vw,1.2rem)] leading-[1.6]"
+                      style={{ color: 'var(--cava-muted)' }}
+                    >
+                      <span className="mt-2.5 h-[6px] w-[6px] shrink-0 rounded-full" style={{ background: 'var(--cava-pink)' }} />
                       {it}
                     </li>
                   ))}
                 </ul>
               )}
             </Reveal>
-          ))}
-        </div>
+          );
+        })}
       </section>
 
       {/* Check-list cochable */}

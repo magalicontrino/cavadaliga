@@ -84,7 +84,7 @@ export type Dict = {
 };
 
 const FR: Dict = {
-  nav: ['Accueil', 'Préparer le voyage', 'Informations pratiques', 'Bonnes adresses', 'La région', 'La famille', 'Calendrier'],
+  nav: ['Accueil', 'Préparer le voyage', 'Infos pratiques', 'Bonnes adresses', 'La région', 'La famille', 'Calendrier'],
   region: 'Sicile',
   tagline: 'un village du sud-est de la Sicile',
   subLabels: ['Près de Scicli dans la province de Raguse'],
@@ -198,13 +198,14 @@ const FR: Dict = {
           { label: 'AST — horaires', url: 'https://www.astsicilia.it/' },
           { label: 'Trenitalia', url: 'https://www.trenitalia.com/' },
           { label: 'Goldcar', url: 'https://www.goldcar.es/' },
+          { label: 'WhatsApp — Giovanni', url: 'https://wa.me/393803138948' },
         ],
         items: [
           'Bus AST — depuis l’aéroport de Catane vers Modica, Scicli, Donnalucata et Pozzallo (horaires sur astsicilia.it).',
           'Train — la ligne régionale relie Modica, Scicli, Pozzallo et Raguse (horaires et billets sur trenitalia.com).',
           'Location de voiture — pratique pour explorer la région ; nous conseillons Goldcar, à l’aéroport de Catane. À la sortie de l’aéroport, prenez à droite : tous les loueurs sont regroupés au même endroit.',
           'Important : la carte de crédit doit être au nom de la personne qui a réservé. Goldcar bloque une caution (environ 950 € à ce jour) si vous ne prenez pas l’assurance, qui reste facultative.',
-          'Chauffeur privé — Giovanni, notre perle (+39 380 313 8948) : 10 € de Donnalucata à l’appartement, 20 € de Pozzallo, 150 € depuis l’aéroport de Catane. Jusqu’à 5-6 personnes. À prévenir à l’avance selon ses disponibilités (prévoyez un plan B).',
+          'Chauffeur privé — Giovanni, notre perle, à joindre sur WhatsApp au +39 380 313 8948 : 10 € de Donnalucata à l’appartement, 20 € de Pozzallo, 150 € depuis l’aéroport de Catane. Jusqu’à 5-6 personnes. À prévenir à l’avance selon ses disponibilités (prévoyez un plan B).',
           'Ne comptez pas trouver de Uber : l’application ne couvre pas cette région rurale (en Italie, Uber ne fonctionne qu’à Rome et Milan, et seulement avec des taxis/chauffeurs licenciés). Ici, on compte sur Giovanni, un taxi local ou le bus.',
         ],
       },
@@ -253,7 +254,7 @@ const FR: Dict = {
 };
 
 const IT: Dict = {
-  nav: ['Home', 'Preparare il viaggio', 'Informazioni pratiche', 'I nostri indirizzi', 'La regione', 'La famiglia', 'Calendario'],
+  nav: ['Home', 'Preparare il viaggio', 'Info pratiche', 'I nostri indirizzi', 'La regione', 'La famiglia', 'Calendario'],
   region: 'Sicilia',
   tagline: 'un villaggio del sud-est della Sicilia',
   subLabels: ['Vicino a Scicli in provincia di Ragusa'],
@@ -367,13 +368,14 @@ const IT: Dict = {
           { label: 'AST — orari', url: 'https://www.astsicilia.it/' },
           { label: 'Trenitalia', url: 'https://www.trenitalia.com/' },
           { label: 'Goldcar', url: 'https://www.goldcar.es/' },
+          { label: 'WhatsApp — Giovanni', url: 'https://wa.me/393803138948' },
         ],
         items: [
           'Bus AST — dall’aeroporto di Catania verso Modica, Scicli, Donnalucata e Pozzallo (orari su astsicilia.it).',
           'Treno — la linea regionale collega Modica, Scicli, Pozzallo e Ragusa (orari e biglietti su trenitalia.com).',
           'Noleggio auto — comodo per esplorare la regione; consigliamo Goldcar, all’aeroporto di Catania. All’uscita dell’aeroporto, girate a destra: tutti gli autonoleggi sono riuniti nello stesso punto.',
           'Importante: la carta di credito deve essere intestata alla persona che ha prenotato. Goldcar blocca una cauzione (circa 950 € a oggi) se non si prende l’assicurazione, che resta facoltativa.',
-          'Autista privato — Giovanni, la nostra perla (+39 380 313 8948): 10 € da Donnalucata all’appartamento, 20 € da Pozzallo, 150 € dall’aeroporto di Catania. Fino a 5-6 persone. Da avvisare in anticipo in base alla disponibilità (tenete un piano B).',
+          'Autista privato — Giovanni, la nostra perla, da contattare su WhatsApp al +39 380 313 8948: 10 € da Donnalucata all’appartamento, 20 € da Pozzallo, 150 € dall’aeroporto di Catania. Fino a 5-6 persone. Da avvisare in anticipo in base alla disponibilità (tenete un piano B).',
           'Non contate di trovare Uber: l’app non copre questa zona rurale (in Italia Uber funziona solo a Roma e Milano, e soltanto con taxi/autisti con licenza). Qui si conta su Giovanni, un taxi locale o il bus.',
         ],
       },
@@ -422,7 +424,7 @@ const IT: Dict = {
 };
 
 const EN: Dict = {
-  nav: ['Home', 'Plan your trip', 'Practical information', 'Favourite spots', 'The region', 'The family', 'Calendar'],
+  nav: ['Home', 'Plan your trip', 'Practical info', 'Favourite spots', 'The region', 'The family', 'Calendar'],
   region: 'Sicily',
   tagline: 'a village in south-east Sicily',
   subLabels: ['Near Scicli in the province of Ragusa'],
@@ -536,13 +538,14 @@ const EN: Dict = {
           { label: 'AST — timetables', url: 'https://www.astsicilia.it/' },
           { label: 'Trenitalia', url: 'https://www.trenitalia.com/' },
           { label: 'Goldcar', url: 'https://www.goldcar.es/' },
+          { label: 'WhatsApp — Giovanni', url: 'https://wa.me/393803138948' },
         ],
         items: [
           'AST bus — from Catania airport to Modica, Scicli, Donnalucata and Pozzallo (timetables on astsicilia.it).',
           'Train — the regional line links Modica, Scicli, Pozzallo and Ragusa (timetables and tickets on trenitalia.com).',
           'Car rental — handy for exploring the region; we recommend Goldcar, at Catania airport. As you leave the airport, turn right: all the rental companies are grouped in the same spot.',
           'Important: the credit card must be in the name of the person who booked. Goldcar holds a deposit (around €950 as of today) if you decline the insurance, which is optional.',
-          'Private driver — Giovanni, our gem (+39 380 313 8948): €10 from Donnalucata to the apartment, €20 from Pozzallo, €150 from Catania airport. Up to 5-6 people. Book ahead subject to availability (keep a plan B).',
+          'Private driver — Giovanni, our gem, reach him on WhatsApp at +39 380 313 8948: €10 from Donnalucata to the apartment, €20 from Pozzallo, €150 from Catania airport. Up to 5-6 people. Book ahead subject to availability (keep a plan B).',
           'Don’t count on finding an Uber: the app doesn’t cover this rural area (in Italy, Uber only runs in Rome and Milan, and only with licensed taxis/drivers). Here you rely on Giovanni, a local taxi or the bus.',
         ],
       },
