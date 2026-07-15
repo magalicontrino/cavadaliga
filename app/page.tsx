@@ -98,27 +98,12 @@ export default function CavaHome() {
         <Gallery images={GALLERY_STRIP} />
       </section>
 
-      {/* ---------- CTA contact (ouvert, sans boîte) ---------- */}
+      {/* ---------- CTA : liens géants Contact + Instagram ---------- */}
       <section className="mx-auto max-w-[110rem] px-5 py-20 md:px-10 md:py-28">
-        <Reveal className="flex flex-col items-center gap-7 text-center">
-          <p className="text-[11px] font-medium uppercase tracking-[0.28em]" style={{ color: 'var(--cava-pink)' }}>
-            {t.ctaEyebrow}
-          </p>
-          <p className="max-w-[16ch] text-[clamp(2.2rem,7vw,4.6rem)] leading-[1.04]" style={{ fontWeight: 400 }}>
-            {t.ctaTitle}
-          </p>
-          <a
-            href={SITE.instagram.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cava-navlink mt-2 text-[13px] uppercase tracking-[0.16em]"
-            style={{ color: 'var(--cava-muted)' }}
-          >
-            Instagram {SITE.instagram.handle}
-          </a>
+        <Reveal>
           <a
             href={`mailto:${SITE.email}`}
-            className="cava-footlink group mt-8 flex w-full items-center justify-between border-b border-t py-4 text-left md:py-5"
+            className="cava-footlink group flex w-full items-center justify-between border-b border-t py-4 text-left md:py-5"
             style={{ borderColor: 'var(--cava-line)' }}
           >
             <span
@@ -126,6 +111,23 @@ export default function CavaHome() {
               style={{ fontWeight: 900 }}
             >
               {t.contactLink}
+            </span>
+            <span className="cava-cta-arrow text-[clamp(1.4rem,3.5vw,2.6rem)]" aria-hidden>
+              ↗
+            </span>
+          </a>
+          <a
+            href={SITE.instagram.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cava-footlink group flex w-full items-center justify-between border-b py-4 text-left md:py-5"
+            style={{ borderColor: 'var(--cava-line)' }}
+          >
+            <span
+              className="text-[clamp(1.7rem,7vw,4.5rem)] uppercase leading-[0.95] tracking-[-0.02em]"
+              style={{ fontWeight: 900 }}
+            >
+              Instagram
             </span>
             <span className="cava-cta-arrow text-[clamp(1.4rem,3.5vw,2.6rem)]" aria-hidden>
               ↗
