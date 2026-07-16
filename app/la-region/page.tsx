@@ -34,7 +34,10 @@ export default function LaRegion() {
   const p = t.pages['la-region'];
   const rf = t.regionFilter;
 
-  const [filter, setFilter] = useState<Key>('tout');
+  // On arrive sur « Les lieux » : le bouton allumé correspond à ce qu'on voit.
+  // Avec « Tout » par défaut, cliquer « Les lieux » ne changeait rien à l'écran —
+  // les deux commencent par la même section, et le clic semblait échouer.
+  const [filter, setFilter] = useState<Key>('lieux');
   // Incrementé à chaque choix : dit aux Reveal en dessous de se montrer d'un coup.
   const [clicks, setClicks] = useState(0);
   const choose = (k: Key) => {
@@ -44,8 +47,9 @@ export default function LaRegion() {
   // « Tout » enchaîne les trois ; sinon on isole une seule section.
   const show = (k: Key) => filter === 'tout' || filter === k;
 
+  // Les sections d'abord ; « Tout voir » ferme la marche, en retrait : c'est une
+  // commande (tout enchaîner), pas une catégorie de plus.
   const filters: { key: Key; label: string; icon: IconName }[] = [
-    { key: 'tout', label: rf.all, icon: 'map' },
     { key: 'lieux', label: rf.places, icon: 'pin' },
     { key: 'coutumes', label: rf.customs, icon: 'cone' },
     { key: 'arabe', label: rf.arab, icon: 'landmark' },
@@ -67,6 +71,7 @@ export default function LaRegion() {
               <FilterChip key={x.key} label={x.label} icon={x.icon} active={on} onClick={() => choose(x.key)} />
             );
           })}
+          <FilterChip label={rf.all} icon="map" active={filter === 'tout'} onClick={() => choose('tout')} subtle />
         </Reveal>
       </section>
 

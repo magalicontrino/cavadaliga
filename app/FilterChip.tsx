@@ -15,12 +15,36 @@ export default function FilterChip({
   icon,
   active,
   onClick,
+  subtle = false,
 }: {
   label: string;
   icon: IconName;
   active: boolean;
   onClick: () => void;
+  // « Tout voir » n'est pas une catégorie mais une commande : pas de pastille
+  // pleine, pour qu'on ne le confonde pas avec les sections.
+  subtle?: boolean;
 }) {
+  if (subtle) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        aria-pressed={active}
+        className="cava-chip inline-flex items-center gap-2 rounded-full border px-5 py-3 text-[14px]"
+        style={{
+          borderColor: active ? 'var(--cava-ink)' : 'var(--cava-line)',
+          background: active ? 'var(--cava-ink)' : 'transparent',
+          color: active ? 'var(--cava-bg)' : 'var(--cava-muted)',
+          fontWeight: active ? 700 : 500,
+        }}
+      >
+        <Icon name={icon} size={16} />
+        {label}
+      </button>
+    );
+  }
+
   return (
     <button
       type="button"

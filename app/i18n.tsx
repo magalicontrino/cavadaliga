@@ -430,13 +430,13 @@ const FR: Dict = {
     ],
   },
   regionFilter: {
-    all: 'Tout',
+    all: 'Tout voir',
     places: 'Les lieux',
     customs: 'Us et coutumes',
     arab: 'Sicile arabe',
   },
   infoFilter: {
-    all: 'Tout',
+    all: 'Tout voir',
     address: 'Adresse',
     arrival: 'Arrivée',
     move: 'Se déplacer',
@@ -800,13 +800,13 @@ const IT: Dict = {
     ],
   },
   regionFilter: {
-    all: 'Tutto',
+    all: 'Vedi tutto',
     places: 'I luoghi',
     customs: 'Usi e costumi',
     arab: 'Sicilia araba',
   },
   infoFilter: {
-    all: 'Tutto',
+    all: 'Vedi tutto',
     address: 'Indirizzo',
     arrival: 'Arrivo',
     move: 'Spostarsi',
@@ -1170,13 +1170,13 @@ const EN: Dict = {
     ],
   },
   regionFilter: {
-    all: 'Everything',
+    all: 'See all',
     places: 'The places',
     customs: 'Local customs',
     arab: 'Arab Sicily',
   },
   infoFilter: {
-    all: 'Everything',
+    all: 'See all',
     address: 'Address',
     arrival: 'Arriving',
     move: 'Getting around',

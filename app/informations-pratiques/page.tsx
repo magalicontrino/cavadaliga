@@ -21,7 +21,9 @@ export default function InformationsPratiques() {
   const a = t.arrivee;
   const f = t.infoFilter;
 
-  const [filter, setFilter] = useState<Key>('tout');
+  // On arrive sur « Adresse » : le bouton allumé correspond à ce qu'on voit.
+  // Avec « Tout » par défaut, cliquer « Adresse » ne changeait rien à l'écran.
+  const [filter, setFilter] = useState<Key>('adresse');
   // Incrementé à chaque choix : dit aux Reveal en dessous de se montrer d'un coup.
   const [clicks, setClicks] = useState(0);
   const choose = (k: Key) => {
@@ -31,8 +33,8 @@ export default function InformationsPratiques() {
   // « Tout » montre l'enchaînement complet ; sinon on isole une seule section.
   const show = (k: Key) => filter === 'tout' || filter === k;
 
+  // Les sections d'abord ; « Tout voir » ferme la marche, en retrait.
   const filters: { key: Key; label: string; icon: IconName }[] = [
-    { key: 'tout', label: f.all, icon: 'map' },
     { key: 'adresse', label: f.address, icon: 'pin' },
     { key: 'arrivee', label: f.arrival, icon: 'key' },
     { key: 'bouger', label: f.move, icon: 'compass' },
@@ -57,6 +59,7 @@ export default function InformationsPratiques() {
               <FilterChip key={x.key} label={x.label} icon={x.icon} active={on} onClick={() => choose(x.key)} />
             );
           })}
+          <FilterChip label={f.all} icon="map" active={filter === 'tout'} onClick={() => choose('tout')} subtle />
         </Reveal>
       </section>
 
