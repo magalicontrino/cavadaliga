@@ -211,9 +211,7 @@ export default function LocalMap({ houseLabel }: { houseLabel: string }) {
       {LOCALS.map((s) => (
         <a key={s.q} href={maps(s.q)} target="_blank" rel="noopener noreferrer" className="cava-mappin" aria-label={s.name}>
           <circle cx={s.x} cy={s.y} r="15" fill="transparent" />
-          <g className="dot" transform={`translate(${s.x} ${s.y})`}>
-            <rect x="-10" y="-10" width="20" height="20" rx="6" fill="var(--cava-ink)" />
-          </g>
+          <rect className="dot" x={s.x - 10} y={s.y - 10} width="20" height="20" rx="6" fill="var(--cava-ink)" />
           <svg
             x={s.x - 7}
             y={s.y - 7}

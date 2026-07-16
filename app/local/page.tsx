@@ -98,49 +98,47 @@ export default function Local() {
               )}
             </Reveal>
           ))}
-        </div>
-      </section>
 
-      {/* Marchés — carte dédiée + liste des marchés */}
-      <section className="mx-auto max-w-[110rem] px-5 pt-5 md:px-10">
-        <Reveal
-          className="rounded-2xl border p-8 md:p-10"
-          style={{ background: 'var(--cava-bg)', borderColor: 'var(--cava-line)' }}
-        >
-          <div className="flex items-center gap-4">
-            <span
-              className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
-              style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-ink)' }}
-            >
-              <Icon name="bag" size={24} />
-            </span>
-            <h2 className="text-[clamp(1.4rem,3vw,2.1rem)] leading-[1.1]" style={{ fontWeight: 600 }}>
-              {p.markets.title}
-            </h2>
-          </div>
-          <p className="mt-4 max-w-[64ch] text-[15px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
-            {p.markets.desc}
-          </p>
-          <ul className="mt-6 flex flex-col gap-3 border-t pt-6" style={{ borderColor: 'var(--cava-line)' }}>
-            {p.markets.list.map((m) => (
-              <li key={m.url}>
-                <a
-                  href={m.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cava-navlink inline-flex items-start gap-2 text-[15px] leading-[1.5]"
-                >
-                  <span className="mt-0.5 shrink-0" style={{ color: 'var(--cava-pink)' }}>
-                    <Icon name="pin" size={16} />
-                  </span>
-                  <span>
-                    {m.label} <span aria-hidden>↗</span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
+          {/* Marchés — carte élargie (2 colonnes), à droite de « Plantes » */}
+          <Reveal
+            className="flex flex-col gap-4 rounded-2xl border p-8 sm:col-span-2 md:p-10 lg:col-span-2"
+            style={{ background: 'var(--cava-bg)', borderColor: 'var(--cava-line)' }}
+          >
+            <div className="flex items-center gap-4">
+              <span
+                className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-ink)' }}
+              >
+                <Icon name="bag" size={24} />
+              </span>
+              <h2 className="text-[clamp(1.3rem,2.6vw,1.9rem)] leading-[1.1]" style={{ fontWeight: 600 }}>
+                {p.markets.title}
+              </h2>
+            </div>
+            <p className="text-[15px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+              {p.markets.desc}
+            </p>
+            <ul className="mt-1 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+              {p.markets.list.map((m) => (
+                <li key={m.url}>
+                  <a
+                    href={m.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cava-navlink inline-flex items-start gap-2 text-[15px] leading-[1.5]"
+                  >
+                    <span className="mt-0.5 shrink-0" style={{ color: 'var(--cava-pink)' }}>
+                      <Icon name="pin" size={16} />
+                    </span>
+                    <span>
+                      {m.label} <span aria-hidden>↗</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
       </section>
 
       <Reveal
