@@ -54,7 +54,7 @@ export default function GettingAround() {
                     rel="noopener noreferrer"
                     className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]"
                   >
-                    <Icon name="map" size={15} /> {tr.insecure ? 'Site (http)' : 'Site'} <span aria-hidden>↗</span>
+                    <Icon name="map" size={15} /> Site <span aria-hidden>↗</span>
                   </a>
                   {tr.appUrl && (
                     <a

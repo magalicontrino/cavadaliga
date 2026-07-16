@@ -66,7 +66,6 @@ export type Dict = {
   // Titres des CTA de l'accueil (ordre : infos pratiques, services locaux,
   // région, préparer le voyage, contact) — mini-phrases avec le nom de rubrique.
   ctaTitles: string[];
-  indexCards: { title: string; desc: string }[];
   tasteOfSicily: string;
   galleryAlt: string[];
   apartmentAlt: string;
@@ -209,17 +208,13 @@ const FR: Dict = {
   everythingForStay: 'Tout pour votre séjour',
   sectionsWord: 'rubriques',
   ctaTitles: [
+    'Rencontrer la famille',
+    'Découvrir la région',
+    'Écouter et voir la Sicile',
+    'Bien préparer le voyage',
     'Toutes les informations pratiques',
     'Nos adresses',
-    'Découvrir la région',
-    'Bien préparer le voyage',
-    'Nous contacter',
-  ],
-  indexCards: [
-    { title: 'Informations pratiques', desc: 'Arrivée, départ, équipements, wifi, tout pour un séjour sans accroc.' },
-    { title: 'Services locaux & contacts utiles', desc: 'Commerces, restaurants, marchés et bonnes adresses autour de nous.' },
-    { title: 'Découvrir la région', desc: 'Scicli, Raguse, le baroque du Val di Noto et les plages secrètes.' },
-    { title: 'Préparer le voyage', desc: 'Vols, aéroports, comment rejoindre la maison et check-list avant de partir.' },
+    'Voir le calendrier',
   ],
   tasteOfSicily: 'Un avant-goût de la Sicile',
   galleryAlt: [
@@ -427,7 +422,7 @@ const FR: Dict = {
   },
   wastePage: {
     eyebrow: 'Tri des déchets',
-    title: 'Quel bac, quel soir',
+    title: 'Quelle poubelle, quel soir',
     intro: 'À Cava d’Aliga, chaque type de déchet a son jour. Les bacs se sortent la veille au soir : le camion passe tôt.',
     today: 'Ce soir',
     tomorrow: 'Demain soir',
@@ -585,17 +580,13 @@ const IT: Dict = {
   everythingForStay: 'Tutto per il vostro soggiorno',
   sectionsWord: 'sezioni',
   ctaTitles: [
-    'Tutte le informazioni pratiche',
-    'I nostri indirizzi',
+    'Conoscere la famiglia',
     'Scoprire la regione',
+    'Ascoltare e vedere la Sicilia',
     'Preparare bene il viaggio',
-    'Contattaci',
-  ],
-  indexCards: [
-    { title: 'Informazioni pratiche', desc: 'Arrivo, partenza, dotazioni, wifi, tutto per un soggiorno senza pensieri.' },
-    { title: 'Servizi locali e contatti utili', desc: 'Negozi, ristoranti, mercati e i nostri indirizzi preferiti nei dintorni.' },
-    { title: 'Scoprire la regione', desc: 'Scicli, Ragusa, il barocco del Val di Noto e le spiagge nascoste.' },
-    { title: 'Preparare il viaggio', desc: 'Voli, aeroporti, come raggiungere la casa e la check-list prima di partire.' },
+    'Tutte le info pratiche',
+    'I nostri indirizzi',
+    'Vedere il calendario',
   ],
   tasteOfSicily: 'Un assaggio di Sicilia',
   galleryAlt: [
@@ -803,7 +794,7 @@ const IT: Dict = {
   },
   wastePage: {
     eyebrow: 'Raccolta differenziata',
-    title: 'Quale bidone, quale sera',
+    title: 'Quale pattumiera, quale sera',
     intro: 'A Cava d’Aliga ogni tipo di rifiuto ha il suo giorno. I bidoni si mettono fuori la sera prima: il camion passa presto.',
     today: 'Stasera',
     tomorrow: 'Domani sera',
@@ -961,17 +952,13 @@ const EN: Dict = {
   everythingForStay: 'Everything for your stay',
   sectionsWord: 'sections',
   ctaTitles: [
-    'All the practical information',
-    'Our spots',
+    'Meet the family',
     'Discover the region',
-    'Everything to plan your trip',
-    'Get in contact',
-  ],
-  indexCards: [
-    { title: 'Practical information', desc: 'Arrival, departure, amenities, wifi — everything for a smooth stay.' },
-    { title: 'Local services & useful contacts', desc: 'Shops, restaurants, markets and our favourite spots nearby.' },
-    { title: 'Discover the region', desc: 'Scicli, Ragusa, the baroque of Val di Noto and the hidden beaches.' },
-    { title: 'Plan your trip', desc: 'Flights, airports, how to reach the house and a checklist before you leave.' },
+    'Hear and see Sicily',
+    'Plan the trip properly',
+    'All the practical info',
+    'Our spots',
+    'See the calendar',
   ],
   tasteOfSicily: 'A taste of Sicily',
   galleryAlt: [

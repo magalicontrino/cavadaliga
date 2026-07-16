@@ -8,7 +8,7 @@ import Footer from './Footer';
 import CtaBadge from './CtaBadge';
 import Gallery from './Gallery';
 import Weather from './Weather';
-import { SITE } from './data';
+import { SITE, NAV } from './data';
 import { useI18n } from './i18n';
 
 // Bandeau d'images défilant de la galerie (visuels présents dans /public/deco/).
@@ -73,20 +73,26 @@ export default function CavaHome() {
         </Reveal>
       </section>
 
-      {/* ---------- Les rubriques (CTA à badge rotatif) ---------- */}
-      {/* Ordre cohérent avec le menu : voyage → infos → adresses → région.
-          Titre = mini-phrase incluant le nom de la rubrique (t.ctaTitles). */}
-      <CtaBadge href="/preparer-le-voyage" title={t.ctaTitles[3]} circleId="cava-c-prepare" />
-      <CtaBadge href="/informations-pratiques" title={t.ctaTitles[0]} circleId="cava-c-info" flip />
-      <CtaBadge href="/services-locaux" title={t.ctaTitles[1]} circleId="cava-c-services" />
-      <CtaBadge href="/la-region" title={t.ctaTitles[2]} circleId="cava-c-region" flip />
+      {/* ---------- Les rubriques (CTA à badge rotatif) ----------
+          Une CTA par page du menu, dans le même ordre : le visiteur retrouve
+          la même séquence partout. Les titres viennent de t.ctaTitles, aligné
+          sur NAV. Le badge alterne de côté d'une section à l'autre. */}
+      {NAV.map((item, i) => (
+        <CtaBadge
+          key={item.href}
+          href={item.href}
+          title={t.ctaTitles[i]}
+          circleId={`cava-c-${item.href.slice(1)}`}
+          flip={i % 2 === 1}
+        />
+      ))}
 
       {/* ---------- Galerie : bandeau d'images défilant ---------- */}
       <section className="py-24 md:py-28">
         <Gallery images={GALLERY_STRIP} />
       </section>
 
-      {/* ---------- CTA : liens géants Contact + Instagram ---------- */}
+      {/* ---------- CTA : lien géant Contact ---------- */}
       <section className="mx-auto max-w-[110rem] px-5 py-20 md:px-10 md:py-28">
         <Reveal>
           <a

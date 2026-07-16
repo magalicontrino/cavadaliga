@@ -11,8 +11,6 @@ export type Transport = {
   name: string;
   icon: IconName;
   url: string;
-  /** Le site AST n'existe qu'en http : Chrome peut afficher un avertissement. */
-  insecure?: boolean;
   appUrl?: string;
   appLabel?: string;
   blurb: Record<Lang, string>;
@@ -35,11 +33,10 @@ export const TRANSPORTS: Transport[] = [
     name: 'AST — bus régionaux',
     icon: 'compass',
     url: 'http://www.aziendasicilianatrasporti.it/',
-    insecure: true,
     blurb: {
-      fr: 'Pour sortir du hameau : Scicli, Modica, Raguse, Noto, Syracuse, Pozzallo. La ligne 680 relie Donnalucata, Scicli, Modica et Raguse. Leur site n’existe qu’en « http » : votre navigateur peut râler, ce n’est pas dangereux, c’est juste vieux.',
-      it: 'Per uscire dal paese: Scicli, Modica, Ragusa, Noto, Siracusa, Pozzallo. La linea 680 collega Donnalucata, Scicli, Modica e Ragusa. Il loro sito esiste solo in « http »: il browser può protestare, non è pericoloso, è solo vecchio.',
-      en: 'To get out of the hamlet: Scicli, Modica, Ragusa, Noto, Siracusa, Pozzallo. Line 680 links Donnalucata, Scicli, Modica and Ragusa. Their site is http-only: your browser may complain — it is not dangerous, just old.',
+      fr: 'Pour sortir du hameau : Scicli, Modica, Raguse, Noto, Syracuse, Pozzallo. La ligne 680 relie Donnalucata, Scicli, Modica et Raguse.',
+      it: 'Per uscire dal paese: Scicli, Modica, Ragusa, Noto, Siracusa, Pozzallo. La linea 680 collega Donnalucata, Scicli, Modica e Ragusa.',
+      en: 'To get out of the hamlet: Scicli, Modica, Ragusa, Noto, Siracusa, Pozzallo. Line 680 links Donnalucata, Scicli, Modica and Ragusa.',
     },
   },
   {

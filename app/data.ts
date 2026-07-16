@@ -26,15 +26,6 @@ export const NAV = [
   { href: '/calendrier' },
 ] as const;
 
-// Cartes d'index — structure (libellés via i18n.indexCards, même ordre).
-// Plus de photo ni picto : fond couleur de marque (tone) + numéro typographique.
-export const INDEX_CARDS = [
-  { href: '/informations-pratiques', tone: 'ink' },
-  { href: '/services-locaux', tone: 'terra' },
-  { href: '/la-region', tone: 'pink' },
-  { href: '/preparer-le-voyage', tone: 'ink' },
-] as const;
-
 // Icônes des cartes de chaque page « à blocs » (même ordre que t.pages[x].blocks).
 // Les noms correspondent à app/Icon.tsx.
 import type { IconName } from './Icon';
