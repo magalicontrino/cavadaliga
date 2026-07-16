@@ -334,6 +334,46 @@
   }
 }
 
+/* --- Mini-liste « Chansons & histoires de Sicile » ------------------ */
+.cava-songrow {
+  transition:
+    padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease;
+}
+.cava-songrow:hover {
+  padding-left: 8px;
+  border-color: var(--cava-pink);
+}
+.cava-songrow-cta {
+  opacity: 0.35;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.cava-songrow:hover .cava-songrow-cta {
+  opacity: 1;
+  transform: scale(1.15);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-songrow,
+  .cava-songrow-cta {
+    transition: none;
+  }
+}
+
+/* Mini-carte au survol d'une épingle */
+@keyframes cava-maptip {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.cava-maptip {
+  animation: cava-maptip 0.18s ease-out;
+  filter: drop-shadow(0 6px 14px rgba(46, 45, 45, 0.18));
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-maptip {
+    animation: none;
+  }
+}
+
 /* Feuille rose du filtre « Responsable & local » (hors état actif) */
 .cava-leafpink {
   color: var(--cava-pink);

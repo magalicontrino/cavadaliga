@@ -37,6 +37,9 @@ export default function NosAdresses() {
     return hay.includes(q);
   });
 
+  // Distance depuis la maison — « Sur place » pour les adresses du village.
+  const distance = (km: number) => (km === 0 ? t.regionHere : `≈ ${km} km`);
+
   // Épingles de la carte = les adresses actuellement affichées.
   const spots = places.map((l) => ({
     id: l.id,
@@ -45,6 +48,8 @@ export default function NosAdresses() {
     x: l.x,
     y: l.y,
     q: `${l.name} ${l.town}`,
+    cat: `${l.town} · ${CATS[l.cat].label[lang]}`,
+    km: distance(l.km),
   }));
 
   // Clic sur une fiche : met l'épingle en évidence et remonte à la carte.
@@ -53,9 +58,6 @@ export default function NosAdresses() {
     setActive(next);
     if (next) mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
-
-  // Distance depuis la maison — « Sur place » pour les adresses du village.
-  const distance = (km: number) => (km === 0 ? t.regionHere : `≈ ${km} km`);
 
   return (
     <main>
@@ -71,7 +73,7 @@ export default function NosAdresses() {
             spots={spots}
             activeId={active}
             spotsKey={filter}
-            legend={{ villages: p.legendVillages, spots: p.legendSpots, soon: p.legendSoon }}
+            legend={{ villages: p.legendVillages, spots: p.legendSpots }}
           />
         </Reveal>
       </section>

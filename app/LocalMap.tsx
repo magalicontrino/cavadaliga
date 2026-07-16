@@ -8,6 +8,7 @@
 // Les épingles d'adresses (spots) viennent de la page : elles suivent le filtre
 // et la recherche. `activeId` met une épingle en évidence (clic sur une fiche).
 
+import { useState } from 'react';
 import { ICON_PATHS, type IconName } from './Icon';
 
 const CREAM = '#f7f5f2'; // = fond de page (--cava-bg) → la carte se fond dans la page
@@ -38,7 +39,8 @@ const PLACES: Place[] = [
 ];
 
 // Adresse épinglée sur la carte — vient de LOCAL_PLACES via la page.
-export type MapSpot = { id: string; name: string; icon: IconName; x: number; y: number; q: string };
+// `cat` et `km` alimentent la mini-carte affichée au survol de l'épingle.
+export type MapSpot = { id: string; name: string; icon: IconName; x: number; y: number; q: string; cat: string; km: string };
 
 const maps = (q: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
 
@@ -76,8 +78,20 @@ export default function LocalMap({
   spots: MapSpot[];
   activeId?: string | null;
   spotsKey?: string; // change → rejoue l'animation d'apparition des épingles
-  legend: { villages: string; spots: string; soon: string };
+  legend: { villages: string; spots: string };
 }) {
+  // Épingle survolée → mini-carte. Rendue après les épingles pour rester au-dessus.
+  const [hover, setHover] = useState<MapSpot | null>(null);
+  const tip = hover && (() => {
+    const sub = `${hover.cat} · ${hover.km}`;
+    // Pas de mesure de texte en SVG : on estime la largeur au nombre de caractères.
+    const w = Math.max(hover.name.length * 7.6, sub.length * 6.2) + 26;
+    const h = 52;
+    const x = Math.min(Math.max(hover.x - w / 2, 8), 992 - w);
+    const y = hover.y - 20 - h;
+    return { ...hover, w, h, x, y: y < 120 ? hover.y + 22 : y };
+  })();
+
   return (
     <svg
       viewBox="0 112 1000 548"
@@ -178,6 +192,10 @@ export default function LocalMap({
               className={`cava-mappin cava-mapspot${on ? ' cava-mapspot-on' : ''}`}
               aria-label={s.name}
               style={{ animationDelay: `${Math.min(i, 12) * 45}ms` }}
+              onMouseEnter={() => setHover(s)}
+              onMouseLeave={() => setHover((h) => (h?.id === s.id ? null : h))}
+              onFocus={() => setHover(s)}
+              onBlur={() => setHover(null)}
             >
               {/* Onde autour de l'épingle mise en évidence */}
               {on && (
@@ -227,7 +245,7 @@ export default function LocalMap({
 
       {/* Légende */}
       <g transform="translate(700 470)">
-        <rect width="262" height="94" rx="14" fill={CREAM} stroke="var(--cava-ink)" strokeWidth="1.2" opacity="0.96" />
+        <rect width="262" height="74" rx="14" fill={CREAM} stroke="var(--cava-ink)" strokeWidth="1.2" opacity="0.96" />
         <circle cx="24" cy="26" r="5.5" fill={CREAM} stroke="var(--cava-ink)" strokeWidth="1.6" />
         <text x="42" y="30" fontSize="13.5" fill="var(--cava-ink)">
           {legend.villages}
@@ -236,10 +254,29 @@ export default function LocalMap({
         <text x="42" y="59" fontSize="13.5" fill="var(--cava-ink)">
           {legend.spots}
         </text>
-        <text x="17" y="82" fontSize="11.5" fontStyle="italic" fill="var(--cava-muted)">
-          {legend.soon}
-        </text>
       </g>
+
+      {/* Mini-carte au survol d'une épingle — en dernier = toujours au-dessus */}
+      {tip && (
+        <g className="cava-maptip" pointerEvents="none" aria-hidden>
+          <rect
+            x={tip.x}
+            y={tip.y}
+            width={tip.w}
+            height={tip.h}
+            rx="12"
+            fill={CREAM}
+            stroke="var(--cava-ink)"
+            strokeWidth="1.4"
+          />
+          <text x={tip.x + 13} y={tip.y + 22} fontSize="14" fontWeight="700" fill="var(--cava-ink)">
+            {tip.name}
+          </text>
+          <text x={tip.x + 13} y={tip.y + 40} fontSize="11.5" fill="var(--cava-muted)" letterSpacing="0.04em">
+            {tip.cat} · {tip.km}
+          </text>
+        </g>
+      )}
     </svg>
   );
 }

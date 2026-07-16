@@ -86,7 +86,6 @@ export type Dict = {
     searchPlaceholder: string;
     legendVillages: string;
     legendSpots: string;
-    legendSoon: string;
     categories: { title: string; desc: string; spots: { label: string; url: string; instagram?: string }[] }[];
     markets: { title: string; desc: string; list: { label: string; url: string }[] };
   };
@@ -196,7 +195,6 @@ const FR: Dict = {
     searchPlaceholder: 'Rechercher un lieu, une envie…',
     legendVillages: 'Villages',
     legendSpots: 'Nos adresses',
-    legendSoon: '+ d’autres bonnes adresses à venir',
     categories: [
       {
         title: 'Chocolat de Modica',
@@ -242,8 +240,8 @@ const FR: Dict = {
     playlistDesc: 'Une playlist partagée : chacun y ajoute ce qu’il écoute ici. Pour la route depuis l’aéroport, la cuisine ou la terrasse le soir.',
     playlistCta: 'Ouvrir dans Spotify',
     playlistSoon: 'Le lien de la playlist arrive bientôt.',
-    artistsTitle: 'À écouter',
-    artistsIntro: 'Quelques voix siciliennes pour commencer, en attendant la playlist.',
+    artistsTitle: 'Chansons & histoires de Sicile',
+    artistsIntro: 'Les voix qui racontent l’île — à écouter avant, pendant, après.',
     screensTitle: 'À l’écran, ici',
     screensIntro: 'Tourné à côté de la maison. Regardez avant de venir : vous verrez la région autrement.',
     placeLabel: 'Voir le lieu',
@@ -455,7 +453,6 @@ const IT: Dict = {
     searchPlaceholder: 'Cerca un luogo, una voglia…',
     legendVillages: 'Paesi',
     legendSpots: 'I nostri indirizzi',
-    legendSoon: '+ altri buoni indirizzi in arrivo',
     categories: [
       {
         title: 'Cioccolato di Modica',
@@ -501,8 +498,8 @@ const IT: Dict = {
     playlistDesc: 'Una playlist condivisa: ognuno aggiunge ciò che ascolta qui. Per la strada dall’aeroporto, la cucina o la terrazza la sera.',
     playlistCta: 'Apri su Spotify',
     playlistSoon: 'Il link della playlist arriva presto.',
-    artistsTitle: 'Da ascoltare',
-    artistsIntro: 'Qualche voce siciliana per cominciare, in attesa della playlist.',
+    artistsTitle: 'Canzoni & storie di Sicilia',
+    artistsIntro: 'Le voci che raccontano l’isola — da ascoltare prima, durante, dopo.',
     screensTitle: 'Sullo schermo, qui',
     screensIntro: 'Girato accanto a casa. Guardate prima di venire: vedrete la zona con altri occhi.',
     placeLabel: 'Vedi il luogo',
@@ -714,7 +711,6 @@ const EN: Dict = {
     searchPlaceholder: 'Search a place, a craving…',
     legendVillages: 'Villages',
     legendSpots: 'Our spots',
-    legendSoon: '+ more good addresses coming',
     categories: [
       {
         title: 'Modica chocolate',
@@ -760,8 +756,8 @@ const EN: Dict = {
     playlistDesc: 'A shared playlist: everyone adds what they listen to here. For the drive from the airport, the kitchen, or the terrace at night.',
     playlistCta: 'Open in Spotify',
     playlistSoon: 'The playlist link is coming soon.',
-    artistsTitle: 'Worth a listen',
-    artistsIntro: 'A few Sicilian voices to start with, while the playlist takes shape.',
+    artistsTitle: 'Songs & stories of Sicily',
+    artistsIntro: 'The voices that tell the island — listen before, during, after.',
     screensTitle: 'On screen, right here',
     screensIntro: 'Filmed next door. Watch before you come: you will see the area differently.',
     placeLabel: 'See the place',

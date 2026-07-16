@@ -84,53 +84,6 @@ export default function Culture() {
         )}
       </section>
 
-      {/* À écouter — voix siciliennes */}
-      <section className="mx-auto max-w-[110rem] px-5 pt-20 md:px-10">
-        <Reveal
-          as="h2"
-          className="border-t pt-8 text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]"
-          style={{ fontWeight: 900, borderColor: 'var(--cava-ink)' }}
-        >
-          {c.artistsTitle}
-        </Reveal>
-        <Reveal as="p" className="mt-4 max-w-[60ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
-          {c.artistsIntro}
-        </Reveal>
-
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {ARTISTS.map((a, i) => (
-            <Reveal key={a.id} delay={(i % 3) * 70}>
-              <a
-                href={a.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cava-listcard group flex h-full flex-col gap-3 rounded-2xl border p-8"
-                style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
-              >
-                <span
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
-                  style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-ink)' }}
-                >
-                  <Icon name="vinyl" size={24} />
-                </span>
-                <h3 className="mt-1 text-[clamp(1.2rem,2.4vw,1.5rem)] leading-[1.15]" style={{ fontWeight: 600 }}>
-                  {a.name}
-                </h3>
-                <p className="text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-muted)' }}>
-                  {a.from}
-                </p>
-                <p className="text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
-                  {a.blurb[lang]}
-                </p>
-                <span className="cava-pill mt-auto inline-flex w-fit items-center gap-2 px-4 py-2 pt-2 text-[13px]">
-                  <Icon name="spotify" size={15} /> Spotify <span aria-hidden>↗</span>
-                </span>
-              </a>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
       {/* À l'écran — films & séries tournés ici */}
       <section className="mx-auto max-w-[110rem] px-5 pt-20 md:px-10">
         <Reveal
@@ -197,6 +150,56 @@ export default function Culture() {
             </Reveal>
           ))}
         </div>
+      </section>
+
+      {/* Chansons & histoires de Sicile — mini-liste, tout en bas */}
+      <section className="mx-auto max-w-[110rem] px-5 pt-20 md:px-10">
+        <Reveal
+          as="h2"
+          className="border-t pt-8 text-[clamp(1.4rem,2.6vw,1.9rem)] uppercase leading-[1.05] tracking-[-0.02em]"
+          style={{ fontWeight: 900, borderColor: 'var(--cava-line)' }}
+        >
+          {c.artistsTitle}
+        </Reveal>
+        <Reveal as="p" className="mt-2 max-w-[60ch] text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+          {c.artistsIntro}
+        </Reveal>
+
+        <Reveal as="ul" className="mt-6 max-w-[70rem]">
+          {ARTISTS.map((a) => (
+            <li key={a.id}>
+              <a
+                href={a.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cava-songrow group flex items-baseline gap-3 border-b py-3.5"
+                style={{ borderColor: 'var(--cava-line)' }}
+              >
+                <span aria-hidden className="shrink-0 self-center" style={{ color: 'var(--cava-pink)' }}>
+                  <Icon name="vinyl" size={15} />
+                </span>
+                <span className="shrink-0 text-[15px]" style={{ fontWeight: 600 }}>
+                  {a.name}
+                </span>
+                <span className="shrink-0 text-[11px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-muted)' }}>
+                  {a.from}
+                </span>
+                <span
+                  className="hidden flex-1 truncate text-[13px] md:block"
+                  style={{ color: 'var(--cava-muted)' }}
+                >
+                  {a.blurb[lang]}
+                </span>
+                <span
+                  className="cava-songrow-cta ml-auto shrink-0 self-center md:ml-0"
+                  style={{ color: 'var(--cava-pink)' }}
+                >
+                  <Icon name="spotify" size={17} />
+                </span>
+              </a>
+            </li>
+          ))}
+        </Reveal>
       </section>
 
       <Reveal className="mx-auto max-w-[110rem] px-5 pb-24 pt-10 text-[14px] italic md:px-10" style={{ color: 'var(--cava-muted)' }}>
