@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
-import Reveal from '../Reveal';
+import Reveal, { RevealNow } from '../Reveal';
 import Carousel from '../Carousel';
 import PageHeader from '../PageHeader';
 import Icon, { type IconName } from '../Icon';
@@ -35,6 +35,12 @@ export default function LaRegion() {
   const rf = t.regionFilter;
 
   const [filter, setFilter] = useState<Key>('tout');
+  // Incrementé à chaque choix : dit aux Reveal en dessous de se montrer d'un coup.
+  const [clicks, setClicks] = useState(0);
+  const choose = (k: Key) => {
+    setFilter(k);
+    setClicks((c) => c + 1);
+  };
   // « Tout » enchaîne les trois ; sinon on isole une seule section.
   const show = (k: Key) => filter === 'tout' || filter === k;
 
@@ -46,6 +52,7 @@ export default function LaRegion() {
   ];
 
   return (
+    <RevealNow.Provider value={clicks}>
     <main>
       <Nav current="/la-region" />
 
@@ -57,7 +64,7 @@ export default function LaRegion() {
           {filters.map((x) => {
             const on = filter === x.key;
             return (
-              <FilterChip key={x.key} label={x.label} icon={x.icon} active={on} onClick={() => setFilter(x.key)} />
+              <FilterChip key={x.key} label={x.label} icon={x.icon} active={on} onClick={() => choose(x.key)} />
             );
           })}
         </Reveal>
@@ -65,7 +72,7 @@ export default function LaRegion() {
 
       {/* Les lieux autour de nous — fiches éditoriales alternées + lightbox */}
       {show('lieux') && (
-      <section key={`lieux-${filter}`} className="mx-auto max-w-[110rem] px-5 pt-12 md:px-10">
+      <section className="mx-auto max-w-[110rem] px-5 pt-12 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="pin" size={16} /> {t.regionFilter.places}
@@ -142,7 +149,7 @@ export default function LaRegion() {
 
       {/* Us et coutumes — granita, arancina, passeggiata */}
       {show('coutumes') && (
-      <section key={`coutumes-${filter}`} className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="cone" size={16} /> {t.tastePage.eyebrow}
@@ -178,7 +185,7 @@ export default function LaRegion() {
 
       {/* La Sicile arabe — l'histoire qui explique ce qu'on a sous les yeux */}
       {show('arabe') && (
-      <section key={`arabe-${filter}`} className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="landmark" size={16} /> {t.arabPage.eyebrow}
@@ -246,5 +253,6 @@ export default function LaRegion() {
 
       <Footer />
     </main>
+    </RevealNow.Provider>
   );
 }

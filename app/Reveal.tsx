@@ -1,30 +1,24 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef, useState, type ElementType, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useRef, useState, type ElementType, type ReactNode } from 'react';
 
 /**
  * Reveal — apparition fade + translate au scroll (reproduction de l'effet
  * Webflow d'origine : opacity 0 → 1, translateY → 0). Respecte
  * prefers-reduced-motion (géré en CSS via .cava-reveal).
  *
- * L'effet ne vaut que pour la page qu'on ouvre. Ce qui apparaît ensuite est une
- * réponse à un clic — un filtre — et doit être là tout de suite, entièrement :
- * pas seulement le titre, avec le contenu qui se dévoile au défilement.
+ * L'effet ne vaut que pour la page qu'on ouvre. Ce qui répond à un clic — le
+ * contenu d'un filtre — doit être là tout de suite et en entier.
  */
 
-// Le premier rendu garde l'animation ; tout ce qui naît ensuite s'affiche d'un
-// bloc, sans condition de position à l'écran.
-//
-// Le drapeau bascule deux frames après le premier montage, et non sur un
-// minuteur : un délai serait une course entre l'hydratation de React et lui —
-// selon lequel gagne, un bloc de la page se retrouverait « instantané » alors
-// qu'on vient d'arriver. Ici, tous les Reveal du premier rendu posent leur effet
-// avant la bascule, donc aucun ne peut être pris pour un clic.
-let pageSettled = false;
-
-// useLayoutEffect prévient React côté serveur ; en rendu statique on retombe
-// sur useEffect, qui ne sert de toute façon qu'une fois dans le navigateur.
-const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+/**
+ * Compteur de clics sur un filtre. Une page à tri l'incrémente à chaque choix ;
+ * tous les Reveal en dessous se montrent alors d'un coup, sans fondu.
+ *
+ * On passe par là plutôt que de recréer les sections : une section recréée perd
+ * son état — les cases cochées de la check-list de départ disparaissaient.
+ */
+export const RevealNow = createContext(0);
 
 export default function Reveal({
   children,
@@ -47,18 +41,18 @@ export default function Reveal({
   const ref = useRef<HTMLElement | null>(null);
   const [inView, setInView] = useState(false);
   const [instant, setInstant] = useState(false);
+  const now = useContext(RevealNow);
 
-  useIsoLayoutEffect(() => {
+  // Un filtre vient d'être cliqué (ou ce bloc naît après) → on montre, sans fondu.
+  useEffect(() => {
+    if (now === 0) return;
+    setInstant(true);
+    setInView(true);
+  }, [now]);
+
+  useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
-    // Né après le chargement → réponse à un clic : on montre, tout de suite.
-    if (pageSettled) {
-      setInstant(true);
-      setInView(true);
-      return;
-    }
-
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
@@ -75,13 +69,6 @@ export default function Reveal({
     io.observe(el);
     return () => io.disconnect();
   }, [once]);
-
-  // Pose le drapeau une fois le premier rendu passé. Idempotent : chaque Reveal
-  // le programme, tous écrivent la même valeur.
-  useEffect(() => {
-    if (pageSettled) return;
-    requestAnimationFrame(() => requestAnimationFrame(() => (pageSettled = true)));
-  }, []);
 
   return (
     <Tag

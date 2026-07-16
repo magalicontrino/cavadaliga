@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
-import Reveal from '../Reveal';
+import Reveal, { RevealNow } from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon, { type IconName } from '../Icon';
 import FilterChip from '../FilterChip';
@@ -22,6 +22,12 @@ export default function InformationsPratiques() {
   const f = t.infoFilter;
 
   const [filter, setFilter] = useState<Key>('tout');
+  // Incrementé à chaque choix : dit aux Reveal en dessous de se montrer d'un coup.
+  const [clicks, setClicks] = useState(0);
+  const choose = (k: Key) => {
+    setFilter(k);
+    setClicks((c) => c + 1);
+  };
   // « Tout » montre l'enchaînement complet ; sinon on isole une seule section.
   const show = (k: Key) => filter === 'tout' || filter === k;
 
@@ -36,6 +42,7 @@ export default function InformationsPratiques() {
   ];
 
   return (
+    <RevealNow.Provider value={clicks}>
     <main>
       <Nav current="/informations-pratiques" />
 
@@ -47,7 +54,7 @@ export default function InformationsPratiques() {
           {filters.map((x) => {
             const on = filter === x.key;
             return (
-              <FilterChip key={x.key} label={x.label} icon={x.icon} active={on} onClick={() => setFilter(x.key)} />
+              <FilterChip key={x.key} label={x.label} icon={x.icon} active={on} onClick={() => choose(x.key)} />
             );
           })}
         </Reveal>
@@ -57,7 +64,7 @@ export default function InformationsPratiques() {
           défaut. Filtrable comme les autres : haute de 800 px, elle repoussait
           sinon tout contenu cliqué sous la ligne de flottaison. */}
       {show('adresse') && (
-      <section key={`adresse-${filter}`} className="mx-auto max-w-[110rem] px-5 pb-10 pt-12 md:px-10">
+      <section className="mx-auto max-w-[110rem] px-5 pb-10 pt-12 md:px-10">
         <Reveal
           className="flex flex-col gap-8 rounded-3xl border p-8 md:flex-row md:items-center md:justify-between md:p-12"
           style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
@@ -97,7 +104,7 @@ export default function InformationsPratiques() {
 
       {/* Arrivée : le guide des premières heures */}
       {show('arrivee') && (
-        <section key={`arrivee-${filter}`} className="mx-auto max-w-[110rem] px-5 pb-8 pt-12 md:px-10">
+        <section className="mx-auto max-w-[110rem] px-5 pb-8 pt-12 md:px-10">
           <Reveal className="mb-8 flex flex-col gap-2">
             <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
               <Icon name="key" size={16} /> {a.eyebrow}
@@ -142,13 +149,14 @@ export default function InformationsPratiques() {
         </section>
       )}
 
-      {show('bouger') && <Transports key={`bouger-${filter}`} />}
-      {show('urgences') && <Emergencies key={`urgences-${filter}`} />}
-      {show('dechets') && <WasteSchedule key={`dechets-${filter}`} />}
-      {show('depart') && <DepartChecklist key={`depart-${filter}`} />}
+      {show('bouger') && <Transports />}
+      {show('urgences') && <Emergencies />}
+      {show('dechets') && <WasteSchedule />}
+      {show('depart') && <DepartChecklist />}
 
       <div className="pb-16" />
       <Footer />
     </main>
+    </RevealNow.Provider>
   );
 }

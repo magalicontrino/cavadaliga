@@ -5,17 +5,25 @@ import Reveal from './Reveal';
 import Icon from './Icon';
 import { useI18n } from './i18n';
 
+// Les coches survivent au changement de filtre — la section est alors retirée
+// de la page, et l'état d'un composant retiré est perdu. Elles ne survivent pas
+// au rechargement : rien n'est enregistré, c'est un pense-bête, pas une donnée.
+let ticked: number[] = [];
+
 /**
  * Check-list « Avant de fermer la porte » — cases à cocher.
- * L'état vit dans la page (rien n'est enregistré) : c'est un pense-bête
- * qu'on coche pendant qu'on range, pas une donnée à conserver.
+ * C'est un pense-bête qu'on coche pendant qu'on range, pas une donnée à garder.
  */
 export default function DepartChecklist() {
   const { t } = useI18n();
   const d = t.depart;
-  const [done, setDone] = useState<number[]>([]);
+  const [done, setDone] = useState<number[]>(ticked);
 
-  const toggle = (i: number) => setDone((prev) => (prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]));
+  const toggle = (i: number) =>
+    setDone((prev) => {
+      ticked = prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i];
+      return ticked;
+    });
   const allDone = done.length === d.checklist.length;
 
   return (

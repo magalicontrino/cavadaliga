@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
-import Reveal from '../Reveal';
+import Reveal, { RevealNow } from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon, { type IconName } from '../Icon';
 import FilterChip from '../FilterChip';
@@ -24,6 +24,8 @@ export default function NosAdresses() {
 
   const [filter, setFilter] = useState<'tout' | 'responsable' | CatKey>('tout');
   const [query, setQuery] = useState('');
+  // Incrementé à chaque tri ou recherche : les fiches se montrent d'un coup.
+  const [clicks, setClicks] = useState(0);
   const [active, setActive] = useState<string | null>(null);
   const [focus, setFocus] = useState<MapFocus | null>(null);
   // `below` : la mini-carte passe sous l'épingle quand il n'y a pas la place
@@ -146,6 +148,7 @@ export default function NosAdresses() {
   };
 
   return (
+    <RevealNow.Provider value={clicks}>
     <main>
       <Nav current="/services-locaux" />
 
@@ -301,6 +304,7 @@ export default function NosAdresses() {
                 onClick={() => {
                   setFilter(f.key);
                   setActive(null);
+                  setClicks((c) => c + 1);
                 }}
               />
             );
@@ -416,5 +420,6 @@ export default function NosAdresses() {
 
       <Footer />
     </main>
+    </RevealNow.Provider>
   );
 }
