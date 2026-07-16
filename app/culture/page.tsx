@@ -6,7 +6,7 @@ import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon from '../Icon';
 import { useI18n } from '../i18n';
-import { ARTISTS, SCREENS, SPOTIFY_PLAYLIST_URL } from '../cultureData';
+import { ARTISTS, SCREENS, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL } from '../cultureData';
 
 export default function Culture() {
   const { t, lang } = useI18n();
@@ -66,6 +66,22 @@ export default function Culture() {
             )}
           </div>
         </Reveal>
+
+        {/* Lecteur intégré — écoute directe depuis la page */}
+        {SPOTIFY_PLAYLIST_URL && (
+          <Reveal className="mt-6 overflow-hidden rounded-2xl">
+            <iframe
+              src={SPOTIFY_EMBED_URL}
+              title={c.playlistTitle}
+              width="100%"
+              height="420"
+              frameBorder="0"
+              loading="lazy"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              style={{ border: 0, display: 'block' }}
+            />
+          </Reveal>
+        )}
       </section>
 
       {/* À écouter — voix siciliennes */}

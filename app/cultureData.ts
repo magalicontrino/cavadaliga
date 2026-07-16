@@ -6,9 +6,14 @@ import type { Lang } from './localData';
 // Textes visibles dans les 3 langues (fr · it · en). Noms propres = identiques.
 // ────────────────────────────────────────────────────────────────────────
 
-// Playlist Spotify partagée de la famille. Vide tant que le lien n'est pas
-// fourni → la page affiche l'état « à venir » (jamais de faux lien).
-export const SPOTIFY_PLAYLIST_URL = '';
+// Playlist Spotify partagée de la famille. Vide → la page affiche l'état
+// « à venir » (jamais de faux lien).
+// Sans les paramètres de partage (?si=, ?pt=) : ce sont des jetons de suivi
+// liés au compte qui l'a partagée, inutiles pour ouvrir la playlist.
+export const SPOTIFY_PLAYLIST_ID = '3v1EySOwK41rahT6rVThni';
+export const SPOTIFY_PLAYLIST_URL = `https://open.spotify.com/playlist/${SPOTIFY_PLAYLIST_ID}`;
+// Lecteur intégré (iframe) — écoute directement depuis la page.
+export const SPOTIFY_EMBED_URL = `https://open.spotify.com/embed/playlist/${SPOTIFY_PLAYLIST_ID}?theme=0`;
 
 // Recherche Spotify : URL toujours valide, pas d'identifiant d'artiste à deviner.
 const spotify = (q: string) => `https://open.spotify.com/search/${encodeURIComponent(q)}`;
