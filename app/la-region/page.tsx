@@ -26,19 +26,18 @@ const PLACES = [
   { images: [], label: 'Syracuse', tone: 'terra', km: 85, unesco: true },
 ] as const;
 
-type Key = 'tout' | 'lieux' | 'coutumes' | 'arabe';
+type Key = 'lieux' | 'coutumes' | 'arabe';
 
 export default function LaRegion() {
   const { t } = useI18n();
   const p = t.pages['la-region'];
   const rf = t.regionFilter;
 
-  const [filter, setFilter] = useState<Key>('tout');
-  // « Tout » enchaîne les trois ; sinon on isole une seule section.
-  const show = (k: Key) => filter === 'tout' || filter === k;
+  // Pas de « Tout » : on ouvre sur les lieux, le coeur de la page, et on choisit.
+  const [filter, setFilter] = useState<Key>('lieux');
+  const show = (k: Key) => filter === k;
 
   const filters: { key: Key; label: string; icon: IconName }[] = [
-    { key: 'tout', label: rf.all, icon: 'map' },
     { key: 'lieux', label: rf.places, icon: 'pin' },
     { key: 'coutumes', label: rf.customs, icon: 'cone' },
     { key: 'arabe', label: rf.arab, icon: 'landmark' },

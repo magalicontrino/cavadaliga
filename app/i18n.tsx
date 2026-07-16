@@ -163,7 +163,6 @@ export type Dict = {
     facts: { icon: string; title: string; text: string }[];
   };
   regionFilter: {
-    all: string;
     places: string;
     customs: string;
     arab: string;
@@ -427,7 +426,6 @@ const FR: Dict = {
     ],
   },
   regionFilter: {
-    all: 'Tout',
     places: 'Les lieux',
     customs: 'Us et coutumes',
     arab: 'Sicile arabe',
@@ -795,7 +793,6 @@ const IT: Dict = {
     ],
   },
   regionFilter: {
-    all: 'Tutto',
     places: 'I luoghi',
     customs: 'Usi e costumi',
     arab: 'Sicilia araba',
@@ -1163,7 +1160,6 @@ const EN: Dict = {
     ],
   },
   regionFilter: {
-    all: 'Everything',
     places: 'The places',
     customs: 'Local customs',
     arab: 'Arab Sicily',
