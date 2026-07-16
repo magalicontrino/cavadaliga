@@ -207,6 +207,35 @@
   color: #fff;
 }
 
+/* --- Fiches « Nos adresses » (façon annonces) ---------------------- */
+.cava-listcard {
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+.cava-listcard:hover {
+  transform: translateY(-4px);
+  border-color: var(--cava-ink);
+  box-shadow: 0 24px 50px -28px rgba(46, 45, 45, 0.5);
+}
+.cava-listcard-arrow {
+  color: var(--cava-muted);
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.4s ease;
+}
+.cava-listcard:hover .cava-listcard-arrow {
+  color: var(--cava-pink);
+  transform: translate(0.25rem, -0.25rem);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-listcard,
+  .cava-listcard-arrow {
+    transition: none;
+  }
+}
+
 /* --- Carte illustrée (Local) : points cliquables ------------------- */
 .cava-mappin {
   cursor: pointer;
