@@ -5,6 +5,25 @@ import PersoLink from './PersoLink';
 import { NAV, SITE, withBase } from './data';
 import { useI18n } from './i18n';
 
+/** Un lien géant du footer. `external` ouvre dans un nouvel onglet. */
+function FootLink({ href, label, external }: { href: string; label: string; external?: boolean }) {
+  return (
+    <a
+      href={href}
+      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      className="cava-footlink group flex items-center justify-between border-b py-4 md:py-5"
+      style={{ borderColor: 'var(--cava-line)' }}
+    >
+      <span className="text-[clamp(1.7rem,7vw,4.5rem)] uppercase leading-[0.95] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+        {label}
+      </span>
+      <span className="cava-footlink-arrow text-[clamp(1.1rem,3vw,2rem)]" aria-hidden>
+        ↗
+      </span>
+    </a>
+  );
+}
+
 export default function Footer() {
   const { t } = useI18n();
   return (
@@ -15,39 +34,19 @@ export default function Footer() {
       </div>
 
       <div className="mx-auto max-w-[110rem] px-5 py-16 md:px-10 md:py-20">
-        {/* Liens géants (maximaliste) */}
+        {/* Liens géants (maximaliste) — les pages, puis les deux façons de nous
+            joindre. Même liste que sur l'accueil, mais présente partout. */}
         <nav className="border-t" style={{ borderColor: 'var(--cava-line)' }}>
           {NAV.map((item, i) => (
-            <a
-              key={item.href}
-              href={withBase(item.href)}
-              className="cava-footlink group flex items-center justify-between border-b py-4 md:py-5"
-              style={{ borderColor: 'var(--cava-line)' }}
-            >
-              <span className="text-[clamp(1.7rem,7vw,4.5rem)] uppercase leading-[0.95] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
-                {t.nav[i]}
-              </span>
-              <span className="cava-footlink-arrow text-[clamp(1.1rem,3vw,2rem)]" aria-hidden>
-                ↗
-              </span>
-            </a>
+            <FootLink key={item.href} href={withBase(item.href)} label={t.nav[i]} />
           ))}
+          <FootLink href={`mailto:${SITE.email}`} label={t.contactLink} />
+          <FootLink href={SITE.instagram.url} label="Instagram" external />
         </nav>
 
         {/* Bas de footer */}
-        <div
-          className="mt-12 flex flex-col-reverse items-start gap-4 text-[12px] md:flex-row md:items-center md:justify-between"
-          style={{ color: 'var(--cava-muted)' }}
-        >
+        <div className="mt-12 text-[12px]" style={{ color: 'var(--cava-muted)' }}>
           <PersoLink />
-          <a
-            href={SITE.instagram.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cava-navlink uppercase tracking-[0.16em]"
-          >
-            Instagram {SITE.instagram.handle}
-          </a>
         </div>
       </div>
     </footer>
