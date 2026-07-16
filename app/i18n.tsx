@@ -162,6 +162,12 @@ export type Dict = {
     intro: string;
     facts: { icon: string; title: string; text: string }[];
   };
+  regionFilter: {
+    all: string;
+    places: string;
+    customs: string;
+    arab: string;
+  };
   infoFilter: {
     all: string;
     arrival: string;
@@ -419,6 +425,12 @@ const FR: Dict = {
         text: 'Quand la chaleur tombe, tout le monde descend : on marche lentement, on s’arrête tous les dix mètres pour parler, on regarde et on se laisse regarder. Ce n’est pas une promenade, c’est un rendez-vous. Vers 19 h, sur le front de mer. Ne prévoyez rien à cette heure-là — c’est là que le village existe.',
       },
     ],
+  },
+  regionFilter: {
+    all: 'Tout',
+    places: 'Les lieux',
+    customs: 'Us et coutumes',
+    arab: 'Sicile arabe',
   },
   infoFilter: {
     all: 'Tout',
@@ -782,6 +794,12 @@ const IT: Dict = {
       },
     ],
   },
+  regionFilter: {
+    all: 'Tutto',
+    places: 'I luoghi',
+    customs: 'Usi e costumi',
+    arab: 'Sicilia araba',
+  },
   infoFilter: {
     all: 'Tutto',
     arrival: 'Arrivo',
@@ -1143,6 +1161,12 @@ const EN: Dict = {
         text: 'When the heat drops, everyone comes down: you walk slowly, stop every ten metres to talk, look and let yourself be looked at. It is not a stroll, it is an appointment. Around 7pm, on the seafront. Plan nothing at that hour — that is when the village exists.',
       },
     ],
+  },
+  regionFilter: {
+    all: 'Everything',
+    places: 'The places',
+    customs: 'Local customs',
+    arab: 'Arab Sicily',
   },
   infoFilter: {
     all: 'Everything',

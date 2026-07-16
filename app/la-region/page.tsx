@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
@@ -25,9 +26,23 @@ const PLACES = [
   { images: [], label: 'Syracuse', tone: 'terra', km: 85, unesco: true },
 ] as const;
 
+type Key = 'tout' | 'lieux' | 'coutumes' | 'arabe';
+
 export default function LaRegion() {
   const { t } = useI18n();
   const p = t.pages['la-region'];
+  const rf = t.regionFilter;
+
+  const [filter, setFilter] = useState<Key>('tout');
+  // « Tout » enchaîne les trois ; sinon on isole une seule section.
+  const show = (k: Key) => filter === 'tout' || filter === k;
+
+  const filters: { key: Key; label: string; icon: IconName }[] = [
+    { key: 'tout', label: rf.all, icon: 'map' },
+    { key: 'lieux', label: rf.places, icon: 'pin' },
+    { key: 'coutumes', label: rf.customs, icon: 'cone' },
+    { key: 'arabe', label: rf.arab, icon: 'landmark' },
+  ];
 
   return (
     <main>
@@ -35,8 +50,36 @@ export default function LaRegion() {
 
       <PageHeader title={p.title} intro={p.intro} />
 
+      {/* Le tri : la page est longue, on choisit ce qu'on cherche */}
+      <section className="mx-auto max-w-[110rem] px-5 md:px-10">
+        <Reveal className="flex flex-wrap gap-2.5">
+          {filters.map((x) => {
+            const on = filter === x.key;
+            return (
+              <button
+                key={x.key}
+                type="button"
+                onClick={() => setFilter(x.key)}
+                aria-pressed={on}
+                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[13px] transition"
+                style={{
+                  borderColor: on ? 'var(--cava-ink)' : 'var(--cava-line)',
+                  background: on ? 'var(--cava-ink)' : 'transparent',
+                  color: on ? 'var(--cava-bg)' : 'var(--cava-ink)',
+                  fontWeight: on ? 600 : 400,
+                }}
+              >
+                <Icon name={x.icon} size={15} />
+                {x.label}
+              </button>
+            );
+          })}
+        </Reveal>
+      </section>
+
       {/* Les lieux autour de nous — fiches éditoriales alternées + lightbox */}
-      <section className="mx-auto max-w-[110rem] px-5 pt-8 md:px-10">
+      {show('lieux') && (
+      <section className="mx-auto max-w-[110rem] px-5 pt-12 md:px-10">
         <Reveal
           as="h2"
           className="border-t pt-8 text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]"
@@ -105,9 +148,11 @@ export default function LaRegion() {
           })}
         </div>
       </section>
+      )}
 
       {/* Us et coutumes — granita, arancina, passeggiata */}
-      <section className="mx-auto max-w-[110rem] px-5 pt-24 md:px-10">
+      {show('coutumes') && (
+      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="cone" size={16} /> {t.tastePage.eyebrow}
@@ -139,9 +184,11 @@ export default function LaRegion() {
           ))}
         </div>
       </section>
+      )}
 
       {/* La Sicile arabe — l'histoire qui explique ce qu'on a sous les yeux */}
-      <section className="mx-auto max-w-[110rem] px-5 pt-24 md:px-10">
+      {show('arabe') && (
+      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="landmark" size={16} /> {t.arabPage.eyebrow}
@@ -203,6 +250,7 @@ export default function LaRegion() {
           </a>
         </Reveal>
       </section>
+      )}
 
       <div className="pb-24" />
 
