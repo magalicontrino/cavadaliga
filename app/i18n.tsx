@@ -182,7 +182,7 @@ export type Dict = {
   ctaEyebrow: string;
   ctaTitle: string;
   question: string;
-  contactLabels: { email: string; instagram: string };
+  contactLabels: { email: string };
   pages: Record<PageKey, PageContent>;
   prepare: PrepareContent;
   arrivee: ArriveeContent;
@@ -434,7 +434,7 @@ const FR: Dict = {
   ctaEyebrow: 'Envie de venir ?',
   ctaTitle: 'Écrivez-nous',
   question: 'Une question sur votre séjour ?',
-  contactLabels: { email: 'Email', instagram: 'Instagram' },
+  contactLabels: { email: 'Email' },
   pages: {
     'informations-pratiques': {
       eyebrow: 'Informations pratiques',
@@ -808,7 +808,7 @@ const IT: Dict = {
   ctaEyebrow: 'Voglia di venire?',
   ctaTitle: 'Scriveteci',
   question: 'Una domanda sul vostro soggiorno?',
-  contactLabels: { email: 'Email', instagram: 'Instagram' },
+  contactLabels: { email: 'Email' },
   pages: {
     'informations-pratiques': {
       eyebrow: 'Informazioni pratiche',
@@ -1182,7 +1182,7 @@ const EN: Dict = {
   ctaEyebrow: 'Ready to come?',
   ctaTitle: 'Write to us',
   question: 'A question about your stay?',
-  contactLabels: { email: 'Email', instagram: 'Instagram' },
+  contactLabels: { email: 'Email' },
   pages: {
     'informations-pratiques': {
       eyebrow: 'Practical information',

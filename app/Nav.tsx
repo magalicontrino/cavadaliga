@@ -118,19 +118,11 @@ export default function Nav({ current }: { current?: string }) {
           ))}
         </nav>
 
-        {/* Bas du menu : Instagram + copyright (même style que le footer) */}
+        {/* Bas du menu : copyright (même style que le footer) */}
         <div
-          className="mx-auto flex w-full max-w-[110rem] flex-col gap-2 px-5 pb-8 pt-5 text-[12px] md:flex-row md:items-center md:justify-between md:px-10"
+          className="mx-auto flex w-full max-w-[110rem] px-5 pb-8 pt-5 text-[12px] md:px-10"
           style={{ color: 'var(--cava-muted)' }}
         >
-          <a
-            href={SITE.instagram.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cava-navlink uppercase tracking-[0.16em]"
-          >
-            Instagram {SITE.instagram.handle}
-          </a>
           <PersoLink />
         </div>
       </div>

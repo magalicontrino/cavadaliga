@@ -10,7 +10,6 @@ export const withBase = (p: string) => (p.startsWith('/') ? `${BASE}${p}` : p);
 export const SITE = {
   name: "Cava d'Aliga",
   email: 'magalicontrino@hotmail.fr',
-  instagram: { handle: '@cavadaliga_contrino', url: 'https://instagram.com/cavadaliga_contrino' },
   author: 'Mag',
   // Site perso de Mag, à la racine du domaine (ce site vit sur le sous-domaine).
   perso: 'https://magalicontrino.com',

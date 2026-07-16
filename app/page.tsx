@@ -104,23 +104,6 @@ export default function CavaHome() {
               ↗
             </span>
           </a>
-          <a
-            href={SITE.instagram.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cava-footlink group flex w-full items-center justify-between border-b py-4 text-left md:py-5"
-            style={{ borderColor: 'var(--cava-line)' }}
-          >
-            <span
-              className="text-[clamp(1.7rem,7vw,4.5rem)] uppercase leading-[0.95] tracking-[-0.02em]"
-              style={{ fontWeight: 900 }}
-            >
-              Instagram
-            </span>
-            <span className="cava-cta-arrow text-[clamp(1.4rem,3.5vw,2.6rem)]" aria-hidden>
-              ↗
-            </span>
-          </a>
         </Reveal>
       </section>
 
