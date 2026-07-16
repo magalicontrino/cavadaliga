@@ -5,18 +5,18 @@ import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon, { type IconName } from '../Icon';
+import LocalMap from '../LocalMap';
 import { useI18n } from '../i18n';
 
 // Page « Local » — producteurs et artisans responsables du sud-est de la Sicile.
-// Carte en tête, cartes par catégorie (picto + liens Google Maps / Instagram),
-// puis une carte « Marchés » avec la liste des marchés.
+// Carte illustrée en tête, cartes par catégorie (picto + liens Google Maps /
+// Instagram), puis une carte « Marchés » avec la liste des marchés.
 const CAT_ICONS: IconName[] = ['cone', 'droplet', 'citrus', 'leaf'];
 const MAP_QUERY = 'Cava d’Aliga, Scicli';
 
 export default function Local() {
   const { t } = useI18n();
   const p = t.localPage;
-  const mapEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&z=10&output=embed`;
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_QUERY)}`;
 
   return (
@@ -25,16 +25,10 @@ export default function Local() {
 
       <PageHeader title={p.title} intro={p.intro} />
 
-      {/* Carte — première section, clic → Google Maps */}
+      {/* Carte illustrée (SVG maison), points cliquables → Google Maps */}
       <section className="mx-auto max-w-[110rem] px-5 md:px-10">
-        <Reveal className="overflow-hidden rounded-2xl border" style={{ borderColor: 'var(--cava-line)' }}>
-          <iframe
-            title="Carte des adresses locales"
-            src={mapEmbed}
-            className="block h-[300px] w-full md:h-[440px]"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+        <Reveal className="overflow-hidden rounded-2xl border p-4 md:p-8" style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}>
+          <LocalMap houseLabel={t.regionHere} />
         </Reveal>
         <a
           href={mapLink}

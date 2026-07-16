@@ -207,6 +207,27 @@
   color: #fff;
 }
 
+/* --- Carte illustrée (Local) : points cliquables ------------------- */
+.cava-mappin {
+  cursor: pointer;
+}
+.cava-mappin .dot {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.cava-mappin:hover .dot {
+  transform: scale(1.4);
+}
+.cava-mappin:hover text {
+  fill: var(--cava-pink);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-mappin .dot {
+    transition: none;
+  }
+}
+
 /* --- Carrousel glissable (sans lightbox) --------------------------- */
 .cava-carousel {
   scrollbar-width: none; /* Firefox */
