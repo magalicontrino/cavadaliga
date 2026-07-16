@@ -4,13 +4,6 @@ import Reveal from './Reveal';
 import { withBase } from './data';
 import { useI18n } from './i18n';
 
-// Étoile plate (accent), même glyphe que les points forts de l'accueil.
-const STAR = (
-  <svg width="46" height="46" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-    <path d="M12 1l2.2 7.8L22 11l-7.8 2.2L12 22l-2.2-8.8L2 11l7.8-2.2z" />
-  </svg>
-);
-
 /**
  * Section CTA éditoriale (style « Cyclops ») : grand titre gras avec le dernier
  * mot dans une pilule + badge circulaire rotatif cliquable menant à `href`.
@@ -42,14 +35,8 @@ export default function CtaBadge({
       >
         {/* Texte */}
         <div className={`flex flex-col gap-5 md:flex-1 ${flip ? 'md:items-end md:text-right' : 'md:items-start'}`}>
-          <Reveal>
-            <span aria-hidden style={{ color: 'var(--cava-pink)' }}>
-              {STAR}
-            </span>
-          </Reveal>
           <Reveal
             as="h2"
-            delay={60}
             className="text-[clamp(2.4rem,6vw,4.6rem)] uppercase leading-[0.92] tracking-[-0.02em]"
             style={{ fontWeight: 900 }}
           >

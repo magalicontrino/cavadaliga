@@ -24,24 +24,6 @@ const GALLERY_STRIP = [
   '/deco/glace.jpg',
 ];
 
-// Glyphes géométriques plats (SVG inline, style « geometric shapes flat »)
-// utilisés comme accents des points forts. currentColor = couleur du parent.
-const HIGHLIGHT_GLYPHS = [
-  // Étoile / sparkle
-  <svg key="star" width="46" height="46" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-    <path d="M12 1l2.2 7.8L22 11l-7.8 2.2L12 22l-2.2-8.8L2 11l7.8-2.2z" />
-  </svg>,
-  // Demi-disque (cercle mi-plein)
-  <svg key="half" width="46" height="46" viewBox="0 0 24 24" aria-hidden>
-    <circle cx="12" cy="12" r="10.6" fill="none" stroke="currentColor" strokeWidth="1.6" />
-    <path d="M1.4 12a10.6 10.6 0 0 1 21.2 0z" fill="currentColor" />
-  </svg>,
-  // Triangle plein
-  <svg key="tri" width="46" height="46" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-    <path d="M12 3l9.5 17.5H2.5z" />
-  </svg>,
-];
-
 export default function CavaHome() {
   const { t } = useI18n();
   return (
@@ -52,11 +34,6 @@ export default function CavaHome() {
       {/* ---------- Intro (style éditorial « we are ») ---------- */}
       <section className="mx-auto max-w-[110rem] px-5 py-24 md:px-10 md:py-32">
         <Reveal>
-          <span aria-hidden style={{ color: 'var(--cava-pink)' }}>
-            {HIGHLIGHT_GLYPHS[0]}
-          </span>
-        </Reveal>
-        <Reveal delay={60} className="mt-4">
           <Weather />
         </Reveal>
         <Reveal as="p" delay={140} className="mt-8 max-w-[42ch] text-[clamp(1.05rem,2vw,1.35rem)] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
