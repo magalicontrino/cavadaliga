@@ -7,20 +7,19 @@ import { useEffect, useLayoutEffect, useRef, useState, type ElementType, type Re
  * Webflow d'origine : opacity 0 → 1, translateY → 0). Respecte
  * prefers-reduced-motion (géré en CSS via .cava-reveal).
  *
- * L'effet ne vaut que pour ce qui ENTRE dans l'écran en défilant. Un bloc qui
- * naît déjà sous les yeux — le contenu d'un filtre qu'on vient de cliquer — ne
- * doit pas se fondre : on cliquerait, et il ne se passerait rien pendant une
- * seconde. Celui-là s'affiche d'emblée.
+ * L'effet ne vaut que pour la page qu'on ouvre. Ce qui apparaît ensuite est une
+ * réponse à un clic — un filtre — et doit être là tout de suite, entièrement :
+ * pas seulement le titre, avec le contenu qui se dévoile au défilement.
  */
 
-// Le premier rendu garde l'animation d'arrivée ; tout ce qui naît ensuite est
-// une réaction à un clic et doit s'afficher tout de suite.
+// Le premier rendu garde l'animation ; tout ce qui naît ensuite s'affiche d'un
+// bloc, sans condition de position à l'écran.
 //
 // Le drapeau bascule deux frames après le premier montage, et non sur un
 // minuteur : un délai serait une course entre l'hydratation de React et lui —
-// selon lequel gagne, un bloc de la page d'accueil se retrouverait « instantané »
-// alors qu'on vient d'arriver. Ici, tous les Reveal du premier rendu posent
-// leur effet avant la bascule, donc aucun ne peut être pris pour un clic.
+// selon lequel gagne, un bloc de la page se retrouverait « instantané » alors
+// qu'on vient d'arriver. Ici, tous les Reveal du premier rendu posent leur effet
+// avant la bascule, donc aucun ne peut être pris pour un clic.
 let pageSettled = false;
 
 // useLayoutEffect prévient React côté serveur ; en rendu statique on retombe
@@ -53,14 +52,11 @@ export default function Reveal({
     const el = ref.current;
     if (!el) return;
 
-    // Né déjà visible, après le chargement → on montre tout de suite.
+    // Né après le chargement → réponse à un clic : on montre, tout de suite.
     if (pageSettled) {
-      const r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight && r.bottom > 0) {
-        setInstant(true);
-        setInView(true);
-        return;
-      }
+      setInstant(true);
+      setInView(true);
+      return;
     }
 
     const io = new IntersectionObserver(
