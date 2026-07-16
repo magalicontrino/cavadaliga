@@ -6,6 +6,7 @@ import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon, { type IconName } from '../Icon';
+import FilterChip from '../FilterChip';
 import OpIcon, { type OpIconName } from '../OpIcon';
 import { Transports, Emergencies } from '../GettingAround';
 import WasteSchedule from '../WasteSchedule';
@@ -84,22 +85,7 @@ export default function InformationsPratiques() {
           {filters.map((x) => {
             const on = filter === x.key;
             return (
-              <button
-                key={x.key}
-                type="button"
-                onClick={() => setFilter(x.key)}
-                aria-pressed={on}
-                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[13px] transition"
-                style={{
-                  borderColor: on ? 'var(--cava-ink)' : 'var(--cava-line)',
-                  background: on ? 'var(--cava-ink)' : 'transparent',
-                  color: on ? 'var(--cava-bg)' : 'var(--cava-ink)',
-                  fontWeight: on ? 600 : 400,
-                }}
-              >
-                <Icon name={x.icon} size={15} />
-                {x.label}
-              </button>
+              <FilterChip key={x.key} label={x.label} icon={x.icon} active={on} onClick={() => setFilter(x.key)} />
             );
           })}
         </Reveal>

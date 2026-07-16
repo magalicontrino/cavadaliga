@@ -250,10 +250,13 @@ export default function Icon({
   name,
   className = '',
   size = 24,
+  strokeWidth = 1.5,
 }: {
   name: IconName;
   className?: string;
   size?: number;
+  // Trait plus gras quand le picto est petit ou pose sur un aplat de couleur.
+  strokeWidth?: number;
 }) {
   return (
     <svg
@@ -262,7 +265,7 @@ export default function Icon({
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.5}
+      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}

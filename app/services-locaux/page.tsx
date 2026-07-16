@@ -6,6 +6,7 @@ import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon, { type IconName } from '../Icon';
+import FilterChip from '../FilterChip';
 import LocalMap, { type MapSpot } from '../LocalMap';
 import MapViewport, { type MapFocus } from '../MapViewport';
 import { useI18n } from '../i18n';
@@ -292,29 +293,16 @@ export default function NosAdresses() {
           {filters.map((f) => {
             const on = filter === f.key;
             return (
-              <button
+              <FilterChip
                 key={f.key}
-                type="button"
+                label={f.label}
+                icon={f.icon}
+                active={on}
                 onClick={() => {
                   setFilter(f.key);
                   setActive(null);
                 }}
-                aria-pressed={on}
-                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[13px] transition"
-                style={{
-                  borderColor: on ? 'var(--cava-ink)' : 'var(--cava-line)',
-                  background: on ? 'var(--cava-ink)' : 'transparent',
-                  color: on ? 'var(--cava-bg)' : 'var(--cava-ink)',
-                  fontWeight: on ? 600 : 400,
-                }}
-              >
-                <Icon
-                  name={f.icon}
-                  size={15}
-                  className={f.key === 'responsable' && !on ? 'cava-leafpink' : undefined}
-                />
-                {f.label}
-              </button>
+              />
             );
           })}
         </Reveal>

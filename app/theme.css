@@ -426,9 +426,41 @@
   }
 }
 
-/* Feuille rose du filtre « Responsable & local » (hors état actif) */
-.cava-leafpink {
-  color: var(--cava-pink);
+/* --- Boutons de tri (FilterChip) ------------------------------------ */
+.cava-chip {
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.cava-chip:hover {
+  transform: translateY(-2px);
+  border-color: var(--cava-pink);
+  box-shadow: 0 8px 18px -8px rgba(230, 41, 111, 0.5);
+}
+.cava-chip-badge {
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s ease;
+}
+.cava-chip:hover .cava-chip-badge {
+  transform: rotate(-8deg) scale(1.08);
+}
+.cava-chip[aria-pressed='true'] .cava-chip-badge {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-chip,
+  .cava-chip-badge {
+    transition: none;
+  }
+  .cava-chip:hover {
+    transform: none;
+  }
+  .cava-chip:hover .cava-chip-badge {
+    transform: none;
+  }
 }
 
 /* --- Épingles « Nos adresses » : apparition au changement de filtre ---
