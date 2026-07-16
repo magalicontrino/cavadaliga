@@ -6,7 +6,7 @@ import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon from '../Icon';
 import { useI18n } from '../i18n';
-import { ARTISTS, ARTS, PHOTOS, SCREENS, SPOTIFY_EMBED_HEIGHT, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, type Screen } from '../cultureData';
+import { ARTISTS, ARTS, GESTURES, PHOTOS, SCREENS, SPOTIFY_EMBED_HEIGHT, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, MUNARI_BOOK, MUNARI_WIKI, DE_JORIO_WIKI, type Screen } from '../cultureData';
 import { type IconName } from '../Icon';
 import { type Lang } from '../localData';
 
@@ -187,6 +187,107 @@ export default function Culture() {
 
       {/* Photographié ici — Giuseppe Leone & Scianna */}
       <WorkGrid title={c.photosTitle} intro={c.photosIntro} items={PHOTOS} icon="target" lang={lang} more={c.moreLabel} />
+
+      {/* Parler avec les mains — Munari et son dictionnaire de gestes */}
+      <section className="mx-auto max-w-[110rem] px-5 pt-20 md:px-10">
+        <Reveal
+          as="h2"
+          className="border-t pt-8 text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]"
+          style={{ fontWeight: 900, borderColor: 'var(--cava-ink)' }}
+        >
+          {c.handsTitle}
+        </Reveal>
+        <Reveal as="p" className="mt-4 max-w-[68ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+          {c.handsIntro}
+        </Reveal>
+
+        {/* Qui était Munari + le livre */}
+        <div className="mt-10 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
+          <Reveal>
+            <div
+              className="flex h-full flex-col gap-4 rounded-2xl border p-8 md:p-10"
+              style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
+            >
+              <span
+                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+              >
+                <Icon name="brush" size={28} />
+              </span>
+              <h3 className="text-[clamp(1.3rem,2.6vw,1.8rem)] leading-[1.12]" style={{ fontWeight: 600 }}>
+                Bruno Munari
+              </h3>
+              <p className="font-mono text-[13px] tracking-[0.1em]" style={{ color: 'var(--cava-pink)' }}>
+                1907 – 1998
+              </p>
+              <p className="text-[14.5px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                {c.handsWho}
+              </p>
+              <div className="mt-auto flex flex-wrap gap-3 pt-3">
+                <a href={MUNARI_WIKI} target="_blank" rel="noopener noreferrer" className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]">
+                  <Icon name="info" size={15} /> {c.moreLabel} <span aria-hidden>↗</span>
+                </a>
+                <a href={DE_JORIO_WIKI} target="_blank" rel="noopener noreferrer" className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]">
+                  <Icon name="info" size={15} /> Andrea de Jorio, 1832 <span aria-hidden>↗</span>
+                </a>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={70}>
+            <div
+              className="flex h-full flex-col gap-4 rounded-2xl border p-8 md:p-10"
+              style={{ borderColor: 'var(--cava-pink)', background: 'rgba(230,41,111,0.05)' }}
+            >
+              <span
+                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{ background: 'var(--cava-pink)', color: '#fff' }}
+              >
+                <Icon name="info" size={28} strokeWidth={2} />
+              </span>
+              <h3 className="text-[clamp(1.15rem,2.2vw,1.4rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+                {c.handsBookTitle}
+              </h3>
+              <p className="text-[14.5px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                {c.handsBookDesc}
+              </p>
+              <a
+                href={MUNARI_BOOK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex w-fit items-center gap-2 rounded-full px-5 py-3 text-[13.5px] transition hover:opacity-85"
+                style={{ background: 'var(--cava-pink)', color: '#fff', fontWeight: 700 }}
+              >
+                <Icon name="search" size={15} /> {c.handsBookCta} <span aria-hidden>↗</span>
+              </a>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* Les gestes, décrits */}
+        <div className="mt-6 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2 lg:grid-cols-3" style={{ background: 'var(--cava-line)' }}>
+          {GESTURES.map((g, i) => (
+            <Reveal key={g.id} delay={(i % 3) * 60} className="flex flex-col gap-2.5 p-8" style={{ background: 'var(--cava-bg)' }}>
+              <p className="text-[clamp(1.1rem,2vw,1.3rem)] leading-[1.2]" style={{ fontWeight: 700 }}>
+                {g.name}
+              </p>
+              <p className="text-[13.5px] leading-[1.6]" style={{ color: 'var(--cava-pink)', fontWeight: 500 }}>
+                {g.how[lang]}
+              </p>
+              <p className="text-[14px] leading-[1.65]" style={{ color: 'var(--cava-muted)' }}>
+                {g.means[lang]}
+              </p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="mt-4 flex items-start gap-3 text-[13px] italic leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+          <span className="mt-[3px] shrink-0" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="info" size={14} />
+          </span>
+          <p className="max-w-[70ch]">{c.handsPhotoNote}</p>
+        </Reveal>
+      </section>
 
       {/* Chansons & histoires de Sicile — mini-liste, tout en bas */}
       <section className="mx-auto max-w-[110rem] px-5 pt-20 md:px-10">

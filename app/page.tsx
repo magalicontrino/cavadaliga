@@ -8,7 +8,7 @@ import Footer from './Footer';
 import CtaBadge from './CtaBadge';
 import Gallery from './Gallery';
 import Weather from './Weather';
-import { SITE, NAV } from './data';
+import { NAV } from './data';
 import { useI18n } from './i18n';
 
 // Bandeau d'images défilant de la galerie (visuels présents dans /public/deco/).
@@ -69,45 +69,9 @@ export default function CavaHome() {
         <Gallery images={GALLERY_STRIP} />
       </section>
 
-      {/* ---------- CTA : lien géant Contact ---------- */}
-      <section className="mx-auto max-w-[110rem] px-5 py-20 md:px-10 md:py-28">
-        <Reveal>
-          <a
-            href={`mailto:${SITE.email}`}
-            className="cava-footlink group flex w-full items-center justify-between border-b border-t py-4 text-left md:py-5"
-            style={{ borderColor: 'var(--cava-line)' }}
-          >
-            <span
-              className="text-[clamp(1.7rem,7vw,4.5rem)] uppercase leading-[0.95] tracking-[-0.02em]"
-              style={{ fontWeight: 900 }}
-            >
-              {t.contactLink}
-            </span>
-            <span className="cava-cta-arrow text-[clamp(1.4rem,3.5vw,2.6rem)]" aria-hidden>
-              ↗
-            </span>
-          </a>
-        </Reveal>
-        <Reveal delay={60}>
-          <a
-            href={SITE.instagram.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cava-footlink group flex w-full items-center justify-between border-b py-4 text-left md:py-5"
-            style={{ borderColor: 'var(--cava-line)' }}
-          >
-            <span
-              className="text-[clamp(1.7rem,7vw,4.5rem)] uppercase leading-[0.95] tracking-[-0.02em]"
-              style={{ fontWeight: 900 }}
-            >
-              Instagram
-            </span>
-            <span className="cava-cta-arrow text-[clamp(1.4rem,3.5vw,2.6rem)]" aria-hidden>
-              ↗
-            </span>
-          </a>
-        </Reveal>
-      </section>
+      {/* Contact et Instagram ne sont plus ici : le footer les porte sur toutes
+          les pages, accueil compris. Ils s'affichaient deux fois de suite, dans
+          la même typo, à quelques centimètres d'écart. */}
 
       <Footer />
     </main>

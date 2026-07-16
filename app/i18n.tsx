@@ -127,6 +127,13 @@ export type Dict = {
     artsIntro: string;
     photosTitle: string;
     photosIntro: string;
+    handsTitle: string;
+    handsIntro: string;
+    handsBookTitle: string;
+    handsBookDesc: string;
+    handsBookCta: string;
+    handsWho: string;
+    handsPhotoNote: string;
     placeLabel: string;
     moreLabel: string;
     note: string;
@@ -372,6 +379,13 @@ const FR: Dict = {
     playlistSoon: 'Le lien de la playlist arrive bientôt.',
     artistsTitle: 'Chansons & histoires de Sicile',
     artistsIntro: 'Les voix qui racontent l’île — à écouter avant, pendant, après.',
+    handsTitle: 'Parler avec les mains',
+    handsIntro: 'En 1958, le designer milanais Bruno Munari photographie cinquante gestes italiens et les légende en quatre langues. Le titre dit tout : « Supplément au dictionnaire italien ». Il ne le fait pas pour rire — il le fait pour les étrangers de passage en Italie. Autrement dit, pour nous.',
+    handsWho: 'Bruno Munari (Milan, 1907-1998) commence chez les futuristes à vingt ans, puis passe sa vie à démonter le sérieux : ses « machines inutiles » de 1933 tournent au plafond sans rien produire, il fonde le Mouvement d’art concret, invente des livres illisibles, et ouvre en 1977 le premier atelier pour enfants d’un musée italien, à la Pinacothèque de Brera. Trois Compas d’or, plus un pour l’ensemble de sa carrière. Il n’a pas inventé les gestes : il les a pris au chanoine Andrea de Jorio, qui les avait recensés à Naples en 1832, et y a ajouté les siens — jusqu’au « O.K. » américain.',
+    handsBookTitle: 'Supplemento al dizionario italiano',
+    handsBookDesc: 'Toujours édité chez Corraini, en italien, anglais, français et allemand. Cinquante gestes en photo, une page chacun. Le meilleur cadeau à emporter — et le seul dictionnaire qu’on lit d’une traite.',
+    handsBookCta: 'Le livre chez Corraini',
+    handsPhotoNote: 'Les photos du livre ne sont pas reprises ici : elles sont sous droits. Les gestes, eux, appartiennent à tout le monde — voilà les nôtres, décrits à la main.',
     photosTitle: 'Photographié ici',
     photosIntro: 'Avant les téléphones, d’autres ont regardé ces pierres et ces fêtes — et les ont fixées pour de bon.',
     artsTitle: 'Peint ici',
@@ -742,6 +756,13 @@ const IT: Dict = {
     playlistSoon: 'Il link della playlist arriva presto.',
     artistsTitle: 'Canzoni & storie di Sicilia',
     artistsIntro: 'Le voci che raccontano l’isola — da ascoltare prima, durante, dopo.',
+    handsTitle: 'Parlare con le mani',
+    handsIntro: 'Nel 1958 il designer milanese Bruno Munari fotografa cinquanta gesti italiani e li didascalizza in quattro lingue. Il titolo dice tutto: « Supplemento al dizionario italiano ». Non lo fa per scherzo — lo fa per gli stranieri di passaggio in Italia. Cioè per noi.',
+    handsWho: 'Bruno Munari (Milano, 1907-1998) comincia tra i futuristi a vent’anni, poi passa la vita a smontare la serietà: le sue « macchine inutili » del 1933 girano al soffitto senza produrre nulla, fonda il Movimento Arte Concreta, inventa libri illeggibili e apre nel 1977 il primo laboratorio per bambini di un museo italiano, alla Pinacoteca di Brera. Tre Compassi d’oro, più uno alla carriera. I gesti non li ha inventati: li ha presi dal canonico Andrea de Jorio, che li aveva raccolti a Napoli nel 1832, e ci ha aggiunto i suoi — fino all’« O.K. » americano.',
+    handsBookTitle: 'Supplemento al dizionario italiano',
+    handsBookDesc: 'Ancora edito da Corraini, in italiano, inglese, francese e tedesco. Cinquanta gesti in fotografia, una pagina ciascuno. Il regalo migliore da portarsi via — e l’unico dizionario che si legge tutto d’un fiato.',
+    handsBookCta: 'Il libro da Corraini',
+    handsPhotoNote: 'Le foto del libro non sono riprese qui: sono sotto diritti. I gesti, invece, sono di tutti — eccoli, descritti a mano.',
     photosTitle: 'Fotografato qui',
     photosIntro: 'Prima dei telefoni, altri hanno guardato queste pietre e queste feste — e le hanno fissate per sempre.',
     artsTitle: 'Dipinto qui',
@@ -1112,6 +1133,13 @@ const EN: Dict = {
     playlistSoon: 'The playlist link is coming soon.',
     artistsTitle: 'Songs & stories of Sicily',
     artistsIntro: 'The voices that tell the island — listen before, during, after.',
+    handsTitle: 'Talking with your hands',
+    handsIntro: 'In 1958 the Milanese designer Bruno Munari photographed fifty Italian gestures and captioned them in four languages. The title says it all: “Supplement to the Italian dictionary”. He did not do it as a joke — he did it for foreigners visiting Italy. That is, for us.',
+    handsWho: 'Bruno Munari (Milan, 1907-1998) started among the Futurists at twenty, then spent his life dismantling seriousness: his 1933 “useless machines” turn on the ceiling producing nothing, he co-founded the Concrete Art Movement, invented unreadable books, and in 1977 opened the first children’s workshop in an Italian museum, at the Brera gallery. Three Compasso d’Oro awards, plus one for his career. He did not invent the gestures: he took them from canon Andrea de Jorio, who catalogued them in Naples in 1832, and added his own — right up to the American “O.K.”.',
+    handsBookTitle: 'Supplemento al dizionario italiano',
+    handsBookDesc: 'Still in print at Corraini, in Italian, English, French and German. Fifty gestures in photographs, one page each. The best thing to take home — and the only dictionary you read in one sitting.',
+    handsBookCta: 'The book at Corraini',
+    handsPhotoNote: 'The book’s photographs are not reproduced here: they are under copyright. The gestures themselves belong to everyone — here are ours, described by hand.',
     photosTitle: 'Photographed here',
     photosIntro: 'Before phones, others looked at these stones and these festivals — and fixed them for good.',
     artsTitle: 'Painted here',
