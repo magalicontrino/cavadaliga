@@ -686,3 +686,15 @@
   .cava-marquee-track { animation: none; }
   .cava-herocard { transition: none; }
 }
+
+/* Carrousel de fiches (téléphone) : la barre de défilement n'apprend rien,
+   le geste se découvre en glissant. Le défilement reste possible au clavier
+   et à la molette — on ne masque que la barre. */
+.cava-swipe {
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+.cava-swipe::-webkit-scrollbar {
+  display: none;
+}

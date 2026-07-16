@@ -350,11 +350,17 @@ export default function NosAdresses() {
           </Reveal>
         )}
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Sur téléphone les fiches défilaient en une colonne sans fin : elles
+            glissent maintenant du doigt, une par écran. À partir de « sm » on
+            retrouve la grille. Tout en CSS — rien à mesurer, rien à hydrater.
+            Les marges négatives font toucher les bords de l'écran ; le padding
+            qui les compense garde la première fiche alignée sur le texte. */}
+        <div className="cava-swipe -mx-5 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
           {shown.map((pl, i) => {
             const isActive = active === pl.id;
             return (
-              <Reveal key={pl.id} delay={(i % 3) * 70}>
+              <Reveal key={pl.id} delay={(i % 3) * 70} className="w-[85%] shrink-0 snap-center sm:w-auto sm:shrink">
+
                 <div
                   onClick={() => showOnMap(pl.id)}
                   className="cava-listcard group relative flex h-full w-full cursor-pointer flex-col gap-3 overflow-hidden rounded-2xl border p-8 md:p-10"
