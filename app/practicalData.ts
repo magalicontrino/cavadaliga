@@ -77,6 +77,20 @@ export const PHARMACY = {
   },
 };
 
+// ── Gaz ───────────────────────────────────────────────────────────────
+// Mormina Gas, d'après sa carte de visite. C'est un commerce : ses numéros
+// sont ceux qu'il distribue lui-même, on peut les afficher — contrairement
+// aux contacts privés, qui passent par Mag.
+export const GAS = {
+  name: 'Mormina Gas',
+  street: 'Via Tolstoj 132A, Cava d’Aliga',
+  phone: '0932 852454',
+  phoneTel: '+390932852454',
+  mobile: '334 889 6789',
+  mobileTel: '+393348896789',
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Via+Tolstoj+132A+Cava+d%27Aliga+Scicli',
+};
+
 // ── Urgences ──────────────────────────────────────────────────────────
 // En Sicile le 112 est le numéro unique : il reçoit l'appel et bascule vers
 // le bon service. Les anciens numéros restent joignables.

@@ -5,7 +5,7 @@ import Icon from './Icon';
 import { useI18n } from './i18n';
 import AskMag from './AskMag';
 import { SITE } from './data';
-import { TRANSPORTS, EMERGENCIES, PHARMACY } from './practicalData';
+import { TRANSPORTS, EMERGENCIES, PHARMACY, GAS } from './practicalData';
 
 /** Se déplacer + urgences. Tous les liens sont cliquables, numéros compris. */
 export default function GettingAround() {
@@ -136,7 +136,55 @@ export default function GettingAround() {
           {m.localTitle}
         </Reveal>
 
-        <div className="mt-3 grid gap-6 lg:grid-cols-3">
+        <div className="mt-3 grid gap-6 lg:grid-cols-2">
+          {/* Le gaz — Mormina, dans le village */}
+          <Reveal>
+            <div
+              className="cava-listcard flex h-full flex-col gap-3 rounded-2xl border p-8"
+              style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <span
+                  className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                  style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+                >
+                  <Icon name="droplet" size={28} />
+                </span>
+                <span
+                  className="inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 text-[10.5px] uppercase tracking-[0.1em]"
+                  style={{ background: 'rgba(230,41,111,0.09)', color: 'var(--cava-pink)', fontWeight: 700 }}
+                >
+                  <Icon name="home" size={13} /> {m.gasWalk}
+                </span>
+              </div>
+              <h3 className="mt-1 text-[clamp(1.15rem,2.2vw,1.4rem)] leading-[1.15]" style={{ fontWeight: 600 }}>
+                {GAS.name}
+              </h3>
+              <p className="text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-muted)' }}>
+                {GAS.street}
+              </p>
+              <p className="text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+                {m.gasDesc}
+              </p>
+              <div className="mt-auto flex flex-wrap gap-3 pt-3">
+                <a href={`tel:${GAS.mobileTel}`} className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]">
+                  <Icon name="phone" size={15} /> {GAS.mobile}
+                </a>
+                <a href={`tel:${GAS.phoneTel}`} className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]">
+                  <Icon name="phone" size={15} /> {GAS.phone}
+                </a>
+                <a
+                  href={GAS.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]"
+                >
+                  <Icon name="pin" size={15} /> Maps <span aria-hidden>↗</span>
+                </a>
+              </div>
+            </div>
+          </Reveal>
+
           {/* La pharmacie du village */}
           <Reveal>
             <div

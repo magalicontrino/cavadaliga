@@ -150,6 +150,10 @@ export type Dict = {
     dutyCta: string;
     plumberTitle: string;
     plumberDesc: string;
+    gasDesc: string;
+    gasWalk: string;
+    gasLandline: string;
+    gasMobile: string;
     localToCome: string;
   };
   // Les habitudes siciliennes qu'on ne devine pas.
@@ -381,6 +385,10 @@ const FR: Dict = {
     dutyTitle: 'Pharmacie de garde',
     dutyDesc: 'La nuit et les jours fériés, une pharmacie de Scicli est toujours de garde — à tour de rôle. La nôtre, Trovato, en fait partie. Le tour du jour se voit ici. Attention : la garde de nuit a le rideau baissé, il faut sonner à l’interphone pour réveiller le pharmacien.',
     dutyCta: 'Voir la garde du jour',
+    gasDesc: 'Le monsieur près de la place, c’est lui. Vente de bouteilles, et il répare aussi les cuisinières à gaz. Il livre à domicile — et il est dans le village, à quelques rues d’ici.',
+    gasWalk: 'Dans le village',
+    gasLandline: 'Fixe',
+    gasMobile: 'Portable',
     plumberTitle: 'Plombier',
     plumberDesc: 'Il y en a un, et il est bon. Son numéro n’est pas sur le site : demandez-le à Mag. Et rien ne se lance sans devis — on fait établir le devis, on le valide avec elle, puis seulement les travaux commencent. Ça évite les mauvaises surprises à tout le monde.',
     localToCome: 'le médecin ou un taxi',
@@ -530,10 +538,10 @@ const FR: Dict = {
     operation: [
       { icon: 'bolt', title: 'Électricité', items: ['Interrupteurs à activer dehors, sur la terrasse de devant, à droite de la porte.'] },
       { icon: 'drop', title: 'Eau', items: ['Dans la rue : descendre à droite, au coin.', 'Ouvrir la deuxième vanne en partant du bas → en parallèle = OUVERT (perpendiculaire = FERMÉ).'] },
-      { icon: 'flame', title: 'Gaz', items: ['Un monsieur près de la place (en haut) livre à domicile.'] },
+      { icon: 'flame', title: 'Gaz', items: ['Mormina Gas, Via Tolstoj — il vend les bouteilles, livre à domicile et répare les cuisinières. Ses coordonnées sont plus bas, dans les contacts.'] },
       { icon: 'signal', title: 'Wifi', items: ['Réseau : cacestlaissetomber', 'Mot de passe : jamonito'] },
     ],
-    toCome: 'le gaz, un dépannage, ou toute question qui n’est pas sur le site',
+    toCome: 'toute question qui n’est pas sur le site',
   },
   depart: {
     eyebrow: 'Départ',
@@ -751,6 +759,10 @@ const IT: Dict = {
     dutyTitle: 'Farmacia di turno',
     dutyDesc: 'Di notte e nei giorni festivi c’è sempre una farmacia di turno a Scicli, a rotazione — e la nostra, Trovato, ne fa parte. Il turno del giorno si vede qui. Attenzione: la farmacia di turno notturno ha la saracinesca abbassata, bisogna suonare il citofono per svegliare il farmacista.',
     dutyCta: 'Vedi il turno di oggi',
+    gasDesc: 'Il signore vicino alla piazza è lui. Vendita di bombole, e ripara anche le cucine a gas. Consegna a domicilio — ed è in paese, a poche strade da qui.',
+    gasWalk: 'In paese',
+    gasLandline: 'Fisso',
+    gasMobile: 'Cellulare',
     plumberTitle: 'Idraulico',
     plumberDesc: 'C’è, ed è bravo. Il suo numero non è sul sito: chiedetelo a Mag. E non si parte senza preventivo — si fa fare il preventivo, lo si conferma con lei, e solo dopo iniziano i lavori. Evita brutte sorprese a tutti.',
     localToCome: 'il medico o un taxi',
@@ -900,10 +912,10 @@ const IT: Dict = {
     operation: [
       { icon: 'bolt', title: 'Elettricità', items: ['Interruttori da attivare fuori, sulla terrazza davanti, a destra della porta.'] },
       { icon: 'drop', title: 'Acqua', items: ['In strada: scendere a destra, all’angolo.', 'Aprire la seconda valvola dal basso → in parallelo = APERTA (perpendicolare = CHIUSA).'] },
-      { icon: 'flame', title: 'Gas', items: ['Un signore vicino alla piazza (in alto) consegna a domicilio.'] },
+      { icon: 'flame', title: 'Gas', items: ['Mormina Gas, Via Tolstoj — vende le bombole, consegna a domicilio e ripara le cucine. I contatti sono più sotto.'] },
       { icon: 'signal', title: 'Wifi', items: ['Rete: cacestlaissetomber', 'Password: jamonito'] },
     ],
-    toCome: 'il gas, un guasto, o qualsiasi domanda che non è sul sito',
+    toCome: 'qualsiasi domanda che non è sul sito',
   },
   depart: {
     eyebrow: 'Partenza',
@@ -1121,6 +1133,10 @@ const EN: Dict = {
     dutyTitle: 'On-duty pharmacy',
     dutyDesc: 'At night and on holidays one pharmacy in Scicli is always on duty, by rotation — and ours, Trovato, is part of it. Today’s rota is here. Note: the night pharmacy has its shutter down, you have to ring the intercom to wake the pharmacist.',
     dutyCta: 'See today’s rota',
+    gasDesc: 'The gentleman near the square is him. He sells bottles and also repairs gas cookers. He delivers to your door — and he is in the village, a few streets away.',
+    gasWalk: 'In the village',
+    gasLandline: 'Landline',
+    gasMobile: 'Mobile',
     plumberTitle: 'Plumber',
     plumberDesc: 'There is one, and he is good. His number is not on the site: ask Mag for it. And nothing starts without a quote — get the quote, confirm it with her, and only then does the work begin. It saves everyone nasty surprises.',
     localToCome: 'the doctor or a taxi',
@@ -1270,10 +1286,10 @@ const EN: Dict = {
     operation: [
       { icon: 'bolt', title: 'Electricity', items: ['Switches to turn on outside, on the front terrace, to the right of the door.'] },
       { icon: 'drop', title: 'Water', items: ['In the street: go down to the right, at the corner.', 'Open the second valve from the bottom → parallel = OPEN (perpendicular = CLOSED).'] },
-      { icon: 'flame', title: 'Gas', items: ['A gentleman near the square (uptown) delivers to your door.'] },
+      { icon: 'flame', title: 'Gas', items: ['Mormina Gas, Via Tolstoj — he sells the bottles, delivers to your door and repairs cookers. His details are further down, in the contacts.'] },
       { icon: 'signal', title: 'Wifi', items: ['Network: cacestlaissetomber', 'Password: jamonito'] },
     ],
-    toCome: 'gas, a breakdown, or anything that is not on the site',
+    toCome: 'anything that is not on the site',
   },
   depart: {
     eyebrow: 'Departure',
