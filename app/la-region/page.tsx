@@ -66,12 +66,16 @@ export default function LaRegion() {
       {/* Les lieux autour de nous — fiches éditoriales alternées + lightbox */}
       {show('lieux') && (
       <section key={`lieux-${filter}`} className="mx-auto max-w-[110rem] px-5 pt-12 md:px-10">
-        <Reveal
-          as="h2"
-          className="border-t pt-8 text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]"
-          style={{ fontWeight: 900, borderColor: 'var(--cava-ink)' }}
-        >
-          {t.placesTitle}
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="pin" size={16} /> {t.regionFilter.places}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {t.placesTitle}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {t.placesIntro}
+          </p>
         </Reveal>
 
         <div className="mt-14 flex flex-col gap-16 md:mt-20 md:gap-28">

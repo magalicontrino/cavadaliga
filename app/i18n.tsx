@@ -70,6 +70,7 @@ export type Dict = {
   cavaAlt: string;
   scicliAlt: string;
   placesTitle: string;
+  placesIntro: string;
   regionPlaces: string[]; // histoires des lieux, même ordre que PLACES (la-region)
   regionHighlights: string[][]; // points forts par lieu, même ordre que PLACES
   unescoLabel: string; // badge patrimoine mondial UNESCO
@@ -240,6 +241,7 @@ const FR: Dict = {
   cavaAlt: 'La plage et le village de Cava d’Aliga',
   scicliAlt: 'Vue panoramique de Scicli, ville baroque du Val di Noto',
   placesTitle: 'Les lieux autour de nous',
+  placesIntro: 'Dix lieux, de la porte d’à côté à une heure et demie de route. Chacun porte sa distance depuis la maison : de quoi savoir ce qui se fait à pied, ce qui demande la voiture, et ce qui vaut la journée entière. Cinq sont classés au patrimoine mondial.',
   regionPlaces: [
     'Hameau marin de Scicli, Cava d’Aliga doit son nom au sicilien « aliga » (les algues, la posidonie) : jadis une crique de pêcheurs, devenue un village de villégiature aux plages de sable fin. C’est ici que se trouve la maison.',
     'Perle du baroque du Val di Noto, classée à l’UNESCO, Scicli fut reconstruite après le séisme de 1693. Nichée entre trois collines, ses églises et palais dorés servent de décor à la série du commissaire Montalbano.',
@@ -608,6 +610,7 @@ const IT: Dict = {
   cavaAlt: 'La spiaggia e il paese di Cava d’Aliga',
   scicliAlt: 'Vista panoramica di Scicli, città barocca del Val di Noto',
   placesTitle: 'I luoghi intorno a noi',
+  placesIntro: 'Dieci luoghi, dalla porta accanto a un’ora e mezza di strada. Ognuno con la sua distanza da casa: per sapere cosa si fa a piedi, cosa richiede l’auto e cosa vale l’intera giornata. Cinque sono patrimonio mondiale.',
   regionPlaces: [
     'Borgo marino di Scicli, Cava d’Aliga prende il nome dal siciliano « aliga » (le alghe, la posidonia): un tempo cala di pescatori, oggi villaggio di villeggiatura dalle spiagge di sabbia fine. È qui che si trova la casa.',
     'Perla del barocco del Val di Noto, patrimonio UNESCO, Scicli fu ricostruita dopo il terremoto del 1693. Adagiata tra tre colline, le sue chiese e i palazzi dorati fanno da set alla serie del commissario Montalbano.',
@@ -976,6 +979,7 @@ const EN: Dict = {
   cavaAlt: 'The beach and village of Cava d’Aliga',
   scicliAlt: 'Panoramic view of Scicli, baroque town of the Val di Noto',
   placesTitle: 'The places around us',
+  placesIntro: 'Ten places, from next door to an hour and a half away. Each carries its distance from the house: what you can walk to, what needs the car, and what deserves a whole day. Five are World Heritage sites.',
   regionPlaces: [
     'A seaside hamlet of Scicli, Cava d’Aliga takes its name from the Sicilian « aliga » (seaweed, posidonia): once a fishermen’s cove, now a holiday village with fine sandy beaches. This is where the house is.',
     'A jewel of Val di Noto Baroque and a UNESCO site, Scicli was rebuilt after the 1693 earthquake. Set between three hills, its golden churches and palaces are a backdrop for the Inspector Montalbano series.',
