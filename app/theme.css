@@ -233,6 +233,22 @@
   }
 }
 
+/* --- Gros picto qui apparaît au clic d'une fiche ------------------- */
+@keyframes cava-bigpop {
+  0% { transform: scale(0.4) rotate(-12deg); opacity: 0; }
+  60% { transform: scale(1.08) rotate(2deg); opacity: 0.16; }
+  100% { transform: scale(1) rotate(0deg); opacity: 0.13; }
+}
+.cava-bigpicto {
+  animation: cava-bigpop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-bigpicto {
+    animation: none;
+    opacity: 0.13;
+  }
+}
+
 /* --- Fiches « Nos adresses » (façon annonces) ---------------------- */
 .cava-listcard {
   transition:
