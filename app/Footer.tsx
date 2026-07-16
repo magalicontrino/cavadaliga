@@ -40,6 +40,14 @@ export default function Footer() {
           style={{ color: 'var(--cava-muted)' }}
         >
           <PersoLink />
+          <a
+            href={SITE.instagram.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cava-navlink uppercase tracking-[0.16em]"
+          >
+            Instagram {SITE.instagram.handle}
+          </a>
         </div>
       </div>
     </footer>
