@@ -96,9 +96,6 @@ export type Dict = {
     eyebrow: string;
     title: string;
     intro: string;
-    entryTitle: string; // carte d'entrée depuis « La région »
-    entryDesc: string;
-    entryCta: string;
     playlistTitle: string;
     playlistDesc: string;
     playlistCta: string;
@@ -241,9 +238,6 @@ const FR: Dict = {
     eyebrow: 'Culture',
     title: 'Sons & images',
     intro: 'Ce coin de Sicile a une bande-son et des décors de cinéma. Une playlist partagée à écouter sur la route, et les films et séries tournés à quelques kilomètres de la maison — souvent dans des rues que vous reconnaîtrez.',
-    entryTitle: 'Sons & images',
-    entryDesc: 'La playlist de la famille, les films et les séries tournés ici — Montalbano, c’est Scicli.',
-    entryCta: 'Découvrir',
     playlistTitle: 'La playlist de la famille',
     playlistDesc: 'Une playlist partagée : chacun y ajoute ce qu’il écoute ici. Pour la route depuis l’aéroport, la cuisine ou la terrasse le soir.',
     playlistCta: 'Ouvrir dans Spotify',
@@ -503,9 +497,6 @@ const IT: Dict = {
     eyebrow: 'Cultura',
     title: 'Suoni & immagini',
     intro: 'Questo angolo di Sicilia ha una colonna sonora e scenografie da cinema. Una playlist condivisa da ascoltare in viaggio, e i film e le serie girati a pochi chilometri da casa — spesso in strade che riconoscerete.',
-    entryTitle: 'Suoni & immagini',
-    entryDesc: 'La playlist della famiglia, i film e le serie girati qui — Montalbano è Scicli.',
-    entryCta: 'Scopri',
     playlistTitle: 'La playlist della famiglia',
     playlistDesc: 'Una playlist condivisa: ognuno aggiunge ciò che ascolta qui. Per la strada dall’aeroporto, la cucina o la terrazza la sera.',
     playlistCta: 'Apri su Spotify',
@@ -765,9 +756,6 @@ const EN: Dict = {
     eyebrow: 'Culture',
     title: 'Sounds & screens',
     intro: 'This corner of Sicily has a soundtrack and film-set scenery. A shared playlist for the drive, and the films and series shot a few kilometres from the house — often in streets you will recognise.',
-    entryTitle: 'Sounds & screens',
-    entryDesc: 'The family playlist, and the films and series shot here — Montalbano is Scicli.',
-    entryCta: 'Explore',
     playlistTitle: 'The family playlist',
     playlistDesc: 'A shared playlist: everyone adds what they listen to here. For the drive from the airport, the kitchen, or the terrace at night.',
     playlistCta: 'Open in Spotify',

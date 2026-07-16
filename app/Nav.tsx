@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { NAV, SITE, withBase } from './data';
+import Icon from './Icon';
 import { useI18n, LangSwitcher } from './i18n';
 
 /**
@@ -31,21 +32,35 @@ export default function Nav({ current }: { current?: string }) {
         {/* Sélecteur de langue IT · FR · EN */}
         <LangSwitcher />
 
-        {/* Bouton menu rond noir → overlay plein écran */}
-        <button
-          type="button"
-          aria-label="Ouvrir le menu"
-          aria-expanded={open}
-          onClick={() => setOpen(true)}
-          className="flex h-14 w-14 items-center justify-center rounded-full transition-transform duration-300 hover:scale-105"
-          style={{ background: 'var(--cava-ink)' }}
-        >
-          <span className="flex flex-col gap-[5px]">
-            <span className="block h-[2px] w-6 rounded-full" style={{ background: 'var(--cava-bg)' }} />
-            <span className="block h-[2px] w-6 rounded-full" style={{ background: 'var(--cava-bg)' }} />
-            <span className="block h-[2px] w-6 rounded-full" style={{ background: 'var(--cava-bg)' }} />
-          </span>
-        </button>
+        <div className="flex items-center gap-3">
+          {/* Culture — sons & images (vinyle), à gauche du menu */}
+          <a
+            href={withBase('/culture')}
+            aria-label={t.culturePage.title}
+            aria-current={current === '/culture' ? 'page' : undefined}
+            title={t.culturePage.title}
+            className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full ring-1 ring-black/10 aria-[current=page]:opacity-45"
+            style={{ color: 'var(--cava-pink)' }}
+          >
+            <Icon name="vinyl" size={26} />
+          </a>
+
+          {/* Bouton menu rond noir → overlay plein écran */}
+          <button
+            type="button"
+            aria-label="Ouvrir le menu"
+            aria-expanded={open}
+            onClick={() => setOpen(true)}
+            className="flex h-14 w-14 items-center justify-center rounded-full transition-transform duration-300 hover:scale-105"
+            style={{ background: 'var(--cava-ink)' }}
+          >
+            <span className="flex flex-col gap-[5px]">
+              <span className="block h-[2px] w-6 rounded-full" style={{ background: 'var(--cava-bg)' }} />
+              <span className="block h-[2px] w-6 rounded-full" style={{ background: 'var(--cava-bg)' }} />
+              <span className="block h-[2px] w-6 rounded-full" style={{ background: 'var(--cava-bg)' }} />
+            </span>
+          </button>
+        </div>
       </div>
 
       {/* Overlay plein écran */}

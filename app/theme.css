@@ -299,6 +299,33 @@
   }
 }
 
+/* --- Picto vinyle du header (vers « Sons & images ») ---------------
+   Le disque tourne au survol, comme sur une platine. */
+.cava-vinyllink {
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
+}
+.cava-vinyllink:hover {
+  transform: scale(1.05);
+  background: rgba(230, 41, 111, 0.08);
+}
+.cava-vinyllink svg {
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cava-vinyllink:hover svg {
+  transform: rotate(180deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-vinyllink,
+  .cava-vinyllink svg {
+    transition: none;
+  }
+  .cava-vinyllink:hover svg {
+    transform: none;
+  }
+}
+
 /* Feuille rose du filtre « Responsable & local » (hors état actif) */
 .cava-leafpink {
   color: var(--cava-pink);
