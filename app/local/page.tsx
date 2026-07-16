@@ -25,9 +25,9 @@ export default function Local() {
 
       <PageHeader title={p.title} intro={p.intro} />
 
-      {/* Carte illustrée (SVG maison), points cliquables → Google Maps */}
+      {/* Carte illustrée (SVG maison) — sans cadre, se fond dans la page */}
       <section className="mx-auto max-w-[110rem] px-5 md:px-10">
-        <Reveal className="overflow-hidden rounded-2xl border p-4 md:p-8" style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}>
+        <Reveal>
           <LocalMap houseLabel={t.regionHere} />
         </Reveal>
         <a

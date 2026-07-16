@@ -5,7 +5,7 @@
 // Décorative et non à l'échelle. Villages et producteurs = pastilles cliquables
 // qui ouvrent Google Maps.
 
-const CREAM = '#f4eede';
+const CREAM = '#f7f5f2'; // = fond de page (--cava-bg) → la carte se fond dans la page
 const PINK = '#ec7291';
 
 type Place = {
@@ -62,41 +62,23 @@ const maps = (q: string) => `https://www.google.com/maps/search/?api=1&query=${e
 const LAND =
   'M0 176 H1000 V250 C912 296 862 336 818 392 C758 466 692 512 572 550 C482 578 386 585 300 576 C212 567 120 566 0 594 Z';
 
-// Réseau de rues : deux familles de lignes parallèles (grille pivotée),
-// générées de façon déterministe (mêmes valeurs au rendu serveur et client).
-const STREETS = (() => {
-  const out: { d: string; w: number }[] = [];
-  const fams = [
-    { a: 14, sp: 23 },
-    { a: 103, sp: 28 },
-  ];
-  const cx = 500;
-  const cy = 400;
-  const L = 900;
-  for (const f of fams) {
-    const th = (f.a * Math.PI) / 180;
-    const dx = Math.cos(th);
-    const dy = Math.sin(th);
-    const nx = -dy;
-    const ny = dx;
-    for (let k = -30; k <= 30; k++) {
-      const ox = cx + nx * k * f.sp;
-      const oy = cy + ny * k * f.sp;
-      out.push({
-        d: `M${(ox - dx * L).toFixed(1)} ${(oy - dy * L).toFixed(1)} L${(ox + dx * L).toFixed(1)} ${(oy + dy * L).toFixed(1)}`,
-        w: k % 4 === 0 ? 2.6 : 1.3,
-      });
-    }
-  }
-  return out;
-})();
-
-// Routes principales (crème, plus épaisses) reliant les villages.
-const ROADS = [
-  'M150 502 L292 500 L408 494 L535 476 L606 460 L702 360 L888 272', // route côtière → est
-  'M408 494 L405 420 L470 345 L702 360', // vers l'intérieur
-  'M405 420 L300 322 L235 250', // vers Raguse / Chiaramonte
-  'M470 345 L505 322', // Modica → Bonajuto
+// Routes « creusées » dans la terre rose (couleur du fond). Courbes organiques,
+// pas de grille en damier : uniquement les axes qui relient les lieux.
+const ROADS: { d: string; w: number }[] = [
+  // Route côtière (principale)
+  { d: 'M150 502 C250 506 350 500 408 494 C480 486 560 470 606 460 C662 446 698 408 702 360', w: 5 },
+  { d: 'M702 360 C782 342 848 302 888 272', w: 5 },
+  // Artère intérieure : Cava → Scicli → Modica → Noto
+  { d: 'M408 494 C407 460 406 445 405 420 C418 388 448 360 470 345 C560 350 650 355 702 360', w: 5 },
+  // Vers Raguse / Chiaramonte
+  { d: 'M405 420 C362 392 322 356 300 322 C278 298 252 274 235 250', w: 4 },
+  // Secondaires (plus fines)
+  { d: 'M300 322 C360 330 420 340 470 345', w: 2.6 },
+  { d: 'M150 502 C182 452 232 384 300 322', w: 2.6 },
+  { d: 'M292 500 C322 470 372 440 405 420', w: 2.6 },
+  { d: 'M470 345 C502 384 528 430 535 476', w: 2.6 },
+  { d: 'M606 460 C640 430 675 396 702 360', w: 2.6 },
+  { d: 'M235 250 C305 258 390 288 470 345', w: 2.2 },
 ];
 
 export default function LocalMap({ houseLabel }: { houseLabel: string }) {
@@ -114,8 +96,7 @@ export default function LocalMap({ houseLabel }: { houseLabel: string }) {
         </clipPath>
       </defs>
 
-      {/* Fond crème (mer + cadre) */}
-      <rect x="0" y="0" width="1000" height="660" fill={CREAM} />
+      {/* Pas de fond : la mer / le cadre = le fond de page (blend). */}
 
       {/* ---------- En-tête poster ---------- */}
       {/* Boussole */}
@@ -153,13 +134,10 @@ export default function LocalMap({ houseLabel }: { houseLabel: string }) {
       {/* Terre rose */}
       <path d={LAND} fill={PINK} />
 
-      {/* Réseau de rues (crème), coupé à la terre */}
-      <g clipPath="url(#cava-landclip)" stroke={CREAM} fill="none" strokeLinecap="round">
-        {STREETS.map((s, i) => (
-          <path key={i} d={s.d} strokeWidth={s.w} opacity="0.9" />
-        ))}
-        {ROADS.map((d, i) => (
-          <path key={`r${i}`} d={d} strokeWidth="5.5" />
+      {/* Routes (couleur du fond), coupées à la terre */}
+      <g clipPath="url(#cava-landclip)" stroke={CREAM} fill="none" strokeLinecap="round" strokeLinejoin="round">
+        {ROADS.map((r, i) => (
+          <path key={i} d={r.d} strokeWidth={r.w} />
         ))}
       </g>
 
