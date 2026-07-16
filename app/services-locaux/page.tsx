@@ -10,16 +10,13 @@ import LocalMap from '../LocalMap';
 import { useI18n } from '../i18n';
 import { LOCAL_PLACES, CATS, type CatKey } from '../localData';
 
-const MAP_QUERY = 'Cava d’Aliga, Scicli';
-
 export default function NosAdresses() {
   const { t, lang } = useI18n();
   const s = t.pages['services-locaux'];
   const p = t.localPage;
-  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_QUERY)}`;
 
   const [filter, setFilter] = useState<'tout' | 'responsable' | CatKey>('tout');
-  const [active, setActive] = useState<string | null>(null);
+  const [query, setQuery] = useState('');
 
   // Catégories affichées comme filtres (certaines encore vides → « à venir »).
   const FILTER_CATS: CatKey[] = ['chocolat', 'huile', 'marche', 'plantes', 'resto', 'courses', 'plage'];
@@ -29,9 +26,14 @@ export default function NosAdresses() {
     ...FILTER_CATS.map((k) => ({ key: k, label: CATS[k].label[lang] })),
   ];
 
-  const places = LOCAL_PLACES.filter((l) =>
-    filter === 'tout' ? true : filter === 'responsable' ? l.responsible : l.cat === filter,
-  );
+  const q = query.trim().toLowerCase();
+  const places = LOCAL_PLACES.filter((l) => {
+    const byCat = filter === 'tout' ? true : filter === 'responsable' ? l.responsible : l.cat === filter;
+    if (!byCat) return false;
+    if (!q) return true;
+    const hay = `${l.name} ${l.town} ${CATS[l.cat].label[lang]} ${l.blurb[lang]}`.toLowerCase();
+    return hay.includes(q);
+  });
 
   return (
     <main>
@@ -54,19 +56,41 @@ export default function NosAdresses() {
             </span>
           </span>
         </Reveal>
-        <a
-          href={mapLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="cava-navlink mt-4 inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.14em]"
-          style={{ color: 'var(--cava-muted)' }}
-        >
-          <Icon name="pin" size={16} /> {p.mapLabel} <span aria-hidden>↗</span>
-        </a>
       </section>
 
       {/* Filtres + grille de fiches */}
       <section className="mx-auto max-w-[110rem] px-5 pt-10 md:px-10">
+        {/* Recherche manuelle par mots ou envie */}
+        <Reveal className="mb-5">
+          <label
+            className="flex items-center gap-3 rounded-full border px-5 py-3 md:max-w-md"
+            style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
+          >
+            <span style={{ color: 'var(--cava-muted)' }}>
+              <Icon name="search" size={18} />
+            </span>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={p.searchPlaceholder}
+              className="w-full bg-transparent text-[15px] outline-none"
+              style={{ color: 'var(--cava-ink)' }}
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={() => setQuery('')}
+                aria-label="×"
+                className="shrink-0 text-[18px] leading-none"
+                style={{ color: 'var(--cava-muted)' }}
+              >
+                ×
+              </button>
+            )}
+          </label>
+        </Reveal>
+
         <Reveal className="flex flex-wrap gap-2.5">
           {filters.map((f) => {
             const on = filter === f.key;
@@ -102,21 +126,12 @@ export default function NosAdresses() {
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {places.map((pl, i) => {
-            const isActive = active === pl.id;
             return (
               <Reveal key={pl.id} delay={(i % 3) * 70}>
                 <div
-                  onClick={() => setActive(isActive ? null : pl.id)}
-                  className="cava-listcard group relative flex h-full w-full cursor-pointer flex-col gap-3 overflow-hidden rounded-2xl border p-8 md:p-10"
-                  style={{ borderColor: isActive ? 'var(--cava-ink)' : 'var(--cava-line)', background: 'var(--cava-bg)' }}
+                  className="cava-listcard group relative flex h-full w-full flex-col gap-3 overflow-hidden rounded-2xl border p-8 md:p-10"
+                  style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
                 >
-                  {/* Gros picto au clic */}
-                  {isActive && (
-                    <span aria-hidden className="cava-bigpicto pointer-events-none absolute -bottom-7 -right-6" style={{ color: 'var(--cava-pink)' }}>
-                      <Icon name={CATS[pl.cat].icon} size={150} />
-                    </span>
-                  )}
-
                   <div className="relative flex items-start justify-between gap-3">
                     <span
                       className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
@@ -149,7 +164,6 @@ export default function NosAdresses() {
                       href={pl.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
                       className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]"
                     >
                       <Icon name="pin" size={15} /> {p.mapLabel} <span aria-hidden>↗</span>
@@ -159,7 +173,6 @@ export default function NosAdresses() {
                         href={pl.instagram}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
                         className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]"
                       >
                         <Icon name="instagram" size={15} /> Instagram <span aria-hidden>↗</span>

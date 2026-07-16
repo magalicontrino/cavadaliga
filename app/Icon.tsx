@@ -22,7 +22,11 @@ export type IconName =
   | 'citrus'
   | 'leaf'
   | 'instagram'
-  | 'map';
+  | 'map'
+  | 'search'
+  | 'vinyl'
+  | 'film'
+  | 'spotify';
 
 const PATHS: Record<IconName, React.ReactNode> = {
   // Clé — arrivée & départ
@@ -142,6 +146,39 @@ const PATHS: Record<IconName, React.ReactNode> = {
     <>
       <path d="M9 4L3 6.5v13.5L9 17.5l6 2.5 6-2.5V6L15 8.5 9 6z" />
       <path d="M9 4v13.5M15 8.5V22" />
+    </>
+  ),
+  // Loupe — recherche
+  search: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <path d="M16 16l4 4" />
+    </>
+  ),
+  // Vinyle — sons & images
+  vinyl: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <circle cx="12" cy="12" r="3.5" />
+      <circle cx="12" cy="12" r="0.6" />
+      <path d="M12 3.5a8.5 8.5 0 016 2.5" />
+    </>
+  ),
+  // Clap / pellicule — écrans
+  film: (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M8 5v14M16 5v14" />
+      <path d="M3 9.5h5M3 14.5h5M16 9.5h5M16 14.5h5" />
+    </>
+  ),
+  // Spotify — la playlist partagée
+  spotify: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M7.4 9.2c3-.8 6.4-.5 9.2 1" />
+      <path d="M8 12.3c2.4-.6 5.1-.4 7.4.9" />
+      <path d="M8.6 15.3c1.9-.5 4-.3 5.8.7" />
     </>
   ),
 };

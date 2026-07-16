@@ -1,10 +1,12 @@
 'use client';
 
+import Link from 'next/link';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
 import Carousel from '../Carousel';
 import PageHeader from '../PageHeader';
+import Icon from '../Icon';
 import { useI18n } from '../i18n';
 
 // Lieux autour de Cava d'Aliga (ordre = i18n regionPlaces / regionHighlights).
@@ -103,6 +105,50 @@ export default function LaRegion() {
             );
           })}
         </div>
+      </section>
+
+      {/* Entrée vers la page culture — sons & images */}
+      <section className="mx-auto max-w-[110rem] px-5 pt-24 md:px-10">
+        <Reveal>
+          <Link
+            href="/culture"
+            className="cava-listcard group relative flex flex-col gap-6 overflow-hidden rounded-3xl p-10 md:flex-row md:items-center md:justify-between md:p-16"
+            style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)' }}
+          >
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -right-12 -top-12 opacity-[0.14] transition-transform duration-500 group-hover:rotate-45 md:-right-8 md:top-1/2 md:-translate-y-1/2"
+              style={{ color: 'var(--cava-pink)' }}
+            >
+              <Icon name="vinyl" size={280} />
+            </span>
+
+            <div className="relative max-w-[52ch]">
+              <span
+                className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em]"
+                style={{ color: 'var(--cava-pink)' }}
+              >
+                <Icon name="vinyl" size={16} /> {t.culturePage.eyebrow}
+              </span>
+              <h2
+                className="mt-3 text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]"
+                style={{ fontWeight: 900 }}
+              >
+                {t.culturePage.entryTitle}
+              </h2>
+              <p className="mt-5 text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.7]" style={{ color: 'rgba(247,245,242,0.72)' }}>
+                {t.culturePage.entryDesc}
+              </p>
+            </div>
+
+            <span
+              className="relative inline-flex shrink-0 items-center gap-3 rounded-full px-7 py-4 text-[15px] transition group-hover:opacity-85"
+              style={{ background: 'var(--cava-pink)', color: '#fff', fontWeight: 700 }}
+            >
+              <Icon name="film" size={20} /> {t.culturePage.entryCta} <span aria-hidden>→</span>
+            </span>
+          </Link>
+        </Reveal>
       </section>
 
       <div className="pb-24" />

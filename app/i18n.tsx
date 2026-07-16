@@ -83,11 +83,31 @@ export type Dict = {
     badge: string;
     filterAll: string;
     filterEmpty: string;
+    searchPlaceholder: string;
     categories: { title: string; desc: string; spots: { label: string; url: string; instagram?: string }[] }[];
     markets: { title: string; desc: string; list: { label: string; url: string }[] };
   };
   salvaPage: { title: string; intro: string; historyTitle: string; historyText: string; treeTitle: string; treeNote: string; treePaternal: string; treeMaternal: string; treeWife1: string; treeWife2: string; treeAdd: string; treeAddSubject: string; treeExample: string };
   calendarPage: { title: string; intro: string; festivalsTitle: string; programTitle: string; programNote: string; programMore: string; socialsTitle: string; festivalDescs: string[]; legend: { occupied: string; tentative: string; free: string; festival: string } };
+  culturePage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    entryTitle: string; // carte d'entrée depuis « La région »
+    entryDesc: string;
+    entryCta: string;
+    playlistTitle: string;
+    playlistDesc: string;
+    playlistCta: string;
+    playlistSoon: string;
+    artistsTitle: string;
+    artistsIntro: string;
+    screensTitle: string;
+    screensIntro: string;
+    placeLabel: string;
+    moreLabel: string;
+    note: string;
+  };
   ctaEyebrow: string;
   ctaTitle: string;
   question: string;
@@ -173,6 +193,7 @@ const FR: Dict = {
     badge: 'Responsable & local',
     filterAll: 'Tout',
     filterEmpty: 'Ces adresses arrivent bientôt.',
+    searchPlaceholder: 'Rechercher un lieu, une envie…',
     categories: [
       {
         title: 'Chocolat de Modica',
@@ -210,6 +231,25 @@ const FR: Dict = {
   },
   salvaPage: { title: 'La famille', intro: 'Photos, souvenirs et histoire de la famille, au fil des années.', historyTitle: 'Histoire de la famille', historyText: "De génération en génération, cette maison de Cava d’Aliga rassemble la famille. On écrira bientôt son histoire ici — les origines, les étés partagés et les visages qui l’ont fait vivre.", treeTitle: 'Arbre généalogique', treeNote: 'Bientôt : un arbre participatif où chacun pourra ajouter sa branche.', treePaternal: 'Grands-parents paternels', treeMaternal: 'Grands-parents maternels', treeWife1: '1re épouse', treeWife2: '2e épouse', treeAdd: '+ Ajouter ma branche', treeAddSubject: 'Arbre généalogique — ma branche', treeExample: 'Structure d’exemple — dites-nous les vrais liens et on complète.' },
   calendarPage: { title: 'Le calendrier', intro: 'Les périodes où la maison est occupée, pour se coordonner en famille.', festivalsTitle: 'Fêtes siciliennes', programTitle: 'Événements à venir', programNote: 'Sotto il cielo di Bruca — le programme de l’été, à deux pas de la maison. Suivez les couleurs.', programMore: 'Détails et horaires sur Instagram', socialsTitle: 'À suivre', festivalDescs: ["Le grand jour de l’été italien. Héritée des Feriae Augusti romaines et associée à l’Assomption, la fête réunit familles et villages autour de la mer : baignades, grands repas, processions et feux d’artifice animent toute la Sicile.", "Saint Roch, invoqué depuis des siècles contre les épidémies, protège de nombreuses communautés siciliennes. À Scicli, sa statue est portée en procession dans les ruelles, au son des fanfares et sous les illuminations de fête.", "Saint Jean-Baptiste est le patron de Raguse, dont la cathédrale lui est dédiée. Le 29 août, jour de sa décollation, la ville s’illumine : procession solennelle de la statue du saint et grand feu d’artifice au-dessus de la vieille ville.", "Saint Conrad Confalonieri, ermite vénéré comme patron de Noto. Le dernier dimanche d’août, son urne d’argent traverse les rues baroques dans une immense ferveur populaire, entre cierges, fleurs et cortèges."], legend: { occupied: 'Occupé', tentative: 'En attente', free: 'Libre', festival: 'Fête sicilienne' } },
+  culturePage: {
+    eyebrow: 'Culture',
+    title: 'Sons & images',
+    intro: 'Ce coin de Sicile a une bande-son et des décors de cinéma. Une playlist partagée à écouter sur la route, et les films et séries tournés à quelques kilomètres de la maison — souvent dans des rues que vous reconnaîtrez.',
+    entryTitle: 'Sons & images',
+    entryDesc: 'La playlist de la famille, les films et les séries tournés ici — Montalbano, c’est Scicli.',
+    entryCta: 'Découvrir',
+    playlistTitle: 'La playlist de la famille',
+    playlistDesc: 'Une playlist partagée : chacun y ajoute ce qu’il écoute ici. Pour la route depuis l’aéroport, la cuisine ou la terrasse le soir.',
+    playlistCta: 'Ouvrir dans Spotify',
+    playlistSoon: 'Le lien de la playlist arrive bientôt.',
+    artistsTitle: 'À écouter',
+    artistsIntro: 'Quelques voix siciliennes pour commencer, en attendant la playlist.',
+    screensTitle: 'À l’écran, ici',
+    screensIntro: 'Tourné à côté de la maison. Regardez avant de venir : vous verrez la région autrement.',
+    placeLabel: 'Voir le lieu',
+    moreLabel: 'En savoir plus',
+    note: 'Une chanson, un film ou une série à ajouter ? Dites-le-nous, cette page grandit avec vous.',
+  },
   ctaEyebrow: 'Envie de venir ?',
   ctaTitle: 'Écrivez-nous',
   question: 'Une question sur votre séjour ?',
@@ -412,6 +452,7 @@ const IT: Dict = {
     badge: 'Responsabile & locale',
     filterAll: 'Tutto',
     filterEmpty: 'Questi indirizzi arrivano presto.',
+    searchPlaceholder: 'Cerca un luogo, una voglia…',
     categories: [
       {
         title: 'Cioccolato di Modica',
@@ -449,6 +490,25 @@ const IT: Dict = {
   },
   salvaPage: { title: 'La famiglia', intro: 'Foto, ricordi e storia della famiglia, nel corso degli anni.', historyTitle: 'Storia della famiglia', historyText: "Di generazione in generazione, questa casa di Cava d’Aliga riunisce la famiglia. Presto ne racconteremo qui la storia — le origini, le estati condivise e i volti che l’hanno animata.", treeTitle: 'Albero genealogico', treeNote: 'Presto: un albero partecipativo dove ognuno potrà aggiungere il proprio ramo.', treePaternal: 'Nonni paterni', treeMaternal: 'Nonni materni', treeWife1: '1ª moglie', treeWife2: '2ª moglie', treeAdd: '+ Aggiungi il mio ramo', treeAddSubject: 'Albero genealogico — il mio ramo', treeExample: 'Struttura di esempio — diteci i legami reali e completiamo.' },
   calendarPage: { title: 'Il calendario', intro: 'I periodi in cui la casa è occupata, per coordinarsi in famiglia.', festivalsTitle: 'Feste siciliane', programTitle: 'Prossimi eventi', programNote: 'Sotto il cielo di Bruca — il programma dell’estate, a due passi da casa. Seguite i colori.', programMore: 'Dettagli e orari su Instagram', socialsTitle: 'Da seguire', festivalDescs: ["Il grande giorno dell’estate italiana. Erede delle Feriae Augusti romane e legata all’Assunzione, la festa riunisce famiglie e paesi in riva al mare: bagni, grandi pranzi, processioni e fuochi d’artificio animano tutta la Sicilia.", "San Rocco, invocato da secoli contro le epidemie, protegge molte comunità siciliane. A Scicli la sua statua è portata in processione tra i vicoli, tra bande musicali e luminarie di festa.", "San Giovanni Battista è il patrono di Ragusa, a cui è dedicata la cattedrale. Il 29 agosto, giorno della sua decollazione, la città si illumina: solenne processione della statua e grande spettacolo pirotecnico sopra la città vecchia.", "San Corrado Confalonieri, eremita venerato come patrono di Noto. L’ultima domenica d’agosto, la sua urna d’argento attraversa le vie barocche in una grande devozione popolare, tra ceri, fiori e cortei."], legend: { occupied: 'Occupato', tentative: 'In attesa', free: 'Libero', festival: 'Festa siciliana' } },
+  culturePage: {
+    eyebrow: 'Cultura',
+    title: 'Suoni & immagini',
+    intro: 'Questo angolo di Sicilia ha una colonna sonora e scenografie da cinema. Una playlist condivisa da ascoltare in viaggio, e i film e le serie girati a pochi chilometri da casa — spesso in strade che riconoscerete.',
+    entryTitle: 'Suoni & immagini',
+    entryDesc: 'La playlist della famiglia, i film e le serie girati qui — Montalbano è Scicli.',
+    entryCta: 'Scopri',
+    playlistTitle: 'La playlist della famiglia',
+    playlistDesc: 'Una playlist condivisa: ognuno aggiunge ciò che ascolta qui. Per la strada dall’aeroporto, la cucina o la terrazza la sera.',
+    playlistCta: 'Apri su Spotify',
+    playlistSoon: 'Il link della playlist arriva presto.',
+    artistsTitle: 'Da ascoltare',
+    artistsIntro: 'Qualche voce siciliana per cominciare, in attesa della playlist.',
+    screensTitle: 'Sullo schermo, qui',
+    screensIntro: 'Girato accanto a casa. Guardate prima di venire: vedrete la zona con altri occhi.',
+    placeLabel: 'Vedi il luogo',
+    moreLabel: 'Scopri di più',
+    note: 'Una canzone, un film o una serie da aggiungere? Ditecelo, questa pagina cresce con voi.',
+  },
   ctaEyebrow: 'Voglia di venire?',
   ctaTitle: 'Scriveteci',
   question: 'Una domanda sul vostro soggiorno?',
@@ -651,6 +711,7 @@ const EN: Dict = {
     badge: 'Responsible & local',
     filterAll: 'All',
     filterEmpty: 'These addresses are coming soon.',
+    searchPlaceholder: 'Search a place, a craving…',
     categories: [
       {
         title: 'Modica chocolate',
@@ -688,6 +749,25 @@ const EN: Dict = {
   },
   salvaPage: { title: 'The family', intro: 'Photos, memories and family history, over the years.', historyTitle: 'Family history', historyText: "From one generation to the next, this house in Cava d’Aliga brings the family together. Its story will soon be written here — the origins, the shared summers and the faces that made it live.", treeTitle: 'Family tree', treeNote: 'Coming soon: a collaborative tree where everyone can add their branch.', treePaternal: 'Paternal grandparents', treeMaternal: 'Maternal grandparents', treeWife1: '1st wife', treeWife2: '2nd wife', treeAdd: '+ Add my branch', treeAddSubject: 'Family tree — my branch', treeExample: 'Example structure — tell us the real relationships and we’ll complete it.' },
   calendarPage: { title: 'The calendar', intro: 'When the house is occupied, so the family can coordinate.', festivalsTitle: 'Sicilian festivals', programTitle: 'Upcoming events', programNote: 'Sotto il cielo di Bruca — the summer programme, steps from the house. Follow the colours.', programMore: 'Details and times on Instagram', socialsTitle: 'Follow', festivalDescs: ["The high point of the Italian summer. Descended from the Roman Feriae Augusti and tied to the Assumption, the holiday gathers families and villages by the sea: swimming, big meals, processions and fireworks all across Sicily.", "Saint Roch, invoked for centuries against epidemics, protects many Sicilian communities. In Scicli his statue is carried in procession through the alleys, amid brass bands and festive lights.", "Saint John the Baptist is the patron of Ragusa, whose cathedral is dedicated to him. On 29 August, the day of his beheading, the town lights up: a solemn procession of the statue and a grand fireworks display over the old town.", "Saint Conrad Confalonieri, a hermit venerated as Noto’s patron. On the last Sunday of August, his silver urn moves through the baroque streets in great popular devotion, among candles, flowers and processions."], legend: { occupied: 'Occupied', tentative: 'Pending', free: 'Free', festival: 'Sicilian festival' } },
+  culturePage: {
+    eyebrow: 'Culture',
+    title: 'Sounds & screens',
+    intro: 'This corner of Sicily has a soundtrack and film-set scenery. A shared playlist for the drive, and the films and series shot a few kilometres from the house — often in streets you will recognise.',
+    entryTitle: 'Sounds & screens',
+    entryDesc: 'The family playlist, and the films and series shot here — Montalbano is Scicli.',
+    entryCta: 'Explore',
+    playlistTitle: 'The family playlist',
+    playlistDesc: 'A shared playlist: everyone adds what they listen to here. For the drive from the airport, the kitchen, or the terrace at night.',
+    playlistCta: 'Open in Spotify',
+    playlistSoon: 'The playlist link is coming soon.',
+    artistsTitle: 'Worth a listen',
+    artistsIntro: 'A few Sicilian voices to start with, while the playlist takes shape.',
+    screensTitle: 'On screen, right here',
+    screensIntro: 'Filmed next door. Watch before you come: you will see the area differently.',
+    placeLabel: 'See the place',
+    moreLabel: 'Learn more',
+    note: 'A song, a film or a series to add? Tell us — this page grows with you.',
+  },
   ctaEyebrow: 'Ready to come?',
   ctaTitle: 'Write to us',
   question: 'A question about your stay?',
