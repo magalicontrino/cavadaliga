@@ -169,6 +169,8 @@ export const ARTS: Screen[] = [
 // Les photos du livre ne sont pas reprises ici : elles sont sous droits. Les
 // gestes, eux, appartiennent à tout le monde — on les décrit avec nos mots.
 export const MUNARI_BOOK = 'https://corraini.com/it/supplemento-al-dizionario-italiano.html';
+// « Arte come mestiere » (Laterza, 1966), repris en Penguin Modern Classics.
+export const MUNARI_DESIGN_BOOK = 'https://www.penguin.co.uk/books/56472/design-as-art-by-munari-bruno/9780141035819';
 export const MUNARI_WIKI = 'https://it.wikipedia.org/wiki/Bruno_Munari';
 export const DE_JORIO_WIKI = 'https://it.wikipedia.org/wiki/Andrea_de_Jorio';
 

@@ -1,16 +1,16 @@
 'use client';
 
+import ContactCta from './ContactCta';
 import Marquee from './Marquee';
 import PersoLink from './PersoLink';
-import { NAV, SITE, withBase } from './data';
+import { NAV, withBase } from './data';
 import { useI18n } from './i18n';
 
-/** Un lien géant du footer. `external` ouvre dans un nouvel onglet. */
-function FootLink({ href, label, external }: { href: string; label: string; external?: boolean }) {
+/** Un lien géant du footer — une page du site. */
+function FootLink({ href, label }: { href: string; label: string }) {
   return (
     <a
       href={href}
-      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       className="cava-footlink group flex items-center justify-between border-b py-4 md:py-5"
       style={{ borderColor: 'var(--cava-line)' }}
     >
@@ -28,20 +28,21 @@ export default function Footer() {
   const { t } = useI18n();
   return (
     <footer className="mt-24 border-t" style={{ borderColor: 'var(--cava-line)' }}>
+      {/* Nous joindre, en grand, au-dessus du bandeau */}
+      <ContactCta />
+
       {/* Bandeau défilant — fond noir contrasté */}
       <div className="py-6" style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)' }}>
         <Marquee items={['Scicli', 'Ragusa', 'Modica', 'Noto', 'Donnalucata', 'Marina di Ragusa']} duration={38} />
       </div>
 
       <div className="mx-auto max-w-[110rem] px-5 py-16 md:px-10 md:py-20">
-        {/* Liens géants (maximaliste) — les pages, puis les deux façons de nous
-            joindre. Même liste que sur l'accueil, mais présente partout. */}
+        {/* Liens géants (maximaliste) — les pages. Contact et Instagram vivent
+            au-dessus du bandeau, pas ici. */}
         <nav className="border-t" style={{ borderColor: 'var(--cava-line)' }}>
           {NAV.map((item, i) => (
             <FootLink key={item.href} href={withBase(item.href)} label={t.nav[i]} />
           ))}
-          <FootLink href={`mailto:${SITE.email}`} label={t.contactLink} />
-          <FootLink href={SITE.instagram.url} label="Instagram" external />
         </nav>
 
         {/* Bas de footer */}

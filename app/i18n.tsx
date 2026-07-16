@@ -132,6 +132,9 @@ export type Dict = {
     handsBookTitle: string;
     handsBookDesc: string;
     handsBookCta: string;
+    handsBook2Title: string;
+    handsBook2Desc: string;
+    handsBook2Cta: string;
     handsWho: string;
     handsPhotoNote: string;
     placeLabel: string;
@@ -394,6 +397,9 @@ const FR: Dict = {
     handsBookTitle: 'Supplemento al dizionario italiano',
     handsBookDesc: 'Toujours édité chez Corraini, en italien, anglais, français et allemand. Cinquante gestes en photo, une page chacun. Le meilleur cadeau à emporter — et le seul dictionnaire qu’on lit d’une traite.',
     handsBookCta: 'Le livre chez Corraini',
+    handsBook2Title: 'Design as Art',
+    handsBook2Desc: 'Son livre le plus lu, publié chez Laterza en 1966 sous le titre « Arte come mestiere » — l’art comme métier. Munari y regarde les lampes, les panneaux routiers, les affiches, les voitures et les chaises, et demande à chaque fois la même chose : est-ce beau, est-ce que ça marche, est-ce que c’est pour tout le monde ? Picasso l’appelait « le nouveau Léonard ». Réédité en Penguin Modern Classics en 2008.',
+    handsBook2Cta: 'Le livre chez Penguin',
     handsPhotoNote: 'Les photos du livre ne sont pas reprises ici : elles sont sous droits. Les gestes, eux, appartiennent à tout le monde — voilà les nôtres, décrits à la main.',
     photosTitle: 'Photographié ici',
     photosIntro: 'Avant les téléphones, d’autres ont regardé ces pierres et ces fêtes — et les ont fixées pour de bon.',
@@ -780,6 +786,9 @@ const IT: Dict = {
     handsBookTitle: 'Supplemento al dizionario italiano',
     handsBookDesc: 'Ancora edito da Corraini, in italiano, inglese, francese e tedesco. Cinquanta gesti in fotografia, una pagina ciascuno. Il regalo migliore da portarsi via — e l’unico dizionario che si legge tutto d’un fiato.',
     handsBookCta: 'Il libro da Corraini',
+    handsBook2Title: 'Design as Art',
+    handsBook2Desc: 'Il suo libro più letto, pubblicato da Laterza nel 1966 con il titolo « Arte come mestiere ». Munari guarda le lampade, i segnali stradali, i manifesti, le automobili e le sedie, e ogni volta chiede la stessa cosa: è bello, funziona, è per tutti? Picasso lo chiamava « il nuovo Leonardo ». Ristampato nei Penguin Modern Classics nel 2008.',
+    handsBook2Cta: 'Il libro da Penguin',
     handsPhotoNote: 'Le foto del libro non sono riprese qui: sono sotto diritti. I gesti, invece, sono di tutti — eccoli, descritti a mano.',
     photosTitle: 'Fotografato qui',
     photosIntro: 'Prima dei telefoni, altri hanno guardato queste pietre e queste feste — e le hanno fissate per sempre.',
@@ -1166,6 +1175,9 @@ const EN: Dict = {
     handsBookTitle: 'Supplemento al dizionario italiano',
     handsBookDesc: 'Still in print at Corraini, in Italian, English, French and German. Fifty gestures in photographs, one page each. The best thing to take home — and the only dictionary you read in one sitting.',
     handsBookCta: 'The book at Corraini',
+    handsBook2Title: 'Design as Art',
+    handsBook2Desc: 'His most widely read book, published by Laterza in 1966 as « Arte come mestiere » — art as a trade. Munari looks at lamps, road signs, posters, cars and chairs, and each time asks the same thing: is it beautiful, does it work, is it for everyone? Picasso called him “the new Leonardo”. Reissued as a Penguin Modern Classic in 2008.',
+    handsBook2Cta: 'The book at Penguin',
     handsPhotoNote: 'The book’s photographs are not reproduced here: they are under copyright. The gestures themselves belong to everyone — here are ours, described by hand.',
     photosTitle: 'Photographed here',
     photosIntro: 'Before phones, others looked at these stones and these festivals — and fixed them for good.',

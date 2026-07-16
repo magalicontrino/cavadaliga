@@ -7,8 +7,9 @@ import Reveal, { RevealNow } from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon from '../Icon';
 import FilterChip from '../FilterChip';
+import HandSign from '../HandSign';
 import { useI18n } from '../i18n';
-import { ARTISTS, ARTS, GESTURES, PHOTOS, SCREENS, SPOTIFY_EMBED_HEIGHT, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, MUNARI_BOOK, MUNARI_WIKI, DE_JORIO_WIKI, type Screen } from '../cultureData';
+import { ARTISTS, ARTS, GESTURES, PHOTOS, SCREENS, SPOTIFY_EMBED_HEIGHT, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, MUNARI_BOOK, MUNARI_DESIGN_BOOK, MUNARI_WIKI, DE_JORIO_WIKI, type Screen } from '../cultureData';
 import { type IconName } from '../Icon';
 import { type Lang } from '../localData';
 
@@ -239,8 +240,8 @@ export default function Culture() {
           {c.handsIntro}
         </Reveal>
 
-        {/* Qui était Munari + le livre */}
-        <div className="mt-10 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
+        {/* Qui était Munari + ses deux livres */}
+        <div className="mt-10 grid gap-6 lg:grid-cols-[1.25fr_1fr_1fr]">
           <Reveal>
             <div
               className="flex h-full flex-col gap-4 rounded-2xl border p-8 md:p-10"
@@ -300,21 +301,63 @@ export default function Culture() {
               </a>
             </div>
           </Reveal>
+
+          {/* Design as Art — son livre le plus lu, celui qui explique le reste */}
+          <Reveal delay={140}>
+            <div
+              className="flex h-full flex-col gap-4 rounded-2xl border p-8 md:p-10"
+              style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
+            >
+              <span
+                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+              >
+                <Icon name="brush" size={28} />
+              </span>
+              <h3 className="text-[clamp(1.15rem,2.2vw,1.4rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+                {c.handsBook2Title}
+              </h3>
+              <p className="font-mono text-[13px] tracking-[0.1em]" style={{ color: 'var(--cava-pink)' }}>
+                1966
+              </p>
+              <p className="text-[14.5px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                {c.handsBook2Desc}
+              </p>
+              <a
+                href={MUNARI_DESIGN_BOOK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cava-pill mt-auto inline-flex w-fit items-center gap-2 px-4 py-2 text-[13px]"
+              >
+                <Icon name="search" size={15} /> {c.handsBook2Cta} <span aria-hidden>↗</span>
+              </a>
+            </div>
+          </Reveal>
         </div>
 
-        {/* Les gestes, décrits */}
-        <div className="mt-6 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2 lg:grid-cols-3" style={{ background: 'var(--cava-line)' }}>
+        {/* La galerie des gestes — le picto d'abord, le texte en second */}
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {GESTURES.map((g, i) => (
-            <Reveal key={g.id} delay={(i % 3) * 60} className="flex flex-col gap-2.5 p-8" style={{ background: 'var(--cava-bg)' }}>
-              <p className="text-[clamp(1.1rem,2vw,1.3rem)] leading-[1.2]" style={{ fontWeight: 700 }}>
-                {g.name}
-              </p>
-              <p className="text-[13.5px] leading-[1.6]" style={{ color: 'var(--cava-pink)', fontWeight: 500 }}>
-                {g.how[lang]}
-              </p>
-              <p className="text-[14px] leading-[1.65]" style={{ color: 'var(--cava-muted)' }}>
-                {g.means[lang]}
-              </p>
+            <Reveal key={g.id} delay={(i % 3) * 60}>
+              <figure
+                className="flex h-full flex-col overflow-hidden rounded-2xl border"
+                style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
+              >
+                <div className="flex items-center justify-center py-10" style={{ background: 'rgba(230,41,111,0.06)' }}>
+                  <HandSign id={g.id} className="h-32 w-auto" style={{ color: 'var(--cava-pink)' }} />
+                </div>
+                <figcaption className="flex flex-1 flex-col gap-2.5 p-7">
+                  <p className="text-[clamp(1.1rem,2vw,1.3rem)] leading-[1.2]" style={{ fontWeight: 700 }}>
+                    {g.name}
+                  </p>
+                  <p className="text-[13.5px] leading-[1.6]" style={{ color: 'var(--cava-pink)', fontWeight: 500 }}>
+                    {g.how[lang]}
+                  </p>
+                  <p className="text-[14px] leading-[1.65]" style={{ color: 'var(--cava-muted)' }}>
+                    {g.means[lang]}
+                  </p>
+                </figcaption>
+              </figure>
             </Reveal>
           ))}
         </div>
