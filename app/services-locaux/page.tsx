@@ -7,6 +7,7 @@ import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon, { type IconName } from '../Icon';
 import LocalMap from '../LocalMap';
+import MapViewport from '../MapViewport';
 import { useI18n } from '../i18n';
 import { LOCAL_PLACES, CATS, type CatKey } from '../localData';
 
@@ -68,13 +69,15 @@ export default function NosAdresses() {
       {/* Carte illustrée — les épingles suivent le filtre et la recherche */}
       <section ref={mapRef} className="mx-auto max-w-[110rem] scroll-mt-24 px-5 md:px-10">
         <Reveal className="relative">
-          <LocalMap
-            houseLabel={t.regionHere}
-            spots={spots}
-            activeId={active}
-            spotsKey={filter}
-            legend={{ villages: p.legendVillages, spots: p.legendSpots }}
-          />
+          <MapViewport labels={{ zoomIn: p.zoomIn, zoomOut: p.zoomOut, reset: p.zoomReset }}>
+            <LocalMap
+              houseLabel={t.regionHere}
+              spots={spots}
+              activeId={active}
+              spotsKey={filter}
+              legend={{ villages: p.legendVillages, spots: p.legendSpots }}
+            />
+          </MapViewport>
         </Reveal>
       </section>
 

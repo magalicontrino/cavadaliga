@@ -334,6 +334,37 @@
   }
 }
 
+/* --- Commandes de zoom de la carte ---------------------------------- */
+.cava-zoombtn {
+  background: var(--cava-bg);
+  color: var(--cava-ink);
+  border: 1px solid var(--cava-line);
+  box-shadow: 0 2px 8px rgba(46, 45, 45, 0.08);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+.cava-zoombtn:hover {
+  background: var(--cava-ink);
+  color: var(--cava-bg);
+  transform: scale(1.06);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-zoombtn {
+    transition: none;
+  }
+}
+
+/* --- Check-list de départ ------------------------------------------- */
+.cava-checkrow {
+  background: var(--cava-bg);
+  transition: background-color 0.25s ease;
+}
+.cava-checkrow:hover {
+  background: rgba(230, 41, 111, 0.04);
+}
+
 /* --- Mini-liste « Chansons & histoires de Sicile » ------------------ */
 .cava-songrow {
   transition:

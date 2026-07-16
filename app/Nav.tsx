@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { NAV, SITE, withBase } from './data';
 import Icon from './Icon';
-import { SPOTIFY_PLAYLIST_URL } from './cultureData';
 import { useI18n, LangSwitcher } from './i18n';
 
 /**
@@ -41,25 +40,10 @@ export default function Nav({ current }: { current?: string }) {
             aria-current={current === '/culture' ? 'page' : undefined}
             title={t.culturePage.title}
             className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full aria-[current=page]:opacity-45"
-            style={{ background: 'var(--cava-ink)', color: 'var(--cava-pink)' }}
+            style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
           >
             <Icon name="vinyl" size={26} />
           </a>
-
-          {/* Playlist Spotify — lien externe direct */}
-          {SPOTIFY_PLAYLIST_URL && (
-            <a
-              href={SPOTIFY_PLAYLIST_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t.culturePage.playlistCta}
-              title={t.culturePage.playlistCta}
-              className="cava-spotifylink flex h-14 w-14 items-center justify-center rounded-full"
-              style={{ background: 'var(--cava-ink)', color: 'var(--cava-pink)' }}
-            >
-              <Icon name="spotify" size={26} />
-            </a>
-          )}
 
           {/* Bouton menu rond noir → overlay plein écran */}
           <button

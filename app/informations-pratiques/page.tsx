@@ -6,6 +6,7 @@ import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon from '../Icon';
 import OpIcon, { type OpIconName } from '../OpIcon';
+import DepartChecklist from '../DepartChecklist';
 import { InfoBlocks } from '../SectionShell';
 import { PAGE_ICONS } from '../data';
 import { useI18n } from '../i18n';
@@ -124,6 +125,9 @@ export default function InformationsPratiques() {
           {a.toCome}
         </Reveal>
       </section>
+
+      {/* Check-list du départ */}
+      <DepartChecklist />
 
       <Footer />
     </main>

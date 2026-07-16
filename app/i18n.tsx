@@ -46,6 +46,7 @@ type DepartContent = {
   title: string;
   intro: string;
   checklistTitle: string;
+  checklistNote: string;
   checklist: string[];
 };
 
@@ -84,6 +85,9 @@ export type Dict = {
     filterAll: string;
     filterEmpty: string;
     searchPlaceholder: string;
+    zoomIn: string;
+    zoomOut: string;
+    zoomReset: string;
     legendVillages: string;
     legendSpots: string;
     categories: { title: string; desc: string; spots: { label: string; url: string; instagram?: string }[] }[];
@@ -193,6 +197,9 @@ const FR: Dict = {
     filterAll: 'Tout',
     filterEmpty: 'Ces adresses arrivent bientôt.',
     searchPlaceholder: 'Rechercher un lieu, une envie…',
+    zoomIn: 'Agrandir la carte',
+    zoomOut: 'Réduire la carte',
+    zoomReset: 'Revoir toute la carte',
     legendVillages: 'Villages',
     legendSpots: 'Nos adresses',
     categories: [
@@ -246,7 +253,7 @@ const FR: Dict = {
     screensIntro: 'Tourné à côté de la maison. Regardez avant de venir : vous verrez la région autrement.',
     placeLabel: 'Voir le lieu',
     moreLabel: 'En savoir plus',
-    note: 'Une chanson, un film ou une série à ajouter ? Dites-le-nous, cette page grandit avec vous.',
+    note: 'Vous avez une pépite ? Une chanson, un film, une série : dites-le-nous, on l’ajoute.',
   },
   ctaEyebrow: 'Envie de venir ?',
   ctaTitle: 'Écrivez-nous',
@@ -365,12 +372,18 @@ const FR: Dict = {
     eyebrow: 'Départ',
     title: 'Quitter la maison sereinement',
     intro: 'La petite check-list à cocher avant de fermer la porte.',
-    checklistTitle: 'Avant de partir',
+    checklistTitle: 'Avant de fermer la porte',
+    checklistNote: 'Cochez au fur et à mesure — rien n’est enregistré, c’est juste pour ne rien oublier.',
     checklist: [
-      'Couper l’eau (vanne salle de bain + rue)',
-      'Couper l’électricité (interrupteurs terrasse)',
-      'Dégivrer le frigo, laisser la porte ouverte',
-      'Sortir les poubelles pour le lendemain',
+      'Couper l’eau : la vanne de la salle de bain, puis celle de la rue (au coin, en descendant à droite) — perpendiculaire = fermé.',
+      'Couper l’électricité : les interrupteurs dehors, sur la terrasse de devant, à droite de la porte.',
+      'Fermer la bouteille de gaz.',
+      'Vider le frigo, le débrancher et laisser la porte entrouverte pour qu’il ne moisisse pas.',
+      'Sortir les poubelles selon le tri du jour. Passage manqué ? Laissez-les sur la terrasse, jamais dans la rue.',
+      'Fermer volets et fenêtres, y compris à l’étage.',
+      'Linge sale dans le panier, serviettes et draps utilisés rassemblés.',
+      'Dernier tour : chargeurs, salle de bain, terrasse, sous les lits.',
+      'Fermer à clé et remettre les clés à leur place.',
     ],
   },
 };
@@ -451,6 +464,9 @@ const IT: Dict = {
     filterAll: 'Tutto',
     filterEmpty: 'Questi indirizzi arrivano presto.',
     searchPlaceholder: 'Cerca un luogo, una voglia…',
+    zoomIn: 'Ingrandisci la mappa',
+    zoomOut: 'Riduci la mappa',
+    zoomReset: 'Rivedi tutta la mappa',
     legendVillages: 'Paesi',
     legendSpots: 'I nostri indirizzi',
     categories: [
@@ -504,7 +520,7 @@ const IT: Dict = {
     screensIntro: 'Girato accanto a casa. Guardate prima di venire: vedrete la zona con altri occhi.',
     placeLabel: 'Vedi il luogo',
     moreLabel: 'Scopri di più',
-    note: 'Una canzone, un film o una serie da aggiungere? Ditecelo, questa pagina cresce con voi.',
+    note: 'Avete una chicca? Una canzone, un film, una serie: ditecelo e la aggiungiamo.',
   },
   ctaEyebrow: 'Voglia di venire?',
   ctaTitle: 'Scriveteci',
@@ -623,12 +639,18 @@ const IT: Dict = {
     eyebrow: 'Partenza',
     title: 'Lasciare la casa in tutta serenità',
     intro: 'La piccola check-list da spuntare prima di chiudere la porta.',
-    checklistTitle: 'Prima di partire',
+    checklistTitle: 'Prima di chiudere la porta',
+    checklistNote: 'Spuntate man mano — non viene salvato nulla, serve solo a non dimenticare niente.',
     checklist: [
-      'Chiudere l’acqua (valvola bagno + strada)',
-      'Staccare l’elettricità (interruttori terrazza)',
-      'Sbrinare il frigo, lasciare lo sportello aperto',
-      'Portare fuori i rifiuti per il giorno dopo',
+      'Chiudere l’acqua: la valvola del bagno, poi quella in strada (all’angolo, scendendo a destra) — perpendicolare = chiusa.',
+      'Staccare l’elettricità: gli interruttori fuori, sulla terrazza davanti, a destra della porta.',
+      'Chiudere la bombola del gas.',
+      'Svuotare il frigo, staccarlo e lasciare lo sportello socchiuso perché non faccia muffa.',
+      'Portare fuori i rifiuti secondo la raccolta del giorno. Passaggio mancato? Lasciateli sulla terrazza, mai in strada.',
+      'Chiudere persiane e finestre, anche al piano di sopra.',
+      'Panni sporchi nel cesto, asciugamani e lenzuola usati raccolti insieme.',
+      'Ultimo giro: caricabatterie, bagno, terrazza, sotto i letti.',
+      'Chiudere a chiave e rimettere le chiavi al loro posto.',
     ],
   },
 };
@@ -709,6 +731,9 @@ const EN: Dict = {
     filterAll: 'All',
     filterEmpty: 'These addresses are coming soon.',
     searchPlaceholder: 'Search a place, a craving…',
+    zoomIn: 'Zoom in',
+    zoomOut: 'Zoom out',
+    zoomReset: 'See the whole map',
     legendVillages: 'Villages',
     legendSpots: 'Our spots',
     categories: [
@@ -762,7 +787,7 @@ const EN: Dict = {
     screensIntro: 'Filmed next door. Watch before you come: you will see the area differently.',
     placeLabel: 'See the place',
     moreLabel: 'Learn more',
-    note: 'A song, a film or a series to add? Tell us — this page grows with you.',
+    note: 'Got a gem? A song, a film, a series — tell us and we’ll add it.',
   },
   ctaEyebrow: 'Ready to come?',
   ctaTitle: 'Write to us',
@@ -881,12 +906,18 @@ const EN: Dict = {
     eyebrow: 'Departure',
     title: 'Leaving the house with peace of mind',
     intro: 'The short checklist to tick off before you close the door.',
-    checklistTitle: 'Before you leave',
+    checklistTitle: 'Before you close the door',
+    checklistNote: 'Tick as you go — nothing is saved, it is just so you forget nothing.',
     checklist: [
-      'Turn off the water (bathroom valve + street)',
-      'Turn off the electricity (terrace switches)',
-      'Defrost the fridge, leave the door open',
-      'Put out the bins for the next day',
+      'Turn off the water: the bathroom valve, then the street one (at the corner, down to the right) — perpendicular = closed.',
+      'Turn off the electricity: the switches outside, on the front terrace, to the right of the door.',
+      'Close the gas bottle.',
+      'Empty the fridge, unplug it and leave the door ajar so it does not go mouldy.',
+      'Put the bins out according to the day’s collection. Missed the round? Leave them on the terrace, never in the street.',
+      'Close shutters and windows, upstairs too.',
+      'Dirty laundry in the basket, used towels and sheets gathered together.',
+      'Last sweep: chargers, bathroom, terrace, under the beds.',
+      'Lock up and put the keys back where they belong.',
     ],
   },
 };
