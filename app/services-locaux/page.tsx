@@ -10,6 +10,7 @@ import LocalMap, { type MapSpot } from '../LocalMap';
 import MapViewport, { type MapFocus } from '../MapViewport';
 import { useI18n } from '../i18n';
 import { LOCAL_PLACES, CATS, SEARCH_WORDS, norm, type CatKey } from '../localData';
+import { toMap } from '../geo';
 
 export default function NosAdresses() {
   const { t, lang } = useI18n();
@@ -21,6 +22,8 @@ export default function NosAdresses() {
   const [active, setActive] = useState<string | null>(null);
   const [focus, setFocus] = useState<MapFocus | null>(null);
   const [hover, setHover] = useState<{ spot: MapSpot; left: number; top: number } | null>(null);
+  const [me, setMe] = useState<{ x: number; y: number } | null>(null);
+  const [geo, setGeo] = useState<'idle' | 'asking' | 'ok' | 'far' | 'error'>('idle');
   const mapRef = useRef<HTMLElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
 
@@ -106,6 +109,28 @@ export default function NosAdresses() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, q]);
 
+  // « Où suis-je ? » — sur demande seulement : on ne réclame jamais la position
+  // sans que le visiteur l'ait cliqué.
+  const locate = () => {
+    if (!navigator.geolocation) return setGeo('error');
+    setGeo('asking');
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        const pos = toMap(coords.latitude, coords.longitude);
+        if (!pos) {
+          setMe(null);
+          return setGeo('far'); // hors de la zone dessinée
+        }
+        setMe(pos);
+        setGeo('ok');
+        setFocus({ ...frac(pos.x, pos.y), scale: 2.4, key: `me-${Date.now()}` });
+        mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      },
+      () => setGeo('error'),
+      { enableHighAccuracy: true, timeout: 10000 },
+    );
+  };
+
   return (
     <main>
       <Nav current="/services-locaux" />
@@ -122,7 +147,7 @@ export default function NosAdresses() {
                 spots={spots}
                 activeId={active}
                 spotsKey={filter}
-                legend={{ villages: p.legendVillages, spots: p.legendSpots }}
+                me={me}
                 onHover={(spot, rect) => {
                   const wrap = wrapRef.current;
                   if (!spot || !rect || !wrap) return setHover(null);
@@ -135,6 +160,32 @@ export default function NosAdresses() {
                 }}
               />
             </MapViewport>
+
+            {/* Légende — en HTML, fixe par-dessus la carte. Dans le SVG elle
+                partait avec le zoom et finissait hors cadre. En bas à gauche,
+                à l'opposé des commandes de zoom. */}
+            <div
+              className="pointer-events-none absolute bottom-3 left-3 rounded-2xl border px-4 py-3"
+              style={{ background: 'var(--cava-bg)', borderColor: 'var(--cava-line)' }}
+            >
+              <p className="flex items-center gap-2.5 text-[12.5px]">
+                <span
+                  className="inline-block h-3 w-3 shrink-0 rounded-full border-[1.6px]"
+                  style={{ borderColor: 'var(--cava-ink)', background: 'var(--cava-bg)' }}
+                />
+                {p.legendVillages}
+              </p>
+              <p className="mt-2 flex items-center gap-2.5 text-[12.5px]">
+                <span className="inline-block h-3.5 w-3.5 shrink-0 rounded-[4px]" style={{ background: 'var(--cava-ink)' }} />
+                {p.legendSpots}
+              </p>
+              {me && (
+                <p className="mt-2 flex items-center gap-2.5 text-[12.5px]">
+                  <span className="inline-block h-3 w-3 shrink-0 rounded-full" style={{ background: '#2563eb' }} />
+                  {p.legendYou}
+                </p>
+              )}
+            </div>
 
             {/* Mini-carte au survol — en HTML au-dessus de la carte : ni rognée
                 par la fenêtre de zoom, ni agrandie avec l'échelle. */}
@@ -162,10 +213,10 @@ export default function NosAdresses() {
 
       {/* Filtres + grille de fiches */}
       <section className="mx-auto max-w-[110rem] px-5 pt-10 md:px-10">
-        {/* Recherche manuelle par mots ou envie */}
-        <Reveal className="mb-5">
+        {/* Recherche manuelle par mots ou envie + « Où suis-je ? » */}
+        <Reveal className="mb-5 flex flex-col gap-3 md:flex-row md:items-center">
           <label
-            className="flex items-center gap-3 rounded-full border px-5 py-3 md:max-w-md"
+            className="flex flex-1 items-center gap-3 rounded-full border px-5 py-3 md:max-w-md"
             style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
           >
             <span style={{ color: 'var(--cava-muted)' }}>
@@ -191,7 +242,29 @@ export default function NosAdresses() {
               </button>
             )}
           </label>
+
+          <button
+            type="button"
+            onClick={locate}
+            disabled={geo === 'asking'}
+            className="cava-pill inline-flex w-fit shrink-0 items-center gap-2 px-5 py-3 text-[13px] disabled:opacity-50"
+          >
+            <Icon name="target" size={16} /> {geo === 'asking' ? p.locating : p.locateMe}
+          </button>
         </Reveal>
+
+        {/* Retour de la géolocalisation — jamais silencieux */}
+        {(geo === 'far' || geo === 'error' || geo === 'ok') && (
+          <Reveal
+            className="mb-5 flex items-start gap-3 rounded-2xl px-5 py-3 text-[13.5px] leading-[1.6]"
+            style={{ background: 'rgba(230,41,111,0.07)' }}
+          >
+            <span className="mt-[3px] shrink-0" style={{ color: 'var(--cava-pink)' }}>
+              <Icon name="target" size={15} />
+            </span>
+            <p>{geo === 'ok' ? p.locateOk : geo === 'far' ? p.locateFar : p.locateError}</p>
+          </Reveal>
+        )}
 
         <Reveal className="flex flex-wrap gap-2.5">
           {filters.map((f) => {

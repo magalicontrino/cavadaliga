@@ -6,7 +6,7 @@ import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon from '../Icon';
 import { useI18n } from '../i18n';
-import { ARTISTS, ARTS, SCREENS, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, type Screen } from '../cultureData';
+import { ARTISTS, ARTS, PHOTOS, SCREENS, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, type Screen } from '../cultureData';
 import { type IconName } from '../Icon';
 import { type Lang } from '../localData';
 
@@ -177,6 +177,9 @@ export default function Culture() {
 
       {/* Peint ici — Guccione & le Gruppo di Scicli */}
       <WorkGrid title={c.artsTitle} intro={c.artsIntro} items={ARTS} icon="brush" lang={lang} more={c.moreLabel} />
+
+      {/* Photographié ici — Giuseppe Leone & Scianna */}
+      <WorkGrid title={c.photosTitle} intro={c.photosIntro} items={PHOTOS} icon="target" lang={lang} more={c.moreLabel} />
 
       {/* Chansons & histoires de Sicile — mini-liste, tout en bas */}
       <section className="mx-auto max-w-[110rem] px-5 pt-20 md:px-10">

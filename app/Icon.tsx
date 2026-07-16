@@ -28,7 +28,8 @@ export type IconName =
   | 'film'
   | 'spotify'
   | 'cart'
-  | 'brush';
+  | 'brush'
+  | 'target';
 
 // Tracés bruts (viewBox 24×24) — réutilisables hors du composant, par exemple
 // dans un <svg> imbriqué (voir LocalMap).
@@ -174,6 +175,14 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
       <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="M8 5v14M16 5v14" />
       <path d="M3 9.5h5M3 14.5h5M16 9.5h5M16 14.5h5" />
+    </>
+  ),
+  // Cible — « vous êtes ici »
+  target: (
+    <>
+      <circle cx="12" cy="12" r="7.5" />
+      <circle cx="12" cy="12" r="2.4" />
+      <path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3" />
     </>
   ),
   // Pinceau — peinture & arts visuels

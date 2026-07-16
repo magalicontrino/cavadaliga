@@ -157,6 +157,38 @@ export const ARTS: Screen[] = [
   },
 ];
 
+// ── Photographes ──────────────────────────────────────────────────────
+export const PHOTOS: Screen[] = [
+  {
+    id: 'giuseppe-leone',
+    title: 'Giuseppe Leone',
+    year: '1936 – 2024',
+    kind: { fr: 'Photographe', it: 'Fotografo', en: 'Photographer' },
+    url: 'https://it.wikipedia.org/wiki/Giuseppe_Leone_(fotografo)',
+    placeLabel: 'Ragusa',
+    placeUrl: 'https://www.google.com/maps/search/?api=1&query=Ragusa+Ibla',
+    blurb: {
+      fr: 'Né et mort à Ragusa, il n’a jamais quitté son atelier alors que les autres partaient : « le Sicilien des pierres ». Soixante-dix ans à photographier les Iblei — nos paysages, nos pierres, nos fêtes. Personne n’a mieux regardé ce coin-ci.',
+      it: 'Nato e morto a Ragusa, non ha mai lasciato il suo studio mentre gli altri partivano: « il siciliano delle pietre ». Settant’anni a fotografare gli Iblei — i nostri paesaggi, le nostre pietre, le nostre feste. Nessuno ha guardato meglio questo angolo.',
+      en: 'Born and died in Ragusa, he never left his studio while the others moved away: “the Sicilian of the stones”. Seventy years photographing the Iblei — our landscapes, our stones, our festivals. Nobody looked at this corner better.',
+    },
+  },
+  {
+    id: 'scianna',
+    title: 'Ferdinando Scianna',
+    year: '1943 →',
+    kind: { fr: 'Photographe', it: 'Fotografo', en: 'Photographer' },
+    url: 'https://it.wikipedia.org/wiki/Ferdinando_Scianna',
+    placeLabel: 'Bagheria',
+    placeUrl: 'https://www.google.com/maps/search/?api=1&query=Bagheria+Sicilia',
+    blurb: {
+      fr: 'Le premier Italien entré chez Magnum, présenté par Cartier-Bresson en personne. Il revient sans cesse photographier les visages et les fêtes de son île. Pas d’ici précisément, mais on ne comprend pas la Sicile en images sans lui.',
+      it: 'Il primo italiano entrato alla Magnum, presentato da Cartier-Bresson in persona. Torna di continuo a fotografare i volti e le feste della sua isola. Non è di qui, ma la Sicilia in immagini non si capisce senza di lui.',
+      en: 'The first Italian to join Magnum, introduced by Cartier-Bresson himself. He keeps returning to photograph the faces and festivals of his island. Not from right here, but you cannot understand Sicily in pictures without him.',
+    },
+  },
+];
+
 export type Screen = {
   id: string;
   title: string;

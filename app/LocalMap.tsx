@@ -71,14 +71,16 @@ export default function LocalMap({
   spots,
   activeId,
   spotsKey,
-  legend,
+  me,
   onHover,
 }: {
   houseLabel: string;
   spots: MapSpot[];
   activeId?: string | null;
   spotsKey?: string; // change → rejoue l'animation d'apparition des épingles
-  legend: { villages: string; spots: string };
+  // Position du visiteur sur la carte (voir geo.ts). Dans le SVG : elle doit
+  // suivre le zoom, contrairement à la légende qui reste fixe par-dessus.
+  me?: { x: number; y: number } | null;
   // La mini-carte est rendue en HTML par la page, au-dessus de la carte : dans
   // le SVG elle serait rognée par la fenêtre de zoom et déformée par l'échelle.
   onHover?: (spot: MapSpot | null, rect: DOMRect | null) => void;
@@ -234,18 +236,13 @@ export default function LocalMap({
         })}
       </g>
 
-      {/* Légende */}
-      <g transform="translate(700 470)">
-        <rect width="262" height="74" rx="14" fill={CREAM} stroke="var(--cava-ink)" strokeWidth="1.2" opacity="0.96" />
-        <circle cx="24" cy="26" r="5.5" fill={CREAM} stroke="var(--cava-ink)" strokeWidth="1.6" />
-        <text x="42" y="30" fontSize="13.5" fill="var(--cava-ink)">
-          {legend.villages}
-        </text>
-        <rect x="15" y="45" width="18" height="18" rx="5" fill="var(--cava-ink)" />
-        <text x="42" y="59" fontSize="13.5" fill="var(--cava-ink)">
-          {legend.spots}
-        </text>
-      </g>
+      {/* Cible « vous êtes ici » — suit la carte, contrairement à la légende. */}
+      {me && (
+        <g className="cava-mehere" pointerEvents="none">
+          <circle className="cava-mering" cx={me.x} cy={me.y} r="13" fill="none" stroke="#2563eb" strokeWidth="2.5" />
+          <circle cx={me.x} cy={me.y} r="8" fill="#2563eb" stroke={CREAM} strokeWidth="2.5" />
+        </g>
+      )}
 
     </svg>
   );

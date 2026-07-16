@@ -390,6 +390,23 @@
   }
 }
 
+/* --- Cible « vous êtes ici » ---------------------------------------- */
+@keyframes cava-mering {
+  0% { transform: scale(0.6); opacity: 0.8; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.cava-mering {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cava-mering 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-mering {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
 /* Mini-carte au survol d'une épingle (HTML, au-dessus de la carte).
    L'animation ne touche que l'opacité : la position vient des classes
    -translate-x-1/2 / -translate-y-full, qu'un transform animé écraserait. */

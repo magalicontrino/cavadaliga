@@ -76,6 +76,14 @@ export type Dict = {
   regionHighlights: string[][]; // points forts par lieu, même ordre que PLACES
   unescoLabel: string; // badge patrimoine mondial UNESCO
   regionHere: string; // distance affichée pour Cava d'Aliga (la maison)
+  // Histoire : la Sicile arabe, très présente juste autour de la maison.
+  arabPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    facts: { icon: string; title: string; text: string }[];
+    note: string;
+  };
   localPage: {
     title: string;
     intro: string;
@@ -90,6 +98,12 @@ export type Dict = {
     zoomOut: string;
     zoomReset: string;
     legendVillages: string;
+    legendYou: string;
+    locateMe: string;
+    locating: string;
+    locateOk: string;
+    locateFar: string;
+    locateError: string;
     legendSpots: string;
     categories: { title: string; desc: string; spots: { label: string; url: string; instagram?: string }[] }[];
     markets: { title: string; desc: string; list: { label: string; url: string }[] };
@@ -110,6 +124,8 @@ export type Dict = {
     screensIntro: string;
     artsTitle: string;
     artsIntro: string;
+    photosTitle: string;
+    photosIntro: string;
     placeLabel: string;
     moreLabel: string;
     note: string;
@@ -191,6 +207,39 @@ const FR: Dict = {
   ],
   unescoLabel: 'Patrimoine mondial UNESCO',
   regionHere: 'Sur place',
+  arabPage: {
+    eyebrow: 'Un peu d’histoire',
+    title: 'La Sicile arabe, juste sous nos pieds',
+    intro: 'En 827, les Arabes débarquent à Mazara del Vallo. Ils resteront plus de deux siècles, jusqu’à l’arrivée des Normands à la fin du XIᵉ siècle. On dit « domination arabe » comme si c’était une parenthèse : en réalité, presque tout ce qu’on aime ici en vient. Les noms des villages, ce qu’il y a dans l’assiette, l’eau dans les champs, jusqu’à la fête du village d’à côté. Quelques exemples, tous à moins de 20 km.',
+    facts: [
+      {
+        icon: 'droplet',
+        title: 'Donnalucata = « la source des heures »',
+        text: 'À 3 km d’ici. Le nom vient de l’arabe ʿAyn al-awqāt. Le grand géographe al-Idrisi le note au XIIᵉ siècle : « Près de Scicli se trouve la source appelée ʿAyn al-awqāt, parce que l’eau y jaillit aux heures des prières et s’arrête à toutes les autres. » Une source qui coulait cinq fois par jour, au rythme de la prière musulmane. Le nom a traversé mille ans presque intact — on va y acheter le poisson sans y penser.',
+      },
+      {
+        icon: 'landmark',
+        title: 'La fête de Scicli rejoue une bataille contre les Sarrasins',
+        text: 'La Madonna delle Milizie, patronne de Scicli. Le dernier samedi de mai, le village rejoue en costumes la bataille de 1091 entre les Normands du comte Roger et les Sarrasins de l’émir Belcane — que la tradition situe dans la plaine face à la mer de Donnalucata. Une Vierge à cheval, l’épée à la main : c’est la seule au monde. Le gâteau de la fête s’appelle la « testa di turco », la tête de Turc.',
+      },
+      {
+        icon: 'citrus',
+        title: 'Les agrumes, l’irrigation, et les mots pour les dire',
+        text: 'Citrons, oranges amères, canne à sucre, coton, pistache, melon : ce sont les Arabes qui les apportent, avec les techniques pour les arroser dans une île sèche. Le vocabulaire est resté dans le dialecte : la saia (le canal d’irrigation, de sāqiya), la gebbia (le bassin, de jābiya), la zàgara (la fleur d’oranger, de zahra). Des mots qu’on emploie encore sans savoir qu’ils sont arabes.',
+      },
+      {
+        icon: 'cone',
+        title: 'Dans l’assiette, tous les jours',
+        text: 'La granita descend du sharbat. Le couscous se mange toujours à Trapani. Le zibibbo vient de zabīb, le raisin sec. Et ce goût sicilien pour l’aigre-doux — la caponata, les pâtes aux sardines avec raisins secs et pignons — c’est une cuisine arabe passée à l’italienne. La cassata elle-même tirerait son nom de qas‘ah, le bol dans lequel on la moulait.',
+      },
+      {
+        icon: 'map',
+        title: 'Les noms sur la carte routière',
+        text: 'Quand vous conduisez, vous lisez de l’arabe. Tout ce qui commence par Calta- vient de qal‘at, la forteresse : Caltanissetta, Caltagirone. Marsala, c’est marsa, le port. Gibellina et Gibilrossa viennent de jabal, la montagne. Alcantara, c’est al-qantara, le pont. Misilmeri, manzil al-amir, la demeure de l’émir. Et près de Scicli, la contrada Balata doit son nom à balāt, la dalle de pierre.',
+      },
+    ],
+    note: 'Un détail qui dit tout : les Normands ont chassé les Arabes, mais ils ont gardé leurs jardiniers, leurs ingénieurs et leurs poètes. La Sicile n’a jamais choisi entre ses héritages — elle les a empilés.',
+  },
   localPage: {
     title: 'Local & responsable',
     intro: 'Nos adresses pour consommer local et responsable : de petits producteurs et artisans du sud-est de la Sicile, choisis pour la qualité de leurs produits et pour faire vivre l’agriculture de la région.',
@@ -205,6 +254,12 @@ const FR: Dict = {
     zoomOut: 'Réduire la carte',
     zoomReset: 'Revoir toute la carte',
     legendVillages: 'Villages',
+    legendYou: 'Vous êtes ici',
+    locateMe: 'Où suis-je ?',
+    locating: 'Recherche…',
+    locateOk: 'Le point bleu, c’est vous. La carte est dessinée à la main, pas à l’échelle : la position est approximative, mais elle vous situe par rapport aux villages.',
+    locateFar: 'Vous êtes loin de Cava d’Aliga — trop pour apparaître sur cette carte. Réessayez une fois sur place.',
+    locateError: 'Impossible de vous situer. Votre navigateur a peut-être refusé la position, ou le signal est trop faible.',
     legendSpots: 'Nos adresses',
     categories: [
       {
@@ -253,6 +308,8 @@ const FR: Dict = {
     playlistSoon: 'Le lien de la playlist arrive bientôt.',
     artistsTitle: 'Chansons & histoires de Sicile',
     artistsIntro: 'Les voix qui racontent l’île — à écouter avant, pendant, après.',
+    photosTitle: 'Photographié ici',
+    photosIntro: 'Avant les téléphones, d’autres ont regardé ces pierres et ces fêtes — et les ont fixées pour de bon.',
     artsTitle: 'Peint ici',
     artsIntro: 'Scicli n’est pas qu’un décor de série : c’est un vrai foyer de peinture, et cette mer a été peinte toute une vie.',
     screensTitle: 'À l’écran, ici',
@@ -461,6 +518,39 @@ const IT: Dict = {
   ],
   unescoLabel: 'Patrimonio mondiale UNESCO',
   regionHere: 'Sul posto',
+  arabPage: {
+    eyebrow: 'Un po’ di storia',
+    title: 'La Sicilia araba, proprio sotto i nostri piedi',
+    intro: 'Nell’827 gli Arabi sbarcano a Mazara del Vallo. Resteranno più di due secoli, fino ai Normanni a fine XI secolo. Si dice « dominazione araba » come se fosse una parentesi: in realtà quasi tutto ciò che amiamo qui viene da lì. I nomi dei paesi, quello che c’è nel piatto, l’acqua nei campi, perfino la festa del paese accanto. Qualche esempio, tutti a meno di 20 km.',
+    facts: [
+      {
+        icon: 'droplet',
+        title: 'Donnalucata = « la fonte delle ore »',
+        text: 'A 3 km da qui. Il nome viene dall’arabo ʿAyn al-awqāt. Il grande geografo al-Idrisi lo annota nel XII secolo: « Presso Scicli è ancora la fonte chiamata ʿAyn al-awqāt, perché l’acqua vi sgorga nelle ore delle preghiere e smette in tutte le altre. » Una sorgente che scorreva cinque volte al giorno, al ritmo della preghiera musulmana. Il nome ha attraversato mille anni quasi intatto — e noi ci andiamo a comprare il pesce senza pensarci.',
+      },
+      {
+        icon: 'landmark',
+        title: 'La festa di Scicli rievoca una battaglia contro i Saraceni',
+        text: 'La Madonna delle Milizie, patrona di Scicli. L’ultimo sabato di maggio il paese rievoca in costume la battaglia del 1091 tra i Normanni del conte Ruggero e i Saraceni dell’emiro Belcane — che la tradizione colloca nella piana davanti al mare di Donnalucata. Una Madonna a cavallo, spada in mano: è l’unica al mondo. Il dolce della festa si chiama « testa di turco ».',
+      },
+      {
+        icon: 'citrus',
+        title: 'Gli agrumi, l’irrigazione e le parole per dirli',
+        text: 'Limoni, arance amare, canna da zucchero, cotone, pistacchio, melone: sono gli Arabi a portarli, con le tecniche per irrigarli in un’isola secca. Il vocabolario è rimasto nel dialetto: la saia (il canale, da sāqiya), la gebbia (la vasca, da jābiya), la zàgara (il fiore d’arancio, da zahra). Parole che usiamo ancora senza sapere che sono arabe.',
+      },
+      {
+        icon: 'cone',
+        title: 'Nel piatto, ogni giorno',
+        text: 'La granita discende dallo sharbat. Il cuscus si mangia ancora a Trapani. Lo zibibbo viene da zabīb, l’uva passa. E quel gusto siciliano per l’agrodolce — la caponata, la pasta con le sarde con uvetta e pinoli — è cucina araba passata all’italiana. La cassata stessa prenderebbe nome da qas‘ah, la scodella in cui si modellava.',
+      },
+      {
+        icon: 'map',
+        title: 'I nomi sulla carta stradale',
+        text: 'Quando guidate, leggete arabo. Tutto ciò che inizia per Calta- viene da qal‘at, la fortezza: Caltanissetta, Caltagirone. Marsala è marsa, il porto. Gibellina e Gibilrossa vengono da jabal, la montagna. Alcantara è al-qantara, il ponte. Misilmeri, manzil al-amir, la dimora dell’emiro. E vicino a Scicli, la contrada Balata deve il nome a balāt, la lastra di pietra.',
+      },
+    ],
+    note: 'Un dettaglio che dice tutto: i Normanni cacciarono gli Arabi, ma ne tennero i giardinieri, gli ingegneri e i poeti. La Sicilia non ha mai scelto tra le sue eredità — le ha impilate.',
+  },
   localPage: {
     title: 'Locale & responsabile',
     intro: 'I nostri indirizzi per un consumo locale e responsabile: piccoli produttori e artigiani del sud-est della Sicilia, scelti per la qualità dei loro prodotti e per sostenere l’agricoltura della regione.',
@@ -475,6 +565,12 @@ const IT: Dict = {
     zoomOut: 'Riduci la mappa',
     zoomReset: 'Rivedi tutta la mappa',
     legendVillages: 'Paesi',
+    legendYou: 'Siete qui',
+    locateMe: 'Dove sono?',
+    locating: 'Ricerca…',
+    locateOk: 'Il punto blu siete voi. La mappa è disegnata a mano, non in scala: la posizione è approssimativa, ma vi situa rispetto ai paesi.',
+    locateFar: 'Siete lontani da Cava d’Aliga — troppo per apparire su questa mappa. Riprovate una volta sul posto.',
+    locateError: 'Impossibile localizzarvi. Forse il browser ha rifiutato la posizione, o il segnale è troppo debole.',
     legendSpots: 'I nostri indirizzi',
     categories: [
       {
@@ -523,6 +619,8 @@ const IT: Dict = {
     playlistSoon: 'Il link della playlist arriva presto.',
     artistsTitle: 'Canzoni & storie di Sicilia',
     artistsIntro: 'Le voci che raccontano l’isola — da ascoltare prima, durante, dopo.',
+    photosTitle: 'Fotografato qui',
+    photosIntro: 'Prima dei telefoni, altri hanno guardato queste pietre e queste feste — e le hanno fissate per sempre.',
     artsTitle: 'Dipinto qui',
     artsIntro: 'Scicli non è solo un set televisivo: è un vero focolaio di pittura, e questo mare è stato dipinto per tutta una vita.',
     screensTitle: 'Sullo schermo, qui',
@@ -731,6 +829,39 @@ const EN: Dict = {
   ],
   unescoLabel: 'UNESCO World Heritage',
   regionHere: 'On site',
+  arabPage: {
+    eyebrow: 'A little history',
+    title: 'Arab Sicily, right under our feet',
+    intro: 'In 827 the Arabs landed at Mazara del Vallo. They stayed more than two centuries, until the Normans arrived in the late 11th century. People say “Arab rule” as if it were a parenthesis: in fact almost everything we love here comes from it. The village names, what is on the plate, the water in the fields, even the festival in the next town. A few examples, all within 20 km.',
+    facts: [
+      {
+        icon: 'droplet',
+        title: 'Donnalucata = “the spring of the hours”',
+        text: '3 km from here. The name comes from the Arabic ʿAyn al-awqāt. The great geographer al-Idrisi recorded it in the 12th century: “Near Scicli is the spring called ʿAyn al-awqāt, because the water gushes at the hours of prayer and stops at all others.” A spring that ran five times a day, to the rhythm of Muslim prayer. The name crossed a thousand years almost intact — and we go there to buy fish without a thought.',
+      },
+      {
+        icon: 'landmark',
+        title: 'Scicli’s festival re-enacts a battle against the Saracens',
+        text: 'The Madonna delle Milizie, patron of Scicli. On the last Saturday of May the town re-enacts, in costume, the 1091 battle between Count Roger’s Normans and the Saracens of Emir Belcane — which tradition places on the plain facing the sea at Donnalucata. A Madonna on horseback, sword in hand: the only one in the world. The festival cake is called “testa di turco”, the Turk’s head.',
+      },
+      {
+        icon: 'citrus',
+        title: 'Citrus, irrigation, and the words for them',
+        text: 'Lemons, bitter oranges, sugar cane, cotton, pistachio, melon: the Arabs brought them, along with the techniques to water them on a dry island. The vocabulary stayed in the dialect: saia (the irrigation channel, from sāqiya), gebbia (the basin, from jābiya), zàgara (orange blossom, from zahra). Words still used without anyone knowing they are Arabic.',
+      },
+      {
+        icon: 'cone',
+        title: 'On the plate, every day',
+        text: 'Granita descends from sharbat. Couscous is still eaten in Trapani. Zibibbo comes from zabīb, the raisin. And that Sicilian taste for sweet-and-sour — caponata, pasta with sardines, raisins and pine nuts — is Arab cooking turned Italian. Cassata itself is said to take its name from qas‘ah, the bowl it was moulded in.',
+      },
+      {
+        icon: 'map',
+        title: 'The names on the road map',
+        text: 'When you drive, you are reading Arabic. Everything starting with Calta- comes from qal‘at, the fortress: Caltanissetta, Caltagirone. Marsala is marsa, the port. Gibellina and Gibilrossa come from jabal, the mountain. Alcantara is al-qantara, the bridge. Misilmeri, manzil al-amir, the emir’s dwelling. And near Scicli, the Balata district owes its name to balāt, the stone slab.',
+      },
+    ],
+    note: 'One detail says it all: the Normans drove the Arabs out, but kept their gardeners, their engineers and their poets. Sicily never chose between its inheritances — it stacked them.',
+  },
   localPage: {
     title: 'Local & responsible',
     intro: 'Our addresses for local, responsible shopping: small producers and artisans of south-east Sicily, chosen for the quality of their products and to support the region’s farming.',
@@ -745,6 +876,12 @@ const EN: Dict = {
     zoomOut: 'Zoom out',
     zoomReset: 'See the whole map',
     legendVillages: 'Villages',
+    legendYou: 'You are here',
+    locateMe: 'Where am I?',
+    locating: 'Locating…',
+    locateOk: 'The blue dot is you. The map is hand-drawn, not to scale: the position is approximate, but it places you among the villages.',
+    locateFar: 'You are far from Cava d’Aliga — too far to show on this map. Try again once you are there.',
+    locateError: 'Could not locate you. Your browser may have refused the position, or the signal is too weak.',
     legendSpots: 'Our spots',
     categories: [
       {
@@ -793,6 +930,8 @@ const EN: Dict = {
     playlistSoon: 'The playlist link is coming soon.',
     artistsTitle: 'Songs & stories of Sicily',
     artistsIntro: 'The voices that tell the island — listen before, during, after.',
+    photosTitle: 'Photographed here',
+    photosIntro: 'Before phones, others looked at these stones and these festivals — and fixed them for good.',
     artsTitle: 'Painted here',
     artsIntro: 'Scicli is not only a TV set: it is a real home of painting, and this sea was painted for a whole lifetime.',
     screensTitle: 'On screen, right here',

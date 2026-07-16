@@ -5,6 +5,7 @@ import Footer from '../Footer';
 import Reveal from '../Reveal';
 import Carousel from '../Carousel';
 import PageHeader from '../PageHeader';
+import Icon, { type IconName } from '../Icon';
 import { useI18n } from '../i18n';
 
 // Lieux autour de Cava d'Aliga (ordre = i18n regionPlaces / regionHighlights).
@@ -103,6 +104,47 @@ export default function LaRegion() {
             );
           })}
         </div>
+      </section>
+
+      {/* La Sicile arabe — l'histoire qui explique ce qu'on a sous les yeux */}
+      <section className="mx-auto max-w-[110rem] px-5 pt-24 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="landmark" size={16} /> {t.arabPage.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {t.arabPage.title}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {t.arabPage.intro}
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
+          {t.arabPage.facts.map((f, i) => (
+            <Reveal key={f.title} delay={(i % 2) * 80} className="flex flex-col gap-4 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
+              <span
+                className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+              >
+                <Icon name={f.icon as IconName} size={24} />
+              </span>
+              <h3 className="text-[clamp(1.1rem,2.2vw,1.4rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+                {f.title}
+              </h3>
+              <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                {f.text}
+              </p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal
+          className="mt-8 max-w-[68ch] border-l-2 pl-5 text-[15px] italic leading-[1.7]"
+          style={{ borderColor: 'var(--cava-pink)', color: 'var(--cava-muted)' }}
+        >
+          {t.arabPage.note}
+        </Reveal>
       </section>
 
       <div className="pb-24" />
