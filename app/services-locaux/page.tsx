@@ -12,6 +12,10 @@ import { useI18n } from '../i18n';
 import { LOCAL_PLACES, CATS, SEARCH_WORDS, norm, type CatKey } from '../localData';
 import { toMap } from '../geo';
 
+// Gabarit de la mini-carte de survol — sert à la borner dans l'écran.
+const TIP_W = 256;
+const TIP_H = 74;
+
 export default function NosAdresses() {
   const { t, lang } = useI18n();
   const s = t.pages['services-locaux'];
@@ -21,7 +25,9 @@ export default function NosAdresses() {
   const [query, setQuery] = useState('');
   const [active, setActive] = useState<string | null>(null);
   const [focus, setFocus] = useState<MapFocus | null>(null);
-  const [hover, setHover] = useState<{ spot: MapSpot; left: number; top: number } | null>(null);
+  // `below` : la mini-carte passe sous l'épingle quand il n'y a pas la place
+  // au-dessus, sinon elle sortirait par le haut de l'écran.
+  const [hover, setHover] = useState<{ spot: MapSpot; left: number; top: number; below: boolean } | null>(null);
   const [me, setMe] = useState<{ x: number; y: number } | null>(null);
   const [geo, setGeo] = useState<'idle' | 'asking' | 'ok' | 'far' | 'error'>('idle');
   const mapRef = useRef<HTMLElement>(null);
@@ -152,10 +158,16 @@ export default function NosAdresses() {
                   const wrap = wrapRef.current;
                   if (!spot || !rect || !wrap) return setHover(null);
                   const w = wrap.getBoundingClientRect();
+                  // Place au-dessus si l'épingle est assez bas dans la fenêtre,
+                  // sinon dessous : la carte ne doit jamais sortir de l'écran.
+                  const below = rect.top < TIP_H + 16;
+                  // Bornage horizontal sur la demi-largeur réelle de la carte.
+                  const half = Math.min(TIP_W / 2, w.width / 2);
                   setHover({
                     spot,
-                    left: Math.min(Math.max(rect.left - w.left + rect.width / 2, 90), w.width - 90),
-                    top: rect.top - w.top,
+                    left: Math.min(Math.max(rect.left - w.left + rect.width / 2, half), w.width - half),
+                    top: (below ? rect.bottom : rect.top) - w.top,
+                    below,
                   });
                 }}
               />
@@ -191,10 +203,13 @@ export default function NosAdresses() {
                 par la fenêtre de zoom, ni agrandie avec l'échelle. */}
             {hover && (
               <div
-                className="cava-maptip pointer-events-none absolute z-10 max-w-[16rem] -translate-x-1/2 -translate-y-full rounded-xl border px-3.5 py-2.5"
+                className={`cava-maptip pointer-events-none absolute z-10 -translate-x-1/2 rounded-xl border px-3.5 py-2.5 ${
+                  hover.below ? '' : '-translate-y-full'
+                }`}
                 style={{
                   left: hover.left,
-                  top: hover.top - 10,
+                  top: hover.top + (hover.below ? 10 : -10),
+                  maxWidth: TIP_W,
                   background: 'var(--cava-bg)',
                   borderColor: 'var(--cava-ink)',
                 }}
