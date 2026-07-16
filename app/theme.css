@@ -54,9 +54,11 @@
 }
 
 /* --- Bandeau défilant (marquee) — vitesse constante ---------------- */
+/* Le décalage vaut une série. La galerie le mesure et le passe en pixels ;
+   le -50% reste le repli pour les bandeaux dupliqués une seule fois. */
 @keyframes cava-marquee {
   from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  to { transform: translateX(var(--cava-marquee-x, -50%)); }
 }
 .cava-marquee-track {
   display: inline-flex;
