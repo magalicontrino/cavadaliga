@@ -7,8 +7,8 @@ import AskMag from './AskMag';
 import { SITE } from './data';
 import { TRANSPORTS, EMERGENCIES, PHARMACY, GAS } from './practicalData';
 
-/** Se déplacer + urgences. Tous les liens sont cliquables, numéros compris. */
-export default function GettingAround() {
+/** Se déplacer — bus locaux, bus régionaux, aéroport. */
+export function Transports() {
   const { t, lang } = useI18n();
   const m = t.movePage;
 
@@ -72,7 +72,17 @@ export default function GettingAround() {
           ))}
         </div>
       </section>
+    </>
+  );
+}
 
+/** Urgences & contacts du village. Numéros cliquables. */
+export function Emergencies() {
+  const { t, lang } = useI18n();
+  const m = t.movePage;
+
+  return (
+    <>
       {/* Urgences */}
       <section className="mx-auto max-w-[110rem] px-5 pt-20 md:px-10">
         <Reveal className="mb-8 flex flex-col gap-2">

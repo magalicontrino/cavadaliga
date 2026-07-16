@@ -26,15 +26,6 @@ export const NAV = [
   { href: '/calendrier' },
 ] as const;
 
-// Icônes des cartes de chaque page « à blocs » (même ordre que t.pages[x].blocks).
-// Les noms correspondent à app/Icon.tsx.
-import type { IconName } from './Icon';
-export const PAGE_ICONS: Record<'informations-pratiques' | 'services-locaux' | 'la-region', IconName[]> = {
-  'informations-pratiques': ['key', 'home', 'info', 'phone'],
-  'services-locaux': ['fork', 'bag', 'sun'],
-  'la-region': ['landmark', 'wave', 'cone', 'compass'],
-};
-
 // Galerie — vraies photos dans /public/picture-sicile/, repli /public/deco/
 // (chaque image déco utilisée une seule fois). Alt via i18n.galleryAlt.
 export const GALLERY: { src: string; deco?: string }[] = [

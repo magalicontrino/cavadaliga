@@ -5,8 +5,7 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 export type Lang = 'fr' | 'it' | 'en';
 export const LANGS: Lang[] = ['it', 'fr', 'en'];
 
-type Block = { title: string; items: string[] };
-type PageContent = { eyebrow: string; title: string; intro: string; blocks?: Block[] };
+type PageContent = { eyebrow: string; title: string; intro: string };
 export type PageKey =
   | 'informations-pratiques'
   | 'services-locaux'
@@ -163,6 +162,14 @@ export type Dict = {
     title: string;
     intro: string;
     facts: { icon: string; title: string; text: string }[];
+  };
+  infoFilter: {
+    all: string;
+    arrival: string;
+    move: string;
+    urgent: string;
+    waste: string;
+    leaving: string;
   };
   askMag: {
     text: string;
@@ -414,6 +421,14 @@ const FR: Dict = {
       },
     ],
   },
+  infoFilter: {
+    all: 'Tout',
+    arrival: 'Arrivée',
+    move: 'Se déplacer',
+    urgent: 'Urgences',
+    waste: 'Déchets',
+    leaving: 'Le départ',
+  },
   askMag: {
     text: 'On n’a pas encore l’info ici. Écrivez à Mag : elle vous répond, et on l’ajoute pour les suivants.',
     textFor: 'Pour {what} : on n’a pas encore l’info ici. Écrivez à Mag, elle vous répond — et on l’ajoute pour les suivants.',
@@ -439,33 +454,16 @@ const FR: Dict = {
       eyebrow: 'Informations pratiques',
       title: 'Infos pratiques',
       intro: "Arrivée, départ, équipements de l'appartement et petits conseils pour profiter pleinement de votre séjour à Cava d'Aliga.",
-      blocks: [
-        { title: 'Arrivée & départ', items: ['Horaires de check-in / check-out.', 'Remise des clés et instructions d’accès.'] },
-        { title: 'L’appartement', items: ['Équipements (cuisine, wifi, climatisation, linge).', 'Capacité et configuration des couchages.'] },
-        { title: 'Bon à savoir', items: ['Règles de la maison.', 'Tri des déchets et vie du hameau.'] },
-        { title: 'Contacts utiles', items: ['Médecin, pharmacie, taxi.', 'Numéros d’urgence en Italie.'] },
-      ],
     },
     'services-locaux': {
       eyebrow: 'Services locaux & contacts utiles',
       title: 'Nos adresses autour de vous',
       intro: "Commerces, restaurants, marchés et contacts utiles : nos recommandations personnelles pour vivre Cava d'Aliga comme à la maison.",
-      blocks: [
-        { title: 'Manger & boire', items: ['Restaurants et trattorias que nous aimons.', 'Glaciers, cafés et spécialités siciliennes.'] },
-        { title: 'Courses & marchés', items: ['Épiceries et supermarchés proches.', 'Jours et lieux des marchés.'] },
-        { title: 'Plage & loisirs', items: ['Plages et criques recommandées.', 'Locations (transats, bateaux, vélos).'] },
-      ],
     },
     'la-region': {
       eyebrow: 'La région',
       title: 'Découvrir le sud-est de la Sicile',
       intro: 'Scicli, Raguse, le baroque du Val di Noto, les plages secrètes et la campagne des Iblei. De quoi remplir chaque journée de votre séjour.',
-      blocks: [
-        { title: 'Villes baroques', items: ['Scicli, Raguse Ibla, Modica et Noto.', 'Sites classés au patrimoine mondial de l’UNESCO.'] },
-        { title: 'Mer & nature', items: ['Plages et criques de la côte sud.', 'Réserves naturelles et sentiers.'] },
-        { title: 'Saveurs', items: ['Chocolat de Modica, cannoli, vins locaux.', 'Marchés et producteurs.'] },
-        { title: 'Excursions', items: ['Journées à la découverte de l’île.', 'Idées d’itinéraires selon la durée du séjour.'] },
-      ],
     },
     contact: {
       eyebrow: 'Contact',
@@ -786,6 +784,14 @@ const IT: Dict = {
       },
     ],
   },
+  infoFilter: {
+    all: 'Tutto',
+    arrival: 'Arrivo',
+    move: 'Spostarsi',
+    urgent: 'Emergenze',
+    waste: 'Rifiuti',
+    leaving: 'La partenza',
+  },
   askMag: {
     text: 'Qui non abbiamo ancora l’informazione. Scrivete a Mag: vi risponde, e noi la aggiungiamo per i prossimi.',
     textFor: 'Per {what}: qui non abbiamo ancora l’informazione. Scrivete a Mag, vi risponde — e noi la aggiungiamo per i prossimi.',
@@ -811,33 +817,16 @@ const IT: Dict = {
       eyebrow: 'Informazioni pratiche',
       title: 'Info pratiche',
       intro: 'Arrivo, partenza, dotazioni dell’appartamento e piccoli consigli per godervi appieno il vostro soggiorno a Cava d’Aliga.',
-      blocks: [
-        { title: 'Arrivo & partenza', items: ['Orari di check-in / check-out.', 'Consegna delle chiavi e istruzioni per l’accesso.'] },
-        { title: 'L’appartamento', items: ['Dotazioni (cucina, wifi, aria condizionata, biancheria).', 'Capienza e configurazione dei letti.'] },
-        { title: 'Buono a sapersi', items: ['Regole della casa.', 'Raccolta differenziata e vita del borgo.'] },
-        { title: 'Contatti utili', items: ['Medico, farmacia, taxi.', 'Numeri di emergenza in Italia.'] },
-      ],
     },
     'services-locaux': {
       eyebrow: 'Servizi locali e contatti utili',
       title: 'I nostri indirizzi nei dintorni',
       intro: 'Negozi, ristoranti, mercati e contatti utili: i nostri consigli personali per vivere Cava d’Aliga come a casa.',
-      blocks: [
-        { title: 'Mangiare & bere', items: ['Ristoranti e trattorie che amiamo.', 'Gelaterie, caffè e specialità siciliane.'] },
-        { title: 'Spesa & mercati', items: ['Alimentari e supermercati vicini.', 'Giorni e luoghi dei mercati.'] },
-        { title: 'Spiaggia & tempo libero', items: ['Spiagge e cale consigliate.', 'Noleggi (lettini, barche, bici).'] },
-      ],
     },
     'la-region': {
       eyebrow: 'La regione',
       title: 'Scoprire il sud-est della Sicilia',
       intro: 'Scicli, Ragusa, il barocco del Val di Noto, le spiagge nascoste e la campagna degli Iblei. Di che riempire ogni giornata del vostro soggiorno.',
-      blocks: [
-        { title: 'Città barocche', items: ['Scicli, Ragusa Ibla, Modica e Noto.', 'Siti patrimonio mondiale dell’UNESCO.'] },
-        { title: 'Mare & natura', items: ['Spiagge e cale della costa sud.', 'Riserve naturali e sentieri.'] },
-        { title: 'Sapori', items: ['Cioccolato di Modica, cannoli, vini locali.', 'Mercati e produttori.'] },
-        { title: 'Escursioni', items: ['Giornate alla scoperta dell’isola.', 'Idee di itinerari secondo la durata del soggiorno.'] },
-      ],
     },
     contact: {
       eyebrow: 'Contatti',
@@ -1158,6 +1147,14 @@ const EN: Dict = {
       },
     ],
   },
+  infoFilter: {
+    all: 'Everything',
+    arrival: 'Arriving',
+    move: 'Getting around',
+    urgent: 'Emergencies',
+    waste: 'Waste',
+    leaving: 'Leaving',
+  },
   askMag: {
     text: 'We do not have this yet. Write to Mag: she will answer you, and we will add it here for the next ones.',
     textFor: 'For {what}: we do not have this yet. Write to Mag, she will answer you — and we will add it here for the next ones.',
@@ -1183,33 +1180,16 @@ const EN: Dict = {
       eyebrow: 'Practical information',
       title: 'Practical info',
       intro: 'Arrival, departure, apartment amenities and a few tips to make the most of your stay in Cava d’Aliga.',
-      blocks: [
-        { title: 'Arrival & departure', items: ['Check-in / check-out times.', 'Key handover and access instructions.'] },
-        { title: 'The apartment', items: ['Amenities (kitchen, wifi, air conditioning, linen).', 'Capacity and bedding layout.'] },
-        { title: 'Good to know', items: ['House rules.', 'Waste sorting and life in the hamlet.'] },
-        { title: 'Useful contacts', items: ['Doctor, pharmacy, taxi.', 'Emergency numbers in Italy.'] },
-      ],
     },
     'services-locaux': {
       eyebrow: 'Local services & useful contacts',
       title: 'Our spots nearby',
       intro: 'Shops, restaurants, markets and useful contacts: our personal recommendations to live Cava d’Aliga like a local.',
-      blocks: [
-        { title: 'Eat & drink', items: ['Restaurants and trattorias we love.', 'Gelato, cafés and Sicilian specialities.'] },
-        { title: 'Groceries & markets', items: ['Nearby grocery stores and supermarkets.', 'Market days and locations.'] },
-        { title: 'Beach & leisure', items: ['Recommended beaches and coves.', 'Rentals (sunbeds, boats, bikes).'] },
-      ],
     },
     'la-region': {
       eyebrow: 'The region',
       title: 'Discover south-east Sicily',
       intro: 'Scicli, Ragusa, the baroque of Val di Noto, the hidden beaches and the Iblei countryside. Plenty to fill every day of your stay.',
-      blocks: [
-        { title: 'Baroque towns', items: ['Scicli, Ragusa Ibla, Modica and Noto.', 'UNESCO World Heritage sites.'] },
-        { title: 'Sea & nature', items: ['Beaches and coves of the south coast.', 'Nature reserves and trails.'] },
-        { title: 'Flavours', items: ['Modica chocolate, cannoli, local wines.', 'Markets and producers.'] },
-        { title: 'Day trips', items: ['Days exploring the island.', 'Itinerary ideas depending on your stay.'] },
-      ],
     },
     contact: {
       eyebrow: 'Contact',

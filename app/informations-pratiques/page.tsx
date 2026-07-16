@@ -1,23 +1,38 @@
 'use client';
 
+import { useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
-import Icon from '../Icon';
+import Icon, { type IconName } from '../Icon';
 import OpIcon, { type OpIconName } from '../OpIcon';
-import GettingAround from '../GettingAround';
+import { Transports, Emergencies } from '../GettingAround';
 import WasteSchedule from '../WasteSchedule';
 import DepartChecklist from '../DepartChecklist';
 import AskMag from '../AskMag';
-import { InfoBlocks } from '../SectionShell';
-import { PAGE_ICONS } from '../data';
 import { useI18n } from '../i18n';
+
+type Key = 'tout' | 'arrivee' | 'bouger' | 'urgences' | 'dechets' | 'depart';
 
 export default function InformationsPratiques() {
   const { t } = useI18n();
   const p = t.pages['informations-pratiques'];
   const a = t.arrivee;
+  const f = t.infoFilter;
+
+  const [filter, setFilter] = useState<Key>('tout');
+  // « Tout » montre l'enchaînement complet ; sinon on isole une seule section.
+  const show = (k: Key) => filter === 'tout' || filter === k;
+
+  const filters: { key: Key; label: string; icon: IconName }[] = [
+    { key: 'tout', label: f.all, icon: 'map' },
+    { key: 'arrivee', label: f.arrival, icon: 'key' },
+    { key: 'bouger', label: f.move, icon: 'compass' },
+    { key: 'urgences', label: f.urgent, icon: 'phone' },
+    { key: 'dechets', label: f.waste, icon: 'trash' },
+    { key: 'depart', label: f.leaving, icon: 'home' },
+  ];
 
   return (
     <main>
@@ -25,8 +40,9 @@ export default function InformationsPratiques() {
 
       <PageHeader title={p.title} intro={p.intro} />
 
-      {/* L'adresse d'abord : c'est l'info qu'on vient chercher en premier. */}
-      <section className="mx-auto max-w-[110rem] px-5 pb-14 pt-8 md:px-10">
+      {/* L'adresse d'abord, et toujours : c'est l'info qu'on vient chercher,
+          la filtrer n'aurait aucun sens. */}
+      <section className="mx-auto max-w-[110rem] px-5 pb-10 pt-8 md:px-10">
         <Reveal
           className="flex flex-col gap-8 rounded-3xl border p-8 md:flex-row md:items-center md:justify-between md:p-12"
           style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
@@ -63,73 +79,90 @@ export default function InformationsPratiques() {
         </Reveal>
       </section>
 
-      {/* Rubriques en préparation */}
-      {p.blocks && (
-        <div className="mx-auto max-w-[110rem] px-5 md:px-10">
-          <InfoBlocks blocks={p.blocks} icons={PAGE_ICONS['informations-pratiques']} />
-        </div>
-      )}
-
-      {/* Arrivée : fonctionnement de la maison (wifi inclus) */}
-      <section className="mx-auto max-w-[110rem] px-5 pb-24 pt-16 md:px-10">
-        <Reveal className="mb-8 flex flex-col gap-2">
-          <span className="text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
-            {a.eyebrow}
-          </span>
-          <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
-            {a.title}
-          </h2>
-        </Reveal>
-
-        {/* Fonctionnement de la maison */}
-        <Reveal className="mb-5 text-[13px] uppercase tracking-[0.18em]" style={{ color: 'var(--cava-muted)' }}>
-          {a.operationTitle}
-        </Reveal>
-        <div className="grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
-          {a.operation.map((g, i) => (
-            <Reveal
-              key={g.title}
-              delay={(i % 2) * 90}
-              className="flex flex-col gap-4 p-8 md:p-10"
-              style={{ background: 'var(--cava-bg)' }}
-            >
-              <div className="flex items-center gap-3">
-                <span aria-hidden className="leading-none" style={{ color: 'var(--cava-pink)' }}>
-                  <OpIcon name={g.icon as OpIconName} size={26} />
-                </span>
-                <h3 className="text-[clamp(1.2rem,2.4vw,1.6rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
-                  {g.title}
-                </h3>
-              </div>
-              {g.items && g.items.length > 0 && (
-                <ul className="flex flex-col gap-3">
-                  {g.items.map((it) => (
-                    <li key={it} className="flex gap-3 text-[15px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
-                      <span className="mt-2 h-[6px] w-[6px] shrink-0 rounded-full" style={{ background: 'var(--cava-pink)' }} />
-                      {it}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </Reveal>
-          ))}
-        </div>
-
-        {/* Le gaz n'a pas de numéro, et d'autres questions n'ont pas de page */}
-        <Reveal className="mt-6">
-          <AskMag what={a.toCome} />
+      {/* Le tri : la page est longue, on choisit ce qu'on cherche */}
+      <section className="mx-auto max-w-[110rem] px-5 md:px-10">
+        <Reveal className="flex flex-wrap gap-2.5">
+          {filters.map((x) => {
+            const on = filter === x.key;
+            return (
+              <button
+                key={x.key}
+                type="button"
+                onClick={() => setFilter(x.key)}
+                aria-pressed={on}
+                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[13px] transition"
+                style={{
+                  borderColor: on ? 'var(--cava-ink)' : 'var(--cava-line)',
+                  background: on ? 'var(--cava-ink)' : 'transparent',
+                  color: on ? 'var(--cava-bg)' : 'var(--cava-ink)',
+                  fontWeight: on ? 600 : 400,
+                }}
+              >
+                <Icon name={x.icon} size={15} />
+                {x.label}
+              </button>
+            );
+          })}
         </Reveal>
       </section>
 
-      {/* Se déplacer + urgences */}
-      <GettingAround />
+      {/* Arrivée : le guide des premières heures */}
+      {show('arrivee') && (
+        <section className="mx-auto max-w-[110rem] px-5 pb-8 pt-12 md:px-10">
+          <Reveal className="mb-8 flex flex-col gap-2">
+            <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+              <Icon name="key" size={16} /> {a.eyebrow}
+            </span>
+            <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+              {a.title}
+            </h2>
+          </Reveal>
 
-      {/* Tri des déchets */}
-      <WasteSchedule />
+          <Reveal className="mb-5 text-[13px] uppercase tracking-[0.18em]" style={{ color: 'var(--cava-muted)' }}>
+            {a.operationTitle}
+          </Reveal>
+          <div className="grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
+            {a.operation.map((g, i) => (
+              <Reveal
+                key={g.title}
+                delay={(i % 2) * 90}
+                className="flex flex-col gap-4 p-8 md:p-10"
+                style={{ background: 'var(--cava-bg)' }}
+              >
+                <div className="flex items-center gap-3">
+                  <span aria-hidden className="leading-none" style={{ color: 'var(--cava-pink)' }}>
+                    <OpIcon name={g.icon as OpIconName} size={26} />
+                  </span>
+                  <h3 className="text-[clamp(1.2rem,2.4vw,1.6rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+                    {g.title}
+                  </h3>
+                </div>
+                {g.items && g.items.length > 0 && (
+                  <ul className="flex flex-col gap-3">
+                    {g.items.map((it) => (
+                      <li key={it} className="flex gap-3 text-[15px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
+                        <span className="mt-2 h-[6px] w-[6px] shrink-0 rounded-full" style={{ background: 'var(--cava-pink)' }} />
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </Reveal>
+            ))}
+          </div>
 
-      {/* Check-list du départ */}
-      <DepartChecklist />
+          <Reveal className="mt-6">
+            <AskMag what={a.toCome} />
+          </Reveal>
+        </section>
+      )}
 
+      {show('bouger') && <Transports />}
+      {show('urgences') && <Emergencies />}
+      {show('dechets') && <WasteSchedule />}
+      {show('depart') && <DepartChecklist />}
+
+      <div className="pb-16" />
       <Footer />
     </main>
   );
