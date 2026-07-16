@@ -160,7 +160,7 @@ export default function NosAdresses() {
       <section ref={mapRef} className="mx-auto max-w-[110rem] scroll-mt-24 px-5 md:px-10">
         <Reveal className="relative">
           <div ref={wrapRef} className="relative">
-            <MapViewport labels={{ zoomIn: p.zoomIn, zoomOut: p.zoomOut, reset: p.zoomReset }} focus={focus}>
+            <MapViewport labels={{ zoomIn: p.zoomIn, zoomOut: p.zoomOut, reset: p.zoomReset }} focus={focus} contentAspect={1000 / 548}>
               <LocalMap
                 houseLabel={t.regionHere}
                 spots={spots}

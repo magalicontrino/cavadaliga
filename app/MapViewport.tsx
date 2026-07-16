@@ -12,7 +12,7 @@ import Icon from './Icon';
  * distance parcourue et on annule le clic au-delà de DRAG_SLOP.
  */
 const MIN = 1;
-const MAX = 5;
+const MAX = 8;
 const DRAG_SLOP = 6; // px
 
 /**
@@ -25,10 +25,15 @@ export default function MapViewport({
   children,
   labels,
   focus,
+  contentAspect,
 }: {
   children: ReactNode;
   labels: { zoomIn: string; zoomOut: string; reset: string };
   focus?: MapFocus | null;
+  // Rapport largeur/hauteur du dessin. Sert à savoir de combien il faut ouvrir
+  // zoomé pour remplir une fenêtre plus haute que lui, et jusqu'où on peut
+  // glisser sans le faire sortir.
+  contentAspect: number;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -39,14 +44,31 @@ export default function MapViewport({
   const pts = useRef(new Map<number, { x: number; y: number }>());
   const start = useRef({ dist: 0, scale: 1, tx: 0, ty: 0, cx: 0, cy: 0 });
   const moved = useRef(0);
+  // Passe à true dès que quelqu'un zoome ou glisse : on cesse alors de recadrer
+  // la carte tout seul, ce serait lui reprendre le volant des mains.
+  const touched = useRef(false);
 
-  // Empêche de faire sortir la carte de sa fenêtre.
+  // Échelle qui remplit la fenêtre — 1 sur ordinateur (le dessin a la taille de
+  // sa fenêtre), davantage sur téléphone où la fenêtre est bien plus haute.
+  const fitScale = () => {
+    const el = box.current;
+    if (!el) return 1;
+    const { width: w, height: h } = el.getBoundingClientRect();
+    if (!w || !h) return 1;
+    return Math.min(MAX, Math.max(1, h / (w / contentAspect)));
+  };
+
+  // Empêche de faire sortir la carte de sa fenêtre. On mesure le dessin, pas la
+  // fenêtre : sur téléphone les deux n'ont pas du tout la même hauteur, et
+  // confondre les deux laissait glisser la carte dans le vide.
   const clamp = (s: number, x: number, y: number) => {
     const el = box.current;
     if (!el) return { x, y };
     const { width: w, height: h } = el.getBoundingClientRect();
-    const mx = ((s - 1) * w) / 2;
-    const my = ((s - 1) * h) / 2;
+    const cw = w;
+    const ch = w / contentAspect;
+    const mx = Math.max(0, (cw * s - w) / 2);
+    const my = Math.max(0, (ch * s - h) / 2);
     return { x: Math.min(mx, Math.max(-mx, x)), y: Math.min(my, Math.max(-my, y)) };
   };
 
@@ -70,6 +92,7 @@ export default function MapViewport({
   };
 
   const onPointerDown = (e: ReactPointerEvent) => {
+    touched.current = true;
     pts.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
     moved.current = 0;
     if (pts.current.size === 2) {
@@ -131,6 +154,7 @@ export default function MapViewport({
     const onWheel = (e: globalThis.WheelEvent) => {
       if (!e.ctrlKey && !e.metaKey) return; // la page défile normalement
       e.preventDefault();
+      touched.current = true;
       zoomAt(scale * (e.deltaY < 0 ? 1.12 : 1 / 1.12), e.clientX, e.clientY);
     };
     el.addEventListener('wheel', onWheel, { passive: false });
@@ -143,10 +167,29 @@ export default function MapViewport({
   // le faire à la main.
   useEffect(() => {
     const onShow = (e: PageTransitionEvent) => {
-      if (e.persisted) apply(1, 0, 0);
+      if (!e.persisted) return;
+      touched.current = false;
+      apply(fitScale(), 0, 0);
     };
     window.addEventListener('pageshow', onShow);
     return () => window.removeEventListener('pageshow', onShow);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Sur téléphone la fenêtre est bien plus haute que le dessin : à l'échelle 1
+  // il n'occuperait qu'une bande au milieu, avec des épingles de 3px. On ouvre
+  // donc à l'échelle qui la remplit, et on se réajuste si l'écran change —
+  // mais plus jamais dès que quelqu'un a zoomé ou glissé lui-même.
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const fit = () => {
+      if (!touched.current) apply(fitScale(), 0, 0);
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -168,6 +211,7 @@ export default function MapViewport({
   const step = (k: number) => {
     const el = box.current;
     if (!el) return;
+    touched.current = true;
     const r = el.getBoundingClientRect();
     zoomAt(scale * k, r.left + r.width / 2, r.top + r.height / 2);
   };
@@ -184,10 +228,11 @@ export default function MapViewport({
         onPointerCancel={onPointerUp}
         onPointerLeave={onPointerUp}
         onClickCapture={onClickCapture}
-        className="overflow-hidden"
+        className="flex h-[68vh] max-h-[560px] items-center justify-center overflow-hidden md:h-auto md:max-h-none"
         style={{ touchAction: zoomed ? 'none' : 'pan-y', cursor: zoomed ? 'grab' : 'default' }}
       >
         <div
+          className="w-full shrink-0"
           style={{
             transform: `translate(${tx}px, ${ty}px) scale(${scale})`,
             transformOrigin: 'center center',
@@ -204,7 +249,7 @@ export default function MapViewport({
             boutons ne sautent pas ; inerte tant qu'on n'a pas zoomé. */}
         <button
           type="button"
-          onClick={() => apply(1, 0, 0)}
+          onClick={() => { touched.current = true; apply(1, 0, 0); }}
           disabled={!zoomed}
           aria-label={labels.reset}
           className="cava-zoombtn flex h-10 w-10 items-center justify-center rounded-full disabled:pointer-events-none disabled:opacity-40"
