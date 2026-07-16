@@ -2,9 +2,11 @@
 
 import Nav from '../Nav';
 import Footer from '../Footer';
-import Reveal from '../Reveal';
+import { useState } from 'react';
+import Reveal, { RevealNow } from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon from '../Icon';
+import FilterChip from '../FilterChip';
 import { useI18n } from '../i18n';
 import { ARTISTS, ARTS, GESTURES, PHOTOS, SCREENS, SPOTIFY_EMBED_HEIGHT, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, MUNARI_BOOK, MUNARI_WIKI, DE_JORIO_WIKI, type Screen } from '../cultureData';
 import { type IconName } from '../Icon';
@@ -96,20 +98,54 @@ function WorkGrid({
   );
 }
 
+type Key = 'tout' | 'playlist' | 'ecrans' | 'peinture' | 'photo' | 'mains' | 'chansons';
+
 export default function Culture() {
   const { t, lang } = useI18n();
   const c = t.culturePage;
+  const cf = t.cultureFilter;
+
+  // On ouvre sur la playlist : le bouton allumé correspond à ce qu'on voit.
+  const [filter, setFilter] = useState<Key>('playlist');
+  const [clicks, setClicks] = useState(0);
+  const choose = (k: Key) => {
+    setFilter(k);
+    setClicks((n) => n + 1);
+  };
+  const show = (k: Key) => filter === 'tout' || filter === k;
+
+  // Les sections d'abord ; « Tout voir » ferme la ligne, en retrait.
+  const filters: { key: Key; label: string; icon: IconName }[] = [
+    { key: 'playlist', label: cf.playlist, icon: 'spotify' },
+    { key: 'ecrans', label: cf.screens, icon: 'film' },
+    { key: 'peinture', label: cf.painting, icon: 'brush' },
+    { key: 'photo', label: cf.photo, icon: 'camera' },
+    { key: 'mains', label: cf.hands, icon: 'hand' },
+    { key: 'chansons', label: cf.songs, icon: 'vinyl' },
+  ];
 
   return (
+    <RevealNow.Provider value={clicks}>
     <main>
       <Nav current="/culture" />
 
       <PageHeader title={c.title} intro={c.intro} />
 
+      {/* Le tri : six sections, on choisit */}
+      <section className="mx-auto max-w-[110rem] px-5 pt-4 md:px-10">
+        <Reveal className="flex flex-wrap gap-2.5">
+          {filters.map((x) => (
+            <FilterChip key={x.key} label={x.label} icon={x.icon} active={filter === x.key} onClick={() => choose(x.key)} />
+          ))}
+          <FilterChip label={cf.all} icon="map" active={filter === 'tout'} onClick={() => choose('tout')} subtle />
+        </Reveal>
+      </section>
+
       {/* La playlist partagée — bloc clair, lecteur compact.
           Le lecteur Spotify est sombre par nature (pas de thème clair chez eux) :
           on l'entoure de clair et on le garde bas pour ne pas noircir la page. */}
-      <section className="mx-auto max-w-[110rem] px-5 pt-8 md:px-10">
+      {show('playlist') && (
+      <section className="mx-auto max-w-[110rem] px-5 pt-12 md:px-10">
         <Reveal
           className="relative overflow-hidden rounded-3xl border p-8 md:p-10"
           style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
@@ -178,17 +214,19 @@ export default function Culture() {
           )}
         </Reveal>
       </section>
+      )}
 
       {/* À l'écran — films & séries tournés ici */}
-      <WorkGrid title={c.screensTitle} intro={c.screensIntro} items={SCREENS} icon="film" lang={lang} more={c.moreLabel} />
+      {show('ecrans') && <WorkGrid title={c.screensTitle} intro={c.screensIntro} items={SCREENS} icon="film" lang={lang} more={c.moreLabel} />}
 
       {/* Peint ici — Guccione & le Gruppo di Scicli */}
-      <WorkGrid title={c.artsTitle} intro={c.artsIntro} items={ARTS} icon="brush" lang={lang} more={c.moreLabel} />
+      {show('peinture') && <WorkGrid title={c.artsTitle} intro={c.artsIntro} items={ARTS} icon="brush" lang={lang} more={c.moreLabel} />}
 
       {/* Photographié ici — Giuseppe Leone & Scianna */}
-      <WorkGrid title={c.photosTitle} intro={c.photosIntro} items={PHOTOS} icon="target" lang={lang} more={c.moreLabel} />
+      {show('photo') && <WorkGrid title={c.photosTitle} intro={c.photosIntro} items={PHOTOS} icon="camera" lang={lang} more={c.moreLabel} />}
 
       {/* Parler avec les mains — Munari et son dictionnaire de gestes */}
+      {show('mains') && (
       <section className="mx-auto max-w-[110rem] px-5 pt-20 md:px-10">
         <Reveal
           as="h2"
@@ -288,8 +326,10 @@ export default function Culture() {
           <p className="max-w-[70ch]">{c.handsPhotoNote}</p>
         </Reveal>
       </section>
+      )}
 
       {/* Chansons & histoires de Sicile — mini-liste, tout en bas */}
+      {show('chansons') && (
       <section className="mx-auto max-w-[110rem] px-5 pt-20 md:px-10">
         <Reveal
           as="h2"
@@ -341,6 +381,7 @@ export default function Culture() {
           ))}
         </Reveal>
       </section>
+      )}
 
       <Reveal className="mx-auto max-w-[110rem] px-5 pb-24 pt-10 text-[14px] italic md:px-10" style={{ color: 'var(--cava-muted)' }}>
         {c.note}
@@ -348,5 +389,6 @@ export default function Culture() {
 
       <Footer />
     </main>
+    </RevealNow.Provider>
   );
 }

@@ -170,6 +170,15 @@ export type Dict = {
     intro: string;
     facts: { icon: string; title: string; text: string }[];
   };
+  cultureFilter: {
+    all: string;
+    playlist: string;
+    screens: string;
+    painting: string;
+    photo: string;
+    hands: string;
+    songs: string;
+  };
   regionFilter: {
     all: string;
     places: string;
@@ -442,6 +451,15 @@ const FR: Dict = {
         text: 'Quand la chaleur tombe, tout le monde descend : on marche lentement, on s’arrête tous les dix mètres pour parler, on regarde et on se laisse regarder. Ce n’est pas une promenade, c’est un rendez-vous. Vers 19 h, sur le front de mer. Ne prévoyez rien à cette heure-là — c’est là que le village existe.',
       },
     ],
+  },
+  cultureFilter: {
+    all: 'Tout voir',
+    playlist: 'La playlist',
+    screens: 'Écrans',
+    painting: 'Peinture',
+    photo: 'Photo',
+    hands: 'Les mains',
+    songs: 'Chansons',
   },
   regionFilter: {
     all: 'Tout voir',
@@ -820,6 +838,15 @@ const IT: Dict = {
       },
     ],
   },
+  cultureFilter: {
+    all: 'Vedi tutto',
+    playlist: 'La playlist',
+    screens: 'Schermi',
+    painting: 'Pittura',
+    photo: 'Foto',
+    hands: 'Le mani',
+    songs: 'Canzoni',
+  },
   regionFilter: {
     all: 'Vedi tutto',
     places: 'I luoghi',
@@ -1196,6 +1223,15 @@ const EN: Dict = {
         text: 'When the heat drops, everyone comes down: you walk slowly, stop every ten metres to talk, look and let yourself be looked at. It is not a stroll, it is an appointment. Around 7pm, on the seafront. Plan nothing at that hour — that is when the village exists.',
       },
     ],
+  },
+  cultureFilter: {
+    all: 'See all',
+    playlist: 'The playlist',
+    screens: 'Screens',
+    painting: 'Painting',
+    photo: 'Photo',
+    hands: 'Hands',
+    songs: 'Songs',
   },
   regionFilter: {
     all: 'See all',
