@@ -10,7 +10,6 @@ import OpIcon, { type OpIconName } from '../OpIcon';
 import { Transports, Emergencies } from '../GettingAround';
 import WasteSchedule from '../WasteSchedule';
 import DepartChecklist from '../DepartChecklist';
-import AskMag from '../AskMag';
 import { useI18n } from '../i18n';
 
 type Key = 'tout' | 'arrivee' | 'bouger' | 'urgences' | 'dechets' | 'depart';
@@ -150,10 +149,6 @@ export default function InformationsPratiques() {
               </Reveal>
             ))}
           </div>
-
-          <Reveal className="mt-6">
-            <AskMag what={a.toCome} />
-          </Reveal>
         </section>
       )}
 

@@ -38,7 +38,6 @@ type ArriveeContent = {
   mapsUrl: string;
   operationTitle: string;
   operation: PrepareGroup[];
-  toCome: string;
 };
 type DepartContent = {
   eyebrow: string;
@@ -538,7 +537,6 @@ const FR: Dict = {
       { icon: 'flame', title: 'Gaz', items: ['Mormina Gas, Via Tolstoj — il vend les bouteilles, livre à domicile et répare les cuisinières. Ses coordonnées sont plus bas, dans les contacts.'] },
       { icon: 'signal', title: 'Wifi', items: ['Réseau : cacestlaissetomber', 'Mot de passe : jamonito'] },
     ],
-    toCome: 'toute question qui n’est pas sur le site',
   },
   depart: {
     eyebrow: 'Départ',
@@ -901,7 +899,6 @@ const IT: Dict = {
       { icon: 'flame', title: 'Gas', items: ['Mormina Gas, Via Tolstoj — vende le bombole, consegna a domicilio e ripara le cucine. I contatti sono più sotto.'] },
       { icon: 'signal', title: 'Wifi', items: ['Rete: cacestlaissetomber', 'Password: jamonito'] },
     ],
-    toCome: 'qualsiasi domanda che non è sul sito',
   },
   depart: {
     eyebrow: 'Partenza',
@@ -1264,7 +1261,6 @@ const EN: Dict = {
       { icon: 'flame', title: 'Gas', items: ['Mormina Gas, Via Tolstoj — he sells the bottles, delivers to your door and repairs cookers. His details are further down, in the contacts.'] },
       { icon: 'signal', title: 'Wifi', items: ['Network: cacestlaissetomber', 'Password: jamonito'] },
     ],
-    toCome: 'anything that is not on the site',
   },
   depart: {
     eyebrow: 'Departure',
