@@ -207,6 +207,32 @@
   color: #fff;
 }
 
+/* --- « Ping » d'épingle au changement de filtre -------------------- */
+@keyframes cava-pinpop {
+  0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0; }
+  35% { transform: translate(-50%, -62%) scale(1.6); opacity: 1; }
+  62% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+@keyframes cava-ripple {
+  0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0.55; }
+  100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
+}
+.cava-pinpop {
+  animation: cava-pinpop 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  filter: drop-shadow(0 8px 12px rgba(46, 45, 45, 0.3));
+}
+.cava-pinripple {
+  animation: cava-ripple 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-pinpop,
+  .cava-pinripple {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 /* --- Fiches « Nos adresses » (façon annonces) ---------------------- */
 .cava-listcard {
   transition:

@@ -57,8 +57,18 @@ export default function NosAdresses() {
 
       {/* Carte illustrée (bandeau) */}
       <section className="mx-auto max-w-[110rem] px-5 md:px-10">
-        <Reveal>
+        <Reveal className="relative">
           <LocalMap houseLabel={t.regionHere} />
+          {/* Ping d'épingle : rejoue à chaque changement de filtre */}
+          <span key={filter} aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 block h-0 w-0">
+            <span
+              className="cava-pinripple absolute left-0 top-0 block h-20 w-20 rounded-full"
+              style={{ border: '3px solid var(--cava-pink)' }}
+            />
+            <span className="cava-pinpop absolute left-0 top-0 block" style={{ color: 'var(--cava-pink)' }}>
+              <Icon name="pin" size={60} />
+            </span>
+          </span>
         </Reveal>
         <a
           href={mapLink}
@@ -102,46 +112,39 @@ export default function NosAdresses() {
               <button
                 type="button"
                 onClick={() => setOpen(pl)}
-                className="cava-listcard group flex h-full w-full flex-col overflow-hidden rounded-2xl border text-left"
+                className="cava-listcard group flex h-full w-full flex-col gap-3 rounded-2xl border p-8 text-left md:p-10"
                 style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
               >
-                {/* Visuel (illustration de catégorie) */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden" style={{ background: CATS[pl.cat].bg }}>
-                  <span className="absolute inset-0 flex items-center justify-center text-white/25">
-                    <Icon name={CATS[pl.cat].icon} size={72} />
+                <div className="flex items-start justify-between gap-3">
+                  <span
+                    className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
+                    style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-ink)' }}
+                  >
+                    <Icon name={CATS[pl.cat].icon} size={24} />
                   </span>
                   {pl.responsible && (
                     <span
-                      className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10.5px] uppercase tracking-[0.1em]"
-                      style={{ background: 'rgba(255,255,255,0.92)', color: 'var(--cava-pink)', fontWeight: 700 }}
+                      className="inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 text-[10.5px] uppercase tracking-[0.1em]"
+                      style={{ background: 'rgba(230,41,111,0.09)', color: 'var(--cava-pink)', fontWeight: 700 }}
                     >
                       <Icon name="leaf" size={13} /> {p.badge}
                     </span>
                   )}
-                  <span
-                    className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.08em] text-white"
-                    style={{ background: 'rgba(0,0,0,0.28)' }}
-                  >
-                    <Icon name={CATS[pl.cat].icon} size={13} /> {CATS[pl.cat].label[lang]}
+                </div>
+                <div className="mt-1 flex items-start justify-between gap-2">
+                  <h2 className="text-[clamp(1.2rem,2.4vw,1.6rem)] leading-[1.15]" style={{ fontWeight: 600 }}>
+                    {pl.name}
+                  </h2>
+                  <span className="cava-listcard-arrow mt-0.5 shrink-0 text-[15px]" aria-hidden>
+                    ↗
                   </span>
                 </div>
-                {/* Texte */}
-                <div className="flex flex-1 flex-col gap-1.5 p-5">
-                  <div className="flex items-start justify-between gap-2">
-                    <h2 className="text-[1.15rem] leading-[1.2]" style={{ fontWeight: 600 }}>
-                      {pl.name}
-                    </h2>
-                    <span className="cava-listcard-arrow mt-0.5 shrink-0 text-[15px]" aria-hidden>
-                      ↗
-                    </span>
-                  </div>
-                  <p className="text-[13px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)' }}>
-                    {pl.town}
-                  </p>
-                  <p className="mt-1 line-clamp-2 text-[14px] leading-[1.55]" style={{ color: 'var(--cava-muted)' }}>
-                    {pl.blurb[lang]}
-                  </p>
-                </div>
+                <p className="text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-muted)' }}>
+                  {pl.town} · {CATS[pl.cat].label[lang]}
+                </p>
+                <p className="line-clamp-2 text-[14px] leading-[1.55]" style={{ color: 'var(--cava-muted)' }}>
+                  {pl.blurb[lang]}
+                </p>
               </button>
             </Reveal>
           ))}
