@@ -6,6 +6,7 @@ import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon from '../Icon';
 import OpIcon, { type OpIconName } from '../OpIcon';
+import GettingAround from '../GettingAround';
 import WasteSchedule from '../WasteSchedule';
 import DepartChecklist from '../DepartChecklist';
 import { InfoBlocks } from '../SectionShell';
@@ -117,6 +118,9 @@ export default function InformationsPratiques() {
           {a.toCome}
         </Reveal>
       </section>
+
+      {/* Se déplacer + urgences */}
+      <GettingAround />
 
       {/* Tri des déchets */}
       <WasteSchedule />

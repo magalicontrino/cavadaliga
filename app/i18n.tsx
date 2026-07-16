@@ -130,6 +130,27 @@ export type Dict = {
     moreLabel: string;
     note: string;
   };
+  movePage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    appLabel: string;
+    urgencyEyebrow: string;
+    urgencyTitle: string;
+    urgencyIntro: string;
+    nueLabel: string;
+    nueNote: string;
+    alsoLabel: string;
+    localTitle: string;
+    localToCome: string;
+  };
+  // Les habitudes siciliennes qu'on ne devine pas.
+  tastePage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    facts: { icon: string; title: string; text: string }[];
+  };
   wastePage: {
     eyebrow: string;
     title: string;
@@ -327,6 +348,42 @@ const FR: Dict = {
     placeLabel: 'Voir le lieu',
     moreLabel: 'En savoir plus',
     note: 'Vous avez une pépite ? Une chanson, un film, une série : dites-le-nous, on l’ajoute.',
+  },
+  movePage: {
+    eyebrow: 'Se déplacer',
+    title: 'Bus, routes et avions',
+    intro: 'On peut très bien vivre ici sans voiture pour aller d’un village à l’autre. Voilà où regarder.',
+    appLabel: 'Appli',
+    urgencyEyebrow: 'Urgences',
+    urgencyTitle: 'En cas de pépin',
+    urgencyIntro: 'En Sicile, un seul numéro suffit : on décroche, on vous parle, on vous bascule vers le bon service. Les anciens numéros restent joignables si vous les connaissez.',
+    nueLabel: 'Numéro unique d’urgence',
+    nueNote: 'Gratuit, depuis n’importe quel téléphone, même sans crédit ni carte SIM. On répond en italien et en anglais.',
+    alsoLabel: 'Toujours actifs',
+    localTitle: 'Contacts sur place',
+    localToCome: 'Médecin, pharmacie de garde, taxi, plombier : Mag complète cette liste avec les vrais numéros du village. En attendant, le 112 couvre toutes les vraies urgences.',
+  },
+  tastePage: {
+    eyebrow: 'Us et coutumes',
+    title: 'Ce qui ne s’explique pas dans un guide',
+    intro: 'Trois choses à savoir pour ne pas passer pour un touriste — et surtout pour ne pas les rater.',
+    facts: [
+      {
+        icon: 'cone',
+        title: 'La granita et la brioche, c’est le petit-déjeuner',
+        text: 'Pas un dessert : le vrai petit-déjeuner sicilien de l’été. On commande une granita — amande, citron, mûre, pistache, café — avec une brioche col tuppo, celle qui a un chignon sur la tête. Et on trempe la brioche dedans. Se lever tôt et aller la manger au bar avant que la chaleur tombe, c’est l’une des meilleures raisons d’être ici.',
+      },
+      {
+        icon: 'fork',
+        title: 'Arancina ou arancino ? Attention au terrain miné',
+        text: 'La boule de riz frite divise l’île depuis des siècles : Palerme dit arancina, au féminin, Catane dit arancino, au masculin. L’Académie de la Crusca a fini par trancher — les deux sont justes : le masculin vient du dialecte (aranciu → arancinu), le féminin de l’italien (arancia → arancina). Ici, dans le Ragusano, on dit arancina. Chez Giannone, à Donnalucata, allez les commander le matin.',
+      },
+      {
+        icon: 'compass',
+        title: 'La passeggiata, l’heure où le village sort',
+        text: 'Quand la chaleur tombe, tout le monde descend : on marche lentement, on s’arrête tous les dix mètres pour parler, on regarde et on se laisse regarder. Ce n’est pas une promenade, c’est un rendez-vous. Vers 19 h, sur le front de mer. Ne prévoyez rien à cette heure-là — c’est là que le village existe.',
+      },
+    ],
   },
   wastePage: {
     eyebrow: 'Tri des déchets',
@@ -649,6 +706,42 @@ const IT: Dict = {
     moreLabel: 'Scopri di più',
     note: 'Avete una chicca? Una canzone, un film, una serie: ditecelo e la aggiungiamo.',
   },
+  movePage: {
+    eyebrow: 'Spostarsi',
+    title: 'Bus, strade e aerei',
+    intro: 'Si può benissimo vivere qui senza auto per andare da un paese all’altro. Ecco dove guardare.',
+    appLabel: 'App',
+    urgencyEyebrow: 'Emergenze',
+    urgencyTitle: 'In caso di guai',
+    urgencyIntro: 'In Sicilia basta un solo numero: rispondono, vi parlano e vi passano al servizio giusto. I vecchi numeri restano raggiungibili se li conoscete.',
+    nueLabel: 'Numero unico di emergenza',
+    nueNote: 'Gratuito, da qualsiasi telefono, anche senza credito né SIM. Rispondono in italiano e in inglese.',
+    alsoLabel: 'Sempre attivi',
+    localTitle: 'Contatti sul posto',
+    localToCome: 'Medico, farmacia di turno, taxi, idraulico: Mag completa la lista con i veri numeri del paese. Intanto il 112 copre tutte le vere emergenze.',
+  },
+  tastePage: {
+    eyebrow: 'Usi e costumi',
+    title: 'Quello che nessuna guida spiega',
+    intro: 'Tre cose da sapere per non sembrare turisti — e soprattutto per non perderle.',
+    facts: [
+      {
+        icon: 'cone',
+        title: 'La granita con la brioche è la colazione',
+        text: 'Non un dolce: la vera colazione siciliana d’estate. Si ordina una granita — mandorla, limone, gelso, pistacchio, caffè — con una brioche col tuppo, quella con il ciuffo in testa. E la brioche si inzuppa. Alzarsi presto e andarla a mangiare al bar prima che cali il caldo è uno dei motivi migliori per essere qui.',
+      },
+      {
+        icon: 'fork',
+        title: 'Arancina o arancino? Attenzione, campo minato',
+        text: 'La palla di riso fritta divide l’isola da secoli: Palermo dice arancina, al femminile, Catania dice arancino, al maschile. L’Accademia della Crusca ha infine deciso — valgono entrambi: il maschile viene dal dialetto (aranciu → arancinu), il femminile dall’italiano (arancia → arancina). Qui, nel Ragusano, si dice arancina. Da Giannone, a Donnalucata, andate a ordinarle la mattina.',
+      },
+      {
+        icon: 'compass',
+        title: 'La passeggiata, l’ora in cui il paese esce',
+        text: 'Quando cala il caldo, scendono tutti: si cammina piano, ci si ferma ogni dieci metri a parlare, si guarda e ci si lascia guardare. Non è una passeggiata, è un appuntamento. Verso le 19, sul lungomare. Non organizzate niente a quell’ora — è lì che il paese esiste.',
+      },
+    ],
+  },
   wastePage: {
     eyebrow: 'Raccolta differenziata',
     title: 'Quale bidone, quale sera',
@@ -969,6 +1062,42 @@ const EN: Dict = {
     placeLabel: 'See the place',
     moreLabel: 'Learn more',
     note: 'Got a gem? A song, a film, a series — tell us and we’ll add it.',
+  },
+  movePage: {
+    eyebrow: 'Getting around',
+    title: 'Buses, roads and planes',
+    intro: 'You can live here perfectly well without a car to go from village to village. Here is where to look.',
+    appLabel: 'App',
+    urgencyEyebrow: 'Emergencies',
+    urgencyTitle: 'If something goes wrong',
+    urgencyIntro: 'In Sicily one number is enough: they pick up, talk to you, and put you through to the right service. The old numbers still work if you know them.',
+    nueLabel: 'Single emergency number',
+    nueNote: 'Free, from any phone, even with no credit or SIM. They answer in Italian and English.',
+    alsoLabel: 'Still active',
+    localTitle: 'Local contacts',
+    localToCome: 'Doctor, on-duty pharmacy, taxi, plumber: Mag is filling this list with the village’s real numbers. In the meantime, 112 covers every real emergency.',
+  },
+  tastePage: {
+    eyebrow: 'Local customs',
+    title: 'What no guidebook explains',
+    intro: 'Three things to know so you do not look like a tourist — and above all, so you do not miss them.',
+    facts: [
+      {
+        icon: 'cone',
+        title: 'Granita with brioche is breakfast',
+        text: 'Not a dessert: the real Sicilian summer breakfast. You order a granita — almond, lemon, mulberry, pistachio, coffee — with a brioche col tuppo, the one with a topknot. And you dip the brioche in it. Getting up early to eat it at the bar before the heat arrives is one of the best reasons to be here.',
+      },
+      {
+        icon: 'fork',
+        title: 'Arancina or arancino? Careful, minefield',
+        text: 'The fried rice ball has divided the island for centuries: Palermo says arancina, feminine; Catania says arancino, masculine. The Accademia della Crusca finally ruled — both are right: the masculine comes from dialect (aranciu → arancinu), the feminine from Italian (arancia → arancina). Here, in the Ragusa area, it is arancina. At Giannone in Donnalucata, go and order them in the morning.',
+      },
+      {
+        icon: 'compass',
+        title: 'The passeggiata, the hour the village comes out',
+        text: 'When the heat drops, everyone comes down: you walk slowly, stop every ten metres to talk, look and let yourself be looked at. It is not a stroll, it is an appointment. Around 7pm, on the seafront. Plan nothing at that hour — that is when the village exists.',
+      },
+    ],
   },
   wastePage: {
     eyebrow: 'Waste sorting',
