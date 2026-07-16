@@ -40,6 +40,30 @@ const AIRPORTS: Airport[] = [
 const PLANE =
   'M0 -8 C0.8 -8 1.3 -6.3 1.3 -3.3 L8 0 L8 1.8 L1.3 0 L1 4.6 L3 6 L3 7 L0 6.2 L-3 7 L-3 6 L-1 4.6 L-1.3 0 L-8 1.8 L-8 0 L-1.3 -3.3 C-1.3 -6.3 -0.8 -8 0 -8 Z';
 
+// Producteurs / adresses locales — marqueur terracotta + picto produit.
+type LocalSpot = { name: string; icon: 'cone' | 'droplet' | 'leaf'; x: number; y: number; q: string };
+const LOCALS: LocalSpot[] = [
+  { name: 'Antica Dolceria Bonajuto (chocolat)', icon: 'cone', x: 512, y: 210, q: 'Antica Dolceria Bonajuto Modica' },
+  { name: 'Frantoi Cutrera (huile d’olive)', icon: 'droplet', x: 274, y: 132, q: 'Frantoi Cutrera Chiaramonte Gulfi' },
+  { name: 'Pépinières (plantes & fleurs)', icon: 'leaf', x: 372, y: 296, q: 'vivaio Scicli' },
+];
+const ICON_PATHS: Record<LocalSpot['icon'], React.ReactNode> = {
+  cone: (
+    <>
+      <path d="M8 9a4 4 0 018 0" />
+      <path d="M7.5 10.5h9L12 21z" />
+      <path d="M9 13.5h6M10 17h4" />
+    </>
+  ),
+  droplet: <path d="M12 3.5s6 6.2 6 10.5a6 6 0 01-12 0c0-4.3 6-10.5 6-10.5z" />,
+  leaf: (
+    <>
+      <path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z" />
+      <path d="M5 19c3-3 6-5 9-6.5" />
+    </>
+  ),
+};
+
 const maps = (q: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
 
 const LABEL = {
@@ -176,6 +200,57 @@ export default function LocalMap({ houseLabel }: { houseLabel: string }) {
           </a>
         );
       })}
+
+      {/* Producteurs / adresses locales — marqueur terracotta + picto */}
+      {LOCALS.map((s) => (
+        <a key={s.q} href={maps(s.q)} target="_blank" rel="noopener noreferrer" className="cava-mappin" aria-label={s.name}>
+          <circle cx={s.x} cy={s.y} r="16" fill="transparent" />
+          <g className="dot" transform={`translate(${s.x} ${s.y})`}>
+            <rect x="-10" y="-10" width="20" height="20" rx="6" fill="var(--cava-terra)" />
+          </g>
+          <svg
+            x={s.x - 7}
+            y={s.y - 7}
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="var(--cava-bg)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            {ICON_PATHS[s.icon]}
+          </svg>
+        </a>
+      ))}
+
+      {/* Légende */}
+      <g transform="translate(696 396)">
+        <rect width="256" height="122" rx="14" fill="var(--cava-bg)" stroke="var(--cava-line)" strokeWidth="1.5" opacity="0.97" />
+        {/* Villages */}
+        <circle cx="24" cy="26" r="6" fill="var(--cava-pink)" stroke="var(--cava-bg)" strokeWidth="2" />
+        <text x="42" y="30" fontSize="13.5" fill="var(--cava-ink)">
+          Villages
+        </text>
+        {/* Aéroports */}
+        <g transform="translate(24 54)">
+          <rect x="-9" y="-9" width="18" height="18" rx="5" fill="var(--cava-ink)" />
+          <path d={PLANE} transform="scale(0.6)" fill="var(--cava-bg)" />
+        </g>
+        <text x="42" y="58" fontSize="13.5" fill="var(--cava-ink)">
+          Aéroports
+        </text>
+        {/* Producteurs locaux */}
+        <rect x="15" y="73" width="18" height="18" rx="5" fill="var(--cava-terra)" />
+        <text x="42" y="87" fontSize="13.5" fill="var(--cava-ink)">
+          Producteurs locaux
+        </text>
+        {/* À venir */}
+        <text x="17" y="110" fontSize="11.5" fontStyle="italic" fill="var(--cava-muted)">
+          + d’autres bonnes adresses à venir
+        </text>
+      </g>
 
       {/* Boussole */}
       <g transform="translate(58 486)" opacity="0.75">
