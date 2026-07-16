@@ -30,13 +30,17 @@ export const TRANSPORTS: Transport[] = [
   },
   {
     id: 'ast',
+    // Le moteur « Percorsi e orari » (port 8080), pas la page d'accueil : on
+    // y choisit départ et arrivée. Vérifié : 451 localités, dont CATANIA
+    // AEROPORTO, SCICLI, SCICLI-SAMPIERI et DONNALUCATA. Cava d'Aliga n'y est
+    // pas — AST fait l'interurbain, le local c'est SAIS.
     name: 'AST — bus régionaux',
     icon: 'compass',
-    url: 'http://www.aziendasicilianatrasporti.it/',
+    url: 'http://www.aziendasicilianatrasporti.it:8080/',
     blurb: {
-      fr: 'Pour sortir du hameau : Scicli, Modica, Raguse, Noto, Syracuse, Pozzallo. La ligne 680 relie Donnalucata, Scicli, Modica et Raguse.',
-      it: 'Per uscire dal paese: Scicli, Modica, Ragusa, Noto, Siracusa, Pozzallo. La linea 680 collega Donnalucata, Scicli, Modica e Ragusa.',
-      en: 'To get out of the hamlet: Scicli, Modica, Ragusa, Noto, Siracusa, Pozzallo. Line 680 links Donnalucata, Scicli, Modica and Ragusa.',
+      fr: 'Pour sortir du village : on choisit un départ, une arrivée, et il sort les horaires. Scicli, Donnalucata, Sampieri, Modica, Raguse, Noto, Syracuse — et l’aéroport de Catane, ce qui vaut le coup d’être vérifié avant de réserver un taxi. Cava d’Aliga n’y est pas : pour le village même, c’est SAIS.',
+      it: 'Per uscire dal paese: si sceglie partenza e arrivo, e lui dà gli orari. Scicli, Donnalucata, Sampieri, Modica, Ragusa, Noto, Siracusa — e l’aeroporto di Catania, cosa che vale la pena controllare prima di prenotare un taxi. Cava d’Aliga non c’è: per il paese stesso c’è SAIS.',
+      en: 'To get out of the village: pick a departure and an arrival, and it gives you the times. Scicli, Donnalucata, Sampieri, Modica, Ragusa, Noto, Siracusa — and Catania airport, which is worth checking before booking a taxi. Cava d’Aliga is not listed: for the village itself, use SAIS.',
     },
   },
   {
