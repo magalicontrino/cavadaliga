@@ -13,7 +13,7 @@ import WasteSchedule from '../WasteSchedule';
 import DepartChecklist from '../DepartChecklist';
 import { useI18n } from '../i18n';
 
-type Key = 'tout' | 'arrivee' | 'bouger' | 'urgences' | 'dechets' | 'depart';
+type Key = 'tout' | 'adresse' | 'arrivee' | 'bouger' | 'urgences' | 'dechets' | 'depart';
 
 export default function InformationsPratiques() {
   const { t } = useI18n();
@@ -27,6 +27,7 @@ export default function InformationsPratiques() {
 
   const filters: { key: Key; label: string; icon: IconName }[] = [
     { key: 'tout', label: f.all, icon: 'map' },
+    { key: 'adresse', label: f.address, icon: 'pin' },
     { key: 'arrivee', label: f.arrival, icon: 'key' },
     { key: 'bouger', label: f.move, icon: 'compass' },
     { key: 'urgences', label: f.urgent, icon: 'phone' },
@@ -40,9 +41,23 @@ export default function InformationsPratiques() {
 
       <PageHeader title={p.title} intro={p.intro} />
 
-      {/* L'adresse d'abord, et toujours : c'est l'info qu'on vient chercher,
-          la filtrer n'aurait aucun sens. */}
-      <section className="mx-auto max-w-[110rem] px-5 pb-10 pt-8 md:px-10">
+      {/* Le tri : la page est longue, on choisit ce qu'on cherche */}
+      <section className="mx-auto max-w-[110rem] px-5 pt-4 md:px-10">
+        <Reveal className="flex flex-wrap gap-2.5">
+          {filters.map((x) => {
+            const on = filter === x.key;
+            return (
+              <FilterChip key={x.key} label={x.label} icon={x.icon} active={on} onClick={() => setFilter(x.key)} />
+            );
+          })}
+        </Reveal>
+      </section>
+
+      {/* L'adresse : ce qu'on vient chercher, donc en tête et affichée par
+          défaut. Filtrable comme les autres : haute de 800 px, elle repoussait
+          sinon tout contenu cliqué sous la ligne de flottaison. */}
+      {show('adresse') && (
+      <section key={`adresse-${filter}`} className="mx-auto max-w-[110rem] px-5 pb-10 pt-12 md:px-10">
         <Reveal
           className="flex flex-col gap-8 rounded-3xl border p-8 md:flex-row md:items-center md:justify-between md:p-12"
           style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
@@ -78,18 +93,7 @@ export default function InformationsPratiques() {
           </a>
         </Reveal>
       </section>
-
-      {/* Le tri : la page est longue, on choisit ce qu'on cherche */}
-      <section className="mx-auto max-w-[110rem] px-5 md:px-10">
-        <Reveal className="flex flex-wrap gap-2.5">
-          {filters.map((x) => {
-            const on = filter === x.key;
-            return (
-              <FilterChip key={x.key} label={x.label} icon={x.icon} active={on} onClick={() => setFilter(x.key)} />
-            );
-          })}
-        </Reveal>
-      </section>
+      )}
 
       {/* Arrivée : le guide des premières heures */}
       {show('arrivee') && (

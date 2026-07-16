@@ -171,6 +171,7 @@ export type Dict = {
   };
   infoFilter: {
     all: string;
+    address: string;
     arrival: string;
     move: string;
     urgent: string;
@@ -436,6 +437,7 @@ const FR: Dict = {
   },
   infoFilter: {
     all: 'Tout',
+    address: 'Adresse',
     arrival: 'Arrivée',
     move: 'Se déplacer',
     urgent: 'Urgences',
@@ -476,7 +478,7 @@ const FR: Dict = {
     'la-region': {
       eyebrow: 'La région',
       title: 'Découvrir le sud-est de la Sicile',
-      intro: 'Scicli, Raguse, le baroque du Val di Noto, les plages secrètes et la campagne des Iblei. De quoi remplir chaque journée de votre séjour.',
+      intro: 'Scicli, Raguse, le baroque du Val di Noto, les plages secrètes et la campagne des Iblei.',
     },
     contact: {
       eyebrow: 'Contact',
@@ -805,6 +807,7 @@ const IT: Dict = {
   },
   infoFilter: {
     all: 'Tutto',
+    address: 'Indirizzo',
     arrival: 'Arrivo',
     move: 'Spostarsi',
     urgent: 'Emergenze',
@@ -845,7 +848,7 @@ const IT: Dict = {
     'la-region': {
       eyebrow: 'La regione',
       title: 'Scoprire il sud-est della Sicilia',
-      intro: 'Scicli, Ragusa, il barocco del Val di Noto, le spiagge nascoste e la campagna degli Iblei. Di che riempire ogni giornata del vostro soggiorno.',
+      intro: 'Scicli, Ragusa, il barocco del Val di Noto, le spiagge nascoste e la campagna degli Iblei.',
     },
     contact: {
       eyebrow: 'Contatti',
@@ -1174,6 +1177,7 @@ const EN: Dict = {
   },
   infoFilter: {
     all: 'Everything',
+    address: 'Address',
     arrival: 'Arriving',
     move: 'Getting around',
     urgent: 'Emergencies',
@@ -1214,7 +1218,7 @@ const EN: Dict = {
     'la-region': {
       eyebrow: 'The region',
       title: 'Discover south-east Sicily',
-      intro: 'Scicli, Ragusa, the baroque of Val di Noto, the hidden beaches and the Iblei countryside. Plenty to fill every day of your stay.',
+      intro: 'Scicli, Ragusa, the baroque of Val di Noto, the hidden beaches and the Iblei countryside.',
     },
     contact: {
       eyebrow: 'Contact',
