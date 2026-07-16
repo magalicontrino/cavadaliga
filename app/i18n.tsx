@@ -139,6 +139,8 @@ export type Dict = {
     handsPhotoNote: string;
     handsCoverAlt: string;
     handsCoverCredit: string;
+    handsCover2Alt: string;
+    handsCover2Credit: string;
     placeLabel: string;
     moreLabel: string;
     note: string;
@@ -405,6 +407,8 @@ const FR: Dict = {
     handsPhotoNote: 'La couverture ci-dessus, c’est « ma che vuoi » — le geste par lequel tout commence. Les cinquante autres sont dans le livre, et n’ont pas leur place ici : elles sont sous droits. Couverture Chronicle Books, 2005.',
     handsCoverAlt: 'Couverture de « Speak Italian: The Fine Art of the Gesture » de Bruno Munari : une main photographiée en noir et blanc, les cinq doigts pincés en bouton.',
     handsCoverCredit: 'Bruno Munari, Speak Italian: The Fine Art of the Gesture — Chronicle Books, 2005',
+    handsCover2Alt: 'Couverture de « Design as Art » de Bruno Munari chez Penguin : seize visages dessinés en noir et blanc, chacun dans un style différent, sur fond crème.',
+    handsCover2Credit: 'Bruno Munari, Design as Art — Penguin Modern Classics, 2008',
     photosTitle: 'Photographié ici',
     photosIntro: 'Avant les téléphones, d’autres ont regardé ces pierres et ces fêtes — et les ont fixées pour de bon.',
     artsTitle: 'Peint ici',
@@ -796,6 +800,8 @@ const IT: Dict = {
     handsPhotoNote: 'La copertina qui sopra è « ma che vuoi » — il gesto da cui parte tutto. Gli altri cinquanta sono nel libro, e qui non ci stanno: sono sotto diritti. Copertina Chronicle Books, 2005.',
     handsCoverAlt: 'Copertina di « Speak Italian: The Fine Art of the Gesture » di Bruno Munari: una mano fotografata in bianco e nero, le cinque dita unite a pigna.',
     handsCoverCredit: 'Bruno Munari, Speak Italian: The Fine Art of the Gesture — Chronicle Books, 2005',
+    handsCover2Alt: 'Copertina di « Design as Art » di Bruno Munari per Penguin: sedici volti disegnati in bianco e nero, ognuno in uno stile diverso, su fondo crema.',
+    handsCover2Credit: 'Bruno Munari, Design as Art — Penguin Modern Classics, 2008',
     photosTitle: 'Fotografato qui',
     photosIntro: 'Prima dei telefoni, altri hanno guardato queste pietre e queste feste — e le hanno fissate per sempre.',
     artsTitle: 'Dipinto qui',
@@ -1187,6 +1193,8 @@ const EN: Dict = {
     handsPhotoNote: 'The cover above is “ma che vuoi” — the gesture everything starts from. The other fifty are in the book, and have no place here: they are under copyright. Cover Chronicle Books, 2005.',
     handsCoverAlt: 'Cover of “Speak Italian: The Fine Art of the Gesture” by Bruno Munari: a hand photographed in black and white, all five fingertips pinched together.',
     handsCoverCredit: 'Bruno Munari, Speak Italian: The Fine Art of the Gesture — Chronicle Books, 2005',
+    handsCover2Alt: 'Cover of “Design as Art” by Bruno Munari for Penguin: sixteen faces drawn in black and white, each in a different style, on a cream background.',
+    handsCover2Credit: 'Bruno Munari, Design as Art — Penguin Modern Classics, 2008',
     photosTitle: 'Photographed here',
     photosIntro: 'Before phones, others looked at these stones and these festivals — and fixed them for good.',
     artsTitle: 'Painted here',

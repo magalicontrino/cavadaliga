@@ -240,29 +240,42 @@ export default function Culture() {
           {c.handsIntro}
         </Reveal>
 
-        {/* La couverture, en grand : c'est « ma che vuoi », le geste par lequel
-            tout commence. Elle n'est pas à nous — d'où le crédit sous l'image. */}
-        <Reveal className="mt-10">
-          <figure
-            className="mx-auto w-full max-w-[520px] overflow-hidden rounded-2xl border"
-            style={{ borderColor: 'var(--cava-line)', background: '#fff' }}
-          >
-            <img
-              src={withBase('/livres/speak-italian.jpg')}
-              alt={c.handsCoverAlt}
-              width={1103}
-              height={1500}
-              loading="lazy"
-              className="block h-auto w-full"
-            />
-            <figcaption
-              className="border-t px-6 py-4 text-[12.5px] leading-[1.5]"
-              style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)', background: 'var(--cava-bg)' }}
-            >
-              {c.handsCoverCredit}
-            </figcaption>
-          </figure>
-        </Reveal>
+        {/* Les deux livres, en couverture. Pas de cadre ni de fond : les
+            couvertures sont claires par elles-mêmes, et les encadrer leur
+            ajoutait une marge blanche qu'elles n'ont pas.
+            Aucune des deux n'est à nous — d'où le crédit sous chaque image. */}
+        <div className="mx-auto mt-10 grid max-w-[780px] gap-8 sm:grid-cols-2">
+          <Reveal>
+            <figure className="flex flex-col gap-3">
+              <img
+                src={withBase('/livres/speak-italian.jpg')}
+                alt={c.handsCoverAlt}
+                width={1103}
+                height={1500}
+                loading="lazy"
+                className="block h-auto w-full rounded-xl"
+              />
+              <figcaption className="text-[12.5px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
+                {c.handsCoverCredit}
+              </figcaption>
+            </figure>
+          </Reveal>
+          <Reveal delay={70}>
+            <figure className="flex flex-col gap-3">
+              <img
+                src={withBase('/livres/design-as-art.webp')}
+                alt={c.handsCover2Alt}
+                width={304}
+                height={500}
+                loading="lazy"
+                className="block h-auto w-full rounded-xl"
+              />
+              <figcaption className="text-[12.5px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
+                {c.handsCover2Credit}
+              </figcaption>
+            </figure>
+          </Reveal>
+        </div>
 
         {/* Qui était Munari + ses deux livres */}
         <div className="mt-6 grid gap-6 lg:grid-cols-[1.25fr_1fr_1fr]">
