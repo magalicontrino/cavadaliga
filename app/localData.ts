@@ -6,7 +6,7 @@ import type { IconName } from './Icon';
 // Textes visibles dans les 3 langues (fr · it · en).
 // ────────────────────────────────────────────────────────────────────────
 export type Lang = 'fr' | 'it' | 'en';
-export type CatKey = 'chocolat' | 'huile' | 'agrumes' | 'plantes' | 'marche';
+export type CatKey = 'chocolat' | 'huile' | 'agrumes' | 'plantes' | 'marche' | 'resto' | 'courses' | 'plage';
 
 export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<Lang, string> }> = {
   chocolat: { icon: 'cone', bg: 'linear-gradient(135deg,#7a4a3a,#553025)', label: { fr: 'Chocolat', it: 'Cioccolato', en: 'Chocolate' } },
@@ -14,6 +14,9 @@ export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<La
   agrumes: { icon: 'citrus', bg: 'linear-gradient(135deg,#f0568c,#c02057)', label: { fr: 'Agrumes & épices', it: 'Agrumi & spezie', en: 'Citrus & spices' } },
   plantes: { icon: 'leaf', bg: 'linear-gradient(135deg,#6f8f5f,#4f7346)', label: { fr: 'Plantes & fleurs', it: 'Piante & fiori', en: 'Plants & flowers' } },
   marche: { icon: 'bag', bg: 'linear-gradient(135deg,#3a3838,#2e2d2d)', label: { fr: 'Marché', it: 'Mercato', en: 'Market' } },
+  resto: { icon: 'fork', bg: 'linear-gradient(135deg,#c05a5a,#8f3f3f)', label: { fr: 'Manger & boire', it: 'Mangiare & bere', en: 'Eat & drink' } },
+  courses: { icon: 'bag', bg: 'linear-gradient(135deg,#d98b3f,#a86526)', label: { fr: 'Courses & marchés', it: 'Spesa & mercati', en: 'Groceries & markets' } },
+  plage: { icon: 'sun', bg: 'linear-gradient(135deg,#5aa0a0,#3f7d7d)', label: { fr: 'Plage & loisirs', it: 'Spiaggia & tempo libero', en: 'Beach & leisure' } },
 };
 
 export type LocalPlace = {

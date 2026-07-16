@@ -82,6 +82,7 @@ export type Dict = {
     mapLabel: string;
     badge: string;
     filterAll: string;
+    filterEmpty: string;
     categories: { title: string; desc: string; spots: { label: string; url: string; instagram?: string }[] }[];
     markets: { title: string; desc: string; list: { label: string; url: string }[] };
   };
@@ -171,6 +172,7 @@ const FR: Dict = {
     mapLabel: 'Ouvrir dans Google Maps',
     badge: 'Responsable & local',
     filterAll: 'Tout',
+    filterEmpty: 'Ces adresses arrivent bientôt.',
     categories: [
       {
         title: 'Chocolat de Modica',
@@ -409,6 +411,7 @@ const IT: Dict = {
     mapLabel: 'Apri in Google Maps',
     badge: 'Responsabile & locale',
     filterAll: 'Tutto',
+    filterEmpty: 'Questi indirizzi arrivano presto.',
     categories: [
       {
         title: 'Cioccolato di Modica',
@@ -647,6 +650,7 @@ const EN: Dict = {
     mapLabel: 'Open in Google Maps',
     badge: 'Responsible & local',
     filterAll: 'All',
+    filterEmpty: 'These addresses are coming soon.',
     categories: [
       {
         title: 'Modica chocolate',

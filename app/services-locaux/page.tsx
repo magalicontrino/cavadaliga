@@ -7,8 +7,6 @@ import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon from '../Icon';
 import LocalMap from '../LocalMap';
-import { InfoBlocks } from '../SectionShell';
-import { PAGE_ICONS } from '../data';
 import { useI18n } from '../i18n';
 import { LOCAL_PLACES, CATS, type CatKey } from '../localData';
 
@@ -23,12 +21,12 @@ export default function NosAdresses() {
   const [filter, setFilter] = useState<'tout' | 'responsable' | CatKey>('tout');
   const [active, setActive] = useState<string | null>(null);
 
-  // Catégories présentes dans la base (pas de filtre vide).
-  const presentCats = [...new Set(LOCAL_PLACES.map((l) => l.cat))];
+  // Catégories affichées comme filtres (certaines encore vides → « à venir »).
+  const FILTER_CATS: CatKey[] = ['chocolat', 'huile', 'marche', 'plantes', 'resto', 'courses', 'plage'];
   const filters: { key: 'tout' | 'responsable' | CatKey; label: string }[] = [
     { key: 'tout', label: p.filterAll },
     { key: 'responsable', label: p.badge },
-    ...presentCats.map((k) => ({ key: k, label: CATS[k].label[lang] })),
+    ...FILTER_CATS.map((k) => ({ key: k, label: CATS[k].label[lang] })),
   ];
 
   const places = LOCAL_PLACES.filter((l) =>
@@ -91,6 +89,16 @@ export default function NosAdresses() {
             );
           })}
         </Reveal>
+
+        {places.length === 0 && (
+          <Reveal
+            className="mt-10 flex flex-col items-center gap-3 rounded-2xl border border-dashed py-16 text-center"
+            style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)' }}
+          >
+            <Icon name="pin" size={28} />
+            <p className="text-[15px] italic">{p.filterEmpty}</p>
+          </Reveal>
+        )}
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {places.map((pl, i) => {
@@ -164,13 +172,6 @@ export default function NosAdresses() {
           })}
         </div>
       </section>
-
-      {/* Bon à savoir — rubriques thématiques (manger, courses, plage) */}
-      {s.blocks && (
-        <section className="mx-auto max-w-[110rem] px-5 pt-14 md:px-10">
-          <InfoBlocks blocks={s.blocks} icons={PAGE_ICONS['services-locaux']} />
-        </section>
-      )}
 
       <Reveal
         className="mx-auto max-w-[110rem] px-5 pb-24 pt-10 text-[14px] italic md:px-10"
