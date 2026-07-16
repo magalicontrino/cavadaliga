@@ -84,7 +84,7 @@ const ROADS: { d: string; w: number }[] = [
 export default function LocalMap({ houseLabel }: { houseLabel: string }) {
   return (
     <svg
-      viewBox="0 0 1000 660"
+      viewBox="0 112 1000 548"
       className="block h-auto w-full"
       role="img"
       aria-label="Carte du sud-est de la Sicile, style poster"
@@ -98,26 +98,7 @@ export default function LocalMap({ houseLabel }: { houseLabel: string }) {
 
       {/* Pas de fond : la mer / le cadre = le fond de page (blend). */}
 
-      {/* ---------- En-tête poster ---------- */}
-      {/* Boussole */}
-      <g transform="translate(46 46)">
-        <circle r="21" fill={CREAM} stroke="var(--cava-ink)" strokeWidth="1.5" />
-        <path d="M0 -11 L6 7 L0 3 L-6 7 Z" fill="var(--cava-pink)" />
-        <text y="-6" textAnchor="middle" fontSize="8" fontWeight="700" fill="var(--cava-ink)">
-          N
-        </text>
-      </g>
-      <text x="80" y="51" fontSize="13" letterSpacing="0.04em" fill="var(--cava-ink)">
-        36.72° N · 14.70° E
-      </text>
-      <g fill="var(--cava-pink)">
-        <circle cx="930" cy="44" r="3.5" />
-        <circle cx="946" cy="44" r="3.5" />
-        <circle cx="962" cy="44" r="3.5" />
-      </g>
-      <text x="962" y="112" textAnchor="end" fontSize="52" fontWeight="700" letterSpacing="-0.01em" fill="var(--cava-ink)">
-        cava d’aliga
-      </text>
+      {/* ---------- En-tête minimal (filet + échelle) ---------- */}
       <line x1="38" y1="134" x2="962" y2="134" stroke="var(--cava-pink)" strokeWidth="2" />
       {/* Échelle */}
       <text x="38" y="162" fontSize="12" letterSpacing="0.06em" fill="var(--cava-muted)">
