@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
-import Icon from '../Icon';
+import Icon, { type IconName } from '../Icon';
 import LocalMap from '../LocalMap';
 import { useI18n } from '../i18n';
 import { LOCAL_PLACES, CATS, type CatKey } from '../localData';
@@ -17,13 +17,15 @@ export default function NosAdresses() {
 
   const [filter, setFilter] = useState<'tout' | 'responsable' | CatKey>('tout');
   const [query, setQuery] = useState('');
+  const [active, setActive] = useState<string | null>(null);
+  const mapRef = useRef<HTMLElement>(null);
 
   // Catégories affichées comme filtres (certaines encore vides → « à venir »).
   const FILTER_CATS: CatKey[] = ['chocolat', 'huile', 'marche', 'plantes', 'resto', 'courses', 'plage'];
-  const filters: { key: 'tout' | 'responsable' | CatKey; label: string }[] = [
-    { key: 'tout', label: p.filterAll },
-    { key: 'responsable', label: p.badge },
-    ...FILTER_CATS.map((k) => ({ key: k, label: CATS[k].label[lang] })),
+  const filters: { key: 'tout' | 'responsable' | CatKey; label: string; icon: IconName }[] = [
+    { key: 'tout', label: p.filterAll, icon: 'map' },
+    { key: 'responsable', label: p.badge, icon: 'leaf' },
+    ...FILTER_CATS.map((k) => ({ key: k, label: CATS[k].label[lang], icon: CATS[k].icon })),
   ];
 
   const q = query.trim().toLowerCase();
@@ -35,26 +37,42 @@ export default function NosAdresses() {
     return hay.includes(q);
   });
 
+  // Épingles de la carte = les adresses actuellement affichées.
+  const spots = places.map((l) => ({
+    id: l.id,
+    name: l.name,
+    icon: CATS[l.cat].icon,
+    x: l.x,
+    y: l.y,
+    q: `${l.name} ${l.town}`,
+  }));
+
+  // Clic sur une fiche : met l'épingle en évidence et remonte à la carte.
+  const showOnMap = (id: string) => {
+    const next = active === id ? null : id;
+    setActive(next);
+    if (next) mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  // Distance depuis la maison — « Sur place » pour les adresses du village.
+  const distance = (km: number) => (km === 0 ? t.regionHere : `≈ ${km} km`);
+
   return (
     <main>
       <Nav current="/services-locaux" />
 
       <PageHeader title={s.title} intro={s.intro} />
 
-      {/* Carte illustrée (bandeau) */}
-      <section className="mx-auto max-w-[110rem] px-5 md:px-10">
+      {/* Carte illustrée — les épingles suivent le filtre et la recherche */}
+      <section ref={mapRef} className="mx-auto max-w-[110rem] scroll-mt-24 px-5 md:px-10">
         <Reveal className="relative">
-          <LocalMap houseLabel={t.regionHere} />
-          {/* Ping d'épingle : rejoue à chaque changement de filtre */}
-          <span key={filter} aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 block h-0 w-0">
-            <span
-              className="cava-pinripple absolute left-0 top-0 block h-20 w-20 rounded-full"
-              style={{ border: '3px solid var(--cava-pink)' }}
-            />
-            <span className="cava-pinpop absolute left-0 top-0 block" style={{ color: 'var(--cava-pink)' }}>
-              <Icon name="pin" size={60} />
-            </span>
-          </span>
+          <LocalMap
+            houseLabel={t.regionHere}
+            spots={spots}
+            activeId={active}
+            spotsKey={filter}
+            legend={{ villages: p.legendVillages, spots: p.legendSpots, soon: p.legendSoon }}
+          />
         </Reveal>
       </section>
 
@@ -98,9 +116,12 @@ export default function NosAdresses() {
               <button
                 key={f.key}
                 type="button"
-                onClick={() => setFilter(f.key)}
+                onClick={() => {
+                  setFilter(f.key);
+                  setActive(null);
+                }}
                 aria-pressed={on}
-                className="rounded-full border px-4 py-2 text-[13px] transition"
+                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[13px] transition"
                 style={{
                   borderColor: on ? 'var(--cava-ink)' : 'var(--cava-line)',
                   background: on ? 'var(--cava-ink)' : 'transparent',
@@ -108,6 +129,11 @@ export default function NosAdresses() {
                   fontWeight: on ? 600 : 400,
                 }}
               >
+                <Icon
+                  name={f.icon}
+                  size={15}
+                  className={f.key === 'responsable' && !on ? 'cava-leafpink' : undefined}
+                />
                 {f.label}
               </button>
             );
@@ -126,11 +152,17 @@ export default function NosAdresses() {
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {places.map((pl, i) => {
+            const isActive = active === pl.id;
             return (
               <Reveal key={pl.id} delay={(i % 3) * 70}>
                 <div
-                  className="cava-listcard group relative flex h-full w-full flex-col gap-3 overflow-hidden rounded-2xl border p-8 md:p-10"
-                  style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
+                  onClick={() => showOnMap(pl.id)}
+                  className="cava-listcard group relative flex h-full w-full cursor-pointer flex-col gap-3 overflow-hidden rounded-2xl border p-8 md:p-10"
+                  style={{
+                    borderColor: isActive ? 'var(--cava-pink)' : 'var(--cava-line)',
+                    boxShadow: isActive ? '0 0 0 1px var(--cava-pink)' : undefined,
+                    background: 'var(--cava-bg)',
+                  }}
                 >
                   <div className="relative flex items-start justify-between gap-3">
                     <span
@@ -154,6 +186,10 @@ export default function NosAdresses() {
                   <p className="relative text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-muted)' }}>
                     {pl.town} · {CATS[pl.cat].label[lang]}
                   </p>
+                  {/* Distance depuis la maison */}
+                  <p className="relative inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+                    <Icon name="home" size={14} /> {distance(pl.km)}
+                  </p>
                   <p className="relative text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
                     {pl.blurb[lang]}
                   </p>
@@ -164,6 +200,7 @@ export default function NosAdresses() {
                       href={pl.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]"
                     >
                       <Icon name="pin" size={15} /> {p.mapLabel} <span aria-hidden>↗</span>
@@ -173,6 +210,7 @@ export default function NosAdresses() {
                         href={pl.instagram}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]"
                       >
                         <Icon name="instagram" size={15} /> Instagram <span aria-hidden>↗</span>

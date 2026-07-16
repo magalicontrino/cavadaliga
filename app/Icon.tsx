@@ -28,7 +28,9 @@ export type IconName =
   | 'film'
   | 'spotify';
 
-const PATHS: Record<IconName, React.ReactNode> = {
+// Tracés bruts (viewBox 24×24) — réutilisables hors du composant, par exemple
+// dans un <svg> imbriqué (voir LocalMap).
+export const ICON_PATHS: Record<IconName, React.ReactNode> = {
   // Clé — arrivée & départ
   key: (
     <>
@@ -205,7 +207,7 @@ export default function Icon({
       className={className}
       aria-hidden="true"
     >
-      {PATHS[name]}
+      {ICON_PATHS[name]}
     </svg>
   );
 }

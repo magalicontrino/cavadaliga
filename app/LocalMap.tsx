@@ -2,8 +2,13 @@
 
 // Carte « poster » du sud-est de la Sicile — inspiration cartes d'art
 // (terre rose, réseau de rues crème, mer crème, cadre minimaliste).
-// Décorative et non à l'échelle. Villages et producteurs = pastilles cliquables
+// Décorative et non à l'échelle. Villages et adresses = pastilles cliquables
 // qui ouvrent Google Maps.
+//
+// Les épingles d'adresses (spots) viennent de la page : elles suivent le filtre
+// et la recherche. `activeId` met une épingle en évidence (clic sur une fiche).
+
+import { ICON_PATHS, type IconName } from './Icon';
 
 const CREAM = '#f7f5f2'; // = fond de page (--cava-bg) → la carte se fond dans la page
 const PINK = '#ec7291';
@@ -32,29 +37,8 @@ const PLACES: Place[] = [
   { name: 'Punta Pisciotto', x: 606, y: 460, q: 'Fornace Penna Sampieri', lp: 'right', km: 6 },
 ];
 
-// Producteurs / adresses locales — pastille sombre + picto produit.
-type LocalSpot = { name: string; icon: 'cone' | 'droplet' | 'leaf'; x: number; y: number; q: string };
-const LOCALS: LocalSpot[] = [
-  { name: 'Antica Dolceria Bonajuto (chocolat)', icon: 'cone', x: 505, y: 322, q: 'Antica Dolceria Bonajuto Modica' },
-  { name: 'Frantoi Cutrera (huile d’olive)', icon: 'droplet', x: 274, y: 278, q: 'Frantoi Cutrera Chiaramonte Gulfi' },
-  { name: 'Pépinières (plantes & fleurs)', icon: 'leaf', x: 372, y: 442, q: 'vivaio Scicli' },
-];
-const ICON_PATHS: Record<LocalSpot['icon'], React.ReactNode> = {
-  cone: (
-    <>
-      <path d="M8 9a4 4 0 018 0" />
-      <path d="M7.5 10.5h9L12 21z" />
-      <path d="M9 13.5h6M10 17h4" />
-    </>
-  ),
-  droplet: <path d="M12 3.5s6 6.2 6 10.5a6 6 0 01-12 0c0-4.3 6-10.5 6-10.5z" />,
-  leaf: (
-    <>
-      <path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z" />
-      <path d="M5 19c3-3 6-5 9-6.5" />
-    </>
-  ),
-};
+// Adresse épinglée sur la carte — vient de LOCAL_PLACES via la page.
+export type MapSpot = { id: string; name: string; icon: IconName; x: number; y: number; q: string };
 
 const maps = (q: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
 
@@ -81,7 +65,19 @@ const ROADS: { d: string; w: number }[] = [
   { d: 'M235 250 C305 258 390 288 470 345', w: 2.2 },
 ];
 
-export default function LocalMap({ houseLabel }: { houseLabel: string }) {
+export default function LocalMap({
+  houseLabel,
+  spots,
+  activeId,
+  spotsKey,
+  legend,
+}: {
+  houseLabel: string;
+  spots: MapSpot[];
+  activeId?: string | null;
+  spotsKey?: string; // change → rejoue l'animation d'apparition des épingles
+  legend: { villages: string; spots: string; soon: string };
+}) {
   return (
     <svg
       viewBox="0 112 1000 548"
@@ -166,41 +162,82 @@ export default function LocalMap({ houseLabel }: { houseLabel: string }) {
         );
       })}
 
-      {/* Producteurs — pastille sombre + picto */}
-      {LOCALS.map((s) => (
-        <a key={s.q} href={maps(s.q)} target="_blank" rel="noopener noreferrer" className="cava-mappin" aria-label={s.name}>
-          <circle cx={s.x} cy={s.y} r="15" fill="transparent" />
-          <rect className="dot" x={s.x - 10} y={s.y - 10} width="20" height="20" rx="6" fill="var(--cava-ink)" />
-          <svg
-            x={s.x - 7}
-            y={s.y - 7}
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke={CREAM}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            {ICON_PATHS[s.icon]}
-          </svg>
-        </a>
-      ))}
+      {/* Nos adresses — pastille sombre + picto de catégorie.
+          Suivent le filtre ; l'épingle active (fiche cliquée) grossit. */}
+      <g key={spotsKey}>
+        {spots.map((s, i) => {
+          const on = s.id === activeId;
+          const half = on ? 15 : 10; // demi-côté de la pastille
+          const ico = on ? 21 : 14;
+          return (
+            <a
+              key={s.id}
+              href={maps(s.q)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`cava-mappin cava-mapspot${on ? ' cava-mapspot-on' : ''}`}
+              aria-label={s.name}
+              style={{ animationDelay: `${Math.min(i, 12) * 45}ms` }}
+            >
+              {/* Onde autour de l'épingle mise en évidence */}
+              {on && (
+                <circle
+                  className="cava-spotripple"
+                  cx={s.x}
+                  cy={s.y}
+                  r="15"
+                  fill="none"
+                  stroke="var(--cava-pink)"
+                  strokeWidth="2.5"
+                />
+              )}
+              <circle cx={s.x} cy={s.y} r="15" fill="transparent" />
+              <rect
+                className="dot"
+                x={s.x - half}
+                y={s.y - half}
+                width={half * 2}
+                height={half * 2}
+                rx={on ? 9 : 6}
+                fill={on ? 'var(--cava-pink)' : 'var(--cava-ink)'}
+                stroke={CREAM}
+                strokeWidth={on ? 2 : 0}
+              />
+              <svg
+                x={s.x - ico / 2}
+                y={s.y - ico / 2}
+                width={ico}
+                height={ico}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke={CREAM}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {ICON_PATHS[s.icon]}
+              </svg>
+              {/* Pas de nom sur l'épingle : il chevaucherait les labels de
+                  villages. Le nom est dans aria-label / l'infobulle. */}
+              <title>{s.name}</title>
+            </a>
+          );
+        })}
+      </g>
 
       {/* Légende */}
       <g transform="translate(700 470)">
         <rect width="262" height="94" rx="14" fill={CREAM} stroke="var(--cava-ink)" strokeWidth="1.2" opacity="0.96" />
         <circle cx="24" cy="26" r="5.5" fill={CREAM} stroke="var(--cava-ink)" strokeWidth="1.6" />
         <text x="42" y="30" fontSize="13.5" fill="var(--cava-ink)">
-          Villages
+          {legend.villages}
         </text>
         <rect x="15" y="45" width="18" height="18" rx="5" fill="var(--cava-ink)" />
         <text x="42" y="59" fontSize="13.5" fill="var(--cava-ink)">
-          Producteurs locaux
+          {legend.spots}
         </text>
         <text x="17" y="82" fontSize="11.5" fontStyle="italic" fill="var(--cava-muted)">
-          + d’autres bonnes adresses à venir
+          {legend.soon}
         </text>
       </g>
     </svg>

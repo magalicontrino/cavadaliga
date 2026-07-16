@@ -299,6 +299,43 @@
   }
 }
 
+/* Feuille rose du filtre « Responsable & local » (hors état actif) */
+.cava-leafpink {
+  color: var(--cava-pink);
+}
+
+/* --- Épingles « Nos adresses » : apparition au changement de filtre ---
+   Les pastilles tombent sur la carte l'une après l'autre (delay en ligne). */
+@keyframes cava-spotdrop {
+  0% { transform: translateY(-14px) scale(0.2); opacity: 0; }
+  60% { transform: translateY(2px) scale(1.15); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.cava-mapspot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cava-spotdrop 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+/* Onde autour de l'épingle mise en évidence (clic sur une fiche) */
+@keyframes cava-spotripple {
+  0% { transform: scale(0.5); opacity: 0.7; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+.cava-spotripple {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cava-spotripple 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-mapspot {
+    animation: none;
+  }
+  .cava-spotripple {
+    animation: none;
+    opacity: 0.4;
+  }
+}
+
 /* --- Carrousel glissable (sans lightbox) --------------------------- */
 .cava-carousel {
   scrollbar-width: none; /* Firefox */

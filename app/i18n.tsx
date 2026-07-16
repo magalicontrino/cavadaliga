@@ -84,6 +84,9 @@ export type Dict = {
     filterAll: string;
     filterEmpty: string;
     searchPlaceholder: string;
+    legendVillages: string;
+    legendSpots: string;
+    legendSoon: string;
     categories: { title: string; desc: string; spots: { label: string; url: string; instagram?: string }[] }[];
     markets: { title: string; desc: string; list: { label: string; url: string }[] };
   };
@@ -194,6 +197,9 @@ const FR: Dict = {
     filterAll: 'Tout',
     filterEmpty: 'Ces adresses arrivent bientôt.',
     searchPlaceholder: 'Rechercher un lieu, une envie…',
+    legendVillages: 'Villages',
+    legendSpots: 'Nos adresses',
+    legendSoon: '+ d’autres bonnes adresses à venir',
     categories: [
       {
         title: 'Chocolat de Modica',
@@ -453,6 +459,9 @@ const IT: Dict = {
     filterAll: 'Tutto',
     filterEmpty: 'Questi indirizzi arrivano presto.',
     searchPlaceholder: 'Cerca un luogo, una voglia…',
+    legendVillages: 'Paesi',
+    legendSpots: 'I nostri indirizzi',
+    legendSoon: '+ altri buoni indirizzi in arrivo',
     categories: [
       {
         title: 'Cioccolato di Modica',
@@ -712,6 +721,9 @@ const EN: Dict = {
     filterAll: 'All',
     filterEmpty: 'These addresses are coming soon.',
     searchPlaceholder: 'Search a place, a craving…',
+    legendVillages: 'Villages',
+    legendSpots: 'Our spots',
+    legendSoon: '+ more good addresses coming',
     categories: [
       {
         title: 'Modica chocolate',

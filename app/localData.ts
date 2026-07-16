@@ -27,6 +27,11 @@ export type LocalPlace = {
   url: string; // Google Maps ou site officiel
   instagram?: string;
   responsible: boolean;
+  km: number; // distance routière depuis la maison (0 = dans le village)
+  // Position de l'épingle sur la carte illustrée (repère de LocalMap,
+  // viewBox 0 112 1000 548). Décorative : proche du village, pas à l'échelle.
+  x: number;
+  y: number;
   blurb: Record<Lang, string>;
 };
 
@@ -38,6 +43,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Modica',
     url: 'https://www.bonajuto.it',
     instagram: 'https://www.instagram.com/bonajuto/',
+    km: 20,
+    x: 505,
+    y: 322,
     responsible: true,
     blurb: {
       fr: 'La plus ancienne chocolaterie de Sicile (depuis 1880). Le fameux chocolat de Modica, travaillé à froid selon une recette d’origine aztèque.',
@@ -52,6 +60,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Chiaramonte Gulfi',
     url: 'https://www.google.com/maps/search/?api=1&query=Frantoi+Cutrera+Chiaramonte+Gulfi',
     instagram: 'https://www.instagram.com/frantoi_cutrera/',
+    km: 35,
+    x: 274,
+    y: 274,
     responsible: true,
     blurb: {
       fr: 'Moulin familial primé de Chiaramonte Gulfi. Huile extra-vierge DOP Monti Iblei (Tonda Iblea) et bottega à visiter sur place.',
@@ -65,6 +76,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     cat: 'huile',
     town: 'Chiaramonte Gulfi',
     url: 'https://www.gattofrantoio.com',
+    km: 35,
+    x: 198,
+    y: 268,
     responsible: true,
     blurb: {
       fr: 'Frantoio de Chiaramonte Gulfi, « ville de l’huile ». Huiles extra-vierges des monts Iblei, vente directe.',
@@ -78,6 +92,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     cat: 'marche',
     town: 'Scicli',
     url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli',
+    km: 8,
+    x: 443,
+    y: 400,
     responsible: true,
     blurb: {
       fr: 'Marché hebdomadaire le mardi matin, Piazza Olimpiadi. Fruits, légumes, fromages et poisson du jour, directement des producteurs.',
@@ -91,6 +108,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     cat: 'marche',
     town: 'Marina di Ragusa',
     url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa',
+    km: 13,
+    x: 178,
+    y: 466,
     responsible: true,
     blurb: {
       fr: 'Marché des producteurs le vendredi matin (mi-juin à mi-septembre), Piazza Vincenzo Rabito.',
@@ -104,6 +124,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     cat: 'marche',
     town: 'Donnalucata',
     url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata',
+    km: 3,
+    x: 262,
+    y: 468,
     responsible: true,
     blurb: {
       fr: 'Le marché aux poissons du petit port : poisson frais débarqué du jour, réputé dans toute la région.',
@@ -117,6 +140,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     cat: 'plantes',
     town: 'Scicli',
     url: 'https://www.google.com/maps/search/?api=1&query=vivaio+Scicli',
+    km: 8,
+    x: 358,
+    y: 410,
     responsible: true,
     blurb: {
       fr: 'Pépinières et fleuristes locaux pour fleurir la maison et le jardin.',
@@ -130,6 +156,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     cat: 'resto',
     town: 'Cava d’Aliga',
     url: 'https://maps.app.goo.gl/KMRmcciNxkvM8Kf8A',
+    km: 0,
+    x: 356,
+    y: 470,
     responsible: false,
     blurb: {
       fr: 'Bar-restaurant à Cava d’Aliga, à deux pas de la maison.',
@@ -143,6 +172,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     cat: 'resto',
     town: 'Cava d’Aliga',
     url: 'https://maps.app.goo.gl/DxvsZbth8ia8tmHXA',
+    km: 0,
+    x: 390,
+    y: 460,
     responsible: false,
     blurb: {
       fr: 'Bar & lounge au cœur de Cava d’Aliga.',
@@ -156,6 +188,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     cat: 'resto',
     town: 'Cava d’Aliga',
     url: 'https://maps.app.goo.gl/XADZ7nPhhS3iAaPg7',
+    km: 0,
+    x: 428,
+    y: 460,
     responsible: false,
     blurb: {
       fr: 'Bar et glacier à Cava d’Aliga — glaces, granites et cafés.',
@@ -169,6 +204,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     cat: 'resto',
     town: 'Cava d’Aliga',
     url: 'https://maps.app.goo.gl/7bWbtWqT9zo1D6EA9',
+    km: 0,
+    x: 462,
+    y: 470,
     responsible: false,
     blurb: {
       fr: 'Pizzeria à Cava d’Aliga, tout près de la maison.',
