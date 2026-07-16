@@ -452,7 +452,7 @@ const FR: Dict = {
     'informations-pratiques': {
       eyebrow: 'Informations pratiques',
       title: 'Infos pratiques',
-      intro: "Arrivée, départ, équipements de l'appartement, conseils pour en profiter — et de quoi gérer le quotidien comme les imprévus.",
+      intro: "Arrivée, départ, équipements de l'appartement, conseils — et de quoi gérer le quotidien comme les imprévus.",
     },
     'services-locaux': {
       eyebrow: 'Services locaux & contacts utiles',
@@ -814,7 +814,7 @@ const IT: Dict = {
     'informations-pratiques': {
       eyebrow: 'Informazioni pratiche',
       title: 'Info pratiche',
-      intro: 'Arrivo, partenza, dotazioni dell’appartamento, consigli per godersela — e di che gestire la quotidianità come gli imprevisti.',
+      intro: 'Arrivo, partenza, dotazioni dell’appartamento, consigli — e di che gestire la quotidianità come gli imprevisti.',
     },
     'services-locaux': {
       eyebrow: 'Servizi locali e contatti utili',
@@ -1176,7 +1176,7 @@ const EN: Dict = {
     'informations-pratiques': {
       eyebrow: 'Practical information',
       title: 'Practical info',
-      intro: 'Arriving, leaving, how the apartment is equipped, tips to enjoy it — and what you need for daily life and the unexpected.',
+      intro: 'Arriving, leaving, how the apartment is equipped, tips — and what you need for daily life and the unexpected.',
     },
     'services-locaux': {
       eyebrow: 'Local services & useful contacts',
