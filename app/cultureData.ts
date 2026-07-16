@@ -12,8 +12,11 @@ import type { Lang } from './localData';
 // liés au compte qui l'a partagée, inutiles pour ouvrir la playlist.
 export const SPOTIFY_PLAYLIST_ID = '3v1EySOwK41rahT6rVThni';
 export const SPOTIFY_PLAYLIST_URL = `https://open.spotify.com/playlist/${SPOTIFY_PLAYLIST_ID}`;
-// Lecteur intégré (iframe) — écoute directement depuis la page.
+// Lecteur intégré (iframe), en version compacte : le grand format prend 420 px
+// de noir sur la page. Spotify n'offre pas de thème clair, on limite donc la
+// surface sombre. La playlist entière reste accessible via le bouton.
 export const SPOTIFY_EMBED_URL = `https://open.spotify.com/embed/playlist/${SPOTIFY_PLAYLIST_ID}?theme=0`;
+export const SPOTIFY_EMBED_HEIGHT = 152;
 
 // Recherche Spotify : URL toujours valide, pas d'identifiant d'artiste à deviner.
 const spotify = (q: string) => `https://open.spotify.com/search/${encodeURIComponent(q)}`;

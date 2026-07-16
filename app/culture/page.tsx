@@ -6,7 +6,7 @@ import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon from '../Icon';
 import { useI18n } from '../i18n';
-import { ARTISTS, ARTS, PHOTOS, SCREENS, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, type Screen } from '../cultureData';
+import { ARTISTS, ARTS, PHOTOS, SCREENS, SPOTIFY_EMBED_HEIGHT, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, type Screen } from '../cultureData';
 import { type IconName } from '../Icon';
 import { type Lang } from '../localData';
 
@@ -106,70 +106,77 @@ export default function Culture() {
 
       <PageHeader title={c.title} intro={c.intro} />
 
-      {/* La playlist partagée */}
+      {/* La playlist partagée — bloc clair, lecteur compact.
+          Le lecteur Spotify est sombre par nature (pas de thème clair chez eux) :
+          on l'entoure de clair et on le garde bas pour ne pas noircir la page. */}
       <section className="mx-auto max-w-[110rem] px-5 pt-8 md:px-10">
         <Reveal
-          className="relative flex flex-col gap-6 overflow-hidden rounded-3xl p-10 md:flex-row md:items-center md:justify-between md:p-16"
-          style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)' }}
+          className="relative overflow-hidden rounded-3xl border p-8 md:p-10"
+          style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
         >
           {/* Vinyle décoratif */}
           <span
             aria-hidden
-            className="pointer-events-none absolute -right-10 -top-10 opacity-[0.12] md:-right-6 md:top-1/2 md:-translate-y-1/2"
+            className="pointer-events-none absolute -right-16 -top-16 opacity-[0.06]"
             style={{ color: 'var(--cava-pink)' }}
           >
-            <Icon name="vinyl" size={260} />
+            <Icon name="vinyl" size={220} />
           </span>
 
-          <div className="relative max-w-[52ch]">
-            <span className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em]" style={{ color: 'var(--cava-pink)' }}>
-              <Icon name="vinyl" size={16} /> {c.eyebrow}
-            </span>
-            <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
-              {c.playlistTitle}
-            </h2>
-            <p className="mt-5 text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.7]" style={{ color: 'rgba(247,245,242,0.72)' }}>
-              {c.playlistDesc}
-            </p>
-          </div>
-
-          <div className="relative shrink-0">
-            {SPOTIFY_PLAYLIST_URL ? (
-              <a
-                href={SPOTIFY_PLAYLIST_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 rounded-full px-7 py-4 text-[15px] transition hover:opacity-85"
-                style={{ background: 'var(--cava-pink)', color: '#fff', fontWeight: 700 }}
-              >
-                <Icon name="spotify" size={22} /> {c.playlistCta} <span aria-hidden>↗</span>
-              </a>
-            ) : (
+          <div className="relative flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div className="max-w-[56ch]">
               <span
-                className="inline-flex items-center gap-3 rounded-full border border-dashed px-7 py-4 text-[15px] italic"
-                style={{ borderColor: 'rgba(247,245,242,0.35)', color: 'rgba(247,245,242,0.6)' }}
+                className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em]"
+                style={{ color: 'var(--cava-pink)' }}
               >
-                <Icon name="spotify" size={22} /> {c.playlistSoon}
+                <Icon name="vinyl" size={16} /> {c.eyebrow}
               </span>
-            )}
-          </div>
-        </Reveal>
+              <h2 className="mt-2 text-[clamp(1.4rem,2.8vw,2rem)] uppercase leading-[1.05] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+                {c.playlistTitle}
+              </h2>
+              <p className="mt-3 text-[15px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+                {c.playlistDesc}
+              </p>
+            </div>
 
-        {/* Lecteur intégré — écoute directe depuis la page */}
-        {SPOTIFY_PLAYLIST_URL && (
-          <Reveal className="mt-6 overflow-hidden rounded-2xl">
-            <iframe
-              src={SPOTIFY_EMBED_URL}
-              title={c.playlistTitle}
-              width="100%"
-              height="420"
-              frameBorder="0"
-              loading="lazy"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              style={{ border: 0, display: 'block' }}
-            />
-          </Reveal>
-        )}
+            <div className="shrink-0">
+              {SPOTIFY_PLAYLIST_URL ? (
+                <a
+                  href={SPOTIFY_PLAYLIST_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 text-[14px] transition hover:opacity-85"
+                  style={{ background: 'var(--cava-pink)', color: '#fff', fontWeight: 700 }}
+                >
+                  <Icon name="spotify" size={19} /> {c.playlistCta} <span aria-hidden>↗</span>
+                </a>
+              ) : (
+                <span
+                  className="inline-flex items-center gap-2.5 rounded-full border border-dashed px-6 py-3 text-[14px] italic"
+                  style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)' }}
+                >
+                  <Icon name="spotify" size={19} /> {c.playlistSoon}
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Lecteur compact — écoute directe, sans noircir la page */}
+          {SPOTIFY_PLAYLIST_URL && (
+            <div className="relative mt-6 overflow-hidden rounded-xl">
+              <iframe
+                src={SPOTIFY_EMBED_URL}
+                title={c.playlistTitle}
+                width="100%"
+                height={SPOTIFY_EMBED_HEIGHT}
+                frameBorder="0"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                style={{ border: 0, display: 'block' }}
+              />
+            </div>
+          )}
+        </Reveal>
       </section>
 
       {/* À l'écran — films & séries tournés ici */}
