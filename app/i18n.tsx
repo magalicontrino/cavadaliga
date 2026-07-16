@@ -130,6 +130,18 @@ export type Dict = {
     moreLabel: string;
     note: string;
   };
+  wastePage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    today: string;
+    tomorrow: string;
+    noneToday: string;
+    eveningNote: string;
+    seeWeek: string;
+    hideWeek: string;
+    days: string[]; // lundi → dimanche
+  };
   ctaEyebrow: string;
   ctaTitle: string;
   question: string;
@@ -317,6 +329,18 @@ const FR: Dict = {
     placeLabel: 'Voir le lieu',
     moreLabel: 'En savoir plus',
     note: 'Vous avez une pépite ? Une chanson, un film, une série : dites-le-nous, on l’ajoute.',
+  },
+  wastePage: {
+    eyebrow: 'Tri des déchets',
+    title: 'Quel bac, quel soir',
+    intro: 'À Cava d’Aliga, chaque type de déchet a son jour. Les bacs se sortent la veille au soir : le camion passe tôt.',
+    today: 'Ce soir',
+    tomorrow: 'Demain soir',
+    noneToday: 'Rien à sortir',
+    eveningNote: 'On sort les bacs le soir, pas le matin — le camion est déjà passé. Si vous ratez le passage la veille du départ, laissez les sacs sur la terrasse, jamais dans la rue.',
+    seeWeek: 'Voir la semaine',
+    hideWeek: 'Masquer la semaine',
+    days: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
   },
   ctaEyebrow: 'Envie de venir ?',
   ctaTitle: 'Écrivez-nous',
@@ -629,6 +653,18 @@ const IT: Dict = {
     moreLabel: 'Scopri di più',
     note: 'Avete una chicca? Una canzone, un film, una serie: ditecelo e la aggiungiamo.',
   },
+  wastePage: {
+    eyebrow: 'Raccolta differenziata',
+    title: 'Quale bidone, quale sera',
+    intro: 'A Cava d’Aliga ogni tipo di rifiuto ha il suo giorno. I bidoni si mettono fuori la sera prima: il camion passa presto.',
+    today: 'Stasera',
+    tomorrow: 'Domani sera',
+    noneToday: 'Niente da mettere fuori',
+    eveningNote: 'I bidoni si mettono fuori la sera, non la mattina — il camion è già passato. Se saltate il passaggio prima di partire, lasciate i sacchi sulla terrazza, mai in strada.',
+    seeWeek: 'Vedi la settimana',
+    hideWeek: 'Nascondi la settimana',
+    days: ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'],
+  },
   ctaEyebrow: 'Voglia di venire?',
   ctaTitle: 'Scriveteci',
   question: 'Una domanda sul vostro soggiorno?',
@@ -939,6 +975,18 @@ const EN: Dict = {
     placeLabel: 'See the place',
     moreLabel: 'Learn more',
     note: 'Got a gem? A song, a film, a series — tell us and we’ll add it.',
+  },
+  wastePage: {
+    eyebrow: 'Waste sorting',
+    title: 'Which bin, which evening',
+    intro: 'In Cava d’Aliga each kind of waste has its day. Bins go out the evening before: the truck comes early.',
+    today: 'Tonight',
+    tomorrow: 'Tomorrow evening',
+    noneToday: 'Nothing to put out',
+    eveningNote: 'Bins go out in the evening, not in the morning — by then the truck has been. If you miss the round before leaving, leave the bags on the terrace, never in the street.',
+    seeWeek: 'See the week',
+    hideWeek: 'Hide the week',
+    days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
   },
   ctaEyebrow: 'Ready to come?',
   ctaTitle: 'Write to us',

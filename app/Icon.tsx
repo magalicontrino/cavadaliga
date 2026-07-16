@@ -29,7 +29,11 @@ export type IconName =
   | 'spotify'
   | 'cart'
   | 'brush'
-  | 'target';
+  | 'target'
+  | 'box'
+  | 'bottle'
+  | 'trash'
+  | 'glass';
 
 // Tracés bruts (viewBox 24×24) — réutilisables hors du composant, par exemple
 // dans un <svg> imbriqué (voir LocalMap).
@@ -175,6 +179,37 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
       <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="M8 5v14M16 5v14" />
       <path d="M3 9.5h5M3 14.5h5M16 9.5h5M16 14.5h5" />
+    </>
+  ),
+  // Carton — papier & carton
+  box: (
+    <>
+      <path d="M3 8.5l9-4.5 9 4.5v7L12 20l-9-4.5v-7z" />
+      <path d="M3 8.5l9 4.5 9-4.5" />
+      <path d="M12 13v7" />
+    </>
+  ),
+  // Bouteille plastique — plastique & métaux
+  bottle: (
+    <>
+      <path d="M10 2.5h4v2.2c0 1 .5 1.5 1.2 2.1 1 .9 1.8 1.9 1.8 3.4V19a2.5 2.5 0 01-2.5 2.5h-5A2.5 2.5 0 017 19v-8.8c0-1.5.8-2.5 1.8-3.4C9.5 6.2 10 5.7 10 4.7V2.5z" />
+      <path d="M7 11.5h10" />
+    </>
+  ),
+  // Poubelle — déchets résiduels
+  trash: (
+    <>
+      <path d="M4 7h16" />
+      <path d="M9 7V4.5h6V7" />
+      <path d="M6 7l1 13h10l1-13" />
+      <path d="M10 11v6M14 11v6" />
+    </>
+  ),
+  // Bouteille en verre — verre
+  glass: (
+    <>
+      <path d="M9.5 2.5h5v3.2c0 1.3 3 2.6 3 5.3V19a2.5 2.5 0 01-2.5 2.5h-6A2.5 2.5 0 016.5 19v-8c0-2.7 3-4 3-5.3V2.5z" />
+      <path d="M9.5 5.7h5" />
     </>
   ),
   // Cible — « vous êtes ici »
