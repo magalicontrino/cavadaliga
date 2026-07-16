@@ -28,18 +28,6 @@ const PLACES: Place[] = [
   { name: 'Punta Pisciotto', x: 606, y: 346, q: 'Fornace Penna Sampieri', lp: 'right', km: 6 },
 ];
 
-// Aéroports — marqueur distinct (pastille sombre + avion), code IATA + km.
-type Airport = { name: string; code: string; x: number; y: number; q: string; km: number; lp: 'left' | 'right' };
-const AIRPORTS: Airport[] = [
-  { name: 'Catania', code: 'CTA', x: 655, y: 58, q: 'Aeroporto di Catania Fontanarossa', km: 120, lp: 'right' },
-  { name: 'Comiso', code: 'CIY', x: 142, y: 208, q: 'Aeroporto di Comiso', km: 40, lp: 'left' },
-  { name: 'Palerme', code: 'PMO', x: 55, y: 120, q: 'Aeroporto di Palermo', km: 250, lp: 'right' },
-];
-
-// Avion stylisé (pointe vers le haut), centré en 0,0.
-const PLANE =
-  'M0 -8 C0.8 -8 1.3 -6.3 1.3 -3.3 L8 0 L8 1.8 L1.3 0 L1 4.6 L3 6 L3 7 L0 6.2 L-3 7 L-3 6 L-1 4.6 L-1.3 0 L-8 1.8 L-8 0 L-1.3 -3.3 C-1.3 -6.3 -0.8 -8 0 -8 Z';
-
 // Producteurs / adresses locales — marqueur terracotta + picto produit.
 type LocalSpot = { name: string; icon: 'cone' | 'droplet' | 'leaf'; x: number; y: number; q: string };
 const LOCALS: LocalSpot[] = [
@@ -164,43 +152,6 @@ export default function LocalMap({ houseLabel }: { houseLabel: string }) {
         );
       })}
 
-      {/* Aéroports — marqueur distinct (pastille sombre + avion) */}
-      {AIRPORTS.map((a) => {
-        const anchor = a.lp === 'left' ? ('end' as const) : ('start' as const);
-        const dx = a.lp === 'left' ? -16 : 16;
-        return (
-          <a key={a.code} href={maps(a.q)} target="_blank" rel="noopener noreferrer" className="cava-mappin">
-            <circle cx={a.x} cy={a.y} r="18" fill="transparent" />
-            <g className="dot" transform={`translate(${a.x} ${a.y})`}>
-              <rect x="-11" y="-11" width="22" height="22" rx="6.5" fill="var(--cava-ink)" />
-              <path d={PLANE} transform="scale(0.7)" fill="var(--cava-bg)" />
-            </g>
-            <text
-              x={a.x + dx}
-              y={a.y - 3}
-              textAnchor={anchor}
-              fontSize="15"
-              fontWeight="600"
-              fill="var(--cava-ink)"
-              style={{ paintOrder: 'stroke', stroke: 'var(--cava-bg)', strokeWidth: 4, strokeLinejoin: 'round' }}
-            >
-              {a.name}
-            </text>
-            <text
-              x={a.x + dx}
-              y={a.y + 14}
-              textAnchor={anchor}
-              fontSize="11.5"
-              fontWeight="600"
-              fill="var(--cava-muted)"
-              style={{ paintOrder: 'stroke', stroke: 'var(--cava-bg)', strokeWidth: 4, strokeLinejoin: 'round', letterSpacing: '0.03em' }}
-            >
-              {a.code} · ≈ {a.km} km
-            </text>
-          </a>
-        );
-      })}
-
       {/* Producteurs / adresses locales — marqueur terracotta + picto */}
       {LOCALS.map((s) => (
         <a key={s.q} href={maps(s.q)} target="_blank" rel="noopener noreferrer" className="cava-mappin" aria-label={s.name}>
@@ -226,28 +177,20 @@ export default function LocalMap({ houseLabel }: { houseLabel: string }) {
       ))}
 
       {/* Légende */}
-      <g transform="translate(696 396)">
-        <rect width="256" height="122" rx="14" fill="var(--cava-bg)" stroke="var(--cava-line)" strokeWidth="1.5" opacity="0.97" />
+      <g transform="translate(696 424)">
+        <rect width="256" height="94" rx="14" fill="var(--cava-bg)" stroke="var(--cava-line)" strokeWidth="1.5" opacity="0.97" />
         {/* Villages */}
         <circle cx="24" cy="26" r="6" fill="var(--cava-pink)" stroke="var(--cava-bg)" strokeWidth="2" />
         <text x="42" y="30" fontSize="13.5" fill="var(--cava-ink)">
           Villages
         </text>
-        {/* Aéroports */}
-        <g transform="translate(24 54)">
-          <rect x="-9" y="-9" width="18" height="18" rx="5" fill="var(--cava-ink)" />
-          <path d={PLANE} transform="scale(0.6)" fill="var(--cava-bg)" />
-        </g>
-        <text x="42" y="58" fontSize="13.5" fill="var(--cava-ink)">
-          Aéroports
-        </text>
         {/* Producteurs locaux */}
-        <rect x="15" y="73" width="18" height="18" rx="5" fill="var(--cava-terra)" />
-        <text x="42" y="87" fontSize="13.5" fill="var(--cava-ink)">
+        <rect x="15" y="45" width="18" height="18" rx="5" fill="var(--cava-terra)" />
+        <text x="42" y="59" fontSize="13.5" fill="var(--cava-ink)">
           Producteurs locaux
         </text>
         {/* À venir */}
-        <text x="17" y="110" fontSize="11.5" fontStyle="italic" fill="var(--cava-muted)">
+        <text x="17" y="82" fontSize="11.5" fontStyle="italic" fill="var(--cava-muted)">
           + d’autres bonnes adresses à venir
         </text>
       </g>
