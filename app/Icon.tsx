@@ -26,7 +26,8 @@ export type IconName =
   | 'search'
   | 'vinyl'
   | 'film'
-  | 'spotify';
+  | 'spotify'
+  | 'cart';
 
 // Tracés bruts (viewBox 24×24) — réutilisables hors du composant, par exemple
 // dans un <svg> imbriqué (voir LocalMap).
@@ -172,6 +173,14 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
       <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="M8 5v14M16 5v14" />
       <path d="M3 9.5h5M3 14.5h5M16 9.5h5M16 14.5h5" />
+    </>
+  ),
+  // Caddie — supermarchés
+  cart: (
+    <>
+      <path d="M3 4h2.3l2.5 11.3a1.5 1.5 0 001.5 1.2h8.3a1.5 1.5 0 001.5-1.2L21 8.2H6" />
+      <circle cx="9.5" cy="20" r="1.3" />
+      <circle cx="17" cy="20" r="1.3" />
     </>
   ),
   // Spotify — la playlist partagée

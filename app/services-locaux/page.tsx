@@ -21,7 +21,7 @@ export default function NosAdresses() {
   const mapRef = useRef<HTMLElement>(null);
 
   // Catégories affichées comme filtres (certaines encore vides → « à venir »).
-  const FILTER_CATS: CatKey[] = ['chocolat', 'huile', 'marche', 'plantes', 'resto', 'courses', 'plage'];
+  const FILTER_CATS: CatKey[] = ['chocolat', 'huile', 'marche', 'plantes', 'resto', 'supermarche', 'plage'];
   const filters: { key: 'tout' | 'responsable' | CatKey; label: string; icon: IconName }[] = [
     { key: 'tout', label: p.filterAll, icon: 'map' },
     { key: 'responsable', label: p.badge, icon: 'leaf' },
