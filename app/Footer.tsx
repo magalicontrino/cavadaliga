@@ -40,24 +40,14 @@ export default function Footer() {
           style={{ color: 'var(--cava-muted)' }}
         >
           <PersoLink />
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
-            <a
-              href={SITE.whatsapp.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cava-navlink uppercase tracking-[0.16em]"
-            >
-              {t.contactLabels.whatsapp} {SITE.whatsapp.display}
-            </a>
-            <a
-              href={SITE.instagram.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cava-navlink uppercase tracking-[0.16em]"
-            >
-              Instagram {SITE.instagram.handle}
-            </a>
-          </div>
+          <a
+            href={SITE.instagram.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cava-navlink uppercase tracking-[0.16em]"
+          >
+            Instagram {SITE.instagram.handle}
+          </a>
         </div>
       </div>
     </footer>

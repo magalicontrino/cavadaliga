@@ -123,24 +123,14 @@ export default function Nav({ current }: { current?: string }) {
           className="mx-auto flex w-full max-w-[110rem] flex-col gap-2 px-5 pb-8 pt-5 text-[12px] md:flex-row md:items-center md:justify-between md:px-10"
           style={{ color: 'var(--cava-muted)' }}
         >
-          <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-8">
-            <a
-              href={SITE.whatsapp.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cava-navlink uppercase tracking-[0.16em]"
-            >
-              {t.contactLabels.whatsapp} {SITE.whatsapp.display}
-            </a>
-            <a
-              href={SITE.instagram.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cava-navlink uppercase tracking-[0.16em]"
-            >
-              Instagram {SITE.instagram.handle}
-            </a>
-          </div>
+          <a
+            href={SITE.instagram.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cava-navlink uppercase tracking-[0.16em]"
+          >
+            Instagram {SITE.instagram.handle}
+          </a>
           <PersoLink />
         </div>
       </div>
