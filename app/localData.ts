@@ -35,6 +35,37 @@ export type LocalPlace = {
   blurb: Record<Lang, string>;
 };
 
+// ── Base de mots ──────────────────────────────────────────────────────
+// Les gens cherchent par envie (« pain », « apéro », « glace »), pas par nom
+// de commerce. Ces mots — mélangés dans les 3 langues, sans accents — relient
+// une envie à une catégorie et/ou à des adresses précises. La page s'en sert
+// quand la recherche littérale ne donne rien, pour toujours proposer une piste.
+// Pour enrichir : ajouter une ligne, ou des mots à une ligne existante.
+export type WordHint = { words: string[]; cat?: CatKey; ids?: string[] };
+
+// Minuscules + accents retirés : « marché » et « marche » doivent se valoir.
+export const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+export const SEARCH_WORDS: WordHint[] = [
+  { words: ['pain', 'pane', 'bread', 'boulangerie', 'panificio', 'bakery', 'baguette', 'brioche', 'pignolata'], cat: 'supermarche', ids: ['giannone'] },
+  { words: ['glace', 'gelato', 'gelateria', 'ice cream', 'granita', 'granite', 'cornet', 'sorbet'], ids: ['gelateria-smile'] },
+  { words: ['pizza', 'pizzeria', 'pizze'], ids: ['be-happy'] },
+  { words: ['arancina', 'arancine', 'arancini', 'friture', 'fritto', 'street food', 'rosticceria'], ids: ['giannone'] },
+  { words: ['poisson', 'pesce', 'fish', 'fruits de mer', 'frutti di mare', 'seafood', 'peche', 'port', 'porto'], ids: ['poisson-donnalucata', 'rabbuso'] },
+  { words: ['chocolat', 'cioccolato', 'chocolate', 'cacao', 'modica', 'douceur', 'dolci', 'sweets', 'dessert'], ids: ['bonajuto'] },
+  { words: ['huile', 'olio', 'oil', 'olive', 'frantoio', 'frantoi', 'dop'], cat: 'huile' },
+  { words: ['vin', 'vino', 'wine', 'apero', 'aperitivo', 'aperitif', 'drink', 'bar', 'cocktail', 'biere', 'birra', 'beer', 'verre', 'soir', 'sera'], ids: ['maracaibo', 'blazer'] },
+  { words: ['plage', 'spiaggia', 'beach', 'mer', 'mare', 'sea', 'baignade', 'nager', 'swim', 'sable', 'sabbia', 'sand', 'lido', 'transat'], cat: 'plage' },
+  { words: ['courses', 'spesa', 'groceries', 'shopping', 'supermarche', 'supermarket', 'supermercato', 'caddie', 'carrello', 'lessive', 'papier'], cat: 'supermarche' },
+  { words: ['marche', 'mercato', 'market', 'legume', 'verdura', 'vegetables', 'fruit', 'frutta', 'fromage', 'formaggio', 'cheese', 'producteur', 'produttore', 'farmer', 'local', 'bio'], cat: 'marche' },
+  { words: ['fleur', 'fiori', 'flower', 'plante', 'pianta', 'plant', 'jardin', 'giardino', 'garden', 'vivaio', 'pepiniere', 'terrasse'], cat: 'plantes' },
+  { words: ['restaurant', 'ristorante', 'trattoria', 'manger', 'mangiare', 'eat', 'diner', 'cena', 'dinner', 'midi', 'pranzo', 'lunch', 'table', 'tavola', 'food'], cat: 'resto' },
+  { words: ['cafe', 'caffe', 'coffee', 'petit dejeuner', 'colazione', 'breakfast', 'matin', 'mattina', 'morning', 'expresso', 'cappuccino'], ids: ['gelateria-smile', 'maracaibo'] },
+  { words: ['viande', 'carne', 'meat', 'boucherie', 'macelleria', 'butcher', 'charcuterie', 'salumi'], ids: ['giannone'] },
+  { words: ['souvenir', 'cadeau', 'regalo', 'gift', 'rapporter', 'offrir', 'specialite', 'specialita'], ids: ['bonajuto'], cat: 'huile' },
+  { words: ['enfant', 'bambini', 'kids', 'famille', 'famiglia', 'family', 'gouter', 'merenda'], ids: ['gelateria-smile', 'lido-bruca'] },
+];
+
 export const LOCAL_PLACES: LocalPlace[] = [
   {
     id: 'bonajuto',

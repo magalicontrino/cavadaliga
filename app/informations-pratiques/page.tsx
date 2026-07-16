@@ -23,7 +23,7 @@ export default function InformationsPratiques() {
       <PageHeader title={p.title} intro={p.intro} />
 
       {/* L'adresse d'abord : c'est l'info qu'on vient chercher en premier. */}
-      <section className="mx-auto max-w-[110rem] px-5 pt-8 md:px-10">
+      <section className="mx-auto max-w-[110rem] px-5 pb-14 pt-8 md:px-10">
         <Reveal
           className="relative flex flex-col gap-8 overflow-hidden rounded-3xl p-10 md:flex-row md:items-center md:justify-between md:p-16"
           style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)' }}

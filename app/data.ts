@@ -18,6 +18,7 @@ export const SITE = {
 export const NAV = [
   { href: '/famille' },
   { href: '/la-region' },
+  { href: '/culture' },
   { href: '/preparer-le-voyage' },
   { href: '/informations-pratiques' },
   { href: '/services-locaux' },

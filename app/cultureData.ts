@@ -95,6 +95,68 @@ export const ARTISTS: Artist[] = [
   },
 ];
 
+// ── Arts visuels ──────────────────────────────────────────────────────
+// Scicli n'est pas qu'un décor de série : c'est un vrai foyer de peinture.
+// Même forme que SCREENS pour un rendu identique.
+export const ARTS: Screen[] = [
+  {
+    id: 'guccione',
+    title: 'Piero Guccione',
+    year: '1935 – 2018',
+    kind: { fr: 'Peintre', it: 'Pittore', en: 'Painter' },
+    url: 'https://it.wikipedia.org/wiki/Piero_Guccione',
+    placeLabel: 'Palazzo Spadaro, Scicli',
+    placeUrl: 'https://www.google.com/maps/search/?api=1&query=Palazzo+Spadaro+Scicli',
+    blurb: {
+      fr: 'Né à Scicli, revenu s’installer entre Scicli et Modica en 1979. Il a passé sa vie à peindre cette mer — la nôtre, celle qu’on voit depuis la maison. Un des grands peintres italiens du XXᵉ siècle.',
+      it: 'Nato a Scicli, tornato a vivere tra Scicli e Modica nel 1979. Ha passato la vita a dipingere questo mare — il nostro, quello che si vede da casa. Uno dei grandi pittori italiani del Novecento.',
+      en: 'Born in Scicli, he moved back to the countryside between Scicli and Modica in 1979. He spent his life painting this sea — ours, the one you see from the house. One of Italy’s great 20th-century painters.',
+    },
+  },
+  {
+    id: 'gruppo-scicli',
+    title: 'Il Gruppo di Scicli',
+    year: '1970 →',
+    kind: { fr: 'Collectif de peintres', it: 'Collettivo di pittori', en: 'Painters’ collective' },
+    url: 'http://www.ilgruppodiscicli.it',
+    placeLabel: 'Palazzo Spadaro, Scicli',
+    placeUrl: 'https://www.google.com/maps/search/?api=1&query=Palazzo+Spadaro+Scicli',
+    blurb: {
+      fr: 'Autour de Guccione et de son ami Franco Sarnari, tout un groupe de peintres et sculpteurs s’est formé à Scicli : Sonia Alvarez, Carmelo Candiano, Franco Polizzi, Giuseppe Puglisi… Guttuso lui-même en a reconnu la valeur.',
+      it: 'Intorno a Guccione e all’amico Franco Sarnari si è formato a Scicli un intero gruppo di pittori e scultori: Sonia Alvarez, Carmelo Candiano, Franco Polizzi, Giuseppe Puglisi… Guttuso stesso ne riconobbe il valore.',
+      en: 'Around Guccione and his friend Franco Sarnari, a whole group of painters and sculptors formed in Scicli: Sonia Alvarez, Carmelo Candiano, Franco Polizzi, Giuseppe Puglisi… Guttuso himself recognised its worth.',
+    },
+  },
+  {
+    id: 'palazzo-spadaro',
+    title: 'Palazzo Spadaro',
+    year: 'Scicli',
+    kind: { fr: 'À voir', it: 'Da vedere', en: 'To visit' },
+    url: 'https://www.google.com/maps/search/?api=1&query=Palazzo+Spadaro+Scicli',
+    placeLabel: 'Scicli, 8 km',
+    placeUrl: 'https://www.google.com/maps/search/?api=1&query=Palazzo+Spadaro+Scicli',
+    blurb: {
+      fr: 'La pinacothèque municipale, dans un palais baroque. C’est là qu’on voit les toiles du Gruppo di Scicli — Guccione, Sarnari, Polizzi. À 8 km de la maison.',
+      it: 'La pinacoteca comunale, dentro un palazzo barocco. Qui si vedono le tele del Gruppo di Scicli — Guccione, Sarnari, Polizzi. A 8 km da casa.',
+      en: 'The municipal picture gallery, inside a baroque palace. This is where you see the Gruppo di Scicli canvases — Guccione, Sarnari, Polizzi. 8 km from the house.',
+    },
+  },
+  {
+    id: 'macc',
+    title: 'MACC — Museo di Arte Contemporanea',
+    year: 'Piazza Busacca, Scicli',
+    kind: { fr: 'À voir', it: 'Da vedere', en: 'To visit' },
+    url: 'https://www.google.com/maps/search/?api=1&query=MACC+Museo+Arte+Contemporanea+Carmine+Scicli',
+    placeLabel: 'Ex-convento del Carmine',
+    placeUrl: 'https://www.google.com/maps/search/?api=1&query=MACC+Museo+Arte+Contemporanea+Carmine+Scicli',
+    blurb: {
+      fr: 'L’art contemporain dans l’ancien couvent du Carmine, Piazza Busacca. Expositions temporaires — vérifiez le programme avant d’y aller.',
+      it: 'L’arte contemporanea nell’ex convento del Carmine, Piazza Busacca. Mostre temporanee — controllate il programma prima di andare.',
+      en: 'Contemporary art in the former Carmine convent, Piazza Busacca. Temporary exhibitions — check the programme before you go.',
+    },
+  },
+];
+
 export type Screen = {
   id: string;
   title: string;

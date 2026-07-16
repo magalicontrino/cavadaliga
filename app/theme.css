@@ -390,14 +390,16 @@
   }
 }
 
-/* Mini-carte au survol d'une épingle */
+/* Mini-carte au survol d'une épingle (HTML, au-dessus de la carte).
+   L'animation ne touche que l'opacité : la position vient des classes
+   -translate-x-1/2 / -translate-y-full, qu'un transform animé écraserait. */
 @keyframes cava-maptip {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 .cava-maptip {
-  animation: cava-maptip 0.18s ease-out;
-  filter: drop-shadow(0 6px 14px rgba(46, 45, 45, 0.18));
+  animation: cava-maptip 0.16s ease-out;
+  box-shadow: 0 8px 18px rgba(46, 45, 45, 0.16);
 }
 @media (prefers-reduced-motion: reduce) {
   .cava-maptip {

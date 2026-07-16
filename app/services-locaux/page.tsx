@@ -1,15 +1,15 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon, { type IconName } from '../Icon';
-import LocalMap from '../LocalMap';
-import MapViewport from '../MapViewport';
+import LocalMap, { type MapSpot } from '../LocalMap';
+import MapViewport, { type MapFocus } from '../MapViewport';
 import { useI18n } from '../i18n';
-import { LOCAL_PLACES, CATS, type CatKey } from '../localData';
+import { LOCAL_PLACES, CATS, SEARCH_WORDS, norm, type CatKey } from '../localData';
 
 export default function NosAdresses() {
   const { t, lang } = useI18n();
@@ -19,7 +19,10 @@ export default function NosAdresses() {
   const [filter, setFilter] = useState<'tout' | 'responsable' | CatKey>('tout');
   const [query, setQuery] = useState('');
   const [active, setActive] = useState<string | null>(null);
+  const [focus, setFocus] = useState<MapFocus | null>(null);
+  const [hover, setHover] = useState<{ spot: MapSpot; left: number; top: number } | null>(null);
   const mapRef = useRef<HTMLElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   // Catégories affichées comme filtres (certaines encore vides → « à venir »).
   const FILTER_CATS: CatKey[] = ['chocolat', 'huile', 'marche', 'plantes', 'resto', 'supermarche', 'plage'];
@@ -29,20 +32,37 @@ export default function NosAdresses() {
     ...FILTER_CATS.map((k) => ({ key: k, label: CATS[k].label[lang], icon: CATS[k].icon })),
   ];
 
-  const q = query.trim().toLowerCase();
+  const q = norm(query.trim());
+  const inCat = (l: (typeof LOCAL_PLACES)[number]) =>
+    filter === 'tout' ? true : filter === 'responsable' ? l.responsible : l.cat === filter;
+
   const places = LOCAL_PLACES.filter((l) => {
-    const byCat = filter === 'tout' ? true : filter === 'responsable' ? l.responsible : l.cat === filter;
-    if (!byCat) return false;
+    if (!inCat(l)) return false;
     if (!q) return true;
-    const hay = `${l.name} ${l.town} ${CATS[l.cat].label[lang]} ${l.blurb[lang]}`.toLowerCase();
-    return hay.includes(q);
+    return norm(`${l.name} ${l.town} ${CATS[l.cat].label[lang]} ${l.blurb[lang]}`).includes(q);
   });
+
+  // Rien trouvé littéralement ? On passe par la base de mots (« pain »,
+  // « apéro », « glace »…) pour proposer quand même une piste. Et si le mot
+  // est inconnu, on montre les adresses les plus proches de la maison :
+  // une recherche ne doit jamais finir sur du vide.
+  const suggestions = (() => {
+    if (!q || places.length > 0) return [];
+    const hits = SEARCH_WORDS.filter((h) => h.words.some((w) => norm(w).includes(q) || q.includes(norm(w))));
+    const ids = new Set(hits.flatMap((h) => h.ids ?? []));
+    const cats = new Set(hits.map((h) => h.cat).filter(Boolean));
+    const byWord = LOCAL_PLACES.filter((l) => ids.has(l.id) || cats.has(l.cat));
+    if (byWord.length > 0) return byWord.slice(0, 6);
+    return [...LOCAL_PLACES].sort((a, b) => a.km - b.km).slice(0, 3);
+  })();
+
+  const shown = places.length > 0 ? places : suggestions;
 
   // Distance depuis la maison — « Sur place » pour les adresses du village.
   const distance = (km: number) => (km === 0 ? t.regionHere : `≈ ${km} km`);
 
   // Épingles de la carte = les adresses actuellement affichées.
-  const spots = places.map((l) => ({
+  const spots = shown.map((l) => ({
     id: l.id,
     name: l.name,
     icon: CATS[l.cat].icon,
@@ -53,12 +73,38 @@ export default function NosAdresses() {
     km: distance(l.km),
   }));
 
-  // Clic sur une fiche : met l'épingle en évidence et remonte à la carte.
+  // Repères de la carte illustrée (viewBox "0 112 1000 548" de LocalMap).
+  const VB = { w: 1000, y0: 112, h: 548 };
+  const frac = (x: number, y: number) => ({ fx: x / VB.w, fy: (y - VB.y0) / VB.h });
+
+  // Cadre l'ensemble des épingles affichées : zoom qui les fait toutes tenir,
+  // centré sur leur milieu. Une seule épingle → on serre dessus.
+  const fitSpots = (): MapFocus | null => {
+    if (spots.length === 0) return null;
+    const xs = spots.map((s) => s.x);
+    const ys = spots.map((s) => s.y);
+    const [x1, x2, y1, y2] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+    const c = frac((x1 + x2) / 2, (y1 + y2) / 2);
+    const pad = 140; // marge autour du groupe, en unités de la carte
+    const s = spots.length === 1 ? 2.6 : Math.min(VB.w / (x2 - x1 + pad), VB.h / (y2 - y1 + pad));
+    return { ...c, scale: Math.min(3, Math.max(1, s)), key: `f-${filter}-${q}` };
+  };
+
+  // Clic sur une fiche : épingle en évidence, carte recentrée dessus.
   const showOnMap = (id: string) => {
     const next = active === id ? null : id;
     setActive(next);
-    if (next) mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (!next) return;
+    const s = spots.find((sp) => sp.id === id);
+    if (s) setFocus({ ...frac(s.x, s.y), scale: 2.6, key: `a-${id}-${Date.now()}` });
+    mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
+
+  // Changement de filtre ou de recherche → on recadre sur les lieux concernés.
+  useEffect(() => {
+    setFocus(fitSpots());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter, q]);
 
   return (
     <main>
@@ -69,15 +115,48 @@ export default function NosAdresses() {
       {/* Carte illustrée — les épingles suivent le filtre et la recherche */}
       <section ref={mapRef} className="mx-auto max-w-[110rem] scroll-mt-24 px-5 md:px-10">
         <Reveal className="relative">
-          <MapViewport labels={{ zoomIn: p.zoomIn, zoomOut: p.zoomOut, reset: p.zoomReset }}>
-            <LocalMap
-              houseLabel={t.regionHere}
-              spots={spots}
-              activeId={active}
-              spotsKey={filter}
-              legend={{ villages: p.legendVillages, spots: p.legendSpots }}
-            />
-          </MapViewport>
+          <div ref={wrapRef} className="relative">
+            <MapViewport labels={{ zoomIn: p.zoomIn, zoomOut: p.zoomOut, reset: p.zoomReset }} focus={focus}>
+              <LocalMap
+                houseLabel={t.regionHere}
+                spots={spots}
+                activeId={active}
+                spotsKey={filter}
+                legend={{ villages: p.legendVillages, spots: p.legendSpots }}
+                onHover={(spot, rect) => {
+                  const wrap = wrapRef.current;
+                  if (!spot || !rect || !wrap) return setHover(null);
+                  const w = wrap.getBoundingClientRect();
+                  setHover({
+                    spot,
+                    left: Math.min(Math.max(rect.left - w.left + rect.width / 2, 90), w.width - 90),
+                    top: rect.top - w.top,
+                  });
+                }}
+              />
+            </MapViewport>
+
+            {/* Mini-carte au survol — en HTML au-dessus de la carte : ni rognée
+                par la fenêtre de zoom, ni agrandie avec l'échelle. */}
+            {hover && (
+              <div
+                className="cava-maptip pointer-events-none absolute z-10 max-w-[16rem] -translate-x-1/2 -translate-y-full rounded-xl border px-3.5 py-2.5"
+                style={{
+                  left: hover.left,
+                  top: hover.top - 10,
+                  background: 'var(--cava-bg)',
+                  borderColor: 'var(--cava-ink)',
+                }}
+              >
+                <p className="whitespace-nowrap text-[13.5px] leading-tight" style={{ fontWeight: 700 }}>
+                  {hover.spot.name}
+                </p>
+                <p className="mt-1 whitespace-nowrap text-[11.5px] leading-tight" style={{ color: 'var(--cava-muted)' }}>
+                  {hover.spot.cat} · {hover.spot.km}
+                </p>
+              </div>
+            )}
+          </div>
         </Reveal>
       </section>
 
@@ -145,7 +224,23 @@ export default function NosAdresses() {
           })}
         </Reveal>
 
-        {places.length === 0 && (
+        {/* Recherche sans résultat direct → on annonce qu'on propose autre chose. */}
+        {q && places.length === 0 && shown.length > 0 && (
+          <Reveal
+            className="mt-8 flex items-start gap-3 rounded-2xl px-6 py-4"
+            style={{ background: 'rgba(230,41,111,0.07)', color: 'var(--cava-ink)' }}
+          >
+            <span className="mt-[2px] shrink-0" style={{ color: 'var(--cava-pink)' }}>
+              <Icon name="search" size={17} />
+            </span>
+            <p className="text-[14.5px] leading-[1.6]">
+              {p.suggestFor.replace('{q}', query.trim())}
+            </p>
+          </Reveal>
+        )}
+
+        {/* Filtre de catégorie encore vide (hors recherche) */}
+        {!q && places.length === 0 && (
           <Reveal
             className="mt-10 flex flex-col items-center gap-3 rounded-2xl border border-dashed py-16 text-center"
             style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)' }}
@@ -156,7 +251,7 @@ export default function NosAdresses() {
         )}
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {places.map((pl, i) => {
+          {shown.map((pl, i) => {
             const isActive = active === pl.id;
             return (
               <Reveal key={pl.id} delay={(i % 3) * 70}>

@@ -85,6 +85,7 @@ export type Dict = {
     filterAll: string;
     filterEmpty: string;
     searchPlaceholder: string;
+    suggestFor: string;
     zoomIn: string;
     zoomOut: string;
     zoomReset: string;
@@ -107,6 +108,8 @@ export type Dict = {
     artistsIntro: string;
     screensTitle: string;
     screensIntro: string;
+    artsTitle: string;
+    artsIntro: string;
     placeLabel: string;
     moreLabel: string;
     note: string;
@@ -122,7 +125,7 @@ export type Dict = {
 };
 
 const FR: Dict = {
-  nav: ['La famille', 'La région', 'Le voyage', 'Infos pratiques', 'Nos adresses', 'Calendrier'],
+  nav: ['La famille', 'La région', 'Sons & images', 'Le voyage', 'Infos pratiques', 'Nos adresses', 'Calendrier'],
   region: 'Sicile',
   tagline: 'un village du sud-est de la Sicile',
   subLabels: ['Près de Scicli dans la province de Raguse'],
@@ -197,6 +200,7 @@ const FR: Dict = {
     filterAll: 'Tout',
     filterEmpty: 'Ces adresses arrivent bientôt.',
     searchPlaceholder: 'Rechercher un lieu, une envie…',
+    suggestFor: 'Rien qui s’appelle « {q} » chez nous — mais voilà ce qui s’en rapproche le plus.',
     zoomIn: 'Agrandir la carte',
     zoomOut: 'Réduire la carte',
     zoomReset: 'Revoir toute la carte',
@@ -249,6 +253,8 @@ const FR: Dict = {
     playlistSoon: 'Le lien de la playlist arrive bientôt.',
     artistsTitle: 'Chansons & histoires de Sicile',
     artistsIntro: 'Les voix qui racontent l’île — à écouter avant, pendant, après.',
+    artsTitle: 'Peint ici',
+    artsIntro: 'Scicli n’est pas qu’un décor de série : c’est un vrai foyer de peinture, et cette mer a été peinte toute une vie.',
     screensTitle: 'À l’écran, ici',
     screensIntro: 'Tourné à côté de la maison. Regardez avant de venir : vous verrez la région autrement.',
     placeLabel: 'Voir le lieu',
@@ -389,7 +395,7 @@ const FR: Dict = {
 };
 
 const IT: Dict = {
-  nav: ['La famiglia', 'La regione', 'Il viaggio', 'Info pratiche', 'I nostri indirizzi', 'Calendario'],
+  nav: ['La famiglia', 'La regione', 'Suoni & immagini', 'Il viaggio', 'Info pratiche', 'I nostri indirizzi', 'Calendario'],
   region: 'Sicilia',
   tagline: 'un villaggio del sud-est della Sicilia',
   subLabels: ['Vicino a Scicli in provincia di Ragusa'],
@@ -464,6 +470,7 @@ const IT: Dict = {
     filterAll: 'Tutto',
     filterEmpty: 'Questi indirizzi arrivano presto.',
     searchPlaceholder: 'Cerca un luogo, una voglia…',
+    suggestFor: 'Niente che si chiami « {q} » da noi — ma ecco quello che ci si avvicina di più.',
     zoomIn: 'Ingrandisci la mappa',
     zoomOut: 'Riduci la mappa',
     zoomReset: 'Rivedi tutta la mappa',
@@ -516,6 +523,8 @@ const IT: Dict = {
     playlistSoon: 'Il link della playlist arriva presto.',
     artistsTitle: 'Canzoni & storie di Sicilia',
     artistsIntro: 'Le voci che raccontano l’isola — da ascoltare prima, durante, dopo.',
+    artsTitle: 'Dipinto qui',
+    artsIntro: 'Scicli non è solo un set televisivo: è un vero focolaio di pittura, e questo mare è stato dipinto per tutta una vita.',
     screensTitle: 'Sullo schermo, qui',
     screensIntro: 'Girato accanto a casa. Guardate prima di venire: vedrete la zona con altri occhi.',
     placeLabel: 'Vedi il luogo',
@@ -656,7 +665,7 @@ const IT: Dict = {
 };
 
 const EN: Dict = {
-  nav: ['The family', 'The region', 'The trip', 'Practical info', 'Our spots', 'Calendar'],
+  nav: ['The family', 'The region', 'Sounds & screens', 'The trip', 'Practical info', 'Our spots', 'Calendar'],
   region: 'Sicily',
   tagline: 'a village in south-east Sicily',
   subLabels: ['Near Scicli in the province of Ragusa'],
@@ -731,6 +740,7 @@ const EN: Dict = {
     filterAll: 'All',
     filterEmpty: 'These addresses are coming soon.',
     searchPlaceholder: 'Search a place, a craving…',
+    suggestFor: 'Nothing called “{q}” here — but this is the closest we have.',
     zoomIn: 'Zoom in',
     zoomOut: 'Zoom out',
     zoomReset: 'See the whole map',
@@ -783,6 +793,8 @@ const EN: Dict = {
     playlistSoon: 'The playlist link is coming soon.',
     artistsTitle: 'Songs & stories of Sicily',
     artistsIntro: 'The voices that tell the island — listen before, during, after.',
+    artsTitle: 'Painted here',
+    artsIntro: 'Scicli is not only a TV set: it is a real home of painting, and this sea was painted for a whole lifetime.',
     screensTitle: 'On screen, right here',
     screensIntro: 'Filmed next door. Watch before you come: you will see the area differently.',
     placeLabel: 'See the place',

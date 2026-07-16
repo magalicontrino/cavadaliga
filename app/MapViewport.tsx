@@ -15,7 +15,21 @@ const MIN = 1;
 const MAX = 5;
 const DRAG_SLOP = 6; // px
 
-export default function MapViewport({ children, labels }: { children: ReactNode; labels: { zoomIn: string; zoomOut: string; reset: string } }) {
+/**
+ * Cadrage demandé par la page (clic sur un filtre ou une fiche).
+ * fx / fy = position visée, en fraction [0..1] de la carte. `key` change → on recadre.
+ */
+export type MapFocus = { fx: number; fy: number; scale: number; key: string };
+
+export default function MapViewport({
+  children,
+  labels,
+  focus,
+}: {
+  children: ReactNode;
+  labels: { zoomIn: string; zoomOut: string; reset: string };
+  focus?: MapFocus | null;
+}) {
   const box = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [tx, setTx] = useState(0);
@@ -123,6 +137,21 @@ export default function MapViewport({ children, labels }: { children: ReactNode;
     return () => el.removeEventListener('wheel', onWheel);
   });
 
+  // Recadrage sur demande de la page : amène le point visé au centre.
+  // Un point à dx du centre se retrouve à dx*s + tx → tx = -dx*s pour le centrer.
+  const focusKey = focus?.key;
+  useEffect(() => {
+    if (!focus) return;
+    const el = box.current;
+    if (!el) return;
+    const { width: w, height: h } = el.getBoundingClientRect();
+    const s = Math.min(MAX, Math.max(MIN, focus.scale));
+    apply(s, -(focus.fx * w - w / 2) * s, -(focus.fy * h - h / 2) * s);
+    // Volontairement déclenché par la seule clé : refocaliser à chaque rendu
+    // annulerait le zoom manuel de l'utilisateur.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusKey]);
+
   const step = (k: number) => {
     const el = box.current;
     if (!el) return;
@@ -158,6 +187,17 @@ export default function MapViewport({ children, labels }: { children: ReactNode;
 
       {/* Commandes de zoom */}
       <div className="absolute bottom-3 right-3 flex flex-col gap-1.5">
+        {/* Revoir toute la carte — en premier. Toujours présent pour que les
+            boutons ne sautent pas ; inerte tant qu'on n'a pas zoomé. */}
+        <button
+          type="button"
+          onClick={() => apply(1, 0, 0)}
+          disabled={!zoomed}
+          aria-label={labels.reset}
+          className="cava-zoombtn flex h-10 w-10 items-center justify-center rounded-full disabled:pointer-events-none disabled:opacity-40"
+        >
+          <Icon name="map" size={16} />
+        </button>
         <button
           type="button"
           onClick={() => step(1.5)}
@@ -174,16 +214,6 @@ export default function MapViewport({ children, labels }: { children: ReactNode;
         >
           −
         </button>
-        {zoomed && (
-          <button
-            type="button"
-            onClick={() => apply(1, 0, 0)}
-            aria-label={labels.reset}
-            className="cava-zoombtn flex h-10 w-10 items-center justify-center rounded-full"
-          >
-            <Icon name="map" size={16} />
-          </button>
-        )}
       </div>
     </div>
   );
