@@ -57,6 +57,26 @@ export const TRANSPORTS: Transport[] = [
   },
 ];
 
+// ── Pharmacie ─────────────────────────────────────────────────────────
+// La plus proche, relevée dans OpenStreetMap puis confirmée par géocodage
+// inverse : elle est dans le village, à 300 m de la maison.
+//
+// Pour les gardes, le site officiel de l'Ordre des pharmaciens de Raguse
+// (farmacistiragusa.it) est en panne — vérifié dans un navigateur, il renvoie
+// « Technical Problems ». On pointe donc vers l'agrégateur qui cite cet Ordre
+// comme source, et qui prévient lui-même que le tour est prévisionnel.
+export const PHARMACY = {
+  name: 'Farmacia Trovato',
+  street: 'Via Sofocle, Cava d’Aliga',
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Trovato+Cava+d%27Aliga+Scicli',
+  dutyUrl: 'https://www.farmaciaditurno.org/comune/scicli',
+  hours: {
+    fr: 'Lun–ven 9 h–13 h et 17 h 30–20 h 30',
+    it: 'Lun–ven 9–13 e 17.30–20.30',
+    en: 'Mon–Fri 9am–1pm and 5.30–8.30pm',
+  },
+};
+
 // ── Urgences ──────────────────────────────────────────────────────────
 // En Sicile le 112 est le numéro unique : il reçoit l'appel et bascule vers
 // le bon service. Les anciens numéros restent joignables.

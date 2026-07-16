@@ -142,6 +142,11 @@ export type Dict = {
     nueNote: string;
     alsoLabel: string;
     localTitle: string;
+    pharmacyWalk: string;
+    hoursNote: string;
+    dutyTitle: string;
+    dutyDesc: string;
+    dutyCta: string;
     localToCome: string;
   };
   // Les habitudes siciliennes qu'on ne devine pas.
@@ -361,7 +366,12 @@ const FR: Dict = {
     nueNote: 'Gratuit, depuis n’importe quel téléphone, même sans crédit ni carte SIM. On répond en italien et en anglais.',
     alsoLabel: 'Toujours actifs',
     localTitle: 'Contacts sur place',
-    localToCome: 'Médecin, pharmacie de garde, taxi, plombier : Mag complète cette liste avec les vrais numéros du village. En attendant, le 112 couvre toutes les vraies urgences.',
+    pharmacyWalk: 'À 300 m — on y va à pied',
+    hoursNote: 'Horaires relevés sur OpenStreetMap : à confirmer sur la porte.',
+    dutyTitle: 'Pharmacie de garde',
+    dutyDesc: 'La nuit et les jours fériés, une pharmacie de Scicli est toujours de garde — à tour de rôle. La nôtre, Trovato, en fait partie. Le tour du jour se voit ici. Attention : la garde de nuit a le rideau baissé, il faut sonner à l’interphone pour réveiller le pharmacien.',
+    dutyCta: 'Voir la garde du jour',
+    localToCome: 'Médecin, taxi, plombier : Mag complète cette liste avec les vrais numéros du village. En attendant, le 112 couvre toutes les vraies urgences.',
   },
   tastePage: {
     eyebrow: 'Us et coutumes',
@@ -718,7 +728,12 @@ const IT: Dict = {
     nueNote: 'Gratuito, da qualsiasi telefono, anche senza credito né SIM. Rispondono in italiano e in inglese.',
     alsoLabel: 'Sempre attivi',
     localTitle: 'Contatti sul posto',
-    localToCome: 'Medico, farmacia di turno, taxi, idraulico: Mag completa la lista con i veri numeri del paese. Intanto il 112 copre tutte le vere emergenze.',
+    pharmacyWalk: 'A 300 m — ci si va a piedi',
+    hoursNote: 'Orari presi da OpenStreetMap: da confermare sulla porta.',
+    dutyTitle: 'Farmacia di turno',
+    dutyDesc: 'Di notte e nei giorni festivi c’è sempre una farmacia di turno a Scicli, a rotazione — e la nostra, Trovato, ne fa parte. Il turno del giorno si vede qui. Attenzione: la farmacia di turno notturno ha la saracinesca abbassata, bisogna suonare il citofono per svegliare il farmacista.',
+    dutyCta: 'Vedi il turno di oggi',
+    localToCome: 'Medico, taxi, idraulico: Mag completa la lista con i veri numeri del paese. Intanto il 112 copre tutte le vere emergenze.',
   },
   tastePage: {
     eyebrow: 'Usi e costumi',
@@ -1075,7 +1090,12 @@ const EN: Dict = {
     nueNote: 'Free, from any phone, even with no credit or SIM. They answer in Italian and English.',
     alsoLabel: 'Still active',
     localTitle: 'Local contacts',
-    localToCome: 'Doctor, on-duty pharmacy, taxi, plumber: Mag is filling this list with the village’s real numbers. In the meantime, 112 covers every real emergency.',
+    pharmacyWalk: '300 m away — walkable',
+    hoursNote: 'Hours taken from OpenStreetMap: check the door to be sure.',
+    dutyTitle: 'On-duty pharmacy',
+    dutyDesc: 'At night and on holidays one pharmacy in Scicli is always on duty, by rotation — and ours, Trovato, is part of it. Today’s rota is here. Note: the night pharmacy has its shutter down, you have to ring the intercom to wake the pharmacist.',
+    dutyCta: 'See today’s rota',
+    localToCome: 'Doctor, taxi, plumber: Mag is filling this list with the village’s real numbers. In the meantime, 112 covers every real emergency.',
   },
   tastePage: {
     eyebrow: 'Local customs',

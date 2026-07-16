@@ -3,7 +3,7 @@
 import Reveal from './Reveal';
 import Icon from './Icon';
 import { useI18n } from './i18n';
-import { TRANSPORTS, EMERGENCIES } from './practicalData';
+import { TRANSPORTS, EMERGENCIES, PHARMACY } from './practicalData';
 
 /** Se déplacer + urgences. Tous les liens sont cliquables, numéros compris. */
 export default function GettingAround() {
@@ -129,15 +129,91 @@ export default function GettingAround() {
           ))}
         </div>
 
-        {/* Contacts du village — à compléter */}
+        {/* Contacts du village */}
+        <Reveal className="mt-10 text-[12px] uppercase tracking-[0.18em]" style={{ color: 'var(--cava-muted)' }}>
+          {m.localTitle}
+        </Reveal>
+
+        <div className="mt-3 grid gap-6 lg:grid-cols-2">
+          {/* La pharmacie du village */}
+          <Reveal>
+            <div
+              className="cava-listcard flex h-full flex-col gap-3 rounded-2xl border p-8"
+              style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <span
+                  className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                  style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+                >
+                  <Icon name="droplet" size={28} />
+                </span>
+                <span
+                  className="inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 text-[10.5px] uppercase tracking-[0.1em]"
+                  style={{ background: 'rgba(230,41,111,0.09)', color: 'var(--cava-pink)', fontWeight: 700 }}
+                >
+                  <Icon name="home" size={13} /> {m.pharmacyWalk}
+                </span>
+              </div>
+              <h3 className="mt-1 text-[clamp(1.15rem,2.2vw,1.4rem)] leading-[1.15]" style={{ fontWeight: 600 }}>
+                {PHARMACY.name}
+              </h3>
+              <p className="text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-muted)' }}>
+                {PHARMACY.street}
+              </p>
+              <p className="text-[14.5px]" style={{ fontWeight: 600 }}>
+                {PHARMACY.hours[lang]}
+              </p>
+              <p className="text-[12.5px] italic leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
+                {m.hoursNote}
+              </p>
+              <a
+                href={PHARMACY.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cava-pill mt-auto inline-flex w-fit items-center gap-2 px-4 py-2 pt-2 text-[13px]"
+              >
+                <Icon name="pin" size={15} /> Google Maps <span aria-hidden>↗</span>
+              </a>
+            </div>
+          </Reveal>
+
+          {/* La garde */}
+          <Reveal delay={70}>
+            <div
+              className="cava-listcard flex h-full flex-col gap-3 rounded-2xl border p-8"
+              style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
+            >
+              <span
+                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+              >
+                <Icon name="phone" size={28} />
+              </span>
+              <h3 className="mt-1 text-[clamp(1.15rem,2.2vw,1.4rem)] leading-[1.15]" style={{ fontWeight: 600 }}>
+                {m.dutyTitle}
+              </h3>
+              <p className="text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+                {m.dutyDesc}
+              </p>
+              <a
+                href={PHARMACY.dutyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cava-pill mt-auto inline-flex w-fit items-center gap-2 px-4 py-2 pt-2 text-[13px]"
+              >
+                <Icon name="search" size={15} /> {m.dutyCta} <span aria-hidden>↗</span>
+              </a>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* Ce qui manque encore */}
         <Reveal
-          className="mt-6 flex flex-col gap-2 rounded-2xl border border-dashed p-8"
+          className="mt-6 rounded-2xl border border-dashed p-6"
           style={{ borderColor: 'var(--cava-line)' }}
         >
-          <p className="text-[12px] uppercase tracking-[0.18em]" style={{ color: 'var(--cava-muted)' }}>
-            {m.localTitle}
-          </p>
-          <p className="max-w-[62ch] text-[14.5px] italic leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+          <p className="max-w-[62ch] text-[14px] italic leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
             {m.localToCome}
           </p>
         </Reveal>
