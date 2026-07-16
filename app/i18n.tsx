@@ -310,7 +310,7 @@ const FR: Dict = {
     note: 'Nous complétons cette page au fil de nos trouvailles — adresses et contacts à venir.',
     mapLabel: 'Ouvrir dans Google Maps',
     badge: 'Responsable & local',
-    filterAll: 'Tout',
+    filterAll: 'Tout voir',
     filterEmpty: 'Ces adresses arrivent bientôt.',
     searchPlaceholder: 'Rechercher un lieu, une envie…',
     suggestFor: 'Rien qui s’appelle « {q} » chez nous — mais voilà ce qui s’en rapproche le plus.',
@@ -409,7 +409,7 @@ const FR: Dict = {
   },
   tastePage: {
     eyebrow: 'Us et coutumes',
-    title: 'Ce qui ne s’explique pas dans un guide',
+    title: 'Les habitudes d’ici',
     intro: 'Trois choses à savoir pour ne pas passer pour un touriste — et surtout pour ne pas les rater.',
     facts: [
       {
@@ -680,7 +680,7 @@ const IT: Dict = {
     note: 'Completiamo questa pagina man mano che scopriamo — indirizzi e contatti in arrivo.',
     mapLabel: 'Apri in Google Maps',
     badge: 'Responsabile & locale',
-    filterAll: 'Tutto',
+    filterAll: 'Vedi tutto',
     filterEmpty: 'Questi indirizzi arrivano presto.',
     searchPlaceholder: 'Cerca un luogo, una voglia…',
     suggestFor: 'Niente che si chiami « {q} » da noi — ma ecco quello che ci si avvicina di più.',
@@ -779,7 +779,7 @@ const IT: Dict = {
   },
   tastePage: {
     eyebrow: 'Usi e costumi',
-    title: 'Quello che nessuna guida spiega',
+    title: 'Le abitudini del posto',
     intro: 'Tre cose da sapere per non sembrare turisti — e soprattutto per non perderle.',
     facts: [
       {
@@ -1050,7 +1050,7 @@ const EN: Dict = {
     note: 'We complete this page as we make new finds — addresses and contacts coming soon.',
     mapLabel: 'Open in Google Maps',
     badge: 'Responsible & local',
-    filterAll: 'All',
+    filterAll: 'See all',
     filterEmpty: 'These addresses are coming soon.',
     searchPlaceholder: 'Search a place, a craving…',
     suggestFor: 'Nothing called “{q}” here — but this is the closest we have.',
@@ -1149,7 +1149,7 @@ const EN: Dict = {
   },
   tastePage: {
     eyebrow: 'Local customs',
-    title: 'What no guidebook explains',
+    title: 'How things are done here',
     intro: 'Three things to know so you do not look like a tourist — and above all, so you do not miss them.',
     facts: [
       {

@@ -214,10 +214,13 @@ export default function Culture() {
                 <span aria-hidden className="shrink-0 self-center" style={{ color: 'var(--cava-pink)' }}>
                   <Icon name="vinyl" size={15} />
                 </span>
-                <span className="shrink-0 text-[15px]" style={{ fontWeight: 600 }}>
+                {/* Le nom se tronque plutôt que de pousser la ligne : tout en
+                    shrink-0, « Colapesce Dimartino · SOLARINO & PALERMO »
+                    debordait l'ecran sur telephone. */}
+                <span className="min-w-0 truncate text-[15px]" style={{ fontWeight: 600 }}>
                   {a.name}
                 </span>
-                <span className="shrink-0 text-[11px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-muted)' }}>
+                <span className="hidden shrink-0 text-[11px] uppercase tracking-[0.14em] sm:inline" style={{ color: 'var(--cava-muted)' }}>
                   {a.from}
                 </span>
                 <span

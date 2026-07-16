@@ -38,8 +38,10 @@ export default function NosAdresses() {
 
   // Catégories affichées comme filtres (certaines encore vides → « à venir »).
   const FILTER_CATS: CatKey[] = ['chocolat', 'huile', 'marche', 'plantes', 'resto', 'supermarche', 'plage'];
+  // Les categories d'abord ; « Tout voir » ferme la ligne, en retrait — comme
+  // sur les autres pages a tri. Ici il reste l'etat par defaut : contrairement a
+  // La region, il ne fait doublon avec aucune categorie (19 adresses vs 7).
   const filters: { key: 'tout' | 'responsable' | CatKey; label: string; icon: IconName }[] = [
-    { key: 'tout', label: p.filterAll, icon: 'map' },
     { key: 'responsable', label: p.badge, icon: 'leaf' },
     ...FILTER_CATS.map((k) => ({ key: k, label: CATS[k].label[lang], icon: CATS[k].icon })),
   ];
@@ -309,6 +311,17 @@ export default function NosAdresses() {
               />
             );
           })}
+          <FilterChip
+            label={p.filterAll}
+            icon="map"
+            active={filter === 'tout'}
+            subtle
+            onClick={() => {
+              setFilter('tout');
+              setActive(null);
+              setClicks((c) => c + 1);
+            }}
+          />
         </Reveal>
 
         {/* Recherche sans résultat direct → on annonce qu'on propose autre chose. */}
