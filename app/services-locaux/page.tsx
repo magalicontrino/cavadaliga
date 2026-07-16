@@ -6,6 +6,8 @@ import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon, { type IconName } from '../Icon';
 import LocalMap from '../LocalMap';
+import { InfoBlocks } from '../SectionShell';
+import { PAGE_ICONS } from '../data';
 import { useI18n } from '../i18n';
 
 // « Nos adresses » — page unique du local : carte illustrée, producteurs &
@@ -51,12 +53,20 @@ export default function NosAdresses() {
               className="flex flex-col gap-4 rounded-2xl border p-8 md:p-10"
               style={{ background: 'var(--cava-bg)', borderColor: 'var(--cava-line)' }}
             >
-              <span
-                className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-ink)' }}
-              >
-                <Icon name={CAT_ICONS[i] ?? 'bag'} size={24} />
-              </span>
+              <div className="flex items-start justify-between gap-3">
+                <span
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
+                  style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-ink)' }}
+                >
+                  <Icon name={CAT_ICONS[i] ?? 'bag'} size={24} />
+                </span>
+                <span
+                  className="inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 text-[10.5px] uppercase tracking-[0.1em]"
+                  style={{ background: 'rgba(230,41,111,0.09)', color: 'var(--cava-pink)', fontWeight: 700 }}
+                >
+                  <Icon name="leaf" size={13} /> {p.badge}
+                </span>
+              </div>
               <h2 className="text-[clamp(1.3rem,2.6vw,1.9rem)] leading-[1.1]" style={{ fontWeight: 600 }}>
                 {c.title}
               </h2>
@@ -114,6 +124,12 @@ export default function NosAdresses() {
               <h2 className="text-[clamp(1.3rem,2.6vw,1.9rem)] leading-[1.1]" style={{ fontWeight: 600 }}>
                 {p.markets.title}
               </h2>
+              <span
+                className="ml-auto inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 text-[10.5px] uppercase tracking-[0.1em]"
+                style={{ background: 'rgba(230,41,111,0.09)', color: 'var(--cava-pink)', fontWeight: 700 }}
+              >
+                <Icon name="leaf" size={13} /> {p.badge}
+              </span>
             </div>
             <p className="text-[15px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
               {p.markets.desc}
@@ -140,6 +156,13 @@ export default function NosAdresses() {
           </Reveal>
         </div>
       </section>
+
+      {/* Rubriques thématiques : manger & boire, courses & marchés, plage & loisirs */}
+      {s.blocks && (
+        <section className="mx-auto max-w-[110rem] px-5 pt-10 md:px-10">
+          <InfoBlocks blocks={s.blocks} icons={PAGE_ICONS['services-locaux']} />
+        </section>
+      )}
 
       <Reveal
         className="mx-auto max-w-[110rem] px-5 pb-24 pt-8 text-[14px] italic md:px-10"
