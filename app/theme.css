@@ -53,6 +53,13 @@
   transform: translate3d(0, 0, 0);
 }
 
+/* Né déjà dans l'écran (contenu d'un filtre qu'on vient de cliquer) : pas de
+   fondu ni de délai, sinon on clique et il ne se passe rien pendant 1 s. */
+.cava-reveal.cava-reveal-now {
+  transition: none;
+  transition-delay: 0s;
+}
+
 /* --- Bandeau défilant (marquee) — vitesse constante ---------------- */
 /* Le décalage vaut une série. La galerie le mesure et le passe en pixels ;
    le -50% reste le repli pour les bandeaux dupliqués une seule fois. */

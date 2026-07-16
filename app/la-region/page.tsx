@@ -65,7 +65,7 @@ export default function LaRegion() {
 
       {/* Les lieux autour de nous — fiches éditoriales alternées + lightbox */}
       {show('lieux') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-12 md:px-10">
+      <section key={`lieux-${filter}`} className="mx-auto max-w-[110rem] px-5 pt-12 md:px-10">
         <Reveal
           as="h2"
           className="border-t pt-8 text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]"
@@ -138,7 +138,7 @@ export default function LaRegion() {
 
       {/* Us et coutumes — granita, arancina, passeggiata */}
       {show('coutumes') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+      <section key={`coutumes-${filter}`} className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="cone" size={16} /> {t.tastePage.eyebrow}
@@ -174,7 +174,7 @@ export default function LaRegion() {
 
       {/* La Sicile arabe — l'histoire qui explique ce qu'on a sous les yeux */}
       {show('arabe') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+      <section key={`arabe-${filter}`} className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="landmark" size={16} /> {t.arabPage.eyebrow}

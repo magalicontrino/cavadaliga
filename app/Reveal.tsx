@@ -1,12 +1,31 @@
 'use client';
 
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type ElementType, type ReactNode } from 'react';
 
 /**
  * Reveal — apparition fade + translate au scroll (reproduction de l'effet
  * Webflow d'origine : opacity 0 → 1, translateY → 0). Respecte
  * prefers-reduced-motion (géré en CSS via .cava-reveal).
+ *
+ * L'effet ne vaut que pour ce qui ENTRE dans l'écran en défilant. Un bloc qui
+ * naît déjà sous les yeux — le contenu d'un filtre qu'on vient de cliquer — ne
+ * doit pas se fondre : on cliquerait, et il ne se passerait rien pendant une
+ * seconde. Celui-là s'affiche d'emblée.
  */
+
+// Le premier chargement garde l'animation : c'est là qu'elle fait son effet.
+// Une fois la page posée, un Reveal né dans l'écran s'affiche instantanément.
+let pageSettled = false;
+if (typeof window !== 'undefined') {
+  const settle = () => window.setTimeout(() => (pageSettled = true), 600);
+  if (document.readyState === 'complete') settle();
+  else window.addEventListener('load', settle, { once: true });
+}
+
+// useLayoutEffect prévient React côté serveur ; en rendu statique on retombe
+// sur useEffect, qui ne sert de toute façon qu'une fois dans le navigateur.
+const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
 export default function Reveal({
   children,
   as,
@@ -27,10 +46,22 @@ export default function Reveal({
   const Tag = (as ?? 'div') as ElementType;
   const ref = useRef<HTMLElement | null>(null);
   const [inView, setInView] = useState(false);
+  const [instant, setInstant] = useState(false);
 
-  useEffect(() => {
+  useIsoLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // Né déjà visible, après le chargement → on montre tout de suite.
+    if (pageSettled) {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        setInstant(true);
+        setInView(true);
+        return;
+      }
+    }
+
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
@@ -51,7 +82,7 @@ export default function Reveal({
   return (
     <Tag
       ref={ref}
-      className={`cava-reveal ${inView ? 'is-in' : ''} ${className}`}
+      className={`cava-reveal ${inView ? 'is-in' : ''} ${instant ? 'cava-reveal-now' : ''} ${className}`}
       style={{ ['--cava-reveal-y' as string]: y, ['--cava-reveal-delay' as string]: `${delay}ms`, ...style }}
     >
       {children}

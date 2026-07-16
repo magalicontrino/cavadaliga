@@ -93,7 +93,7 @@ export default function InformationsPratiques() {
 
       {/* Arrivée : le guide des premières heures */}
       {show('arrivee') && (
-        <section className="mx-auto max-w-[110rem] px-5 pb-8 pt-12 md:px-10">
+        <section key={`arrivee-${filter}`} className="mx-auto max-w-[110rem] px-5 pb-8 pt-12 md:px-10">
           <Reveal className="mb-8 flex flex-col gap-2">
             <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
               <Icon name="key" size={16} /> {a.eyebrow}
@@ -138,10 +138,10 @@ export default function InformationsPratiques() {
         </section>
       )}
 
-      {show('bouger') && <Transports />}
-      {show('urgences') && <Emergencies />}
-      {show('dechets') && <WasteSchedule />}
-      {show('depart') && <DepartChecklist />}
+      {show('bouger') && <Transports key={`bouger-${filter}`} />}
+      {show('urgences') && <Emergencies key={`urgences-${filter}`} />}
+      {show('dechets') && <WasteSchedule key={`dechets-${filter}`} />}
+      {show('depart') && <DepartChecklist key={`depart-${filter}`} />}
 
       <div className="pb-16" />
       <Footer />
