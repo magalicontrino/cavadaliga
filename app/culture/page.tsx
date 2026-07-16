@@ -240,56 +240,28 @@ export default function Culture() {
           {c.handsIntro}
         </Reveal>
 
-        {/* Les deux livres, en couverture. Pas de cadre ni de fond : les
-            couvertures sont claires par elles-mêmes, et les encadrer leur
-            ajoutait une marge blanche qu'elles n'ont pas.
-            Aucune des deux n'est à nous — d'où le crédit sous chaque image. */}
-        <div className="mx-auto mt-10 grid max-w-[780px] gap-8 sm:grid-cols-2">
-          <Reveal>
-            <figure className="flex flex-col gap-3">
-              <img
-                src={withBase('/livres/speak-italian.jpg')}
-                alt={c.handsCoverAlt}
-                width={1103}
-                height={1500}
-                loading="lazy"
-                className="block h-auto w-full rounded-xl"
-              />
-              <figcaption className="text-[12.5px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
-                {c.handsCoverCredit}
-              </figcaption>
-            </figure>
-          </Reveal>
-          <Reveal delay={70}>
-            <figure className="flex flex-col gap-3">
-              <img
-                src={withBase('/livres/design-as-art.webp')}
-                alt={c.handsCover2Alt}
-                width={304}
-                height={500}
-                loading="lazy"
-                className="block h-auto w-full rounded-xl"
-              />
-              <figcaption className="text-[12.5px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
-                {c.handsCover2Credit}
-              </figcaption>
-            </figure>
-          </Reveal>
-        </div>
-
-        {/* Qui était Munari + ses deux livres */}
-        <div className="mt-6 grid gap-6 lg:grid-cols-[1.25fr_1fr_1fr]">
+        {/* Deux cartes, un livre chacune : sa couverture en tête, son lien en
+            pied. Les couvertures ne sont pas à nous — crédit éditeur sous
+            chaque image, et rien du contenu des livres n'est repris. */}
+        <div className="mt-10 grid gap-6 lg:grid-cols-2">
           <Reveal>
             <div
               className="flex h-full flex-col gap-4 rounded-2xl border p-8 md:p-10"
               style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
             >
-              <span
-                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
-                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
-              >
-                <Icon name="brush" size={28} />
-              </span>
+              <figure className="flex flex-col gap-2">
+                <img
+                  src={withBase('/livres/speak-italian.jpg')}
+                  alt={c.handsCoverAlt}
+                  width={1103}
+                  height={1500}
+                  loading="lazy"
+                  className="block h-auto w-[180px] rounded-lg"
+                />
+                <figcaption className="max-w-[34ch] text-[11.5px] leading-[1.45]" style={{ color: 'var(--cava-muted)' }}>
+                  {c.handsCoverCredit}
+                </figcaption>
+              </figure>
               <h3 className="text-[clamp(1.3rem,2.6vw,1.8rem)] leading-[1.12]" style={{ fontWeight: 600 }}>
                 Bruno Munari
               </h3>
@@ -299,7 +271,16 @@ export default function Culture() {
               <p className="text-[14.5px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
                 {c.handsWho}
               </p>
-              <div className="mt-auto flex flex-wrap gap-3 pt-3">
+              <div className="mt-auto flex flex-wrap items-center gap-3 pt-3">
+                <a
+                  href={MUNARI_BOOK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-fit items-center gap-2 rounded-full px-5 py-3 text-[13.5px] transition hover:opacity-85"
+                  style={{ background: 'var(--cava-pink)', color: '#fff', fontWeight: 700 }}
+                >
+                  <Icon name="search" size={15} /> {c.handsBookCta} <span aria-hidden>↗</span>
+                </a>
                 <a href={MUNARI_WIKI} target="_blank" rel="noopener noreferrer" className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]">
                   <Icon name="info" size={15} /> {c.moreLabel} <span aria-hidden>↗</span>
                 </a>
@@ -310,48 +291,26 @@ export default function Culture() {
             </div>
           </Reveal>
 
-          <Reveal delay={70}>
-            <div
-              className="flex h-full flex-col gap-4 rounded-2xl border p-8 md:p-10"
-              style={{ borderColor: 'var(--cava-pink)', background: 'rgba(230,41,111,0.05)' }}
-            >
-              <span
-                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
-                style={{ background: 'var(--cava-pink)', color: '#fff' }}
-              >
-                <Icon name="info" size={28} strokeWidth={2} />
-              </span>
-              <h3 className="text-[clamp(1.15rem,2.2vw,1.4rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
-                {c.handsBookTitle}
-              </h3>
-              <p className="text-[14.5px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
-                {c.handsBookDesc}
-              </p>
-              <a
-                href={MUNARI_BOOK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto inline-flex w-fit items-center gap-2 rounded-full px-5 py-3 text-[13.5px] transition hover:opacity-85"
-                style={{ background: 'var(--cava-pink)', color: '#fff', fontWeight: 700 }}
-              >
-                <Icon name="search" size={15} /> {c.handsBookCta} <span aria-hidden>↗</span>
-              </a>
-            </div>
-          </Reveal>
-
           {/* Design as Art — son livre le plus lu, celui qui explique le reste */}
-          <Reveal delay={140}>
+          <Reveal delay={70}>
             <div
               className="flex h-full flex-col gap-4 rounded-2xl border p-8 md:p-10"
               style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
             >
-              <span
-                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
-                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
-              >
-                <Icon name="brush" size={28} />
-              </span>
-              <h3 className="text-[clamp(1.15rem,2.2vw,1.4rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+              <figure className="flex flex-col gap-2">
+                <img
+                  src={withBase('/livres/design-as-art.webp')}
+                  alt={c.handsCover2Alt}
+                  width={304}
+                  height={500}
+                  loading="lazy"
+                  className="block h-auto w-[180px] rounded-lg"
+                />
+                <figcaption className="max-w-[34ch] text-[11.5px] leading-[1.45]" style={{ color: 'var(--cava-muted)' }}>
+                  {c.handsCover2Credit}
+                </figcaption>
+              </figure>
+              <h3 className="text-[clamp(1.3rem,2.6vw,1.8rem)] leading-[1.12]" style={{ fontWeight: 600 }}>
                 {c.handsBook2Title}
               </h3>
               <p className="font-mono text-[13px] tracking-[0.1em]" style={{ color: 'var(--cava-pink)' }}>
@@ -360,14 +319,17 @@ export default function Culture() {
               <p className="text-[14.5px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
                 {c.handsBook2Desc}
               </p>
-              <a
-                href={MUNARI_DESIGN_BOOK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cava-pill mt-auto inline-flex w-fit items-center gap-2 px-4 py-2 text-[13px]"
-              >
-                <Icon name="search" size={15} /> {c.handsBook2Cta} <span aria-hidden>↗</span>
-              </a>
+              <div className="mt-auto flex flex-wrap items-center gap-3 pt-3">
+                <a
+                  href={MUNARI_DESIGN_BOOK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-fit items-center gap-2 rounded-full px-5 py-3 text-[13.5px] transition hover:opacity-85"
+                  style={{ background: 'var(--cava-pink)', color: '#fff', fontWeight: 700 }}
+                >
+                  <Icon name="search" size={15} /> {c.handsBook2Cta} <span aria-hidden>↗</span>
+                </a>
+              </div>
             </div>
           </Reveal>
         </div>

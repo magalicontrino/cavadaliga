@@ -129,8 +129,6 @@ export type Dict = {
     photosIntro: string;
     handsTitle: string;
     handsIntro: string;
-    handsBookTitle: string;
-    handsBookDesc: string;
     handsBookCta: string;
     handsBook2Title: string;
     handsBook2Desc: string;
@@ -398,13 +396,11 @@ const FR: Dict = {
     handsTitle: 'Parler avec les mains',
     handsIntro: 'En 1958, le designer milanais Bruno Munari photographie cinquante gestes italiens et les légende en quatre langues. Le titre dit tout : « Supplément au dictionnaire italien ». Il ne le fait pas pour rire — il le fait pour les étrangers de passage en Italie. Autrement dit, pour nous.',
     handsWho: 'Bruno Munari (Milan, 1907-1998) commence chez les futuristes à vingt ans, puis passe sa vie à démonter le sérieux : ses « machines inutiles » de 1933 tournent au plafond sans rien produire, il fonde le Mouvement d’art concret, invente des livres illisibles, et ouvre en 1977 le premier atelier pour enfants d’un musée italien, à la Pinacothèque de Brera. Trois Compas d’or, plus un pour l’ensemble de sa carrière. Il n’a pas inventé les gestes : il les a pris au chanoine Andrea de Jorio, qui les avait recensés à Naples en 1832, et y a ajouté les siens — jusqu’au « O.K. » américain.',
-    handsBookTitle: 'Supplemento al dizionario italiano',
-    handsBookDesc: 'Toujours édité chez Corraini, en italien, anglais, français et allemand. Cinquante gestes en photo, une page chacun. Le meilleur cadeau à emporter — et le seul dictionnaire qu’on lit d’une traite.',
     handsBookCta: 'Le livre chez Corraini',
     handsBook2Title: 'Design as Art',
     handsBook2Desc: 'Son livre le plus lu, publié chez Laterza en 1966 sous le titre « Arte come mestiere » — l’art comme métier. Munari y regarde les lampes, les panneaux routiers, les affiches, les voitures et les chaises, et demande à chaque fois la même chose : est-ce beau, est-ce que ça marche, est-ce que c’est pour tout le monde ? Picasso l’appelait « le nouveau Léonard ». Réédité en Penguin Modern Classics en 2008.',
     handsBook2Cta: 'Le livre chez Penguin',
-    handsPhotoNote: 'La couverture ci-dessus, c’est « ma che vuoi » — le geste par lequel tout commence. Les cinquante autres sont dans le livre, et n’ont pas leur place ici : elles sont sous droits. Couverture Chronicle Books, 2005.',
+    handsPhotoNote: 'La main sur la couverture du Supplemento, c’est « ma che vuoi » — le geste par lequel tout commence. Les autres sont dans le livre, et n’ont pas leur place ici : elles sont sous droits. On montre les couvertures, pas ce qu’il y a dedans.',
     handsCoverAlt: 'Couverture de « Speak Italian: The Fine Art of the Gesture » de Bruno Munari : une main photographiée en noir et blanc, les cinq doigts pincés en bouton.',
     handsCoverCredit: 'Bruno Munari, Speak Italian: The Fine Art of the Gesture — Chronicle Books, 2005',
     handsCover2Alt: 'Couverture de « Design as Art » de Bruno Munari chez Penguin : seize visages dessinés en noir et blanc, chacun dans un style différent, sur fond crème.',
@@ -791,13 +787,11 @@ const IT: Dict = {
     handsTitle: 'Parlare con le mani',
     handsIntro: 'Nel 1958 il designer milanese Bruno Munari fotografa cinquanta gesti italiani e li didascalizza in quattro lingue. Il titolo dice tutto: « Supplemento al dizionario italiano ». Non lo fa per scherzo — lo fa per gli stranieri di passaggio in Italia. Cioè per noi.',
     handsWho: 'Bruno Munari (Milano, 1907-1998) comincia tra i futuristi a vent’anni, poi passa la vita a smontare la serietà: le sue « macchine inutili » del 1933 girano al soffitto senza produrre nulla, fonda il Movimento Arte Concreta, inventa libri illeggibili e apre nel 1977 il primo laboratorio per bambini di un museo italiano, alla Pinacoteca di Brera. Tre Compassi d’oro, più uno alla carriera. I gesti non li ha inventati: li ha presi dal canonico Andrea de Jorio, che li aveva raccolti a Napoli nel 1832, e ci ha aggiunto i suoi — fino all’« O.K. » americano.',
-    handsBookTitle: 'Supplemento al dizionario italiano',
-    handsBookDesc: 'Ancora edito da Corraini, in italiano, inglese, francese e tedesco. Cinquanta gesti in fotografia, una pagina ciascuno. Il regalo migliore da portarsi via — e l’unico dizionario che si legge tutto d’un fiato.',
     handsBookCta: 'Il libro da Corraini',
     handsBook2Title: 'Design as Art',
     handsBook2Desc: 'Il suo libro più letto, pubblicato da Laterza nel 1966 con il titolo « Arte come mestiere ». Munari guarda le lampade, i segnali stradali, i manifesti, le automobili e le sedie, e ogni volta chiede la stessa cosa: è bello, funziona, è per tutti? Picasso lo chiamava « il nuovo Leonardo ». Ristampato nei Penguin Modern Classics nel 2008.',
     handsBook2Cta: 'Il libro da Penguin',
-    handsPhotoNote: 'La copertina qui sopra è « ma che vuoi » — il gesto da cui parte tutto. Gli altri cinquanta sono nel libro, e qui non ci stanno: sono sotto diritti. Copertina Chronicle Books, 2005.',
+    handsPhotoNote: 'La mano sulla copertina del Supplemento è « ma che vuoi » — il gesto da cui parte tutto. Gli altri sono nel libro, e qui non ci stanno: sono sotto diritti. Mostriamo le copertine, non quello che c’è dentro.',
     handsCoverAlt: 'Copertina di « Speak Italian: The Fine Art of the Gesture » di Bruno Munari: una mano fotografata in bianco e nero, le cinque dita unite a pigna.',
     handsCoverCredit: 'Bruno Munari, Speak Italian: The Fine Art of the Gesture — Chronicle Books, 2005',
     handsCover2Alt: 'Copertina di « Design as Art » di Bruno Munari per Penguin: sedici volti disegnati in bianco e nero, ognuno in uno stile diverso, su fondo crema.',
@@ -1184,13 +1178,11 @@ const EN: Dict = {
     handsTitle: 'Talking with your hands',
     handsIntro: 'In 1958 the Milanese designer Bruno Munari photographed fifty Italian gestures and captioned them in four languages. The title says it all: “Supplement to the Italian dictionary”. He did not do it as a joke — he did it for foreigners visiting Italy. That is, for us.',
     handsWho: 'Bruno Munari (Milan, 1907-1998) started among the Futurists at twenty, then spent his life dismantling seriousness: his 1933 “useless machines” turn on the ceiling producing nothing, he co-founded the Concrete Art Movement, invented unreadable books, and in 1977 opened the first children’s workshop in an Italian museum, at the Brera gallery. Three Compasso d’Oro awards, plus one for his career. He did not invent the gestures: he took them from canon Andrea de Jorio, who catalogued them in Naples in 1832, and added his own — right up to the American “O.K.”.',
-    handsBookTitle: 'Supplemento al dizionario italiano',
-    handsBookDesc: 'Still in print at Corraini, in Italian, English, French and German. Fifty gestures in photographs, one page each. The best thing to take home — and the only dictionary you read in one sitting.',
     handsBookCta: 'The book at Corraini',
     handsBook2Title: 'Design as Art',
     handsBook2Desc: 'His most widely read book, published by Laterza in 1966 as « Arte come mestiere » — art as a trade. Munari looks at lamps, road signs, posters, cars and chairs, and each time asks the same thing: is it beautiful, does it work, is it for everyone? Picasso called him “the new Leonardo”. Reissued as a Penguin Modern Classic in 2008.',
     handsBook2Cta: 'The book at Penguin',
-    handsPhotoNote: 'The cover above is “ma che vuoi” — the gesture everything starts from. The other fifty are in the book, and have no place here: they are under copyright. Cover Chronicle Books, 2005.',
+    handsPhotoNote: 'The hand on the Supplemento cover is “ma che vuoi” — the gesture everything starts from. The others are in the book, and have no place here: they are under copyright. We show the covers, not what is inside them.',
     handsCoverAlt: 'Cover of “Speak Italian: The Fine Art of the Gesture” by Bruno Munari: a hand photographed in black and white, all five fingertips pinched together.',
     handsCoverCredit: 'Bruno Munari, Speak Italian: The Fine Art of the Gesture — Chronicle Books, 2005',
     handsCover2Alt: 'Cover of “Design as Art” by Bruno Munari for Penguin: sixteen faces drawn in black and white, each in a different style, on a cream background.',
