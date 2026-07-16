@@ -10,8 +10,8 @@ import { WASTE, WEEK, mondayIndex } from './wasteData';
  * Tri des déchets — le calendrier de la semaine.
  *
  * L'info vraiment utile n'est pas le tableau : c'est « qu'est-ce que je sors
- * ce soir ? ». On répond donc à ça d'abord, en gros, et la semaine complète
- * se déplie au clic.
+ * ce soir ? ». On répond donc à ça d'abord, en gros, puis la semaine complète
+ * dessous.
  *
  * Le jour est calculé côté navigateur : en rendu statique le serveur ne sait
  * pas quel jour il est chez le visiteur. On part donc de « rien de mis en
@@ -22,7 +22,6 @@ export default function WasteSchedule() {
   const { t, lang } = useI18n();
   const w = t.wastePage;
   const [today, setToday] = useState<number | null>(null);
-  const [open, setOpen] = useState(false);
 
   useEffect(() => setToday(mondayIndex(new Date())), []);
 
@@ -53,10 +52,10 @@ export default function WasteSchedule() {
           <div className="flex items-center gap-5">
             <span
               aria-hidden
-              className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl md:h-20 md:w-20"
+              className="flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl md:h-28 md:w-28"
               style={{ background: tonight ? tonight.color : 'var(--cava-line)', color: '#fff' }}
             >
-              <Icon name={tonight ? tonight.icon : 'trash'} size={34} />
+              <Icon name={tonight ? tonight.icon : 'trash'} size={56} />
             </span>
             <div>
               <p className="text-[12px] uppercase tracking-[0.2em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
@@ -81,7 +80,7 @@ export default function WasteSchedule() {
               style={{ background: 'rgba(46,45,45,0.04)' }}
             >
               <span aria-hidden className="shrink-0" style={{ color: next.color }}>
-                <Icon name={next.icon} size={22} />
+                <Icon name={next.icon} size={28} />
               </span>
               <div>
                 <p className="text-[11px] uppercase tracking-[0.16em]" style={{ color: 'var(--cava-muted)' }}>
@@ -95,58 +94,46 @@ export default function WasteSchedule() {
           )}
         </div>
 
-        {/* La semaine, dépliable */}
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          className="cava-checkrow flex w-full items-center justify-between gap-3 border-t px-8 py-4 text-left text-[13px] uppercase tracking-[0.14em] md:px-10"
-          style={{ borderColor: 'var(--cava-line)', fontWeight: 600 }}
-        >
-          {open ? w.hideWeek : w.seeWeek}
-          <span aria-hidden className="text-[16px] transition-transform duration-300" style={{ transform: open ? 'rotate(180deg)' : 'none' }}>
-            ↓
-          </span>
-        </button>
-
-        {/* 7 jours = nombre premier : aucune grille intermédiaire ne tombe juste
+        {/* La semaine, toujours visible.
+            7 jours = nombre premier : aucune grille intermédiaire ne tombe juste
             (dimanche se retrouvait seul sur une ligne). En dessous du grand
             écran, on fait donc défiler la semaine horizontalement. */}
-        {open && (
-          <div className="flex snap-x gap-px overflow-x-auto lg:grid lg:grid-cols-7" style={{ background: 'var(--cava-line)' }}>
-            {WEEK.map((key, i) => {
-              const k = WASTE[key];
-              const isToday = i === today;
-              return (
-                <div
-                  key={i}
-                  className="flex min-w-[8.5rem] shrink-0 snap-start flex-col items-center gap-3 p-6 text-center lg:min-w-0"
-                  style={{ background: isToday ? 'rgba(230,41,111,0.06)' : 'var(--cava-bg)' }}
+        <div
+          className="flex snap-x gap-px overflow-x-auto border-t lg:grid lg:grid-cols-7"
+          style={{ background: 'var(--cava-line)', borderColor: 'var(--cava-line)' }}
+        >
+          {WEEK.map((key, i) => {
+            const k = WASTE[key];
+            const isToday = i === today;
+            return (
+              <div
+                key={i}
+                className="flex min-w-[9.5rem] shrink-0 snap-start flex-col items-center gap-4 p-6 text-center lg:min-w-0 lg:p-7"
+                style={{ background: isToday ? 'rgba(230,41,111,0.06)' : 'var(--cava-bg)' }}
+              >
+                <p
+                  className="text-[11.5px] uppercase tracking-[0.16em]"
+                  style={{ color: isToday ? 'var(--cava-pink)' : 'var(--cava-muted)', fontWeight: isToday ? 700 : 500 }}
                 >
-                  <p
-                    className="text-[11.5px] uppercase tracking-[0.16em]"
-                    style={{ color: isToday ? 'var(--cava-pink)' : 'var(--cava-muted)', fontWeight: isToday ? 700 : 500 }}
-                  >
-                    {w.days[i]}
-                  </p>
-                  <span
-                    aria-hidden
-                    className="flex h-12 w-12 items-center justify-center rounded-2xl"
-                    style={{ background: k.color, color: '#fff' }}
-                  >
-                    <Icon name={k.icon} size={24} />
-                  </span>
-                  <p className="text-[13.5px] leading-[1.35]" style={{ fontWeight: 600 }}>
-                    {k.label[lang]}
-                  </p>
-                  <p className="text-[11.5px] leading-[1.3]" style={{ color: 'var(--cava-muted)' }}>
-                    {k.sub[lang]}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        )}
+                  {w.days[i]}
+                </p>
+                <span
+                  aria-hidden
+                  className="flex h-20 w-20 items-center justify-center rounded-3xl lg:h-[5.5rem] lg:w-[5.5rem]"
+                  style={{ background: k.color, color: '#fff' }}
+                >
+                  <Icon name={k.icon} size={46} />
+                </span>
+                <p className="text-[14px] leading-[1.35]" style={{ fontWeight: 700 }}>
+                  {k.label[lang]}
+                </p>
+                <p className="text-[11.5px] leading-[1.3]" style={{ color: 'var(--cava-muted)' }}>
+                  {k.sub[lang]}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </Reveal>
 
       <Reveal className="mt-4 flex items-start gap-3 text-[13.5px] italic leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>

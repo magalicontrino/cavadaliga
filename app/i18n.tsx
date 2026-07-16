@@ -138,8 +138,6 @@ export type Dict = {
     tomorrow: string;
     noneToday: string;
     eveningNote: string;
-    seeWeek: string;
-    hideWeek: string;
     days: string[]; // lundi → dimanche
   };
   ctaEyebrow: string;
@@ -338,8 +336,6 @@ const FR: Dict = {
     tomorrow: 'Demain soir',
     noneToday: 'Rien à sortir',
     eveningNote: 'On sort les bacs le soir, pas le matin — le camion est déjà passé. Si vous ratez le passage la veille du départ, laissez les sacs sur la terrasse, jamais dans la rue.',
-    seeWeek: 'Voir la semaine',
-    hideWeek: 'Masquer la semaine',
     days: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
   },
   ctaEyebrow: 'Envie de venir ?',
@@ -661,8 +657,6 @@ const IT: Dict = {
     tomorrow: 'Domani sera',
     noneToday: 'Niente da mettere fuori',
     eveningNote: 'I bidoni si mettono fuori la sera, non la mattina — il camion è già passato. Se saltate il passaggio prima di partire, lasciate i sacchi sulla terrazza, mai in strada.',
-    seeWeek: 'Vedi la settimana',
-    hideWeek: 'Nascondi la settimana',
     days: ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'],
   },
   ctaEyebrow: 'Voglia di venire?',
@@ -984,8 +978,6 @@ const EN: Dict = {
     tomorrow: 'Tomorrow evening',
     noneToday: 'Nothing to put out',
     eveningNote: 'Bins go out in the evening, not in the morning — by then the truck has been. If you miss the round before leaving, leave the bags on the terrace, never in the street.',
-    seeWeek: 'See the week',
-    hideWeek: 'Hide the week',
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
   },
   ctaEyebrow: 'Ready to come?',

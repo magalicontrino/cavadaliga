@@ -137,6 +137,19 @@ export default function MapViewport({
     return () => el.removeEventListener('wheel', onWheel);
   });
 
+  // Retour arrière du navigateur : la page est restaurée depuis son cache, avec
+  // l'etat React intact — on retrouve la carte zoomée là où on l'avait laissée.
+  // Une navigation normale recharge la page et remet tout à zéro ; ici il faut
+  // le faire à la main.
+  useEffect(() => {
+    const onShow = (e: PageTransitionEvent) => {
+      if (e.persisted) apply(1, 0, 0);
+    };
+    window.addEventListener('pageshow', onShow);
+    return () => window.removeEventListener('pageshow', onShow);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Recadrage sur demande de la page : amène le point visé au centre.
   // Un point à dx du centre se retrouve à dx*s + tx → tx = -dx*s pour le centrer.
   const focusKey = focus?.key;

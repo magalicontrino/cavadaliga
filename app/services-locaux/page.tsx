@@ -110,7 +110,14 @@ export default function NosAdresses() {
   };
 
   // Changement de filtre ou de recherche → on recadre sur les lieux concernés.
+  // Pas au premier rendu : la carte doit s'ouvrir entière, et le rester quand on
+  // revient sur la page depuis ailleurs.
+  const firstRender = useRef(true);
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
     setFocus(fitSpots());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, q]);

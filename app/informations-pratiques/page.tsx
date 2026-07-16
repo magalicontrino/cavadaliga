@@ -26,19 +26,10 @@ export default function InformationsPratiques() {
       {/* L'adresse d'abord : c'est l'info qu'on vient chercher en premier. */}
       <section className="mx-auto max-w-[110rem] px-5 pb-14 pt-8 md:px-10">
         <Reveal
-          className="relative flex flex-col gap-8 overflow-hidden rounded-3xl p-10 md:flex-row md:items-center md:justify-between md:p-16"
-          style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)' }}
+          className="flex flex-col gap-8 rounded-3xl border p-8 md:flex-row md:items-center md:justify-between md:p-12"
+          style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
         >
-          {/* Maison décorative en filigrane */}
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -right-10 -top-12 opacity-[0.13] md:-right-4 md:top-1/2 md:-translate-y-1/2"
-            style={{ color: 'var(--cava-pink)' }}
-          >
-            <Icon name="home" size={280} />
-          </span>
-
-          <div className="relative">
+          <div>
             <span
               className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.22em]"
               style={{ color: 'var(--cava-pink)' }}
@@ -49,8 +40,8 @@ export default function InformationsPratiques() {
               {a.address.map((line, i) => (
                 <div
                   key={line}
-                  className="text-[clamp(1.5rem,3.4vw,2.4rem)] uppercase leading-[1.12] tracking-[-0.02em]"
-                  style={{ fontWeight: i === 0 ? 900 : 500, color: i === 0 ? 'var(--cava-bg)' : 'rgba(247,245,242,0.7)' }}
+                  className="text-[clamp(1.4rem,3.2vw,2.2rem)] uppercase leading-[1.12] tracking-[-0.02em]"
+                  style={{ fontWeight: i === 0 ? 900 : 500, color: i === 0 ? 'var(--cava-ink)' : 'var(--cava-muted)' }}
                 >
                   {line}
                 </div>
@@ -62,7 +53,7 @@ export default function InformationsPratiques() {
             href={a.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative inline-flex shrink-0 items-center gap-3 self-start rounded-full px-7 py-4 text-[15px] transition hover:opacity-85 md:self-auto"
+            className="inline-flex shrink-0 items-center gap-3 self-start rounded-full px-7 py-4 text-[15px] transition hover:opacity-85 md:self-auto"
             style={{ background: 'var(--cava-pink)', color: '#fff', fontWeight: 700 }}
           >
             <Icon name="pin" size={20} /> {a.mapsLabel} <span aria-hidden>↗</span>
