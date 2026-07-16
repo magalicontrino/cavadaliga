@@ -121,7 +121,7 @@ export default function Culture() {
     { key: 'ecrans', label: cf.screens, icon: 'film' },
     { key: 'peinture', label: cf.painting, icon: 'brush' },
     { key: 'photo', label: cf.photo, icon: 'camera' },
-    { key: 'mains', label: cf.hands, icon: 'hand' },
+    { key: 'mains', label: cf.hands, icon: 'compass' },
     { key: 'chansons', label: cf.songs, icon: 'vinyl' },
   ];
 
@@ -160,7 +160,9 @@ export default function Culture() {
             <Icon name="vinyl" size={220} />
           </span>
 
-          <div className="relative flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          {/* Le lecteur monte à côté du texte : il ne fait que 152px de haut,
+              il n'a pas besoin d'attendre la fin du paragraphe pour exister. */}
+          <div className="relative grid gap-6 md:gap-10 lg:grid-cols-[1fr_minmax(300px,440px)] lg:items-center">
             <div className="max-w-[56ch]">
               <span
                 className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em]"
@@ -174,45 +176,43 @@ export default function Culture() {
               <p className="mt-3 text-[15px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
                 {c.playlistDesc}
               </p>
+              <div className="mt-5">
+                {SPOTIFY_PLAYLIST_URL ? (
+                  <a
+                    href={SPOTIFY_PLAYLIST_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 text-[14px] transition hover:opacity-85"
+                    style={{ background: 'var(--cava-pink)', color: '#fff', fontWeight: 700 }}
+                  >
+                    <Icon name="spotify" size={19} /> {c.playlistCta} <span aria-hidden>↗</span>
+                  </a>
+                ) : (
+                  <span
+                    className="inline-flex items-center gap-2.5 rounded-full border border-dashed px-6 py-3 text-[14px] italic"
+                    style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)' }}
+                  >
+                    <Icon name="spotify" size={19} /> {c.playlistSoon}
+                  </span>
+                )}
+              </div>
             </div>
 
-            <div className="shrink-0">
-              {SPOTIFY_PLAYLIST_URL ? (
-                <a
-                  href={SPOTIFY_PLAYLIST_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 text-[14px] transition hover:opacity-85"
-                  style={{ background: 'var(--cava-pink)', color: '#fff', fontWeight: 700 }}
-                >
-                  <Icon name="spotify" size={19} /> {c.playlistCta} <span aria-hidden>↗</span>
-                </a>
-              ) : (
-                <span
-                  className="inline-flex items-center gap-2.5 rounded-full border border-dashed px-6 py-3 text-[14px] italic"
-                  style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)' }}
-                >
-                  <Icon name="spotify" size={19} /> {c.playlistSoon}
-                </span>
-              )}
-            </div>
+            {SPOTIFY_PLAYLIST_URL && (
+              <div className="overflow-hidden rounded-xl">
+                <iframe
+                  src={SPOTIFY_EMBED_URL}
+                  title={c.playlistTitle}
+                  width="100%"
+                  height={SPOTIFY_EMBED_HEIGHT}
+                  frameBorder="0"
+                  loading="lazy"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  style={{ border: 0, display: 'block' }}
+                />
+              </div>
+            )}
           </div>
-
-          {/* Lecteur compact — écoute directe, sans noircir la page */}
-          {SPOTIFY_PLAYLIST_URL && (
-            <div className="relative mt-6 overflow-hidden rounded-xl">
-              <iframe
-                src={SPOTIFY_EMBED_URL}
-                title={c.playlistTitle}
-                width="100%"
-                height={SPOTIFY_EMBED_HEIGHT}
-                frameBorder="0"
-                loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                style={{ border: 0, display: 'block' }}
-              />
-            </div>
-          )}
         </Reveal>
       </section>
       )}
@@ -226,7 +226,7 @@ export default function Culture() {
       {/* Photographié ici — Giuseppe Leone & Scianna */}
       {show('photo') && <WorkGrid title={c.photosTitle} intro={c.photosIntro} items={PHOTOS} icon="camera" lang={lang} more={c.moreLabel} />}
 
-      {/* Parler avec les mains — Munari et son dictionnaire de gestes */}
+      {/* Designer — Munari, son dictionnaire de gestes et son livre sur le design */}
       {show('mains') && (
       <section className="mx-auto max-w-[110rem] px-5 pt-20 md:px-10">
         <Reveal

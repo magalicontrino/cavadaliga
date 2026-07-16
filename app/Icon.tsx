@@ -31,7 +31,6 @@ export type IconName =
   | 'brush'
   | 'target'
   | 'camera'
-  | 'hand'
   | 'box'
   | 'bottle'
   | 'trash'
@@ -219,14 +218,6 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
     <>
       <path d="M3 8.5a2 2 0 012-2h2.4l1.3-2.2h6.6L16.6 6.5H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2v-9z" />
       <circle cx="12" cy="12.8" r="3.7" />
-    </>
-  ),
-  // Main ouverte — les gestes italiens
-  hand: (
-    <>
-      <path d="M8.2 12V5.1a1.6 1.6 0 013.2 0v5.6" />
-      <path d="M11.4 10.7V3.7a1.6 1.6 0 013.2 0v7" />
-      <path d="M14.6 11.2V5.8a1.6 1.6 0 013.2 0v8.9c0 3.5-2.7 6.3-6.3 6.3S5 18.2 5 14.7v-4.2a1.6 1.6 0 013.2 0v1.6" />
     </>
   ),
   // Cible — « vous êtes ici »
