@@ -13,14 +13,15 @@ import { useEffect, useLayoutEffect, useRef, useState, type ElementType, type Re
  * seconde. Celui-là s'affiche d'emblée.
  */
 
-// Le premier chargement garde l'animation : c'est là qu'elle fait son effet.
-// Une fois la page posée, un Reveal né dans l'écran s'affiche instantanément.
+// Le premier rendu garde l'animation d'arrivée ; tout ce qui naît ensuite est
+// une réaction à un clic et doit s'afficher tout de suite.
+//
+// Le drapeau bascule deux frames après le premier montage, et non sur un
+// minuteur : un délai serait une course entre l'hydratation de React et lui —
+// selon lequel gagne, un bloc de la page d'accueil se retrouverait « instantané »
+// alors qu'on vient d'arriver. Ici, tous les Reveal du premier rendu posent
+// leur effet avant la bascule, donc aucun ne peut être pris pour un clic.
 let pageSettled = false;
-if (typeof window !== 'undefined') {
-  const settle = () => window.setTimeout(() => (pageSettled = true), 600);
-  if (document.readyState === 'complete') settle();
-  else window.addEventListener('load', settle, { once: true });
-}
 
 // useLayoutEffect prévient React côté serveur ; en rendu statique on retombe
 // sur useEffect, qui ne sert de toute façon qu'une fois dans le navigateur.
@@ -78,6 +79,13 @@ export default function Reveal({
     io.observe(el);
     return () => io.disconnect();
   }, [once]);
+
+  // Pose le drapeau une fois le premier rendu passé. Idempotent : chaque Reveal
+  // le programme, tous écrivent la même valeur.
+  useEffect(() => {
+    if (pageSettled) return;
+    requestAnimationFrame(() => requestAnimationFrame(() => (pageSettled = true)));
+  }, []);
 
   return (
     <Tag
