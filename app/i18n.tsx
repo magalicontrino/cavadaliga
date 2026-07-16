@@ -156,6 +156,12 @@ export type Dict = {
     intro: string;
     facts: { icon: string; title: string; text: string }[];
   };
+  askMag: {
+    text: string;
+    textFor: string;
+    cta: string;
+    subject: string;
+  };
   wastePage: {
     eyebrow: string;
     title: string;
@@ -371,7 +377,7 @@ const FR: Dict = {
     dutyTitle: 'Pharmacie de garde',
     dutyDesc: 'La nuit et les jours fériés, une pharmacie de Scicli est toujours de garde — à tour de rôle. La nôtre, Trovato, en fait partie. Le tour du jour se voit ici. Attention : la garde de nuit a le rideau baissé, il faut sonner à l’interphone pour réveiller le pharmacien.',
     dutyCta: 'Voir la garde du jour',
-    localToCome: 'Médecin, taxi, plombier : Mag complète cette liste avec les vrais numéros du village. En attendant, le 112 couvre toutes les vraies urgences.',
+    localToCome: 'le médecin, un taxi ou le plombier',
   },
   tastePage: {
     eyebrow: 'Us et coutumes',
@@ -394,6 +400,12 @@ const FR: Dict = {
         text: 'Quand la chaleur tombe, tout le monde descend : on marche lentement, on s’arrête tous les dix mètres pour parler, on regarde et on se laisse regarder. Ce n’est pas une promenade, c’est un rendez-vous. Vers 19 h, sur le front de mer. Ne prévoyez rien à cette heure-là — c’est là que le village existe.',
       },
     ],
+  },
+  askMag: {
+    text: 'On n’a pas encore l’info ici. Écrivez à Mag : elle vous répond, et on l’ajoute pour les suivants.',
+    textFor: 'Pour {what} : on n’a pas encore l’info ici. Écrivez à Mag, elle vous répond — et on l’ajoute pour les suivants.',
+    cta: 'Écrire à Mag',
+    subject: 'Une question depuis le site',
   },
   wastePage: {
     eyebrow: 'Tri des déchets',
@@ -513,10 +525,10 @@ const FR: Dict = {
     operation: [
       { icon: 'bolt', title: 'Électricité', items: ['Interrupteurs à activer dehors, sur la terrasse de devant, à droite de la porte.'] },
       { icon: 'drop', title: 'Eau', items: ['Dans la rue : descendre à droite, au coin.', 'Ouvrir la deuxième vanne en partant du bas → en parallèle = OUVERT (perpendiculaire = FERMÉ).'] },
-      { icon: 'flame', title: 'Gaz', items: ['Un monsieur près de la place (en haut) livre à domicile.', 'Coordonnées à venir.'] },
+      { icon: 'flame', title: 'Gaz', items: ['Un monsieur près de la place (en haut) livre à domicile.'] },
       { icon: 'signal', title: 'Wifi', items: ['Réseau : cacestlaissetomber', 'Mot de passe : jamonito'] },
     ],
-    toCome: 'Clés et conseils du premier jour (courses, boulangerie, pharmacie, essence) : bientôt en ligne.',
+    toCome: 'le gaz, un dépannage, ou toute question qui n’est pas sur le site',
   },
   depart: {
     eyebrow: 'Départ',
@@ -733,7 +745,7 @@ const IT: Dict = {
     dutyTitle: 'Farmacia di turno',
     dutyDesc: 'Di notte e nei giorni festivi c’è sempre una farmacia di turno a Scicli, a rotazione — e la nostra, Trovato, ne fa parte. Il turno del giorno si vede qui. Attenzione: la farmacia di turno notturno ha la saracinesca abbassata, bisogna suonare il citofono per svegliare il farmacista.',
     dutyCta: 'Vedi il turno di oggi',
-    localToCome: 'Medico, taxi, idraulico: Mag completa la lista con i veri numeri del paese. Intanto il 112 copre tutte le vere emergenze.',
+    localToCome: 'il medico, un taxi o l’idraulico',
   },
   tastePage: {
     eyebrow: 'Usi e costumi',
@@ -756,6 +768,12 @@ const IT: Dict = {
         text: 'Quando cala il caldo, scendono tutti: si cammina piano, ci si ferma ogni dieci metri a parlare, si guarda e ci si lascia guardare. Non è una passeggiata, è un appuntamento. Verso le 19, sul lungomare. Non organizzate niente a quell’ora — è lì che il paese esiste.',
       },
     ],
+  },
+  askMag: {
+    text: 'Qui non abbiamo ancora l’informazione. Scrivete a Mag: vi risponde, e noi la aggiungiamo per i prossimi.',
+    textFor: 'Per {what}: qui non abbiamo ancora l’informazione. Scrivete a Mag, vi risponde — e noi la aggiungiamo per i prossimi.',
+    cta: 'Scrivi a Mag',
+    subject: 'Una domanda dal sito',
   },
   wastePage: {
     eyebrow: 'Raccolta differenziata',
@@ -875,10 +893,10 @@ const IT: Dict = {
     operation: [
       { icon: 'bolt', title: 'Elettricità', items: ['Interruttori da attivare fuori, sulla terrazza davanti, a destra della porta.'] },
       { icon: 'drop', title: 'Acqua', items: ['In strada: scendere a destra, all’angolo.', 'Aprire la seconda valvola dal basso → in parallelo = APERTA (perpendicolare = CHIUSA).'] },
-      { icon: 'flame', title: 'Gas', items: ['Un signore vicino alla piazza (in alto) consegna a domicilio.', 'Contatti in arrivo.'] },
+      { icon: 'flame', title: 'Gas', items: ['Un signore vicino alla piazza (in alto) consegna a domicilio.'] },
       { icon: 'signal', title: 'Wifi', items: ['Rete: cacestlaissetomber', 'Password: jamonito'] },
     ],
-    toCome: 'Chiavi e consigli per il primo giorno (spesa, panetteria, farmacia, benzina): presto online.',
+    toCome: 'il gas, un guasto, o qualsiasi domanda che non è sul sito',
   },
   depart: {
     eyebrow: 'Partenza',
@@ -1095,7 +1113,7 @@ const EN: Dict = {
     dutyTitle: 'On-duty pharmacy',
     dutyDesc: 'At night and on holidays one pharmacy in Scicli is always on duty, by rotation — and ours, Trovato, is part of it. Today’s rota is here. Note: the night pharmacy has its shutter down, you have to ring the intercom to wake the pharmacist.',
     dutyCta: 'See today’s rota',
-    localToCome: 'Doctor, taxi, plumber: Mag is filling this list with the village’s real numbers. In the meantime, 112 covers every real emergency.',
+    localToCome: 'the doctor, a taxi or the plumber',
   },
   tastePage: {
     eyebrow: 'Local customs',
@@ -1118,6 +1136,12 @@ const EN: Dict = {
         text: 'When the heat drops, everyone comes down: you walk slowly, stop every ten metres to talk, look and let yourself be looked at. It is not a stroll, it is an appointment. Around 7pm, on the seafront. Plan nothing at that hour — that is when the village exists.',
       },
     ],
+  },
+  askMag: {
+    text: 'We do not have this yet. Write to Mag: she will answer you, and we will add it here for the next ones.',
+    textFor: 'For {what}: we do not have this yet. Write to Mag, she will answer you — and we will add it here for the next ones.',
+    cta: 'Write to Mag',
+    subject: 'A question from the site',
   },
   wastePage: {
     eyebrow: 'Waste sorting',
@@ -1237,10 +1261,10 @@ const EN: Dict = {
     operation: [
       { icon: 'bolt', title: 'Electricity', items: ['Switches to turn on outside, on the front terrace, to the right of the door.'] },
       { icon: 'drop', title: 'Water', items: ['In the street: go down to the right, at the corner.', 'Open the second valve from the bottom → parallel = OPEN (perpendicular = CLOSED).'] },
-      { icon: 'flame', title: 'Gas', items: ['A gentleman near the square (uptown) delivers to your door.', 'Contact details coming soon.'] },
+      { icon: 'flame', title: 'Gas', items: ['A gentleman near the square (uptown) delivers to your door.'] },
       { icon: 'signal', title: 'Wifi', items: ['Network: cacestlaissetomber', 'Password: jamonito'] },
     ],
-    toCome: 'Keys and first-day tips (groceries, bakery, pharmacy, petrol): coming online soon.',
+    toCome: 'gas, a breakdown, or anything that is not on the site',
   },
   depart: {
     eyebrow: 'Departure',

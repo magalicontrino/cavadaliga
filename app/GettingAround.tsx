@@ -3,6 +3,7 @@
 import Reveal from './Reveal';
 import Icon from './Icon';
 import { useI18n } from './i18n';
+import AskMag from './AskMag';
 import { TRANSPORTS, EMERGENCIES, PHARMACY } from './practicalData';
 
 /** Se déplacer + urgences. Tous les liens sont cliquables, numéros compris. */
@@ -208,14 +209,9 @@ export default function GettingAround() {
           </Reveal>
         </div>
 
-        {/* Ce qui manque encore */}
-        <Reveal
-          className="mt-6 rounded-2xl border border-dashed p-6"
-          style={{ borderColor: 'var(--cava-line)' }}
-        >
-          <p className="max-w-[62ch] text-[14px] italic leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
-            {m.localToCome}
-          </p>
+        {/* Ce qu'on n'a pas : on donne quelqu'un à qui écrire */}
+        <Reveal className="mt-6">
+          <AskMag what={m.localToCome} />
         </Reveal>
       </section>
     </>

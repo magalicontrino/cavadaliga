@@ -9,6 +9,7 @@ import OpIcon, { type OpIconName } from '../OpIcon';
 import GettingAround from '../GettingAround';
 import WasteSchedule from '../WasteSchedule';
 import DepartChecklist from '../DepartChecklist';
+import AskMag from '../AskMag';
 import { InfoBlocks } from '../SectionShell';
 import { PAGE_ICONS } from '../data';
 import { useI18n } from '../i18n';
@@ -114,8 +115,9 @@ export default function InformationsPratiques() {
           ))}
         </div>
 
-        <Reveal className="mt-6 text-[14px] italic" style={{ color: 'var(--cava-muted)' }}>
-          {a.toCome}
+        {/* Le gaz n'a pas de numéro, et d'autres questions n'ont pas de page */}
+        <Reveal className="mt-6">
+          <AskMag what={a.toCome} />
         </Reveal>
       </section>
 
