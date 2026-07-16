@@ -179,6 +179,29 @@ export default function LaRegion() {
         >
           {t.arabPage.note}
         </Reveal>
+
+        {/* Pour aller plus loin — @iosonolibero, « Musica e Sicilia Araba » */}
+        <Reveal
+          className="mt-8 flex flex-col gap-4 rounded-2xl border p-8 sm:flex-row sm:items-center sm:justify-between"
+          style={{ borderColor: 'var(--cava-line)' }}
+        >
+          <div className="max-w-[58ch]">
+            <p className="text-[12px] uppercase tracking-[0.18em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+              {t.arabPage.moreTitle}
+            </p>
+            <p className="mt-2 text-[15px] leading-[1.65]" style={{ color: 'var(--cava-muted)' }}>
+              {t.arabPage.moreDesc}
+            </p>
+          </div>
+          <a
+            href="https://www.instagram.com/iosonolibero/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cava-pill inline-flex w-fit shrink-0 items-center gap-2 px-5 py-2.5 text-[13px]"
+          >
+            <Icon name="instagram" size={15} /> @iosonolibero <span aria-hidden>↗</span>
+          </a>
+        </Reveal>
       </section>
 
       <div className="pb-24" />

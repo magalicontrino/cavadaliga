@@ -84,6 +84,8 @@ export type Dict = {
     intro: string;
     facts: { icon: string; title: string; text: string }[];
     note: string;
+    moreTitle: string;
+    moreDesc: string;
   };
   localPage: {
     title: string;
@@ -289,6 +291,8 @@ const FR: Dict = {
       },
     ],
     note: 'Un détail qui dit tout : les Normands ont chassé les Arabes, mais ils ont gardé leurs jardiniers, leurs ingénieurs et leurs poètes. La Sicile n’a jamais choisi entre ses héritages — elle les a empilés.',
+    moreTitle: 'Si le sujet vous attrape',
+    moreDesc: 'Libero Reina raconte cette Sicile arabe sur Instagram — et il la raconte en musique, ce qui est la meilleure façon de l’entendre.',
   },
   localPage: {
     title: 'Local & responsable',
@@ -663,6 +667,8 @@ const IT: Dict = {
       },
     ],
     note: 'Un dettaglio che dice tutto: i Normanni cacciarono gli Arabi, ma ne tennero i giardinieri, gli ingegneri e i poeti. La Sicilia non ha mai scelto tra le sue eredità — le ha impilate.',
+    moreTitle: 'Se l’argomento vi prende',
+    moreDesc: 'Libero Reina racconta questa Sicilia araba su Instagram — e la racconta in musica, che è il modo migliore per sentirla.',
   },
   localPage: {
     title: 'Locale & responsabile',
@@ -1037,6 +1043,8 @@ const EN: Dict = {
       },
     ],
     note: 'One detail says it all: the Normans drove the Arabs out, but kept their gardeners, their engineers and their poets. Sicily never chose between its inheritances — it stacked them.',
+    moreTitle: 'If the subject grabs you',
+    moreDesc: 'Libero Reina tells this Arab Sicily on Instagram — and he tells it through music, which is the best way to hear it.',
   },
   localPage: {
     title: 'Local & responsible',
