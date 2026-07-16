@@ -15,6 +15,8 @@ export default function AskMag({ what }: { what?: string }) {
   const { t } = useI18n();
   const a = t.askMag;
   const subject = encodeURIComponent(what ? `${a.subject} — ${what}` : a.subject);
+  // wa.me pré-remplit le message : le visiteur n'a plus qu'à envoyer.
+  const waText = encodeURIComponent(what ? `${a.subject} — ${what}` : a.subject);
 
   return (
     <div
@@ -24,12 +26,22 @@ export default function AskMag({ what }: { what?: string }) {
       <p className="max-w-[54ch] text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
         {what ? a.textFor.replace('{what}', what) : a.text}
       </p>
-      <a
-        href={`mailto:${SITE.email}?subject=${subject}`}
-        className="cava-pill inline-flex w-fit shrink-0 items-center gap-2 px-5 py-2.5 text-[13px]"
-      >
-        <Icon name="phone" size={15} /> {a.cta}
-      </a>
+      <div className="flex shrink-0 flex-wrap gap-2">
+        <a
+          href={`${SITE.whatsapp.url}?text=${waText}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="cava-pill inline-flex w-fit shrink-0 items-center gap-2 px-5 py-2.5 text-[13px]"
+        >
+          <Icon name="chat" size={15} /> {a.ctaChat}
+        </a>
+        <a
+          href={`mailto:${SITE.email}?subject=${subject}`}
+          className="cava-pill inline-flex w-fit shrink-0 items-center gap-2 px-5 py-2.5 text-[13px]"
+        >
+          <Icon name="phone" size={15} /> {a.cta}
+        </a>
+      </div>
     </div>
   );
 }

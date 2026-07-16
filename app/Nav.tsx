@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { NAV, SITE, withBase } from './data';
 import Icon from './Icon';
+import PersoLink from './PersoLink';
 import { useI18n, LangSwitcher } from './i18n';
 
 /**
@@ -22,17 +23,21 @@ export default function Nav({ current }: { current?: string }) {
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
-      <div className="mx-auto flex max-w-[110rem] items-center justify-between px-5 py-5 md:px-10">
+      {/* Les deux côtés portent la même largeur (flex-1) : le sélecteur de langue
+          reste centré sur la page quel que soit le nombre de boutons à droite. */}
+      <div className="mx-auto flex max-w-[110rem] items-center px-5 py-5 md:px-10">
         {/* Logo rond (carte de Scopa) */}
-        <a href={withBase('/')} aria-label={SITE.name} className="block h-14 w-14 overflow-hidden rounded-full ring-1 ring-black/10 transition-transform duration-300 hover:scale-105">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={withBase('/deco/logo-scopa.jpg')} alt={SITE.name} className="h-full w-full object-cover" />
-        </a>
+        <div className="flex flex-1 justify-start">
+          <a href={withBase('/')} aria-label={SITE.name} className="block h-14 w-14 overflow-hidden rounded-full ring-1 ring-black/10 transition-transform duration-300 hover:scale-105">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={withBase('/deco/logo-scopa.jpg')} alt={SITE.name} className="h-full w-full object-cover" />
+          </a>
+        </div>
 
         {/* Sélecteur de langue IT · FR · EN */}
         <LangSwitcher />
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-1 items-center justify-end gap-3">
           {/* Culture — sons & images (vinyle), à gauche du menu */}
           <a
             href={withBase('/culture')}
@@ -118,15 +123,25 @@ export default function Nav({ current }: { current?: string }) {
           className="mx-auto flex w-full max-w-[110rem] flex-col gap-2 px-5 pb-8 pt-5 text-[12px] md:flex-row md:items-center md:justify-between md:px-10"
           style={{ color: 'var(--cava-muted)' }}
         >
-          <a
-            href={SITE.instagram.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cava-navlink uppercase tracking-[0.16em]"
-          >
-            Instagram {SITE.instagram.handle}
-          </a>
-          <span className="uppercase tracking-[0.16em]">Copyright © {SITE.author}</span>
+          <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-8">
+            <a
+              href={SITE.whatsapp.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cava-navlink uppercase tracking-[0.16em]"
+            >
+              {t.contactLabels.whatsapp} {SITE.whatsapp.display}
+            </a>
+            <a
+              href={SITE.instagram.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cava-navlink uppercase tracking-[0.16em]"
+            >
+              Instagram {SITE.instagram.handle}
+            </a>
+          </div>
+          <PersoLink />
         </div>
       </div>
     </header>

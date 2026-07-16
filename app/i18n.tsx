@@ -57,6 +57,7 @@ export type Dict = {
   subLabels: string[];
   writeUs: string;
   contactLink: string;
+  persoSite: string;
   intro: string;
   welcome: string;
   highlights: { value: string; label: string }[];
@@ -160,6 +161,7 @@ export type Dict = {
     text: string;
     textFor: string;
     cta: string;
+    ctaChat: string;
     subject: string;
   };
   wastePage: {
@@ -175,7 +177,7 @@ export type Dict = {
   ctaEyebrow: string;
   ctaTitle: string;
   question: string;
-  contactLabels: { email: string; instagram: string };
+  contactLabels: { email: string; instagram: string; whatsapp: string };
   pages: Record<PageKey, PageContent>;
   prepare: PrepareContent;
   arrivee: ArriveeContent;
@@ -189,6 +191,7 @@ const FR: Dict = {
   subLabels: ['Près de Scicli dans la province de Raguse'],
   writeUs: 'Nous écrire',
   contactLink: 'Contact',
+  persoSite: 'Le site perso de Mag',
   intro: 'L’appartement de famille où nous avons grandi, à quelques mètres de la mer.',
   welcome: 'Bienvenue',
   highlights: [
@@ -405,6 +408,7 @@ const FR: Dict = {
     text: 'On n’a pas encore l’info ici. Écrivez à Mag : elle vous répond, et on l’ajoute pour les suivants.',
     textFor: 'Pour {what} : on n’a pas encore l’info ici. Écrivez à Mag, elle vous répond — et on l’ajoute pour les suivants.',
     cta: 'Écrire à Mag',
+    ctaChat: 'WhatsApp à Mag',
     subject: 'Une question depuis le site',
   },
   wastePage: {
@@ -420,7 +424,7 @@ const FR: Dict = {
   ctaEyebrow: 'Envie de venir ?',
   ctaTitle: 'Écrivez-nous',
   question: 'Une question sur votre séjour ?',
-  contactLabels: { email: 'Email', instagram: 'Instagram' },
+  contactLabels: { email: 'Email', instagram: 'Instagram', whatsapp: 'WhatsApp' },
   pages: {
     'informations-pratiques': {
       eyebrow: 'Informations pratiques',
@@ -557,6 +561,7 @@ const IT: Dict = {
   subLabels: ['Vicino a Scicli in provincia di Ragusa'],
   writeUs: 'Scrivici',
   contactLink: 'Contatti',
+  persoSite: 'Il sito personale di Mag',
   intro: 'L’appartamento di famiglia dove siamo cresciuti, a pochi metri dal mare.',
   welcome: 'Benvenuti',
   highlights: [
@@ -773,6 +778,7 @@ const IT: Dict = {
     text: 'Qui non abbiamo ancora l’informazione. Scrivete a Mag: vi risponde, e noi la aggiungiamo per i prossimi.',
     textFor: 'Per {what}: qui non abbiamo ancora l’informazione. Scrivete a Mag, vi risponde — e noi la aggiungiamo per i prossimi.',
     cta: 'Scrivi a Mag',
+    ctaChat: 'WhatsApp a Mag',
     subject: 'Una domanda dal sito',
   },
   wastePage: {
@@ -788,7 +794,7 @@ const IT: Dict = {
   ctaEyebrow: 'Voglia di venire?',
   ctaTitle: 'Scriveteci',
   question: 'Una domanda sul vostro soggiorno?',
-  contactLabels: { email: 'Email', instagram: 'Instagram' },
+  contactLabels: { email: 'Email', instagram: 'Instagram', whatsapp: 'WhatsApp' },
   pages: {
     'informations-pratiques': {
       eyebrow: 'Informazioni pratiche',
@@ -925,6 +931,7 @@ const EN: Dict = {
   subLabels: ['Near Scicli in the province of Ragusa'],
   writeUs: 'Write to us',
   contactLink: 'Contact',
+  persoSite: "Mag's personal site",
   intro: 'The family apartment where we grew up, a few metres from the sea.',
   welcome: 'Welcome',
   highlights: [
@@ -1141,6 +1148,7 @@ const EN: Dict = {
     text: 'We do not have this yet. Write to Mag: she will answer you, and we will add it here for the next ones.',
     textFor: 'For {what}: we do not have this yet. Write to Mag, she will answer you — and we will add it here for the next ones.',
     cta: 'Write to Mag',
+    ctaChat: 'WhatsApp Mag',
     subject: 'A question from the site',
   },
   wastePage: {
@@ -1156,7 +1164,7 @@ const EN: Dict = {
   ctaEyebrow: 'Ready to come?',
   ctaTitle: 'Write to us',
   question: 'A question about your stay?',
-  contactLabels: { email: 'Email', instagram: 'Instagram' },
+  contactLabels: { email: 'Email', instagram: 'Instagram', whatsapp: 'WhatsApp' },
   pages: {
     'informations-pratiques': {
       eyebrow: 'Practical information',

@@ -11,7 +11,11 @@ export const SITE = {
   name: "Cava d'Aliga",
   email: 'magalicontrino@hotmail.fr',
   instagram: { handle: '@cavadaliga_contrino', url: 'https://instagram.com/cavadaliga_contrino' },
+  // WhatsApp : wa.me veut l'indicatif collé au numéro, sans « + » ni espaces.
+  whatsapp: { display: '+32 477 85 37 76', url: 'https://wa.me/32477853776' },
   author: 'Mag',
+  // Site perso de Mag, à la racine du domaine (ce site vit sur le sous-domaine).
+  perso: 'https://magalicontrino.com',
 } as const;
 
 // Menu principal — hrefs (les libellés viennent de i18n, même ordre)

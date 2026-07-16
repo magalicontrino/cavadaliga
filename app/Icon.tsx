@@ -14,6 +14,7 @@ export type IconName =
   | 'bag'
   | 'sun'
   | 'phone'
+  | 'chat'
   | 'landmark'
   | 'wave'
   | 'cone'
@@ -94,6 +95,8 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
   phone: (
     <path d="M6 4h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a2 2 0 01-2 2A15 15 0 014 6a2 2 0 012-2z" />
   ),
+  // Bulle de dialogue — messagerie instantanée (WhatsApp)
+  chat: <path d="M20 11.5a7.5 7.5 0 01-10.9 6.7L4 19.5l1.3-4.1A7.5 7.5 0 1120 11.5z" />,
   // Édifice à colonnes — villes baroques
   landmark: (
     <>

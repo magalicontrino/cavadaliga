@@ -1,6 +1,7 @@
 'use client';
 
 import Marquee from './Marquee';
+import PersoLink from './PersoLink';
 import { NAV, SITE, withBase } from './data';
 import { useI18n } from './i18n';
 
@@ -38,15 +39,25 @@ export default function Footer() {
           className="mt-12 flex flex-col-reverse items-start gap-4 text-[12px] md:flex-row md:items-center md:justify-between"
           style={{ color: 'var(--cava-muted)' }}
         >
-          <span className="uppercase tracking-[0.16em]">Copyright © {SITE.author}</span>
-          <a
-            href={SITE.instagram.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cava-navlink uppercase tracking-[0.16em]"
-          >
-            Instagram {SITE.instagram.handle}
-          </a>
+          <PersoLink />
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
+            <a
+              href={SITE.whatsapp.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cava-navlink uppercase tracking-[0.16em]"
+            >
+              {t.contactLabels.whatsapp} {SITE.whatsapp.display}
+            </a>
+            <a
+              href={SITE.instagram.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cava-navlink uppercase tracking-[0.16em]"
+            >
+              Instagram {SITE.instagram.handle}
+            </a>
+          </div>
         </div>
       </div>
     </footer>
