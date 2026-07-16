@@ -17,11 +17,10 @@ export const SITE = {
 // Menu principal — hrefs (les libellés viennent de i18n, même ordre)
 export const NAV = [
   { href: '/famille' },
+  { href: '/la-region' },
   { href: '/preparer-le-voyage' },
   { href: '/informations-pratiques' },
   { href: '/services-locaux' },
-  { href: '/local' },
-  { href: '/la-region' },
   { href: '/calendrier' },
 ] as const;
 
