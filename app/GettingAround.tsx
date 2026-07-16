@@ -4,6 +4,7 @@ import Reveal from './Reveal';
 import Icon from './Icon';
 import { useI18n } from './i18n';
 import AskMag from './AskMag';
+import { SITE } from './data';
 import { TRANSPORTS, EMERGENCIES, PHARMACY } from './practicalData';
 
 /** Se déplacer + urgences. Tous les liens sont cliquables, numéros compris. */
@@ -135,7 +136,7 @@ export default function GettingAround() {
           {m.localTitle}
         </Reveal>
 
-        <div className="mt-3 grid gap-6 lg:grid-cols-2">
+        <div className="mt-3 grid gap-6 lg:grid-cols-3">
           {/* La pharmacie du village */}
           <Reveal>
             <div
@@ -204,6 +205,33 @@ export default function GettingAround() {
                 className="cava-pill mt-auto inline-flex w-fit items-center gap-2 px-4 py-2 pt-2 text-[13px]"
               >
                 <Icon name="search" size={15} /> {m.dutyCta} <span aria-hidden>↗</span>
+              </a>
+            </div>
+          </Reveal>
+
+          {/* Le plombier : le numéro n'est pas public, il passe par Mag */}
+          <Reveal delay={140}>
+            <div
+              className="cava-listcard flex h-full flex-col gap-3 rounded-2xl border p-8"
+              style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
+            >
+              <span
+                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+              >
+                <Icon name="droplet" size={28} />
+              </span>
+              <h3 className="mt-1 text-[clamp(1.15rem,2.2vw,1.4rem)] leading-[1.15]" style={{ fontWeight: 600 }}>
+                {m.plumberTitle}
+              </h3>
+              <p className="text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+                {m.plumberDesc}
+              </p>
+              <a
+                href={`mailto:${SITE.email}?subject=${encodeURIComponent(`${t.askMag.subject} — ${m.plumberTitle}`)}`}
+                className="cava-pill mt-auto inline-flex w-fit items-center gap-2 px-4 py-2 pt-2 text-[13px]"
+              >
+                <Icon name="phone" size={15} /> {t.askMag.cta}
               </a>
             </div>
           </Reveal>

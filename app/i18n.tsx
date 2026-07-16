@@ -148,6 +148,8 @@ export type Dict = {
     dutyTitle: string;
     dutyDesc: string;
     dutyCta: string;
+    plumberTitle: string;
+    plumberDesc: string;
     localToCome: string;
   };
   // Les habitudes siciliennes qu'on ne devine pas.
@@ -379,7 +381,9 @@ const FR: Dict = {
     dutyTitle: 'Pharmacie de garde',
     dutyDesc: 'La nuit et les jours fériés, une pharmacie de Scicli est toujours de garde — à tour de rôle. La nôtre, Trovato, en fait partie. Le tour du jour se voit ici. Attention : la garde de nuit a le rideau baissé, il faut sonner à l’interphone pour réveiller le pharmacien.',
     dutyCta: 'Voir la garde du jour',
-    localToCome: 'le médecin, un taxi ou le plombier',
+    plumberTitle: 'Plombier',
+    plumberDesc: 'Il y en a un, et il est bon. Son numéro n’est pas sur le site : demandez-le à Mag. Et rien ne se lance sans devis — on fait établir le devis, on le valide avec elle, puis seulement les travaux commencent. Ça évite les mauvaises surprises à tout le monde.',
+    localToCome: 'le médecin ou un taxi',
   },
   tastePage: {
     eyebrow: 'Us et coutumes',
@@ -747,7 +751,9 @@ const IT: Dict = {
     dutyTitle: 'Farmacia di turno',
     dutyDesc: 'Di notte e nei giorni festivi c’è sempre una farmacia di turno a Scicli, a rotazione — e la nostra, Trovato, ne fa parte. Il turno del giorno si vede qui. Attenzione: la farmacia di turno notturno ha la saracinesca abbassata, bisogna suonare il citofono per svegliare il farmacista.',
     dutyCta: 'Vedi il turno di oggi',
-    localToCome: 'il medico, un taxi o l’idraulico',
+    plumberTitle: 'Idraulico',
+    plumberDesc: 'C’è, ed è bravo. Il suo numero non è sul sito: chiedetelo a Mag. E non si parte senza preventivo — si fa fare il preventivo, lo si conferma con lei, e solo dopo iniziano i lavori. Evita brutte sorprese a tutti.',
+    localToCome: 'il medico o un taxi',
   },
   tastePage: {
     eyebrow: 'Usi e costumi',
@@ -1115,7 +1121,9 @@ const EN: Dict = {
     dutyTitle: 'On-duty pharmacy',
     dutyDesc: 'At night and on holidays one pharmacy in Scicli is always on duty, by rotation — and ours, Trovato, is part of it. Today’s rota is here. Note: the night pharmacy has its shutter down, you have to ring the intercom to wake the pharmacist.',
     dutyCta: 'See today’s rota',
-    localToCome: 'the doctor, a taxi or the plumber',
+    plumberTitle: 'Plumber',
+    plumberDesc: 'There is one, and he is good. His number is not on the site: ask Mag for it. And nothing starts without a quote — get the quote, confirm it with her, and only then does the work begin. It saves everyone nasty surprises.',
+    localToCome: 'the doctor or a taxi',
   },
   tastePage: {
     eyebrow: 'Local customs',
