@@ -137,6 +137,8 @@ export type Dict = {
     handsBook2Cta: string;
     handsWho: string;
     handsPhotoNote: string;
+    handsCoverAlt: string;
+    handsCoverCredit: string;
     placeLabel: string;
     moreLabel: string;
     note: string;
@@ -400,7 +402,9 @@ const FR: Dict = {
     handsBook2Title: 'Design as Art',
     handsBook2Desc: 'Son livre le plus lu, publié chez Laterza en 1966 sous le titre « Arte come mestiere » — l’art comme métier. Munari y regarde les lampes, les panneaux routiers, les affiches, les voitures et les chaises, et demande à chaque fois la même chose : est-ce beau, est-ce que ça marche, est-ce que c’est pour tout le monde ? Picasso l’appelait « le nouveau Léonard ». Réédité en Penguin Modern Classics en 2008.',
     handsBook2Cta: 'Le livre chez Penguin',
-    handsPhotoNote: 'Les photos du livre ne sont pas reprises ici : elles sont sous droits. Les gestes, eux, appartiennent à tout le monde — voilà les nôtres, décrits à la main.',
+    handsPhotoNote: 'La couverture ci-dessus, c’est « ma che vuoi » — le geste par lequel tout commence. Les cinquante autres sont dans le livre, et n’ont pas leur place ici : elles sont sous droits. Couverture Chronicle Books, 2005.',
+    handsCoverAlt: 'Couverture de « Speak Italian: The Fine Art of the Gesture » de Bruno Munari : une main photographiée en noir et blanc, les cinq doigts pincés en bouton.',
+    handsCoverCredit: 'Bruno Munari, Speak Italian: The Fine Art of the Gesture — Chronicle Books, 2005',
     photosTitle: 'Photographié ici',
     photosIntro: 'Avant les téléphones, d’autres ont regardé ces pierres et ces fêtes — et les ont fixées pour de bon.',
     artsTitle: 'Peint ici',
@@ -789,7 +793,9 @@ const IT: Dict = {
     handsBook2Title: 'Design as Art',
     handsBook2Desc: 'Il suo libro più letto, pubblicato da Laterza nel 1966 con il titolo « Arte come mestiere ». Munari guarda le lampade, i segnali stradali, i manifesti, le automobili e le sedie, e ogni volta chiede la stessa cosa: è bello, funziona, è per tutti? Picasso lo chiamava « il nuovo Leonardo ». Ristampato nei Penguin Modern Classics nel 2008.',
     handsBook2Cta: 'Il libro da Penguin',
-    handsPhotoNote: 'Le foto del libro non sono riprese qui: sono sotto diritti. I gesti, invece, sono di tutti — eccoli, descritti a mano.',
+    handsPhotoNote: 'La copertina qui sopra è « ma che vuoi » — il gesto da cui parte tutto. Gli altri cinquanta sono nel libro, e qui non ci stanno: sono sotto diritti. Copertina Chronicle Books, 2005.',
+    handsCoverAlt: 'Copertina di « Speak Italian: The Fine Art of the Gesture » di Bruno Munari: una mano fotografata in bianco e nero, le cinque dita unite a pigna.',
+    handsCoverCredit: 'Bruno Munari, Speak Italian: The Fine Art of the Gesture — Chronicle Books, 2005',
     photosTitle: 'Fotografato qui',
     photosIntro: 'Prima dei telefoni, altri hanno guardato queste pietre e queste feste — e le hanno fissate per sempre.',
     artsTitle: 'Dipinto qui',
@@ -1178,7 +1184,9 @@ const EN: Dict = {
     handsBook2Title: 'Design as Art',
     handsBook2Desc: 'His most widely read book, published by Laterza in 1966 as « Arte come mestiere » — art as a trade. Munari looks at lamps, road signs, posters, cars and chairs, and each time asks the same thing: is it beautiful, does it work, is it for everyone? Picasso called him “the new Leonardo”. Reissued as a Penguin Modern Classic in 2008.',
     handsBook2Cta: 'The book at Penguin',
-    handsPhotoNote: 'The book’s photographs are not reproduced here: they are under copyright. The gestures themselves belong to everyone — here are ours, described by hand.',
+    handsPhotoNote: 'The cover above is “ma che vuoi” — the gesture everything starts from. The other fifty are in the book, and have no place here: they are under copyright. Cover Chronicle Books, 2005.',
+    handsCoverAlt: 'Cover of “Speak Italian: The Fine Art of the Gesture” by Bruno Munari: a hand photographed in black and white, all five fingertips pinched together.',
+    handsCoverCredit: 'Bruno Munari, Speak Italian: The Fine Art of the Gesture — Chronicle Books, 2005',
     photosTitle: 'Photographed here',
     photosIntro: 'Before phones, others looked at these stones and these festivals — and fixed them for good.',
     artsTitle: 'Painted here',

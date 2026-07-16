@@ -7,9 +7,9 @@ import Reveal, { RevealNow } from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon from '../Icon';
 import FilterChip from '../FilterChip';
-import HandSign from '../HandSign';
+import { withBase } from '../data';
 import { useI18n } from '../i18n';
-import { ARTISTS, ARTS, GESTURES, PHOTOS, SCREENS, SPOTIFY_EMBED_HEIGHT, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, MUNARI_BOOK, MUNARI_DESIGN_BOOK, MUNARI_WIKI, DE_JORIO_WIKI, type Screen } from '../cultureData';
+import { ARTISTS, ARTS, PHOTOS, SCREENS, SPOTIFY_EMBED_HEIGHT, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, MUNARI_BOOK, MUNARI_DESIGN_BOOK, MUNARI_WIKI, DE_JORIO_WIKI, type Screen } from '../cultureData';
 import { type IconName } from '../Icon';
 import { type Lang } from '../localData';
 
@@ -240,8 +240,32 @@ export default function Culture() {
           {c.handsIntro}
         </Reveal>
 
+        {/* La couverture, en grand : c'est « ma che vuoi », le geste par lequel
+            tout commence. Elle n'est pas à nous — d'où le crédit sous l'image. */}
+        <Reveal className="mt-10">
+          <figure
+            className="mx-auto w-full max-w-[520px] overflow-hidden rounded-2xl border"
+            style={{ borderColor: 'var(--cava-line)', background: '#fff' }}
+          >
+            <img
+              src={withBase('/livres/speak-italian.jpg')}
+              alt={c.handsCoverAlt}
+              width={1103}
+              height={1500}
+              loading="lazy"
+              className="block h-auto w-full"
+            />
+            <figcaption
+              className="border-t px-6 py-4 text-[12.5px] leading-[1.5]"
+              style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)', background: 'var(--cava-bg)' }}
+            >
+              {c.handsCoverCredit}
+            </figcaption>
+          </figure>
+        </Reveal>
+
         {/* Qui était Munari + ses deux livres */}
-        <div className="mt-10 grid gap-6 lg:grid-cols-[1.25fr_1fr_1fr]">
+        <div className="mt-6 grid gap-6 lg:grid-cols-[1.25fr_1fr_1fr]">
           <Reveal>
             <div
               className="flex h-full flex-col gap-4 rounded-2xl border p-8 md:p-10"
@@ -335,34 +359,7 @@ export default function Culture() {
           </Reveal>
         </div>
 
-        {/* La galerie des gestes — le picto d'abord, le texte en second */}
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {GESTURES.map((g, i) => (
-            <Reveal key={g.id} delay={(i % 3) * 60}>
-              <figure
-                className="flex h-full flex-col overflow-hidden rounded-2xl border"
-                style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
-              >
-                <div className="flex items-center justify-center py-10" style={{ background: 'rgba(230,41,111,0.06)' }}>
-                  <HandSign id={g.id} className="h-32 w-auto" style={{ color: 'var(--cava-pink)' }} />
-                </div>
-                <figcaption className="flex flex-1 flex-col gap-2.5 p-7">
-                  <p className="text-[clamp(1.1rem,2vw,1.3rem)] leading-[1.2]" style={{ fontWeight: 700 }}>
-                    {g.name}
-                  </p>
-                  <p className="text-[13.5px] leading-[1.6]" style={{ color: 'var(--cava-pink)', fontWeight: 500 }}>
-                    {g.how[lang]}
-                  </p>
-                  <p className="text-[14px] leading-[1.65]" style={{ color: 'var(--cava-muted)' }}>
-                    {g.means[lang]}
-                  </p>
-                </figcaption>
-              </figure>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal className="mt-4 flex items-start gap-3 text-[13px] italic leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+        <Reveal className="mt-6 flex items-start gap-3 text-[13px] italic leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
           <span className="mt-[3px] shrink-0" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="info" size={14} />
           </span>

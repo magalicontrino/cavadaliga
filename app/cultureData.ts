@@ -166,102 +166,13 @@ export const ARTS: Screen[] = [
 // explicitement POUR les étrangers de passage en Italie — c'est-à-dire pour
 // nous. Le livre est toujours édité chez Corraini.
 //
-// Les photos du livre ne sont pas reprises ici : elles sont sous droits. Les
-// gestes, eux, appartiennent à tout le monde — on les décrit avec nos mots.
+// On en montre la couverture (« ma che vuoi ») et rien d'autre : les cinquante
+// photos de l'intérieur sont sous droits. Crédit éditeur sous l'image.
 export const MUNARI_BOOK = 'https://corraini.com/it/supplemento-al-dizionario-italiano.html';
 // « Arte come mestiere » (Laterza, 1966), repris en Penguin Modern Classics.
 export const MUNARI_DESIGN_BOOK = 'https://www.penguin.co.uk/books/56472/design-as-art-by-munari-bruno/9780141035819';
 export const MUNARI_WIKI = 'https://it.wikipedia.org/wiki/Bruno_Munari';
 export const DE_JORIO_WIKI = 'https://it.wikipedia.org/wiki/Andrea_de_Jorio';
-
-export type Gesture = { id: string; name: string; how: Record<Lang, string>; means: Record<Lang, string> };
-
-export const GESTURES: Gesture[] = [
-  {
-    id: 'che-vuoi',
-    name: 'Ma che vuoi?',
-    how: {
-      fr: 'Les cinq doigts pincés en bouton, la main qui monte et descend au poignet.',
-      it: 'Le cinque dita unite a pigna, la mano che sale e scende dal polso.',
-      en: 'All five fingertips pinched together, the hand rocking up and down at the wrist.',
-    },
-    means: {
-      fr: 'Le geste italien par excellence. « Mais qu’est-ce que tu racontes ? » — de l’étonnement à l’exaspération, tout dépend de la vitesse.',
-      it: 'Il gesto italiano per eccellenza. « Ma che stai dicendo? » — dallo stupore all’esasperazione, dipende tutto dalla velocità.',
-      en: 'The Italian gesture. “What on earth are you on about?” — from surprise to exasperation, it all depends on the speed.',
-    },
-  },
-  {
-    id: 'non-me-ne-importa',
-    name: 'Non me ne importa',
-    how: {
-      fr: 'Le dos des doigts sous le menton, poussé vers l’avant d’un coup sec.',
-      it: 'Il dorso delle dita sotto il mento, spinto in avanti di scatto.',
-      en: 'The back of the fingers under the chin, flicked forward.',
-    },
-    means: {
-      fr: 'Je m’en moque. À manier avec précaution : c’est franc.',
-      it: 'Non mi interessa. Da usare con prudenza: è schietto.',
-      en: 'I don’t care. Handle with care — it is blunt.',
-    },
-  },
-  {
-    id: 'insisto',
-    name: 'Insisto',
-    how: {
-      fr: 'L’index frappe la paume ouverte de l’autre main, sec et répété.',
-      it: 'L’indice batte sul palmo aperto dell’altra mano, secco e ripetuto.',
-      en: 'The index finger jabs the open palm of the other hand, sharply and repeatedly.',
-    },
-    means: {
-      fr: 'J’insiste, et je ne lâcherai pas. Le rythme fait tout.',
-      it: 'Insisto, e non mollo. È il ritmo a dire tutto.',
-      en: 'I insist, and I am not letting go. The rhythm says everything.',
-    },
-  },
-  {
-    id: 'che-peso',
-    name: 'Che peso!',
-    how: {
-      fr: 'L’index tapote lentement l’estomac, comme un poids qui pèse là.',
-      it: 'L’indice batte lentamente sullo stomaco, come un peso che grava lì.',
-      en: 'The index finger taps slowly on the stomach, like a weight sitting there.',
-    },
-    means: {
-      fr: 'Quelle corvée. Quelqu’un — ou quelque chose — devient lourd à supporter.',
-      it: 'Che noia. Qualcuno — o qualcosa — diventa pesante da sopportare.',
-      en: 'What a bore. Someone — or something — is becoming hard to bear.',
-    },
-  },
-  {
-    id: 'leggere',
-    name: 'Leggere',
-    how: {
-      fr: 'L’index court sur la paume ouverte de l’autre main, ligne après ligne.',
-      it: 'L’indice scorre sul palmo aperto dell’altra mano, riga dopo riga.',
-      en: 'The index finger runs across the open palm, line after line.',
-    },
-    means: {
-      fr: 'Lire. La paume est la page — un geste qu’on comprend sans un mot.',
-      it: 'Leggere. Il palmo è la pagina — un gesto che si capisce senza parole.',
-      en: 'To read. The palm is the page — you understand it without a word.',
-    },
-  },
-  {
-    id: 'rubare',
-    name: 'Rubare',
-    how: {
-      fr: 'La main ouverte se referme lentement, un doigt après l’autre, pouce tendu.',
-      it: 'La mano aperta si chiude lentamente, un dito alla volta, pollice teso.',
-      en: 'The open hand closes slowly, one finger at a time, thumb left out.',
-    },
-    means: {
-      fr: 'Voler. Munari note que le mouvement ressemble à celui d’un joueur de harpe.',
-      it: 'Rubare. Munari nota che il movimento somiglia a quello di un suonatore d’arpa.',
-      en: 'To steal. Munari notes the movement resembles that of a harp player.',
-    },
-  },
-];
 
 // ── Photographes ──────────────────────────────────────────────────────
 export const PHOTOS: Screen[] = [
