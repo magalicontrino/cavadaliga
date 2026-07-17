@@ -9,7 +9,7 @@ import Icon from '../Icon';
 import FilterChip from '../FilterChip';
 import { withBase } from '../data';
 import { useI18n } from '../i18n';
-import { ARTISTS, ARTS, PHOTOS, SCREENS, SPOTIFY_EMBED_HEIGHT, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, MUNARI_BOOK, MUNARI_DESIGN_BOOK, MUNARI_WIKI, DE_JORIO_WIKI, type Screen } from '../cultureData';
+import { ARTISTS, ARTS, SCULPTURES, PHOTOS, SCREENS, SPOTIFY_EMBED_HEIGHT, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, MUNARI_BOOK, MUNARI_DESIGN_BOOK, MUNARI_WIKI, DE_JORIO_WIKI, type Screen } from '../cultureData';
 import { type IconName } from '../Icon';
 import { type Lang } from '../localData';
 
@@ -99,7 +99,7 @@ function WorkGrid({
   );
 }
 
-type Key = 'tout' | 'playlist' | 'ecrans' | 'peinture' | 'photo' | 'mains' | 'chansons';
+type Key = 'tout' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
 
 export default function Culture() {
   const { t, lang } = useI18n();
@@ -120,6 +120,7 @@ export default function Culture() {
     { key: 'playlist', label: cf.playlist, icon: 'spotify' },
     { key: 'ecrans', label: cf.screens, icon: 'film' },
     { key: 'peinture', label: cf.painting, icon: 'brush' },
+    { key: 'sculpture', label: cf.sculpture, icon: 'landmark' },
     { key: 'photo', label: cf.photo, icon: 'camera' },
     { key: 'mains', label: cf.hands, icon: 'compass' },
     { key: 'chansons', label: cf.songs, icon: 'vinyl' },
@@ -222,6 +223,10 @@ export default function Culture() {
 
       {/* Peint ici — Guccione & le Gruppo di Scicli */}
       {show('peinture') && <WorkGrid title={c.artsTitle} intro={c.artsIntro} items={ARTS} icon="brush" lang={lang} more={c.moreLabel} />}
+
+      {/* Sculpté ici — Sasha Vinci. A sa propre section : « Peint ici » ne parle
+          que de peinture, et son texte le dit. */}
+      {show('sculpture') && <WorkGrid title={c.sculptureTitle} intro={c.sculptureIntro} items={SCULPTURES} icon="landmark" lang={lang} more={c.moreLabel} />}
 
       {/* Photographié ici — Giuseppe Leone & Scianna */}
       {show('photo') && <WorkGrid title={c.photosTitle} intro={c.photosIntro} items={PHOTOS} icon="camera" lang={lang} more={c.moreLabel} />}

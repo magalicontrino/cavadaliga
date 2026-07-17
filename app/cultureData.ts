@@ -160,6 +160,33 @@ export const ARTS: Screen[] = [
   },
 ];
 
+// ── Sculpté ici ───────────────────────────────────────────────────────
+// Le seul de ces artistes qui soit encore au travail, et il travaille a 8 km.
+// La peinture a sa section : elle parle de Guccione et du Gruppo, et son texte
+// ne dit que la peinture. Y glisser un sculpteur aurait menti sur les deux.
+export const SCULPTURES: Screen[] = [
+  // Le contemporain, et il est vivant : Vinci travaille a Scicli, a 8 km. Les
+  // deux liens ont ete verifies (200) — le sien et celui de SITE SPECIFIC, qu'on
+  // ne cite pas en texte mort. Ce qui est ecrit ici vient de sa biographie et de
+  // sources concordantes : ne 1980, diplome en sculpture a Florence en 2005,
+  // fondateur de SITE SPECIFIC en 2008. Son lieu de naissance n'est donne nulle
+  // part de facon sure : on ne l'invente pas.
+  {
+    id: 'sasha-vinci',
+    title: 'Sasha Vinci',
+    year: '1980 →',
+    kind: { fr: 'Sculpteur', it: 'Scultore', en: 'Sculptor' },
+    url: 'https://www.sashavinci.com/',
+    placeLabel: 'SITE SPECIFIC, Scicli',
+    placeUrl: 'https://sitespecific.it/',
+    blurb: {
+      fr: 'Sculpteur de formation — diplômé à l’Académie de Florence en 2005 —, il déborde vite : dessin, performance, installation, musique. Il vit et travaille à Scicli, à 8 km, où il a fondé SITE SPECIFIC en 2008 : les églises baroques, les jardins et les maisons du centre deviennent des salles d’exposition, et la ville entière un théâtre vivant. Ses fleurs et ses plumes colorées sont des gestes politiques.',
+      it: 'Scultore di formazione — diplomato all’Accademia di Firenze nel 2005 —, sconfina presto: disegno, performance, installazione, musica. Vive e lavora a Scicli, a 8 km, dove nel 2008 ha fondato SITE SPECIFIC: le chiese barocche, i giardini e le case del centro diventano sale d’esposizione, e la città intera un teatro vivo. I suoi fiori e le sue piume colorate sono gesti politici.',
+      en: 'A sculptor by training — he graduated from the Florence Academy in 2005 — he quickly spilled over: drawing, performance, installation, music. He lives and works in Scicli, 8 km away, where he founded SITE SPECIFIC in 2008: the baroque churches, gardens and houses of the old town become exhibition rooms, and the whole city a living theatre. His flowers and coloured plumes are political gestures.',
+    },
+  },
+];
+
 // ── Parler avec les mains ─────────────────────────────────────────────
 // Le « Supplemento al dizionario italiano » de Bruno Munari (1958) : cinquante
 // gestes italiens photographiés et légendés en quatre langues. Munari l'a fait

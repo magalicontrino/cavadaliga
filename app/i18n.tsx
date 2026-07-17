@@ -138,6 +138,8 @@ export type Dict = {
     screensIntro: string;
     artsTitle: string;
     artsIntro: string;
+    sculptureTitle: string;
+    sculptureIntro: string;
     photosTitle: string;
     photosIntro: string;
     handsTitle: string;
@@ -193,6 +195,7 @@ export type Dict = {
     playlist: string;
     screens: string;
     painting: string;
+    sculpture: string;
     photo: string;
     hands: string;
     songs: string;
@@ -434,6 +437,8 @@ const FR: Dict = {
     photosIntro: 'Avant les téléphones, d’autres ont regardé ces pierres et ces fêtes — et les ont fixées pour de bon.',
     artsTitle: 'Peint ici',
     artsIntro: 'Scicli n’est pas qu’un décor de série : c’est un vrai foyer de peinture, et cette mer a été peinte toute une vie.',
+    sculptureTitle: 'Sculpté ici',
+    sculptureIntro: 'Le seul de ces artistes encore au travail — et il travaille à 8 km, en faisant de Scicli son atelier à ciel ouvert.',
     screensTitle: 'À l’écran, ici',
     screensIntro: 'Tourné à côté de la maison. Regardez avant de venir : vous verrez la région autrement.',
     placeLabel: 'Voir le lieu',
@@ -492,6 +497,7 @@ const FR: Dict = {
     playlist: 'La playlist',
     screens: 'Écrans',
     painting: 'Peinture',
+    sculpture: 'Sculpture',
     photo: 'Photo',
     hands: 'Designer',
     songs: 'Chansons',
@@ -837,6 +843,8 @@ const IT: Dict = {
     photosIntro: 'Prima dei telefoni, altri hanno guardato queste pietre e queste feste — e le hanno fissate per sempre.',
     artsTitle: 'Dipinto qui',
     artsIntro: 'Scicli non è solo un set televisivo: è un vero focolaio di pittura, e questo mare è stato dipinto per tutta una vita.',
+    sculptureTitle: 'Scolpito qui',
+    sculptureIntro: 'L’unico di questi artisti ancora al lavoro — e lavora a 8 km, facendo di Scicli il suo atelier a cielo aperto.',
     screensTitle: 'Sullo schermo, qui',
     screensIntro: 'Girato accanto a casa. Guardate prima di venire: vedrete la zona con altri occhi.',
     placeLabel: 'Vedi il luogo',
@@ -895,6 +903,7 @@ const IT: Dict = {
     playlist: 'La playlist',
     screens: 'Schermi',
     painting: 'Pittura',
+    sculpture: 'Scultura',
     photo: 'Foto',
     hands: 'Designer',
     songs: 'Canzoni',
@@ -1240,6 +1249,8 @@ const EN: Dict = {
     photosIntro: 'Before phones, others looked at these stones and these festivals — and fixed them for good.',
     artsTitle: 'Painted here',
     artsIntro: 'Scicli is not only a TV set: it is a real home of painting, and this sea was painted for a whole lifetime.',
+    sculptureTitle: 'Sculpted here',
+    sculptureIntro: 'The only one of these artists still at work — and he works 8 km away, turning Scicli into his open-air studio.',
     screensTitle: 'On screen, right here',
     screensIntro: 'Filmed next door. Watch before you come: you will see the area differently.',
     placeLabel: 'See the place',
@@ -1298,6 +1309,7 @@ const EN: Dict = {
     playlist: 'The playlist',
     screens: 'Screens',
     painting: 'Painting',
+    sculpture: 'Sculpture',
     photo: 'Photo',
     hands: 'Designer',
     songs: 'Songs',
