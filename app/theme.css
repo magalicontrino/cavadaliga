@@ -616,6 +616,89 @@
 }
 
 /* --- Bouton « + Ajouter ma branche » (arbre) ----------------------- */
+/* --- L'arbre sur telephone : a la verticale -------------------------
+   Neuf enfants cote a cote demandent 950 px. Sur un ecran de 375, aucune ruse
+   de largeur n'y changera rien : il fallait faire glisser, et Mag voyait des
+   cases coupees. On tourne donc l'arbre d'un quart de tour — les enfants
+   descendent le long d'une colonne vertebrale, chacun rattache par une equerre.
+   C'est la forme classique des arbres sur petit ecran, et surtout : plus rien ne
+   depasse, donc plus rien n'est coupe. */
+@media (max-width: 767px) {
+  .cava-tree {
+    overflow-x: visible;
+  }
+  .cava-tree ul {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 0 0 18px;
+  }
+  .cava-tree > ul {
+    padding-left: 0;
+  }
+  .cava-tree li {
+    padding: 14px 0 0 20px;
+    text-align: left;
+  }
+  /* L'equerre : on descend le long de la colonne, puis on part vers la case. */
+  .cava-tree li::before {
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 20px;
+    height: 32px;
+    border-top: 0;
+    border-left: 1.5px solid var(--cava-line);
+    border-bottom: 1.5px solid var(--cava-line);
+    border-right: 0;
+    border-radius: 0 0 0 8px;
+  }
+  /* La colonne se prolonge tant qu'il reste des freres en dessous. */
+  .cava-tree li::after {
+    top: 32px;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    width: 0;
+    height: auto;
+    border-top: 0;
+    border-left: 1.5px solid var(--cava-line);
+    border-radius: 0;
+  }
+  .cava-tree li:last-child::after {
+    display: none;
+  }
+  .cava-tree li:first-child::before,
+  .cava-tree li:first-child::after {
+    border-left: 1.5px solid var(--cava-line);
+  }
+  .cava-tree li:last-child::before {
+    border-right: 0;
+    border-radius: 0 0 0 8px;
+  }
+  .cava-tree li:first-child::after {
+    border-radius: 0;
+  }
+  /* Un enfant unique garde son equerre — mais PAS la case du haut, qui n'a
+     personne au-dessus d'elle : elle pendait a un trait venu de nulle part. */
+  .cava-tree ul ul li:only-child {
+    padding-top: 14px;
+  }
+  .cava-tree ul ul li:only-child::before {
+    display: block;
+  }
+  .cava-tree li:only-child::after {
+    display: none;
+  }
+  .cava-tree > ul > li::before,
+  .cava-tree > ul > li::after {
+    display: none;
+  }
+  /* Une case ne doit plus forcer la largeur : les noms longs se replient. */
+  .cava-tree .whitespace-nowrap {
+    white-space: normal;
+  }
+}
+
 .cava-treeadd {
   transition:
     background-color 0.3s ease,

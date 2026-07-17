@@ -138,7 +138,7 @@ export default function FamilyTree() {
       <div className="flex flex-col gap-14">
         {SIDES.map((side) => (
           <div key={side.label}>
-            <p className="mb-5 text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)' }}>
+            <p className="mb-5 text-center text-[12px] uppercase tracking-[0.12em] md:text-left" style={{ color: 'var(--cava-muted)' }}>
               {side.label}
             </p>
             <div className="flex flex-col gap-8">
@@ -156,7 +156,7 @@ export default function FamilyTree() {
 
       {/* La jonction des deux côtés */}
       <div>
-        <p className="mb-5 text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)' }}>
+        <p className="mb-5 text-center text-[12px] uppercase tracking-[0.12em] md:text-left" style={{ color: 'var(--cava-muted)' }}>
           {s.treeParents}
         </p>
         <div className="cava-tree overflow-x-auto pb-4">
