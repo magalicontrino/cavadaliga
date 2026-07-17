@@ -4,13 +4,14 @@ import Icon from '../Icon';
 import { CATS, type Lang, type LocalPlace } from '../localData';
 
 /**
- * La fiche d'un lieu — posée DANS la carte, pas accrochée à l'épingle.
+ * La fiche d'un lieu. Elle ne se place pas elle-même : c'est la carte qui
+ * décide où elle va — seule en bas à gauche sur écran large, ou alignée avec
+ * ses voisines sur une piste qu'on fait glisser sur téléphone.
  *
- * La version ancrée débordait : une fiche de 300px suspendue à une épingle,
- * dans une boîte à `overflow: hidden`, ne tient que si l'on mesure sa hauteur
- * puis qu'on déplace la carte juste assez. Deux choses fragiles pour un
- * résultat qui doit être sûr. Ici la fiche est ancrée à la FENÊTRE : en bas
- * sur téléphone, en bas à gauche sur écran large. Elle ne peut pas sortir.
+ * Elle n'est surtout PAS accrochée à l'épingle. La version ancrée débordait :
+ * une fiche de 300px suspendue à un point, dans une boîte à `overflow: hidden`,
+ * ne tient que si l'on mesure sa hauteur puis qu'on déplace la carte juste
+ * assez. Deux choses fragiles pour un résultat qui doit être sûr.
  */
 export default function Fiche({
   place,
@@ -25,7 +26,7 @@ export default function Fiche({
 }) {
   return (
     <div
-      className="cava-fiche-boite absolute inset-x-3 bottom-3 z-10 overflow-hidden rounded-2xl border sm:inset-x-auto sm:left-4 sm:bottom-4 sm:w-[330px]"
+      className="cava-fiche-boite relative h-full overflow-hidden rounded-2xl border"
       style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
       role="dialog"
       aria-label={place.name}

@@ -1,7 +1,7 @@
 'use client';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { CATS, LOCAL_PLACES, type Lang, type LocalPlace } from '../localData';
 import { HOUSE } from '../geo';
@@ -117,6 +117,27 @@ export default function MapLibreMap({
   const [state, setState] = useState<'chargement' | 'ok' | 'erreur'>('chargement');
   const [erreur, setErreur] = useState('');
   const [choisi, setChoisi] = useState<LocalPlace | null>(null);
+  const piste = useRef<HTMLDivElement>(null);
+  // D'ou vient le choix ? Cliquer une epingle doit amener sa fiche ; glisser
+  // la piste ne doit surtout PAS la repositionner — sinon on lutte contre le
+  // doigt de l'utilisateur, et le geste suivant est ignore.
+  const origine = useRef<'epingle' | 'piste'>('epingle');
+
+  /** Les lieux montrés : ceux du filtre qui ont une position réelle. */
+  const liste = useMemo(
+    () =>
+      LOCAL_PLACES.filter((p) => (filter === 'tout' ? true : filter === 'responsable' ? p.responsible : p.cat === filter)).filter(
+        (p) => COORDS[p.id],
+      ),
+    [filter],
+  );
+
+  /** Amène une épingle au centre, sans brusquer. */
+  const viser = useCallback((p: LocalPlace) => {
+    const c = map.current as Carte | null;
+    const co = COORDS[p.id];
+    if (c && co) c.m.easeTo({ center: [co.lon, co.lat], duration: 400 });
+  }, []);
 
   useEffect(() => {
     let mort = false;
@@ -173,9 +194,8 @@ export default function MapLibreMap({
     markers.current = [];
     pins.current.clear();
 
-    LOCAL_PLACES.filter((p) => (filter === 'tout' ? true : filter === 'responsable' ? p.responsible : p.cat === filter)).forEach((p) => {
-      const co = COORDS[p.id];
-      if (!co) return; // pas de position réelle : pas d'épingle inventée
+    liste.forEach((p) => {
+      const co = COORDS[p.id]; // garanti par « liste »
 
       // Un bouton, pas un lien : cliquer ouvre la fiche, on ne quitte pas la
       // page. Le lien vers Google Maps vit DANS la fiche, une fois qu'on sait
@@ -191,10 +211,9 @@ export default function MapLibreMap({
       pins.current.set(p.id, el);
       el.addEventListener('click', (ev) => {
         ev.stopPropagation(); // sinon le clic atteint la carte et referme aussitôt
+        origine.current = 'epingle';
         setChoisi(p);
-        // Amener l'épingle au centre est un confort, pas une condition : la
-        // fiche est posée dans la fenêtre et ne dépend d'aucune mesure.
-        c.m.easeTo({ center: [co.lon, co.lat], duration: 400 });
+        viser(p);
       });
       markers.current.push(new c.Marker({ element: el }).setLngLat([co.lon, co.lat]).addTo(c.m));
     });
@@ -208,9 +227,7 @@ export default function MapLibreMap({
     // Choisir un filtre doit MONTRER ce qu'on a choisi : on cadre sur les
     // épingles retenues (la maison comprise, c'est le repère). Sans ça, on
     // cliquait « Plantes & fleurs » et on restait devant une carte vide.
-    const vus = LOCAL_PLACES.filter((p) => (filter === 'tout' ? true : filter === 'responsable' ? p.responsible : p.cat === filter))
-      .map((p) => COORDS[p.id])
-      .filter(Boolean);
+    const vus = liste.map((p) => COORDS[p.id]);
     const lons = [...vus.map((v) => v.lon), HOUSE.lon];
     const lats = [...vus.map((v) => v.lat), HOUSE.lat];
     c.m.fitBounds(
@@ -221,18 +238,81 @@ export default function MapLibreMap({
       // Un seul lieu ? fitBounds irait au zoom maximum : on le retient.
       { padding: 70, maxZoom: 13.5, duration: 500 },
     );
-  }, [state, filter, lang]);
+  }, [state, filter, lang, liste, viser]);
 
   // L'épingle choisie s'inverse — on doit voir de quel point la fiche parle.
   useEffect(() => {
     pins.current.forEach((el, id) => el.classList.toggle('is-on', id === choisi?.id));
   }, [choisi]);
 
+  // Cliquer une épingle amène sa fiche sous les yeux (téléphone). On ne le
+  // fait QUE dans ce sens : si le choix vient du doigt, la piste est déjà là
+  // où l'utilisateur l'a mise.
+  useEffect(() => {
+    const p = piste.current;
+    if (!p || !choisi || origine.current !== 'epingle') return;
+    const i = liste.findIndex((x) => x.id === choisi.id);
+    const el = p.children[i] as HTMLElement | undefined;
+    if (!el) return;
+    // Instantané, et c'est voulu : un défilement animé émet des événements en
+    // traînée qui arrivaient APRÈS le clic suivant et écrasaient le choix. Ici
+    // le seul événement émis tombe pile sur la fiche déjà choisie — « on a
+    // glissé » n'a donc rien à rechoisir, et les deux sens cessent de lutter.
+    p.scrollTo({ left: el.offsetLeft - (p.clientWidth - el.clientWidth) / 2, behavior: 'auto' });
+  }, [choisi, liste]);
+
+  // …et inversement : faire glisser la piste choisit le lieu qui arrive au
+  // centre, et la carte suit. C'est le geste d'Airbnb — on passe d'un lieu au
+  // suivant sans jamais revenir a la carte.
+  const onGlisse = useCallback(() => {
+    const p = piste.current;
+    if (!p) return;
+    const centre = p.scrollLeft + p.clientWidth / 2;
+    let best = 0;
+    let d = Infinity;
+    [...p.children].forEach((el, i) => {
+      const e = el as HTMLElement;
+      const dd = Math.abs(e.offsetLeft + e.clientWidth / 2 - centre);
+      if (dd < d) {
+        d = dd;
+        best = i;
+      }
+    });
+    const cible = liste[best];
+    if (cible && cible.id !== choisi?.id) {
+      origine.current = 'piste';
+      setChoisi(cible);
+      viser(cible);
+    }
+  }, [liste, choisi, viser]);
+
   return (
     <div className="relative h-[68vh] max-h-[620px] overflow-hidden rounded-2xl border" style={{ borderColor: 'var(--cava-line)' }}>
       <div ref={box} className="h-full w-full" />
 
-      {choisi && <Fiche place={choisi} lang={lang} labels={labels} onClose={() => setChoisi(null)} />}
+      {/* Téléphone : une piste qu'on feuillette, comme chez Airbnb. La fiche
+          choisie est au centre ; on glisse pour passer a la suivante et la
+          carte suit. */}
+      {choisi && (
+        <div
+          ref={piste}
+          onScroll={onGlisse}
+          className="cava-swipe absolute inset-x-0 bottom-3 z-10 flex snap-x snap-mandatory gap-3 overflow-x-auto px-3 pb-1 sm:hidden"
+        >
+          {liste.map((p) => (
+            <div key={p.id} className="w-[86%] shrink-0 snap-center">
+              <Fiche place={p} lang={lang} labels={labels} onClose={() => setChoisi(null)} />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Écran large : une seule fiche, en bas a gauche. */}
+      {choisi && (
+        <div className="absolute bottom-4 left-4 z-10 hidden w-[330px] sm:block">
+          <Fiche place={choisi} lang={lang} labels={labels} onClose={() => setChoisi(null)} />
+        </div>
+      )}
 
       {state !== 'ok' && (
         <div className="absolute inset-0 flex items-center justify-center px-6 text-center text-[14px]" style={{ background: BG, color: 'var(--cava-muted)' }}>
