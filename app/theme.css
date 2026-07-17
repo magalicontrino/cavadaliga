@@ -704,13 +704,13 @@
    tri du site, pour comparer à armes égales avec le poster dessiné. */
 .cava-glpin {
   display: flex;
-  height: 30px;
+  height: 34px;
   cursor: pointer;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   border-radius: 999px;
   background: var(--cava-pink);
-  padding: 0 10px 0 8px;
+  padding: 0 12px 0 9px;
   color: #fff;
   font-family: inherit;
   font-size: 12px;

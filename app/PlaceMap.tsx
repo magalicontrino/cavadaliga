@@ -242,7 +242,7 @@ export default function PlaceMap({
       el.type = 'button';
       el.className = 'cava-glpin';
       el.setAttribute('aria-label', `${p.name} — ${p.town}`);
-      el.innerHTML = `${picto(CATS[p.cat].icon, 15)}<span>${p.km === 0 ? labels.here : `${p.km} km`}</span>`;
+      el.innerHTML = `${picto(CATS[p.cat].icon, 19)}<span>${p.km === 0 ? labels.here : `${p.km} km`}</span>`;
       pins.current.set(p.id, el);
       el.addEventListener('click', (ev) => {
         ev.stopPropagation(); // sinon le clic atteint la carte et referme aussitôt
