@@ -294,7 +294,7 @@ export default function NosAdresses() {
           </Reveal>
         )}
 
-        <Reveal className="flex flex-wrap gap-2.5">
+        <Reveal className="cava-swipe -mx-5 flex gap-2.5 overflow-x-auto px-5 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
           {filters.map((f) => {
             const on = filter === f.key;
             return (

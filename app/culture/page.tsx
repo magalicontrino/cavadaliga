@@ -134,7 +134,7 @@ export default function Culture() {
 
       {/* Le tri : six sections, on choisit */}
       <section className="mx-auto max-w-[110rem] px-5 pt-4 md:px-10">
-        <Reveal className="flex flex-wrap gap-2.5">
+        <Reveal className="cava-swipe -mx-5 flex gap-2.5 overflow-x-auto px-5 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
           {filters.map((x) => (
             <FilterChip key={x.key} label={x.label} icon={x.icon} active={filter === x.key} onClick={() => choose(x.key)} />
           ))}

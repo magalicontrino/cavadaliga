@@ -31,7 +31,7 @@ export default function FilterChip({
         type="button"
         onClick={onClick}
         aria-pressed={active}
-        className="cava-chip inline-flex items-center gap-2 rounded-full border px-5 py-3 text-[14px]"
+        className="cava-chip inline-flex shrink-0 items-center gap-2 rounded-full border px-5 py-3 text-[14px]"
         style={{
           borderColor: active ? 'var(--cava-ink)' : 'var(--cava-line)',
           background: active ? 'var(--cava-ink)' : 'transparent',
@@ -50,7 +50,7 @@ export default function FilterChip({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="cava-chip inline-flex items-center gap-3 rounded-full border py-1.5 pl-1.5 pr-5 text-[14.5px]"
+      className="cava-chip inline-flex shrink-0 items-center gap-3 rounded-full border py-1.5 pl-1.5 pr-5 text-[14.5px]"
       style={{
         borderColor: active ? 'var(--cava-pink)' : 'var(--cava-line)',
         background: active ? 'var(--cava-pink)' : 'var(--cava-bg)',

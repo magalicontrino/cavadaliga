@@ -61,7 +61,7 @@ export default function CarteEssai() {
           l’endroit qu’on regarde — une centaine de kilo-octets pour une vue.
         </Reveal>
 
-        <Reveal className="mt-8 flex flex-wrap gap-2.5">
+        <Reveal className="mt-8 cava-swipe -mx-5 flex gap-2.5 overflow-x-auto px-5 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
           <FilterChip label="Responsable & local" icon="leaf" active={filter === 'responsable'} onClick={() => setFilter('responsable')} />
           {CATS_ORDER.map((k) => (
             <FilterChip key={k} label={CATS[k].label[lang]} icon={CATS[k].icon} active={filter === k} onClick={() => setFilter(k)} />

@@ -52,7 +52,7 @@ export default function InformationsPratiques() {
 
       {/* Le tri : la page est longue, on choisit ce qu'on cherche */}
       <section className="mx-auto max-w-[110rem] px-5 pt-4 md:px-10">
-        <Reveal className="flex flex-wrap gap-2.5">
+        <Reveal className="cava-swipe -mx-5 flex gap-2.5 overflow-x-auto px-5 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
           {filters.map((x) => {
             const on = filter === x.key;
             return (
