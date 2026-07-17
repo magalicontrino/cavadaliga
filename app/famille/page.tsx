@@ -7,6 +7,7 @@ import Reveal from '../Reveal';
 import Photo from '../Photo';
 import Lightbox from '../Lightbox';
 import PageHeader from '../PageHeader';
+import Icon from '../Icon';
 import FamilyTree from '../FamilyTree';
 import { SITE } from '../data';
 import { useI18n } from '../i18n';
@@ -34,6 +35,16 @@ export default function Salva() {
       <Nav current="/famille" />
 
       <PageHeader title={s.title} intro={s.intro} stackPill />
+
+      {/* L'arbre vit tout en bas, apres la galerie : sans ce renvoi, il fallait
+          deviner qu'il existe. */}
+      <section className="mx-auto max-w-[110rem] px-5 pb-10 md:px-10">
+        <Reveal>
+          <a href="#arbre" className="cava-pill inline-flex items-center gap-2 px-5 py-2.5 text-[13.5px]">
+            <Icon name="landmark" size={16} /> {s.treeTitle} <span aria-hidden>↓</span>
+          </a>
+        </Reveal>
+      </section>
 
       {/* Histoire de la famille — bloc éditorial (filet + label + colonne) */}
       <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
@@ -82,8 +93,8 @@ export default function Salva() {
         <Lightbox images={SALVA.map((p) => p.src)} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />
       </section>
 
-      {/* Arbre généalogique (structure d'exemple ; participatif à venir) */}
-      <section className="mx-auto max-w-[110rem] px-5 pb-24 md:px-10">
+      {/* Arbre généalogique — cible du renvoi place sous le titre de la page. */}
+      <section id="arbre" className="mx-auto max-w-[110rem] scroll-mt-8 px-5 pb-24 md:px-10">
         <Reveal>
           {/* Le meme habit que le titre de la page : capitales, gras, et le
               dernier mot enferme dans sa pilule. Plus petit, parce qu'une

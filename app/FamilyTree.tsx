@@ -244,9 +244,4 @@ const QUESTIONS: { fr: string; it: string; en: string }[] = [
     it: 'Le date di Louis Thurot, Mélanie Souveton, Pierre Lux e Juliette Thurot.',
     en: 'The dates of Louis Thurot, Mélanie Souveton, Pierre Lux and Juliette Thurot.',
   },
-  {
-    fr: 'Et les photos : un seul visage vaut mieux que dix cases.',
-    it: 'E le foto: un solo volto vale più di dieci caselle.',
-    en: 'And the photographs: a single face is worth more than ten boxes.',
-  },
 ];
