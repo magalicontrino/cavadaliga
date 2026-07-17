@@ -224,14 +224,27 @@ const style = (tiles: string) => ({
      * Tout etait peint d'un meme rose : un lac de barrage au milieu des terres
      * se lisait comme un bout de mer. Les eaux interieures prennent un ton plus
      * dense — on les distingue sans quitter la couleur. */
+    { id: 'mer', type: 'fill' as const, source: 'p', 'source-layer': 'water', filter: ['==', ['get', 'kind'], 'ocean'] as never, paint: { 'fill-color': '#e88aab' } },
+    /* Les eaux interieures — de PRES seulement.
+     *
+     * Mag : « quoi, c'est un defaut ? ». Non : ce sont de vrais plans d'eau
+     * d'OpenStreetMap, les lits des rivieres des Iblei. Mais vus de loin, la
+     * geometrie est simplifiee a l'extreme dans les tuiles : une riviere fine et
+     * sinueuse devient un long coin rose bien droit en travers des terres. Ca ne
+     * ressemble a rien, et surtout ca ne ressemble pas a de l'eau.
+     *
+     * A partir du zoom 10, la geometrie redevient fidele et les rivieres
+     * ressemblent a des rivieres. Avant, on se tait : mieux vaut ne rien montrer
+     * que montrer faux.
+     */
     {
-      id: 'mer',
+      id: 'eaux',
       type: 'fill' as const,
       source: 'p',
       'source-layer': 'water',
-      paint: {
-        'fill-color': ['match', ['get', 'kind'], 'ocean', '#e88aab', ['lake', 'water', 'playa'], '#e07fa2', '#e88aab'] as never,
-      },
+      filter: ['!=', ['get', 'kind'], 'ocean'] as never,
+      minzoom: 10,
+      paint: { 'fill-color': '#e07fa2' },
     },
     /* Les rivieres : des lignes, pas des surfaces — elles n'apparaissaient donc
      * pas du tout. Elles dessinent les vallees des Iblei. */

@@ -208,12 +208,9 @@ export default function FamilyTree() {
             {s.treeQuestionsTitle.split(' ').at(-1)}
           </span>
         </h3>
-        <p className="mt-6 max-w-[62ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.65]" style={{ color: 'var(--cava-muted)' }}>
-          {s.treeQuestionsNote}
-        </p>
         {/* Numerotees, et grandes : ce sont des questions posees a quelqu'un,
             pas des notes de bas de page. */}
-        <ol className="mt-12 grid gap-x-10 gap-y-7 md:grid-cols-2">
+        <ol className="mt-10 grid gap-x-10 gap-y-7 md:grid-cols-2">
           {QUESTIONS.map((q, i) => (
             <li key={q.fr} className="flex items-baseline gap-4 border-t pt-5" style={{ borderColor: 'var(--cava-line)' }}>
               <span className="shrink-0 font-mono text-[13px] tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
@@ -247,9 +244,9 @@ const QUESTIONS: { fr: string; it: string; en: string }[] = [
     en: 'Helene Contrino’s husband — and those of her daughters Angelina, Antoinette, Josephine and Rosalba.',
   },
   {
-    fr: 'Les deux maris de Lucia Contrino.',
-    it: 'I due mariti di Lucia Contrino.',
-    en: 'Lucia Contrino’s two husbands.',
+    fr: 'Le premier mari de Lucia Contrino, le père de Giuseppe et Salvatore. Le second, on le sait : Dolciamore, le père de Tino.',
+    it: 'Il primo marito di Lucia Contrino, il padre di Giuseppe e Salvatore. Il secondo lo sappiamo: Dolciamore, il padre di Tino.',
+    en: 'Lucia Contrino’s first husband, father of Giuseppe and Salvatore. The second one we know: Dolciamore, Tino’s father.',
   },
   {
     fr: 'Le mari de Maria Contrino, et celui de Lara Contrino.',

@@ -5,6 +5,17 @@
  * ------------------------------------------------------------------ */
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap');
 
+html {
+  /* Un lien d'ancre qui TELEPORTE, on ne sait pas ou on a atterri. En glissant,
+     on voit le chemin — et on comprend que c'est la meme page. */
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 .cava-root {
   /* Palette relevée sur cavadaliga.webflow.io */
   --cava-bg: #f7f5f2;
