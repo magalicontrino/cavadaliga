@@ -27,6 +27,20 @@ export const NAV = [
   { href: '/evenements' },
 ] as const;
 
+// Bandeau d'images défilant — partagé par l'accueil ET la page La casa : une
+// seule liste, donc toute retouche se répercute d'un coup sur les deux pages.
+// Ordre pensé pour que deux visuels SEMBLABLES (les 2 figuiers de Barbarie) ne
+// soient jamais côte à côte — y compris au raccord de boucle (dernier ↔ premier,
+// car le bandeau répète cette liste).
+export const GALLERY_STRIP = [
+  '/deco/figue-barbarie.jpg',
+  '/deco/carte-pop.jpg',
+  '/deco/spaghetti.jpg',
+  '/deco/figue-barbarie-2.jpg',
+  '/deco/testa-di-moro.jpg',
+  '/deco/glace.jpg',
+];
+
 // Galerie — vraies photos dans /public/picture-sicile/, repli /public/deco/
 // (chaque image déco utilisée une seule fois). Alt via i18n.galleryAlt.
 export const GALLERY: { src: string; deco?: string }[] = [

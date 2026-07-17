@@ -8,6 +8,8 @@ import PageHeader from '../PageHeader';
 import Photo from '../Photo';
 import CtaBadge from '../CtaBadge';
 import Lightbox from '../Lightbox';
+import Gallery from '../Gallery';
+import { GALLERY_STRIP } from '../data';
 import { useI18n } from '../i18n';
 
 // L'album de la maison : les vraies photos, deposees dans /public/appart/.
@@ -60,6 +62,22 @@ export default function Appartement() {
         </div>
 
         <Lightbox images={ALBUM} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />
+      </section>
+
+      {/* Meme fin que l'accueil, apres l'album : le bandeau d'images defilant
+          (la meme liste partagee, GALLERY_STRIP), puis le coucher de soleil en
+          pleine largeur — la derniere image qu'on emporte. */}
+      <section className="py-24 md:py-28">
+        <Gallery images={GALLERY_STRIP} />
+      </section>
+
+      <section>
+        <Photo
+          src="/picture-sicile/coucher-soleil.jpg"
+          alt={t.sunsetAlt}
+          tone="terra"
+          className="aspect-[2/1] w-full md:aspect-[2.4/1]"
+        />
       </section>
 
       {/* Un CTA comme sur l'accueil : grand titre + badge rotatif, vers les
