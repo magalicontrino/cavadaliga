@@ -157,15 +157,21 @@ export default function NosAdresses() {
    * calculateur d'itineraire. Le « ≈ » porte donc seul cette reserve. Si un
    * jour un chiffre doit etre juste au kilometre pres, il faudra le dire —
    * ou aller chercher la vraie distance routiere.
+   *
+   * Rend une chaine VIDE quand la distance n'apprend rien — on est dessus. Ca
+   * disait « Sur place », et Mag a raison : devant un bar du village, personne
+   * ne se demande combien de kilometres le separent du village. Le mot occupait
+   * la place du seul renseignement utile, le nom. Qui n'affiche rien affiche
+   * moins qu'un mot vide de sens : les appelants sautent la ligne.
    */
   const kmLabel = (l: { id: string; km: number }) => {
     // La maison est un cas a part : elle n'est pas dans LOCAL_PLACES, et sa
     // position est le repere de tout le reste.
     const co = l.id === '__maison__' ? HOUSE : COORDS[l.id];
-    if (!depart) return l.id === '__maison__' ? p.houseHere : l.km === 0 ? t.regionHere : `≈ ${l.km} km`;
-    if (!co) return '—'; // sans position reelle, on n'invente pas une distance
+    if (!depart) return l.id === '__maison__' ? p.houseHere : l.km === 0 ? '' : `≈ ${l.km} km`;
+    if (!co) return ''; // sans position reelle, on n'invente pas une distance
     const d = distanceKm(depart.lat, depart.lon, co.lat, co.lon);
-    return d < 0.4 ? t.regionHere : `≈ ${d < 10 ? d.toFixed(1) : Math.round(d)} km`;
+    return d < 0.4 ? '' : `≈ ${d < 10 ? d.toFixed(1) : Math.round(d)} km`;
   };
 
   /** Clic sur une fiche : on la met en évidence sur la carte. */
@@ -415,7 +421,7 @@ export default function NosAdresses() {
           <PlaceMap
             places={shown}
             lang={lang}
-            labels={{ map: p.mapLabel, badge: p.badge, here: t.regionHere, close: p.closeLabel, mapFailed: p.mapFailed, mapFailedHint: p.mapFailedHint, house: p.houseHere, departReset: p.departReset }}
+            labels={{ map: p.mapLabel, badge: p.badge, close: p.closeLabel, mapFailed: p.mapFailed, mapFailedHint: p.mapFailedHint, house: p.houseHere, departReset: p.departReset }}
             choisi={shown.find((l) => l.id === active) ?? null}
             onChoisir={(l) => setActive(l?.id ?? null)}
             me={me}
@@ -497,9 +503,11 @@ export default function NosAdresses() {
                     {pl.town} · {CATS[pl.cat].label[lang]}
                   </p>
                   {/* Distance depuis la maison */}
-                  <p className="relative inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
-                    <Icon name="home" size={14} /> {kmLabel(pl)}
-                  </p>
+                  {kmLabel(pl) && (
+                    <p className="relative inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+                      <Icon name="home" size={14} /> {kmLabel(pl)}
+                    </p>
+                  )}
                   <p className="relative text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
                     {pl.blurb[lang]}
                   </p>

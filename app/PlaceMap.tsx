@@ -91,6 +91,27 @@ const picto = (name: IconName, size: number) =>
     </svg>,
   );
 
+/**
+ * Ecrire — ou effacer — la distance d'une pastille.
+ *
+ * Une seule fonction pour les deux moments : quand on cree l'epingle, et quand
+ * un depart pose change toutes les distances. Deux codes pour la meme regle
+ * finiraient par ne plus dire la meme chose.
+ *
+ * Vide = pas de span du tout. Une adresse du village n'a rien a annoncer ; un
+ * span vide laisserait son filet vertical pendre apres le nom. Et si un depart
+ * lui redonne une distance, le span revient.
+ */
+const poserLesKm = (el: HTMLElement, texte: string) => {
+  const actuel = el.querySelector('.cava-glpin-km');
+  if (!texte) return actuel?.remove();
+  if (actuel) return void (actuel.textContent = texte);
+  const km = document.createElement('span');
+  km.className = 'cava-glpin-km';
+  km.textContent = texte;
+  el.append(km);
+};
+
 /** Le style : ce qu'on dessine, dans quel ordre, avec quelles couleurs.
  *  Écrit à la main plutôt que repris d'un thème tout fait — c'était la
  *  question posée : peut-on avoir NOTRE fond de carte ? Le voici. */
@@ -192,7 +213,7 @@ export default function PlaceMap({
   places: LocalPlace[];
   lang: Lang;
   // Les libellés viennent de la page : ce composant ne doit rien écrire en dur.
-  labels: { map: string; badge: string; here: string; close: string; mapFailed: string; mapFailedHint: string; house: string; departReset: string };
+  labels: { map: string; badge: string; close: string; mapFailed: string; mapFailedHint: string; house: string; departReset: string };
   choisi: LocalPlace | null;
   onChoisir: (p: LocalPlace | null) => void;
   /** Position réelle du visiteur, s'il l'a demandée. */
@@ -237,6 +258,12 @@ export default function PlaceMap({
   // clic garderait pour toujours le tout premier onDepart.
   const onDepartRef = useRef(onDepart);
   onDepartRef.current = onDepart;
+  // Meme raison : l'ecouteur de clic doit savoir si une fiche est ouverte
+  // MAINTENANT, pas si elle l'etait au premier rendu.
+  const choisiRef = useRef(choisi);
+  choisiRef.current = choisi;
+  const onChoisirRef = useRef(onChoisir);
+  onChoisirRef.current = onChoisir;
   const piste = useRef<HTMLDivElement>(null);
   // D'ou vient le choix ? Cliquer une epingle doit amener sa fiche ; glisser
   // la piste ne doit surtout PAS la repositionner — sinon on lutte contre le
@@ -326,11 +353,24 @@ export default function PlaceMap({
           setErreur(e?.error?.message ?? 'inconnue');
           setState('erreur');
         });
-        // Cliquer le fond pose un depart simule. La fiche, elle, se ferme par
-        // sa croix : on ne peut pas faire les deux d'un meme clic sans que l'un
-        // surprenne toujours l'autre.
+        /**
+         * Un clic sur le fond fait UNE chose, jamais deux — et laquelle depend
+         * de ce qui est ouvert.
+         *
+         * Une fiche est ouverte ? Le clic la ferme, et s'arrete la. C'est le
+         * geste que tout le monde a : on clique a cote pour refermer. Poser un
+         * depart en meme temps planterait une epingle a chaque fois qu'on veut
+         * juste se debarrasser d'une fiche.
+         *
+         * Rien d'ouvert ? Le clic pose le depart.
+         *
+         * Le clic sur une epingle, lui, n'arrive jamais ici : il s'arrete sur
+         * elle (stopPropagation), sinon il refermerait la fiche qu'il vient
+         * d'ouvrir.
+         */
         m.on('click', (e: { lngLat: { lat: number; lng: number } }) => {
           if (mort) return;
+          if (choisiRef.current) return onChoisirRef.current(null);
           onDepartRef.current?.({ lat: e.lngLat.lat, lon: e.lngLat.lng });
         });
         map.current = { m, Marker };
@@ -378,10 +418,11 @@ export default function PlaceMap({
       const nom = document.createElement('span');
       nom.className = 'cava-glpin-nom';
       nom.textContent = p.name;
-      const km = document.createElement('span');
-      km.className = 'cava-glpin-km';
-      km.textContent = kmLabel(p);
-      el.append(nom, km);
+      el.append(nom);
+      // Pas de distance a dire ? Pas de span : son filet vertical pendrait dans
+      // le vide apres le nom. Il reviendra tout seul si un depart pose en donne
+      // une — c'est l'effet plus bas qui s'en charge.
+      poserLesKm(el, kmLabel(p));
       pins.current.set(p.id, el);
       el.addEventListener('click', (ev) => {
         ev.stopPropagation(); // sinon le clic atteint la carte et referme aussitôt
@@ -473,11 +514,10 @@ export default function PlaceMap({
     if (state !== 'ok') return;
     pins.current.forEach((el, id) => {
       const p = liste.find((x) => x.id === id);
-      // Bien viser le span des km : depuis que la pastille porte aussi le nom,
-      // un querySelector('span') attraperait le NOM et l'ecraserait par une
-      // distance.
-      const span = el.querySelector('.cava-glpin-km');
-      if (p && span) span.textContent = kmLabel(p);
+      // Meme fonction qu'a la creation : le span apparait, change ou disparait
+      // selon qu'il y ait une distance a dire. Viser « le premier span » aurait
+      // attrape le NOM et l'aurait ecrase par des kilometres.
+      if (p) poserLesKm(el, kmLabel(p));
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, depart, cle]);
@@ -579,7 +619,7 @@ export default function PlaceMap({
         >
           {liste.map((p) => (
             <div key={p.id} className="w-[86%] shrink-0 snap-center">
-              <PlaceCard place={p} lang={lang} labels={labels} onClose={() => onChoisir(null)} />
+              <PlaceCard place={p} lang={lang} labels={labels} km={kmLabel(p)} onClose={() => onChoisir(null)} />
             </div>
           ))}
         </div>
@@ -588,7 +628,7 @@ export default function PlaceMap({
       {/* Écran large : une seule fiche, en bas a gauche. */}
       {choisi && (
         <div className="absolute bottom-4 left-4 z-10 hidden w-[330px] sm:block">
-          <PlaceCard place={choisi} lang={lang} labels={labels} onClose={() => onChoisir(null)} />
+          <PlaceCard place={choisi} lang={lang} labels={labels} km={kmLabel(choisi)} onClose={() => onChoisir(null)} />
         </div>
       )}
 

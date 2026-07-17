@@ -17,11 +17,24 @@ export default function PlaceCard({
   place,
   lang,
   labels,
+  km,
   onClose,
 }: {
   place: LocalPlace;
   lang: Lang;
-  labels: { map: string; badge: string; here: string; close: string };
+  labels: { map: string; badge: string; close: string };
+  /**
+   * La distance, DEJA calculee par la page — pas recalculee ici.
+   *
+   * Cette fiche lisait `place.km` : la distance depuis la maison, toujours.
+   * Avec un depart pose, elle annoncait donc « ≈ 6 km » pendant que la pastille
+   * juste au-dessus d'elle disait « ≈ 2,6 km ». Deux chiffres pour un meme
+   * lieu, sur un meme ecran. Un seul endroit calcule, maintenant.
+   *
+   * Vide = on n'affiche rien : c'est le cas des adresses du village, ou la
+   * distance n'apprend rien a personne.
+   */
+  km: string;
   onClose: () => void;
 }) {
   return (
@@ -55,12 +68,14 @@ export default function PlaceCard({
         <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-muted)' }}>
           {place.town} · {CATS[place.cat].label[lang]}
         </p>
-        <p
-          className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.14em]"
-          style={{ color: 'var(--cava-pink)', fontWeight: 700 }}
-        >
-          <Icon name="home" size={13} /> {place.km === 0 ? labels.here : `≈ ${place.km} km`}
-        </p>
+        {km && (
+          <p
+            className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.14em]"
+            style={{ color: 'var(--cava-pink)', fontWeight: 700 }}
+          >
+            <Icon name="home" size={13} /> {km}
+          </p>
+        )}
         <p className="text-[13px] leading-[1.55]" style={{ color: 'var(--cava-muted)' }}>
           {place.blurb[lang]}
         </p>
