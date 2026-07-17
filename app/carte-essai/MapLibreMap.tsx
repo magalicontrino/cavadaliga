@@ -25,10 +25,21 @@ import Fiche from './Fiche';
 const INK = '#2e2d2d';
 const BG = '#f7f5f2';
 
+/**
+ * L'emprise de nos tuiles (le --bbox de l'extrait). Hors de la, il n'y a rien
+ * a dessiner : on verrait le fond du style, une bande vide. On l'impose donc
+ * comme limite a la camera — MapLibre l'empeche d'en sortir, et remonte le
+ * zoom au besoin pour que les donnees remplissent toujours la fenetre.
+ */
+const EMPRISE: [[number, number], [number, number]] = [
+  [14.05, 36.55],
+  [15.45, 37.25],
+];
+
 /** Le strict nécessaire de l'API MapLibre, typé à la main. */
 type Epingle = { setLngLat: (l: [number, number]) => Epingle; addTo: (m: unknown) => Epingle; remove: () => void };
 type Carte = {
-  m: { easeTo: (o: object) => void };
+  m: { easeTo: (o: object) => void; fitBounds: (b: [[number, number], [number, number]], o: object) => void };
   Marker: new (o: { element: HTMLElement }) => Epingle;
 };
 
@@ -123,6 +134,7 @@ export default function MapLibreMap({
           style: style(`${location.origin}${withBase('/tuiles/cava.pmtiles')}`) as never,
           center: [HOUSE.lon, HOUSE.lat],
           zoom: 11,
+          maxBounds: EMPRISE,
           attributionControl: { compact: false },
         });
         // En haut à droite : en bas, les commandes tomberaient derrière la fiche.
@@ -185,6 +197,23 @@ export default function MapLibreMap({
     h.className = 'cava-glhouse';
     h.title = "Cava d'Aliga";
     markers.current.push(new c.Marker({ element: h }).setLngLat([HOUSE.lon, HOUSE.lat]).addTo(c.m));
+
+    // Choisir un filtre doit MONTRER ce qu'on a choisi : on cadre sur les
+    // épingles retenues (la maison comprise, c'est le repère). Sans ça, on
+    // cliquait « Plantes & fleurs » et on restait devant une carte vide.
+    const vus = LOCAL_PLACES.filter((p) => (filter === 'tout' ? true : filter === 'responsable' ? p.responsible : p.cat === filter))
+      .map((p) => COORDS[p.id])
+      .filter(Boolean);
+    const lons = [...vus.map((v) => v.lon), HOUSE.lon];
+    const lats = [...vus.map((v) => v.lat), HOUSE.lat];
+    c.m.fitBounds(
+      [
+        [Math.min(...lons), Math.min(...lats)],
+        [Math.max(...lons), Math.max(...lats)],
+      ],
+      // Un seul lieu ? fitBounds irait au zoom maximum : on le retient.
+      { padding: 70, maxZoom: 13.5, duration: 500 },
+    );
   }, [state, filter, lang]);
 
   return (

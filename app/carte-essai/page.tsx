@@ -57,8 +57,8 @@ export default function CarteEssai() {
 
         <Reveal as="p" className="mt-5 max-w-[70ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
           Le fond de carte est à nous : mer rose, terre crème, nos pictos. Rien n’est acheté, rien n’est loué — les
-          données tiennent dans un seul fichier de 5 Mo posé dans le site, que le navigateur grignote par morceaux selon
-          l’endroit qu’on regarde.
+          données tiennent dans un seul fichier de 14 Mo posé dans le site, dont le navigateur ne prend que les morceaux de
+          l’endroit qu’on regarde — une centaine de kilo-octets pour une vue.
         </Reveal>
 
         <Reveal className="mt-8 flex flex-wrap gap-2.5">
@@ -81,9 +81,9 @@ export default function CarteEssai() {
             pondération sur onze repères — et plus de repère faux qui traîne.
           </p>
           <p className="rounded-xl border p-5" style={{ borderColor: 'var(--cava-line)' }}>
-            <strong style={{ color: 'var(--cava-ink)' }}>Ce que ça coûte.</strong> ~210 Ko de JavaScript et 5 Mo de
-            tuiles, contre un SVG aujourd’hui. Chargés seulement ici. Et le poster dessiné disparaît : une vraie carte
-            ne peut pas être un dessin.
+            <strong style={{ color: 'var(--cava-ink)' }}>Ce que ça coûte.</strong> ~210 Ko de JavaScript, et un fichier de
+            tuiles de 14 Mo dans le dépôt — dont on ne télécharge qu’une fraction à l’usage. Chargés seulement ici. Et
+            le poster dessiné disparaît : une vraie carte ne peut pas être un dessin.
           </p>
           <p className="rounded-xl border p-5" style={{ borderColor: 'var(--cava-line)' }}>
             <strong style={{ color: 'var(--cava-ink)' }}>Ce qui manque.</strong>{' '}
