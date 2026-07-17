@@ -2,12 +2,13 @@
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useEffect, useRef, useState } from 'react';
-import { CATS, LOCAL_PLACES, type Lang } from '../localData';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { CATS, LOCAL_PLACES, type Lang, type LocalPlace } from '../localData';
 import { HOUSE } from '../geo';
 import { COORDS } from './coords';
 import { ICON_PATHS, type IconName } from '../Icon';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { withBase } from '../data';
+import Fiche from './Fiche';
 
 /**
  * MAQUETTE — la même région, en vraie carte.
@@ -23,6 +24,21 @@ import { withBase } from '../data';
 
 const INK = '#2e2d2d';
 const BG = '#f7f5f2';
+
+/** Le strict nécessaire de l'API MapLibre, typé à la main. */
+type Epingle = { setLngLat: (l: [number, number]) => Epingle; addTo: (m: unknown) => Epingle; remove: () => void };
+type Carte = {
+  m: { easeTo: (o: object) => void };
+  Marker: new (o: { element: HTMLElement }) => Epingle;
+};
+
+/** Un picto du site en HTML brut — les épingles vivent hors de l'arbre React. */
+const picto = (name: IconName, size: number) =>
+  renderToStaticMarkup(
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      {ICON_PATHS[name]}
+    </svg>,
+  );
 
 /** Le style : ce qu'on dessine, dans quel ordre, avec quelles couleurs.
  *  Écrit à la main plutôt que repris d'un thème tout fait — c'était la
@@ -55,14 +71,7 @@ const style = (tiles: string) => ({
         'line-width': ['interpolate', ['linear'], ['zoom'], 9, 0.6, 14, 4, 17, 12] as never,
       },
     },
-    {
-      id: 'batiments',
-      type: 'fill' as const,
-      source: 'p',
-      'source-layer': 'buildings',
-      minzoom: 14,
-      paint: { 'fill-color': '#e2dfd8' },
-    },
+    { id: 'batiments', type: 'fill' as const, source: 'p', 'source-layer': 'buildings', minzoom: 14, paint: { 'fill-color': '#e2dfd8' } },
     {
       id: 'villages',
       type: 'symbol' as const,
@@ -79,14 +88,6 @@ const style = (tiles: string) => ({
   ],
 });
 
-/** Un picto du site, en HTML brut — les fiches vivent hors de React. */
-const picto = (name: IconName, size: number) =>
-  renderToStaticMarkup(
-    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
-      {ICON_PATHS[name]}
-    </svg>,
-  );
-
 export default function MapLibreMap({
   lang,
   filter,
@@ -95,21 +96,21 @@ export default function MapLibreMap({
   lang: Lang;
   filter: string;
   // Les libellés viennent de la page : ce composant ne doit rien écrire en dur.
-  labels: { map: string; badge: string; here: string };
+  labels: { map: string; badge: string; here: string; close: string };
 }) {
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<unknown>(null);
-  const markers = useRef<{ remove: () => void }[]>([]);
-  const popup = useRef<{ remove: () => void } | null>(null);
+  const markers = useRef<Epingle[]>([]);
   const [state, setState] = useState<'chargement' | 'ok' | 'erreur'>('chargement');
   const [erreur, setErreur] = useState('');
+  const [choisi, setChoisi] = useState<LocalPlace | null>(null);
 
   useEffect(() => {
     let mort = false;
     (async () => {
       try {
         const [gl, pm] = await Promise.all([import('maplibre-gl'), import('pmtiles')]);
-        const { Map: GlMap, Marker, NavigationControl, Popup } = gl;
+        const { Map: GlMap, Marker, NavigationControl } = gl;
         const { Protocol } = pm;
         if (mort || !box.current) return;
 
@@ -124,14 +125,17 @@ export default function MapLibreMap({
           zoom: 11,
           attributionControl: { compact: false },
         });
-        m.addControl(new NavigationControl({ showCompass: false }), 'bottom-right');
+        // En haut à droite : en bas, les commandes tomberaient derrière la fiche.
+        m.addControl(new NavigationControl({ showCompass: false }), 'top-right');
         m.on('load', () => !mort && setState('ok'));
         m.on('error', (e: { error?: { message?: string } }) => {
           if (mort) return;
           setErreur(e?.error?.message ?? 'inconnue');
           setState('erreur');
         });
-        map.current = { m, Marker, Popup };
+        // Cliquer le fond referme la fiche — le réflexe attendu d'une carte.
+        m.on('click', () => !mort && setChoisi(null));
+        map.current = { m, Marker };
       } catch (e) {
         if (mort) return;
         setErreur(e instanceof Error ? e.message : String(e));
@@ -147,61 +151,34 @@ export default function MapLibreMap({
 
   // Les épingles suivent le filtre. Chacune porte le picto de sa catégorie —
   // le même jeu d'icônes que le reste du site, pour comparer à armes égales.
-  // La fiche, façon Airbnb : ce qu'on veut savoir avant de décider d'y aller.
-  // Écrite en HTML — elle vit dans une bulle MapLibre, hors de l'arbre React,
-  // qui l'ancre à l'épingle et la suit au zoom et au déplacement.
-  const fiche = (p: (typeof LOCAL_PLACES)[number]) => `
-    <div class="cava-fiche">
-      <div class="cava-fiche-tete">
-        <span class="cava-fiche-picto">${picto(CATS[p.cat].icon, 20)}</span>
-        ${p.responsible ? `<span class="cava-fiche-badge">${picto('leaf', 12)} ${labels.badge}</span>` : ''}
-      </div>
-      <p class="cava-fiche-nom">${p.name}</p>
-      <p class="cava-fiche-meta">${p.town} · ${CATS[p.cat].label[lang]}</p>
-      <p class="cava-fiche-km">${picto('home', 13)} ${p.km === 0 ? labels.here : `≈ ${p.km} km`}</p>
-      <p class="cava-fiche-texte">${p.blurb[lang]}</p>
-      <div class="cava-fiche-liens">
-        <a class="cava-fiche-lien" href="${p.url}" target="_blank" rel="noopener noreferrer">${picto('pin', 14)} ${labels.map} <span aria-hidden="true">↗</span></a>
-        ${p.instagram ? `<a class="cava-fiche-lien" href="${p.instagram}" target="_blank" rel="noopener noreferrer">${picto('instagram', 14)} Instagram <span aria-hidden="true">↗</span></a>` : ''}
-      </div>
-    </div>`;
-
   useEffect(() => {
-    const c = map.current as {
-      m: { easeTo: (o: object) => void };
-      Marker: new (o: { element: HTMLElement }) => { setLngLat: (l: [number, number]) => { addTo: (m: unknown) => { remove: () => void } } };
-      Popup: new (o: object) => { setLngLat: (l: [number, number]) => { setHTML: (h: string) => { addTo: (m: unknown) => { remove: () => void } } } };
-    } | null;
+    const c = map.current as Carte | null;
     if (!c || state !== 'ok') return;
-    popup.current?.remove();
-    popup.current = null;
+    setChoisi(null); // la fiche parlerait d'une épingle que le filtre a retirée
     markers.current.forEach((x) => x.remove());
     markers.current = [];
 
-    LOCAL_PLACES.filter((p) => (filter === 'tout' ? true : filter === 'responsable' ? p.responsible : p.cat === filter))
-      .forEach((p) => {
-        const co = COORDS[p.id];
-        if (!co) return; // pas de position réelle : pas d'épingle inventée
+    LOCAL_PLACES.filter((p) => (filter === 'tout' ? true : filter === 'responsable' ? p.responsible : p.cat === filter)).forEach((p) => {
+      const co = COORDS[p.id];
+      if (!co) return; // pas de position réelle : pas d'épingle inventée
 
-        // Un bouton, pas un lien : cliquer ouvre la fiche, on ne quitte pas la
-        // page. Le lien vers Google Maps vit DANS la fiche, une fois qu'on
-        // sait de quel endroit il s'agit.
-        const el = document.createElement('button');
-        el.type = 'button';
-        el.className = 'cava-glpin';
-        el.setAttribute('aria-label', `${p.name} — ${p.town}`);
-        el.innerHTML = picto(CATS[p.cat].icon, 18);
-        el.addEventListener('click', (ev) => {
-          ev.stopPropagation();
-          popup.current?.remove();
-          popup.current = new c.Popup({ offset: 20, closeButton: true, maxWidth: '290px', className: 'cava-pop' })
-            .setLngLat([co.lon, co.lat])
-            .setHTML(fiche(p))
-            .addTo(c.m);
-          c.m.easeTo({ center: [co.lon, co.lat], duration: 400 });
-        });
-        markers.current.push(new c.Marker({ element: el }).setLngLat([co.lon, co.lat]).addTo(c.m));
+      // Un bouton, pas un lien : cliquer ouvre la fiche, on ne quitte pas la
+      // page. Le lien vers Google Maps vit DANS la fiche, une fois qu'on sait
+      // de quel endroit il s'agit.
+      const el = document.createElement('button');
+      el.type = 'button';
+      el.className = 'cava-glpin';
+      el.setAttribute('aria-label', `${p.name} — ${p.town}`);
+      el.innerHTML = picto(CATS[p.cat].icon, 18);
+      el.addEventListener('click', (ev) => {
+        ev.stopPropagation(); // sinon le clic atteint la carte et referme aussitôt
+        setChoisi(p);
+        // Amener l'épingle au centre est un confort, pas une condition : la
+        // fiche est posée dans la fenêtre et ne dépend d'aucune mesure.
+        c.m.easeTo({ center: [co.lon, co.lat], duration: 400 });
       });
+      markers.current.push(new c.Marker({ element: el }).setLngLat([co.lon, co.lat]).addTo(c.m));
+    });
 
     // La maison, à part
     const h = document.createElement('div');
@@ -213,6 +190,9 @@ export default function MapLibreMap({
   return (
     <div className="relative h-[68vh] max-h-[620px] overflow-hidden rounded-2xl border" style={{ borderColor: 'var(--cava-line)' }}>
       <div ref={box} className="h-full w-full" />
+
+      {choisi && <Fiche place={choisi} lang={lang} labels={labels} onClose={() => setChoisi(null)} />}
+
       {state !== 'ok' && (
         <div className="absolute inset-0 flex items-center justify-center px-6 text-center text-[14px]" style={{ background: BG, color: 'var(--cava-muted)' }}>
           {state === 'chargement' ? (

@@ -70,7 +70,7 @@ export default function CarteEssai() {
         </Reveal>
 
         <Reveal className="mt-6">
-          <MapLibreMap lang={lang} filter={filter} labels={{ map: tl.mapLabel, badge: tl.badge, here: t.regionHere }} />
+          <MapLibreMap lang={lang} filter={filter} labels={{ map: tl.mapLabel, badge: tl.badge, here: t.regionHere, close: tl.closeLabel }} />
         </Reveal>
 
         {/* Ce que la maquette ne sait pas faire — autant le dire ici. */}
