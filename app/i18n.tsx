@@ -490,7 +490,7 @@ const FR: Dict = {
       {
         icon: 'cone',
         title: 'La granita et la brioche, c’est le petit-déjeuner',
-        text: 'Pas un dessert : le vrai petit-déjeuner sicilien de l’été. On commande une granita — amande, citron, mûre, pistache, café — avec une brioche col tuppo, celle qui a un chignon sur la tête. Et on trempe la brioche dedans. Se lever tôt et aller la manger au bar avant que la chaleur tombe, c’est l’une des meilleures raisons d’être ici.',
+        text: 'Pas un dessert : le vrai petit-déjeuner sicilien de l’été. On commande une granita — amande, citron, mûre, pistache, café — avec une brioche col tuppo, celle qui a un chignon sur la tête. On trempe la brioche dedans — et certains la fendent pour la fourrer de granita. Se lever tôt et aller la manger au bar avant que la chaleur tombe, c’est l’une des meilleures raisons d’être ici.',
       },
       {
         icon: 'fork',
@@ -901,7 +901,7 @@ const IT: Dict = {
       {
         icon: 'cone',
         title: 'La granita con la brioche è la colazione',
-        text: 'Non un dolce: la vera colazione siciliana d’estate. Si ordina una granita — mandorla, limone, gelso, pistacchio, caffè — con una brioche col tuppo, quella con il ciuffo in testa. E la brioche si inzuppa. Alzarsi presto e andarla a mangiare al bar prima che cali il caldo è uno dei motivi migliori per essere qui.',
+        text: 'Non un dolce: la vera colazione siciliana d’estate. Si ordina una granita — mandorla, limone, gelso, pistacchio, caffè — con una brioche col tuppo, quella con il ciuffo in testa. La brioche si inzuppa — e c’è chi la apre e la riempie di granita. Alzarsi presto e andarla a mangiare al bar prima che cali il caldo è uno dei motivi migliori per essere qui.',
       },
       {
         icon: 'fork',
@@ -1312,7 +1312,7 @@ const EN: Dict = {
       {
         icon: 'cone',
         title: 'Granita with brioche is breakfast',
-        text: 'Not a dessert: the real Sicilian summer breakfast. You order a granita — almond, lemon, mulberry, pistachio, coffee — with a brioche col tuppo, the one with a topknot. And you dip the brioche in it. Getting up early to eat it at the bar before the heat arrives is one of the best reasons to be here.',
+        text: 'Not a dessert: the real Sicilian summer breakfast. You order a granita — almond, lemon, mulberry, pistachio, coffee — with a brioche col tuppo, the one with a topknot. You dip the brioche in it — and some split it open and fill it with the granita. Getting up early to eat it at the bar before the heat arrives is one of the best reasons to be here.',
       },
       {
         icon: 'fork',
