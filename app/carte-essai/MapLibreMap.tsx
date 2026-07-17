@@ -112,6 +112,8 @@ export default function MapLibreMap({
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<unknown>(null);
   const markers = useRef<Epingle[]>([]);
+  // id -> element : permet d'allumer l'épingle choisie sans reconstruire les 18
+  const pins = useRef(new Map<string, HTMLElement>());
   const [state, setState] = useState<'chargement' | 'ok' | 'erreur'>('chargement');
   const [erreur, setErreur] = useState('');
   const [choisi, setChoisi] = useState<LocalPlace | null>(null);
@@ -169,6 +171,7 @@ export default function MapLibreMap({
     setChoisi(null); // la fiche parlerait d'une épingle que le filtre a retirée
     markers.current.forEach((x) => x.remove());
     markers.current = [];
+    pins.current.clear();
 
     LOCAL_PLACES.filter((p) => (filter === 'tout' ? true : filter === 'responsable' ? p.responsible : p.cat === filter)).forEach((p) => {
       const co = COORDS[p.id];
@@ -177,11 +180,15 @@ export default function MapLibreMap({
       // Un bouton, pas un lien : cliquer ouvre la fiche, on ne quitte pas la
       // page. Le lien vers Google Maps vit DANS la fiche, une fois qu'on sait
       // de quel endroit il s'agit.
+      // Le principe Airbnb : l'épingle porte déjà ce qui décide. Chez eux le
+      // prix, ici la distance — c'est la question qu'on se pose devant une
+      // adresse quand on est en vacances sans voiture, ou avec.
       const el = document.createElement('button');
       el.type = 'button';
       el.className = 'cava-glpin';
       el.setAttribute('aria-label', `${p.name} — ${p.town}`);
-      el.innerHTML = picto(CATS[p.cat].icon, 18);
+      el.innerHTML = `${picto(CATS[p.cat].icon, 15)}<span>${p.km === 0 ? labels.here : `${p.km} km`}</span>`;
+      pins.current.set(p.id, el);
       el.addEventListener('click', (ev) => {
         ev.stopPropagation(); // sinon le clic atteint la carte et referme aussitôt
         setChoisi(p);
@@ -215,6 +222,11 @@ export default function MapLibreMap({
       { padding: 70, maxZoom: 13.5, duration: 500 },
     );
   }, [state, filter, lang]);
+
+  // L'épingle choisie s'inverse — on doit voir de quel point la fiche parle.
+  useEffect(() => {
+    pins.current.forEach((el, id) => el.classList.toggle('is-on', id === choisi?.id));
+  }, [choisi]);
 
   return (
     <div className="relative h-[68vh] max-h-[620px] overflow-hidden rounded-2xl border" style={{ borderColor: 'var(--cava-line)' }}>

@@ -705,18 +705,29 @@
 .cava-glpin {
   display: flex;
   height: 30px;
-  width: 30px;
   cursor: pointer;
   align-items: center;
-  justify-content: center;
+  gap: 5px;
   border-radius: 999px;
   background: var(--cava-pink);
+  padding: 0 10px 0 8px;
   color: #fff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
   box-shadow: 0 1px 6px rgb(0 0 0 / 0.3);
-  transition: transform 0.15s;
+  transition: transform 0.15s, background 0.15s;
 }
 .cava-glpin:hover {
-  transform: scale(1.18);
+  transform: scale(1.08);
+}
+/* Choisie : elle s'inverse et passe devant — comme le « 534 € » d'Airbnb. */
+.cava-glpin.is-on {
+  z-index: 2;
+  background: var(--cava-ink);
+  transform: scale(1.08);
 }
 .cava-glhouse {
   height: 18px;
