@@ -789,13 +789,16 @@
   background: #f2f2f2;
 }
 
-/* Le depart simule : « et si j'etais la ? ». Losange sombre — ni la maison
-   (cercle blanc cercle de noir), ni la vraie position (point bleu). */
+/* Le depart simule : « et si j'etais la ? ». L'epingle est dessinee dans
+   PlaceMap ; ici on ne fait que la poser et la rendre vivante. */
 .cava-gldepart {
-  height: 15px;
-  width: 15px;
-  transform: rotate(45deg);
-  border: 3px solid #fff;
-  background: var(--cava-ink);
-  box-shadow: 0 1px 6px rgb(0 0 0 / 0.4);
+  line-height: 0;
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.35));
+  animation: cava-depart-tombe 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes cava-depart-tombe {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }

@@ -52,8 +52,20 @@ const EMPRISE: [[number, number], [number, number]] = [
 type Epingle = { setLngLat: (l: [number, number]) => Epingle; addTo: (m: unknown) => Epingle; remove: () => void };
 type Carte = {
   m: { easeTo: (o: object) => void; fitBounds: (b: [[number, number], [number, number]], o: object) => void };
-  Marker: new (o: { element: HTMLElement }) => Epingle;
+  Marker: new (o: { element: HTMLElement; anchor?: string; offset?: [number, number] }) => Epingle;
 };
+
+/**
+ * L'epingle du depart simule : la punaise plantee, avec son anneau au sol.
+ * Dessinee ici plutot que prise au jeu d'icones du site — celui-ci est en
+ * traits fins, et il faut ici une masse qu'on repere d'un coup sur la carte.
+ */
+const EPINGLE = `
+  <svg viewBox="0 0 32 36" width="32" height="36" aria-hidden="true">
+    <ellipse cx="16" cy="30.5" rx="12" ry="4.6" fill="none" stroke="${INK}" stroke-width="3" />
+    <path d="M16 1.5c-5.5 0-10 4.5-10 10 0 7.2 10 19 10 19s10-11.8 10-19c0-5.5-4.5-10-10-10z" fill="${INK}" />
+    <circle cx="16" cy="11.5" r="4.2" fill="#fff" />
+  </svg>`;
 
 /** Un picto du site en HTML brut — les épingles vivent hors de l'arbre React. */
 const picto = (name: IconName, size: number) =>
@@ -285,11 +297,17 @@ export default function PlaceMap({
       markers.current.push(new c.Marker({ element: v }).setLngLat([me.lon, me.lat]).addTo(c.m));
     }
 
-    // Le depart simule — un point franc, distinct de la maison et de « vous etes ici »
+    // Le depart simule — une vraie epingle plantee, distincte de la maison
+    // (cercle cercle de noir) et de « vous etes ici » (point bleu).
     if (depart) {
       const d = document.createElement('div');
       d.className = 'cava-gldepart';
-      markers.current.push(new c.Marker({ element: d }).setLngLat([depart.lon, depart.lat]).addTo(c.m));
+      d.innerHTML = EPINGLE;
+      // « bottom » + le decalage : ce qui doit tomber sur le point, c'est la
+      // pointe au centre de l'anneau — pas le bas de l'image.
+      markers.current.push(
+        new c.Marker({ element: d, anchor: 'bottom', offset: [0, 5] }).setLngLat([depart.lon, depart.lat]).addTo(c.m),
+      );
     }
 
     // Choisir un filtre doit MONTRER ce qu'on a choisi : on cadre sur les
