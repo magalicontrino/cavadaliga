@@ -698,3 +698,37 @@
 .cava-swipe::-webkit-scrollbar {
   display: none;
 }
+
+/* ── Maquette MapLibre (page /carte-essai) ─────────────────────────────
+   Les épingles de la vraie carte : même pastille rose que les boutons de
+   tri du site, pour comparer à armes égales avec le poster dessiné. */
+.cava-glpin {
+  display: flex;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--cava-pink);
+  color: #fff;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 0.3);
+  transition: transform 0.15s;
+}
+.cava-glpin:hover {
+  transform: scale(1.18);
+}
+.cava-glhouse {
+  height: 18px;
+  width: 18px;
+  border-radius: 999px;
+  border: 3px solid var(--cava-ink);
+  background: #fff;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 0.35);
+}
+/* Le crédit OpenStreetMap est obligatoire (ODbL) : on l'habille, on ne le
+   cache pas. */
+.maplibregl-ctrl-attrib {
+  font-size: 10px;
+  background: rgb(247 245 242 / 0.9) !important;
+}

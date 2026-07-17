@@ -9,3 +9,6 @@ next-env.d.ts
 # Dossier de sources graphiques locales (images/PDF lourds, non utilisés par le site)
 /deco sicile/
 /photo/
+
+# Outil de fabrication des tuiles (binaire telecharge, hors depot)
+/pmtiles

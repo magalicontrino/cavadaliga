@@ -1,0 +1,50 @@
+// ────────────────────────────────────────────────────────────────────────
+// MAQUETTE — vraies coordonnées des lieux de LOCAL_PLACES.
+//
+// La carte du site est un poster dessiné : LOCAL_PLACES ne porte qu'un x/y
+// de dessin, pas de position réelle. Une vraie carte en a besoin. Ce fichier
+// ne vit que pour la maquette ; si on garde MapLibre, ces valeurs ont
+// vocation à rejoindre LOCAL_PLACES et à rendre app/geo.ts inutile.
+//
+// Provenance, vérifiable :
+//   « google »    → lien Google Maps du lieu, résolu jusqu'à sa fiche
+//                   (coordonnées !3d/!4d). C'est la position que Google
+//                   affiche pour l'établissement.
+//   « nominatim » → géocodage OpenStreetMap du nom ou de l'adresse.
+//                   Moins précis : sur un supermarché, ça vise le bâtiment ;
+//                   sur un marché, la place.
+//
+// Manque : gatto (Gatto Frantoio). Absent d'OpenStreetMap, et son adresse
+// (« Contrada Lago », un lieu-dit sans numéro) ne se géocode pas. À demander
+// à Mag plutôt qu'à inventer.
+// ────────────────────────────────────────────────────────────────────────
+
+export type PlaceCoord = { lat: number; lon: number; src: 'google' | 'nominatim' };
+
+export const COORDS: Record<string, PlaceCoord> = {
+  // Cava d'Aliga et la côte
+  blazer: { lat: 36.7289037, lon: 14.6850646, src: 'google' },
+  maracaibo: { lat: 36.728109, lon: 14.685499, src: 'google' },
+  'gelateria-smile': { lat: 36.7277778, lon: 14.6863889, src: 'google' },
+  'be-happy': { lat: 36.7298231, lon: 14.6866401, src: 'google' },
+  'lido-bruca': { lat: 36.7340778, lon: 14.6800518, src: 'google' },
+  rabbuso: { lat: 36.7209608, lon: 14.7407246, src: 'google' },
+  giannone: { lat: 36.7626725, lon: 14.6366871, src: 'google' },
+
+  // Marchés
+  'marche-scicli': { lat: 36.7821692, lon: 14.6892346, src: 'nominatim' },
+  'marche-marina': { lat: 36.7856448, lon: 14.5586843, src: 'nominatim' },
+  'poisson-donnalucata': { lat: 36.7630666, lon: 14.6348007, src: 'nominatim' },
+
+  // Supermarchés
+  'coop-superstore': { lat: 36.7468923, lon: 14.6824101, src: 'nominatim' },
+  eurospin: { lat: 36.7504564, lon: 14.6812486, src: 'nominatim' },
+  'conad-donnalucata': { lat: 36.7637133, lon: 14.6521295, src: 'nominatim' },
+  'despar-sampieri': { lat: 36.7205079, lon: 14.7373003, src: 'nominatim' },
+  'deco-scicli': { lat: 36.7871465, lon: 14.6966338, src: 'nominatim' },
+
+  // Producteurs & plantes
+  bonajuto: { lat: 36.8602541, lon: 14.7599117, src: 'nominatim' },
+  cutrera: { lat: 37.0837135, lon: 14.6666207, src: 'nominatim' },
+  'pepinieres-scicli': { lat: 36.7644131, lon: 14.7222141, src: 'nominatim' },
+};
