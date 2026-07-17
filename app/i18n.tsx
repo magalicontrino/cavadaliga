@@ -79,7 +79,7 @@ export type Dict = {
   ctaTitles: Record<Page, string>;
   tasteOfSicily: string;
   sunsetAlt: string;
-  apartment: { eyebrow: string; title: string; rdc: string; albumAlt: string; captions: string[]; soon: string; label: string };
+  apartment: { eyebrow: string; title: string; albumAlt: string; captions: string[]; label: string };
   galleryAlt: string[];
   apartmentAlt: string;
   cavaAlt: string;
@@ -285,20 +285,7 @@ const FR: Dict = {
   },
   tasteOfSicily: 'Un avant-goût de la Sicile',
   sunsetAlt: 'Coucher de soleil sur la plage, la mer et le village au crépuscule',
-  apartment: { eyebrow: 'La maison', title: 'La casa', rdc: 'Un appartement de plain-pied, au rez-de-chaussée : pas une marche pour entrer, et la terrasse dans le prolongement des pièces.', albumAlt: 'La casa de Cava d’Aliga', captions: [
-    'La terrasse, à l’heure de l’apéro',
-    'Un banc à l’ombre, des jarres au soleil',
-    'Le hamac, et la journée qui ralentit',
-    'Le séjour, où l’on finit toujours par traîner',
-    'La cuisine, tout en longueur',
-    'Une chambre, un fauteuil rond pour lire',
-    'La chambre aux tapis',
-    'Dormir d’un côté, travailler de l’autre',
-    'La salle de bain, vasque noire',
-    'Le bain, la fenêtre en bois',
-    'Le bain, sous la lucarne',
-    'La douche à l’italienne, pluie noire',
-  ], soon: 'On complétera au fil du temps — le plan, les équipements et les petits détails du quotidien. En attendant, les infos pratiques (arrivée, eau, électricité, wifi) sont déjà en ligne.', label: 'La casa' },
+  apartment: { eyebrow: 'La maison', title: 'La casa', albumAlt: 'La casa de Cava d’Aliga', captions: ['La terrasse', 'La terrasse arrière', 'Le hamac', 'Le séjour', 'La cuisine', 'La grande chambre', 'La chambre aux tapis', 'La chambre-bureau', 'La salle de bain', 'La salle de bain', 'La salle de bain', 'La douche'], label: 'La casa' },
   galleryAlt: [
     'La mer à quelques mètres de Cava d’Aliga',
     'Une ruelle du hameau de Cava d’Aliga',
@@ -711,20 +698,7 @@ const IT: Dict = {
   },
   tasteOfSicily: 'Un assaggio di Sicilia',
   sunsetAlt: 'Tramonto sulla spiaggia, il mare e il paese al crepuscolo',
-  apartment: { eyebrow: 'La casa', title: 'La casa', rdc: 'Un appartamento a piano terra, senza gradini: nemmeno uno scalino per entrare, e la terrazza in continuità con le stanze.', albumAlt: 'La casa di Cava d’Aliga', captions: [
-    'La terrazza, all’ora dell’aperitivo',
-    'Una panca all’ombra, le giare al sole',
-    'L’amaca, e la giornata che rallenta',
-    'Il soggiorno, dove si finisce sempre per stare',
-    'La cucina, tutta in lunghezza',
-    'Una camera, una poltrona tonda per leggere',
-    'La camera dei tappeti',
-    'Dormire da un lato, lavorare dall’altro',
-    'Il bagno, lavabo nero',
-    'La vasca, la finestra di legno',
-    'La vasca, sotto il lucernario',
-    'La doccia a pioggia, nera',
-  ], soon: 'La completeremo col tempo — la piantina, gli arredi e i piccoli dettagli del quotidiano. Intanto le info pratiche (arrivo, acqua, elettricità, wifi) sono già online.', label: 'La casa' },
+  apartment: { eyebrow: 'La casa', title: 'La casa', albumAlt: 'La casa di Cava d’Aliga', captions: ['La terrazza', 'La terrazza sul retro', 'L’amaca', 'Il soggiorno', 'La cucina', 'La camera grande', 'La camera dei tappeti', 'La camera-studio', 'Il bagno', 'Il bagno', 'Il bagno', 'La doccia'], label: 'La casa' },
   galleryAlt: [
     'Il mare a pochi metri da Cava d’Aliga',
     'Un vicolo del borgo di Cava d’Aliga',
@@ -1137,20 +1111,7 @@ const EN: Dict = {
   },
   tasteOfSicily: 'A taste of Sicily',
   sunsetAlt: 'Sunset over the beach, the sea and the village at dusk',
-  apartment: { eyebrow: 'The home', title: 'La casa', rdc: 'A single-level, ground-floor apartment: not a step to get in, and the terrace running straight on from the rooms.', albumAlt: 'La casa in Cava d’Aliga', captions: [
-    'The terrace, at aperitivo time',
-    'A bench in the shade, jars in the sun',
-    'The hammock, and the day slowing down',
-    'The living room, where everyone ends up lingering',
-    'The kitchen, wall to wall',
-    'A bedroom, a round chair to read in',
-    'The bedroom with the rugs',
-    'Sleep on one side, work on the other',
-    'The bathroom, black basin',
-    'The bath, the wooden window',
-    'The bath, under the skylight',
-    'The rain shower, in black',
-  ], soon: 'We will fill it in over time — the floor plan, the amenities and the little everyday details. In the meantime, the practical info (arrival, water, electricity, wifi) is already online.', label: 'La casa' },
+  apartment: { eyebrow: 'The home', title: 'La casa', albumAlt: 'La casa in Cava d’Aliga', captions: ['The terrace', 'The back terrace', 'The hammock', 'The living room', 'The kitchen', 'The large bedroom', 'The bedroom with the rugs', 'The bedroom-study', 'The bathroom', 'The bathroom', 'The bathroom', 'The shower'], label: 'La casa' },
   galleryAlt: [
     'The sea a few metres from Cava d’Aliga',
     'An alley in the hamlet of Cava d’Aliga',
