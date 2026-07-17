@@ -6,7 +6,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { CATS, type Lang, type LocalPlace } from './localData';
 import { HOUSE } from './geo';
 import { COORDS } from './placeCoords';
-import { ICON_PATHS, type IconName } from './Icon';
+import Icon, { ICON_PATHS, type IconName } from './Icon';
 import { withBase } from './data';
 import PlaceCard from './PlaceCard';
 
@@ -119,6 +119,9 @@ export default function PlaceMap({
   onChoisir,
   me,
   visible = true,
+  onLocate,
+  geoAsking = false,
+  locateLabel = '',
 }: {
   /** Déjà triés et cherchés par la page — la carte ne filtre rien. */
   places: LocalPlace[];
@@ -135,6 +138,10 @@ export default function PlaceMap({
    * canvas tombe à zéro : il faut le lui dire quand elle revient.
    */
   visible?: boolean;
+  /** « Où suis-je ? » — la cible vit sur la carte, c'est là qu'on la cherche. */
+  onLocate?: () => void;
+  geoAsking?: boolean;
+  locateLabel?: string;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<unknown>(null);
@@ -333,6 +340,21 @@ export default function PlaceMap({
   return (
     <div className="relative h-[68vh] max-h-[620px] overflow-hidden rounded-2xl border" style={{ borderColor: 'var(--cava-line)' }}>
       <div ref={box} className="h-full w-full" />
+
+      {/* La cible, sous les commandes de zoom : sur une carte, « où suis-je ? »
+          se cherche sur la carte, pas dans une barre de recherche. */}
+      {onLocate && state === 'ok' && (
+        <button
+          type="button"
+          onClick={onLocate}
+          disabled={geoAsking}
+          aria-label={locateLabel}
+          title={locateLabel}
+          className="cava-maptarget absolute right-[10px] top-[84px] z-10 flex h-[29px] w-[29px] items-center justify-center disabled:opacity-50"
+        >
+          <Icon name="target" size={16} />
+        </button>
+      )}
 
       {/* Téléphone : une piste qu'on feuillette, comme chez Airbnb. La fiche
           choisie est au centre ; on glisse pour passer a la suivante et la

@@ -141,15 +141,6 @@ export default function NosAdresses() {
             )}
           </label>
 
-          <button
-            type="button"
-            onClick={locate}
-            disabled={geo === 'asking'}
-            className="cava-pill inline-flex w-fit shrink-0 items-center gap-2 px-5 py-3 text-[13px] disabled:opacity-50"
-          >
-            <Icon name="target" size={16} /> {geo === 'asking' ? p.locating : p.locateMe}
-          </button>
-
           {/* Carte ou liste — à côté du tri, c'est le même geste : choisir ce
               qu'on regarde. */}
           <div
@@ -239,6 +230,9 @@ export default function NosAdresses() {
             onChoisir={(l) => setActive(l?.id ?? null)}
             me={me}
             visible={vue === 'carte'}
+            onLocate={locate}
+            geoAsking={geo === 'asking'}
+            locateLabel={geo === 'asking' ? p.locating : p.locateMe}
           />
         </Reveal>
       </section>
