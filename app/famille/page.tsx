@@ -40,8 +40,11 @@ export default function Salva() {
           deviner qu'il existe. */}
       <section className="mx-auto max-w-[110rem] px-5 pb-10 md:px-10">
         <Reveal>
-          <a href="#arbre" className="cava-pill inline-flex items-center gap-2 px-5 py-2.5 text-[13.5px]">
-            <Icon name="landmark" size={16} /> {s.treeTitle} <span aria-hidden>↓</span>
+          <a href="#arbre" className="cava-navlink cava-ancre inline-flex items-center gap-2.5 text-[15px]" style={{ fontWeight: 500 }}>
+            <Icon name="landmark" size={17} /> {s.treeTitle}{' '}
+            <span className="cava-ancre-fleche" aria-hidden>
+              ↓
+            </span>
           </a>
         </Reveal>
       </section>

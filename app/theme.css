@@ -100,6 +100,23 @@
   transform-origin: left;
 }
 
+/* --- Lien d'ancre : pas de pilule, un souligné qui se trace ---------
+   Le contour en faisait un bouton, alors que ça mène plus bas dans la MÊME
+   page. Le souligné vient du menu (.cava-navlink, réutilisé tel quel) ; la
+   flèche descend au survol — elle dit où l'on va avant qu'on clique. */
+.cava-ancre-fleche {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cava-ancre:hover .cava-ancre-fleche {
+  transform: translateY(4px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-ancre-fleche {
+    transition: none;
+  }
+}
+
 /* --- Pilule email (mix-blend, façon .link-menu._1) ----------------- */
 .cava-pill {
   border: 1px solid var(--cava-ink);
