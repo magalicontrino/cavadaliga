@@ -253,6 +253,7 @@ export type Dict = {
 
 const FR: Dict = {
   nav: {
+    '/appartement': 'La casa',
     '/famille': 'La famille',
     '/la-region': 'La région',
     '/preparer-le-voyage': 'Le voyage',
@@ -276,6 +277,7 @@ const FR: Dict = {
   everythingForStay: 'Tout pour votre séjour',
   sectionsWord: 'rubriques',
   ctaTitles: {
+    '/appartement': 'Visiter la casa',
     '/famille': 'Souvenir de famille',
     '/la-region': 'Découvrir la région',
     '/preparer-le-voyage': 'Bien préparer le voyage',
@@ -666,6 +668,7 @@ const FR: Dict = {
 
 const IT: Dict = {
   nav: {
+    '/appartement': 'La casa',
     '/famille': 'La famiglia',
     '/la-region': 'La regione',
     '/preparer-le-voyage': 'Il viaggio',
@@ -689,6 +692,7 @@ const IT: Dict = {
   everythingForStay: 'Tutto per il vostro soggiorno',
   sectionsWord: 'sezioni',
   ctaTitles: {
+    '/appartement': 'Visitare la casa',
     '/famille': 'Ricordi di famiglia',
     '/la-region': 'Scoprire la regione',
     '/preparer-le-voyage': 'Preparare bene il viaggio',
@@ -1079,6 +1083,7 @@ const IT: Dict = {
 
 const EN: Dict = {
   nav: {
+    '/appartement': 'La casa',
     '/famille': 'The family',
     '/la-region': 'The region',
     '/preparer-le-voyage': 'The trip',
@@ -1102,6 +1107,7 @@ const EN: Dict = {
   everythingForStay: 'Everything for your stay',
   sectionsWord: 'sections',
   ctaTitles: {
+    '/appartement': 'Visit la casa',
     '/famille': 'Family memories',
     '/la-region': 'Discover the region',
     '/preparer-le-voyage': 'Plan the trip properly',

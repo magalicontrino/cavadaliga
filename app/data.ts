@@ -18,6 +18,7 @@ export const SITE = {
 
 // Menu principal — hrefs (les libellés viennent de i18n, même ordre)
 export const NAV = [
+  { href: '/appartement' },
   { href: '/famille' },
   { href: '/la-region' },
   { href: '/preparer-le-voyage' },

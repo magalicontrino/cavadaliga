@@ -67,7 +67,7 @@ export default function Appartement() {
       <CtaBadge
         href="/informations-pratiques"
         title={t.pages['informations-pratiques'].title}
-        circleId="cava-c-appartement"
+        circleId="cava-c-casa-infos"
       />
 
       <Footer />
