@@ -70,7 +70,9 @@ export default function FamilyTree() {
     },
     {
       label: s.treeMaternal,
-      families: [{ name: 'Juliette Galoi & Lux', children: [{ name: 'Régine' }] }],
+      // Les noms viennent de Mag : Juliette Thurot, et Lux Pierre — « Galoi »
+      // etait faux, et Lux n'avait pas son nom. On n'invente rien ici.
+      families: [{ name: 'Juliette Thurot & Lux Pierre', children: [{ name: 'Régine' }] }],
     },
   ];
 
