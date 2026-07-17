@@ -211,7 +211,12 @@ export default function NosAdresses() {
           En dessous, on choisissait a l'aveugle ce qu'on ne voyait plus. */}
       <section className="mx-auto max-w-[110rem] px-5 pt-4 md:px-10">
         {/* « Vous etes ou ? » et la bascule carte / liste */}
-        <Reveal className="mb-5 flex flex-col gap-3 md:flex-row md:items-center">
+        {/* `relative z-30` n'est pas cosmetique : .cava-reveal porte un
+            transform, donc CHAQUE bloc revele est un contexte d'empilement. Le
+            z-20 de la liste deroulee ne vaut qu'a l'interieur de celui-ci — et
+            la rangee de boutons, qui vient apres dans la page, lui passait
+            devant quoi qu'il arrive. C'est le bloc qu'il faut classer. */}
+        <Reveal className="relative z-30 mb-5 flex flex-col gap-3 md:flex-row md:items-center">
           {/* « Vous etes ou ? » — on se pose par le nom plutot qu'au doigt. */}
           <form onSubmit={chercherOu} className="relative flex flex-1 items-center gap-3 md:max-w-md">
             <label
