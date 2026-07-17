@@ -49,10 +49,12 @@ export default function Salva() {
         </Reveal>
       </section>
 
-      {/* Histoire de la famille — bloc éditorial (filet + label + colonne) */}
+      {/* Histoire de la famille — une seule colonne : le label coiffe le
+          recit au lieu de le regarder d'en face. Le texte n'est plus un
+          paragraphe cale a droite d'une etiquette, c'est le sujet. */}
       <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
         <Reveal className="border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
-          <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+          <div className="flex flex-col gap-6">
             <span className="text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-muted)' }}>
               {s.historyTitle}
             </span>
