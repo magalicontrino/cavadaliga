@@ -229,7 +229,7 @@ export default function NosAdresses() {
       {/* La carte — les épingles suivent le filtre et la recherche.
           Ni légende ni mini-carte de survol : chaque pastille porte déjà sa
           distance, et les villages sont écrits sur la carte. */}
-      <section ref={mapRef} className={`mx-auto max-w-[110rem] scroll-mt-24 px-5 md:px-10 ${vue === 'carte' ? '' : 'hidden'}`}>
+      <section ref={mapRef} className={`mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-3 md:px-10 ${vue === 'carte' ? '' : 'hidden'}`}>
         <Reveal>
           <PlaceMap
             places={shown}
