@@ -44,17 +44,21 @@ const BG = '#f7f5f2';
  * « v3 » — le navigateur cache les morceaux. Remplacer le fichier sans changer
  * d'URL melangerait l'ancien et le nouveau. Changer le fichier = changer le nom.
  */
-const TUILES = '/tuiles/cava-v3.pmtiles.png';
+const TUILES = '/tuiles/sicile-v4.pmtiles.png';
 
 /**
- * L'emprise de nos tuiles (le --bbox de l'extrait). Hors de la, il n'y a rien
- * a dessiner : on verrait le fond du style, une bande vide. On l'impose donc
- * comme limite a la camera — MapLibre l'empeche d'en sortir, et remonte le
- * zoom au besoin pour que les donnees remplissent toujours la fenetre.
+ * L'emprise de nos tuiles : la Sicile entiere, de Trapani a Syracuse.
+ *
+ * Hors de la, il n'y a rien a dessiner — on verrait le fond du style, une bande
+ * vide. On l'impose donc comme limite a la camera, qui ne peut plus en sortir.
+ *
+ * L'ile entiere au zoom 14 pese 60 Mo dans le depot. Ca ne change RIEN au
+ * chargement : par requetes de plage, une vue coute une centaine de kilo-octets,
+ * qu'on regarde Cava d'Aliga ou Palerme.
  */
 const EMPRISE: [[number, number], [number, number]] = [
-  [14.05, 36.55],
-  [15.45, 37.25],
+  [12.35, 36.6],
+  [15.72, 38.35],
 ];
 
 /** Le strict nécessaire de l'API MapLibre, typé à la main. */

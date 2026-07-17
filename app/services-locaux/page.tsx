@@ -25,6 +25,10 @@ export default function NosAdresses() {
   // « Et si j'etais la ? » — un point pose sur la carte. Tant qu'il est nul, on
   // compte depuis la maison, par la route, avec les km que Mag a saisis.
   const [depart, setDepart] = useState<{ lat: number; lon: number } | null>(null);
+  // Le nom du lieu trouve — « Depart : Palerme » vaut mieux que « Depart ».
+  const [departNom, setDepartNom] = useState<string | null>(null);
+  const [ou, setOu] = useState('');
+  const [cherche, setCherche] = useState<'idle' | 'cours' | 'rien' | 'loin' | 'panne'>('idle');
   // Incrementé à chaque tri ou recherche : les fiches se montrent d'un coup.
   const [clicks, setClicks] = useState(0);
   const [active, setActive] = useState<string | null>(null);
@@ -77,6 +81,43 @@ export default function NosAdresses() {
     mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
+  /**
+   * « Vous etes ou ? » — le texte part chez le geocodeur d'OpenStreetMap, qui
+   * renvoie un point ; il devient le depart.
+   *
+   * A l'envoi seulement, jamais a la frappe : leur reglement interdit de s'en
+   * servir comme d'une autocompletion, et ce serait une requete par lettre.
+   * La recherche est bornee a la Sicile (viewbox + bounded) — sans ca, « Roma »
+   * nous emmenerait a l'autre bout du pays, hors de nos tuiles.
+   */
+  const chercherOu = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = ou.trim();
+    if (!q) return;
+    setCherche('cours');
+    try {
+      const r = await fetch(
+        'https://nominatim.openstreetmap.org/search?format=json&limit=1&bounded=1' +
+          '&viewbox=12.35,38.35,15.72,36.60&q=' +
+          encodeURIComponent(q),
+      );
+      if (!r.ok) throw new Error(String(r.status));
+      const d: { lat: string; lon: string; display_name: string }[] = await r.json();
+      if (!d.length) return setCherche('rien');
+      const lat = parseFloat(d[0].lat);
+      const lon = parseFloat(d[0].lon);
+      // Ceinture et bretelles : bounded=1 laisse parfois passer un debordement.
+      if (lat < 36.6 || lat > 38.35 || lon < 12.35 || lon > 15.72) return setCherche('loin');
+      setDepart({ lat, lon });
+      setDepartNom(d[0].display_name.split(',').slice(0, 2).join(', '));
+      setCherche('idle');
+      setClicks((c) => c + 1);
+      mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch {
+      setCherche('panne');
+    }
+  };
+
   // « Où suis-je ? » — sur demande seulement : on ne réclame jamais la position
   // sans que le visiteur l'ait cliqué.
   const locate = () => {
@@ -111,6 +152,39 @@ export default function NosAdresses() {
       <section className="mx-auto max-w-[110rem] px-5 pt-4 md:px-10">
         {/* Recherche manuelle par mots ou envie + « Où suis-je ? » */}
         <Reveal className="mb-5 flex flex-col gap-3 md:flex-row md:items-center">
+          {/* « Vous etes ou ? » — on se pose par le nom plutot qu'au doigt. */}
+          <form onSubmit={chercherOu} className="flex flex-1 items-center gap-3 md:max-w-md">
+            <label
+              className="flex flex-1 items-center gap-3 rounded-full border px-5 py-3"
+              style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
+            >
+              <span style={{ color: 'var(--cava-muted)' }}>
+                <Icon name="search" size={18} />
+              </span>
+              <input
+                type="search"
+                value={ou}
+                onChange={(e) => {
+                  setOu(e.target.value);
+                  if (cherche !== 'idle') setCherche('idle');
+                }}
+                placeholder={p.wherePlaceholder}
+                className="w-full bg-transparent text-[15px] outline-none"
+                style={{ color: 'var(--cava-ink)' }}
+              />
+            </label>
+            {ou.trim() && (
+              <button
+                type="submit"
+                disabled={cherche === 'cours'}
+                className="shrink-0 rounded-full px-5 py-3 text-[13px] transition hover:opacity-85 disabled:opacity-50"
+                style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)', fontWeight: 700 }}
+              >
+                {cherche === 'cours' ? p.whereSearching : '→'}
+              </button>
+            )}
+          </form>
+
           {/* Carte ou liste — à côté du tri, c'est le même geste : choisir ce
               qu'on regarde. */}
           <div
@@ -187,6 +261,21 @@ export default function NosAdresses() {
         </Reveal>
       </section>
 
+      {/* La recherche a echoue — on dit pourquoi, et on rappelle qu'il reste le doigt. */}
+      {cherche !== 'idle' && cherche !== 'cours' && (
+        <section className="mx-auto max-w-[110rem] px-5 pt-3 md:px-10">
+          <Reveal
+            className="flex items-start gap-3 rounded-2xl px-5 py-3 text-[13.5px] leading-[1.6]"
+            style={{ background: 'rgba(230,41,111,0.07)' }}
+          >
+            <span className="mt-[3px] shrink-0" style={{ color: 'var(--cava-pink)' }}>
+              <Icon name="search" size={15} />
+            </span>
+            <p>{cherche === 'rien' ? p.whereNotFound : cherche === 'loin' ? p.whereOut : p.whereError}</p>
+          </Reveal>
+        </section>
+      )}
+
       {/* L'invitation au geste : un clic sur la carte, ca ne se devine pas. */}
       {!depart && vue === 'carte' && (
         <section className="mx-auto max-w-[110rem] px-5 pt-3 md:px-10">
@@ -210,11 +299,16 @@ export default function NosAdresses() {
             <span className="mt-[3px] shrink-0" style={{ color: 'var(--cava-ink)' }}>
               <Icon name="pin" size={15} />
             </span>
-            <p className="flex-1">{p.departOn}</p>
+            <p className="flex-1">
+              {departNom && <strong style={{ color: 'var(--cava-ink)' }}>{departNom} — </strong>}
+              {p.departOn}
+            </p>
             <button
               type="button"
               onClick={() => {
                 setDepart(null);
+                setDepartNom(null);
+                setOu('');
                 setClicks((c) => c + 1);
               }}
               className="cava-pill shrink-0 px-4 py-1.5 text-[12.5px]"
@@ -241,7 +335,11 @@ export default function NosAdresses() {
             onLocate={locate}
             geoAsking={geo === 'asking'}
             locateLabel={geo === 'asking' ? p.locating : p.locateMe}
-            onDepart={setDepart}
+            onDepart={(c) => {
+              setDepart(c);
+              setDepartNom(null);
+              setCherche('idle');
+            }}
             depart={depart}
             kmLabel={kmLabel}
           />

@@ -97,6 +97,11 @@ export type Dict = {
     departOn: string;
     departReset: string;
     houseHere: string;
+    wherePlaceholder: string;
+    whereSearching: string;
+    whereNotFound: string;
+    whereError: string;
+    whereOut: string;
     mapFailed: string;
     mapFailedHint: string;
     badge: string;
@@ -346,6 +351,11 @@ const FR: Dict = {
     departOn: 'Départ simulé : les distances sont comptées depuis le point noir, à vol d’oiseau — la route sera plus longue.',
     departReset: 'Depuis la maison',
     houseHere: 'La maison',
+    wherePlaceholder: 'Vous êtes où ? Un village, une adresse…',
+    whereSearching: 'On cherche…',
+    whereNotFound: 'Introuvable. Essayez le nom italien (« Aeroporto Catania » plutôt que « aéroport de Catane ») — les lieux viennent d’OpenStreetMap.',
+    whereError: 'La recherche n’a pas répondu. Réessayez, ou touchez directement la carte.',
+    whereOut: 'C’est hors de la Sicile — la carte ne va pas jusque-là.',
     mapFailed: 'La carte n’a pas pu se charger.',
     mapFailedHint: 'Rechargez la page. Si ça persiste, un bloqueur de publicité ou un réseau d’entreprise empêche peut-être le chargement — la liste, elle, fonctionne toujours.',
     badge: 'Responsable & local',
@@ -746,6 +756,11 @@ const IT: Dict = {
     departOn: 'Partenza simulata: le distanze sono calcolate dal punto nero, in linea d’aria — la strada sarà più lunga.',
     departReset: 'Dalla casa',
     houseHere: 'La casa',
+    wherePlaceholder: 'Dove sei? Un paese, un indirizzo…',
+    whereSearching: 'Cerco…',
+    whereNotFound: 'Non trovato. Prova il nome italiano — i luoghi vengono da OpenStreetMap.',
+    whereError: 'La ricerca non ha risposto. Riprova, o tocca direttamente la mappa.',
+    whereOut: 'È fuori dalla Sicilia — la mappa non arriva fin là.',
     mapFailed: 'La mappa non si è caricata.',
     mapFailedHint: 'Ricarica la pagina. Se continua, forse un blocco pubblicità o una rete aziendale impedisce il caricamento — l’elenco funziona comunque.',
     badge: 'Responsabile & locale',
@@ -1146,6 +1161,11 @@ const EN: Dict = {
     departOn: 'Simulated start: distances are measured from the black point, as the crow flies — the road will be longer.',
     departReset: 'From the house',
     houseHere: 'The house',
+    wherePlaceholder: 'Where are you? A village, an address…',
+    whereSearching: 'Searching…',
+    whereNotFound: 'Not found. Try the Italian name — places come from OpenStreetMap.',
+    whereError: 'The search did not answer. Try again, or just tap the map.',
+    whereOut: 'That is outside Sicily — the map does not reach that far.',
     mapFailed: 'The map could not load.',
     mapFailedHint: 'Reload the page. If it persists, an ad blocker or a company network may be blocking it — the list still works.',
     badge: 'Responsible & local',
