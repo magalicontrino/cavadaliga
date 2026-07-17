@@ -9,8 +9,9 @@ import Icon, { type IconName } from '../Icon';
 import FilterChip from '../FilterChip';
 import dynamic from 'next/dynamic';
 import { useI18n } from '../i18n';
-import { LOCAL_PLACES, CATS, SEARCH_WORDS, norm, type CatKey } from '../localData';
+import { LOCAL_PLACES, CATS, type CatKey } from '../localData';
 import { HOUSE, MAX_KM, distanceKm } from '../geo';
+import { COORDS } from '../placeCoords';
 
 /** MapLibre pèse ~210 Ko : il n'est chargé que si on ouvre cette page. */
 const PlaceMap = dynamic(() => import('../PlaceMap'), { ssr: false });
@@ -21,7 +22,9 @@ export default function NosAdresses() {
   const p = t.localPage;
 
   const [filter, setFilter] = useState<'tout' | 'responsable' | CatKey>('tout');
-  const [query, setQuery] = useState('');
+  // « Et si j'etais la ? » — un point pose sur la carte. Tant qu'il est nul, on
+  // compte depuis la maison, par la route, avec les km que Mag a saisis.
+  const [depart, setDepart] = useState<{ lat: number; lon: number } | null>(null);
   // Incrementé à chaque tri ou recherche : les fiches se montrent d'un coup.
   const [clicks, setClicks] = useState(0);
   const [active, setActive] = useState<string | null>(null);
@@ -45,34 +48,26 @@ export default function NosAdresses() {
     ...FILTER_CATS.map((k) => ({ key: k, label: CATS[k].label[lang], icon: CATS[k].icon })),
   ];
 
-  const q = norm(query.trim());
-  const inCat = (l: (typeof LOCAL_PLACES)[number]) =>
-    filter === 'tout' ? true : filter === 'responsable' ? l.responsible : l.cat === filter;
+  const shown = LOCAL_PLACES.filter((l) =>
+    filter === 'tout' ? true : filter === 'responsable' ? l.responsible : l.cat === filter,
+  );
 
-  const places = LOCAL_PLACES.filter((l) => {
-    if (!inCat(l)) return false;
-    if (!q) return true;
-    return norm(`${l.name} ${l.town} ${CATS[l.cat].label[lang]} ${l.blurb[lang]}`).includes(q);
-  });
-
-  // Rien trouvé littéralement ? On passe par la base de mots (« pain »,
-  // « apéro », « glace »…) pour proposer quand même une piste. Et si le mot
-  // est inconnu, on montre les adresses les plus proches de la maison :
-  // une recherche ne doit jamais finir sur du vide.
-  const suggestions = (() => {
-    if (!q || places.length > 0) return [];
-    const hits = SEARCH_WORDS.filter((h) => h.words.some((w) => norm(w).includes(q) || q.includes(norm(w))));
-    const ids = new Set(hits.flatMap((h) => h.ids ?? []));
-    const cats = new Set(hits.map((h) => h.cat).filter(Boolean));
-    const byWord = LOCAL_PLACES.filter((l) => ids.has(l.id) || cats.has(l.cat));
-    if (byWord.length > 0) return byWord.slice(0, 6);
-    return [...LOCAL_PLACES].sort((a, b) => a.km - b.km).slice(0, 3);
-  })();
-
-  const shown = places.length > 0 ? places : suggestions;
-
-  // Distance depuis la maison — « Sur place » pour les adresses du village.
-  const distance = (km: number) => (km === 0 ? t.regionHere : `≈ ${km} km`);
+  /**
+   * Le libelle de distance — et son SENS change avec le depart.
+   *
+   * Depuis la maison : les km de Mag, mesures par la route. Depuis un point
+   * pose sur la carte : je ne sais faire que du vol d'oiseau, ce qui donne
+   * toujours moins, parfois beaucoup moins dans les Iblei ou les routes
+   * tournent. C'est dit en toutes lettres au-dessus de la carte : afficher les
+   * deux sous le meme « km » sans prevenir serait mentir.
+   */
+  const kmLabel = (l: (typeof LOCAL_PLACES)[number]) => {
+    if (!depart) return l.km === 0 ? t.regionHere : `≈ ${l.km} km`;
+    const co = COORDS[l.id];
+    if (!co) return '—'; // sans position reelle, on n'invente pas une distance
+    const d = distanceKm(depart.lat, depart.lon, co.lat, co.lon);
+    return d < 0.4 ? t.regionHere : `≈ ${d < 10 ? d.toFixed(1) : Math.round(d)} km`;
+  };
 
   /** Clic sur une fiche : on la met en évidence sur la carte. */
   const showOnMap = (id: string) => {
@@ -114,34 +109,6 @@ export default function NosAdresses() {
       <section className="mx-auto max-w-[110rem] px-5 pt-4 md:px-10">
         {/* Recherche manuelle par mots ou envie + « Où suis-je ? » */}
         <Reveal className="mb-5 flex flex-col gap-3 md:flex-row md:items-center">
-          <label
-            className="flex flex-1 items-center gap-3 rounded-full border px-5 py-3 md:max-w-md"
-            style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
-          >
-            <span style={{ color: 'var(--cava-muted)' }}>
-              <Icon name="search" size={18} />
-            </span>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={p.searchPlaceholder}
-              className="w-full bg-transparent text-[15px] outline-none"
-              style={{ color: 'var(--cava-ink)' }}
-            />
-            {query && (
-              <button
-                type="button"
-                onClick={() => setQuery('')}
-                aria-label="×"
-                className="shrink-0 text-[18px] leading-none"
-                style={{ color: 'var(--cava-muted)' }}
-              >
-                ×
-              </button>
-            )}
-          </label>
-
           {/* Carte ou liste — à côté du tri, c'est le même geste : choisir ce
               qu'on regarde. */}
           <div
@@ -218,7 +185,45 @@ export default function NosAdresses() {
         </Reveal>
       </section>
 
-      {/* La carte — les épingles suivent le filtre et la recherche.
+      {/* L'invitation au geste : un clic sur la carte, ca ne se devine pas. */}
+      {!depart && vue === 'carte' && (
+        <section className="mx-auto max-w-[110rem] px-5 pt-3 md:px-10">
+          <Reveal className="flex items-center gap-2.5 text-[13px] italic" style={{ color: 'var(--cava-muted)' }}>
+            <span className="shrink-0" style={{ color: 'var(--cava-pink)' }}>
+              <Icon name="pin" size={14} />
+            </span>
+            {p.departHint}
+          </Reveal>
+        </section>
+      )}
+
+      {/* Le depart simule — on dit d'ou l'on compte ET comment, sinon les
+          « km » voudraient dire deux choses sans prevenir. */}
+      {depart && (
+        <section className="mx-auto max-w-[110rem] px-5 pt-3 md:px-10">
+          <Reveal
+            className="flex items-start gap-3 rounded-2xl px-5 py-3 text-[13.5px] leading-[1.6]"
+            style={{ background: 'rgba(46,45,45,0.06)' }}
+          >
+            <span className="mt-[3px] shrink-0" style={{ color: 'var(--cava-ink)' }}>
+              <Icon name="pin" size={15} />
+            </span>
+            <p className="flex-1">{p.departOn}</p>
+            <button
+              type="button"
+              onClick={() => {
+                setDepart(null);
+                setClicks((c) => c + 1);
+              }}
+              className="cava-pill shrink-0 px-4 py-1.5 text-[12.5px]"
+            >
+              {p.departReset}
+            </button>
+          </Reveal>
+        </section>
+      )}
+
+      {/* La carte — les épingles suivent le filtre.
           Ni légende ni mini-carte de survol : chaque pastille porte déjà sa
           distance, et les villages sont écrits sur la carte. */}
       <section ref={mapRef} className={`mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-3 md:px-10 ${vue === 'carte' ? '' : 'hidden'}`}>
@@ -234,6 +239,9 @@ export default function NosAdresses() {
             onLocate={locate}
             geoAsking={geo === 'asking'}
             locateLabel={geo === 'asking' ? p.locating : p.locateMe}
+            onDepart={setDepart}
+            depart={depart}
+            kmLabel={kmLabel}
           />
         </Reveal>
       </section>
@@ -241,23 +249,8 @@ export default function NosAdresses() {
       {/* La liste des adresses. Meme marge haute que la carte : les deux vues
           suivent les memes boutons, elles doivent commencer au meme endroit. */}
       <section className={`mx-auto max-w-[110rem] px-5 pt-3 md:px-10 ${vue === 'liste' ? '' : 'hidden'}`}>
-        {/* Recherche sans résultat direct → on annonce qu'on propose autre chose. */}
-        {q && places.length === 0 && shown.length > 0 && (
-          <Reveal
-            className="mt-8 flex items-start gap-3 rounded-2xl px-6 py-4"
-            style={{ background: 'rgba(230,41,111,0.07)', color: 'var(--cava-ink)' }}
-          >
-            <span className="mt-[2px] shrink-0" style={{ color: 'var(--cava-pink)' }}>
-              <Icon name="search" size={17} />
-            </span>
-            <p className="text-[14.5px] leading-[1.6]">
-              {p.suggestFor.replace('{q}', query.trim())}
-            </p>
-          </Reveal>
-        )}
-
-        {/* Filtre de catégorie encore vide (hors recherche) */}
-        {!q && places.length === 0 && (
+        {/* Une categorie encore sans adresse */}
+        {shown.length === 0 && (
           <Reveal
             className="mt-10 flex flex-col items-center gap-3 rounded-2xl border border-dashed py-16 text-center"
             style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)' }}
@@ -311,7 +304,7 @@ export default function NosAdresses() {
                   </p>
                   {/* Distance depuis la maison */}
                   <p className="relative inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
-                    <Icon name="home" size={14} /> {distance(pl.km)}
+                    <Icon name="home" size={14} /> {kmLabel(pl)}
                   </p>
                   <p className="relative text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
                     {pl.blurb[lang]}

@@ -122,6 +122,9 @@ export default function PlaceMap({
   onLocate,
   geoAsking = false,
   locateLabel = '',
+  onDepart,
+  depart = null,
+  kmLabel,
 }: {
   /** Déjà triés et cherchés par la page — la carte ne filtre rien. */
   places: LocalPlace[];
@@ -142,6 +145,12 @@ export default function PlaceMap({
   onLocate?: () => void;
   geoAsking?: boolean;
   locateLabel?: string;
+  /** Cliquer la carte pose un depart simule : « et si j'etais la ? ». */
+  onDepart?: (c: { lat: number; lon: number }) => void;
+  depart?: { lat: number; lon: number } | null;
+  /** La page decide de ce qu'affiche chaque pastille : elle seule sait si l'on
+   *  compte depuis la maison (par la route) ou depuis un depart simule. */
+  kmLabel: (p: LocalPlace) => string;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<unknown>(null);
@@ -150,6 +159,10 @@ export default function PlaceMap({
   const pins = useRef(new Map<string, HTMLElement>());
   const [state, setState] = useState<'chargement' | 'ok' | 'erreur'>('chargement');
   const [erreur, setErreur] = useState('');
+  // La carte n'est construite qu'une fois : sans cette poignee, son ecouteur de
+  // clic garderait pour toujours le tout premier onDepart.
+  const onDepartRef = useRef(onDepart);
+  onDepartRef.current = onDepart;
   const piste = useRef<HTMLDivElement>(null);
   // D'ou vient le choix ? Cliquer une epingle doit amener sa fiche ; glisser
   // la piste ne doit surtout PAS la repositionner — sinon on lutte contre le
@@ -203,8 +216,13 @@ export default function PlaceMap({
           setErreur(e?.error?.message ?? 'inconnue');
           setState('erreur');
         });
-        // Cliquer le fond referme la fiche — le réflexe attendu d'une carte.
-        m.on('click', () => !mort && onChoisir(null));
+        // Cliquer le fond pose un depart simule. La fiche, elle, se ferme par
+        // sa croix : on ne peut pas faire les deux d'un meme clic sans que l'un
+        // surprenne toujours l'autre.
+        m.on('click', (e: { lngLat: { lat: number; lng: number } }) => {
+          if (mort) return;
+          onDepartRef.current?.({ lat: e.lngLat.lat, lon: e.lngLat.lng });
+        });
         map.current = { m, Marker };
       } catch (e) {
         if (mort) return;
@@ -242,7 +260,7 @@ export default function PlaceMap({
       el.type = 'button';
       el.className = 'cava-glpin';
       el.setAttribute('aria-label', `${p.name} — ${p.town}`);
-      el.innerHTML = `${picto(CATS[p.cat].icon, 19)}<span>${p.km === 0 ? labels.here : `${p.km} km`}</span>`;
+      el.innerHTML = `${picto(CATS[p.cat].icon, 19)}<span>${kmLabel(p)}</span>`;
       pins.current.set(p.id, el);
       el.addEventListener('click', (ev) => {
         ev.stopPropagation(); // sinon le clic atteint la carte et referme aussitôt
@@ -267,6 +285,13 @@ export default function PlaceMap({
       markers.current.push(new c.Marker({ element: v }).setLngLat([me.lon, me.lat]).addTo(c.m));
     }
 
+    // Le depart simule — un point franc, distinct de la maison et de « vous etes ici »
+    if (depart) {
+      const d = document.createElement('div');
+      d.className = 'cava-gldepart';
+      markers.current.push(new c.Marker({ element: d }).setLngLat([depart.lon, depart.lat]).addTo(c.m));
+    }
+
     // Choisir un filtre doit MONTRER ce qu'on a choisi : on cadre sur les
     // épingles retenues (la maison comprise, c'est le repère). Sans ça, on
     // cliquait « Plantes & fleurs » et on restait devant une carte vide.
@@ -281,7 +306,7 @@ export default function PlaceMap({
       // Un seul lieu ? fitBounds irait au zoom maximum : on le retient.
       { padding: 70, maxZoom: 13.5, duration: 500 },
     );
-  }, [state, cle, lang, viser, me]);
+  }, [state, cle, lang, viser, me, depart]);
 
   // De retour de la liste : le canvas s'est vidé pendant qu'on ne le voyait
   // pas. On le remesure, sinon la carte revient en miette.
