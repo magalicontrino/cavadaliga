@@ -55,7 +55,7 @@ export default function Nav({ current }: { current?: string }) {
             className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full aria-[current=page]:opacity-45"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
           >
-            <Icon name="home" size={26} />
+            <Icon name="home" size={24} strokeWidth={1.7} />
           </a>
 
           {/* Le calendrier, a gauche du vinyle. Il etait deja dans le menu, mais
@@ -82,7 +82,7 @@ export default function Nav({ current }: { current?: string }) {
             className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full aria-[current=page]:opacity-45"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
           >
-            <Icon name="vinyl" size={26} />
+            <Icon name="vinyl" size={24} />
           </a>
 
           {/* Bouton menu rond noir → overlay plein écran */}
