@@ -5,7 +5,8 @@ import Reveal from './Reveal';
 /**
  * En-tête éditorial des pages secondaires (même style que l'intro « BIENVENUE »
  * de l'accueil) : grand titre gras en capitales avec le dernier mot enfermé
- * dans une pilule, puis l'intro en dessous.
+ * dans une pilule, puis l'intro en dessous — quand il y en a une : certaines
+ * pages n'ont rien à ajouter au titre.
  */
 export default function PageHeader({
   title,
@@ -13,7 +14,7 @@ export default function PageHeader({
   stackPill = false,
 }: {
   title: string;
-  intro: string;
+  intro?: string;
   // Force la pilule (dernier mot) sur une nouvelle ligne.
   stackPill?: boolean;
 }) {
@@ -36,14 +37,16 @@ export default function PageHeader({
           {last}
         </span>
       </Reveal>
-      <Reveal
-        as="p"
-        delay={140}
-        className="mt-8 max-w-[54ch] text-[clamp(1.05rem,2vw,1.35rem)] leading-[1.5]"
-        style={{ color: 'var(--cava-muted)' }}
-      >
-        {intro}
-      </Reveal>
+      {intro && (
+        <Reveal
+          as="p"
+          delay={140}
+          className="mt-8 max-w-[54ch] text-[clamp(1.05rem,2vw,1.35rem)] leading-[1.5]"
+          style={{ color: 'var(--cava-muted)' }}
+        >
+          {intro}
+        </Reveal>
+      )}
     </header>
   );
 }

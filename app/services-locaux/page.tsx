@@ -103,26 +103,11 @@ export default function NosAdresses() {
     <main>
       <Nav current="/services-locaux" />
 
-      <PageHeader title={s.title} intro={s.intro} />
+      <PageHeader title={s.title} />
 
-      {/* La carte — les épingles suivent le filtre et la recherche.
-          Ni légende ni mini-carte de survol : chaque pastille porte déjà sa
-          distance, et les villages sont écrits sur la carte. */}
-      <section ref={mapRef} className="mx-auto max-w-[110rem] scroll-mt-24 px-5 md:px-10">
-        <Reveal>
-          <PlaceMap
-            places={shown}
-            lang={lang}
-            labels={{ map: p.mapLabel, badge: p.badge, here: t.regionHere, close: p.closeLabel }}
-            choisi={shown.find((l) => l.id === active) ?? null}
-            onChoisir={(l) => setActive(l?.id ?? null)}
-            me={me}
-          />
-        </Reveal>
-      </section>
-
-      {/* Filtres + grille de fiches */}
-      <section className="mx-auto max-w-[110rem] px-5 pt-10 md:px-10">
+      {/* Le menu avant la carte : on trie, on cherche, et la carte repond.
+          En dessous, on choisissait a l'aveugle ce qu'on ne voyait plus. */}
+      <section className="mx-auto max-w-[110rem] px-5 pt-4 md:px-10">
         {/* Recherche manuelle par mots ou envie + « Où suis-je ? » */}
         <Reveal className="mb-5 flex flex-col gap-3 md:flex-row md:items-center">
           <label
@@ -205,7 +190,26 @@ export default function NosAdresses() {
             }}
           />
         </Reveal>
+      </section>
 
+      {/* La carte — les épingles suivent le filtre et la recherche.
+          Ni légende ni mini-carte de survol : chaque pastille porte déjà sa
+          distance, et les villages sont écrits sur la carte. */}
+      <section ref={mapRef} className="mx-auto max-w-[110rem] scroll-mt-24 px-5 md:px-10">
+        <Reveal>
+          <PlaceMap
+            places={shown}
+            lang={lang}
+            labels={{ map: p.mapLabel, badge: p.badge, here: t.regionHere, close: p.closeLabel }}
+            choisi={shown.find((l) => l.id === active) ?? null}
+            onChoisir={(l) => setActive(l?.id ?? null)}
+            me={me}
+          />
+        </Reveal>
+      </section>
+
+      {/* La liste des adresses */}
+      <section className="mx-auto max-w-[110rem] px-5 pt-10 md:px-10">
         {/* Recherche sans résultat direct → on annonce qu'on propose autre chose. */}
         {q && places.length === 0 && shown.length > 0 && (
           <Reveal
