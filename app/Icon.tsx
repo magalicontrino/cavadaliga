@@ -59,12 +59,14 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
       <path d="M11 11l8 8M16 16l2-2M18.5 18.5l2-2" />
     </>
   ),
-  // Maison — l'appartement
+  // Maison — l'appartement. Dessinee pour REMPLIR sa boite (x 3→21, y 3,5→20,5),
+  // comme le calendrier et le vinyle : sinon, plus petite dans son cercle et
+  // trois traits epars, elle paraissait plus terne a cote d'eux.
   home: (
     <>
-      <path d="M4 11l8-6 8 6" />
-      <path d="M6 10v9h12v-9" />
-      <path d="M10 19v-5h4v5" />
+      <path d="M3 11L12 3.5l9 7.5" />
+      <path d="M5.5 9.5V20.5h13V9.5" />
+      <path d="M9.5 20.5v-6h5v6" />
     </>
   ),
   // Info — bon à savoir
