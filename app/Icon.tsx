@@ -25,6 +25,7 @@ export type IconName =
   | 'map'
   | 'list'
   | 'search'
+  | 'calendar'
   | 'vinyl'
   | 'film'
   | 'spotify'
@@ -40,6 +41,17 @@ export type IconName =
 // Tracés bruts (viewBox 24×24) — réutilisables hors du composant, par exemple
 // dans un <svg> imbriqué (voir LocalMap).
 export const ICON_PATHS: Record<IconName, React.ReactNode> = {
+  // Calendrier — les periodes ou la maison est occupee. Deux anneaux en haut,
+  // une reglure, et un jour marque : de loin on lit « calendrier » avant de
+  // distinguer quoi que ce soit.
+  calendar: (
+    <>
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" />
+      <path d="M3.5 10h17" />
+      <path d="M8 3.5v3M16 3.5v3" />
+      <path d="M8 14h2.5" />
+    </>
+  ),
   // Clé — arrivée & départ
   key: (
     <>

@@ -38,6 +38,22 @@ export default function Nav({ current }: { current?: string }) {
         <LangSwitcher />
 
         <div className="flex flex-1 items-center justify-end gap-3">
+          {/* Le calendrier, a gauche du vinyle. Il etait deja dans le menu, mais
+              il fallait l'ouvrir pour le trouver : c'est la question qu'on se
+              pose le plus souvent en famille — « la maison est libre quand ? ».
+              Meme habit que le vinyle : ces deux-la sont des raccourcis, pas des
+              pages de plus. */}
+          <a
+            href={withBase('/calendrier')}
+            aria-label={t.calendarPage.title}
+            aria-current={current === '/calendrier' ? 'page' : undefined}
+            title={t.calendarPage.title}
+            className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full aria-[current=page]:opacity-45"
+            style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
+          >
+            <Icon name="calendar" size={24} />
+          </a>
+
           {/* Culture — sons & images (vinyle), à gauche du menu */}
           <a
             href={withBase('/culture')}
