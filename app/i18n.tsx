@@ -539,7 +539,7 @@ const FR: Dict = {
     },
     'services-locaux': {
       eyebrow: 'Services locaux & contacts utiles',
-      title: 'Nos adresses autour de vous',
+      title: 'Nos adresses',
       intro: "Commerces, restaurants, marchés et contacts utiles : nos recommandations personnelles pour vivre Cava d'Aliga comme à la maison.",
     },
     'la-region': {
@@ -942,7 +942,7 @@ const IT: Dict = {
     },
     'services-locaux': {
       eyebrow: 'Servizi locali e contatti utili',
-      title: 'I nostri indirizzi nei dintorni',
+      title: 'I nostri indirizzi',
       intro: 'Negozi, ristoranti, mercati e contatti utili: i nostri consigli personali per vivere Cava d’Aliga come a casa.',
     },
     'la-region': {
@@ -1345,7 +1345,7 @@ const EN: Dict = {
     },
     'services-locaux': {
       eyebrow: 'Local services & useful contacts',
-      title: 'Our spots nearby',
+      title: 'Our addresses',
       intro: 'Shops, restaurants, markets and useful contacts: our personal recommendations to live Cava d’Aliga like a local.',
     },
     'la-region': {

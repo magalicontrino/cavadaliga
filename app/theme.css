@@ -10,6 +10,10 @@
   --cava-bg: #f7f5f2;
   --cava-ink: #2e2d2d;
   --cava-pink: #e6296f;
+  /* Le rose soutenu : la pastille choisie sur la carte. Elle etait noire, et
+     l'epingle du depart l'est aussi — noir sur noir, on ne voyait plus rien.
+     Meme teinte, plus profonde : on reconnait la famille, on voit le choix. */
+  --cava-pink-fonce: #9c1246;
   --cava-terra: #aa4646;
   --cava-muted: #6f6e6e;
   --cava-line: #d9d9d9;
@@ -739,10 +743,13 @@
   font-weight: 500;
   opacity: 0.92;
 }
-/* Choisie : elle s'inverse et passe devant — comme le « 534 € » d'Airbnb. */
+/* Choisie : elle fonce et passe devant — comme le « 534 € » d'Airbnb.
+   Elle passait au noir, mais l'epingle du depart est noire elle aussi (Mag l'a
+   voulue ainsi) : quand on se posait sur un lieu, la pastille choisie et
+   l'epingle se confondaient en une seule masse. */
 .cava-glpin.is-on {
   z-index: 2;
-  background: var(--cava-ink);
+  background: var(--cava-pink-fonce);
   transform: scale(1.08);
 }
 /* La maison : un petit point noir cercle de blanc. Discret — c'est un repere,

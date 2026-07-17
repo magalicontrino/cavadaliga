@@ -67,7 +67,7 @@ const EMPRISE: [[number, number], [number, number]] = [
 /** Le strict nécessaire de l'API MapLibre, typé à la main. */
 type Epingle = { setLngLat: (l: [number, number]) => Epingle; addTo: (m: unknown) => Epingle; remove: () => void };
 type Carte = {
-  m: { easeTo: (o: object) => void; resize: () => void; fitBounds: (b: [[number, number], [number, number]], o: object) => void };
+  m: { easeTo: (o: object) => void; resize: () => void; getZoom: () => number; fitBounds: (b: [[number, number], [number, number]], o: object) => void };
   Marker: new (o: { element: HTMLElement; anchor?: string; offset?: [number, number] }) => Epingle;
 };
 
@@ -265,6 +265,9 @@ export default function PlaceMap({
   const onChoisirRef = useRef(onChoisir);
   onChoisirRef.current = onChoisir;
   const piste = useRef<HTMLDivElement>(null);
+  // La fiche des grands ecrans : on la mesure pour savoir de combien pousser
+  // l'epingle qu'elle couvrirait.
+  const ficheLarge = useRef<HTMLDivElement>(null);
   // D'ou vient le choix ? Cliquer une epingle doit amener sa fiche ; glisser
   // la piste ne doit surtout PAS la repositionner — sinon on lutte contre le
   // doigt de l'utilisateur, et le geste suivant est ignore.
@@ -321,8 +324,46 @@ export default function PlaceMap({
   const viser = useCallback((p: LocalPlace) => {
     const c = map.current as Carte | null;
     const co = COORDS[p.id];
-    if (c && co) c.m.easeTo({ center: [co.lon, co.lat], duration: 400 });
+    if (!c || !co) return;
+    // Le zoom minimum n'est pas un caprice : a la vue d'arrivee, la carte est
+    // deja plaquee contre le bord sud de nos tuiles (maxBounds). La camera n'a
+    // alors AUCUN jeu pour descendre, et le decalage ci-dessus ne sert a rien —
+    // mesure : on demandait 188 px, la carte en bougeait 18. En s'approchant, le
+    // jeu revient, et l'epingle peut sortir de sous sa fiche.
+    c.m.easeTo({ center: [co.lon, co.lat], offset: aCote(), zoom: Math.max(c.m.getZoom(), 13), duration: 500 });
   }, []);
+
+  /**
+   * De combien pousser l'epingle choisie pour que sa fiche ne la couvre pas.
+   *
+   * On centrait l'epingle. Mais la fiche se pose PAR-DESSUS la carte — en bas a
+   * gauche sur grand ecran, en bandeau sur le telephone —, et le centre tombe
+   * dessous : on ouvrait une fiche sur l'epingle qu'elle cachait.
+   *
+   * On mesure la fiche au lieu de supposer sa taille : sa hauteur depend du
+   * texte, des liens, de la langue. Rien n'est devine ici — d'ou l'appel depuis
+   * un effet, une fois la fiche dans la page.
+   *
+   * Le calcul : on vise le milieu de ce qui RESTE de carte a cote de la fiche.
+   */
+  const aCote = (): [number, number] => {
+    const b = box.current;
+    if (!b) return [0, 0];
+    const R = b.getBoundingClientRect();
+
+    // Telephone : la fiche barre le bas. On remonte dans la bande libre.
+    const bandeau = piste.current?.getBoundingClientRect();
+    if (bandeau && bandeau.height > 0) {
+      const libre = bandeau.top - R.top;
+      return [0, Math.round(libre / 2 - R.height / 2)];
+    }
+
+    // Grand ecran : la fiche tient la gauche. On decale vers la droite.
+    const fiche = ficheLarge.current?.getBoundingClientRect();
+    if (fiche && fiche.width > 0) return [Math.round((fiche.right - R.left) / 2), 0];
+
+    return [0, 0]; // pas de fiche : le centre, comme avant
+  };
 
   useEffect(() => {
     let mort = false;
@@ -428,7 +469,8 @@ export default function PlaceMap({
         ev.stopPropagation(); // sinon le clic atteint la carte et referme aussitôt
         origine.current = 'epingle';
         onChoisir(p);
-        viser(p);
+        // Pas de viser() ici : la fiche n'est pas encore dans la page, on ne
+        // pourrait pas la mesurer. C'est l'effet plus bas qui recadre, apres.
       });
       markers.current.push(new c.Marker({ element: el }).setLngLat([co.lon, co.lat]).addTo(c.m));
     });
@@ -526,7 +568,10 @@ export default function PlaceMap({
   useEffect(() => {
     if (!versMaison || state !== 'ok') return;
     const c = map.current as Carte | null;
-    c?.m.easeTo({ center: [HOUSE.lon, HOUSE.lat], zoom: 13, duration: 600 });
+    // Zoom 15 et pas 13 : on demande a voir LA MAISON, pas la region autour.
+    // A 13 le point noir se perdait au milieu de rien ; a 15 les batiments sont
+    // dessines (leur couche commence a 14) et le voisinage se reconnait.
+    c?.m.easeTo({ center: [HOUSE.lon, HOUSE.lat], zoom: 15, duration: 600 });
   }, [versMaison, state]);
 
   // L'épingle choisie s'inverse — on doit voir de quel point la fiche parle.
@@ -550,6 +595,20 @@ export default function PlaceMap({
     p.scrollTo({ left: el.offsetLeft - (p.clientWidth - el.clientWidth) / 2, behavior: 'auto' });
   }, [choisi, liste]);
 
+  /**
+   * Un lieu est choisi : on l'amene a cote de sa fiche.
+   *
+   * Dans un effet, et pas dans les gestes qui choisissent : ici la fiche est
+   * DEJA dans la page, donc mesurable. Vaut pour les trois chemins — cliquer
+   * une epingle, glisser la piste, cliquer une fiche de la liste. Les trois
+   * ouvrent une fiche ; les trois doivent la degager.
+   */
+  useEffect(() => {
+    if (!choisi || state !== 'ok') return;
+    viser(choisi);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [choisi, state]);
+
   // …et inversement : faire glisser la piste choisit le lieu qui arrive au
   // centre, et la carte suit. C'est le geste d'Airbnb — on passe d'un lieu au
   // suivant sans jamais revenir a la carte.
@@ -571,9 +630,8 @@ export default function PlaceMap({
     if (cible && cible.id !== choisi?.id) {
       origine.current = 'piste';
       onChoisir(cible);
-      viser(cible);
     }
-  }, [liste, choisi, viser]);
+  }, [liste, choisi]);
 
   return (
     <div className="relative h-[68vh] max-h-[620px] overflow-hidden rounded-2xl border" style={{ borderColor: 'var(--cava-line)' }}>
@@ -627,7 +685,7 @@ export default function PlaceMap({
 
       {/* Écran large : une seule fiche, en bas a gauche. */}
       {choisi && (
-        <div className="absolute bottom-4 left-4 z-10 hidden w-[330px] sm:block">
+        <div ref={ficheLarge} className="absolute bottom-4 left-4 z-10 hidden w-[330px] sm:block">
           <PlaceCard place={choisi} lang={lang} labels={labels} km={kmLabel(choisi)} onClose={() => onChoisir(null)} />
         </div>
       )}
