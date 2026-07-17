@@ -1,6 +1,10 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { NAV } from './data';
+
+/** Les pages du menu — tirees de NAV, pour qu'on ne puisse pas diverger. */
+type Page = (typeof NAV)[number]['href'];
 
 export type Lang = 'fr' | 'it' | 'en';
 export const LANGS: Lang[] = ['it', 'fr', 'en'];
@@ -49,7 +53,16 @@ type DepartContent = {
 };
 
 export type Dict = {
-  nav: string[]; // ordre = NAV (Accueil, Préparer le voyage, Infos pratiques, Services locaux, La région, Contact)
+  /**
+   * Les libelles, indexes PAR PAGE et non par rang.
+   *
+   * C'etaient deux tableaux alignes a la main sur l'ordre de NAV. En retirant
+   * « Sons & images » du menu, tout ce qui suivait s'est decale d'un cran sans
+   * qu'aucun outil ne bronche : l'accueil annonçait « Sons & images » et
+   * ouvrait « Preparer le voyage ». Avec ces clefs, le typechecker refuse une
+   * page sans titre — et un titre sans page.
+   */
+  nav: Record<Page, string>;
   region: string;
   tagline: string;
   subLabels: string[];
@@ -63,7 +76,7 @@ export type Dict = {
   sectionsWord: string;
   // Titres des CTA de l'accueil (ordre : infos pratiques, services locaux,
   // région, préparer le voyage, contact) — mini-phrases avec le nom de rubrique.
-  ctaTitles: string[];
+  ctaTitles: Record<Page, string>;
   tasteOfSicily: string;
   galleryAlt: string[];
   apartmentAlt: string;
@@ -123,7 +136,7 @@ export type Dict = {
     markets: { title: string; desc: string; list: { label: string; url: string }[] };
   };
   salvaPage: { title: string; intro: string; historyTitle: string; historyText: string; treeTitle: string; treeNote: string; treePaternal: string; treeMaternal: string; treeWife1: string; treeWife2: string; treeGreat: string; treeParents: string; treeQuestionsTitle: string; treeQuestionsNote: string; treeAdd: string; treeAddSubject: string; treeExample: string };
-  calendarPage: { title: string; intro: string; festivalsTitle: string; programNote: string; programMore: string; socialsTitle: string; festivalDescs: string[]; };
+  calendarPage: { title: string; intro: string; festivalsTitle: string; programDone: string; programNote: string; programMore: string; socialsTitle: string; festivalDescs: string[]; };
   culturePage: {
     eyebrow: string;
     title: string;
@@ -237,7 +250,14 @@ export type Dict = {
 };
 
 const FR: Dict = {
-  nav: ['La famille', 'La région', 'Le voyage', 'Infos pratiques', 'Nos adresses', 'Événements'],
+  nav: {
+    '/famille': 'La famille',
+    '/la-region': 'La région',
+    '/preparer-le-voyage': 'Le voyage',
+    '/informations-pratiques': 'Infos pratiques',
+    '/services-locaux': 'Nos adresses',
+    '/calendrier': 'Événements',
+  },
   region: 'Sicile',
   tagline: 'un village du sud-est de la Sicile',
   subLabels: ['Près de Scicli dans la province de Raguse'],
@@ -253,15 +273,14 @@ const FR: Dict = {
   ],
   everythingForStay: 'Tout pour votre séjour',
   sectionsWord: 'rubriques',
-  ctaTitles: [
-    'Souvenir de famille',
-    'Découvrir la région',
-    'Sons & images',
-    'Bien préparer le voyage',
-    'Toutes les informations pratiques',
-    'Nos adresses',
-    'Voir le calendrier',
-  ],
+  ctaTitles: {
+    '/famille': 'Souvenir de famille',
+    '/la-region': 'Découvrir la région',
+    '/preparer-le-voyage': 'Bien préparer le voyage',
+    '/informations-pratiques': 'Toutes les informations pratiques',
+    '/services-locaux': 'Nos adresses',
+    '/calendrier': 'Voir les événements',
+  },
   tasteOfSicily: 'Un avant-goût de la Sicile',
   galleryAlt: [
     'La mer à quelques mètres de Cava d’Aliga',
@@ -405,7 +424,7 @@ const FR: Dict = {
     },
   },
   salvaPage: { title: 'La famille', intro: 'Photos, souvenirs et histoire de la famille, au fil des années.', historyTitle: 'Histoire de la famille', historyText: "De génération en génération, cette maison de Cava d’Aliga rassemble la famille. On écrira bientôt son histoire ici — les origines, les étés partagés et les visages qui l’ont fait vivre.", treeTitle: 'Arbre généalogique', treeNote: 'Ce que la famille nous a transmis. Il reste des blancs — ils sont listés en bas, et chacun peut les combler.', treePaternal: 'Grands-parents paternels', treeMaternal: 'Grands-parents maternels', treeWife1: '1re épouse', treeWife2: '2e épouse', treeGreat: 'Arrière-grands-parents', treeParents: 'Les parents', treeQuestionsTitle: 'Ce qu’il nous manque', treeQuestionsNote: 'Ces cases sont vides parce que personne ne nous a encore donné la réponse — pas parce qu’elles n’existent pas. Vous êtes de la famille et vous savez ? Dites-le-nous : c’est comme ça que l’arbre grandit.', treeAdd: '+ Ajouter ma branche', treeAddSubject: 'Arbre généalogique — ma branche', treeExample: 'Il manque du monde, et des dates — dites-nous ce que vous savez.' },
-  calendarPage: { title: 'Événements à venir', intro: 'Ce qui se passe autour de la maison — le programme de l’été à Bruca, et les grandes fêtes siciliennes.', festivalsTitle: 'Fêtes siciliennes', programNote: 'Sotto il cielo di Bruca — le programme de l’été, à deux pas de la maison. Suivez les couleurs.', programMore: 'Détails et horaires sur Instagram', socialsTitle: 'À suivre', festivalDescs: ["Le grand jour de l’été italien. Héritée des Feriae Augusti romaines et associée à l’Assomption, la fête réunit familles et villages autour de la mer : baignades, grands repas, processions et feux d’artifice animent toute la Sicile.", "Saint Roch, invoqué depuis des siècles contre les épidémies, protège de nombreuses communautés siciliennes. À Scicli, sa statue est portée en procession dans les ruelles, au son des fanfares et sous les illuminations de fête.", "Saint Jean-Baptiste est le patron de Raguse, dont la cathédrale lui est dédiée. Le 29 août, jour de sa décollation, la ville s’illumine : procession solennelle de la statue du saint et grand feu d’artifice au-dessus de la vieille ville.", "Saint Conrad Confalonieri, ermite vénéré comme patron de Noto. Le dernier dimanche d’août, son urne d’argent traverse les rues baroques dans une immense ferveur populaire, entre cierges, fleurs et cortèges."] },
+  calendarPage: { title: 'Événements à venir', intro: 'Ce qui se passe autour de la maison — le programme de l’été à Bruca, et les grandes fêtes siciliennes.', festivalsTitle: 'Fêtes siciliennes', programNote: 'Sotto il cielo di Bruca — le programme de l’été, à deux pas de la maison. Suivez les couleurs.', programDone: 'Le programme de l’été est terminé. Le prochain arrivera au printemps — les fêtes siciliennes, elles, reviennent chaque année.', programMore: 'Détails et horaires sur Instagram', socialsTitle: 'À suivre', festivalDescs: ["Le grand jour de l’été italien. Héritée des Feriae Augusti romaines et associée à l’Assomption, la fête réunit familles et villages autour de la mer : baignades, grands repas, processions et feux d’artifice animent toute la Sicile.", "Saint Roch, invoqué depuis des siècles contre les épidémies, protège de nombreuses communautés siciliennes. À Scicli, sa statue est portée en procession dans les ruelles, au son des fanfares et sous les illuminations de fête.", "Saint Jean-Baptiste est le patron de Raguse, dont la cathédrale lui est dédiée. Le 29 août, jour de sa décollation, la ville s’illumine : procession solennelle de la statue du saint et grand feu d’artifice au-dessus de la vieille ville.", "Saint Conrad Confalonieri, ermite vénéré comme patron de Noto. Le dernier dimanche d’août, son urne d’argent traverse les rues baroques dans une immense ferveur populaire, entre cierges, fleurs et cortèges."] },
   culturePage: {
     eyebrow: 'Culture',
     title: 'Sons & images',
@@ -637,7 +656,14 @@ const FR: Dict = {
 };
 
 const IT: Dict = {
-  nav: ['La famiglia', 'La regione', 'Il viaggio', 'Info pratiche', 'I nostri indirizzi', 'Eventi'],
+  nav: {
+    '/famille': 'La famiglia',
+    '/la-region': 'La regione',
+    '/preparer-le-voyage': 'Il viaggio',
+    '/informations-pratiques': 'Info pratiche',
+    '/services-locaux': 'I nostri indirizzi',
+    '/calendrier': 'Eventi',
+  },
   region: 'Sicilia',
   tagline: 'un villaggio del sud-est della Sicilia',
   subLabels: ['Vicino a Scicli in provincia di Ragusa'],
@@ -653,15 +679,14 @@ const IT: Dict = {
   ],
   everythingForStay: 'Tutto per il vostro soggiorno',
   sectionsWord: 'sezioni',
-  ctaTitles: [
-    'Ricordi di famiglia',
-    'Scoprire la regione',
-    'Suoni & immagini',
-    'Preparare bene il viaggio',
-    'Tutte le info pratiche',
-    'I nostri indirizzi',
-    'Vedere il calendario',
-  ],
+  ctaTitles: {
+    '/famille': 'Ricordi di famiglia',
+    '/la-region': 'Scoprire la regione',
+    '/preparer-le-voyage': 'Preparare bene il viaggio',
+    '/informations-pratiques': 'Tutte le info pratiche',
+    '/services-locaux': 'I nostri indirizzi',
+    '/calendrier': 'Vedere gli eventi',
+  },
   tasteOfSicily: 'Un assaggio di Sicilia',
   galleryAlt: [
     'Il mare a pochi metri da Cava d’Aliga',
@@ -805,7 +830,7 @@ const IT: Dict = {
     },
   },
   salvaPage: { title: 'La famiglia', intro: 'Foto, ricordi e storia della famiglia, nel corso degli anni.', historyTitle: 'Storia della famiglia', historyText: "Di generazione in generazione, questa casa di Cava d’Aliga riunisce la famiglia. Presto ne racconteremo qui la storia — le origini, le estati condivise e i volti che l’hanno animata.", treeTitle: 'Albero genealogico', treeNote: 'Quello che la famiglia ci ha trasmesso. Restano dei vuoti — sono elencati in fondo, e ognuno può colmarli.', treePaternal: 'Nonni paterni', treeMaternal: 'Nonni materni', treeWife1: '1ª moglie', treeWife2: '2ª moglie', treeGreat: 'Bisnonni', treeParents: 'I genitori', treeQuestionsTitle: 'Quello che ci manca', treeQuestionsNote: 'Queste caselle sono vuote perché nessuno ci ha ancora dato la risposta — non perché non esistano. Siete della famiglia e lo sapete? Ditecelo: è così che l’albero cresce.', treeAdd: '+ Aggiungi il mio ramo', treeAddSubject: 'Albero genealogico — il mio ramo', treeExample: 'Mancano persone e date — diteci quello che sapete.' },
-  calendarPage: { title: 'Prossimi eventi', intro: 'Cosa succede intorno a casa — il programma dell’estate a Bruca e le grandi feste siciliane.', festivalsTitle: 'Feste siciliane', programNote: 'Sotto il cielo di Bruca — il programma dell’estate, a due passi da casa. Seguite i colori.', programMore: 'Dettagli e orari su Instagram', socialsTitle: 'Da seguire', festivalDescs: ["Il grande giorno dell’estate italiana. Erede delle Feriae Augusti romane e legata all’Assunzione, la festa riunisce famiglie e paesi in riva al mare: bagni, grandi pranzi, processioni e fuochi d’artificio animano tutta la Sicilia.", "San Rocco, invocato da secoli contro le epidemie, protegge molte comunità siciliane. A Scicli la sua statua è portata in processione tra i vicoli, tra bande musicali e luminarie di festa.", "San Giovanni Battista è il patrono di Ragusa, a cui è dedicata la cattedrale. Il 29 agosto, giorno della sua decollazione, la città si illumina: solenne processione della statua e grande spettacolo pirotecnico sopra la città vecchia.", "San Corrado Confalonieri, eremita venerato come patrono di Noto. L’ultima domenica d’agosto, la sua urna d’argento attraversa le vie barocche in una grande devozione popolare, tra ceri, fiori e cortei."] },
+  calendarPage: { title: 'Prossimi eventi', intro: 'Cosa succede intorno a casa — il programma dell’estate a Bruca e le grandi feste siciliane.', festivalsTitle: 'Feste siciliane', programNote: 'Sotto il cielo di Bruca — il programma dell’estate, a due passi da casa. Seguite i colori.', programDone: 'Il programma dell’estate è finito. Il prossimo arriverà in primavera — le feste siciliane, invece, tornano ogni anno.', programMore: 'Dettagli e orari su Instagram', socialsTitle: 'Da seguire', festivalDescs: ["Il grande giorno dell’estate italiana. Erede delle Feriae Augusti romane e legata all’Assunzione, la festa riunisce famiglie e paesi in riva al mare: bagni, grandi pranzi, processioni e fuochi d’artificio animano tutta la Sicilia.", "San Rocco, invocato da secoli contro le epidemie, protegge molte comunità siciliane. A Scicli la sua statua è portata in processione tra i vicoli, tra bande musicali e luminarie di festa.", "San Giovanni Battista è il patrono di Ragusa, a cui è dedicata la cattedrale. Il 29 agosto, giorno della sua decollazione, la città si illumina: solenne processione della statua e grande spettacolo pirotecnico sopra la città vecchia.", "San Corrado Confalonieri, eremita venerato come patrono di Noto. L’ultima domenica d’agosto, la sua urna d’argento attraversa le vie barocche in una grande devozione popolare, tra ceri, fiori e cortei."] },
   culturePage: {
     eyebrow: 'Cultura',
     title: 'Suoni & immagini',
@@ -1037,7 +1062,14 @@ const IT: Dict = {
 };
 
 const EN: Dict = {
-  nav: ['The family', 'The region', 'The trip', 'Practical info', 'Our spots', 'Events'],
+  nav: {
+    '/famille': 'The family',
+    '/la-region': 'The region',
+    '/preparer-le-voyage': 'The trip',
+    '/informations-pratiques': 'Practical info',
+    '/services-locaux': 'Our spots',
+    '/calendrier': 'Events',
+  },
   region: 'Sicily',
   tagline: 'a village in south-east Sicily',
   subLabels: ['Near Scicli in the province of Ragusa'],
@@ -1053,15 +1085,14 @@ const EN: Dict = {
   ],
   everythingForStay: 'Everything for your stay',
   sectionsWord: 'sections',
-  ctaTitles: [
-    'Family memories',
-    'Discover the region',
-    'Sounds & screens',
-    'Plan the trip properly',
-    'All the practical info',
-    'Our spots',
-    'See the calendar',
-  ],
+  ctaTitles: {
+    '/famille': 'Family memories',
+    '/la-region': 'Discover the region',
+    '/preparer-le-voyage': 'Plan the trip properly',
+    '/informations-pratiques': 'All the practical info',
+    '/services-locaux': 'Our spots',
+    '/calendrier': 'See the events',
+  },
   tasteOfSicily: 'A taste of Sicily',
   galleryAlt: [
     'The sea a few metres from Cava d’Aliga',
@@ -1205,7 +1236,7 @@ const EN: Dict = {
     },
   },
   salvaPage: { title: 'The family', intro: 'Photos, memories and family history, over the years.', historyTitle: 'Family history', historyText: "From one generation to the next, this house in Cava d’Aliga brings the family together. Its story will soon be written here — the origins, the shared summers and the faces that made it live.", treeTitle: 'Family tree', treeNote: 'What the family has passed on to us. Blanks remain — they are listed at the bottom, and anyone can fill them in.', treePaternal: 'Paternal grandparents', treeMaternal: 'Maternal grandparents', treeWife1: '1st wife', treeWife2: '2nd wife', treeGreat: 'Great-grandparents', treeParents: 'The parents', treeQuestionsTitle: 'What we are missing', treeQuestionsNote: 'These boxes are empty because nobody has given us the answer yet — not because there is none. You are family and you know? Tell us: that is how the tree grows.', treeAdd: '+ Add my branch', treeAddSubject: 'Family tree — my branch', treeExample: 'People and dates are missing — tell us what you know.' },
-  calendarPage: { title: 'Upcoming events', intro: 'What is happening around the house — the summer programme in Bruca, and the great Sicilian feasts.', festivalsTitle: 'Sicilian festivals', programNote: 'Sotto il cielo di Bruca — the summer programme, steps from the house. Follow the colours.', programMore: 'Details and times on Instagram', socialsTitle: 'Follow', festivalDescs: ["The high point of the Italian summer. Descended from the Roman Feriae Augusti and tied to the Assumption, the holiday gathers families and villages by the sea: swimming, big meals, processions and fireworks all across Sicily.", "Saint Roch, invoked for centuries against epidemics, protects many Sicilian communities. In Scicli his statue is carried in procession through the alleys, amid brass bands and festive lights.", "Saint John the Baptist is the patron of Ragusa, whose cathedral is dedicated to him. On 29 August, the day of his beheading, the town lights up: a solemn procession of the statue and a grand fireworks display over the old town.", "Saint Conrad Confalonieri, a hermit venerated as Noto’s patron. On the last Sunday of August, his silver urn moves through the baroque streets in great popular devotion, among candles, flowers and processions."] },
+  calendarPage: { title: 'Upcoming events', intro: 'What is happening around the house — the summer programme in Bruca, and the great Sicilian feasts.', festivalsTitle: 'Sicilian festivals', programNote: 'Sotto il cielo di Bruca — the summer programme, steps from the house. Follow the colours.', programDone: 'The summer programme is over. The next one comes in spring — the Sicilian feasts, though, return every year.', programMore: 'Details and times on Instagram', socialsTitle: 'Follow', festivalDescs: ["The high point of the Italian summer. Descended from the Roman Feriae Augusti and tied to the Assumption, the holiday gathers families and villages by the sea: swimming, big meals, processions and fireworks all across Sicily.", "Saint Roch, invoked for centuries against epidemics, protects many Sicilian communities. In Scicli his statue is carried in procession through the alleys, amid brass bands and festive lights.", "Saint John the Baptist is the patron of Ragusa, whose cathedral is dedicated to him. On 29 August, the day of his beheading, the town lights up: a solemn procession of the statue and a grand fireworks display over the old town.", "Saint Conrad Confalonieri, a hermit venerated as Noto’s patron. On the last Sunday of August, his silver urn moves through the baroque streets in great popular devotion, among candles, flowers and processions."] },
   culturePage: {
     eyebrow: 'Culture',
     title: 'Sounds & screens',

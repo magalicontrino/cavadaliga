@@ -41,7 +41,7 @@ export default function Footer() {
             au-dessus du bandeau, pas ici. */}
         <nav className="border-t" style={{ borderColor: 'var(--cava-line)' }}>
           {NAV.map((item, i) => (
-            <FootLink key={item.href} href={withBase(item.href)} label={t.nav[i]} />
+            <FootLink key={item.href} href={withBase(item.href)} label={t.nav[item.href]} />
           ))}
         </nav>
 

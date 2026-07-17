@@ -5,6 +5,7 @@ import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon from '../Icon';
+import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 
 // Lien Google Maps + requêtes précises par lieu (nom local pour bien trouver).
@@ -55,10 +56,36 @@ const parse = (s: string) => {
   const [y, m, d] = s.split('-').map(Number);
   return new Date(y, m - 1, d);
 };
+/** Le dernier jour d'un evenement : c'est lui qui decide s'il est passe. Une
+ *  fete sur deux jours reste a l'affiche pendant les deux. */
+const finit = (ev: { dates: string[] }) => ev.dates.map(jour).sort().at(-1) ?? 0;
+const jour = (s: string) => Number(s.replaceAll('-', ''));
+
 export default function Calendrier() {
   const { t, lang } = useI18n();
   const c = t.calendarPage;
   const locale = LOCALES[lang] ?? 'fr-FR';
+
+  /**
+   * Un evenement termine disparait — et il faut le decider dans le NAVIGATEUR,
+   * pas au build.
+   *
+   * Cette page est fabriquee une fois, quand on publie. Filtrer a ce moment-la
+   * figerait « aujourd'hui » au jour de la publication : le programme
+   * repourrirait des le lendemain, sans que personne ne s'en apercoive.
+   *
+   * D'ou l'etat : au premier rendu on ne sait pas encore quel jour on est — le
+   * serveur et le navigateur doivent dessiner la meme chose, sinon React
+   * proteste. On montre tout, puis on retire le passe des que le navigateur a
+   * dit la date. Le fondu des Reveal couvre l'echange.
+   */
+  const [aujourdhui, setAujourdhui] = useState<number | null>(null);
+  useEffect(() => {
+    const d = new Date();
+    setAujourdhui(d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate());
+  }, []);
+  const aVenir = aujourdhui === null ? PROGRAM : PROGRAM.filter((ev) => finit(ev) >= aujourdhui);
+
   return (
     <main>
       <Nav current="/calendrier" />
@@ -73,8 +100,13 @@ export default function Calendrier() {
           <p className="max-w-[62ch] text-[15px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
             {c.programNote}
           </p>
+          {aVenir.length === 0 && (
+            <p className="mt-8 text-[15px] italic leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+              {c.programDone}
+            </p>
+          )}
           <div className="mt-8 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-            {PROGRAM.map((ev) => (
+            {aVenir.map((ev) => (
               <div
                 key={ev.dates[0]}
                 className="flex flex-col gap-2 rounded-2xl border-2 p-6"

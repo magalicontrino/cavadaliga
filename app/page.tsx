@@ -58,7 +58,7 @@ export default function CavaHome() {
         <CtaBadge
           key={item.href}
           href={item.href}
-          title={t.ctaTitles[i]}
+          title={t.ctaTitles[item.href]}
           circleId={`cava-c-${item.href.slice(1)}`}
           flip={i % 2 === 1}
         />

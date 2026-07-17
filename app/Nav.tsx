@@ -124,7 +124,7 @@ export default function Nav({ current }: { current?: string }) {
                 className="text-[clamp(1.6rem,5.6vh,3.6rem)] uppercase leading-[1.02] tracking-[-0.02em]"
                 style={{ fontWeight: 900 }}
               >
-                {t.nav[i]}
+                {t.nav[item.href]}
               </span>
               <span className="cava-footlink-arrow text-[clamp(1.1rem,3vw,2rem)]" aria-hidden>
                 ↗
