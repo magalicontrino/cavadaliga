@@ -346,16 +346,30 @@ export default function NosAdresses() {
           </div>
         </Reveal>
 
-        {/* Retour de la géolocalisation — jamais silencieux */}
+        {/* Retour de la geolocalisation — jamais silencieux, mais jamais
+            collant non plus. Il etait rose et sans issue : rose, il criait plus
+            fort que la page ; sans croix, il restait la pour toujours. Le fermer
+            remet la geolocalisation au repos, donc il ne revient qu'a la
+            prochaine demande — et pas au premier clic ailleurs. */}
         {(geo === 'far' || geo === 'error' || geo === 'ok') && (
           <Reveal
             className="mb-5 flex items-start gap-3 rounded-2xl px-5 py-3 text-[13.5px] leading-[1.6]"
-            style={{ background: 'rgba(230,41,111,0.07)' }}
+            style={{ background: 'rgba(46,45,45,0.05)' }}
           >
-            <span className="mt-[3px] shrink-0" style={{ color: 'var(--cava-pink)' }}>
+            <span className="mt-[3px] shrink-0" style={{ color: 'var(--cava-muted)' }}>
               <Icon name="target" size={15} />
             </span>
-            <p>{geo === 'ok' ? p.locateOk : geo === 'far' ? p.locateFar : p.locateError}</p>
+            <p className="flex-1">{geo === 'ok' ? p.locateOk : geo === 'far' ? p.locateFar : p.locateError}</p>
+            <button
+              type="button"
+              onClick={() => setGeo('idle')}
+              aria-label={p.closeLabel}
+              title={p.closeLabel}
+              className="-mr-1 -mt-0.5 shrink-0 text-[18px] leading-none transition hover:opacity-60"
+              style={{ color: 'var(--cava-muted)' }}
+            >
+              ×
+            </button>
           </Reveal>
         )}
 

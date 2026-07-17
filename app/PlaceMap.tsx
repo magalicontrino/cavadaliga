@@ -149,17 +149,145 @@ const style = (tiles: string) => ({
     // le large passait pour de la terre.
     { id: 'fond', type: 'background' as const, paint: { 'background-color': '#e88aab' } },
     { id: 'terre', type: 'fill' as const, source: 'p', 'source-layer': 'earth', paint: { 'fill-color': BG } },
-    { id: 'vert', type: 'fill' as const, source: 'p', 'source-layer': 'landuse', paint: { 'fill-color': '#eeece7' } },
-    // La mer en rose : c'est l'aplat qui donne son air au poster.
-    { id: 'mer', type: 'fill' as const, source: 'p', 'source-layer': 'water', paint: { 'fill-color': '#e88aab' } },
+
+    /* Le relief de l'ile — ce qui la sortait de sa blancheur.
+     *
+     * Vue en entier, la Sicile n'etait qu'une tache creme : rien ne disait les
+     * champs, les forets, les villes. Il n'y a pas d'ombrage a en tirer — nos
+     * tuiles ne portent aucune altitude —, mais elles portent `landcover` : ce
+     * qui COUVRE le sol. Des teintes a peine posees suffisent a lui donner du
+     * grain.
+     *
+     * Cette couche s'arrete au zoom 7 dans nos tuiles, et c'est exactement la
+     * ou on regarde l'ile entiere. Au-dela, `landuse` prend le relais.
+     */
     {
-      id: 'routes',
+      id: 'couverture',
+      type: 'fill' as const,
+      source: 'p',
+      'source-layer': 'landcover',
+      maxzoom: 8,
+      paint: {
+        'fill-color': [
+          'match',
+          ['get', 'kind'],
+          'forest', '#dbe1d2',
+          'scrub', '#e3e6d9',
+          'grassland', '#e9ecdf',
+          'farmland', '#f1ebdc',
+          'barren', '#eee9e0',
+          'urban_area', '#e4e0da',
+          'glacier', '#ffffff',
+          BG,
+        ] as never,
+        // Un fondu plutot qu'une disparition seche quand landuse prend la main.
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 6.5, 1, 8, 0] as never,
+      },
+    },
+
+    /* De pres, l'usage du sol : les parcs, les bois, le bati, les plages.
+     * C'etait un aplat unique — tout se valait, donc rien ne se voyait. */
+    {
+      id: 'usage-du-sol',
+      type: 'fill' as const,
+      source: 'p',
+      'source-layer': 'landuse',
+      paint: {
+        'fill-color': [
+          'match',
+          ['get', 'kind'],
+          ['park', 'forest', 'wood', 'nature_reserve', 'protected_area', 'village_green', 'grass', 'garden', 'meadow', 'orchard', 'vineyard'], '#dde3d4',
+          ['residential', 'commercial', 'retail', 'industrial', 'railway', 'quarry'], '#e7e3dd',
+          ['beach', 'sand'], '#f3ead6',
+          ['cemetery', 'golf_course', 'pitch', 'playground', 'recreation_ground', 'zoo'], '#e2e7db',
+          ['hospital', 'school', 'university', 'college'], '#ebe6e2',
+          ['aerodrome', 'military'], '#e9e6e0',
+          '#eeece7',
+        ] as never,
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 6.5, 0, 8, 1] as never,
+      },
+    },
+
+    /* La mer, et les plans d'eau qui n'en sont pas.
+     *
+     * Tout etait peint d'un meme rose : un lac de barrage au milieu des terres
+     * se lisait comme un bout de mer. Les eaux interieures prennent un ton plus
+     * dense — on les distingue sans quitter la couleur. */
+    {
+      id: 'mer',
+      type: 'fill' as const,
+      source: 'p',
+      'source-layer': 'water',
+      paint: {
+        'fill-color': ['match', ['get', 'kind'], 'ocean', '#e88aab', ['lake', 'water', 'playa'], '#e07fa2', '#e88aab'] as never,
+      },
+    },
+    /* Les rivieres : des lignes, pas des surfaces — elles n'apparaissaient donc
+     * pas du tout. Elles dessinent les vallees des Iblei. */
+    {
+      id: 'rivieres',
+      type: 'line' as const,
+      source: 'p',
+      'source-layer': 'water',
+      filter: ['==', ['geometry-type'], 'LineString'] as never,
+      minzoom: 9,
+      paint: {
+        'line-color': '#dd6f97',
+        'line-width': ['interpolate', ['linear'], ['zoom'], 9, 0.5, 14, 2.2] as never,
+        'line-opacity': 0.75,
+      },
+    },
+
+    /* Les routes, par importance. Elles etaient toutes du meme blanc et de la
+     * meme largeur : l'autoroute de Catane valait le chemin de terre. */
+    {
+      id: 'routes-petites',
       type: 'line' as const,
       source: 'p',
       'source-layer': 'roads',
+      filter: ['in', ['get', 'kind'], ['literal', ['minor_road', 'path', 'pier']]] as never,
+      minzoom: 12,
       paint: {
         'line-color': '#ffffff',
-        'line-width': ['interpolate', ['linear'], ['zoom'], 9, 0.6, 14, 4, 17, 12] as never,
+        'line-width': ['interpolate', ['linear'], ['zoom'], 12, 0.6, 14, 2, 17, 7] as never,
+      },
+    },
+    {
+      id: 'routes-moyennes',
+      type: 'line' as const,
+      source: 'p',
+      'source-layer': 'roads',
+      filter: ['==', ['get', 'kind'], 'major_road'] as never,
+      paint: {
+        'line-color': '#ffffff',
+        'line-width': ['interpolate', ['linear'], ['zoom'], 8, 0.8, 12, 2.4, 14, 4, 17, 11] as never,
+      },
+    },
+    {
+      id: 'routes-grandes',
+      type: 'line' as const,
+      source: 'p',
+      'source-layer': 'roads',
+      filter: ['==', ['get', 'kind'], 'highway'] as never,
+      paint: {
+        'line-color': '#ffffff',
+        'line-width': ['interpolate', ['linear'], ['zoom'], 7, 1.2, 12, 3.6, 14, 6, 17, 14] as never,
+      },
+    },
+    /* Le train : en traits, et a l'encre. Une ligne blanche de plus se serait
+     * confondue avec les routes — c'est justement ce que Mag ne voulait plus. */
+    {
+      id: 'rail',
+      type: 'line' as const,
+      source: 'p',
+      'source-layer': 'roads',
+      filter: ['==', ['get', 'kind'], 'rail'] as never,
+      minzoom: 9,
+      paint: {
+        'line-color': MUET,
+        'line-width': ['interpolate', ['linear'], ['zoom'], 9, 0.6, 14, 1.4] as never,
+        'line-dasharray': [3, 2] as never,
+        'line-opacity': 0.7,
       },
     },
     { id: 'batiments', type: 'fill' as const, source: 'p', 'source-layer': 'buildings', minzoom: 14, paint: { 'fill-color': '#e2dfd8' } },
