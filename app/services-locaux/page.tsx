@@ -238,8 +238,9 @@ export default function NosAdresses() {
         </Reveal>
       </section>
 
-      {/* La liste des adresses */}
-      <section className={`mx-auto max-w-[110rem] px-5 pt-10 md:px-10 ${vue === 'liste' ? '' : 'hidden'}`}>
+      {/* La liste des adresses. Meme marge haute que la carte : les deux vues
+          suivent les memes boutons, elles doivent commencer au meme endroit. */}
+      <section className={`mx-auto max-w-[110rem] px-5 pt-3 md:px-10 ${vue === 'liste' ? '' : 'hidden'}`}>
         {/* Recherche sans résultat direct → on annonce qu'on propose autre chose. */}
         {q && places.length === 0 && shown.length > 0 && (
           <Reveal
@@ -271,7 +272,7 @@ export default function NosAdresses() {
             retrouve la grille. Tout en CSS — rien à mesurer, rien à hydrater.
             Les marges négatives font toucher les bords de l'écran ; le padding
             qui les compense garde la première fiche alignée sur le texte. */}
-        <div className="cava-swipe -mx-5 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
+        <div className="cava-swipe -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
           {shown.map((pl, i) => {
             const isActive = active === pl.id;
             return (
