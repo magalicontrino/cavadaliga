@@ -50,6 +50,24 @@ export default function Reveal({
     setInView(true);
   }, [now]);
 
+  /**
+   * Ce qui est DEJA a l'ecran quand la page s'ouvre se montre tout de suite.
+   *
+   * L'observateur ci-dessous attend 15 % de l'element, moins 8 % de marge en
+   * bas. Une grande photo qui depasse a peine du bas de l'ecran n'atteint jamais
+   * ce seuil : mesure sur « La famille », la premiere rangee commençait a 706 px
+   * dans une fenetre de 745 — visible, et pourtant a opacite 0. Elle attendait
+   * un defilement pour exister.
+   *
+   * On garde le fondu : c'est l'effet, pas son contournement. L'observateur
+   * continue de servir pour tout ce qui vient plus bas.
+   */
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (el.getBoundingClientRect().top < window.innerHeight) setInView(true);
+  }, []);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;

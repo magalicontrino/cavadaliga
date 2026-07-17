@@ -85,8 +85,20 @@ export default function Salva() {
       {/* Arbre généalogique (structure d'exemple ; participatif à venir) */}
       <section className="mx-auto max-w-[110rem] px-5 pb-24 md:px-10">
         <Reveal>
-          <h2 className="text-[clamp(1.6rem,4vw,2.6rem)] leading-[1.05]" style={{ fontWeight: 600 }}>
-            {s.treeTitle}
+          {/* Le meme habit que le titre de la page : capitales, gras, et le
+              dernier mot enferme dans sa pilule. Plus petit, parce qu'une
+              section n'est pas une page. */}
+          <h2
+            className="max-w-[16ch] text-[clamp(1.8rem,4.4vw,3.2rem)] uppercase leading-[0.95] tracking-[-0.02em]"
+            style={{ fontWeight: 900 }}
+          >
+            {s.treeTitle.split(' ').slice(0, -1).join(' ')}{' '}
+            <span
+              className="inline-block whitespace-nowrap rounded-full border-2 px-4 pb-1 pt-0.5 leading-none"
+              style={{ borderColor: 'var(--cava-ink)' }}
+            >
+              {s.treeTitle.split(' ').at(-1)}
+            </span>
           </h2>
           <p className="mt-3 max-w-[52ch] text-[15px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
             {s.treeNote}

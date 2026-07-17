@@ -88,7 +88,7 @@ export default function Calendrier() {
 
   return (
     <main>
-      <Nav current="/calendrier" />
+      <Nav current="/evenements" />
 
       <PageHeader title={c.title} intro={c.intro} />
 

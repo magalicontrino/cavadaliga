@@ -44,9 +44,9 @@ export default function Nav({ current }: { current?: string }) {
               Meme habit que le vinyle : ces deux-la sont des raccourcis, pas des
               pages de plus. */}
           <a
-            href={withBase('/calendrier')}
+            href={withBase('/evenements')}
             aria-label={t.calendarPage.title}
-            aria-current={current === '/calendrier' ? 'page' : undefined}
+            aria-current={current === '/evenements' ? 'page' : undefined}
             title={t.calendarPage.title}
             className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full aria-[current=page]:opacity-45"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}

@@ -23,7 +23,7 @@ export const NAV = [
   { href: '/preparer-le-voyage' },
   { href: '/informations-pratiques' },
   { href: '/services-locaux' },
-  { href: '/calendrier' },
+  { href: '/evenements' },
 ] as const;
 
 // Galerie — vraies photos dans /public/picture-sicile/, repli /public/deco/
