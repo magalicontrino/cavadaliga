@@ -33,7 +33,14 @@ const PLACES = [
 // « Sons & images » n'est plus une page : ses sept sections vivent ici. La
 // region, c'est aussi ce qu'on en a chante, filme, peint et photographie — une
 // page de moins dans le menu, et le meme geste pour tout parcourir.
-type Key = 'tout' | 'lieux' | 'coutumes' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
+type Section = 'lieux' | 'coutumes' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
+type Key = 'tout' | 'sons' | Section;
+
+// « Sons & images » n'est pas une section : c'est un GROUPE. Un bouton pour les
+// sept d'un coup — sinon la page perdait ce qu'elle etait, et il fallait sept
+// clics pour retrouver l'ancienne. Les sept restent la, un a un, pour qui
+// cherche precisement la peinture ou les ecrans.
+const SONS: Section[] = ['playlist', 'ecrans', 'peinture', 'sculpture', 'photo', 'mains', 'chansons'];
 
 export default function LaRegion() {
   const { t, lang } = useI18n();
@@ -53,14 +60,15 @@ export default function LaRegion() {
     setClicks((c) => c + 1);
   };
   // « Tout » enchaîne les trois ; sinon on isole une seule section.
-  const show = (k: Key) => filter === 'tout' || filter === k;
+  const show = (k: Section) => filter === 'tout' || filter === k || (filter === 'sons' && SONS.includes(k));
 
-  // Le vinyle du bandeau vise « #sons » : il promet la musique, il doit la
-  // donner. Sans ca il deposait sur « Les lieux », le tri par defaut, et le
-  // picto mentait. Une seule fois, a l'arrivee : ensuite on trie a la main.
+  // Le vinyle du bandeau vise « #sons » : il promet l'ancienne page, il doit la
+  // rendre entiere — les sept sections, pas la seule playlist. Sans ca il
+  // deposait sur « Les lieux », le tri par defaut, et le picto mentait. Une
+  // seule fois, a l'arrivee : ensuite on trie a la main.
   useEffect(() => {
     if (window.location.hash !== '#sons') return;
-    setFilter('playlist');
+    setFilter('sons');
     setClicks((c) => c + 1);
   }, []);
 
@@ -70,6 +78,7 @@ export default function LaRegion() {
     { key: 'lieux', label: rf.places, icon: 'pin' },
     { key: 'coutumes', label: rf.customs, icon: 'cone' },
     { key: 'arabe', label: rf.arab, icon: 'landmark' },
+    { key: 'sons', label: rf.sounds, icon: 'vinyl' },
     { key: 'playlist', label: cf.playlist, icon: 'spotify' },
     { key: 'ecrans', label: cf.screens, icon: 'film' },
     { key: 'peinture', label: cf.painting, icon: 'brush' },

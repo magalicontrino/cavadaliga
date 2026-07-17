@@ -122,7 +122,7 @@ export type Dict = {
     categories: { title: string; desc: string; spots: { label: string; url: string; instagram?: string }[] }[];
     markets: { title: string; desc: string; list: { label: string; url: string }[] };
   };
-  salvaPage: { title: string; intro: string; historyTitle: string; historyText: string; treeTitle: string; treeNote: string; treePaternal: string; treeMaternal: string; treeWife1: string; treeWife2: string; treeAdd: string; treeAddSubject: string; treeExample: string };
+  salvaPage: { title: string; intro: string; historyTitle: string; historyText: string; treeTitle: string; treeNote: string; treePaternal: string; treeMaternal: string; treeWife1: string; treeWife2: string; treeGreat: string; treeParents: string; treeQuestionsTitle: string; treeQuestionsNote: string; treeAdd: string; treeAddSubject: string; treeExample: string };
   calendarPage: { title: string; intro: string; festivalsTitle: string; programNote: string; programMore: string; socialsTitle: string; festivalDescs: string[]; };
   culturePage: {
     eyebrow: string;
@@ -198,6 +198,8 @@ export type Dict = {
     places: string;
     customs: string;
     arab: string;
+    /** Rassemble les sept sections venues de « Sons & images » en un seul bouton. */
+    sounds: string;
   };
   infoFilter: {
     all: string;
@@ -402,7 +404,7 @@ const FR: Dict = {
       ],
     },
   },
-  salvaPage: { title: 'La famille', intro: 'Photos, souvenirs et histoire de la famille, au fil des années.', historyTitle: 'Histoire de la famille', historyText: "De génération en génération, cette maison de Cava d’Aliga rassemble la famille. On écrira bientôt son histoire ici — les origines, les étés partagés et les visages qui l’ont fait vivre.", treeTitle: 'Arbre généalogique', treeNote: 'Bientôt : un arbre participatif où chacun pourra ajouter sa branche.', treePaternal: 'Grands-parents paternels', treeMaternal: 'Grands-parents maternels', treeWife1: '1re épouse', treeWife2: '2e épouse', treeAdd: '+ Ajouter ma branche', treeAddSubject: 'Arbre généalogique — ma branche', treeExample: 'Structure d’exemple — dites-nous les vrais liens et on complète.' },
+  salvaPage: { title: 'La famille', intro: 'Photos, souvenirs et histoire de la famille, au fil des années.', historyTitle: 'Histoire de la famille', historyText: "De génération en génération, cette maison de Cava d’Aliga rassemble la famille. On écrira bientôt son histoire ici — les origines, les étés partagés et les visages qui l’ont fait vivre.", treeTitle: 'Arbre généalogique', treeNote: 'Ce que la famille nous a transmis. Il reste des blancs — ils sont listés en bas, et chacun peut les combler.', treePaternal: 'Grands-parents paternels', treeMaternal: 'Grands-parents maternels', treeWife1: '1re épouse', treeWife2: '2e épouse', treeGreat: 'Arrière-grands-parents', treeParents: 'Les parents', treeQuestionsTitle: 'Ce qu’il nous manque', treeQuestionsNote: 'Ces cases sont vides parce que personne ne nous a encore donné la réponse — pas parce qu’elles n’existent pas. Vous êtes de la famille et vous savez ? Dites-le-nous : c’est comme ça que l’arbre grandit.', treeAdd: '+ Ajouter ma branche', treeAddSubject: 'Arbre généalogique — ma branche', treeExample: 'Il manque du monde, et des dates — dites-nous ce que vous savez.' },
   calendarPage: { title: 'Événements à venir', intro: 'Ce qui se passe autour de la maison — le programme de l’été à Bruca, et les grandes fêtes siciliennes.', festivalsTitle: 'Fêtes siciliennes', programNote: 'Sotto il cielo di Bruca — le programme de l’été, à deux pas de la maison. Suivez les couleurs.', programMore: 'Détails et horaires sur Instagram', socialsTitle: 'À suivre', festivalDescs: ["Le grand jour de l’été italien. Héritée des Feriae Augusti romaines et associée à l’Assomption, la fête réunit familles et villages autour de la mer : baignades, grands repas, processions et feux d’artifice animent toute la Sicile.", "Saint Roch, invoqué depuis des siècles contre les épidémies, protège de nombreuses communautés siciliennes. À Scicli, sa statue est portée en procession dans les ruelles, au son des fanfares et sous les illuminations de fête.", "Saint Jean-Baptiste est le patron de Raguse, dont la cathédrale lui est dédiée. Le 29 août, jour de sa décollation, la ville s’illumine : procession solennelle de la statue du saint et grand feu d’artifice au-dessus de la vieille ville.", "Saint Conrad Confalonieri, ermite vénéré comme patron de Noto. Le dernier dimanche d’août, son urne d’argent traverse les rues baroques dans une immense ferveur populaire, entre cierges, fleurs et cortèges."] },
   culturePage: {
     eyebrow: 'Culture',
@@ -493,6 +495,7 @@ const FR: Dict = {
     places: 'Les lieux',
     customs: 'Us et coutumes',
     arab: 'Sicile arabe',
+    sounds: 'Sons & images',
   },
   infoFilter: {
     all: 'Tout voir',
@@ -801,7 +804,7 @@ const IT: Dict = {
       ],
     },
   },
-  salvaPage: { title: 'La famiglia', intro: 'Foto, ricordi e storia della famiglia, nel corso degli anni.', historyTitle: 'Storia della famiglia', historyText: "Di generazione in generazione, questa casa di Cava d’Aliga riunisce la famiglia. Presto ne racconteremo qui la storia — le origini, le estati condivise e i volti che l’hanno animata.", treeTitle: 'Albero genealogico', treeNote: 'Presto: un albero partecipativo dove ognuno potrà aggiungere il proprio ramo.', treePaternal: 'Nonni paterni', treeMaternal: 'Nonni materni', treeWife1: '1ª moglie', treeWife2: '2ª moglie', treeAdd: '+ Aggiungi il mio ramo', treeAddSubject: 'Albero genealogico — il mio ramo', treeExample: 'Struttura di esempio — diteci i legami reali e completiamo.' },
+  salvaPage: { title: 'La famiglia', intro: 'Foto, ricordi e storia della famiglia, nel corso degli anni.', historyTitle: 'Storia della famiglia', historyText: "Di generazione in generazione, questa casa di Cava d’Aliga riunisce la famiglia. Presto ne racconteremo qui la storia — le origini, le estati condivise e i volti che l’hanno animata.", treeTitle: 'Albero genealogico', treeNote: 'Quello che la famiglia ci ha trasmesso. Restano dei vuoti — sono elencati in fondo, e ognuno può colmarli.', treePaternal: 'Nonni paterni', treeMaternal: 'Nonni materni', treeWife1: '1ª moglie', treeWife2: '2ª moglie', treeGreat: 'Bisnonni', treeParents: 'I genitori', treeQuestionsTitle: 'Quello che ci manca', treeQuestionsNote: 'Queste caselle sono vuote perché nessuno ci ha ancora dato la risposta — non perché non esistano. Siete della famiglia e lo sapete? Ditecelo: è così che l’albero cresce.', treeAdd: '+ Aggiungi il mio ramo', treeAddSubject: 'Albero genealogico — il mio ramo', treeExample: 'Mancano persone e date — diteci quello che sapete.' },
   calendarPage: { title: 'Prossimi eventi', intro: 'Cosa succede intorno a casa — il programma dell’estate a Bruca e le grandi feste siciliane.', festivalsTitle: 'Feste siciliane', programNote: 'Sotto il cielo di Bruca — il programma dell’estate, a due passi da casa. Seguite i colori.', programMore: 'Dettagli e orari su Instagram', socialsTitle: 'Da seguire', festivalDescs: ["Il grande giorno dell’estate italiana. Erede delle Feriae Augusti romane e legata all’Assunzione, la festa riunisce famiglie e paesi in riva al mare: bagni, grandi pranzi, processioni e fuochi d’artificio animano tutta la Sicilia.", "San Rocco, invocato da secoli contro le epidemie, protegge molte comunità siciliane. A Scicli la sua statua è portata in processione tra i vicoli, tra bande musicali e luminarie di festa.", "San Giovanni Battista è il patrono di Ragusa, a cui è dedicata la cattedrale. Il 29 agosto, giorno della sua decollazione, la città si illumina: solenne processione della statua e grande spettacolo pirotecnico sopra la città vecchia.", "San Corrado Confalonieri, eremita venerato come patrono di Noto. L’ultima domenica d’agosto, la sua urna d’argento attraversa le vie barocche in una grande devozione popolare, tra ceri, fiori e cortei."] },
   culturePage: {
     eyebrow: 'Cultura',
@@ -892,6 +895,7 @@ const IT: Dict = {
     places: 'I luoghi',
     customs: 'Usi e costumi',
     arab: 'Sicilia araba',
+    sounds: 'Suoni & immagini',
   },
   infoFilter: {
     all: 'Vedi tutto',
@@ -1200,7 +1204,7 @@ const EN: Dict = {
       ],
     },
   },
-  salvaPage: { title: 'The family', intro: 'Photos, memories and family history, over the years.', historyTitle: 'Family history', historyText: "From one generation to the next, this house in Cava d’Aliga brings the family together. Its story will soon be written here — the origins, the shared summers and the faces that made it live.", treeTitle: 'Family tree', treeNote: 'Coming soon: a collaborative tree where everyone can add their branch.', treePaternal: 'Paternal grandparents', treeMaternal: 'Maternal grandparents', treeWife1: '1st wife', treeWife2: '2nd wife', treeAdd: '+ Add my branch', treeAddSubject: 'Family tree — my branch', treeExample: 'Example structure — tell us the real relationships and we’ll complete it.' },
+  salvaPage: { title: 'The family', intro: 'Photos, memories and family history, over the years.', historyTitle: 'Family history', historyText: "From one generation to the next, this house in Cava d’Aliga brings the family together. Its story will soon be written here — the origins, the shared summers and the faces that made it live.", treeTitle: 'Family tree', treeNote: 'What the family has passed on to us. Blanks remain — they are listed at the bottom, and anyone can fill them in.', treePaternal: 'Paternal grandparents', treeMaternal: 'Maternal grandparents', treeWife1: '1st wife', treeWife2: '2nd wife', treeGreat: 'Great-grandparents', treeParents: 'The parents', treeQuestionsTitle: 'What we are missing', treeQuestionsNote: 'These boxes are empty because nobody has given us the answer yet — not because there is none. You are family and you know? Tell us: that is how the tree grows.', treeAdd: '+ Add my branch', treeAddSubject: 'Family tree — my branch', treeExample: 'People and dates are missing — tell us what you know.' },
   calendarPage: { title: 'Upcoming events', intro: 'What is happening around the house — the summer programme in Bruca, and the great Sicilian feasts.', festivalsTitle: 'Sicilian festivals', programNote: 'Sotto il cielo di Bruca — the summer programme, steps from the house. Follow the colours.', programMore: 'Details and times on Instagram', socialsTitle: 'Follow', festivalDescs: ["The high point of the Italian summer. Descended from the Roman Feriae Augusti and tied to the Assumption, the holiday gathers families and villages by the sea: swimming, big meals, processions and fireworks all across Sicily.", "Saint Roch, invoked for centuries against epidemics, protects many Sicilian communities. In Scicli his statue is carried in procession through the alleys, amid brass bands and festive lights.", "Saint John the Baptist is the patron of Ragusa, whose cathedral is dedicated to him. On 29 August, the day of his beheading, the town lights up: a solemn procession of the statue and a grand fireworks display over the old town.", "Saint Conrad Confalonieri, a hermit venerated as Noto’s patron. On the last Sunday of August, his silver urn moves through the baroque streets in great popular devotion, among candles, flowers and processions."] },
   culturePage: {
     eyebrow: 'Culture',
@@ -1291,6 +1295,7 @@ const EN: Dict = {
     places: 'The places',
     customs: 'Local customs',
     arab: 'Arab Sicily',
+    sounds: 'Sounds & screens',
   },
   infoFilter: {
     all: 'See all',

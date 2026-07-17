@@ -3,13 +3,23 @@
 import { useI18n } from './i18n';
 
 // ─────────────────────────────────────────────────────────────────────────
-// Arbre généalogique — vrais membres. Les prénoms sont des données (pas
-// traduits) ; seuls les libellés descriptifs passent par i18n.
-// Côté paternel : Angelo a eu deux épouses, toutes deux prénommées Concetta.
-//   • 1ʳᵉ Concetta → Salvatore
-//   • 2ᵉ Concetta → Stefano, Saro, Pina (demi-frères/sœur de Salvatore)
-// Les deux « côtés » se rejoindront via la génération des parents (à venir).
-// Plus tard : ces données pourront venir d'un Google Sheet partagé.
+// Arbre généalogique — vrais membres, repris du relevé généalogique de Mag.
+//
+// Les prénoms et les noms sont des données (pas traduits) ; seuls les libellés
+// descriptifs passent par i18n.
+//
+// Deux pièges de lecture, et je suis tombé dans le premier :
+//   • Le relevé liste les gens en « Nom Prénom » (« Lux Pierre », « Thurot
+//     Juliette Emilienne »), alors que ses phrases disent « Prénom Nom »
+//     (« fils de Pierre Lux et Angelina Viseux »). Ici on écrit comme on parle :
+//     Pierre Lux. Régine est née Lux.
+//   • Il y a DEUX Pierre Lux, le père (1881-1975) et le fils (1920). Celui qui
+//     épouse Juliette Thurot est le fils.
+//
+// Ce qui manque est en bas de page, et c'est voulu : une case vide n'est pas un
+// oubli, c'est une question posée à ceux qui savent.
+//
+// Ne JAMAIS écrire le nom complet de Mag : « Mag », et rien d'autre.
 // ─────────────────────────────────────────────────────────────────────────
 type Person = { name: string; subtitle?: string; children?: Person[] };
 type Side = { label: string; families: Person[] };
@@ -29,7 +39,7 @@ function Card({ p }: { p: Person }) {
         {p.name}
       </span>
       {p.subtitle && (
-        <span className="text-[11px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-muted)' }}>
+        <span className="whitespace-nowrap text-[11px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-muted)' }}>
           {p.subtitle}
         </span>
       )}
@@ -53,47 +63,165 @@ function Node({ p }: { p: Person }) {
 }
 
 export default function FamilyTree() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const s = t.salvaPage;
 
   const SIDES: Side[] = [
     {
       label: s.treePaternal,
       families: [
-        { name: 'Angelo & Concetta', subtitle: s.treeWife1, children: [{ name: 'Salvatore' }] },
         {
-          name: 'Angelo & Concetta',
+          name: 'Salvatore Contrino & Giuseppina Marcino',
+          subtitle: s.treeGreat,
+          children: [
+            { name: 'Angelo' },
+            { name: 'Stefano', subtitle: '1930' },
+            { name: 'Joseph' },
+            { name: 'Gabi' },
+            { name: 'Jacques' },
+            { name: 'Benito', subtitle: '1943' },
+            { name: 'Lucia' },
+            { name: 'Helene' },
+            { name: 'Maria' },
+          ],
+        },
+        {
+          name: 'Angelo Contrino & Conchetta Canolo',
+          subtitle: `${s.treeWife1} · ~1900 – ~1947`,
+          children: [{ name: 'Salvatore', subtitle: '1947' }],
+        },
+        {
+          name: 'Angelo Contrino & Conchetta Sberna',
           subtitle: s.treeWife2,
-          children: [{ name: 'Stefano' }, { name: 'Saro' }, { name: 'Pina' }],
+          children: [{ name: 'Josephine' }, { name: 'Sarro' }, { name: 'Stefano' }],
         },
       ],
     },
     {
       label: s.treeMaternal,
-      // Les noms viennent de Mag : Juliette Thurot, et Lux Pierre — « Galoi »
-      // etait faux, et Lux n'avait pas son nom. On n'invente rien ici.
-      families: [{ name: 'Juliette Thurot & Lux Pierre', children: [{ name: 'Régine' }] }],
+      families: [
+        {
+          name: 'Pierre Lux & Angelina Viseux',
+          subtitle: `${s.treeGreat} · 1881–1975 · 1882–1959`,
+          children: [{ name: 'Pierre', subtitle: '1920' }],
+        },
+        {
+          name: 'Louis Thurot & Mélanie Souveton',
+          subtitle: `${s.treeGreat} · 1893`,
+          children: [{ name: 'Juliette Emilienne', subtitle: '1923' }],
+        },
+        {
+          name: 'Pierre Lux & Juliette Thurot',
+          children: [{ name: 'Régine' }],
+        },
+      ],
     },
   ];
 
+  // Les deux côtés se rejoignent ici — c'est ce que l'arbre attendait depuis le
+  // début. Prénoms seuls pour cette génération : ils sont vivants, et le site
+  // est ouvert à tous.
+  const PARENTS: Person = {
+    name: 'Salvatore Contrino & Régine Lux',
+    children: [{ name: 'David' }, { name: 'Michaël' }, { name: 'Mag' }],
+  };
+
   return (
-    <div className="grid gap-10 md:grid-cols-2">
-      {SIDES.map((side) => (
-        <div key={side.label}>
-          <p className="mb-5 text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)' }}>
-            {side.label}
-          </p>
-          <div className="flex flex-col gap-8">
-            {side.families.map((fam, i) => (
-              <div key={`${fam.name}-${i}`} className="cava-tree overflow-x-auto pb-4">
-                <ul>
-                  <Node p={fam} />
-                </ul>
-              </div>
-            ))}
+    <div className="flex flex-col gap-12">
+      <div className="grid gap-10 md:grid-cols-2">
+        {SIDES.map((side) => (
+          <div key={side.label}>
+            <p className="mb-5 text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)' }}>
+              {side.label}
+            </p>
+            <div className="flex flex-col gap-8">
+              {side.families.map((fam, i) => (
+                <div key={`${fam.name}-${i}`} className="cava-tree overflow-x-auto pb-4">
+                  <ul>
+                    <Node p={fam} />
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
+        ))}
+      </div>
+
+      {/* La jonction des deux côtés */}
+      <div>
+        <p className="mb-5 text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)' }}>
+          {s.treeParents}
+        </p>
+        <div className="cava-tree overflow-x-auto pb-4">
+          <ul>
+            <Node p={PARENTS} />
+          </ul>
         </div>
-      ))}
+      </div>
+
+      {/* Ce qui manque — en bas, et nommé. Une case vide ne dit rien ; une
+          question posée peut trouver sa réponse. */}
+      <div className="rounded-2xl border border-dashed p-8 md:p-10" style={{ borderColor: 'var(--cava-line)' }}>
+        <h3 className="text-[clamp(1.1rem,2.2vw,1.4rem)] leading-[1.15]" style={{ fontWeight: 600 }}>
+          {s.treeQuestionsTitle}
+        </h3>
+        <p className="mt-2 max-w-[70ch] text-[14.5px] leading-[1.65]" style={{ color: 'var(--cava-muted)' }}>
+          {s.treeQuestionsNote}
+        </p>
+        <ul className="mt-6 flex flex-col gap-2.5">
+          {QUESTIONS.map((q) => (
+            <li key={q.fr} className="flex items-start gap-3 text-[14.5px] leading-[1.6]">
+              <span className="mt-[9px] h-[5px] w-[5px] shrink-0 rounded-full" style={{ background: 'var(--cava-pink)' }} />
+              <span>{q[lang]}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
+
+// Ce que le relevé laisse en blanc — les « ? ? » et les dates absentes. Chaque
+// ligne est une question à quelqu'un de la famille, pas un défaut du site.
+const QUESTIONS: { fr: string; it: string; en: string }[] = [
+  {
+    fr: 'Les dates d’Angelo Contrino, et celles de ses parents Salvatore et Giuseppina.',
+    it: 'Le date di Angelo Contrino e quelle dei suoi genitori Salvatore e Giuseppina.',
+    en: 'Angelo Contrino’s dates, and those of his parents Salvatore and Giuseppina.',
+  },
+  {
+    fr: 'Les dates de Conchetta Sberna, la seconde épouse d’Angelo.',
+    it: 'Le date di Conchetta Sberna, la seconda moglie di Angelo.',
+    en: 'The dates of Conchetta Sberna, Angelo’s second wife.',
+  },
+  {
+    fr: 'Le mari d’Helene Contrino — et celui de ses filles Angelina, Antoinette, Josephine et Rosalba.',
+    it: 'Il marito di Helene Contrino — e quello delle figlie Angelina, Antoinette, Josephine e Rosalba.',
+    en: 'Helene Contrino’s husband — and those of her daughters Angelina, Antoinette, Josephine and Rosalba.',
+  },
+  {
+    fr: 'Les deux maris de Lucia Contrino.',
+    it: 'I due mariti di Lucia Contrino.',
+    en: 'Lucia Contrino’s two husbands.',
+  },
+  {
+    fr: 'Le mari de Maria Contrino, et celui de Lara Contrino.',
+    it: 'Il marito di Maria Contrino e quello di Lara Contrino.',
+    en: 'Maria Contrino’s husband, and Lara Contrino’s.',
+  },
+  {
+    fr: 'Le nom de famille de Sophie, l’épouse de Gabi Contrino.',
+    it: 'Il cognome di Sophie, la moglie di Gabi Contrino.',
+    en: 'The surname of Sophie, Gabi Contrino’s wife.',
+  },
+  {
+    fr: 'Les dates de Louis Thurot, de Mélanie Souveton, de Pierre Lux et de Juliette Thurot.',
+    it: 'Le date di Louis Thurot, Mélanie Souveton, Pierre Lux e Juliette Thurot.',
+    en: 'The dates of Louis Thurot, Mélanie Souveton, Pierre Lux and Juliette Thurot.',
+  },
+  {
+    fr: 'Et les photos : un seul visage vaut mieux que dix cases.',
+    it: 'E le foto: un solo volto vale più di dieci caselle.',
+    en: 'And the photographs: a single face is worth more than ten boxes.',
+  },
+];
