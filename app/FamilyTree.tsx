@@ -133,6 +133,14 @@ export default function FamilyTree() {
     children: [{ name: 'David' }, { name: 'Michaël' }, { name: 'Mag' }],
   };
 
+  // La generation suivante. Prenoms seuls, sans annees : le releve les porte,
+  // mais certaines sont mineures et le site est ouvert a tous. Et « Mag » reste
+  // « Mag », meme quand la demande ecrit son nom entier — c'est la regle.
+  const ENFANTS: Person[] = [
+    { name: 'Michaël Contrino & Nathalie Gigli', children: [{ name: 'Juliette' }, { name: 'Marie' }, { name: 'Zoé' }] },
+    { name: 'Mag & Benoît Vanbastelaer', children: [{ name: 'Eve' }, { name: 'Manon' }] },
+  ];
+
   return (
     <div className="flex flex-col gap-14">
       <div className="flex flex-col gap-14">
@@ -163,6 +171,22 @@ export default function FamilyTree() {
           <ul>
             <Node p={PARENTS} />
           </ul>
+        </div>
+      </div>
+
+      {/* Et leurs enfants */}
+      <div>
+        <p className="mb-5 text-center text-[12px] uppercase tracking-[0.12em] md:text-left" style={{ color: 'var(--cava-muted)' }}>
+          {s.treeChildren}
+        </p>
+        <div className="flex flex-col gap-8">
+          {ENFANTS.map((f) => (
+            <div key={f.name} className="cava-tree overflow-x-auto pb-4">
+              <ul>
+                <Node p={f} />
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
 
