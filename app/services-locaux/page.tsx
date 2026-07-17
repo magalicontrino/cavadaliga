@@ -40,6 +40,17 @@ export default function NosAdresses() {
   const [me, setMe] = useState<{ lat: number; lon: number } | null>(null);
   const [geo, setGeo] = useState<'idle' | 'asking' | 'ok' | 'far' | 'error'>('idle');
   const mapRef = useRef<HTMLElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * Choisir doit MONTRER le resultat. On cale la RANGEE DE BOUTONS en haut de
+   * l'ecran : la carte prend alors toute la place en dessous, et les boutons
+   * restent sous les yeux — cadrer la carte les chasserait du champ juste apres
+   * qu'on les a touches. On vise les boutons et pas la section entiere : celle-
+   * ci porte aussi la recherche et la bascule, et sa hauteur change quand la
+   * banniere du depart apparait — le defilement tombait alors a cote.
+   */
+  const montrerLeResultat = () => menuRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   // Catégories affichées comme filtres (certaines encore vides → « à venir »).
   const FILTER_CATS: CatKey[] = ['chocolat', 'huile', 'marche', 'plantes', 'resto', 'supermarche', 'plage'];
@@ -150,7 +161,7 @@ export default function NosAdresses() {
       {/* Le menu avant la carte : on trie, on cherche, et la carte repond.
           En dessous, on choisissait a l'aveugle ce qu'on ne voyait plus. */}
       <section className="mx-auto max-w-[110rem] px-5 pt-4 md:px-10">
-        {/* Recherche manuelle par mots ou envie + « Où suis-je ? » */}
+        {/* « Vous etes ou ? » et la bascule carte / liste */}
         <Reveal className="mb-5 flex flex-col gap-3 md:flex-row md:items-center">
           {/* « Vous etes ou ? » — on se pose par le nom plutot qu'au doigt. */}
           <form onSubmit={chercherOu} className="flex flex-1 items-center gap-3 md:max-w-md">
@@ -201,6 +212,7 @@ export default function NosAdresses() {
                   // Comme pour les filtres : ce qui répond à un clic doit être
                   // là tout de suite, pas attendre d'être vu pour apparaître.
                   setClicks((c) => c + 1);
+                  montrerLeResultat();
                 }}
                 aria-pressed={vue === v}
                 className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] transition"
@@ -230,6 +242,7 @@ export default function NosAdresses() {
           </Reveal>
         )}
 
+        <div ref={menuRef} className="scroll-mt-4">
         <Reveal className="cava-swipe -mx-5 flex gap-2.5 overflow-x-auto px-5 pb-1 md:-mx-10 md:px-10">
           <FilterChip
             label={p.filterAll}
@@ -240,6 +253,7 @@ export default function NosAdresses() {
               setFilter('tout');
               setActive(null);
               setClicks((c) => c + 1);
+              montrerLeResultat();
             }}
           />
           {filters.map((f) => {
@@ -254,11 +268,13 @@ export default function NosAdresses() {
                   setFilter(f.key);
                   setActive(null);
                   setClicks((c) => c + 1);
+                  montrerLeResultat();
                 }}
               />
             );
           })}
         </Reveal>
+        </div>
       </section>
 
       {/* La recherche a echoue — on dit pourquoi, et on rappelle qu'il reste le doigt. */}
