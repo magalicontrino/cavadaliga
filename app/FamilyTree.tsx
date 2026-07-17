@@ -168,7 +168,7 @@ export default function FamilyTree() {
 
       {/* Ce qui manque — en bas, et nommé. Une case vide ne dit rien ; une
           question posée peut trouver sa réponse. */}
-      <div className="rounded-3xl px-6 py-14 md:px-14 md:py-20" style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)' }}>
+      <div className="rounded-3xl border-2 px-6 py-14 md:px-14 md:py-20" style={{ borderColor: 'var(--cava-ink)' }}>
         <h3
           className="max-w-[16ch] text-[clamp(1.8rem,4.4vw,3.2rem)] uppercase leading-[0.95] tracking-[-0.02em]"
           style={{ fontWeight: 900 }}
@@ -181,14 +181,14 @@ export default function FamilyTree() {
             {s.treeQuestionsTitle.split(' ').at(-1)}
           </span>
         </h3>
-        <p className="mt-6 max-w-[62ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.65]" style={{ color: 'rgba(247,245,242,0.62)' }}>
+        <p className="mt-6 max-w-[62ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.65]" style={{ color: 'var(--cava-muted)' }}>
           {s.treeQuestionsNote}
         </p>
         {/* Numerotees, et grandes : ce sont des questions posees a quelqu'un,
             pas des notes de bas de page. */}
         <ol className="mt-12 grid gap-x-10 gap-y-7 md:grid-cols-2">
           {QUESTIONS.map((q, i) => (
-            <li key={q.fr} className="flex items-baseline gap-4 border-t pt-5" style={{ borderColor: 'rgba(247,245,242,0.16)' }}>
+            <li key={q.fr} className="flex items-baseline gap-4 border-t pt-5" style={{ borderColor: 'var(--cava-line)' }}>
               <span className="shrink-0 font-mono text-[13px] tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
                 {String(i + 1).padStart(2, '0')}
               </span>
