@@ -111,14 +111,14 @@ export default function FamilyTree() {
           children: [{ name: 'Juliette Emilienne', subtitle: '1923' }],
         },
         {
-          name: 'Pierre Lux & Juliette Thurot',
+          name: 'Pierre Lux & Juliette Emilienne Thurot',
           subtitle: s.treeMarriage1,
           children: [{ name: 'Régine' }],
         },
         // Le second mariage de Juliette. « Tonton Charles » est le nom que la
         // famille lui donne — c'est le seul qu'on ait, et on n'en invente pas.
         {
-          name: 'Juliette Thurot & Charles',
+          name: 'Juliette Emilienne Thurot & Charles',
           subtitle: s.treeMarriage2,
         },
       ],

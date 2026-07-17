@@ -4,7 +4,7 @@ import ContactCta from './ContactCta';
 import Marquee from './Marquee';
 import PersoLink from './PersoLink';
 import { NAV, withBase } from './data';
-import { useI18n } from './i18n';
+import { useI18n, LangSwitcher } from './i18n';
 
 /** Un lien géant du footer — une page du site. */
 function FootLink({ href, label }: { href: string; label: string }) {
@@ -45,9 +45,11 @@ export default function Footer() {
           ))}
         </nav>
 
-        {/* Bas de footer */}
-        <div className="mt-12 text-[12px]" style={{ color: 'var(--cava-muted)' }}>
+        {/* Bas de footer — les langues y sont sur TOUS les ecrans : c'est le
+            point de chute commun, celui qu'on trouve sans chercher. */}
+        <div className="mt-12 flex flex-col gap-6 text-[12px] sm:flex-row sm:items-center sm:justify-between" style={{ color: 'var(--cava-muted)' }}>
           <PersoLink />
+          <LangSwitcher />
         </div>
       </div>
     </footer>

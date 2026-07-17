@@ -34,12 +34,12 @@ export default function Nav({ current }: { current?: string }) {
           </a>
         </div>
 
-        {/* Sélecteur de langue IT · FR · EN — sur telephone, il passe SOUS la
-            rangee. Coince entre le logo et trois boutons ronds, il n'avait plus
-            la place : « IT » disparaissait derriere la carte de Scopa et « EN »
-            derriere le calendrier. Des qu'il y a de la largeur, il retrouve sa
-            place au centre. */}
-        <div className="absolute inset-x-0 top-[84px] flex justify-center md:static md:inset-auto md:top-auto">
+        {/* Sélecteur de langue IT · FR · EN — nulle part sur telephone.
+            Coince entre le logo et trois boutons ronds, il n'avait plus la
+            place ; sous la rangee, il encombrait. Or il vit deja dans le menu,
+            qui est a un doigt, et desormais dans le pied de page. Sur grand
+            ecran, il garde le centre. */}
+        <div className="hidden md:block">
           <LangSwitcher />
         </div>
 

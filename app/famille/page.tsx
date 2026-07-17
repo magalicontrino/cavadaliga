@@ -70,6 +70,23 @@ export default function Salva() {
                   {para}
                 </p>
               ))}
+
+              {/* L'histoire n'est pas close : elle attend ce que les autres
+                  savent. On dit AUSSI comment aider — qui, quand, ou — sinon on
+                  recoit des souvenirs qu'on ne sait pas raccrocher. */}
+              <p className="mt-10 border-t pt-8 text-[14.5px] leading-[1.7]" style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)' }}>
+                {s.storyOpen}
+              </p>
+              <a
+                href={`mailto:${SITE.email}?subject=${encodeURIComponent(s.storyOpenSubject)}`}
+                className="cava-navlink cava-ancre cava-ancre-lat mt-5 inline-flex items-center gap-2.5 text-[15px]"
+                style={{ fontWeight: 500 }}
+              >
+                {s.storyOpenCta}{' '}
+                <span className="cava-ancre-fleche" aria-hidden>
+                  →
+                </span>
+              </a>
             </div>
           </div>
         </Reveal>

@@ -111,6 +111,10 @@
 .cava-ancre:hover .cava-ancre-fleche {
   transform: translateY(4px);
 }
+/* Une fleche qui pointe a droite doit partir a droite, pas vers le bas. */
+.cava-ancre-lat:hover .cava-ancre-fleche {
+  transform: translateX(4px);
+}
 @media (prefers-reduced-motion: reduce) {
   .cava-ancre-fleche {
     transition: none;
