@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { CATS, LOCAL_PLACES, type Lang } from '../localData';
 import { HOUSE } from '../geo';
 import { COORDS } from './coords';
-import { ICON_PATHS } from '../Icon';
+import { ICON_PATHS, type IconName } from '../Icon';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { withBase } from '../data';
 
@@ -79,10 +79,28 @@ const style = (tiles: string) => ({
   ],
 });
 
-export default function MapLibreMap({ lang, filter }: { lang: Lang; filter: string }) {
+/** Un picto du site, en HTML brut — les fiches vivent hors de React. */
+const picto = (name: IconName, size: number) =>
+  renderToStaticMarkup(
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      {ICON_PATHS[name]}
+    </svg>,
+  );
+
+export default function MapLibreMap({
+  lang,
+  filter,
+  labels,
+}: {
+  lang: Lang;
+  filter: string;
+  // Les libellés viennent de la page : ce composant ne doit rien écrire en dur.
+  labels: { map: string; badge: string; here: string };
+}) {
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<unknown>(null);
   const markers = useRef<{ remove: () => void }[]>([]);
+  const popup = useRef<{ remove: () => void } | null>(null);
   const [state, setState] = useState<'chargement' | 'ok' | 'erreur'>('chargement');
   const [erreur, setErreur] = useState('');
 
@@ -91,7 +109,7 @@ export default function MapLibreMap({ lang, filter }: { lang: Lang; filter: stri
     (async () => {
       try {
         const [gl, pm] = await Promise.all([import('maplibre-gl'), import('pmtiles')]);
-        const { Map: GlMap, Marker, NavigationControl } = gl;
+        const { Map: GlMap, Marker, NavigationControl, Popup } = gl;
         const { Protocol } = pm;
         if (mort || !box.current) return;
 
@@ -113,7 +131,7 @@ export default function MapLibreMap({ lang, filter }: { lang: Lang; filter: stri
           setErreur(e?.error?.message ?? 'inconnue');
           setState('erreur');
         });
-        map.current = { m, Marker };
+        map.current = { m, Marker, Popup };
       } catch (e) {
         if (mort) return;
         setErreur(e instanceof Error ? e.message : String(e));
@@ -129,9 +147,34 @@ export default function MapLibreMap({ lang, filter }: { lang: Lang; filter: stri
 
   // Les épingles suivent le filtre. Chacune porte le picto de sa catégorie —
   // le même jeu d'icônes que le reste du site, pour comparer à armes égales.
+  // La fiche, façon Airbnb : ce qu'on veut savoir avant de décider d'y aller.
+  // Écrite en HTML — elle vit dans une bulle MapLibre, hors de l'arbre React,
+  // qui l'ancre à l'épingle et la suit au zoom et au déplacement.
+  const fiche = (p: (typeof LOCAL_PLACES)[number]) => `
+    <div class="cava-fiche">
+      <div class="cava-fiche-tete">
+        <span class="cava-fiche-picto">${picto(CATS[p.cat].icon, 20)}</span>
+        ${p.responsible ? `<span class="cava-fiche-badge">${picto('leaf', 12)} ${labels.badge}</span>` : ''}
+      </div>
+      <p class="cava-fiche-nom">${p.name}</p>
+      <p class="cava-fiche-meta">${p.town} · ${CATS[p.cat].label[lang]}</p>
+      <p class="cava-fiche-km">${picto('home', 13)} ${p.km === 0 ? labels.here : `≈ ${p.km} km`}</p>
+      <p class="cava-fiche-texte">${p.blurb[lang]}</p>
+      <div class="cava-fiche-liens">
+        <a class="cava-fiche-lien" href="${p.url}" target="_blank" rel="noopener noreferrer">${picto('pin', 14)} ${labels.map} <span aria-hidden="true">↗</span></a>
+        ${p.instagram ? `<a class="cava-fiche-lien" href="${p.instagram}" target="_blank" rel="noopener noreferrer">${picto('instagram', 14)} Instagram <span aria-hidden="true">↗</span></a>` : ''}
+      </div>
+    </div>`;
+
   useEffect(() => {
-    const c = map.current as { m: unknown; Marker: new (o: { element: HTMLElement }) => { setLngLat: (l: [number, number]) => { addTo: (m: unknown) => { remove: () => void } } } } | null;
+    const c = map.current as {
+      m: { easeTo: (o: object) => void };
+      Marker: new (o: { element: HTMLElement }) => { setLngLat: (l: [number, number]) => { addTo: (m: unknown) => { remove: () => void } } };
+      Popup: new (o: object) => { setLngLat: (l: [number, number]) => { setHTML: (h: string) => { addTo: (m: unknown) => { remove: () => void } } } };
+    } | null;
     if (!c || state !== 'ok') return;
+    popup.current?.remove();
+    popup.current = null;
     markers.current.forEach((x) => x.remove());
     markers.current = [];
 
@@ -139,17 +182,24 @@ export default function MapLibreMap({ lang, filter }: { lang: Lang; filter: stri
       .forEach((p) => {
         const co = COORDS[p.id];
         if (!co) return; // pas de position réelle : pas d'épingle inventée
-        const el = document.createElement('a');
-        el.href = p.url;
-        el.target = '_blank';
-        el.rel = 'noopener noreferrer';
-        el.title = `${p.name} — ${p.town}`;
+
+        // Un bouton, pas un lien : cliquer ouvre la fiche, on ne quitte pas la
+        // page. Le lien vers Google Maps vit DANS la fiche, une fois qu'on
+        // sait de quel endroit il s'agit.
+        const el = document.createElement('button');
+        el.type = 'button';
         el.className = 'cava-glpin';
-        el.innerHTML = `<span>${renderToStaticMarkup(
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-            {ICON_PATHS[CATS[p.cat].icon]}
-          </svg>,
-        )}</span>`;
+        el.setAttribute('aria-label', `${p.name} — ${p.town}`);
+        el.innerHTML = picto(CATS[p.cat].icon, 18);
+        el.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          popup.current?.remove();
+          popup.current = new c.Popup({ offset: 20, closeButton: true, maxWidth: '290px', className: 'cava-pop' })
+            .setLngLat([co.lon, co.lat])
+            .setHTML(fiche(p))
+            .addTo(c.m);
+          c.m.easeTo({ center: [co.lon, co.lat], duration: 400 });
+        });
         markers.current.push(new c.Marker({ element: el }).setLngLat([co.lon, co.lat]).addTo(c.m));
       });
 

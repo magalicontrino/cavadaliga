@@ -732,3 +732,117 @@
   font-size: 10px;
   background: rgb(247 245 242 / 0.9) !important;
 }
+
+/* ── Fiche d'un lieu sur la vraie carte (maquette /carte-essai) ────────
+   Cliquer une épingle n'emmène plus chez Google : on ouvre une fiche, et
+   le lien vit dedans. La bulle est ancrée à l'épingle par MapLibre. */
+.cava-pop .maplibregl-popup-content {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--cava-bg);
+  box-shadow: 0 8px 30px rgb(0 0 0 / 0.18);
+}
+.cava-pop .maplibregl-popup-tip {
+  border-top-color: var(--cava-bg);
+  border-bottom-color: var(--cava-bg);
+}
+.cava-pop .maplibregl-popup-close-button {
+  top: 6px;
+  right: 8px;
+  border-radius: 999px;
+  color: var(--cava-muted);
+  font-size: 20px;
+  line-height: 1;
+  padding: 2px 7px;
+}
+.cava-pop .maplibregl-popup-close-button:hover {
+  background: rgb(0 0 0 / 0.06);
+  color: var(--cava-ink);
+}
+.cava-fiche {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 18px;
+  font-family: inherit;
+}
+.cava-fiche-tete {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 22px; /* le bouton de fermeture */
+}
+.cava-fiche-picto {
+  display: inline-flex;
+  height: 38px;
+  width: 38px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid var(--cava-line);
+  color: var(--cava-ink);
+}
+.cava-fiche-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  background: rgb(230 41 111 / 0.09);
+  padding: 4px 9px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cava-pink);
+}
+.cava-fiche-nom {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--cava-ink);
+}
+.cava-fiche-meta {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cava-muted);
+}
+.cava-fiche-km {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cava-pink);
+}
+.cava-fiche-texte {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--cava-muted);
+}
+.cava-fiche-liens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding-top: 4px;
+}
+.cava-fiche-lien {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  border: 1px solid var(--cava-line);
+  padding: 7px 13px;
+  font-size: 12.5px;
+  color: var(--cava-ink);
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.cava-fiche-lien:hover {
+  border-color: var(--cava-pink);
+  color: var(--cava-pink);
+}

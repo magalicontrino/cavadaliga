@@ -22,7 +22,8 @@ import { useI18n } from '../i18n';
 const MapLibreMap = dynamic(() => import('./MapLibreMap'), { ssr: false });
 
 export default function CarteEssai() {
-  const { lang } = useI18n();
+  const { t, lang } = useI18n();
+  const tl = t.localPage;
   const [filter, setFilter] = useState<'tout' | 'responsable' | CatKey>('tout');
 
   const CATS_ORDER: CatKey[] = ['chocolat', 'huile', 'marche', 'plantes', 'resto', 'supermarche', 'plage'];
@@ -69,7 +70,7 @@ export default function CarteEssai() {
         </Reveal>
 
         <Reveal className="mt-6">
-          <MapLibreMap lang={lang} filter={filter} />
+          <MapLibreMap lang={lang} filter={filter} labels={{ map: tl.mapLabel, badge: tl.badge, here: t.regionHere }} />
         </Reveal>
 
         {/* Ce que la maquette ne sait pas faire — autant le dire ici. */}
