@@ -19,7 +19,10 @@ import { useI18n } from './i18n';
 // Ce qui manque est en bas de page, et c'est voulu : une case vide n'est pas un
 // oubli, c'est une question posée à ceux qui savent.
 //
-// Ne JAMAIS écrire le nom complet de Mag : « Mag », et rien d'autre.
+// Le nom de Mag : « Mag » PARTOUT sur le site — sauf ici, dans le couple
+// « Magali Contrino & Benoît Vanbastelaer », qu'elle a explicitement autorisé :
+// c'est là qu'on nomme les gens comme les autres couples de l'arbre. Sa case
+// d'enfant, sous Salvatore & Régine, reste « Mag ». N'étendez pas l'exception.
 // ─────────────────────────────────────────────────────────────────────────
 type Person = { name: string; subtitle?: string; children?: Person[] };
 type Side = { label: string; families: Person[] };
@@ -138,7 +141,7 @@ export default function FamilyTree() {
   // « Mag », meme quand la demande ecrit son nom entier — c'est la regle.
   const ENFANTS: Person[] = [
     { name: 'Michaël Contrino & Nathalie Gigli', children: [{ name: 'Juliette' }, { name: 'Marie' }, { name: 'Zoé' }] },
-    { name: 'Mag & Benoît Vanbastelaer', children: [{ name: 'Eve' }, { name: 'Manon' }] },
+    { name: 'Magali Contrino & Benoît Vanbastelaer', children: [{ name: 'Eve' }, { name: 'Manon' }] },
   ];
 
   return (
@@ -146,7 +149,7 @@ export default function FamilyTree() {
       <div className="flex flex-col gap-14">
         {SIDES.map((side) => (
           <div key={side.label}>
-            <p className="mb-5 text-center text-[12px] uppercase tracking-[0.12em] md:text-left" style={{ color: 'var(--cava-muted)' }}>
+            <p className="mb-5 text-center text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)' }}>
               {side.label}
             </p>
             <div className="flex flex-col gap-8">
@@ -164,7 +167,7 @@ export default function FamilyTree() {
 
       {/* La jonction des deux côtés */}
       <div>
-        <p className="mb-5 text-center text-[12px] uppercase tracking-[0.12em] md:text-left" style={{ color: 'var(--cava-muted)' }}>
+        <p className="mb-5 text-center text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)' }}>
           {s.treeParents}
         </p>
         <div className="cava-tree overflow-x-auto pb-4">
@@ -176,7 +179,7 @@ export default function FamilyTree() {
 
       {/* Et leurs enfants */}
       <div>
-        <p className="mb-5 text-center text-[12px] uppercase tracking-[0.12em] md:text-left" style={{ color: 'var(--cava-muted)' }}>
+        <p className="mb-5 text-center text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)' }}>
           {s.treeChildren}
         </p>
         <div className="flex flex-col gap-8">
