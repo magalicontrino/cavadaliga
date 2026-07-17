@@ -56,9 +56,8 @@ export default function Nav({ current }: { current?: string }) {
 
           {/* Culture — sons & images (vinyle), à gauche du menu */}
           <a
-            href={withBase('/culture')}
+            href={`${withBase('/la-region')}#sons`}
             aria-label={t.culturePage.title}
-            aria-current={current === '/culture' ? 'page' : undefined}
             title={t.culturePage.title}
             className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full aria-[current=page]:opacity-45"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
