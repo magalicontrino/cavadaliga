@@ -52,7 +52,7 @@ export default function Nav({ current }: { current?: string }) {
             aria-label={t.apartment.label}
             aria-current={current === '/appartement' ? 'page' : undefined}
             title={t.apartment.label}
-            className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full aria-[current=page]:opacity-45"
+            className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
           >
             <Icon name="home" size={24} strokeWidth={1.7} />
@@ -68,7 +68,7 @@ export default function Nav({ current }: { current?: string }) {
             aria-label={t.calendarPage.title}
             aria-current={current === '/evenements' ? 'page' : undefined}
             title={t.calendarPage.title}
-            className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full aria-[current=page]:opacity-45"
+            className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
           >
             <Icon name="calendar" size={24} />
@@ -79,7 +79,7 @@ export default function Nav({ current }: { current?: string }) {
             href={`${withBase('/la-region')}#sons`}
             aria-label={t.culturePage.title}
             title={t.culturePage.title}
-            className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full aria-[current=page]:opacity-45"
+            className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
           >
             <Icon name="vinyl" size={24} />
