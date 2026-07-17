@@ -78,6 +78,9 @@ export type Dict = {
   // région, préparer le voyage, contact) — mini-phrases avec le nom de rubrique.
   ctaTitles: Record<Page, string>;
   tasteOfSicily: string;
+  sunsetKicker: string;
+  sunsetTitle: string;
+  sunsetAlt: string;
   galleryAlt: string[];
   apartmentAlt: string;
   cavaAlt: string;
@@ -282,6 +285,9 @@ const FR: Dict = {
     '/evenements': 'Le calendrier des événements à venir',
   },
   tasteOfSicily: 'Un avant-goût de la Sicile',
+  sunsetKicker: 'La fin du jour',
+  sunsetTitle: 'Le soleil se couche sur la mer, et tout le monde sort le regarder',
+  sunsetAlt: 'Coucher de soleil sur la plage, la mer et le village au crépuscule',
   galleryAlt: [
     'La mer à quelques mètres de Cava d’Aliga',
     'Une ruelle du hameau de Cava d’Aliga',
@@ -693,6 +699,9 @@ const IT: Dict = {
     '/evenements': 'Il calendario dei prossimi eventi',
   },
   tasteOfSicily: 'Un assaggio di Sicilia',
+  sunsetKicker: 'La fine del giorno',
+  sunsetTitle: 'Il sole tramonta sul mare, e tutti escono a guardarlo',
+  sunsetAlt: 'Tramonto sulla spiaggia, il mare e il paese al crepuscolo',
   galleryAlt: [
     'Il mare a pochi metri da Cava d’Aliga',
     'Un vicolo del borgo di Cava d’Aliga',
@@ -1104,6 +1113,9 @@ const EN: Dict = {
     '/evenements': 'The calendar of upcoming events',
   },
   tasteOfSicily: 'A taste of Sicily',
+  sunsetKicker: 'The end of the day',
+  sunsetTitle: 'The sun goes down over the sea, and everyone comes out to watch',
+  sunsetAlt: 'Sunset over the beach, the sea and the village at dusk',
   galleryAlt: [
     'The sea a few metres from Cava d’Aliga',
     'An alley in the hamlet of Cava d’Aliga',

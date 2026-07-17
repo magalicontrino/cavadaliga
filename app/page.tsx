@@ -69,6 +69,32 @@ export default function CavaHome() {
         <Gallery images={GALLERY_STRIP} />
       </section>
 
+      {/* La journee se ferme sur un coucher de soleil, pleine largeur, juste
+          avant le pied de page : c'est la derniere image qu'on emporte. Photo
+          panoramique (~2,2:1) — d'ou le cadre large, et le titre pose PAR-DESSUS
+          en bas, la ou le ciel est le plus sombre, pour rester lisible. */}
+      <section className="relative">
+        <Photo
+          src="/picture-sicile/coucher-soleil.jpg"
+          alt={t.sunsetAlt}
+          tone="terra"
+          className="aspect-[2/1] w-full md:aspect-[2.4/1]"
+        />
+        {/* Un voile sombre en bas seulement : il fait ressortir le texte sans
+            eteindre les couleurs du ciel. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/55 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 p-6 md:p-12">
+          <Reveal className="mx-auto max-w-[110rem]">
+            <p className="text-[12px] uppercase tracking-[0.16em]" style={{ color: 'rgba(255,255,255,0.8)' }}>
+              {t.sunsetKicker}
+            </p>
+            <p className="mt-2 max-w-[24ch] text-[clamp(1.4rem,3.4vw,2.6rem)] leading-[1.1]" style={{ color: '#fff', fontWeight: 600 }}>
+              {t.sunsetTitle}
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Contact et Instagram ne sont plus ici : le footer les porte sur toutes
           les pages, accueil compris. Ils s'affichaient deux fois de suite, dans
           la même typo, à quelques centimètres d'écart. */}
