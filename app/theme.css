@@ -729,13 +729,10 @@
   background: var(--cava-ink);
   transform: scale(1.08);
 }
+/* La maison : meme pastille que les autres, mais noire — c'est le repere,
+   pas une adresse parmi d'autres. */
 .cava-glhouse {
-  height: 18px;
-  width: 18px;
-  border-radius: 999px;
-  border: 3px solid var(--cava-ink);
-  background: #fff;
-  box-shadow: 0 1px 6px rgb(0 0 0 / 0.35);
+  background: var(--cava-ink);
 }
 /* Le crédit OpenStreetMap est obligatoire (ODbL) : on l'habille, on ne le
    cache pas. */

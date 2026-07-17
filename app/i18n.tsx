@@ -96,6 +96,7 @@ export type Dict = {
     departHint: string;
     departOn: string;
     departReset: string;
+    houseHere: string;
     mapFailed: string;
     mapFailedHint: string;
     badge: string;
@@ -344,6 +345,7 @@ const FR: Dict = {
     departHint: 'Touchez la carte pour vous poser ailleurs et voir les distances depuis là.',
     departOn: 'Départ simulé : les distances sont comptées depuis le point noir, à vol d’oiseau — la route sera plus longue.',
     departReset: 'Depuis la maison',
+    houseHere: 'La maison',
     mapFailed: 'La carte n’a pas pu se charger.',
     mapFailedHint: 'Rechargez la page. Si ça persiste, un bloqueur de publicité ou un réseau d’entreprise empêche peut-être le chargement — la liste, elle, fonctionne toujours.',
     badge: 'Responsable & local',
@@ -743,6 +745,7 @@ const IT: Dict = {
     departHint: 'Tocca la mappa per spostarti altrove e vedere le distanze da lì.',
     departOn: 'Partenza simulata: le distanze sono calcolate dal punto nero, in linea d’aria — la strada sarà più lunga.',
     departReset: 'Dalla casa',
+    houseHere: 'La casa',
     mapFailed: 'La mappa non si è caricata.',
     mapFailedHint: 'Ricarica la pagina. Se continua, forse un blocco pubblicità o una rete aziendale impedisce il caricamento — l’elenco funziona comunque.',
     badge: 'Responsabile & locale',
@@ -1142,6 +1145,7 @@ const EN: Dict = {
     departHint: 'Tap the map to place yourself elsewhere and see the distances from there.',
     departOn: 'Simulated start: distances are measured from the black point, as the crow flies — the road will be longer.',
     departReset: 'From the house',
+    houseHere: 'The house',
     mapFailed: 'The map could not load.',
     mapFailedHint: 'Reload the page. If it persists, an ad blocker or a company network may be blocking it — the list still works.',
     badge: 'Responsible & local',

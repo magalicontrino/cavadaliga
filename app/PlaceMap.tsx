@@ -29,13 +29,22 @@ const INK = '#2e2d2d';
 const BG = '#f7f5f2';
 
 /**
- * Le fichier de tuiles. Le NOM PORTE UNE VERSION, et ce n'est pas cosmetique :
- * PMTiles lit ce fichier par morceaux, que le navigateur met en cache. Remplacer
- * le fichier en gardant la meme URL fait melanger a un visiteur deja venu les
- * morceaux de l'ancien avec la taille du nouveau — et la carte tombe sur
- * « Failed to fetch », chez lui seulement. Changer d'emprise = changer de nom.
+ * Le fichier de tuiles. Deux choses dans ce nom, aucune n'est cosmetique.
+ *
+ * « .png » — ce n'est PAS une image, c'est bien du PMTiles. Mais GitHub Pages
+ * sert les .pmtiles en application/octet-stream, et son CDN les gzipe a la
+ * volee. Les requetes de plage portent alors sur les octets COMPRESSES : on
+ * demande le morceau 1000-1099 du fichier, on recoit celui d'un autre, plus
+ * court (14 557 460 octets au lieu de 14 562 244). PMTiles n'y comprend rien et
+ * rend « Server returned no content-length header ». Une extension d'image
+ * donne un content-type que le CDN ne compresse pas — verifie : nos .jpg et
+ * .webp passent intacts. On ne peut pas regler les en-tetes de GitHub Pages ;
+ * c'est le seul levier qui reste.
+ *
+ * « v3 » — le navigateur cache les morceaux. Remplacer le fichier sans changer
+ * d'URL melangerait l'ancien et le nouveau. Changer le fichier = changer le nom.
  */
-const TUILES = '/tuiles/cava-v2.pmtiles';
+const TUILES = '/tuiles/cava-v3.pmtiles.png';
 
 /**
  * L'emprise de nos tuiles (le --bbox de l'extrait). Hors de la, il n'y a rien
@@ -169,6 +178,12 @@ export default function PlaceMap({
   const markers = useRef<Epingle[]>([]);
   // id -> element : permet d'allumer l'épingle choisie sans reconstruire les 18
   const pins = useRef(new Map<string, HTMLElement>());
+  const maison = useRef<HTMLElement | null>(null);
+  // « Vous etes ici » et le depart vivent dans leurs propres effets : melanges
+  // aux epingles, ils rejouaient le cadrage a chaque clic — et la carte
+  // repartait de sa vue de depart au lieu de rester ou l'on regardait.
+  const mMe = useRef<Epingle | null>(null);
+  const mDepart = useRef<Epingle | null>(null);
   const [state, setState] = useState<'chargement' | 'ok' | 'erreur'>('chargement');
   const [erreur, setErreur] = useState('');
   // La carte n'est construite qu'une fois : sans cette poignee, son ecouteur de
@@ -191,6 +206,9 @@ export default function PlaceMap({
   /** Ceux qu'on peut poser : sans position réelle, pas d'épingle inventée. */
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const liste = useMemo(() => places.filter((p) => COORDS[p.id]), [cle]);
+
+  /** Ce que porte la pastille de la maison : sa distance depuis le depart. */
+  const houseLabel = () => kmLabel({ id: '__maison__', km: 0 } as unknown as LocalPlace);
 
   /** Amène une épingle au centre, sans brusquer. */
   const viser = useCallback((p: LocalPlace) => {
@@ -283,32 +301,13 @@ export default function PlaceMap({
       markers.current.push(new c.Marker({ element: el }).setLngLat([co.lon, co.lat]).addTo(c.m));
     });
 
-    // La maison, à part
+    // La maison — une pastille comme les autres, en noir : depuis un depart
+    // simule, « c'est loin, la maison ? » est justement la question qu'on pose.
     const h = document.createElement('div');
-    h.className = 'cava-glhouse';
-    h.title = "Cava d'Aliga";
+    h.className = 'cava-glpin cava-glhouse';
+    maison.current = h;
+    h.innerHTML = `${picto('home', 19)}<span>${houseLabel()}</span>`;
     markers.current.push(new c.Marker({ element: h }).setLngLat([HOUSE.lon, HOUSE.lat]).addTo(c.m));
-
-    // « Vous êtes ici » : la vraie position, posée telle quelle. Plus besoin de
-    // la faire correspondre à un dessin — c'était tout l'objet de geo.ts.
-    if (me) {
-      const v = document.createElement('div');
-      v.className = 'cava-glme';
-      markers.current.push(new c.Marker({ element: v }).setLngLat([me.lon, me.lat]).addTo(c.m));
-    }
-
-    // Le depart simule — une vraie epingle plantee, distincte de la maison
-    // (cercle cercle de noir) et de « vous etes ici » (point bleu).
-    if (depart) {
-      const d = document.createElement('div');
-      d.className = 'cava-gldepart';
-      d.innerHTML = EPINGLE;
-      // « bottom » + le decalage : ce qui doit tomber sur le point, c'est la
-      // pointe au centre de l'anneau — pas le bas de l'image.
-      markers.current.push(
-        new c.Marker({ element: d, anchor: 'bottom', offset: [0, 5] }).setLngLat([depart.lon, depart.lat]).addTo(c.m),
-      );
-    }
 
     // Choisir un filtre doit MONTRER ce qu'on a choisi : on cadre sur les
     // épingles retenues (la maison comprise, c'est le repère). Sans ça, on
@@ -324,7 +323,51 @@ export default function PlaceMap({
       // Un seul lieu ? fitBounds irait au zoom maximum : on le retient.
       { padding: 70, maxZoom: 13.5, duration: 500 },
     );
-  }, [state, cle, lang, viser, me, depart]);
+  }, [state, cle, lang, viser]);
+
+  // « Vous etes ici » — sa propre vie, pour ne pas rejouer le cadrage.
+  useEffect(() => {
+    const c = map.current as Carte | null;
+    if (!c || state !== 'ok') return;
+    mMe.current?.remove();
+    mMe.current = null;
+    if (!me) return;
+    const v = document.createElement('div');
+    v.className = 'cava-glme';
+    mMe.current = new c.Marker({ element: v }).setLngLat([me.lon, me.lat]).addTo(c.m);
+  }, [state, me]);
+
+  // Le depart simule — idem. Poser l'epingle ne doit RIEN deplacer d'autre :
+  // on reste exactement ou l'on regardait.
+  useEffect(() => {
+    const c = map.current as Carte | null;
+    if (!c || state !== 'ok') return;
+    mDepart.current?.remove();
+    mDepart.current = null;
+    if (!depart) return;
+    const d = document.createElement('div');
+    d.className = 'cava-gldepart';
+    d.innerHTML = EPINGLE;
+    // « bottom » + le decalage : ce qui doit tomber sur le point, c'est la
+    // pointe au centre de l'anneau — pas le bas de l'image.
+    mDepart.current = new c.Marker({ element: d, anchor: 'bottom', offset: [0, 5] })
+      .setLngLat([depart.lon, depart.lat])
+      .addTo(c.m);
+  }, [state, depart]);
+
+  // Les distances changent avec le depart — mais on se contente de reecrire le
+  // texte des pastilles. Les reconstruire relancerait le cadrage.
+  useEffect(() => {
+    if (state !== 'ok') return;
+    pins.current.forEach((el, id) => {
+      const p = liste.find((x) => x.id === id);
+      const span = el.querySelector('span');
+      if (p && span) span.textContent = kmLabel(p);
+    });
+    const span = maison.current?.querySelector('span');
+    if (span) span.textContent = houseLabel();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state, depart, cle]);
 
   // De retour de la liste : le canvas s'est vidé pendant qu'on ne le voyait
   // pas. On le remesure, sinon la carte revient en miette.

@@ -61,9 +61,11 @@ export default function NosAdresses() {
    * tournent. C'est dit en toutes lettres au-dessus de la carte : afficher les
    * deux sous le meme « km » sans prevenir serait mentir.
    */
-  const kmLabel = (l: (typeof LOCAL_PLACES)[number]) => {
-    if (!depart) return l.km === 0 ? t.regionHere : `≈ ${l.km} km`;
-    const co = COORDS[l.id];
+  const kmLabel = (l: { id: string; km: number }) => {
+    // La maison est un cas a part : elle n'est pas dans LOCAL_PLACES, et sa
+    // position est le repere de tout le reste.
+    const co = l.id === '__maison__' ? HOUSE : COORDS[l.id];
+    if (!depart) return l.id === '__maison__' ? p.houseHere : l.km === 0 ? t.regionHere : `≈ ${l.km} km`;
     if (!co) return '—'; // sans position reelle, on n'invente pas une distance
     const d = distanceKm(depart.lat, depart.lon, co.lat, co.lon);
     return d < 0.4 ? t.regionHere : `≈ ${d < 10 ? d.toFixed(1) : Math.round(d)} km`;
