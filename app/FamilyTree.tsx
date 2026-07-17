@@ -25,17 +25,27 @@ import { useI18n } from './i18n';
 // d'enfant, sous Salvatore & Régine, reste « Mag ». N'étendez pas l'exception.
 // ─────────────────────────────────────────────────────────────────────────
 type Person = { name: string; subtitle?: string; children?: Person[] };
-type Side = { label: string; families: Person[] };
+type Family = { fam: Person; gen: number };
+type Side = { label: string; families: Family[] };
 
-function Card({ p }: { p: Person }) {
+// La couleur remonte le temps : la generation la plus ANCIENNE (Salvatore &
+// Giuseppina, Pierre Lux & Angelina — la 0) est la plus foncee, et le trait
+// s'eclaircit a chaque generation qui s'eloigne des origines. Fin, pas criard :
+// c'est le contour qui porte le degrade ; le nom, lui, reste lisible et ne
+// descend jamais sous le gris du site.
+const TREE_BORDER = ['#2e2d2d', '#565351', '#7d7a76', '#a6a29d', '#cbc7c2'];
+const TREE_TEXT = ['#2e2d2d', '#43403e', '#565250', '#6a6663', '#6f6e6e'];
+const tone = (gen: number, scale: string[]) => scale[Math.min(gen, scale.length - 1)];
+
+function Card({ p, gen }: { p: Person; gen: number }) {
   const placeholder = p.name.startsWith('…');
   return (
     <span
-      className={`inline-flex flex-col items-center gap-0.5 rounded-xl border-2 px-4 py-2 ${placeholder ? 'border-dashed' : ''}`}
+      className={`inline-flex flex-col items-center gap-0.5 rounded-xl px-4 py-2 ${placeholder ? 'border-dashed' : ''}`}
       style={{
-        borderColor: placeholder ? 'var(--cava-line)' : 'var(--cava-ink)',
+        border: `1.5px solid ${placeholder ? 'var(--cava-line)' : tone(gen, TREE_BORDER)}`,
         background: 'var(--cava-bg)',
-        color: placeholder ? 'var(--cava-muted)' : 'inherit',
+        color: placeholder ? 'var(--cava-muted)' : tone(gen, TREE_TEXT),
       }}
     >
       <span className="whitespace-nowrap text-[14px]" style={{ fontWeight: placeholder ? 400 : 600 }}>
@@ -50,14 +60,14 @@ function Card({ p }: { p: Person }) {
   );
 }
 
-function Node({ p }: { p: Person }) {
+function Node({ p, gen }: { p: Person; gen: number }) {
   return (
     <li>
-      <Card p={p} />
+      <Card p={p} gen={gen} />
       {p.children && p.children.length > 0 && (
         <ul>
           {p.children.map((c) => (
-            <Node key={c.name} p={c} />
+            <Node key={c.name} p={c} gen={gen + 1} />
           ))}
         </ul>
       )}
@@ -74,6 +84,8 @@ export default function FamilyTree() {
       label: s.treePaternal,
       families: [
         {
+          gen: 0,
+          fam: {
           name: 'Salvatore Contrino & Giuseppina Marcino',
           subtitle: s.treeGreat,
           children: [
@@ -87,8 +99,10 @@ export default function FamilyTree() {
             { name: 'Helene' },
             { name: 'Maria' },
           ],
-        },
+        } },
         {
+          gen: 1,
+          fam: {
           // Helene apparait deja comme fille de Salvatore & Giuseppina ci-dessus ;
           // ici c'est sa propre branche. Son mari reste inconnu (dans les
           // questions). Cinq filles, un surnom pour trois d'entre elles.
@@ -100,42 +114,55 @@ export default function FamilyTree() {
             { name: 'Rosalba', subtitle: 'Rose' },
             { name: 'Giuseppina', subtitle: 'Jo' },
           ],
-        },
+        } },
         {
+          gen: 1,
+          fam: {
           name: 'Angelo Contrino & Conchetta Canolo',
           subtitle: `${s.treeWife1} · ~1900 – ~1947`,
           children: [{ name: 'Salvatore', subtitle: '1947' }],
-        },
+        } },
         {
+          gen: 1,
+          fam: {
           name: 'Angelo Contrino & Conchetta Sberna',
           subtitle: s.treeWife2,
           children: [{ name: 'Josephine' }, { name: 'Sarro' }, { name: 'Stefano' }],
-        },
+        } },
       ],
     },
     {
       label: s.treeMaternal,
       families: [
         {
+          gen: 0,
+          fam: {
           name: 'Pierre Lux & Angelina Viseux',
           subtitle: `${s.treeGreat} · 1881–1975 · 1882–1959`,
           children: [{ name: 'Pierre', subtitle: '1920' }],
-        },
+        } },
         {
+          gen: 0,
+          fam: {
           name: 'Louis Thurot & Mélanie Souveton',
           subtitle: `${s.treeGreat} · 1893`,
           children: [{ name: 'Juliette Emilienne', subtitle: '1923' }],
-        },
+        } },
         {
+          gen: 1,
+          fam: {
           name: 'Pierre Lux & Juliette Emilienne Thurot',
           subtitle: s.treeMarriage1,
           children: [{ name: 'Régine' }],
-        },
+        } },
         // Le second mariage de Juliette. « Tonton Charles » est le nom que la
         // famille lui donne — c'est le seul qu'on ait, et on n'en invente pas.
         {
+          gen: 1,
+          fam: {
           name: 'Juliette Emilienne Thurot & Charles',
           subtitle: s.treeMarriage2,
+          },
         },
       ],
     },
@@ -166,10 +193,10 @@ export default function FamilyTree() {
               {side.label}
             </p>
             <div className="flex flex-col gap-8">
-              {side.families.map((fam, i) => (
+              {side.families.map(({ fam, gen }, i) => (
                 <div key={`${fam.name}-${i}`} className="cava-tree overflow-x-auto pb-4">
                   <ul>
-                    <Node p={fam} />
+                    <Node p={fam} gen={gen} />
                   </ul>
                 </div>
               ))}
@@ -185,7 +212,8 @@ export default function FamilyTree() {
         </p>
         <div className="cava-tree overflow-x-auto pb-4">
           <ul>
-            <Node p={PARENTS} />
+            {/* Salvatore & Regine : troisieme generation depuis l'origine. */}
+            <Node p={PARENTS} gen={2} />
           </ul>
         </div>
       </div>
@@ -199,7 +227,8 @@ export default function FamilyTree() {
           {ENFANTS.map((f) => (
             <div key={f.name} className="cava-tree overflow-x-auto pb-4">
               <ul>
-                <Node p={f} />
+                {/* Les plus jeunes : le trait le plus clair du degrade. */}
+                <Node p={f} gen={3} />
               </ul>
             </div>
           ))}
