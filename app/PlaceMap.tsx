@@ -144,10 +144,21 @@ const style = (tiles: string) => ({
     },
   },
   layers: [
-    // Le fond est la MER, pas le creme du site : c'est ce qu'on voit la ou nos
-    // tuiles s'arretent, et tout autour de la Sicile, c'est de la mer. En creme,
-    // le large passait pour de la terre.
-    { id: 'fond', type: 'background' as const, paint: { 'background-color': '#e88aab' } },
+    /* Le fond est le creme du site, et pas la mer — j'avais essaye l'inverse.
+     *
+     * Le raisonnement se tenait : hors de nos tuiles, tout autour de la Sicile,
+     * c'est de la mer. Mais le fond, c'est AUSSI ce qu'on voit tant que les
+     * tuiles n'ont pas fini d'arriver — et notre archive pese 60 Mo, lue par
+     * morceaux. Resultat : la carte s'ouvrait sur un aplat rose franc, a chaque
+     * visite, le temps du chargement. Mag l'a vu tout de suite.
+     *
+     * Le creme, lui, se tait : c'est la couleur de la page. Le large en creme
+     * n'est pas juste, mais on ne le voit presque jamais — les tuiles de bas
+     * zoom debordent largement la boite, jusqu'aux Eoliennes et a la Calabre.
+     * Une inexactitude qu'on ne voit pas coute moins qu'une gifle a chaque
+     * ouverture.
+     */
+    { id: 'fond', type: 'background' as const, paint: { 'background-color': BG } },
     { id: 'terre', type: 'fill' as const, source: 'p', 'source-layer': 'earth', paint: { 'fill-color': BG } },
 
     /* Le relief de l'ile — ce qui la sortait de sa blancheur.
