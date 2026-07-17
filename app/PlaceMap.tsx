@@ -27,6 +27,9 @@ import PlaceCard from './PlaceCard';
 
 const INK = '#2e2d2d';
 const BG = '#f7f5f2';
+/** Les petits noms de lieux : presents, mais qui ne volent pas la vedette aux
+ *  villes ni aux epingles. C'est le gris du site. */
+const MUET = '#6f6e6e';
 
 /**
  * Le fichier de tuiles. Deux choses dans ce nom, aucune n'est cosmetique.
@@ -120,21 +123,52 @@ const style = (tiles: string) => ({
       },
     },
     { id: 'batiments', type: 'fill' as const, source: 'p', 'source-layer': 'buildings', minzoom: 14, paint: { 'fill-color': '#e2dfd8' } },
-    {
-      id: 'villages',
-      type: 'symbol' as const,
-      source: 'p',
-      'source-layer': 'places',
-      filter: ['<=', ['get', 'kind_detail'], 10] as never,
-      layout: {
-        'text-field': ['get', 'name'] as never,
-        'text-font': ['Noto Sans Medium'],
-        'text-size': ['interpolate', ['linear'], ['zoom'], 8, 11, 14, 15] as never,
-      },
-      paint: { 'text-color': INK, 'text-halo-color': BG, 'text-halo-width': 2 },
-    },
+    // Les noms de lieux, par paliers — les grandes villes d'abord, le reste en
+    // s'approchant. Sans ca la carte est une jolie forme sans reperes : on voit
+    // « ≈ 20 km » sans savoir 20 km de quoi.
+    //
+    // Un palier = une couche avec son `minzoom`, plutot qu'un seul filtre sur
+    // le zoom : dans un filtre, le zoom n'est evalue qu'aux niveaux entiers, et
+    // les noms apparaitraient par a-coups en pincant l'ecran.
+    //
+    // `kind_detail` est une CHAINE — « city », « town », « village ». Le filtre
+    // d'avant le comparait a un nombre (`<= 10`) : toujours faux, aucun nom
+    // n'est jamais sorti. C'est pour ca que la carte etait muette.
+    ...villes([
+      // Palerme, Catane, Messine, Syracuse, Raguse — visibles de loin.
+      { id: 'villes-grandes', kinds: ['city'], depuis: 0, taille: [7, 12, 13, 19], couleur: INK, poids: 'Noto Sans Medium' },
+      // Modica, Scicli, Noto, Vittoria — les chefs-lieux qu'on traverse.
+      { id: 'villes-moyennes', kinds: ['town'], depuis: 8.5, taille: [9, 11, 14, 16], couleur: INK, poids: 'Noto Sans Medium' },
+      // Donnalucata, Sampieri, Cava d'Aliga — le voisinage.
+      { id: 'villages', kinds: ['village'], depuis: 10, taille: [10, 10.5, 14, 14.5], couleur: MUET, poids: 'Noto Sans Regular' },
+      // Les hameaux et les quartiers : seulement quand on a le nez dessus.
+      { id: 'hameaux', kinds: ['hamlet', 'isolated_dwelling', 'quarter', 'neighbourhood'], depuis: 12.5, taille: [12.5, 10, 16, 13], couleur: MUET, poids: 'Noto Sans Regular' },
+    ]),
   ],
 });
+
+/** Un palier de noms de lieux. Les quatre se ressemblent trop pour les ecrire
+ *  quatre fois : seuls changent le rang, le zoom d'apparition et la taille. */
+const villes = (
+  paliers: { id: string; kinds: string[]; depuis: number; taille: [number, number, number, number]; couleur: string; poids: string }[],
+) =>
+  paliers.map(({ id, kinds, depuis, taille, couleur, poids }) => ({
+    id,
+    type: 'symbol' as const,
+    source: 'p',
+    'source-layer': 'places',
+    minzoom: depuis,
+    filter: ['in', ['get', 'kind_detail'], ['literal', kinds]] as never,
+    layout: {
+      'text-field': ['get', 'name'] as never,
+      'text-font': [poids],
+      'text-size': ['interpolate', ['linear'], ['zoom'], taille[0], taille[1], taille[2], taille[3]] as never,
+      // Le plus peuple gagne quand deux noms se disputent la meme place.
+      'symbol-sort-key': ['-', 0, ['coalesce', ['get', 'population_rank'], 0]] as never,
+      'text-padding': 4,
+    },
+    paint: { 'text-color': couleur, 'text-halo-color': BG, 'text-halo-width': 2 },
+  }));
 
 export default function PlaceMap({
   places,
@@ -222,6 +256,35 @@ export default function PlaceMap({
     const d = kmLabel({ id: '__maison__', km: 0 } as unknown as LocalPlace);
     return d === labels.house ? labels.house : `${labels.house} — ${d}`;
   };
+
+  /**
+   * Tout tenir dans le cadre : les epingles retenues ET la maison, qui est le
+   * repere de toutes les distances. Sans elle, on cadrerait sur « Plantes &
+   * fleurs » a Raguse sans voir d'ou l'on compte.
+   *
+   * `resize()` d'abord : la carte a pu grandir depuis son dernier cadrage — en
+   * passant de la liste a la carte, ou en tournant le telephone —, et fitBounds
+   * calcule sur la taille qu'elle CROIT avoir.
+   */
+  const cadrer = useCallback(
+    (duree: number) => {
+      const c = map.current as Carte | null;
+      if (!c) return;
+      c.m.resize();
+      const vus = liste.map((p) => COORDS[p.id]).filter(Boolean);
+      const lons = [...vus.map((v) => v.lon), HOUSE.lon];
+      const lats = [...vus.map((v) => v.lat), HOUSE.lat];
+      c.m.fitBounds(
+        [
+          [Math.min(...lons), Math.min(...lats)],
+          [Math.max(...lons), Math.max(...lats)],
+        ],
+        // Un seul lieu ? fitBounds irait au zoom maximum : on le retient.
+        { padding: 70, maxZoom: 13.5, duration: duree },
+      );
+    },
+    [liste],
+  );
 
   /** Amène une épingle au centre, sans brusquer. */
   const viser = useCallback((p: LocalPlace) => {
@@ -321,21 +384,22 @@ export default function PlaceMap({
     h.title = labels.house;
     markers.current.push(new c.Marker({ element: h }).setLngLat([HOUSE.lon, HOUSE.lat]).addTo(c.m));
 
-    // Choisir un filtre doit MONTRER ce qu'on a choisi : on cadre sur les
-    // épingles retenues (la maison comprise, c'est le repère). Sans ça, on
-    // cliquait « Plantes & fleurs » et on restait devant une carte vide.
-    const vus = liste.map((p) => COORDS[p.id]);
-    const lons = [...vus.map((v) => v.lon), HOUSE.lon];
-    const lats = [...vus.map((v) => v.lat), HOUSE.lat];
-    c.m.fitBounds(
-      [
-        [Math.min(...lons), Math.min(...lats)],
-        [Math.max(...lons), Math.max(...lats)],
-      ],
-      // Un seul lieu ? fitBounds irait au zoom maximum : on le retient.
-      { padding: 70, maxZoom: 13.5, duration: 500 },
-    );
-  }, [state, cle, lang, viser]);
+    cadrer(0);
+  }, [state, cle, lang, viser, cadrer]);
+
+  /**
+   * Arriver doit montrer TOUT — la maison comprise.
+   *
+   * La carte se monte cachee derriere la liste, qui est la vue d'accueil. Un
+   * conteneur cache mesure 0 x 0 : le cadrage fait au chargement portait sur
+   * une fenetre sans dimensions, et on decouvrait la carte posee n'importe ou,
+   * des epingles hors champ. On recadre donc quand elle se montre, une fois
+   * qu'elle a une taille — c'est la seule fois ou elle en a une.
+   */
+  useEffect(() => {
+    if (!visible || state !== 'ok') return;
+    cadrer(300);
+  }, [visible, state, cadrer]);
 
   // « Vous etes ici » — sa propre vie, pour ne pas rejouer le cadrage.
   useEffect(() => {
@@ -394,14 +458,6 @@ export default function PlaceMap({
     const c = map.current as Carte | null;
     c?.m.easeTo({ center: [HOUSE.lon, HOUSE.lat], zoom: 13, duration: 600 });
   }, [versMaison, state]);
-
-  // De retour de la liste : le canvas s'est vidé pendant qu'on ne le voyait
-  // pas. On le remesure, sinon la carte revient en miette.
-  useEffect(() => {
-    if (!visible || state !== 'ok') return;
-    const c = map.current as { m: { resize: () => void } } | null;
-    c?.m.resize();
-  }, [visible, state]);
 
   // L'épingle choisie s'inverse — on doit voir de quel point la fiche parle.
   useEffect(() => {

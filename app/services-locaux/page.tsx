@@ -12,7 +12,7 @@ import { useI18n } from '../i18n';
 import { LOCAL_PLACES, CATS, type CatKey } from '../localData';
 import { HOUSE, MAX_KM, distanceKm } from '../geo';
 import { COORDS } from '../placeCoords';
-import { chercherVilles } from '../villes';
+import { chercherIci, chercherLoin, sansDoublons, dansLEmprise, type Suggestion } from '../ou';
 
 /** MapLibre pèse ~210 Ko : il n'est chargé que si on ouvre cette page. */
 const PlaceMap = dynamic(() => import('../PlaceMap'), { ssr: false });
@@ -32,14 +32,16 @@ export default function NosAdresses() {
   const [cherche, setCherche] = useState<'idle' | 'cours' | 'rien' | 'loin' | 'panne'>('idle');
   // Change a chaque demande de retour a la maison — la carte n'ecoute que ca.
   const [versMaison, setVersMaison] = useState(0);
-  /** Les villes qui commencent par ce qu'on tape. Instantane, sans reseau. */
-  const suggestions = chercherVilles(ou);
+  /** Ce que Photon a trouve pour la frappe en cours. Vide au depart : les deux
+   *  couches locales repondent seules le temps qu'il reponde. */
+  const [loin, setLoin] = useState<Suggestion[]>([]);
   // Incrementé à chaque tri ou recherche : les fiches se montrent d'un coup.
   const [clicks, setClicks] = useState(0);
   const [active, setActive] = useState<string | null>(null);
-  // Carte ou liste : les deux disent la même chose autrement. La carte répond à
-  // « c'est où ? », la liste à « qu'est-ce qu'il y a ? ». On choisit.
-  const [vue, setVue] = useState<'carte' | 'liste'>('carte');
+  // Carte ou liste : les deux disent la même chose autrement. La liste répond à
+  // « qu'est-ce qu'il y a ? », la carte à « c'est où ? ». La liste d'abord :
+  // c'est la première question, et elle se lit sans viser une épingle.
+  const [vue, setVue] = useState<'carte' | 'liste'>('liste');
   // La vraie position du visiteur, s'il l'a demandée — plus besoin de la faire
   // correspondre à un dessin.
   const [me, setMe] = useState<{ lat: number; lon: number } | null>(null);
@@ -68,9 +70,67 @@ export default function NosAdresses() {
     ...FILTER_CATS.map((k) => ({ key: k, label: CATS[k].label[lang], icon: CATS[k].icon })),
   ];
 
-  const shown = LOCAL_PLACES.filter((l) =>
+  const retenus = LOCAL_PLACES.filter((l) =>
     filter === 'tout' ? true : filter === 'responsable' ? l.responsible : l.cat === filter,
   );
+
+  /**
+   * Le plus proche en premier. « Proche de quoi ? » — de la maison tant qu'on
+   * n'a rien pose, du depart des qu'il existe. C'est le meme repere que les
+   * pastilles de la carte : les deux vues doivent raconter la meme chose.
+   *
+   * Une adresse sans position (le frantoio Gatto, absent d'OpenStreetMap) ne
+   * peut pas etre classee depuis un depart : on la met a la fin plutot que de
+   * lui inventer une distance.
+   */
+  const rang = (l: (typeof LOCAL_PLACES)[number]) => {
+    if (!depart) return l.km;
+    const co = COORDS[l.id];
+    return co ? distanceKm(depart.lat, depart.lon, co.lat, co.lon) : Infinity;
+  };
+  const shown = [...retenus].sort((a, b) => rang(a) - rang(b));
+
+  /** Les deux couches locales : instantanees, sans reseau. */
+  const ici = chercherIci(ou);
+  /** Ce qu'on deroule sous le champ : nos lieux, nos villes, puis le reste. */
+  const suggestions = sansDoublons([...ici, ...loin]).slice(0, 7);
+
+  /**
+   * Photon, a la frappe — mais pas a chaque lettre.
+   *
+   * On attend 250 ms de silence avant de partir : en tapant « Donnalucata »
+   * d'une traite, ca fait UNE requete au lieu de onze. Et toute requete encore
+   * en vol est abandonnee des que la suivante part — sans ca, une reponse lente
+   * a « Don » ecraserait celle de « Donnal ».
+   *
+   * S'il ne repond pas, on ne dit rien : les deux couches locales sont deja la,
+   * et une panne chez eux ne doit pas se voir chez nous.
+   */
+  useEffect(() => {
+    const q = ou.trim();
+    if (q.length < 3) return setLoin([]);
+    const stop = new AbortController();
+    const minuteur = setTimeout(() => {
+      chercherLoin(q, stop.signal, lang)
+        .then(setLoin)
+        .catch(() => {});
+    }, 250);
+    return () => {
+      clearTimeout(minuteur);
+      stop.abort();
+    };
+  }, [ou, lang]);
+
+  /** Se poser quelque part — par une suggestion, ou par la recherche. */
+  const seposer = (s: { nom: string; lat: number; lon: number }) => {
+    setDepart({ lat: s.lat, lon: s.lon });
+    setDepartNom(s.nom);
+    setOu('');
+    setLoin([]);
+    setCherche('idle');
+    setClicks((c) => c + 1);
+    montrerLeResultat();
+  };
 
   /**
    * Le libelle de distance — et son SENS change avec le depart.
@@ -98,37 +158,21 @@ export default function NosAdresses() {
   };
 
   /**
-   * « Vous etes ou ? » — le texte part chez le geocodeur d'OpenStreetMap, qui
-   * renvoie un point ; il devient le depart.
-   *
-   * A l'envoi seulement, jamais a la frappe : leur reglement interdit de s'en
-   * servir comme d'une autocompletion, et ce serait une requete par lettre.
-   * La recherche est bornee a la Sicile (viewbox + bounded) — sans ca, « Roma »
-   * nous emmenerait a l'autre bout du pays, hors de nos tuiles.
+   * Valider sans avoir choisi de suggestion : on prend la premiere qu'on a.
+   * Si la liste deroulee est vide — Photon lent, ou rien d'ici —, on lui pose
+   * la question une derniere fois, franchement, et on attend sa reponse.
    */
   const chercherOu = async (e: React.FormEvent) => {
     e.preventDefault();
     const q = ou.trim();
     if (!q) return;
+    if (suggestions.length) return seposer(suggestions[0]);
     setCherche('cours');
     try {
-      const r = await fetch(
-        'https://nominatim.openstreetmap.org/search?format=json&limit=1&bounded=1' +
-          '&viewbox=12.35,38.35,15.72,36.60&q=' +
-          encodeURIComponent(q),
-      );
-      if (!r.ok) throw new Error(String(r.status));
-      const d: { lat: string; lon: string; display_name: string }[] = await r.json();
-      if (!d.length) return setCherche('rien');
-      const lat = parseFloat(d[0].lat);
-      const lon = parseFloat(d[0].lon);
-      // Ceinture et bretelles : bounded=1 laisse parfois passer un debordement.
-      if (lat < 36.6 || lat > 38.35 || lon < 12.35 || lon > 15.72) return setCherche('loin');
-      setDepart({ lat, lon });
-      setDepartNom(d[0].display_name.split(',').slice(0, 2).join(', '));
-      setCherche('idle');
-      setClicks((c) => c + 1);
-      mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const r = await chercherLoin(q, new AbortController().signal, lang, 1);
+      if (!r.length) return setCherche('rien');
+      if (!dansLEmprise(r[0].lat, r[0].lon)) return setCherche('loin');
+      seposer(r[0]);
     } catch {
       setCherche('panne');
     }
@@ -199,32 +243,33 @@ export default function NosAdresses() {
                 {cherche === 'cours' ? p.whereSearching : '→'}
               </button>
             )}
-            {/* Ce qui commence par ce qu'on tape. On ne derange pas le
-                geocodeur a chaque lettre — son reglement l'interdit, et ce
-                serait une requete par caractere. */}
+            {/* Ce qui repond a ce qu'on tape : nos adresses d'abord, puis les
+                villes d'ici, puis tout le reste — rues et numeros compris. Les
+                deux premieres couches sont dans la page, la troisieme arrive
+                de chez Photon un quart de seconde plus tard. */}
             {suggestions.length > 0 && (
               <ul
                 className="absolute left-0 top-[calc(100%+6px)] z-20 w-full overflow-hidden rounded-2xl border"
                 style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)', boxShadow: '0 8px 30px rgb(0 0 0 / 0.14)' }}
               >
                 {suggestions.map((v) => (
-                  <li key={v.nom}>
+                  <li key={`${v.source}-${v.nom}-${v.lat}`}>
                     <button
                       type="button"
-                      onClick={() => {
-                        setDepart({ lat: v.lat, lon: v.lon });
-                        setDepartNom(v.nom);
-                        setOu('');
-                        setCherche('idle');
-                        setClicks((c) => c + 1);
-                        montrerLeResultat();
-                      }}
+                      onClick={() => seposer(v)}
                       className="cava-suggestion flex w-full items-center gap-2.5 px-5 py-3 text-left text-[14.5px]"
                     >
+                      {/* Une de nos adresses ne se confond pas avec une ville :
+                          le picto le dit avant qu'on lise. */}
                       <span className="shrink-0" style={{ color: 'var(--cava-pink)' }}>
-                        <Icon name="pin" size={15} />
+                        <Icon name={v.source === 'lieu' ? 'home' : 'pin'} size={15} />
                       </span>
-                      {v.nom}
+                      <span className="min-w-0 flex-1 truncate">{v.nom}</span>
+                      {v.detail && v.detail !== v.nom && (
+                        <span className="shrink-0 text-[12px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-muted)' }}>
+                          {v.detail}
+                        </span>
+                      )}
                     </button>
                   </li>
                 ))}
