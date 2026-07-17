@@ -74,14 +74,16 @@ function WorkGrid({
               </p>
 
               <div className="mt-auto flex flex-wrap gap-3 pt-3">
-                <a
-                  href={sc.placeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]"
-                >
-                  <Icon name="pin" size={15} /> {sc.placeLabel} <span aria-hidden>↗</span>
-                </a>
+                {sc.placeUrl && sc.placeLabel && (
+                  <a
+                    href={sc.placeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]"
+                  >
+                    <Icon name="pin" size={15} /> {sc.placeLabel} <span aria-hidden>↗</span>
+                  </a>
+                )}
                 <a
                   href={sc.url}
                   target="_blank"
@@ -172,7 +174,7 @@ export default function Culture() {
                 <Icon name="vinyl" size={16} /> {c.eyebrow}
               </span>
               <h2 className="mt-2 text-[clamp(1.4rem,2.8vw,2rem)] uppercase leading-[1.05] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
-                {c.playlistTitle}
+                {cf.playlist}
               </h2>
               <p className="mt-3 text-[15px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
                 {c.playlistDesc}
@@ -203,7 +205,7 @@ export default function Culture() {
               <div className="overflow-hidden rounded-xl">
                 <iframe
                   src={SPOTIFY_EMBED_URL}
-                  title={c.playlistTitle}
+                  title={cf.playlist}
                   width="100%"
                   height={SPOTIFY_EMBED_HEIGHT}
                   frameBorder="0"
@@ -219,17 +221,17 @@ export default function Culture() {
       )}
 
       {/* À l'écran — films & séries tournés ici */}
-      {show('ecrans') && <WorkGrid title={c.screensTitle} intro={c.screensIntro} items={SCREENS} icon="film" lang={lang} more={c.moreLabel} />}
+      {show('ecrans') && <WorkGrid title={cf.screens} intro={c.screensIntro} items={SCREENS} icon="film" lang={lang} more={c.moreLabel} />}
 
       {/* Peint ici — Guccione & le Gruppo di Scicli */}
-      {show('peinture') && <WorkGrid title={c.artsTitle} intro={c.artsIntro} items={ARTS} icon="brush" lang={lang} more={c.moreLabel} />}
+      {show('peinture') && <WorkGrid title={cf.painting} intro={c.artsIntro} items={ARTS} icon="brush" lang={lang} more={c.moreLabel} />}
 
       {/* Sculpté ici — Sasha Vinci. A sa propre section : « Peint ici » ne parle
           que de peinture, et son texte le dit. */}
-      {show('sculpture') && <WorkGrid title={c.sculptureTitle} intro={c.sculptureIntro} items={SCULPTURES} icon="landmark" lang={lang} more={c.moreLabel} />}
+      {show('sculpture') && <WorkGrid title={cf.sculpture} intro={c.sculptureIntro} items={SCULPTURES} icon="landmark" lang={lang} more={c.moreLabel} />}
 
       {/* Photographié ici — Giuseppe Leone & Scianna */}
-      {show('photo') && <WorkGrid title={c.photosTitle} intro={c.photosIntro} items={PHOTOS} icon="camera" lang={lang} more={c.moreLabel} />}
+      {show('photo') && <WorkGrid title={cf.photo} intro={c.photosIntro} items={PHOTOS} icon="camera" lang={lang} more={c.moreLabel} />}
 
       {/* Designer — Munari, son dictionnaire de gestes et son livre sur le design */}
       {show('mains') && (
@@ -239,7 +241,7 @@ export default function Culture() {
           className="border-t pt-8 text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]"
           style={{ fontWeight: 900, borderColor: 'var(--cava-ink)' }}
         >
-          {c.handsTitle}
+          {cf.hands}
         </Reveal>
         <Reveal as="p" className="mt-4 max-w-[68ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
           {c.handsIntro}
@@ -356,7 +358,7 @@ export default function Culture() {
           className="border-t pt-8 text-[clamp(1.4rem,2.6vw,1.9rem)] uppercase leading-[1.05] tracking-[-0.02em]"
           style={{ fontWeight: 900, borderColor: 'var(--cava-line)' }}
         >
-          {c.artistsTitle}
+          {cf.songs}
         </Reveal>
         <Reveal as="p" className="mt-2 max-w-[60ch] text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
           {c.artistsIntro}

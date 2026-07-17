@@ -128,21 +128,14 @@ export type Dict = {
     eyebrow: string;
     title: string;
     intro: string;
-    playlistTitle: string;
     playlistDesc: string;
     playlistCta: string;
     playlistSoon: string;
-    artistsTitle: string;
     artistsIntro: string;
-    screensTitle: string;
     screensIntro: string;
-    artsTitle: string;
     artsIntro: string;
-    sculptureTitle: string;
     sculptureIntro: string;
-    photosTitle: string;
     photosIntro: string;
-    handsTitle: string;
     handsIntro: string;
     handsBookCta: string;
     handsBook2Title: string;
@@ -415,13 +408,10 @@ const FR: Dict = {
     eyebrow: 'Culture',
     title: 'Sons & images',
     intro: 'Ce coin de Sicile a une bande-son et des décors de cinéma. Une playlist partagée à écouter sur la route, et les films et séries tournés à quelques kilomètres de la maison — souvent dans des rues que vous reconnaîtrez.',
-    playlistTitle: 'La playlist de la famille',
     playlistDesc: 'Une playlist partagée : chacun y ajoute ce qu’il écoute ici. Pour la route depuis l’aéroport, la cuisine ou la terrasse le soir.',
     playlistCta: 'Ouvrir dans Spotify',
     playlistSoon: 'Le lien de la playlist arrive bientôt.',
-    artistsTitle: 'Chansons & histoires de Sicile',
     artistsIntro: 'Les voix qui racontent l’île — à écouter avant, pendant, après.',
-    handsTitle: 'Designer',
     handsIntro: 'En 1958, le designer milanais Bruno Munari photographie cinquante gestes italiens et les légende en quatre langues. Le titre dit tout : « Supplément au dictionnaire italien ». Il ne le fait pas pour rire — il le fait pour les étrangers de passage en Italie. Autrement dit, pour nous.',
     handsWho: 'Bruno Munari (Milan, 1907-1998) commence chez les futuristes à vingt ans, puis passe sa vie à démonter le sérieux : ses « machines inutiles » de 1933 tournent au plafond sans rien produire. Les gestes, il ne les a pas inventés — il les a pris au chanoine Andrea de Jorio, qui les avait recensés à Naples en 1832.',
     handsBookCta: 'Le livre chez Corraini',
@@ -433,13 +423,9 @@ const FR: Dict = {
     handsCoverCredit: 'Bruno Munari, Speak Italian: The Fine Art of the Gesture — Chronicle Books, 2005',
     handsCover2Alt: 'Couverture de « Design as Art » de Bruno Munari chez Penguin : seize visages dessinés en noir et blanc, chacun dans un style différent, sur fond crème.',
     handsCover2Credit: 'Bruno Munari, Design as Art — Penguin Modern Classics, 2008',
-    photosTitle: 'Photographié ici',
     photosIntro: 'Avant les téléphones, d’autres ont regardé ces pierres et ces fêtes — et les ont fixées pour de bon.',
-    artsTitle: 'Peint ici',
     artsIntro: 'Scicli n’est pas qu’un décor de série : c’est un vrai foyer de peinture, et cette mer a été peinte toute une vie.',
-    sculptureTitle: 'Sculpté ici',
     sculptureIntro: 'Le seul de ces artistes encore au travail — et il travaille à 8 km, en faisant de Scicli son atelier à ciel ouvert.',
-    screensTitle: 'À l’écran, ici',
     screensIntro: 'Tourné à côté de la maison. Regardez avant de venir : vous verrez la région autrement.',
     placeLabel: 'Voir le lieu',
     moreLabel: 'En savoir plus',
@@ -634,7 +620,7 @@ const FR: Dict = {
     checklistTitle: 'Avant de fermer la porte',
     checklistNote: 'Cochez au fur et à mesure — rien n’est enregistré, c’est juste pour ne rien oublier.',
     checklist: [
-      'Couper l’eau : la vanne de la salle de bain, puis celle de la rue (au coin, en descendant à droite) — perpendiculaire = fermé.',
+      'Couper l’eau : la vanne de la rue, au coin, en descendant à droite — perpendiculaire = fermé.',
       'Couper l’électricité : les interrupteurs dehors, sur la terrasse de devant, à droite de la porte.',
       'Fermer la bouteille de gaz.',
       'Vider le frigo, le débrancher et laisser la porte entrouverte pour qu’il ne moisisse pas.',
@@ -821,13 +807,10 @@ const IT: Dict = {
     eyebrow: 'Cultura',
     title: 'Suoni & immagini',
     intro: 'Questo angolo di Sicilia ha una colonna sonora e scenografie da cinema. Una playlist condivisa da ascoltare in viaggio, e i film e le serie girati a pochi chilometri da casa — spesso in strade che riconoscerete.',
-    playlistTitle: 'La playlist della famiglia',
     playlistDesc: 'Una playlist condivisa: ognuno aggiunge ciò che ascolta qui. Per la strada dall’aeroporto, la cucina o la terrazza la sera.',
     playlistCta: 'Apri su Spotify',
     playlistSoon: 'Il link della playlist arriva presto.',
-    artistsTitle: 'Canzoni & storie di Sicilia',
     artistsIntro: 'Le voci che raccontano l’isola — da ascoltare prima, durante, dopo.',
-    handsTitle: 'Designer',
     handsIntro: 'Nel 1958 il designer milanese Bruno Munari fotografa cinquanta gesti italiani e li didascalizza in quattro lingue. Il titolo dice tutto: « Supplemento al dizionario italiano ». Non lo fa per scherzo — lo fa per gli stranieri di passaggio in Italia. Cioè per noi.',
     handsWho: 'Bruno Munari (Milano, 1907-1998) comincia tra i futuristi a vent’anni, poi passa la vita a smontare la serietà: le sue « macchine inutili » del 1933 girano al soffitto senza produrre nulla. I gesti non li ha inventati — li ha presi dal canonico Andrea de Jorio, che li aveva raccolti a Napoli nel 1832.',
     handsBookCta: 'Il libro da Corraini',
@@ -839,13 +822,9 @@ const IT: Dict = {
     handsCoverCredit: 'Bruno Munari, Speak Italian: The Fine Art of the Gesture — Chronicle Books, 2005',
     handsCover2Alt: 'Copertina di « Design as Art » di Bruno Munari per Penguin: sedici volti disegnati in bianco e nero, ognuno in uno stile diverso, su fondo crema.',
     handsCover2Credit: 'Bruno Munari, Design as Art — Penguin Modern Classics, 2008',
-    photosTitle: 'Fotografato qui',
     photosIntro: 'Prima dei telefoni, altri hanno guardato queste pietre e queste feste — e le hanno fissate per sempre.',
-    artsTitle: 'Dipinto qui',
     artsIntro: 'Scicli non è solo un set televisivo: è un vero focolaio di pittura, e questo mare è stato dipinto per tutta una vita.',
-    sculptureTitle: 'Scolpito qui',
     sculptureIntro: 'L’unico di questi artisti ancora al lavoro — e lavora a 8 km, facendo di Scicli il suo atelier a cielo aperto.',
-    screensTitle: 'Sullo schermo, qui',
     screensIntro: 'Girato accanto a casa. Guardate prima di venire: vedrete la zona con altri occhi.',
     placeLabel: 'Vedi il luogo',
     moreLabel: 'Scopri di più',
@@ -1040,7 +1019,7 @@ const IT: Dict = {
     checklistTitle: 'Prima di chiudere la porta',
     checklistNote: 'Spuntate man mano — non viene salvato nulla, serve solo a non dimenticare niente.',
     checklist: [
-      'Chiudere l’acqua: la valvola del bagno, poi quella in strada (all’angolo, scendendo a destra) — perpendicolare = chiusa.',
+      'Chiudere l’acqua: la valvola in strada, all’angolo scendendo a destra — perpendicolare = chiusa.',
       'Staccare l’elettricità: gli interruttori fuori, sulla terrazza davanti, a destra della porta.',
       'Chiudere la bombola del gas.',
       'Svuotare il frigo, staccarlo e lasciare lo sportello socchiuso perché non faccia muffa.',
@@ -1227,13 +1206,10 @@ const EN: Dict = {
     eyebrow: 'Culture',
     title: 'Sounds & screens',
     intro: 'This corner of Sicily has a soundtrack and film-set scenery. A shared playlist for the drive, and the films and series shot a few kilometres from the house — often in streets you will recognise.',
-    playlistTitle: 'The family playlist',
     playlistDesc: 'A shared playlist: everyone adds what they listen to here. For the drive from the airport, the kitchen, or the terrace at night.',
     playlistCta: 'Open in Spotify',
     playlistSoon: 'The playlist link is coming soon.',
-    artistsTitle: 'Songs & stories of Sicily',
     artistsIntro: 'The voices that tell the island — listen before, during, after.',
-    handsTitle: 'Designer',
     handsIntro: 'In 1958 the Milanese designer Bruno Munari photographed fifty Italian gestures and captioned them in four languages. The title says it all: “Supplement to the Italian dictionary”. He did not do it as a joke — he did it for foreigners visiting Italy. That is, for us.',
     handsWho: 'Bruno Munari (Milan, 1907-1998) started out among the Futurists at twenty, then spent his life dismantling seriousness: his 1933 “useless machines” turn on the ceiling and produce nothing. He did not invent the gestures — he took them from canon Andrea de Jorio, who catalogued them in Naples in 1832.',
     handsBookCta: 'The book at Corraini',
@@ -1245,13 +1221,9 @@ const EN: Dict = {
     handsCoverCredit: 'Bruno Munari, Speak Italian: The Fine Art of the Gesture — Chronicle Books, 2005',
     handsCover2Alt: 'Cover of “Design as Art” by Bruno Munari for Penguin: sixteen faces drawn in black and white, each in a different style, on a cream background.',
     handsCover2Credit: 'Bruno Munari, Design as Art — Penguin Modern Classics, 2008',
-    photosTitle: 'Photographed here',
     photosIntro: 'Before phones, others looked at these stones and these festivals — and fixed them for good.',
-    artsTitle: 'Painted here',
     artsIntro: 'Scicli is not only a TV set: it is a real home of painting, and this sea was painted for a whole lifetime.',
-    sculptureTitle: 'Sculpted here',
     sculptureIntro: 'The only one of these artists still at work — and he works 8 km away, turning Scicli into his open-air studio.',
-    screensTitle: 'On screen, right here',
     screensIntro: 'Filmed next door. Watch before you come: you will see the area differently.',
     placeLabel: 'See the place',
     moreLabel: 'Learn more',
@@ -1446,7 +1418,7 @@ const EN: Dict = {
     checklistTitle: 'Before you close the door',
     checklistNote: 'Tick as you go — nothing is saved, it is just so you forget nothing.',
     checklist: [
-      'Turn off the water: the bathroom valve, then the street one (at the corner, down to the right) — perpendicular = closed.',
+      'Turn off the water: the street valve, at the corner, down to the right — perpendicular = closed.',
       'Turn off the electricity: the switches outside, on the front terrace, to the right of the door.',
       'Close the gas bottle.',
       'Empty the fridge, unplug it and leave the door ajar so it does not go mouldy.',

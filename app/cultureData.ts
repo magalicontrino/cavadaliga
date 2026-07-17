@@ -178,8 +178,6 @@ export const SCULPTURES: Screen[] = [
     year: '1980 →',
     kind: { fr: 'Sculpteur', it: 'Scultore', en: 'Sculptor' },
     url: 'https://www.sashavinci.com/',
-    placeLabel: 'SITE SPECIFIC, Scicli',
-    placeUrl: 'https://sitespecific.it/',
     blurb: {
       fr: 'Sculpteur de formation — diplômé à l’Académie de Florence en 2005 —, il déborde vite : dessin, performance, installation, musique. Il vit et travaille à Scicli, à 8 km, où il a fondé SITE SPECIFIC en 2008 : les églises baroques, les jardins et les maisons du centre deviennent des salles d’exposition, et la ville entière un théâtre vivant. Ses fleurs et ses plumes colorées sont des gestes politiques.',
       it: 'Scultore di formazione — diplomato all’Accademia di Firenze nel 2005 —, sconfina presto: disegno, performance, installazione, musica. Vive e lavora a Scicli, a 8 km, dove nel 2008 ha fondato SITE SPECIFIC: le chiese barocche, i giardini e le case del centro diventano sale d’esposizione, e la città intera un teatro vivo. I suoi fiori e le sue piume colorate sono gesti politici.',
@@ -240,8 +238,10 @@ export type Screen = {
   year: string;
   kind: Record<Lang, string>;
   url: string; // fiche de référence
-  placeLabel: string; // lieu de tournage près de nous
-  placeUrl: string; // Google Maps
+  // Le lieu ou l'on croise ce travail pres d'ici. Optionnel : la fiche de Sasha
+  // Vinci ne porte que son site — Mag n'en veut pas d'autre.
+  placeLabel?: string;
+  placeUrl?: string;
   blurb: Record<Lang, string>;
 };
 
