@@ -64,7 +64,7 @@ const EMPRISE: [[number, number], [number, number]] = [
 /** Le strict nécessaire de l'API MapLibre, typé à la main. */
 type Epingle = { setLngLat: (l: [number, number]) => Epingle; addTo: (m: unknown) => Epingle; remove: () => void };
 type Carte = {
-  m: { easeTo: (o: object) => void; fitBounds: (b: [[number, number], [number, number]], o: object) => void };
+  m: { easeTo: (o: object) => void; resize: () => void; fitBounds: (b: [[number, number], [number, number]], o: object) => void };
   Marker: new (o: { element: HTMLElement; anchor?: string; offset?: [number, number] }) => Epingle;
 };
 
@@ -148,6 +148,8 @@ export default function PlaceMap({
   geoAsking = false,
   locateLabel = '',
   onDepart,
+  onMaison,
+  versMaison = 0,
   depart = null,
   kmLabel,
 }: {
@@ -155,7 +157,7 @@ export default function PlaceMap({
   places: LocalPlace[];
   lang: Lang;
   // Les libellés viennent de la page : ce composant ne doit rien écrire en dur.
-  labels: { map: string; badge: string; here: string; close: string; mapFailed: string; mapFailedHint: string };
+  labels: { map: string; badge: string; here: string; close: string; mapFailed: string; mapFailedHint: string; house: string };
   choisi: LocalPlace | null;
   onChoisir: (p: LocalPlace | null) => void;
   /** Position réelle du visiteur, s'il l'a demandée. */
@@ -172,6 +174,10 @@ export default function PlaceMap({
   locateLabel?: string;
   /** Cliquer la carte pose un depart simule : « et si j'etais la ? ». */
   onDepart?: (c: { lat: number; lon: number }) => void;
+  /** Ramener la carte sur la maison. */
+  onMaison?: () => void;
+  /** Change quand la page demande de revenir sur la maison. */
+  versMaison?: number;
   depart?: { lat: number; lon: number } | null;
   /** La page decide de ce qu'affiche chaque pastille : elle seule sait si l'on
    *  compte depuis la maison (par la route) ou depuis un depart simule. */
@@ -182,7 +188,6 @@ export default function PlaceMap({
   const markers = useRef<Epingle[]>([]);
   // id -> element : permet d'allumer l'épingle choisie sans reconstruire les 18
   const pins = useRef(new Map<string, HTMLElement>());
-  const maison = useRef<HTMLElement | null>(null);
   // « Vous etes ici » et le depart vivent dans leurs propres effets : melanges
   // aux epingles, ils rejouaient le cadrage a chaque clic — et la carte
   // repartait de sa vue de depart au lieu de rester ou l'on regardait.
@@ -211,8 +216,12 @@ export default function PlaceMap({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const liste = useMemo(() => places.filter((p) => COORDS[p.id]), [cle]);
 
-  /** Ce que porte la pastille de la maison : sa distance depuis le depart. */
-  const houseLabel = () => kmLabel({ id: '__maison__', km: 0 } as unknown as LocalPlace);
+  /** Le bouton de la maison : son nom, et sa distance quand un depart est pose.
+   *  Sans depart, kmLabel renvoie deja « La maison » : on ne le repete pas. */
+  const houseLabel = () => {
+    const d = kmLabel({ id: '__maison__', km: 0 } as unknown as LocalPlace);
+    return d === labels.house ? labels.house : `${labels.house} — ${d}`;
+  };
 
   /** Amène une épingle au centre, sans brusquer. */
   const viser = useCallback((p: LocalPlace) => {
@@ -305,12 +314,11 @@ export default function PlaceMap({
       markers.current.push(new c.Marker({ element: el }).setLngLat([co.lon, co.lat]).addTo(c.m));
     });
 
-    // La maison — une pastille comme les autres, en noir : depuis un depart
-    // simule, « c'est loin, la maison ? » est justement la question qu'on pose.
+    // La maison — un petit point discret. Sa distance vit sur le bouton, sous
+    // la cible : une pastille de plus au milieu des adresses encombrait.
     const h = document.createElement('div');
-    h.className = 'cava-glpin cava-glhouse';
-    maison.current = h;
-    h.innerHTML = `${picto('home', 19)}<span>${houseLabel()}</span>`;
+    h.className = 'cava-glhouse';
+    h.title = labels.house;
     markers.current.push(new c.Marker({ element: h }).setLngLat([HOUSE.lon, HOUSE.lat]).addTo(c.m));
 
     // Choisir un filtre doit MONTRER ce qu'on a choisi : on cadre sur les
@@ -341,14 +349,23 @@ export default function PlaceMap({
     mMe.current = new c.Marker({ element: v }).setLngLat([me.lon, me.lat]).addTo(c.m);
   }, [state, me]);
 
-  // Le depart simule — idem. Poser l'epingle ne doit RIEN deplacer d'autre :
-  // on reste exactement ou l'on regardait.
+  // Le depart simule. Poser l'epingle ne doit RIEN deplacer d'autre : on reste
+  // exactement ou l'on regardait.
   useEffect(() => {
     const c = map.current as Carte | null;
     if (!c || state !== 'ok') return;
-    mDepart.current?.remove();
-    mDepart.current = null;
-    if (!depart) return;
+    if (!depart) {
+      mDepart.current?.remove();
+      mDepart.current = null;
+      return;
+    }
+    // On la DEPLACE si elle existe deja. La detruire pour la refaire relancait
+    // son animation : elle semblait retomber depuis le point precedent au lieu
+    // de se planter la ou l'on venait de cliquer.
+    if (mDepart.current) {
+      mDepart.current.setLngLat([depart.lon, depart.lat]);
+      return;
+    }
     const d = document.createElement('div');
     d.className = 'cava-gldepart';
     d.innerHTML = EPINGLE;
@@ -368,10 +385,15 @@ export default function PlaceMap({
       const span = el.querySelector('span');
       if (p && span) span.textContent = kmLabel(p);
     });
-    const span = maison.current?.querySelector('span');
-    if (span) span.textContent = houseLabel();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, depart, cle]);
+
+  // « Ou est la maison ? » — on y va. Declenche par le bouton sous la cible.
+  useEffect(() => {
+    if (!versMaison || state !== 'ok') return;
+    const c = map.current as Carte | null;
+    c?.m.easeTo({ center: [HOUSE.lon, HOUSE.lat], zoom: 13, duration: 600 });
+  }, [versMaison, state]);
 
   // De retour de la liste : le canvas s'est vidé pendant qu'on ne le voyait
   // pas. On le remesure, sinon la carte revient en miette.
@@ -443,6 +465,20 @@ export default function PlaceMap({
           className="cava-maptarget absolute right-[10px] top-[84px] z-10 flex h-[29px] w-[29px] items-center justify-center disabled:opacity-50"
         >
           <Icon name="target" size={16} />
+        </button>
+      )}
+
+      {/* La maison, sous la cible : « c'est loin, chez nous ? ». En petit — la
+          pastille au milieu des adresses encombrait la carte. */}
+      {state === 'ok' && (
+        <button
+          type="button"
+          onClick={() => onMaison?.()}
+          aria-label={houseLabel()}
+          title={houseLabel()}
+          className="cava-maptarget absolute right-[10px] top-[119px] z-10 flex h-[29px] w-[29px] items-center justify-center"
+        >
+          <Icon name="home" size={16} />
         </button>
       )}
 

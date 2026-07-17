@@ -12,6 +12,7 @@ import { useI18n } from '../i18n';
 import { LOCAL_PLACES, CATS, type CatKey } from '../localData';
 import { HOUSE, MAX_KM, distanceKm } from '../geo';
 import { COORDS } from '../placeCoords';
+import { chercherVilles } from '../villes';
 
 /** MapLibre pèse ~210 Ko : il n'est chargé que si on ouvre cette page. */
 const PlaceMap = dynamic(() => import('../PlaceMap'), { ssr: false });
@@ -29,6 +30,10 @@ export default function NosAdresses() {
   const [departNom, setDepartNom] = useState<string | null>(null);
   const [ou, setOu] = useState('');
   const [cherche, setCherche] = useState<'idle' | 'cours' | 'rien' | 'loin' | 'panne'>('idle');
+  // Change a chaque demande de retour a la maison — la carte n'ecoute que ca.
+  const [versMaison, setVersMaison] = useState(0);
+  /** Les villes qui commencent par ce qu'on tape. Instantane, sans reseau. */
+  const suggestions = chercherVilles(ou);
   // Incrementé à chaque tri ou recherche : les fiches se montrent d'un coup.
   const [clicks, setClicks] = useState(0);
   const [active, setActive] = useState<string | null>(null);
@@ -164,7 +169,7 @@ export default function NosAdresses() {
         {/* « Vous etes ou ? » et la bascule carte / liste */}
         <Reveal className="mb-5 flex flex-col gap-3 md:flex-row md:items-center">
           {/* « Vous etes ou ? » — on se pose par le nom plutot qu'au doigt. */}
-          <form onSubmit={chercherOu} className="flex flex-1 items-center gap-3 md:max-w-md">
+          <form onSubmit={chercherOu} className="relative flex flex-1 items-center gap-3 md:max-w-md">
             <label
               className="flex flex-1 items-center gap-3 rounded-full border px-5 py-3"
               style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
@@ -193,6 +198,37 @@ export default function NosAdresses() {
               >
                 {cherche === 'cours' ? p.whereSearching : '→'}
               </button>
+            )}
+            {/* Ce qui commence par ce qu'on tape. On ne derange pas le
+                geocodeur a chaque lettre — son reglement l'interdit, et ce
+                serait une requete par caractere. */}
+            {suggestions.length > 0 && (
+              <ul
+                className="absolute left-0 top-[calc(100%+6px)] z-20 w-full overflow-hidden rounded-2xl border"
+                style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)', boxShadow: '0 8px 30px rgb(0 0 0 / 0.14)' }}
+              >
+                {suggestions.map((v) => (
+                  <li key={v.nom}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDepart({ lat: v.lat, lon: v.lon });
+                        setDepartNom(v.nom);
+                        setOu('');
+                        setCherche('idle');
+                        setClicks((c) => c + 1);
+                        montrerLeResultat();
+                      }}
+                      className="cava-suggestion flex w-full items-center gap-2.5 px-5 py-3 text-left text-[14.5px]"
+                    >
+                      <span className="shrink-0" style={{ color: 'var(--cava-pink)' }}>
+                        <Icon name="pin" size={15} />
+                      </span>
+                      {v.nom}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             )}
           </form>
 
@@ -343,7 +379,7 @@ export default function NosAdresses() {
           <PlaceMap
             places={shown}
             lang={lang}
-            labels={{ map: p.mapLabel, badge: p.badge, here: t.regionHere, close: p.closeLabel, mapFailed: p.mapFailed, mapFailedHint: p.mapFailedHint }}
+            labels={{ map: p.mapLabel, badge: p.badge, here: t.regionHere, close: p.closeLabel, mapFailed: p.mapFailed, mapFailedHint: p.mapFailedHint, house: p.houseHere }}
             choisi={shown.find((l) => l.id === active) ?? null}
             onChoisir={(l) => setActive(l?.id ?? null)}
             me={me}
@@ -351,6 +387,8 @@ export default function NosAdresses() {
             onLocate={locate}
             geoAsking={geo === 'asking'}
             locateLabel={geo === 'asking' ? p.locating : p.locateMe}
+            onMaison={() => setVersMaison(Date.now())}
+            versMaison={versMaison}
             onDepart={(c) => {
               setDepart(c);
               setDepartNom(null);
