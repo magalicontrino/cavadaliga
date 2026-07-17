@@ -36,9 +36,10 @@ export default function NosAdresses() {
 
   // Catégories affichées comme filtres (certaines encore vides → « à venir »).
   const FILTER_CATS: CatKey[] = ['chocolat', 'huile', 'marche', 'plantes', 'resto', 'supermarche', 'plage'];
-  // Les categories d'abord ; « Tout voir » ferme la ligne, en retrait — comme
-  // sur les autres pages a tri. Ici il reste l'etat par defaut : contrairement a
-  // La region, il ne fait doublon avec aucune categorie (19 adresses vs 7).
+  // « Tout voir » ouvre la ligne, en retrait. Ailleurs il la ferme, mais ici la
+  // rangee glisse : le dernier bouton finirait hors champ, et c'est justement
+  // l'etat par defaut — celui vers lequel on revient. Il reste discret pour
+  // qu'on ne le confonde pas avec une categorie.
   const filters: { key: 'tout' | 'responsable' | CatKey; label: string; icon: IconName }[] = [
     { key: 'responsable', label: p.badge, icon: 'leaf' },
     ...FILTER_CATS.map((k) => ({ key: k, label: CATS[k].label[lang], icon: CATS[k].icon })),
@@ -187,6 +188,17 @@ export default function NosAdresses() {
         )}
 
         <Reveal className="cava-swipe -mx-5 flex gap-2.5 overflow-x-auto px-5 pb-1 md:-mx-10 md:px-10">
+          <FilterChip
+            label={p.filterAll}
+            icon="map"
+            active={filter === 'tout'}
+            subtle
+            onClick={() => {
+              setFilter('tout');
+              setActive(null);
+              setClicks((c) => c + 1);
+            }}
+          />
           {filters.map((f) => {
             const on = filter === f.key;
             return (
@@ -203,17 +215,6 @@ export default function NosAdresses() {
               />
             );
           })}
-          <FilterChip
-            label={p.filterAll}
-            icon="map"
-            active={filter === 'tout'}
-            subtle
-            onClick={() => {
-              setFilter('tout');
-              setActive(null);
-              setClicks((c) => c + 1);
-            }}
-          />
         </Reveal>
       </section>
 
