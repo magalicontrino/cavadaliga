@@ -182,6 +182,7 @@ export default function PlaceMap({
   geoAsking = false,
   locateLabel = '',
   onDepart,
+  onRetirerDepart,
   onMaison,
   versMaison = 0,
   depart = null,
@@ -191,7 +192,7 @@ export default function PlaceMap({
   places: LocalPlace[];
   lang: Lang;
   // Les libellés viennent de la page : ce composant ne doit rien écrire en dur.
-  labels: { map: string; badge: string; here: string; close: string; mapFailed: string; mapFailedHint: string; house: string };
+  labels: { map: string; badge: string; here: string; close: string; mapFailed: string; mapFailedHint: string; house: string; departReset: string };
   choisi: LocalPlace | null;
   onChoisir: (p: LocalPlace | null) => void;
   /** Position réelle du visiteur, s'il l'a demandée. */
@@ -208,6 +209,9 @@ export default function PlaceMap({
   locateLabel?: string;
   /** Cliquer la carte pose un depart simule : « et si j'etais la ? ». */
   onDepart?: (c: { lat: number; lon: number }) => void;
+  /** Retirer le depart pose — on recompte depuis la maison. Declenche en
+   *  touchant l'epingle elle-meme : c'est le seul chemin de retour. */
+  onRetirerDepart?: () => void;
   /** Ramener la carte sur la maison. */
   onMaison?: () => void;
   /** Change quand la page demande de revenir sur la maison. */
@@ -430,14 +434,26 @@ export default function PlaceMap({
       mDepart.current.setLngLat([depart.lon, depart.lat]);
       return;
     }
-    const d = document.createElement('div');
+    const d = document.createElement('button');
+    d.type = 'button';
     d.className = 'cava-gldepart';
     d.innerHTML = EPINGLE;
+    // L'epingle qu'on a plantee, on la retire en la touchant : c'est le seul
+    // chemin de retour vers la maison depuis que le bandeau est parti. Sans le
+    // stopPropagation, le clic atteindrait la carte dessous et replanterait un
+    // depart au meme endroit — on ne pourrait plus jamais l'enlever.
+    d.title = labels.departReset;
+    d.setAttribute('aria-label', labels.departReset);
+    d.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      onRetirerDepart?.();
+    });
     // « bottom » + le decalage : ce qui doit tomber sur le point, c'est la
     // pointe au centre de l'anneau — pas le bas de l'image.
     mDepart.current = new c.Marker({ element: d, anchor: 'bottom', offset: [0, 5] })
       .setLngLat([depart.lon, depart.lat])
       .addTo(c.m);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, depart]);
 
   // Les distances changent avec le depart — mais on se contente de reecrire le

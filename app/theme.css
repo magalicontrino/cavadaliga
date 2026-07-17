@@ -793,10 +793,26 @@
 
 /* Le depart simule : « et si j'etais la ? ». L'epingle est dessinee dans
    PlaceMap ; ici on ne fait que la poser et la rendre vivante. */
+/* L'épingle est un vrai bouton depuis qu'on l'arrache en la touchant : elle
+   doit donc perdre les habits que le navigateur donne aux boutons, et gagner
+   la main qui dit qu'on peut la prendre. */
 .cava-gldepart {
   line-height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
   filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.35));
   animation: cava-depart-tombe 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* On l'attrape mieux qu'on ne vise : le doigt n'est pas une souris. */
+.cava-gldepart::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+}
+.cava-gldepart:hover {
+  filter: drop-shadow(0 3px 7px rgb(0 0 0 / 0.45));
 }
 @keyframes cava-depart-tombe {
   from {

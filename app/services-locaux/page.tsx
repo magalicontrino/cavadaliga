@@ -378,45 +378,24 @@ export default function NosAdresses() {
         </section>
       )}
 
-      {/* L'invitation au geste : un clic sur la carte, ca ne se devine pas. */}
-      {!depart && vue === 'carte' && (
+      {/* Une seule ligne fine, jamais deux. Sans depart, elle invite au geste —
+          un clic sur la carte, ca ne se devine pas. Avec un depart, elle dit
+          d'ou l'on compte et COMMENT : a vol d'oiseau, donc plus court que la
+          route. Les « km » de la maison et ceux d'un depart ne se mesurent pas
+          pareil ; les afficher pareil sans le dire serait mentir. Le bandeau qui
+          portait cet avertissement encombrait — le mot reste, la boite part.
+          Elle vaut aussi pour la liste des qu'un depart existe : c'est la que
+          les distances se lisent. */}
+      {(vue === 'carte' || depart) && (
         <section className="mx-auto max-w-[110rem] px-5 pt-3 md:px-10">
-          <Reveal className="flex items-center gap-2.5 text-[13px] italic" style={{ color: 'var(--cava-muted)' }}>
-            <span className="shrink-0" style={{ color: 'var(--cava-pink)' }}>
+          <Reveal className="flex items-start gap-2.5 text-[13px] italic" style={{ color: 'var(--cava-muted)' }}>
+            <span className="mt-[2px] shrink-0" style={{ color: 'var(--cava-pink)' }}>
               <Icon name="pin" size={14} />
             </span>
-            {p.departHint}
-          </Reveal>
-        </section>
-      )}
-
-      {/* Le depart simule — on dit d'ou l'on compte ET comment, sinon les
-          « km » voudraient dire deux choses sans prevenir. */}
-      {depart && (
-        <section className="mx-auto max-w-[110rem] px-5 pt-3 md:px-10">
-          <Reveal
-            className="flex items-start gap-3 rounded-2xl px-5 py-3 text-[13.5px] leading-[1.6]"
-            style={{ background: 'rgba(46,45,45,0.06)' }}
-          >
-            <span className="mt-[3px] shrink-0" style={{ color: 'var(--cava-ink)' }}>
-              <Icon name="pin" size={15} />
-            </span>
-            <p className="flex-1">
-              {departNom && <strong style={{ color: 'var(--cava-ink)' }}>{departNom} — </strong>}
-              {p.departOn}
+            <p>
+              {depart && departNom && <span style={{ color: 'var(--cava-ink)', fontWeight: 600 }}>{departNom} — </span>}
+              {depart ? p.departOn : p.departHint}
             </p>
-            <button
-              type="button"
-              onClick={() => {
-                setDepart(null);
-                setDepartNom(null);
-                setOu('');
-                setClicks((c) => c + 1);
-              }}
-              className="cava-pill shrink-0 px-4 py-1.5 text-[12.5px]"
-            >
-              {p.departReset}
-            </button>
           </Reveal>
         </section>
       )}
@@ -429,7 +408,7 @@ export default function NosAdresses() {
           <PlaceMap
             places={shown}
             lang={lang}
-            labels={{ map: p.mapLabel, badge: p.badge, here: t.regionHere, close: p.closeLabel, mapFailed: p.mapFailed, mapFailedHint: p.mapFailedHint, house: p.houseHere }}
+            labels={{ map: p.mapLabel, badge: p.badge, here: t.regionHere, close: p.closeLabel, mapFailed: p.mapFailed, mapFailedHint: p.mapFailedHint, house: p.houseHere, departReset: p.departReset }}
             choisi={shown.find((l) => l.id === active) ?? null}
             onChoisir={(l) => setActive(l?.id ?? null)}
             me={me}
@@ -437,6 +416,12 @@ export default function NosAdresses() {
             onLocate={locate}
             geoAsking={geo === 'asking'}
             locateLabel={geo === 'asking' ? p.locating : p.locateMe}
+            onRetirerDepart={() => {
+              setDepart(null);
+              setDepartNom(null);
+              setOu('');
+              setClicks((c) => c + 1);
+            }}
             onMaison={() => setVersMaison(Date.now())}
             versMaison={versMaison}
             onDepart={(c) => {
