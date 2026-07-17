@@ -755,12 +755,17 @@
 /* La maison : un petit point noir cercle de blanc. Discret — c'est un repere,
    pas une adresse a visiter. Sa distance vit sur le bouton, sous la cible. */
 .cava-glhouse {
-  height: 13px;
-  width: 13px;
+  display: flex;
+  height: 30px;
+  width: 30px;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
-  border: 3px solid #fff;
+  border: 2.5px solid #fff;
   background: var(--cava-ink);
-  box-shadow: 0 1px 5px rgb(0 0 0 / 0.4);
+  color: #fff;
+  line-height: 0;
+  box-shadow: 0 2px 7px rgb(0 0 0 / 0.4);
 }
 /* Le crédit OpenStreetMap est obligatoire (ODbL) : on l'habille, on ne le
    cache pas. */

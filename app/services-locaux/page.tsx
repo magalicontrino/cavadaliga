@@ -59,7 +59,10 @@ export default function NosAdresses() {
   const montrerLeResultat = () => menuRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   // Catégories affichées comme filtres (certaines encore vides → « à venir »).
-  const FILTER_CATS: CatKey[] = ['chocolat', 'huile', 'marche', 'plantes', 'resto', 'supermarche', 'plage'];
+  // Le chocolat n'est plus une categorie a lui seul : Bonajuto se mange, il vit
+  // donc dans « Manger & boire ». Les mots « chocolat », « cacao », « Modica »
+  // le trouvent toujours par la recherche — c'est une autre liste.
+  const FILTER_CATS: CatKey[] = ['huile', 'marche', 'plantes', 'resto', 'supermarche', 'plage'];
   // « Tout voir » ouvre la ligne, en retrait. Ailleurs il la ferme, mais ici la
   // rangee glisse : le dernier bouton finirait hors champ, et c'est justement
   // l'etat par defaut — celui vers lequel on revient. Il reste discret pour
@@ -434,7 +437,12 @@ export default function NosAdresses() {
               setOu('');
               setClicks((c) => c + 1);
             }}
-            onMaison={() => setVersMaison(Date.now())}
+            onMaison={() => {
+              // On va voir la maison : la fiche d'une adresse n'a plus rien a
+              // faire la, et elle couvrirait justement ce qu'on vient demander.
+              setActive(null);
+              setVersMaison(Date.now());
+            }}
             versMaison={versMaison}
             onDepart={(c) => {
               setDepart(c);

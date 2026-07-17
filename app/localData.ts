@@ -6,10 +6,9 @@ import type { IconName } from './Icon';
 // Textes visibles dans les 3 langues (fr · it · en).
 // ────────────────────────────────────────────────────────────────────────
 export type Lang = 'fr' | 'it' | 'en';
-export type CatKey = 'chocolat' | 'huile' | 'agrumes' | 'plantes' | 'marche' | 'resto' | 'supermarche' | 'plage';
+export type CatKey = 'huile' | 'agrumes' | 'plantes' | 'marche' | 'resto' | 'supermarche' | 'plage';
 
 export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<Lang, string> }> = {
-  chocolat: { icon: 'cone', bg: 'linear-gradient(135deg,#7a4a3a,#553025)', label: { fr: 'Chocolat', it: 'Cioccolato', en: 'Chocolate' } },
   huile: { icon: 'droplet', bg: 'linear-gradient(135deg,#b89a4a,#856a2c)', label: { fr: 'Huile d’olive', it: 'Olio d’oliva', en: 'Olive oil' } },
   agrumes: { icon: 'citrus', bg: 'linear-gradient(135deg,#f0568c,#c02057)', label: { fr: 'Agrumes & épices', it: 'Agrumi & spezie', en: 'Citrus & spices' } },
   plantes: { icon: 'leaf', bg: 'linear-gradient(135deg,#6f8f5f,#4f7346)', label: { fr: 'Plantes & fleurs', it: 'Piante & fiori', en: 'Plants & flowers' } },
@@ -68,7 +67,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
   {
     id: 'bonajuto',
     name: 'Antica Dolceria Bonajuto',
-    cat: 'chocolat',
+    cat: 'resto',
     town: 'Modica',
     url: 'https://www.bonajuto.it',
     instagram: 'https://www.instagram.com/bonajuto/',

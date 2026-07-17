@@ -50,24 +50,40 @@ const MUET = '#6f6e6e';
 const TUILES = '/tuiles/sicile-v4.pmtiles.png';
 
 /**
- * L'emprise de nos tuiles : la Sicile entiere, de Trapani a Syracuse.
+ * Le fond de promenade de la camera. Il DEBORDE volontairement nos tuiles
+ * (12.35,36.6 -> 15.72,38.35), et c'est tout le sujet.
  *
- * Hors de la, il n'y a rien a dessiner — on verrait le fond du style, une bande
- * vide. On l'impose donc comme limite a la camera, qui ne peut plus en sortir.
+ * Mag : « on doit toujours voir toute la Sicile ». On ne pouvait pas. La camera
+ * etait fencee sur la boite des tuiles, qui epouse l'ile : pour voir l'ile en
+ * entier sur un ecran large, il faut montrer de la mer sur les cotes — la
+ * boite l'interdisait. Mesure au banc, largeur 691 px : la carte ne pouvait
+ * montrer que 12.81 -> 15.26 en longitude. Trapani (12.71) restait dehors, et
+ * dezoomer ne changeait rien.
  *
- * L'ile entiere au zoom 14 pese 60 Mo dans le depot. Ca ne change RIEN au
- * chargement : par requetes de plage, une vue coute une centaine de kilo-octets,
- * qu'on regarde Cava d'Aliga ou Palerme.
+ * D'ou ces marges. Elles couvrent les deux extremes : un ecran large (la carte
+ * y est 2,7 fois plus large que haute, l'ile 1,3 — il faut de la mer a l'est et
+ * a l'ouest) et un telephone (etroit et haut — il en faut au nord et au sud).
+ * Verifie au banc : l'ile entiere tient, de Trapani a Syracuse.
+ *
+ * Et hors des tuiles, on ne voit pas du vide : `pmtiles extract` garde les
+ * tuiles ENTIERES qui touchent la boite, et une tuile de bas zoom couvre bien
+ * plus large. Les Eoliennes et la pointe de la Calabre sont donc dessinees.
+ * Plus loin encore, c'est le fond du style — peint couleur mer, ce qui est vrai
+ * tout autour de l'ile.
+ *
+ * L'ile au zoom 14 pese 60 Mo dans le depot. Ca ne change RIEN au chargement :
+ * par requetes de plage, une vue coute une centaine de kilo-octets, qu'on
+ * regarde Cava d'Aliga ou Palerme.
  */
 const EMPRISE: [[number, number], [number, number]] = [
-  [12.35, 36.6],
-  [15.72, 38.35],
+  [10.3, 35.2],
+  [17.8, 39.7],
 ];
 
 /** Le strict nécessaire de l'API MapLibre, typé à la main. */
 type Epingle = { setLngLat: (l: [number, number]) => Epingle; addTo: (m: unknown) => Epingle; remove: () => void };
 type Carte = {
-  m: { easeTo: (o: object) => void; resize: () => void; getZoom: () => number; fitBounds: (b: [[number, number], [number, number]], o: object) => void };
+  m: { easeTo: (o: object) => void; resize: () => void; fitBounds: (b: [[number, number], [number, number]], o: object) => void };
   Marker: new (o: { element: HTMLElement; anchor?: string; offset?: [number, number] }) => Epingle;
 };
 
@@ -128,7 +144,10 @@ const style = (tiles: string) => ({
     },
   },
   layers: [
-    { id: 'fond', type: 'background' as const, paint: { 'background-color': BG } },
+    // Le fond est la MER, pas le creme du site : c'est ce qu'on voit la ou nos
+    // tuiles s'arretent, et tout autour de la Sicile, c'est de la mer. En creme,
+    // le large passait pour de la terre.
+    { id: 'fond', type: 'background' as const, paint: { 'background-color': '#e88aab' } },
     { id: 'terre', type: 'fill' as const, source: 'p', 'source-layer': 'earth', paint: { 'fill-color': BG } },
     { id: 'vert', type: 'fill' as const, source: 'p', 'source-layer': 'landuse', paint: { 'fill-color': '#eeece7' } },
     // La mer en rose : c'est l'aplat qui donne son air au poster.
@@ -325,12 +344,13 @@ export default function PlaceMap({
     const c = map.current as Carte | null;
     const co = COORDS[p.id];
     if (!c || !co) return;
-    // Le zoom minimum n'est pas un caprice : a la vue d'arrivee, la carte est
-    // deja plaquee contre le bord sud de nos tuiles (maxBounds). La camera n'a
-    // alors AUCUN jeu pour descendre, et le decalage ci-dessus ne sert a rien —
-    // mesure : on demandait 188 px, la carte en bougeait 18. En s'approchant, le
-    // jeu revient, et l'epingle peut sortir de sous sa fiche.
-    c.m.easeTo({ center: [co.lon, co.lat], offset: aCote(), zoom: Math.max(c.m.getZoom(), 13), duration: 500 });
+    // Pas de zoom impose : on ne fait que pousser l'epingle a cote de sa fiche.
+    // Il y en avait un — 13 minimum — parce que la camera, fencee sur la boite
+    // des tuiles, n'avait aucun jeu pour se decaler : on demandait 188 px, elle
+    // en bougeait 18. Les bornes elargies lui rendent ce jeu ; le contournement
+    // n'a plus lieu d'etre, et cliquer une epingle ne rapproche plus la carte
+    // par surprise.
+    c.m.easeTo({ center: [co.lon, co.lat], offset: aCote(), duration: 400 });
   }, []);
 
   /**
@@ -480,6 +500,12 @@ export default function PlaceMap({
     const h = document.createElement('div');
     h.className = 'cava-glhouse';
     h.title = labels.house;
+    // Le picto DANS le point : « la maison » se lit, au lieu de se deviner. Un
+    // simple point noir de 13 px se perdait au milieu des pastilles — Mag ne le
+    // voyait pas. Un disque a l'encre, le toit en blanc au centre, un anneau
+    // clair pour le detacher du fond : c'est le repere de toutes les distances
+    // de la page, il a le droit de se voir.
+    h.innerHTML = picto('home', 15);
     markers.current.push(new c.Marker({ element: h }).setLngLat([HOUSE.lon, HOUSE.lat]).addTo(c.m));
 
     cadrer(0);
@@ -568,10 +594,10 @@ export default function PlaceMap({
   useEffect(() => {
     if (!versMaison || state !== 'ok') return;
     const c = map.current as Carte | null;
-    // Zoom 15 et pas 13 : on demande a voir LA MAISON, pas la region autour.
-    // A 13 le point noir se perdait au milieu de rien ; a 15 les batiments sont
-    // dessines (leur couche commence a 14) et le voisinage se reconnait.
-    c?.m.easeTo({ center: [HOUSE.lon, HOUSE.lat], zoom: 15, duration: 600 });
+    // Au plus pres : on demande a voir LA MAISON, pas la region autour. Nos
+    // tuiles s'arretent au zoom 14, mais elles sont vectorielles — au-dela, les
+    // formes grandissent sans se pixeliser. 17, c'est la rue.
+    c?.m.easeTo({ center: [HOUSE.lon, HOUSE.lat], zoom: 17, duration: 700 });
   }, [versMaison, state]);
 
   // L'épingle choisie s'inverse — on doit voir de quel point la fiche parle.
