@@ -93,8 +93,6 @@ export type Dict = {
     closeLabel: string;
     viewMap: string;
     viewList: string;
-    departHint: string;
-    departOn: string;
     /** L'infobulle de l'epingle du depart : on l'arrache en la touchant. */
     departReset: string;
     houseHere: string;
@@ -348,8 +346,6 @@ const FR: Dict = {
     closeLabel: 'Fermer',
     viewMap: 'Carte',
     viewList: 'Liste',
-    departHint: 'Touchez la carte pour vous poser ailleurs et voir les distances depuis là.',
-    departOn: 'Départ simulé : les distances sont comptées depuis le point noir, à vol d’oiseau — la route sera plus longue.',
     departReset: 'Retirer ce départ — recompter depuis la maison',
     houseHere: 'La maison',
     wherePlaceholder: 'Vous êtes où ? Un village, une adresse…',
@@ -753,8 +749,6 @@ const IT: Dict = {
     closeLabel: 'Chiudi',
     viewMap: 'Mappa',
     viewList: 'Elenco',
-    departHint: 'Tocca la mappa per spostarti altrove e vedere le distanze da lì.',
-    departOn: 'Partenza simulata: le distanze sono calcolate dal punto nero, in linea d’aria — la strada sarà più lunga.',
     departReset: 'Togli questa partenza — ricalcola dalla casa',
     houseHere: 'La casa',
     wherePlaceholder: 'Dove sei? Un paese, un indirizzo…',
@@ -1158,8 +1152,6 @@ const EN: Dict = {
     closeLabel: 'Close',
     viewMap: 'Map',
     viewList: 'List',
-    departHint: 'Tap the map to place yourself elsewhere and see the distances from there.',
-    departOn: 'Simulated start: distances are measured from the black point, as the crow flies — the road will be longer.',
     departReset: 'Remove this start — measure from the house again',
     houseHere: 'The house',
     wherePlaceholder: 'Where are you? A village, an address…',

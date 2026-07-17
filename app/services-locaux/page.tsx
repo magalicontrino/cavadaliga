@@ -26,8 +26,6 @@ export default function NosAdresses() {
   // « Et si j'etais la ? » — un point pose sur la carte. Tant qu'il est nul, on
   // compte depuis la maison, par la route, avec les km que Mag a saisis.
   const [depart, setDepart] = useState<{ lat: number; lon: number } | null>(null);
-  // Le nom du lieu trouve — « Depart : Palerme » vaut mieux que « Depart ».
-  const [departNom, setDepartNom] = useState<string | null>(null);
   const [ou, setOu] = useState('');
   const [cherche, setCherche] = useState<'idle' | 'cours' | 'rien' | 'loin' | 'panne'>('idle');
   // Change a chaque demande de retour a la maison — la carte n'ecoute que ca.
@@ -139,7 +137,6 @@ export default function NosAdresses() {
   /** Se poser quelque part — par une suggestion, ou par la recherche. */
   const seposer = (s: { nom: string; lat: number; lon: number }) => {
     setDepart({ lat: s.lat, lon: s.lon });
-    setDepartNom(s.nom);
     setOu('');
     setLoin([]);
     setCherche('idle');
@@ -153,8 +150,13 @@ export default function NosAdresses() {
    * Depuis la maison : les km de Mag, mesures par la route. Depuis un point
    * pose sur la carte : je ne sais faire que du vol d'oiseau, ce qui donne
    * toujours moins, parfois beaucoup moins dans les Iblei ou les routes
-   * tournent. C'est dit en toutes lettres au-dessus de la carte : afficher les
-   * deux sous le meme « km » sans prevenir serait mentir.
+   * tournent.
+   *
+   * Une ligne le disait au-dessus de la carte. Mag l'a retiree en connaissance
+   * de cause : c'est une page de famille, on regarde « c'est loin ? », pas un
+   * calculateur d'itineraire. Le « ≈ » porte donc seul cette reserve. Si un
+   * jour un chiffre doit etre juste au kilometre pres, il faudra le dire —
+   * ou aller chercher la vraie distance routiere.
    */
   const kmLabel = (l: { id: string; km: number }) => {
     // La maison est un cas a part : elle n'est pas dans LOCAL_PLACES, et sa
@@ -398,27 +400,12 @@ export default function NosAdresses() {
         </section>
       )}
 
-      {/* Une seule ligne fine, jamais deux. Sans depart, elle invite au geste —
-          un clic sur la carte, ca ne se devine pas. Avec un depart, elle dit
-          d'ou l'on compte et COMMENT : a vol d'oiseau, donc plus court que la
-          route. Les « km » de la maison et ceux d'un depart ne se mesurent pas
-          pareil ; les afficher pareil sans le dire serait mentir. Le bandeau qui
-          portait cet avertissement encombrait — le mot reste, la boite part.
-          Elle vaut aussi pour la liste des qu'un depart existe : c'est la que
-          les distances se lisent. */}
-      {(vue === 'carte' || depart) && (
-        <section className="mx-auto max-w-[110rem] px-5 pt-3 md:px-10">
-          <Reveal className="flex items-start gap-2.5 text-[13px] italic" style={{ color: 'var(--cava-muted)' }}>
-            <span className="mt-[2px] shrink-0" style={{ color: 'var(--cava-pink)' }}>
-              <Icon name="pin" size={14} />
-            </span>
-            <p>
-              {depart && departNom && <span style={{ color: 'var(--cava-ink)', fontWeight: 600 }}>{departNom} — </span>}
-              {depart ? p.departOn : p.departHint}
-            </p>
-          </Reveal>
-        </section>
-      )}
+      {/* Rien entre les boutons et le contenu. Il y avait ici une ligne — le
+          geste a decouvrir, puis l'avertissement du vol d'oiseau. Mag n'en veut
+          plus : elle n'existait qu'en vue carte, et basculer carte / liste
+          faisait donc sauter tout ce qui suit. Les deux vues commencent
+          maintenant a la meme hauteur, au pixel pres — meme `pt-3` de part et
+          d'autre, plus rien qui ne vive que d'un cote. */}
 
       {/* La carte — les épingles suivent le filtre.
           Ni légende ni mini-carte de survol : chaque pastille porte déjà sa
@@ -438,7 +425,6 @@ export default function NosAdresses() {
             locateLabel={geo === 'asking' ? p.locating : p.locateMe}
             onRetirerDepart={() => {
               setDepart(null);
-              setDepartNom(null);
               setOu('');
               setClicks((c) => c + 1);
             }}
@@ -446,7 +432,6 @@ export default function NosAdresses() {
             versMaison={versMaison}
             onDepart={(c) => {
               setDepart(c);
-              setDepartNom(null);
               setCherche('idle');
             }}
             depart={depart}
