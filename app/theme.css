@@ -763,3 +763,15 @@
   background: rgb(0 0 0 / 0.06);
   color: var(--cava-ink);
 }
+
+/* « Vous etes ici » sur la vraie carte — la position telle quelle, sans
+   correspondance a inventer. Bleu : c'est la convention, et ca ne se confond
+   avec aucune de nos couleurs. */
+.cava-glme {
+  height: 16px;
+  width: 16px;
+  border-radius: 999px;
+  border: 3px solid #fff;
+  background: #2563eb;
+  box-shadow: 0 0 0 1px rgb(37 99 235 / 0.5), 0 1px 6px rgb(0 0 0 / 0.35);
+}

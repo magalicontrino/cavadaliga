@@ -3,15 +3,15 @@
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { CATS, LOCAL_PLACES, type Lang, type LocalPlace } from '../localData';
-import { HOUSE } from '../geo';
-import { COORDS } from './coords';
-import { ICON_PATHS, type IconName } from '../Icon';
-import { withBase } from '../data';
-import Fiche from './Fiche';
+import { CATS, type Lang, type LocalPlace } from './localData';
+import { HOUSE } from './geo';
+import { COORDS } from './placeCoords';
+import { ICON_PATHS, type IconName } from './Icon';
+import { withBase } from './data';
+import PlaceCard from './PlaceCard';
 
 /**
- * MAQUETTE — la même région, en vraie carte.
+ * La carte des adresses.
  *
  * MapLibre n'apporte que le moteur : les données viennent d'un unique fichier
  * .pmtiles posé dans public/, que le navigateur interroge par requêtes de
@@ -19,7 +19,10 @@ import Fiche from './Fiche';
  * de clé d'API, pas de quota.
  *
  * Tout est chargé à la demande (import dynamique) : les ~210 Ko de MapLibre ne
- * pèsent que sur cette page, jamais sur le reste du site.
+ * pèsent que sur cette page, jamais sur les sept autres.
+ *
+ * Elle ne décide de rien : la page lui passe les lieux déjà triés et cherchés,
+ * et le lieu choisi. Elle les montre, et signale les clics.
  */
 
 const INK = '#2e2d2d';
@@ -99,15 +102,23 @@ const style = (tiles: string) => ({
   ],
 });
 
-export default function MapLibreMap({
+export default function PlaceMap({
+  places,
   lang,
-  filter,
   labels,
+  choisi,
+  onChoisir,
+  me,
 }: {
+  /** Déjà triés et cherchés par la page — la carte ne filtre rien. */
+  places: LocalPlace[];
   lang: Lang;
-  filter: string;
   // Les libellés viennent de la page : ce composant ne doit rien écrire en dur.
   labels: { map: string; badge: string; here: string; close: string };
+  choisi: LocalPlace | null;
+  onChoisir: (p: LocalPlace | null) => void;
+  /** Position réelle du visiteur, s'il l'a demandée. */
+  me: { lat: number; lon: number } | null;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<unknown>(null);
@@ -116,21 +127,22 @@ export default function MapLibreMap({
   const pins = useRef(new Map<string, HTMLElement>());
   const [state, setState] = useState<'chargement' | 'ok' | 'erreur'>('chargement');
   const [erreur, setErreur] = useState('');
-  const [choisi, setChoisi] = useState<LocalPlace | null>(null);
   const piste = useRef<HTMLDivElement>(null);
   // D'ou vient le choix ? Cliquer une epingle doit amener sa fiche ; glisser
   // la piste ne doit surtout PAS la repositionner — sinon on lutte contre le
   // doigt de l'utilisateur, et le geste suivant est ignore.
   const origine = useRef<'epingle' | 'piste'>('epingle');
 
-  /** Les lieux montrés : ceux du filtre qui ont une position réelle. */
-  const liste = useMemo(
-    () =>
-      LOCAL_PLACES.filter((p) => (filter === 'tout' ? true : filter === 'responsable' ? p.responsible : p.cat === filter)).filter(
-        (p) => COORDS[p.id],
-      ),
-    [filter],
-  );
+  /**
+   * `places` est un tableau neuf à chaque rendu de la page : s'y fier par
+   * IDENTITÉ ferait croire que la liste change sans arrêt, et l'effet qui pose
+   * les épingles se rejouerait — en effaçant le choix au passage. On ne se fie
+   * donc qu'au CONTENU : cette clé ne bouge que si les lieux changent vraiment.
+   */
+  const cle = places.map((p) => p.id).join(',');
+  /** Ceux qu'on peut poser : sans position réelle, pas d'épingle inventée. */
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const liste = useMemo(() => places.filter((p) => COORDS[p.id]), [cle]);
 
   /** Amène une épingle au centre, sans brusquer. */
   const viser = useCallback((p: LocalPlace) => {
@@ -169,7 +181,7 @@ export default function MapLibreMap({
           setState('erreur');
         });
         // Cliquer le fond referme la fiche — le réflexe attendu d'une carte.
-        m.on('click', () => !mort && setChoisi(null));
+        m.on('click', () => !mort && onChoisir(null));
         map.current = { m, Marker };
       } catch (e) {
         if (mort) return;
@@ -189,7 +201,7 @@ export default function MapLibreMap({
   useEffect(() => {
     const c = map.current as Carte | null;
     if (!c || state !== 'ok') return;
-    setChoisi(null); // la fiche parlerait d'une épingle que le filtre a retirée
+    onChoisir(null); // la fiche parlerait d'une épingle que le filtre a retirée
     markers.current.forEach((x) => x.remove());
     markers.current = [];
     pins.current.clear();
@@ -212,7 +224,7 @@ export default function MapLibreMap({
       el.addEventListener('click', (ev) => {
         ev.stopPropagation(); // sinon le clic atteint la carte et referme aussitôt
         origine.current = 'epingle';
-        setChoisi(p);
+        onChoisir(p);
         viser(p);
       });
       markers.current.push(new c.Marker({ element: el }).setLngLat([co.lon, co.lat]).addTo(c.m));
@@ -223,6 +235,14 @@ export default function MapLibreMap({
     h.className = 'cava-glhouse';
     h.title = "Cava d'Aliga";
     markers.current.push(new c.Marker({ element: h }).setLngLat([HOUSE.lon, HOUSE.lat]).addTo(c.m));
+
+    // « Vous êtes ici » : la vraie position, posée telle quelle. Plus besoin de
+    // la faire correspondre à un dessin — c'était tout l'objet de geo.ts.
+    if (me) {
+      const v = document.createElement('div');
+      v.className = 'cava-glme';
+      markers.current.push(new c.Marker({ element: v }).setLngLat([me.lon, me.lat]).addTo(c.m));
+    }
 
     // Choisir un filtre doit MONTRER ce qu'on a choisi : on cadre sur les
     // épingles retenues (la maison comprise, c'est le repère). Sans ça, on
@@ -238,7 +258,7 @@ export default function MapLibreMap({
       // Un seul lieu ? fitBounds irait au zoom maximum : on le retient.
       { padding: 70, maxZoom: 13.5, duration: 500 },
     );
-  }, [state, filter, lang, liste, viser]);
+  }, [state, cle, lang, viser, me]);
 
   // L'épingle choisie s'inverse — on doit voir de quel point la fiche parle.
   useEffect(() => {
@@ -281,7 +301,7 @@ export default function MapLibreMap({
     const cible = liste[best];
     if (cible && cible.id !== choisi?.id) {
       origine.current = 'piste';
-      setChoisi(cible);
+      onChoisir(cible);
       viser(cible);
     }
   }, [liste, choisi, viser]);
@@ -301,7 +321,7 @@ export default function MapLibreMap({
         >
           {liste.map((p) => (
             <div key={p.id} className="w-[86%] shrink-0 snap-center">
-              <Fiche place={p} lang={lang} labels={labels} onClose={() => setChoisi(null)} />
+              <PlaceCard place={p} lang={lang} labels={labels} onClose={() => onChoisir(null)} />
             </div>
           ))}
         </div>
@@ -310,7 +330,7 @@ export default function MapLibreMap({
       {/* Écran large : une seule fiche, en bas a gauche. */}
       {choisi && (
         <div className="absolute bottom-4 left-4 z-10 hidden w-[330px] sm:block">
-          <Fiche place={choisi} lang={lang} labels={labels} onClose={() => setChoisi(null)} />
+          <PlaceCard place={choisi} lang={lang} labels={labels} onClose={() => onChoisir(null)} />
         </div>
       )}
 

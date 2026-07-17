@@ -7,15 +7,13 @@ import Reveal, { RevealNow } from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon, { type IconName } from '../Icon';
 import FilterChip from '../FilterChip';
-import LocalMap, { type MapSpot } from '../LocalMap';
-import MapViewport, { type MapFocus } from '../MapViewport';
+import dynamic from 'next/dynamic';
 import { useI18n } from '../i18n';
 import { LOCAL_PLACES, CATS, SEARCH_WORDS, norm, type CatKey } from '../localData';
-import { toMap } from '../geo';
+import { HOUSE, MAX_KM, distanceKm } from '../geo';
 
-// Gabarit de la mini-carte de survol — sert à la borner dans l'écran.
-const TIP_W = 256;
-const TIP_H = 74;
+/** MapLibre pèse ~210 Ko : il n'est chargé que si on ouvre cette page. */
+const PlaceMap = dynamic(() => import('../PlaceMap'), { ssr: false });
 
 export default function NosAdresses() {
   const { t, lang } = useI18n();
@@ -27,14 +25,11 @@ export default function NosAdresses() {
   // Incrementé à chaque tri ou recherche : les fiches se montrent d'un coup.
   const [clicks, setClicks] = useState(0);
   const [active, setActive] = useState<string | null>(null);
-  const [focus, setFocus] = useState<MapFocus | null>(null);
-  // `below` : la mini-carte passe sous l'épingle quand il n'y a pas la place
-  // au-dessus, sinon elle sortirait par le haut de l'écran.
-  const [hover, setHover] = useState<{ spot: MapSpot; left: number; top: number; below: boolean } | null>(null);
-  const [me, setMe] = useState<{ x: number; y: number } | null>(null);
+  // La vraie position du visiteur, s'il l'a demandée — plus besoin de la faire
+  // correspondre à un dessin.
+  const [me, setMe] = useState<{ lat: number; lon: number } | null>(null);
   const [geo, setGeo] = useState<'idle' | 'asking' | 'ok' | 'far' | 'error'>('idle');
   const mapRef = useRef<HTMLElement>(null);
-  const wrapRef = useRef<HTMLDivElement>(null);
 
   // Catégories affichées comme filtres (certaines encore vides → « à venir »).
   const FILTER_CATS: CatKey[] = ['chocolat', 'huile', 'marche', 'plantes', 'resto', 'supermarche', 'plage'];
@@ -75,57 +70,11 @@ export default function NosAdresses() {
   // Distance depuis la maison — « Sur place » pour les adresses du village.
   const distance = (km: number) => (km === 0 ? t.regionHere : `≈ ${km} km`);
 
-  // Épingles de la carte = les adresses actuellement affichées.
-  const spots = shown.map((l) => ({
-    id: l.id,
-    name: l.name,
-    icon: CATS[l.cat].icon,
-    x: l.x,
-    y: l.y,
-    q: `${l.name} ${l.town}`,
-    cat: `${l.town} · ${CATS[l.cat].label[lang]}`,
-    km: distance(l.km),
-  }));
-
-  // Repères de la carte illustrée (viewBox "0 112 1000 548" de LocalMap).
-  const VB = { w: 1000, y0: 112, h: 548 };
-  const frac = (x: number, y: number) => ({ fx: x / VB.w, fy: (y - VB.y0) / VB.h });
-
-  // Cadre l'ensemble des épingles affichées : zoom qui les fait toutes tenir,
-  // centré sur leur milieu. Une seule épingle → on serre dessus.
-  const fitSpots = (): MapFocus | null => {
-    if (spots.length === 0) return null;
-    const xs = spots.map((s) => s.x);
-    const ys = spots.map((s) => s.y);
-    const [x1, x2, y1, y2] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
-    const c = frac((x1 + x2) / 2, (y1 + y2) / 2);
-    const pad = 140; // marge autour du groupe, en unités de la carte
-    const s = spots.length === 1 ? 2.6 : Math.min(VB.w / (x2 - x1 + pad), VB.h / (y2 - y1 + pad));
-    return { ...c, scale: Math.min(3, Math.max(1, s)), key: `f-${filter}-${q}` };
-  };
-
-  // Clic sur une fiche : épingle en évidence, carte recentrée dessus.
+  /** Clic sur une fiche : on la met en évidence sur la carte. */
   const showOnMap = (id: string) => {
-    const next = active === id ? null : id;
-    setActive(next);
-    if (!next) return;
-    const s = spots.find((sp) => sp.id === id);
-    if (s) setFocus({ ...frac(s.x, s.y), scale: 2.6, key: `a-${id}-${Date.now()}` });
+    setActive(active === id ? null : id);
     mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
-
-  // Changement de filtre ou de recherche → on recadre sur les lieux concernés.
-  // Pas au premier rendu : la carte doit s'ouvrir entière, et le rester quand on
-  // revient sur la page depuis ailleurs.
-  const firstRender = useRef(true);
-  useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
-    setFocus(fitSpots());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, q]);
 
   // « Où suis-je ? » — sur demande seulement : on ne réclame jamais la position
   // sans que le visiteur l'ait cliqué.
@@ -134,14 +83,14 @@ export default function NosAdresses() {
     setGeo('asking');
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
-        const pos = toMap(coords.latitude, coords.longitude);
-        if (!pos) {
+        // Trop loin, la carte ne couvre plus : le dire plutôt que de poser un
+        // point hors du cadre.
+        if (distanceKm(coords.latitude, coords.longitude, HOUSE.lat, HOUSE.lon) > MAX_KM) {
           setMe(null);
-          return setGeo('far'); // hors de la zone dessinée
+          return setGeo('far');
         }
-        setMe(pos);
+        setMe({ lat: coords.latitude, lon: coords.longitude });
         setGeo('ok');
-        setFocus({ ...frac(pos.x, pos.y), scale: 2.4, key: `me-${Date.now()}` });
         mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       },
       () => setGeo('error'),
@@ -156,86 +105,19 @@ export default function NosAdresses() {
 
       <PageHeader title={s.title} intro={s.intro} />
 
-      {/* Carte illustrée — les épingles suivent le filtre et la recherche */}
+      {/* La carte — les épingles suivent le filtre et la recherche.
+          Ni légende ni mini-carte de survol : chaque pastille porte déjà sa
+          distance, et les villages sont écrits sur la carte. */}
       <section ref={mapRef} className="mx-auto max-w-[110rem] scroll-mt-24 px-5 md:px-10">
-        <Reveal className="relative">
-          <div ref={wrapRef} className="relative">
-            <MapViewport labels={{ zoomIn: p.zoomIn, zoomOut: p.zoomOut, reset: p.zoomReset }} focus={focus} contentAspect={1000 / 548}>
-              <LocalMap
-                houseLabel={t.regionHere}
-                spots={spots}
-                activeId={active}
-                spotsKey={filter}
-                me={me}
-                onHover={(spot, rect) => {
-                  const wrap = wrapRef.current;
-                  if (!spot || !rect || !wrap) return setHover(null);
-                  const w = wrap.getBoundingClientRect();
-                  // Place au-dessus si l'épingle est assez bas dans la fenêtre,
-                  // sinon dessous : la carte ne doit jamais sortir de l'écran.
-                  const below = rect.top < TIP_H + 16;
-                  // Bornage horizontal sur la demi-largeur réelle de la carte.
-                  const half = Math.min(TIP_W / 2, w.width / 2);
-                  setHover({
-                    spot,
-                    left: Math.min(Math.max(rect.left - w.left + rect.width / 2, half), w.width - half),
-                    top: (below ? rect.bottom : rect.top) - w.top,
-                    below,
-                  });
-                }}
-              />
-            </MapViewport>
-
-            {/* Légende — en HTML, fixe par-dessus la carte. Dans le SVG elle
-                partait avec le zoom et finissait hors cadre. En bas à gauche,
-                à l'opposé des commandes de zoom. */}
-            <div
-              className="pointer-events-none absolute bottom-3 left-3 rounded-2xl border px-4 py-3"
-              style={{ background: 'var(--cava-bg)', borderColor: 'var(--cava-line)' }}
-            >
-              <p className="flex items-center gap-2.5 text-[12.5px]">
-                <span
-                  className="inline-block h-3 w-3 shrink-0 rounded-full border-[1.6px]"
-                  style={{ borderColor: 'var(--cava-ink)', background: 'var(--cava-bg)' }}
-                />
-                {p.legendVillages}
-              </p>
-              <p className="mt-2 flex items-center gap-2.5 text-[12.5px]">
-                <span className="inline-block h-3.5 w-3.5 shrink-0 rounded-[4px]" style={{ background: 'var(--cava-ink)' }} />
-                {p.legendSpots}
-              </p>
-              {me && (
-                <p className="mt-2 flex items-center gap-2.5 text-[12.5px]">
-                  <span className="inline-block h-3 w-3 shrink-0 rounded-full" style={{ background: '#2563eb' }} />
-                  {p.legendYou}
-                </p>
-              )}
-            </div>
-
-            {/* Mini-carte au survol — en HTML au-dessus de la carte : ni rognée
-                par la fenêtre de zoom, ni agrandie avec l'échelle. */}
-            {hover && (
-              <div
-                className={`cava-maptip pointer-events-none absolute z-10 -translate-x-1/2 rounded-xl border px-3.5 py-2.5 ${
-                  hover.below ? '' : '-translate-y-full'
-                }`}
-                style={{
-                  left: hover.left,
-                  top: hover.top + (hover.below ? 10 : -10),
-                  maxWidth: TIP_W,
-                  background: 'var(--cava-bg)',
-                  borderColor: 'var(--cava-ink)',
-                }}
-              >
-                <p className="whitespace-nowrap text-[13.5px] leading-tight" style={{ fontWeight: 700 }}>
-                  {hover.spot.name}
-                </p>
-                <p className="mt-1 whitespace-nowrap text-[11.5px] leading-tight" style={{ color: 'var(--cava-muted)' }}>
-                  {hover.spot.cat} · {hover.spot.km}
-                </p>
-              </div>
-            )}
-          </div>
+        <Reveal>
+          <PlaceMap
+            places={shown}
+            lang={lang}
+            labels={{ map: p.mapLabel, badge: p.badge, here: t.regionHere, close: p.closeLabel }}
+            choisi={shown.find((l) => l.id === active) ?? null}
+            onChoisir={(l) => setActive(l?.id ?? null)}
+            me={me}
+          />
         </Reveal>
       </section>
 

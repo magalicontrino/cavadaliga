@@ -28,10 +28,8 @@ export type LocalPlace = {
   instagram?: string;
   responsible: boolean;
   km: number; // distance routière depuis la maison (0 = dans le village)
-  // Position de l'épingle sur la carte illustrée (repère de LocalMap,
-  // viewBox 0 112 1000 548). Décorative : proche du village, pas à l'échelle.
-  x: number;
-  y: number;
+  // La vraie position vit dans placeCoords.ts, avec sa provenance. Ce fichier
+  // portait avant un x/y de dessin : le poster a disparu, eux aussi.
   blurb: Record<Lang, string>;
 };
 
@@ -75,8 +73,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     url: 'https://www.bonajuto.it',
     instagram: 'https://www.instagram.com/bonajuto/',
     km: 20,
-    x: 505,
-    y: 322,
     responsible: true,
     blurb: {
       fr: 'La plus ancienne chocolaterie de Sicile (depuis 1880). Le fameux chocolat de Modica, travaillé à froid selon une recette d’origine aztèque.',
@@ -92,8 +88,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     url: 'https://www.google.com/maps/search/?api=1&query=Frantoi+Cutrera+Chiaramonte+Gulfi',
     instagram: 'https://www.instagram.com/frantoi_cutrera/',
     km: 35,
-    x: 274,
-    y: 274,
     responsible: true,
     blurb: {
       fr: 'Moulin familial primé de Chiaramonte Gulfi. Huile extra-vierge DOP Monti Iblei (Tonda Iblea) et bottega à visiter sur place.',
@@ -108,8 +102,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Chiaramonte Gulfi',
     url: 'https://www.gattofrantoio.com',
     km: 35,
-    x: 198,
-    y: 268,
     responsible: true,
     blurb: {
       fr: 'Frantoio de Chiaramonte Gulfi, « ville de l’huile ». Huiles extra-vierges des monts Iblei, vente directe.',
@@ -124,8 +116,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Scicli',
     url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli',
     km: 8,
-    x: 443,
-    y: 400,
     responsible: true,
     blurb: {
       fr: 'Marché hebdomadaire le mardi matin, Piazza Olimpiadi. Fruits, légumes, fromages et poisson du jour, directement des producteurs.',
@@ -140,8 +130,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Marina di Ragusa',
     url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa',
     km: 13,
-    x: 178,
-    y: 466,
     responsible: true,
     blurb: {
       fr: 'Marché des producteurs le vendredi matin (mi-juin à mi-septembre), Piazza Vincenzo Rabito.',
@@ -156,8 +144,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Donnalucata',
     url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata',
     km: 3,
-    x: 262,
-    y: 468,
     responsible: true,
     blurb: {
       fr: 'Le marché aux poissons du petit port : poisson frais débarqué du jour, réputé dans toute la région.',
@@ -172,8 +158,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Scicli',
     url: 'https://www.google.com/maps/search/?api=1&query=vivaio+Scicli',
     km: 8,
-    x: 358,
-    y: 410,
     responsible: true,
     blurb: {
       fr: 'Pépinières et fleuristes locaux pour fleurir la maison et le jardin.',
@@ -188,8 +172,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Bruca',
     url: 'https://maps.app.goo.gl/2vfb1wShQXkDd9Ek6',
     km: 2,
-    x: 330,
-    y: 502,
     responsible: false,
     blurb: {
       fr: 'La plage de Bruca, juste à l’ouest de Cava d’Aliga. Le lido le plus proche de la maison : sable, transats et de quoi boire un verre.',
@@ -204,8 +186,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Sampieri',
     url: 'https://maps.app.goo.gl/LpVKX3PPtxC5ncvw6',
     km: 6,
-    x: 560,
-    y: 452,
     responsible: false,
     blurb: {
       fr: 'Trattoria de poisson à Sampieri, face à la mer. Le poisson du jour, simplement cuisiné.',
@@ -220,8 +200,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Donnalucata',
     url: 'https://maps.app.goo.gl/7TnYnMFyBySg1LXP9',
     km: 7,
-    x: 250,
-    y: 440,
     responsible: false,
     blurb: {
       fr: 'Gastronomia et boucherie du côté de Donnalucata. Les arancine y sont excellentes : passez le matin pour les commander.',
@@ -236,8 +214,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Scicli',
     url: 'https://www.google.com/maps/search/?api=1&query=Coop+Superstore+Scicli',
     km: 3,
-    x: 432,
-    y: 440,
     responsible: false,
     blurb: {
       fr: 'Le grand supermarché le plus proche, sur la route de Scicli. Le plus pratique pour les grosses courses en arrivant.',
@@ -252,8 +228,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Scicli',
     url: 'https://www.google.com/maps/search/?api=1&query=Eurospin+Scicli',
     km: 3,
-    x: 462,
-    y: 440,
     responsible: false,
     blurb: {
       fr: 'Supermarché discount sur la route de Scicli, à côté du Coop. Pour les basiques à petit prix.',
@@ -268,8 +242,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Donnalucata',
     url: 'https://www.google.com/maps/search/?api=1&query=Conad+Donnalucata',
     km: 7,
-    x: 282,
-    y: 438,
     responsible: false,
     blurb: {
       fr: 'Supermarché du côté de Donnalucata, à combiner avec le marché au poisson du port.',
@@ -284,8 +256,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Sampieri',
     url: 'https://www.google.com/maps/search/?api=1&query=Despar+Sampieri+Scicli',
     km: 6,
-    x: 512,
-    y: 450,
     responsible: false,
     blurb: {
       fr: 'L’épicerie de Sampieri, Via Cipro. Bien pour un oubli sur la route de la plage.',
@@ -300,8 +270,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Scicli',
     url: 'https://www.google.com/maps/search/?api=1&query=Dec%C3%B2+Scicli',
     km: 8,
-    x: 470,
-    y: 408,
     responsible: false,
     blurb: {
       fr: 'Supermarché dans Scicli même, à faire en même temps qu’une balade dans le centre baroque.',
@@ -316,8 +284,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Cava d’Aliga',
     url: 'https://maps.app.goo.gl/KMRmcciNxkvM8Kf8A',
     km: 0,
-    x: 354,
-    y: 484,
     responsible: false,
     blurb: {
       fr: 'Bar-restaurant à Cava d’Aliga, à deux pas de la maison.',
@@ -332,8 +298,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Cava d’Aliga',
     url: 'https://maps.app.goo.gl/DxvsZbth8ia8tmHXA',
     km: 0,
-    x: 384,
-    y: 470,
     responsible: false,
     blurb: {
       fr: 'Bar & lounge au cœur de Cava d’Aliga.',
@@ -348,8 +312,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Cava d’Aliga',
     url: 'https://maps.app.goo.gl/XADZ7nPhhS3iAaPg7',
     km: 0,
-    x: 432,
-    y: 470,
     responsible: false,
     blurb: {
       fr: 'Bar et glacier à Cava d’Aliga — glaces, granites et cafés.',
@@ -364,8 +326,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     town: 'Cava d’Aliga',
     url: 'https://maps.app.goo.gl/7bWbtWqT9zo1D6EA9',
     km: 0,
-    x: 458,
-    y: 482,
     responsible: false,
     blurb: {
       fr: 'Pizzeria à Cava d’Aliga, tout près de la maison.',

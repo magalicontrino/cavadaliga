@@ -1,7 +1,7 @@
 'use client';
 
-import Icon from '../Icon';
-import { CATS, type Lang, type LocalPlace } from '../localData';
+import Icon from './Icon';
+import { CATS, type Lang, type LocalPlace } from './localData';
 
 /**
  * La fiche d'un lieu. Elle ne se place pas elle-même : c'est la carte qui
@@ -13,7 +13,7 @@ import { CATS, type Lang, type LocalPlace } from '../localData';
  * ne tient que si l'on mesure sa hauteur puis qu'on déplace la carte juste
  * assez. Deux choses fragiles pour un résultat qui doit être sûr.
  */
-export default function Fiche({
+export default function PlaceCard({
   place,
   lang,
   labels,
