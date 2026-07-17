@@ -34,8 +34,14 @@ export default function Nav({ current }: { current?: string }) {
           </a>
         </div>
 
-        {/* Sélecteur de langue IT · FR · EN */}
-        <LangSwitcher />
+        {/* Sélecteur de langue IT · FR · EN — sur telephone, il passe SOUS la
+            rangee. Coince entre le logo et trois boutons ronds, il n'avait plus
+            la place : « IT » disparaissait derriere la carte de Scopa et « EN »
+            derriere le calendrier. Des qu'il y a de la largeur, il retrouve sa
+            place au centre. */}
+        <div className="absolute inset-x-0 top-[84px] flex justify-center md:static md:inset-auto md:top-auto">
+          <LangSwitcher />
+        </div>
 
         <div className="flex flex-1 items-center justify-end gap-3">
           {/* Le calendrier, a gauche du vinyle. Il etait deja dans le menu, mais
