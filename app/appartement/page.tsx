@@ -44,23 +44,28 @@ export default function Appartement() {
       <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
         <div className="columns-2 gap-5 sm:columns-3 lg:columns-4 [&>*]:mb-5">
           {ALBUM.map((src, i) => (
-            <Reveal key={src} delay={(i % 3) * 90} className="break-inside-avoid">
+            <Reveal key={src} delay={(i % 3) * 90} className="flex break-inside-avoid flex-col gap-3">
               <button
                 type="button"
                 onClick={() => setOpen(i)}
-                aria-label={`${a.albumAlt} — ${i + 1}`}
+                aria-label={a.captions[i] ?? `${a.albumAlt} — ${i + 1}`}
                 className="block w-full cursor-zoom-in"
               >
                 <Photo
                   natural
                   src={src}
-                  alt={`${a.albumAlt} — ${i + 1}`}
+                  alt={a.captions[i] ?? `${a.albumAlt} — ${i + 1}`}
                   tone={TONES[i % TONES.length]}
                   label={`${a.albumAlt} — à venir`}
                   className="w-full rounded-2xl"
                   imgClassName="transition-transform duration-500 hover:scale-[1.03]"
                 />
               </button>
+              {a.captions[i] && (
+                <span className="text-[13px] leading-[1.4]" style={{ color: 'var(--cava-muted)' }}>
+                  {a.captions[i]}
+                </span>
+              )}
             </Reveal>
           ))}
         </div>
