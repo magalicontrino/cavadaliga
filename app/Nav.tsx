@@ -44,6 +44,20 @@ export default function Nav({ current }: { current?: string }) {
         </div>
 
         <div className="flex flex-1 items-center justify-end gap-3">
+          {/* L'appartement — en tete des raccourcis : c'est la maison, le point
+              de depart de tout le reste. Sa page se construit encore ; le picto
+              y mene deja, sur toutes les pages. */}
+          <a
+            href={withBase('/appartement')}
+            aria-label={t.apartment.label}
+            aria-current={current === '/appartement' ? 'page' : undefined}
+            title={t.apartment.label}
+            className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full aria-[current=page]:opacity-45"
+            style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
+          >
+            <Icon name="home" size={24} />
+          </a>
+
           {/* Le calendrier, a gauche du vinyle. Il etait deja dans le menu, mais
               il fallait l'ouvrir pour le trouver : c'est la question qu'on se
               pose le plus souvent en famille — « la maison est libre quand ? ».

@@ -78,9 +78,8 @@ export type Dict = {
   // région, préparer le voyage, contact) — mini-phrases avec le nom de rubrique.
   ctaTitles: Record<Page, string>;
   tasteOfSicily: string;
-  sunsetKicker: string;
-  sunsetTitle: string;
   sunsetAlt: string;
+  apartment: { eyebrow: string; title: string; intro: string; soon: string; label: string };
   galleryAlt: string[];
   apartmentAlt: string;
   cavaAlt: string;
@@ -285,9 +284,8 @@ const FR: Dict = {
     '/evenements': 'Le calendrier des événements à venir',
   },
   tasteOfSicily: 'Un avant-goût de la Sicile',
-  sunsetKicker: 'La fin du jour',
-  sunsetTitle: 'Le soleil se couche sur la mer, et tout le monde sort le regarder',
   sunsetAlt: 'Coucher de soleil sur la plage, la mer et le village au crépuscule',
+  apartment: { eyebrow: 'La maison', title: 'L’appartement', intro: 'La maison de Cava d’Aliga : les pièces, les équipements, ce qu’on y trouve et comment on y vit.', soon: 'On prépare cette page — photos des pièces, plan et tout ce qu’il faut savoir arriveront ici bientôt. En attendant, les infos pratiques (arrivée, eau, électricité, wifi) sont déjà en ligne.', label: 'L’appartement' },
   galleryAlt: [
     'La mer à quelques mètres de Cava d’Aliga',
     'Une ruelle du hameau de Cava d’Aliga',
@@ -699,9 +697,8 @@ const IT: Dict = {
     '/evenements': 'Il calendario dei prossimi eventi',
   },
   tasteOfSicily: 'Un assaggio di Sicilia',
-  sunsetKicker: 'La fine del giorno',
-  sunsetTitle: 'Il sole tramonta sul mare, e tutti escono a guardarlo',
   sunsetAlt: 'Tramonto sulla spiaggia, il mare e il paese al crepuscolo',
+  apartment: { eyebrow: 'La casa', title: 'L’appartamento', intro: 'La casa di Cava d’Aliga: le stanze, gli arredi, cosa si trova e come si vive.', soon: 'Stiamo preparando questa pagina — foto delle stanze, piantina e tutto il necessario arriveranno presto. Intanto le info pratiche (arrivo, acqua, elettricità, wifi) sono già online.', label: 'L’appartamento' },
   galleryAlt: [
     'Il mare a pochi metri da Cava d’Aliga',
     'Un vicolo del borgo di Cava d’Aliga',
@@ -1113,9 +1110,8 @@ const EN: Dict = {
     '/evenements': 'The calendar of upcoming events',
   },
   tasteOfSicily: 'A taste of Sicily',
-  sunsetKicker: 'The end of the day',
-  sunsetTitle: 'The sun goes down over the sea, and everyone comes out to watch',
   sunsetAlt: 'Sunset over the beach, the sea and the village at dusk',
+  apartment: { eyebrow: 'The home', title: 'The apartment', intro: 'The house in Cava d’Aliga: the rooms, the amenities, what you find and how you live there.', soon: 'We are putting this page together — photos of the rooms, a floor plan and everything you need will land here soon. In the meantime, the practical info (arrival, water, electricity, wifi) is already online.', label: 'The apartment' },
   galleryAlt: [
     'The sea a few metres from Cava d’Aliga',
     'An alley in the hamlet of Cava d’Aliga',
