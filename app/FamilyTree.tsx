@@ -112,7 +112,14 @@ export default function FamilyTree() {
         },
         {
           name: 'Pierre Lux & Juliette Thurot',
+          subtitle: s.treeMarriage1,
           children: [{ name: 'Régine' }],
+        },
+        // Le second mariage de Juliette. « Tonton Charles » est le nom que la
+        // famille lui donne — c'est le seul qu'on ait, et on n'en invente pas.
+        {
+          name: 'Juliette Thurot & Charles',
+          subtitle: s.treeMarriage2,
         },
       ],
     },
@@ -127,8 +134,8 @@ export default function FamilyTree() {
   };
 
   return (
-    <div className="flex flex-col gap-12">
-      <div className="grid gap-10 md:grid-cols-2">
+    <div className="flex flex-col gap-14">
+      <div className="flex flex-col gap-14">
         {SIDES.map((side) => (
           <div key={side.label}>
             <p className="mb-5 text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)' }}>
@@ -161,21 +168,34 @@ export default function FamilyTree() {
 
       {/* Ce qui manque — en bas, et nommé. Une case vide ne dit rien ; une
           question posée peut trouver sa réponse. */}
-      <div className="rounded-2xl border border-dashed p-8 md:p-10" style={{ borderColor: 'var(--cava-line)' }}>
-        <h3 className="text-[clamp(1.1rem,2.2vw,1.4rem)] leading-[1.15]" style={{ fontWeight: 600 }}>
-          {s.treeQuestionsTitle}
+      <div className="rounded-3xl px-6 py-14 md:px-14 md:py-20" style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)' }}>
+        <h3
+          className="max-w-[16ch] text-[clamp(1.8rem,4.4vw,3.2rem)] uppercase leading-[0.95] tracking-[-0.02em]"
+          style={{ fontWeight: 900 }}
+        >
+          {s.treeQuestionsTitle.split(' ').slice(0, -1).join(' ')}{' '}
+          <span
+            className="inline-block whitespace-nowrap rounded-full border-2 px-4 pb-1 pt-0.5 leading-none"
+            style={{ borderColor: 'var(--cava-pink)', color: 'var(--cava-pink)' }}
+          >
+            {s.treeQuestionsTitle.split(' ').at(-1)}
+          </span>
         </h3>
-        <p className="mt-2 max-w-[70ch] text-[14.5px] leading-[1.65]" style={{ color: 'var(--cava-muted)' }}>
+        <p className="mt-6 max-w-[62ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.65]" style={{ color: 'rgba(247,245,242,0.62)' }}>
           {s.treeQuestionsNote}
         </p>
-        <ul className="mt-6 flex flex-col gap-2.5">
-          {QUESTIONS.map((q) => (
-            <li key={q.fr} className="flex items-start gap-3 text-[14.5px] leading-[1.6]">
-              <span className="mt-[9px] h-[5px] w-[5px] shrink-0 rounded-full" style={{ background: 'var(--cava-pink)' }} />
-              <span>{q[lang]}</span>
+        {/* Numerotees, et grandes : ce sont des questions posees a quelqu'un,
+            pas des notes de bas de page. */}
+        <ol className="mt-12 grid gap-x-10 gap-y-7 md:grid-cols-2">
+          {QUESTIONS.map((q, i) => (
+            <li key={q.fr} className="flex items-baseline gap-4 border-t pt-5" style={{ borderColor: 'rgba(247,245,242,0.16)' }}>
+              <span className="shrink-0 font-mono text-[13px] tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span className="text-[clamp(0.95rem,1.35vw,1.1rem)] leading-[1.5]">{q[lang]}</span>
             </li>
           ))}
-        </ul>
+        </ol>
       </div>
     </div>
   );
@@ -213,6 +233,11 @@ const QUESTIONS: { fr: string; it: string; en: string }[] = [
     fr: 'Le nom de famille de Sophie, l’épouse de Gabi Contrino.',
     it: 'Il cognome di Sophie, la moglie di Gabi Contrino.',
     en: 'The surname of Sophie, Gabi Contrino’s wife.',
+  },
+  {
+    fr: 'Le nom de famille de Charles — « tonton Charles », le second mari de Juliette Thurot.',
+    it: 'Il cognome di Charles — « zio Charles », il secondo marito di Juliette Thurot.',
+    en: 'The surname of Charles — “uncle Charles”, Juliette Thurot’s second husband.',
   },
   {
     fr: 'Les dates de Louis Thurot, de Mélanie Souveton, de Pierre Lux et de Juliette Thurot.',

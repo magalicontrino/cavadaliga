@@ -534,7 +534,13 @@
 /* --- Arbre généalogique (org-chart pur CSS) ------------------------ */
 .cava-tree ul {
   display: flex;
-  justify-content: center;
+  /* « safe » n'est pas un detail : une rangee centree qui deborde son cadre
+     depasse des DEUX cotes, et le debordement de gauche est inatteignable — on
+     ne peut pas faire defiler vers un contenu place avant le point de depart.
+     Neuf enfants, et Angelo, l'aine, disparaissait purement et simplement.
+     « safe » centre tant que ca tient, et s'aligne a gauche des que ca deborde :
+     plus rien ne se perd. */
+  justify-content: safe center;
   position: relative;
   margin: 0;
   padding: 26px 0 0 0;
