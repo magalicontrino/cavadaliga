@@ -23,6 +23,7 @@ export type IconName =
   | 'leaf'
   | 'instagram'
   | 'map'
+  | 'list'
   | 'search'
   | 'vinyl'
   | 'film'
@@ -156,6 +157,13 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
     <>
       <path d="M9 4L3 6.5v13.5L9 17.5l6 2.5 6-2.5V6L15 8.5 9 6z" />
       <path d="M9 4v13.5M15 8.5V22" />
+    </>
+  ),
+  // Liste — la vue en fiches, face à la carte
+  list: (
+    <>
+      <path d="M4 6h16M4 12h16M4 18h16" />
+      <path d="M4 6h.01M4 12h.01M4 18h.01" />
     </>
   ),
   // Loupe — recherche

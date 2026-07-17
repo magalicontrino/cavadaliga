@@ -109,6 +109,7 @@ export default function PlaceMap({
   choisi,
   onChoisir,
   me,
+  visible = true,
 }: {
   /** Déjà triés et cherchés par la page — la carte ne filtre rien. */
   places: LocalPlace[];
@@ -119,6 +120,12 @@ export default function PlaceMap({
   onChoisir: (p: LocalPlace | null) => void;
   /** Position réelle du visiteur, s'il l'a demandée. */
   me: { lat: number; lon: number } | null;
+  /**
+   * La page peut la masquer (bascule carte/liste). On la garde montée — la
+   * démonter la rechargerait et lui ferait perdre son zoom — mais masquée son
+   * canvas tombe à zéro : il faut le lui dire quand elle revient.
+   */
+  visible?: boolean;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<unknown>(null);
@@ -259,6 +266,14 @@ export default function PlaceMap({
       { padding: 70, maxZoom: 13.5, duration: 500 },
     );
   }, [state, cle, lang, viser, me]);
+
+  // De retour de la liste : le canvas s'est vidé pendant qu'on ne le voyait
+  // pas. On le remesure, sinon la carte revient en miette.
+  useEffect(() => {
+    if (!visible || state !== 'ok') return;
+    const c = map.current as { m: { resize: () => void } } | null;
+    c?.m.resize();
+  }, [visible, state]);
 
   // L'épingle choisie s'inverse — on doit voir de quel point la fiche parle.
   useEffect(() => {

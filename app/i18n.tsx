@@ -91,6 +91,8 @@ export type Dict = {
     note: string;
     mapLabel: string;
     closeLabel: string;
+    viewMap: string;
+    viewList: string;
     badge: string;
     filterAll: string;
     filterEmpty: string;
@@ -332,6 +334,8 @@ const FR: Dict = {
     note: 'Nous complétons cette page au fil de nos trouvailles — adresses et contacts à venir.',
     mapLabel: 'Ouvrir dans Google Maps',
     closeLabel: 'Fermer',
+    viewMap: 'Carte',
+    viewList: 'Liste',
     badge: 'Responsable & local',
     filterAll: 'Tout voir',
     filterEmpty: 'Ces adresses arrivent bientôt.',
@@ -724,6 +728,8 @@ const IT: Dict = {
     note: 'Completiamo questa pagina man mano che scopriamo — indirizzi e contatti in arrivo.',
     mapLabel: 'Apri in Google Maps',
     closeLabel: 'Chiudi',
+    viewMap: 'Mappa',
+    viewList: 'Elenco',
     badge: 'Responsabile & locale',
     filterAll: 'Vedi tutto',
     filterEmpty: 'Questi indirizzi arrivano presto.',
@@ -1116,6 +1122,8 @@ const EN: Dict = {
     note: 'We complete this page as we make new finds — addresses and contacts coming soon.',
     mapLabel: 'Open in Google Maps',
     closeLabel: 'Close',
+    viewMap: 'Map',
+    viewList: 'List',
     badge: 'Responsible & local',
     filterAll: 'See all',
     filterEmpty: 'These addresses are coming soon.',

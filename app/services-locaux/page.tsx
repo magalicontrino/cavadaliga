@@ -25,6 +25,9 @@ export default function NosAdresses() {
   // Incrementé à chaque tri ou recherche : les fiches se montrent d'un coup.
   const [clicks, setClicks] = useState(0);
   const [active, setActive] = useState<string | null>(null);
+  // Carte ou liste : les deux disent la même chose autrement. La carte répond à
+  // « c'est où ? », la liste à « qu'est-ce qu'il y a ? ». On choisit.
+  const [vue, setVue] = useState<'carte' | 'liste'>('carte');
   // La vraie position du visiteur, s'il l'a demandée — plus besoin de la faire
   // correspondre à un dessin.
   const [me, setMe] = useState<{ lat: number; lon: number } | null>(null);
@@ -146,6 +149,37 @@ export default function NosAdresses() {
           >
             <Icon name="target" size={16} /> {geo === 'asking' ? p.locating : p.locateMe}
           </button>
+
+          {/* Carte ou liste — à côté du tri, c'est le même geste : choisir ce
+              qu'on regarde. */}
+          <div
+            className="inline-flex w-fit shrink-0 rounded-full border p-1 md:ml-auto"
+            style={{ borderColor: 'var(--cava-line)' }}
+            role="group"
+          >
+            {(['carte', 'liste'] as const).map((v) => (
+              <button
+                key={v}
+                type="button"
+                onClick={() => {
+                  setVue(v);
+                  // Comme pour les filtres : ce qui répond à un clic doit être
+                  // là tout de suite, pas attendre d'être vu pour apparaître.
+                  setClicks((c) => c + 1);
+                }}
+                aria-pressed={vue === v}
+                className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] transition"
+                style={{
+                  background: vue === v ? 'var(--cava-ink)' : 'transparent',
+                  color: vue === v ? 'var(--cava-bg)' : 'var(--cava-muted)',
+                  fontWeight: vue === v ? 700 : 500,
+                }}
+              >
+                <Icon name={v === 'carte' ? 'map' : 'list'} size={15} />
+                {v === 'carte' ? p.viewMap : p.viewList}
+              </button>
+            ))}
+          </div>
         </Reveal>
 
         {/* Retour de la géolocalisation — jamais silencieux */}
@@ -195,7 +229,7 @@ export default function NosAdresses() {
       {/* La carte — les épingles suivent le filtre et la recherche.
           Ni légende ni mini-carte de survol : chaque pastille porte déjà sa
           distance, et les villages sont écrits sur la carte. */}
-      <section ref={mapRef} className="mx-auto max-w-[110rem] scroll-mt-24 px-5 md:px-10">
+      <section ref={mapRef} className={`mx-auto max-w-[110rem] scroll-mt-24 px-5 md:px-10 ${vue === 'carte' ? '' : 'hidden'}`}>
         <Reveal>
           <PlaceMap
             places={shown}
@@ -204,12 +238,13 @@ export default function NosAdresses() {
             choisi={shown.find((l) => l.id === active) ?? null}
             onChoisir={(l) => setActive(l?.id ?? null)}
             me={me}
+            visible={vue === 'carte'}
           />
         </Reveal>
       </section>
 
       {/* La liste des adresses */}
-      <section className="mx-auto max-w-[110rem] px-5 pt-10 md:px-10">
+      <section className={`mx-auto max-w-[110rem] px-5 pt-10 md:px-10 ${vue === 'liste' ? '' : 'hidden'}`}>
         {/* Recherche sans résultat direct → on annonce qu'on propose autre chose. */}
         {q && places.length === 0 && shown.length > 0 && (
           <Reveal
