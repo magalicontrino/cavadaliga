@@ -723,6 +723,22 @@
 .cava-glpin:hover {
   transform: scale(1.08);
 }
+/* Le nom. Borne en largeur : « Marché au poisson de Donnalucata » en entier
+   traverserait la carte et couvrirait ses voisines. Coupé, il reste
+   reconnaissable — et la fiche, au clic, le donne en entier. */
+.cava-glpin-nom {
+  overflow: hidden;
+  max-width: 13ch;
+  text-overflow: ellipsis;
+}
+/* Les km, d'un ton en dessous : le nom se lit d'abord, la distance ensuite.
+   Le trait les sépare sans ajouter de ponctuation à lire. */
+.cava-glpin-km {
+  border-left: 1px solid rgb(255 255 255 / 0.35);
+  padding-left: 6px;
+  font-weight: 500;
+  opacity: 0.92;
+}
 /* Choisie : elle s'inverse et passe devant — comme le « 534 € » d'Airbnb. */
 .cava-glpin.is-on {
   z-index: 2;

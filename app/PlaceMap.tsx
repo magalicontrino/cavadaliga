@@ -364,13 +364,24 @@ export default function PlaceMap({
       // page. Le lien vers Google Maps vit DANS la fiche, une fois qu'on sait
       // de quel endroit il s'agit.
       // Le principe Airbnb : l'épingle porte déjà ce qui décide. Chez eux le
-      // prix, ici la distance — c'est la question qu'on se pose devant une
-      // adresse quand on est en vacances sans voiture, ou avec.
+      // prix ; ici le nom ET la distance — « ≈ 15 km » tout seul ne disait pas
+      // 15 km de QUOI, il fallait cliquer chaque pastille pour le savoir.
       const el = document.createElement('button');
       el.type = 'button';
       el.className = 'cava-glpin';
       el.setAttribute('aria-label', `${p.name} — ${p.town}`);
-      el.innerHTML = `${picto(CATS[p.cat].icon, 19)}<span>${kmLabel(p)}</span>`;
+      el.innerHTML = picto(CATS[p.cat].icon, 19);
+      // Le nom passe par textContent et pas par innerHTML : « Cava d'Aliga »,
+      // « Frantoi Cutrera »… ce sont des noms propres, saisis a la main, et
+      // l'apostrophe ou l'esperluette d'un futur nom ne doit pas pouvoir
+      // casser la pastille — ni pire.
+      const nom = document.createElement('span');
+      nom.className = 'cava-glpin-nom';
+      nom.textContent = p.name;
+      const km = document.createElement('span');
+      km.className = 'cava-glpin-km';
+      km.textContent = kmLabel(p);
+      el.append(nom, km);
       pins.current.set(p.id, el);
       el.addEventListener('click', (ev) => {
         ev.stopPropagation(); // sinon le clic atteint la carte et referme aussitôt
@@ -462,7 +473,10 @@ export default function PlaceMap({
     if (state !== 'ok') return;
     pins.current.forEach((el, id) => {
       const p = liste.find((x) => x.id === id);
-      const span = el.querySelector('span');
+      // Bien viser le span des km : depuis que la pastille porte aussi le nom,
+      // un querySelector('span') attraperait le NOM et l'ecraserait par une
+      // distance.
+      const span = el.querySelector('.cava-glpin-km');
       if (p && span) span.textContent = kmLabel(p);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
