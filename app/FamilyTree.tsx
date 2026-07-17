@@ -89,6 +89,19 @@ export default function FamilyTree() {
           ],
         },
         {
+          // Helene apparait deja comme fille de Salvatore & Giuseppina ci-dessus ;
+          // ici c'est sa propre branche. Son mari reste inconnu (dans les
+          // questions). Cinq filles, un surnom pour trois d'entre elles.
+          name: 'Helene Contrino',
+          children: [
+            { name: 'Maria' },
+            { name: 'Angelina Contrino & Patrick Gamino', subtitle: 'Angèle' },
+            { name: 'Antoinette' },
+            { name: 'Rosalba', subtitle: 'Rose' },
+            { name: 'Giuseppina', subtitle: 'Jo' },
+          ],
+        },
+        {
           name: 'Angelo Contrino & Conchetta Canolo',
           subtitle: `${s.treeWife1} · ~1900 – ~1947`,
           children: [{ name: 'Salvatore', subtitle: '1947' }],
@@ -239,9 +252,9 @@ const QUESTIONS: { fr: string; it: string; en: string }[] = [
     en: 'The dates of Conchetta Sberna, Angelo’s second wife.',
   },
   {
-    fr: 'Le mari d’Helene Contrino — et celui de ses filles Angelina, Antoinette, Josephine et Rosalba.',
-    it: 'Il marito di Helene Contrino — e quello delle figlie Angelina, Antoinette, Josephine e Rosalba.',
-    en: 'Helene Contrino’s husband — and those of her daughters Angelina, Antoinette, Josephine and Rosalba.',
+    fr: 'Le mari d’Helene Contrino, et ceux de ses filles Maria, Antoinette, Rose et Jo (celui d’Angèle, on le sait : Patrick Gamino).',
+    it: 'Il marito di Helene Contrino, e quelli delle figlie Maria, Antoinette, Rose e Jo (quello di Angèle lo sappiamo: Patrick Gamino).',
+    en: 'Helene Contrino’s husband, and those of her daughters Maria, Antoinette, Rose and Jo (Angèle’s we know: Patrick Gamino).',
   },
   {
     fr: 'Le premier mari de Lucia Contrino, le père de Giuseppe et Salvatore. Le second, on le sait : Dolciamore, le père de Tino.',
