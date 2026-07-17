@@ -29,6 +29,15 @@ const INK = '#2e2d2d';
 const BG = '#f7f5f2';
 
 /**
+ * Le fichier de tuiles. Le NOM PORTE UNE VERSION, et ce n'est pas cosmetique :
+ * PMTiles lit ce fichier par morceaux, que le navigateur met en cache. Remplacer
+ * le fichier en gardant la meme URL fait melanger a un visiteur deja venu les
+ * morceaux de l'ancien avec la taille du nouveau — et la carte tombe sur
+ * « Failed to fetch », chez lui seulement. Changer d'emprise = changer de nom.
+ */
+const TUILES = '/tuiles/cava-v2.pmtiles';
+
+/**
  * L'emprise de nos tuiles (le --bbox de l'extrait). Hors de la, il n'y a rien
  * a dessiner : on verrait le fond du style, une bande vide. On l'impose donc
  * comme limite a la camera — MapLibre l'empeche d'en sortir, et remonte le
@@ -115,7 +124,7 @@ export default function PlaceMap({
   places: LocalPlace[];
   lang: Lang;
   // Les libellés viennent de la page : ce composant ne doit rien écrire en dur.
-  labels: { map: string; badge: string; here: string; close: string };
+  labels: { map: string; badge: string; here: string; close: string; mapFailed: string; mapFailedHint: string };
   choisi: LocalPlace | null;
   onChoisir: (p: LocalPlace | null) => void;
   /** Position réelle du visiteur, s'il l'a demandée. */
@@ -173,7 +182,7 @@ export default function PlaceMap({
 
         const m = new GlMap({
           container: box.current,
-          style: style(`${location.origin}${withBase('/tuiles/cava.pmtiles')}`) as never,
+          style: style(`${location.origin}${withBase(TUILES)}`) as never,
           center: [HOUSE.lon, HOUSE.lat],
           zoom: 11,
           maxBounds: EMPRISE,
@@ -349,16 +358,20 @@ export default function PlaceMap({
         </div>
       )}
 
+      {/* Une carte muette n'aide personne : quand elle rate, on dit quoi, et on
+          laisse une porte de sortie — la liste, elle, marche toujours. */}
       {state !== 'ok' && (
         <div className="absolute inset-0 flex items-center justify-center px-6 text-center text-[14px]" style={{ background: BG, color: 'var(--cava-muted)' }}>
           {state === 'chargement' ? (
             <p className="italic">Chargement de la carte…</p>
           ) : (
-            <p>
-              La carte n’a pas pu se charger.
-              <br />
-              <span className="font-mono text-[12px]">{erreur}</span>
-            </p>
+            <div className="max-w-[46ch]">
+              <p style={{ color: 'var(--cava-ink)', fontWeight: 600 }}>{labels.mapFailed}</p>
+              <p className="mt-2 text-[13px]">{labels.mapFailedHint}</p>
+              <p className="mt-3 break-all font-mono text-[11px]" style={{ opacity: 0.7 }}>
+                {erreur}
+              </p>
+            </div>
           )}
         </div>
       )}

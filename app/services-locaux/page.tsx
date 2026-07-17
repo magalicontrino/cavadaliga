@@ -234,7 +234,7 @@ export default function NosAdresses() {
           <PlaceMap
             places={shown}
             lang={lang}
-            labels={{ map: p.mapLabel, badge: p.badge, here: t.regionHere, close: p.closeLabel }}
+            labels={{ map: p.mapLabel, badge: p.badge, here: t.regionHere, close: p.closeLabel, mapFailed: p.mapFailed, mapFailedHint: p.mapFailedHint }}
             choisi={shown.find((l) => l.id === active) ?? null}
             onChoisir={(l) => setActive(l?.id ?? null)}
             me={me}

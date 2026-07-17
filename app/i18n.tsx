@@ -93,6 +93,8 @@ export type Dict = {
     closeLabel: string;
     viewMap: string;
     viewList: string;
+    mapFailed: string;
+    mapFailedHint: string;
     badge: string;
     filterAll: string;
     filterEmpty: string;
@@ -336,6 +338,8 @@ const FR: Dict = {
     closeLabel: 'Fermer',
     viewMap: 'Carte',
     viewList: 'Liste',
+    mapFailed: 'La carte n’a pas pu se charger.',
+    mapFailedHint: 'Rechargez la page. Si ça persiste, un bloqueur de publicité ou un réseau d’entreprise empêche peut-être le chargement — la liste, elle, fonctionne toujours.',
     badge: 'Responsable & local',
     filterAll: 'Tout voir',
     filterEmpty: 'Ces adresses arrivent bientôt.',
@@ -730,6 +734,8 @@ const IT: Dict = {
     closeLabel: 'Chiudi',
     viewMap: 'Mappa',
     viewList: 'Elenco',
+    mapFailed: 'La mappa non si è caricata.',
+    mapFailedHint: 'Ricarica la pagina. Se continua, forse un blocco pubblicità o una rete aziendale impedisce il caricamento — l’elenco funziona comunque.',
     badge: 'Responsabile & locale',
     filterAll: 'Vedi tutto',
     filterEmpty: 'Questi indirizzi arrivano presto.',
@@ -1124,6 +1130,8 @@ const EN: Dict = {
     closeLabel: 'Close',
     viewMap: 'Map',
     viewList: 'List',
+    mapFailed: 'The map could not load.',
+    mapFailedHint: 'Reload the page. If it persists, an ad blocker or a company network may be blocking it — the list still works.',
     badge: 'Responsible & local',
     filterAll: 'See all',
     filterEmpty: 'These addresses are coming soon.',
