@@ -47,15 +47,16 @@ export default function NosAdresses() {
   const [me, setMe] = useState<{ lat: number; lon: number } | null>(null);
   const [geo, setGeo] = useState<'idle' | 'asking' | 'ok' | 'far' | 'error'>('idle');
   const mapRef = useRef<HTMLElement>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
 
   /**
-   * Choisir doit MONTRER le resultat. On cale la RANGEE DE BOUTONS en haut de
-   * l'ecran : la carte prend alors toute la place en dessous, et les boutons
-   * restent sous les yeux — cadrer la carte les chasserait du champ juste apres
-   * qu'on les a touches. On vise les boutons et pas la section entiere : celle-
-   * ci porte aussi la recherche et la bascule, et sa hauteur change quand la
-   * banniere du depart apparait — le defilement tombait alors a cote.
+   * Choisir doit MONTRER le resultat — sans perdre de vue ce avec quoi on
+   * choisit. On cale donc le HAUT DU MENU en haut de l'ecran : « Vous etes
+   * ou ? », la bascule et le tri restent ensemble sous les yeux, et la carte
+   * ou la liste prend toute la place en dessous.
+   *
+   * On visait avant la seule rangee de boutons : la recherche se retrouvait
+   * poussee hors du champ juste apres qu'on s'en etait servi.
    */
   const montrerLeResultat = () => menuRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
@@ -90,10 +91,24 @@ export default function NosAdresses() {
   };
   const shown = [...retenus].sort((a, b) => rang(a) - rang(b));
 
-  /** Les deux couches locales : instantanees, sans reseau. */
-  const ici = chercherIci(ou);
-  /** Ce qu'on deroule sous le champ : nos lieux, nos villes, puis le reste. */
-  const suggestions = sansDoublons([...ici, ...loin]).slice(0, 7);
+  /**
+   * Ce qu'on deroule sous le champ — le plus proche en premier.
+   *
+   * Comme la liste, et pour la meme raison : « don » doit rendre Donnalucata,
+   * qui est a cote, avant un Don Giovanni de Messine, qui est a l'autre bout de
+   * l'ile. L'ordre des couches (nos lieux, nos villes, Photon) dit d'ou vient
+   * une reponse ; il n'a jamais rien dit de sa distance, et c'est pourtant la
+   * seule chose qu'on se demande en cherchant ou l'on est.
+   *
+   * On coupe a sept APRES avoir trie : couper avant, c'est jeter le plus proche
+   * parce qu'il est arrive dans la mauvaise couche.
+   */
+  const dOu = depart ?? HOUSE;
+  const suggestions = sansDoublons([...chercherIci(ou, 20), ...loin])
+    .map((s) => ({ s, km: distanceKm(dOu.lat, dOu.lon, s.lat, s.lon) }))
+    .sort((a, b) => a.km - b.km)
+    .slice(0, 7)
+    .map(({ s }) => s);
 
   /**
    * Photon, a la frappe — mais pas a chaque lettre.
@@ -208,8 +223,13 @@ export default function NosAdresses() {
       <PageHeader title={s.title} />
 
       {/* Le menu avant la carte : on trie, on cherche, et la carte repond.
-          En dessous, on choisissait a l'aveugle ce qu'on ne voyait plus. */}
-      <section className="mx-auto max-w-[110rem] px-5 pt-4 md:px-10">
+          En dessous, on choisissait a l'aveugle ce qu'on ne voyait plus.
+
+          C'est ICI que le defilement s'arrete, et pas sur la rangee de boutons
+          en dessous : « ou etes-vous ? » et le tri sont un seul et meme geste —
+          choisir ce qu'on regarde. Caler les boutons en haut de l'ecran
+          chassait la recherche du champ juste au moment ou l'on s'en sert. */}
+      <section ref={menuRef} className="mx-auto max-w-[110rem] scroll-mt-4 px-5 pt-4 md:px-10">
         {/* « Vous etes ou ? » et la bascule carte / liste */}
         {/* `relative z-30` n'est pas cosmetique : .cava-reveal porte un
             transform, donc CHAQUE bloc revele est un contexte d'empilement. Le
@@ -328,7 +348,7 @@ export default function NosAdresses() {
           </Reveal>
         )}
 
-        <div ref={menuRef} className="scroll-mt-4">
+        <div>
         <Reveal className="cava-swipe -mx-5 flex gap-2.5 overflow-x-auto px-5 pb-1 md:-mx-10 md:px-10">
           <FilterChip
             label={p.filterAll}
