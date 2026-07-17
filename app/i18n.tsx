@@ -135,7 +135,7 @@ export type Dict = {
     categories: { title: string; desc: string; spots: { label: string; url: string; instagram?: string }[] }[];
     markets: { title: string; desc: string; list: { label: string; url: string }[] };
   };
-  salvaPage: { title: string; intro: string; historyTitle: string; historyText: string; storyTitle: string; storyText: string[]; treeTitle: string; treeNote: string; treePaternal: string; treeMaternal: string; treeWife1: string; treeWife2: string; treeMarriage1: string; treeMarriage2: string; treeGreat: string; treeParents: string; treeQuestionsTitle: string; treeQuestionsNote: string; treeAdd: string; treeAddSubject: string; treeExample: string };
+  salvaPage: { title: string; intro: string; historyTitle: string; historyText: string; storyText: string[]; treeTitle: string; treeNote: string; treePaternal: string; treeMaternal: string; treeWife1: string; treeWife2: string; treeMarriage1: string; treeMarriage2: string; treeGreat: string; treeParents: string; treeQuestionsTitle: string; treeQuestionsNote: string; treeAdd: string; treeAddSubject: string; treeExample: string };
   calendarPage: { title: string; intro: string; festivalsTitle: string; programDone: string; programNote: string; programMore: string; socialsTitle: string; festivalDescs: string[]; };
   culturePage: {
     eyebrow: string;
@@ -423,7 +423,7 @@ const FR: Dict = {
       ],
     },
   },
-  salvaPage: { title: 'La famille', intro: 'Photos, souvenirs et histoire de la famille, au fil des années.', historyTitle: 'Histoire de la famille', historyText: 'De génération en génération, cette maison de Cava d’Aliga rassemble la famille.', storyTitle: 'Salva et son histoire', storyText: [
+  salvaPage: { title: 'La famille', intro: 'Photos, souvenirs et histoire de la famille, au fil des années.', historyTitle: 'Histoire de la famille', historyText: 'De génération en génération, cette maison de Cava d’Aliga rassemble la famille.', storyText: [
     'Salvatore Contrino est né le 26 janvier 1947 à Valguarnera, en Sicile.',
     'Son père Angelo, fraîchement revenu des camps russes, s’est retrouvé veuf avec un bébé de six mois. Il l’a confié à sa mère Giuseppina — mémé Pipine —, émigrée à Saint-Étienne avec ses enfants, qui l’a élevé comme le neuvième de la fratrie.',
     'À dix-neuf ans, il est parti travailler en Belgique, qu’il n’a plus quittée. En gardant la Sicile, son patrimoine, dans un coin de son cœur.',
@@ -833,7 +833,7 @@ const IT: Dict = {
       ],
     },
   },
-  salvaPage: { title: 'La famiglia', intro: 'Foto, ricordi e storia della famiglia, nel corso degli anni.', historyTitle: 'Storia della famiglia', historyText: 'Di generazione in generazione, questa casa di Cava d’Aliga riunisce la famiglia.', storyTitle: 'Salva e la sua storia', storyText: [
+  salvaPage: { title: 'La famiglia', intro: 'Foto, ricordi e storia della famiglia, nel corso degli anni.', historyTitle: 'Storia della famiglia', historyText: 'Di generazione in generazione, questa casa di Cava d’Aliga riunisce la famiglia.', storyText: [
     'Salvatore Contrino è nato il 26 gennaio 1947 a Valguarnera, in Sicilia.',
     'Suo padre Angelo, appena tornato dai campi russi, si ritrovò vedovo con un bambino di sei mesi. Lo affidò a sua madre Giuseppina — nonna Pipine —, emigrata a Saint-Étienne con i figli, che lo crebbe come il nono della nidiata.',
     'A diciannove anni partì a lavorare in Belgio, che non lasciò più. Tenendo la Sicilia, il suo patrimonio, in un angolo del cuore.',
@@ -1243,7 +1243,7 @@ const EN: Dict = {
       ],
     },
   },
-  salvaPage: { title: 'The family', intro: 'Photos, memories and family history, over the years.', historyTitle: 'Family history', historyText: 'From one generation to the next, this house in Cava d’Aliga brings the family together.', storyTitle: 'Salva and his story', storyText: [
+  salvaPage: { title: 'The family', intro: 'Photos, memories and family history, over the years.', historyTitle: 'Family history', historyText: 'From one generation to the next, this house in Cava d’Aliga brings the family together.', storyText: [
     'Salvatore Contrino was born on 26 January 1947 in Valguarnera, Sicily.',
     'His father Angelo, just back from the Russian camps, found himself a widower with a six-month-old baby. He entrusted him to his own mother Giuseppina — granny Pipine — who had emigrated to Saint-Étienne with her children, and who raised him as the ninth of the siblings.',
     'At nineteen he left to work in Belgium, and never left it again. Keeping Sicily, his heritage, in a corner of his heart.',

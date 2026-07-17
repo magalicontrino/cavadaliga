@@ -58,13 +58,12 @@ export default function Salva() {
             </span>
             <div className="max-w-[64ch]">
               <p className="text-[clamp(1rem,1.6vw,1.2rem)] leading-[1.7]">{s.historyText}</p>
-              {/* Le parcours de Salva, tel que Mag le raconte. Il grandira :
-                  c'est le premier, ce ne sera pas le dernier. */}
-              <h3 className="mt-12 text-[clamp(1.3rem,2.6vw,1.8rem)] leading-[1.15]" style={{ fontWeight: 600 }}>
-                {s.storyTitle}
-              </h3>
+              {/* Le parcours de Salva, tel que Mag le raconte. Sans titre : le
+                  bloc s'appelle deja « Histoire de la famille », et le recit
+                  EST cette histoire. Il grandira — c'est le premier, ce ne sera
+                  pas le dernier. */}
               {s.storyText.map((para) => (
-                <p key={para} className="mt-4 text-[clamp(0.98rem,1.5vw,1.1rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+                <p key={para} className="mt-5 text-[clamp(0.98rem,1.5vw,1.1rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
                   {para}
                 </p>
               ))}
