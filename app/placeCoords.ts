@@ -28,6 +28,17 @@ export const COORDS: Record<string, PlaceCoord> = {
   'gelateria-smile': { lat: 36.7277778, lon: 14.6863889, src: 'google' },
   'be-happy': { lat: 36.7298231, lon: 14.6866401, src: 'google' },
   'lido-bruca': { lat: 36.7340778, lon: 14.6800518, src: 'google' },
+  // Les cinq tables de Scicli. Coordonnees au niveau de la RUE, pas de la porte :
+  // aucune n'est dans OpenStreetMap en tant qu'etablissement, et Photon ne rend
+  // rien sur leurs noms. On geocode donc leur voie — precision de l'ordre de
+  // cent metres, ce qui situe le quartier sans pretendre a l'adresse exacte.
+  // Baqqala suit le palais Beneventano, qui borde sa place.
+  baqqala: { lat: 36.7933, lon: 14.70753, src: 'nominatim' },
+  'la-grotta': { lat: 36.79404, lon: 14.71195, src: 'nominatim' },
+  prosit: { lat: 36.79397, lon: 14.70927, src: 'nominatim' },
+  'le-gioie': { lat: 36.79412, lon: 14.70535, src: 'nominatim' },
+  'osteria-del-ponte': { lat: 36.79417, lon: 14.70513, src: 'nominatim' },
+
   rabbuso: { lat: 36.7209608, lon: 14.7407246, src: 'google' },
   giannone: { lat: 36.7626725, lon: 14.6366871, src: 'google' },
 
