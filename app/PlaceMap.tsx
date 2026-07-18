@@ -565,7 +565,32 @@ export default function PlaceMap({
         });
         // En haut à droite : en bas, les commandes tomberaient derrière la fiche.
         m.addControl(new NavigationControl({ showCompass: false }), 'top-right');
-        m.on('load', () => !mort && setState('ok'));
+        /**
+         * On attend que la carte ait DESSINE, pas seulement chargé son style.
+         *
+         * `load` signifie « le style est pret » — pas « il y a quelque chose a
+         * voir ». Avec une archive de 62 Mo lue par requetes de plage, il
+         * s'ecoule plusieurs secondes avant la premiere tuile : le voile de
+         * chargement partait, les epingles et les commandes s'affichaient, et
+         * la carte restait un aplat creme. Elle avait l'air cassee alors
+         * qu'elle travaillait.
+         *
+         * `idle` ne se declenche qu'une fois toutes les tuiles de la vue
+         * rendues. C'est lui qui dit « on peut regarder ».
+         *
+         * Filet de securite : si `idle` ne vient jamais — reseau coupe au
+         * mauvais moment, tuile qui ne repond pas — on montre quand meme la
+         * carte au bout de huit secondes. Mieux vaut une carte incomplete
+         * qu'un « Chargement… » eternel.
+         */
+        let filet = 0;
+        const montrer = () => {
+          if (mort) return;
+          window.clearTimeout(filet);
+          setState('ok');
+        };
+        m.on('idle', montrer);
+        filet = window.setTimeout(montrer, 8000);
         m.on('error', (e: { error?: { message?: string } }) => {
           if (mort) return;
           setErreur(e?.error?.message ?? 'inconnue');
