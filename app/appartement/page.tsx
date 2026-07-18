@@ -122,18 +122,6 @@ export default function Appartement() {
         <Lightbox images={ALBUM} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />
       </section>
 
-      {/* Le bandeau d'illustrations est parti : sur une page qui montre les
-          vraies pieces, ces dessins roses n'avaient rien a dire. Il vit
-          toujours sur l'accueil. */}
-      <section>
-        <Photo
-          src="/picture-sicile/coucher-soleil.jpg"
-          alt={t.sunsetAlt}
-          tone="terra"
-          className="aspect-[2/1] w-full md:aspect-[2.4/1]"
-        />
-      </section>
-
       {/* Un CTA comme sur l'accueil : grand titre + badge rotatif, vers les
           infos pratiques. */}
       <CtaBadge

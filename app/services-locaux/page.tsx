@@ -191,7 +191,14 @@ export default function NosAdresses() {
     // qu'elle est a 5,9 a vol d'oiseau, or aucune route ne raccourcit.
     if (co) {
       const d = distanceKm(dOu.lat, dOu.lon, co.lat, co.lon);
-      return d < 0.4 ? '' : `≈ ${d < 10 ? d.toFixed(1) : Math.round(d)} km`;
+      // Sous le kilometre, on compte en metres. Avant, tout ce qui etait a
+      // moins de 400 m n'affichait RIEN : les quatre adresses du village —
+      // Maracaibo a 50 m, Blazer a 100, Smile a 130, Be Happy a 250 — se
+      // retrouvaient muettes, alors que c'est justement la qu'on veut savoir
+      // qu'on y va a pied. Arrondi a 10 m : le calcul est a vol d'oiseau, le
+      // metre pres serait une precision inventee.
+      if (d < 1) return `≈ ${Math.max(10, Math.round((d * 1000) / 10) * 10)} m`;
+      return `≈ ${d < 10 ? d.toFixed(1) : Math.round(d)} km`;
     }
     if (depart) return ''; // sans position reelle, on n'invente pas une distance
     return l.km === 0 ? '' : `≈ ${l.km} km`;

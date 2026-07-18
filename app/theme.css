@@ -89,6 +89,32 @@ html {
   animation: cava-marquee var(--cava-marquee-duration, 40s) linear infinite;
 }
 
+/* --- Deux photos qui se relaient (PhotoRotator) --------------------
+   Cycle de 20 s : chaque photo tient 10 s, avec 1,5 s de fondu de part et
+   d'autre. La seconde porte le meme cycle avec animation-delay: -10s — elle
+   entre donc exactement quand la premiere sort. Rien a synchroniser.
+   Mouvement reduit : on fige sur la premiere photo. Un fondu n'agresse pas
+   le regard, mais une image qui change toute seule reste du contenu qui
+   bouge sans qu'on l'ait demande. */
+@keyframes cava-relais {
+  0%, 42.5% { opacity: 1; }
+  50%, 92.5% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.cava-relais {
+  animation: cava-relais 20s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-relais {
+    animation: none;
+  }
+  /* Sans animation, les deux se superposeraient a pleine opacite : on ne
+     garde que celle du dessous, qui porte la description. */
+  .cava-relais + .cava-relais {
+    opacity: 0;
+  }
+}
+
 /* --- Lien de menu : soulignement animé ----------------------------- */
 .cava-navlink {
   position: relative;

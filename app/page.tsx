@@ -3,7 +3,7 @@
 import Nav from './Nav';
 import Hero from './Hero';
 import Reveal from './Reveal';
-import Photo from './Photo';
+import PhotoRotator from './PhotoRotator';
 import Footer from './Footer';
 import CtaBadge from './CtaBadge';
 import Gallery from './Gallery';
@@ -27,11 +27,14 @@ export default function CavaHome() {
           {t.intro}
         </Reveal>
         <Reveal delay={220} className="mt-14">
-          <Photo
-            src="/picture-sicile/cava-daliga.jpg"
-            alt={t.cavaAlt}
+          {/* Cava d'Aliga et le coucher de soleil se relaient ici, toutes les
+              10 secondes, en fondu. Le coucher n'a plus de bande a lui en bas
+              de page : il vaut mieux une image qu'on regarde qu'une image
+              qu'on depasse. */}
+          <PhotoRotator
+            images={['/picture-sicile/cava-daliga.jpg', '/picture-sicile/coucher-soleil.jpg']}
+            alts={[t.cavaAlt, t.sunsetAlt]}
             tone="sand"
-            label="Photo de Cava d’Aliga à venir"
             className="aspect-[16/10] w-full rounded-2xl md:aspect-[2.2/1]"
           />
         </Reveal>
@@ -64,18 +67,6 @@ export default function CavaHome() {
       {/* ---------- Galerie : bandeau d'images défilant ---------- */}
       <section className="py-24 md:py-28">
         <Gallery images={GALLERY_STRIP} />
-      </section>
-
-      {/* La journee se ferme sur un coucher de soleil, pleine largeur, juste
-          avant le pied de page : c'est la derniere image qu'on emporte. Sans un
-          mot dessus — Mag l'a voulue nue, et elle se passe de legende. */}
-      <section>
-        <Photo
-          src="/picture-sicile/coucher-soleil.jpg"
-          alt={t.sunsetAlt}
-          tone="terra"
-          className="aspect-[2/1] w-full md:aspect-[2.4/1]"
-        />
       </section>
 
       {/* Contact et Instagram ne sont plus ici : le footer les porte sur toutes
