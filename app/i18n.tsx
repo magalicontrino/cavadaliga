@@ -483,7 +483,7 @@ const FR: Dict = {
       {
         title: 'Plantes & fleurs',
         desc: 'Pépinières locales pour fleurir la maison et le jardin.',
-        spots: [{ label: 'Pépinières autour de Scicli', url: 'https://www.google.com/maps/search/?api=1&query=vivaio+Scicli' }],
+        spots: [{ label: 'Vivai Cintoli', url: 'https://maps.app.goo.gl/X2VCrFrZEK2caPpH9' }],
       },
     ],
     markets: {
@@ -942,7 +942,7 @@ const IT: Dict = {
       {
         title: 'Piante & fiori',
         desc: 'Vivai locali per abbellire la casa e il giardino.',
-        spots: [{ label: 'Vivai attorno a Scicli', url: 'https://www.google.com/maps/search/?api=1&query=vivaio+Scicli' }],
+        spots: [{ label: 'Vivai Cintoli', url: 'https://maps.app.goo.gl/X2VCrFrZEK2caPpH9' }],
       },
     ],
     markets: {
@@ -1401,7 +1401,7 @@ const EN: Dict = {
       {
         title: 'Plants & flowers',
         desc: 'Local nurseries to brighten the house and garden.',
-        spots: [{ label: 'Nurseries around Scicli', url: 'https://www.google.com/maps/search/?api=1&query=vivaio+Scicli' }],
+        spots: [{ label: 'Vivai Cintoli', url: 'https://maps.app.goo.gl/X2VCrFrZEK2caPpH9' }],
       },
     ],
     markets: {

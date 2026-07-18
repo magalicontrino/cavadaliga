@@ -30,6 +30,9 @@ export const COORDS: Record<string, PlaceCoord> = {
   'lido-bruca': { lat: 36.7340778, lon: 14.6800518, src: 'google' },
   // Bricolage. Zisa : viale I Maggio a Scicli, geocode a la voie. ItalBrico :
   // zone Serrauccelli a Modica, meme precision — le magasin borde la route.
+  // Vivai Cintoli — adresse donnee par Mag, coordonnees tirees de son lien
+  // Google Maps (la fiche de l'etablissement, pas un geocodage de rue).
+  'vivai-cintoli': { lat: 36.7527929, lon: 14.7023483, src: 'google' },
   zisa: { lat: 36.77904, lon: 14.68606, src: 'nominatim' },
   italbrico: { lat: 36.81246, lon: 14.77482, src: 'nominatim' },
 
@@ -62,5 +65,4 @@ export const COORDS: Record<string, PlaceCoord> = {
   // Producteurs & plantes
   bonajuto: { lat: 36.8602541, lon: 14.7599117, src: 'nominatim' },
   cutrera: { lat: 37.0837135, lon: 14.6666207, src: 'nominatim' },
-  'pepinieres-scicli': { lat: 36.7644131, lon: 14.7222141, src: 'nominatim' },
 };
