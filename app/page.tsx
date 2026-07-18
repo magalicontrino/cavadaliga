@@ -41,13 +41,23 @@ export default function CavaHome() {
           Une CTA par page du menu, dans le même ordre : le visiteur retrouve
           la même séquence partout. Les titres viennent de t.ctaTitles, aligné
           sur NAV. Le badge alterne de côté d'une section à l'autre. */}
+      {/* La casa ouvre la serie, en dehors de NAV : elle a quitte le menu mais
+          garde sa vignette ici — c'est le sujet du site. Son titre vient donc
+          de t.apartment, plus de t.ctaTitles qui ne couvre que le menu. */}
+      <CtaBadge
+        href="/appartement"
+        title={t.apartment.ctaTitle}
+        circleId="cava-c-appartement"
+      />
+
       {NAV.map((item, i) => (
         <CtaBadge
           key={item.href}
           href={item.href}
           title={t.ctaTitles[item.href]}
           circleId={`cava-c-${item.href.slice(1)}`}
-          flip={i % 2 === 1}
+          // La casa occupe la premiere place : l'alternance repart d'elle.
+          flip={i % 2 === 0}
         />
       ))}
 

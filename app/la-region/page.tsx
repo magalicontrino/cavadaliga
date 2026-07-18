@@ -621,11 +621,12 @@ export default function LaRegion() {
       </section>
       )}
 
-      <Reveal className="mx-auto max-w-[110rem] px-5 pb-24 pt-10 text-[14px] italic md:px-10" style={{ color: 'var(--cava-muted)' }}>
+      <Reveal className="mx-auto max-w-[110rem] px-5 pb-8 pt-10 text-[14px] italic md:px-10" style={{ color: 'var(--cava-muted)' }}>
         {c.note}
       </Reveal>
 
-      <div className="pb-24" />
+      {/* Plus de cale ici : la note portait deja pb-24, et l'ancienne cale en
+          ajoutait 96 autres — 192 px de vide avant le pied de page. */}
 
       <Footer />
     </main>

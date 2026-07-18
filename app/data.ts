@@ -17,14 +17,15 @@ export const SITE = {
 } as const;
 
 // Menu principal — hrefs (les libellés viennent de i18n, même ordre)
+// L'ordre voulu par Mag. La casa n'y est plus : elle garde son picto rond dans
+// la barre du haut et sa vignette sur l'accueil, mais quitte le menu.
 export const NAV = [
-  { href: '/appartement' },
+  { href: '/preparer-le-voyage' },
   { href: '/famille' },
   { href: '/la-region' },
-  { href: '/preparer-le-voyage' },
-  { href: '/informations-pratiques' },
   { href: '/services-locaux' },
   { href: '/evenements' },
+  { href: '/informations-pratiques' },
 ] as const;
 
 // Les 12 photos de la casa (/public/appart/). Partagées par la page La casa,

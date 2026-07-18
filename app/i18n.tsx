@@ -79,7 +79,7 @@ export type Dict = {
   ctaTitles: Record<Page, string>;
   tasteOfSicily: string;
   sunsetAlt: string;
-  apartment: { eyebrow: string; title: string; albumAlt: string; captions: string[]; rooms: string[]; label: string };
+  apartment: { eyebrow: string; title: string; albumAlt: string; captions: string[]; rooms: string[]; label: string; ctaTitle: string };
   // Rappel de la casa au bas des infos pratiques : quelques pieces + le lien.
   casaPeek: { eyebrow: string; title: string; link: string };
   galleryAlt: string[];
@@ -266,7 +266,6 @@ export type Dict = {
 
 const FR: Dict = {
   nav: {
-    '/appartement': 'La casa',
     '/famille': 'La famille',
     '/la-region': 'La région',
     '/preparer-le-voyage': 'Le voyage',
@@ -290,7 +289,6 @@ const FR: Dict = {
   everythingForStay: 'Tout pour votre séjour',
   sectionsWord: 'rubriques',
   ctaTitles: {
-    '/appartement': 'Visiter la casa',
     '/famille': 'Souvenir de famille',
     '/la-region': 'Découvrir la région',
     '/preparer-le-voyage': 'Bien préparer le voyage',
@@ -300,7 +298,7 @@ const FR: Dict = {
   },
   tasteOfSicily: 'Un avant-goût de la Sicile',
   sunsetAlt: 'Coucher de soleil sur la plage, la mer et le village au crépuscule',
-  apartment: { eyebrow: 'La maison', title: 'La casa', albumAlt: 'La casa de Cava d’Aliga', captions: ['La terrasse avant', 'La terrasse arrière', 'Le hamac', 'Le séjour', 'La cuisine', 'La petite chambre', 'La petite chambre', 'La grande chambre', 'La salle de bain', 'La salle de bain', 'La salle de bain', 'La douche'], rooms: ['La terrasse avant', 'La terrasse arrière', 'Le séjour', 'La cuisine', 'La petite chambre', 'La grande chambre', 'La salle de bain'], label: 'La casa' },
+  apartment: { eyebrow: 'La maison', title: 'La casa', albumAlt: 'La casa de Cava d’Aliga', captions: ['La terrasse avant', 'La terrasse arrière', 'Le hamac', 'Le séjour', 'La cuisine', 'La petite chambre', 'La petite chambre', 'La grande chambre', 'La salle de bain', 'La salle de bain', 'La salle de bain', 'La douche'], rooms: ['La terrasse avant', 'La terrasse arrière', 'Le séjour', 'La cuisine', 'La petite chambre', 'La grande chambre', 'La salle de bain'], label: 'La casa', ctaTitle: 'Visiter la casa' },
   casaPeek: { eyebrow: 'La casa', title: 'La maison en photos', link: 'Voir toutes les pièces' },
   galleryAlt: [
     'La mer à quelques mètres de Cava d’Aliga',
@@ -718,7 +716,6 @@ const FR: Dict = {
 
 const IT: Dict = {
   nav: {
-    '/appartement': 'La casa',
     '/famille': 'La famiglia',
     '/la-region': 'La regione',
     '/preparer-le-voyage': 'Il viaggio',
@@ -742,7 +739,6 @@ const IT: Dict = {
   everythingForStay: 'Tutto per il vostro soggiorno',
   sectionsWord: 'sezioni',
   ctaTitles: {
-    '/appartement': 'Visitare la casa',
     '/famille': 'Ricordi di famiglia',
     '/la-region': 'Scoprire la regione',
     '/preparer-le-voyage': 'Preparare bene il viaggio',
@@ -752,7 +748,7 @@ const IT: Dict = {
   },
   tasteOfSicily: 'Un assaggio di Sicilia',
   sunsetAlt: 'Tramonto sulla spiaggia, il mare e il paese al crepuscolo',
-  apartment: { eyebrow: 'La casa', title: 'La casa', albumAlt: 'La casa di Cava d’Aliga', captions: ['La terrazza davanti', 'La terrazza sul retro', 'L’amaca', 'Il soggiorno', 'La cucina', 'La camera piccola', 'La camera piccola', 'La camera grande', 'Il bagno', 'Il bagno', 'Il bagno', 'La doccia'], rooms: ['La terrazza davanti', 'La terrazza sul retro', 'Il soggiorno', 'La cucina', 'La camera piccola', 'La camera grande', 'Il bagno'], label: 'La casa' },
+  apartment: { eyebrow: 'La casa', title: 'La casa', albumAlt: 'La casa di Cava d’Aliga', captions: ['La terrazza davanti', 'La terrazza sul retro', 'L’amaca', 'Il soggiorno', 'La cucina', 'La camera piccola', 'La camera piccola', 'La camera grande', 'Il bagno', 'Il bagno', 'Il bagno', 'La doccia'], rooms: ['La terrazza davanti', 'La terrazza sul retro', 'Il soggiorno', 'La cucina', 'La camera piccola', 'La camera grande', 'Il bagno'], label: 'La casa', ctaTitle: 'Visitare la casa' },
   casaPeek: { eyebrow: 'La casa', title: 'La casa in foto', link: 'Vedere tutte le stanze' },
   galleryAlt: [
     'Il mare a pochi metri da Cava d’Aliga',
@@ -1170,7 +1166,6 @@ const IT: Dict = {
 
 const EN: Dict = {
   nav: {
-    '/appartement': 'La casa',
     '/famille': 'The family',
     '/la-region': 'The region',
     '/preparer-le-voyage': 'The trip',
@@ -1194,7 +1189,6 @@ const EN: Dict = {
   everythingForStay: 'Everything for your stay',
   sectionsWord: 'sections',
   ctaTitles: {
-    '/appartement': 'Visit la casa',
     '/famille': 'Family memories',
     '/la-region': 'Discover the region',
     '/preparer-le-voyage': 'Plan the trip properly',
@@ -1204,7 +1198,7 @@ const EN: Dict = {
   },
   tasteOfSicily: 'A taste of Sicily',
   sunsetAlt: 'Sunset over the beach, the sea and the village at dusk',
-  apartment: { eyebrow: 'The home', title: 'La casa', albumAlt: 'La casa in Cava d’Aliga', captions: ['The front terrace', 'The back terrace', 'The hammock', 'The living room', 'The kitchen', 'The small bedroom', 'The small bedroom', 'The large bedroom', 'The bathroom', 'The bathroom', 'The bathroom', 'The shower'], rooms: ['The front terrace', 'The back terrace', 'The living room', 'The kitchen', 'The small bedroom', 'The large bedroom', 'The bathroom'], label: 'La casa' },
+  apartment: { eyebrow: 'The home', title: 'La casa', albumAlt: 'La casa in Cava d’Aliga', captions: ['The front terrace', 'The back terrace', 'The hammock', 'The living room', 'The kitchen', 'The small bedroom', 'The small bedroom', 'The large bedroom', 'The bathroom', 'The bathroom', 'The bathroom', 'The shower'], rooms: ['The front terrace', 'The back terrace', 'The living room', 'The kitchen', 'The small bedroom', 'The large bedroom', 'The bathroom'], label: 'La casa', ctaTitle: 'Visit la casa' },
   casaPeek: { eyebrow: 'La casa', title: 'The home in photos', link: 'See every room' },
   galleryAlt: [
     'The sea a few metres from Cava d’Aliga',
