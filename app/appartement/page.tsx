@@ -30,7 +30,7 @@ const ROOMS: number[][] = [
   [3], // le sejour
   [4], // la cuisine
   [5, 6], // la petite chambre, vue large puis de pres — c'est la meme piece
-  [7], // la chambre-bureau
+  [7], // la grande chambre
   [8, 9, 10, 11], // la salle de bain + la douche
 ];
 
