@@ -824,7 +824,7 @@ export default function PlaceMap({
           disabled={geoAsking}
           aria-label={locateLabel}
           title={locateLabel}
-          className="cava-maptarget absolute right-[10px] top-[84px] z-10 flex h-[29px] w-[29px] items-center justify-center disabled:opacity-50"
+          className="cava-maptarget absolute right-[10px] top-[84px] z-20 flex h-[29px] w-[29px] items-center justify-center disabled:opacity-50"
         >
           <Icon name="target" size={16} />
         </button>
@@ -838,7 +838,7 @@ export default function PlaceMap({
           onClick={() => onMaison?.()}
           aria-label={houseLabel()}
           title={houseLabel()}
-          className="cava-maptarget absolute right-[10px] top-[119px] z-10 flex h-[29px] w-[29px] items-center justify-center"
+          className="cava-maptarget absolute right-[10px] top-[119px] z-20 flex h-[29px] w-[29px] items-center justify-center"
         >
           <Icon name="home" size={16} />
         </button>
@@ -846,15 +846,22 @@ export default function PlaceMap({
 
       {/* Téléphone : une piste qu'on feuillette, comme chez Airbnb. La fiche
           choisie est au centre ; on glisse pour passer a la suivante et la
-          carte suit. */}
+          carte suit.
+          Sa hauteur est PLAFONNEE. Libre, elle suivait son texte : sur un
+          telephone court (375x667), elle mangeait 80 % de la carte et recouvrait
+          la cible et la maison, en haut a droite. Elle s'arrete maintenant a
+          58 %, s'aligne en bas (items-end) pour que les fiches courtes gardent
+          leur taille, et defile en dedans quand le texte deborde. Bonus :
+          aCote() mesure cette piste pour placer l'epingle choisie — la bande
+          libre au-dessus est d'autant plus large. */}
       {choisi && (
         <div
           ref={piste}
           onScroll={onGlisse}
-          className="cava-swipe absolute inset-x-0 bottom-3 z-10 flex snap-x snap-mandatory gap-3 overflow-x-auto px-3 pb-1 sm:hidden"
+          className="cava-swipe absolute inset-x-0 bottom-3 z-10 flex max-h-[58%] snap-x snap-mandatory items-end gap-3 overflow-x-auto px-3 pb-1 sm:hidden"
         >
           {liste.map((p) => (
-            <div key={p.id} className="w-[86%] shrink-0 snap-center">
+            <div key={p.id} className="max-h-full w-[86%] shrink-0 snap-center overflow-y-auto">
               <PlaceCard place={p} lang={lang} labels={labels} km={kmLabel(p)} onClose={() => onChoisir(null)} />
             </div>
           ))}
