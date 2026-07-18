@@ -18,7 +18,7 @@ const SPEED = 23;
  * ce qui laissait un trou à droite sur les grands écrans. On mesure donc la
  * série et on la répète autant de fois qu'il faut.
  */
-export default function Gallery({ images }: { images: string[] }) {
+export default function Gallery({ images, alts }: { images: string[]; alts?: string[] }) {
   const [open, setOpen] = useState<number | null>(null);
   const [reps, setReps] = useState(2);
   const [shift, setShift] = useState<number | null>(null);
@@ -64,13 +64,16 @@ export default function Gallery({ images }: { images: string[] }) {
                   key={i}
                   type="button"
                   onClick={() => setOpen(i)}
-                  aria-label="Agrandir la photo"
+                  aria-label={alts?.[i] ?? 'Agrandir la photo'}
                   tabIndex={r > 0 ? -1 : undefined}
                   className="mx-2 aspect-[3/4] h-[clamp(200px,26vh,320px)] shrink-0 cursor-zoom-in overflow-hidden rounded-xl"
                 >
                   <Photo
                     src={src}
-                    alt=""
+                    // Sans `alts`, le bandeau est decoratif : alt vide, les
+                    // lecteurs d'ecran passent. Avec (les pieces de la casa),
+                    // chaque photo dit ce qu'elle montre.
+                    alt={alts?.[i] ?? ''}
                     tone={i % 2 === 0 ? 'terra' : 'pink'}
                     className="h-full w-full"
                     imgClassName="transition-transform duration-500 hover:scale-105"

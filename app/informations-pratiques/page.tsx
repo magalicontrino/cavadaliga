@@ -11,21 +11,12 @@ import OpIcon, { type OpIconName } from '../OpIcon';
 import { Transports, Emergencies } from '../GettingAround';
 import WasteSchedule from '../WasteSchedule';
 import DepartChecklist from '../DepartChecklist';
-import Photo from '../Photo';
-import { withBase } from '../data';
+import Gallery from '../Gallery';
+import { withBase, APPART_ALBUM } from '../data';
 import { useI18n } from '../i18n';
 
 type Key = 'tout' | 'adresse' | 'arrivee' | 'bouger' | 'urgences' | 'dechets' | 'depart';
 
-// L'apercu de la casa en bas de page : quatre pieces qui donnent le ton — on
-// entre par la terrasse, on traverse le sejour et la cuisine, on dort. `photo`
-// indexe ALBUM (les 12 fichiers /appart/), `room` indexe i18n.apartment.rooms.
-const CASA_PEEK = [
-  { photo: 0, room: 0 }, // la terrasse avant
-  { photo: 3, room: 2 }, // le sejour
-  { photo: 4, room: 3 }, // la cuisine
-  { photo: 7, room: 5 }, // la grande chambre
-];
 
 export default function InformationsPratiques() {
   const { t } = useI18n();
@@ -171,8 +162,9 @@ export default function InformationsPratiques() {
       {show('depart') && <DepartChecklist />}
 
       {/* Un rappel de la casa, hors filtres : on est ici pour se reperer, et
-          revoir les pieces aide. Quatre photos seulement — l'album complet vit
-          sur La casa, le recopier en entier ferait doublon. */}
+          revoir les pieces aide. Les douze photos y passent en defilant, ce qui
+          les montre toutes sans allonger une page deja longue ; le lien mene a
+          La casa, ou elles sont rangees piece par piece. */}
       <section className="mx-auto max-w-[110rem] px-5 pb-8 pt-16 md:px-10">
         <Reveal className="mb-8 flex flex-col gap-2">
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
@@ -183,21 +175,9 @@ export default function InformationsPratiques() {
           </h2>
         </Reveal>
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          {CASA_PEEK.map(({ photo, room }, i) => (
-            <Reveal key={photo} delay={i * 90} className="flex flex-col gap-3">
-              <Photo
-                src={`/appart/appart-${String(photo + 1).padStart(2, '0')}.jpg`}
-                alt={t.apartment.captions[photo]}
-                tone="sand"
-                className="aspect-[4/3] w-full rounded-2xl"
-              />
-              <span className="text-[13px] leading-[1.4]" style={{ color: 'var(--cava-muted)' }}>
-                {t.apartment.rooms[room]}
-              </span>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal className="-mx-5 md:-mx-10">
+          <Gallery images={APPART_ALBUM} alts={t.apartment.captions} />
+        </Reveal>
 
         <Reveal className="mt-8">
           <a

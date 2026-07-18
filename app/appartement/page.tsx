@@ -9,13 +9,13 @@ import Photo from '../Photo';
 import CtaBadge from '../CtaBadge';
 import Lightbox from '../Lightbox';
 import Gallery from '../Gallery';
-import { GALLERY_STRIP } from '../data';
+import { GALLERY_STRIP, APPART_ALBUM } from '../data';
 import { useI18n } from '../i18n';
 
 // L'album de la maison : les vraies photos, deposees dans /public/appart/.
 // Ordre pense comme une visite — on entre par la terrasse, puis le sejour, la
 // cuisine, les chambres, la salle de bain.
-const ALBUM = Array.from({ length: 12 }, (_, i) => `/appart/appart-${String(i + 1).padStart(2, '0')}.jpg`);
+const ALBUM = APPART_ALBUM;
 const TONES = ['sand', 'terra', 'pink', 'ink'] as const;
 
 // La visite se fait piece par piece : chaque groupe = les indices de ses photos

@@ -27,6 +27,14 @@ export const NAV = [
   { href: '/evenements' },
 ] as const;
 
+// Les 12 photos de la casa (/public/appart/). Partagées par la page La casa,
+// qui les range pièce par pièce, et par les infos pratiques, qui les fait
+// défiler : une seule liste, donc une photo ajoutée apparaît aux deux endroits.
+export const APPART_ALBUM = Array.from(
+  { length: 12 },
+  (_, i) => `/appart/appart-${String(i + 1).padStart(2, '0')}.jpg`,
+);
+
 // Bandeau d'images défilant — partagé par l'accueil ET la page La casa : une
 // seule liste, donc toute retouche se répercute d'un coup sur les deux pages.
 // Ordre pensé pour que deux visuels SEMBLABLES (les 2 figuiers de Barbarie) ne
