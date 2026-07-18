@@ -147,6 +147,20 @@ export const LOCAL_PLACES: LocalPlace[] = [
     },
   },
   {
+    id: 'vendicari',
+    name: 'Oasi Faunistica di Vendicari',
+    cat: 'randonnee',
+    town: 'Noto',
+    url: 'https://maps.app.goo.gl/ngWVnascqBZPBeSf8',
+    km: 50,
+    responsible: false,
+    blurb: {
+      fr: 'La réserve entre Noto et Pachino : salines, vieille tonnara, oiseaux migrateurs, et des plages qu’on rejoint à pied depuis les entrées. Les sentiers sont plats et sablonneux — c’est la marche la plus facile de la liste. Entrées et horaires réglementés.',
+      it: 'La riserva tra Noto e Pachino: saline, vecchia tonnara, uccelli migratori, e spiagge che si raggiungono a piedi dagli ingressi. I sentieri sono piani e sabbiosi — la camminata più facile dell’elenco. Ingressi e orari regolamentati.',
+      en: 'The reserve between Noto and Pachino: salt pans, the old tuna works, migrating birds, and beaches reached on foot from the entrances. The paths are flat and sandy — the easiest walk on this list. Entrances and opening hours are regulated.',
+    },
+  },
+  {
     id: 'covo-contrabbandieri',
     name: 'Covo dei contrabbandieri',
     cat: 'randonnee',
@@ -172,6 +186,20 @@ export const LOCAL_PLACES: LocalPlace[] = [
       fr: 'La plage de Bruca, juste à l’ouest de Cava d’Aliga. Le lido le plus proche de la maison : sable, transats et de quoi boire un verre.',
       it: 'La spiaggia di Bruca, appena a ovest di Cava d’Aliga. Il lido più vicino a casa: sabbia, lettini e qualcosa da bere.',
       en: 'Bruca beach, just west of Cava d’Aliga. The closest lido to the house: sand, sunbeds and somewhere for a drink.' },
+  },
+  {
+    id: 'leroy-merlin-catania',
+    name: 'Leroy Merlin Catania',
+    cat: 'bricolage',
+    town: 'Catania',
+    url: 'https://maps.app.goo.gl/3YQNbPr48kNiQnjSA',
+    km: 110,
+    responsible: false,
+    blurb: {
+      fr: 'La grande surface de bricolage la plus proche — mais à Catane, donc un vrai déplacement. Pour ce qui ne se trouve pas dans la province : gros outillage, matériaux, cuisine, jardin. Il n’y a pas d’enseigne de cette taille du côté de Raguse.',
+      it: 'Il grande magazzino di bricolage più vicino — ma a Catania, quindi un vero viaggio. Per ciò che non si trova in provincia: attrezzatura pesante, materiali, cucina, giardino. Non c’è un’insegna di queste dimensioni dalle parti di Ragusa.',
+      en: 'The nearest big-box DIY store — but in Catania, so a proper trip. For what the province cannot supply: heavy tools, materials, kitchens, garden. There is no store of this size around Ragusa.',
+    },
   },
   {
     id: 'max-centro',

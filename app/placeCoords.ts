@@ -29,6 +29,9 @@ export const COORDS: Record<string, PlaceCoord> = {
   // Cristo Redentore, Portopalo — lien de Mag, coordonnees de sa fiche Google.
   'cristo-redentore': { lat: 36.6471834, lon: 15.0796326, src: 'google' },
   cavagrande: { lat: 36.9724766, lon: 15.0963672, src: 'google' },
+  // Vendicari — lien de Mag, coordonnees de sa fiche Google (la reserve, pas
+  // une entree precise : elle en compte plusieurs le long de la cote).
+  vendicari: { lat: 36.7986425, lon: 15.0929749, src: 'google' },
   'covo-contrabbandieri': { lat: 36.7174366, lon: 14.706748, src: 'google' },
   'lido-bruca': { lat: 36.7340778, lon: 14.6800518, src: 'google' },
   // Bricolage. Zisa : viale I Maggio a Scicli, geocode a la voie. ItalBrico :
@@ -38,6 +41,8 @@ export const COORDS: Record<string, PlaceCoord> = {
   'vivai-cintoli': { lat: 36.7527929, lon: 14.7023483, src: 'google' },
   // Max Centro Commerciale — lien donne par Mag ; coordonnees prises dans la
   // fiche Google de ce lien, donc l'etablissement lui-meme.
+  // Leroy Merlin Catania — lien de Mag, coordonnees de sa fiche Google.
+  'leroy-merlin-catania': { lat: 37.4457, lon: 15.03439, src: 'google' },
   'max-centro': { lat: 36.7491071, lon: 14.6818194, src: 'google' },
 
   // Les cinq tables de Scicli. Coordonnees au niveau de la RUE, pas de la porte :
