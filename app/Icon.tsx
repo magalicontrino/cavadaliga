@@ -8,6 +8,7 @@
 export type IconName =
   | 'key'
   | 'volcano'
+  | 'shutters'
   | 'home'
   | 'info'
   | 'pin'
@@ -51,6 +52,23 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
       <path d="M3.5 10h17" />
       <path d="M8 3.5v3M16 3.5v3" />
       <path d="M8 14h2.5" />
+    </>
+  ),
+  // Persiennes — la casa. Une maison disait « page d'accueil » avant de dire
+  // « la maison de famille » : c'est le glyphe universel du bouton Accueil. Les
+  // volets en bois, eux, ne se confondent avec rien, et ils existent vraiment —
+  // on les voit sur les photos de la grande chambre. Deux battants, deux lames
+  // chacun ; trois se brouillaient a 24 px.
+  // L'appui de fenetre a saute : mesure faite, il portait a lui seul 18 des 95
+  // unites de trace, et le picto pesait 153 d'encre contre 129 au calendrier et
+  // 127 au vinyle — il aurait noirci sa place dans la rangee. Sans lui, et le
+  // trait a peine epaissi, on retombe sur le poids des autres.
+  shutters: (
+    <>
+      <rect x="4" y="4.5" width="16" height="15" rx="1.5" />
+      <path d="M12 4.5v15" />
+      <path d="M6.8 9h3M6.8 14h3" />
+      <path d="M14.2 9h3M14.2 14h3" />
     </>
   ),
   // Volcan — l'Etna. Un cone tronque (le cratere est ouvert, pas pointu) et
