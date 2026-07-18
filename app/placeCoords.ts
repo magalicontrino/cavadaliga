@@ -52,6 +52,10 @@ export const COORDS: Record<string, PlaceCoord> = {
   // Supermarchés
   // S.S.G. Market — lien de Mag, coordonnees de sa fiche Google.
   // Carnico — lien de Mag, coordonnees de sa fiche Google.
+  maracaibo: { lat: 36.728109, lon: 14.685499, src: 'google' },
+  blazer: { lat: 36.7289037, lon: 14.6850646, src: 'google' },
+  'gelateria-smile': { lat: 36.7277778, lon: 14.6863889, src: 'google' },
+  'be-happy': { lat: 36.7298231, lon: 14.6866401, src: 'google' },
   carnico: { lat: 36.7307939, lon: 14.6871244, src: 'google' },
   'ssg-market': { lat: 36.7308227, lon: 14.6868863, src: 'google' },
   'coop-superstore': { lat: 36.7468923, lon: 14.6824101, src: 'nominatim' },
