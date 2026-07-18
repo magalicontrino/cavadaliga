@@ -10,10 +10,16 @@ import { useI18n } from './i18n';
 // horizontal (éventail), `rot` = inclinaison. `src` pointe directement sur
 // les visuels /public/deco/ (existants) ; ordre = arrière → avant (la figue
 // de Barbarie est la carte de devant, n°1). Repli couleur = palette (tone).
+// Les decalages sont SYMETRIQUES autour de zero, et ce n'est pas cosmetique :
+// ils valaient -20, -9 et +4 %, de moyenne -8,3 %. L'eventail n'etait donc pas
+// centre sur son axe, et comme `tx` est multiplie par `--fan`, la derive
+// grandissait a mesure qu'il s'ouvrait — les cartes sortaient par la gauche.
+// L'ecart total (24 %) et l'allure penchee sont conserves : tout est simplement
+// recale de +8 %, moyenne ramenee a zero.
 const CARDS = [
-  { cls: 'third', tone: 'ink', rot: -15, tx: '-20%', src: '/deco/testa-di-moro.jpg', alt: 'Céramique sicilienne Testa di Moro' },
-  { cls: 'second', tone: 'pink', rot: -7, tx: '-9%', src: '/deco/carte-pop.jpg', alt: 'Carte du jeu de Scopa sicilien' },
-  { cls: 'first', tone: 'terra', rot: 4, tx: '4%', src: '/deco/figue-barbarie.jpg', alt: 'Figues de Barbarie de Sicile' },
+  { cls: 'third', tone: 'ink', rot: -9, tx: '-12%', src: '/deco/testa-di-moro.jpg', alt: 'Céramique sicilienne Testa di Moro' },
+  { cls: 'second', tone: 'pink', rot: -1, tx: '-1%', src: '/deco/carte-pop.jpg', alt: 'Carte du jeu de Scopa sicilien' },
+  { cls: 'first', tone: 'terra', rot: 10, tx: '12%', src: '/deco/figue-barbarie.jpg', alt: 'Figues de Barbarie de Sicile' },
 ] as const;
 
 // Taille des cartes : bornée aussi par la LARGEUR d'écran (vw) pour rester
@@ -49,8 +55,10 @@ export default function Hero() {
     });
   }
 
-  // Éventail piloté par le scroll : en haut les cartes sont quasi empilées
-  // (--fan proche de 0), en descendant elles s'écartent (--fan grandit).
+  // Éventail piloté par le scroll. Il partait de 0,18 — les trois cartes se
+  // confondaient en une seule, et il fallait scroller pour comprendre qu'il y
+  // en avait plusieurs. Il s'ouvre maintenant des l'arrivee (0,6), et finit de
+  // s'ecarter sur la premiere demi-hauteur d'ecran.
   useEffect(() => {
     const el = stackRef.current;
     if (!el) return;
@@ -58,8 +66,8 @@ export default function Hero() {
     const update = () => {
       raf = 0;
       const vh = window.innerHeight || 1;
-      const progress = Math.min(Math.max(window.scrollY / (vh * 0.7), 0), 1);
-      el.style.setProperty('--fan', String(0.18 + progress * 0.92));
+      const progress = Math.min(Math.max(window.scrollY / (vh * 0.5), 0), 1);
+      el.style.setProperty('--fan', String(0.6 + progress * 0.5));
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
