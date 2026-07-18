@@ -76,11 +76,15 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[100svh] overflow-x-clip pb-[12vh] pt-[14vh]">
-      {/* Halo décoratif */}
+      {/* Halo décoratif — volontairement tres discret.
+          Il lavait tout le haut de page : 0,18 d'alpha a 40 % d'opacite, soit
+          ~7 % de rose etale sur 70 vh. C'est de la que venait « le fond du site
+          est trop rose », pas de la couleur de fond elle-meme. Ramene a ~2 % :
+          il reste une chaleur au centre, on ne lit plus une teinte. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[55%] -z-10 h-[70vh] w-[70vh] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40 blur-[120px]"
-        style={{ background: 'radial-gradient(circle, rgba(230,41,111,0.18), transparent 65%)' }}
+        className="pointer-events-none absolute left-1/2 top-[55%] -z-10 h-[70vh] w-[70vh] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.18] blur-[120px]"
+        style={{ background: 'radial-gradient(circle, rgba(230,41,111,0.12), transparent 65%)' }}
       />
 
       {/* Texte au premier plan : tag + titre centrés */}

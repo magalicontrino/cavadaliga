@@ -26,7 +26,7 @@ import PlaceCard from './PlaceCard';
  */
 
 const INK = '#2e2d2d';
-const BG = '#f7f5f2';
+const BG = '#f6f5f3';
 /** Les petits noms de lieux : presents, mais qui ne volent pas la vedette aux
  *  villes ni aux epingles. C'est le gris du site. */
 const MUET = '#6f6e6e';
