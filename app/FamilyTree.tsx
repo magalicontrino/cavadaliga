@@ -272,8 +272,8 @@ export default function FamilyTree() {
         {
           fam: {
           name: 'Louis Thurot & Mélanie Souveton',
-          subtitle: `${s.treeGreat} · 1893`,
-          children: [{ name: 'Juliette Emilienne', subtitle: '1923' }],
+          subtitle: `${s.treeGreat} · 1893 · 1898–1981`,
+          children: [{ name: 'Juliette Emilienne', subtitle: '1923–2015' }],
         } },
         {
           fam: {
@@ -474,8 +474,8 @@ const QUESTIONS: { fr: string; it: string; en: string }[] = [
     en: 'The surname of Sophie, Gabi Contrino’s wife.',
   },
   {
-    fr: 'Les dates de Louis Thurot, de Mélanie Souveton et de Juliette Thurot.',
-    it: 'Le date di Louis Thurot, Mélanie Souveton e Juliette Thurot.',
-    en: 'The dates of Louis Thurot, Mélanie Souveton and Juliette Thurot.',
+    fr: 'La date de décès de Louis Thurot, mort à Saint-Étienne : on a sa naissance, en 1893, mais pas sa fin.',
+    it: 'La data di morte di Louis Thurot, morto a Saint-Étienne: abbiamo la sua nascita, nel 1893, ma non la sua fine.',
+    en: 'Louis Thurot’s date of death, who died in Saint-Étienne: we have his birth, in 1893, but not his end.',
   },
 ];
