@@ -9,8 +9,7 @@ import Photo from '../Photo';
 import Icon from '../Icon';
 import CtaBadge from '../CtaBadge';
 import Lightbox from '../Lightbox';
-import Gallery from '../Gallery';
-import { GALLERY_STRIP, APPART_ALBUM, withBase } from '../data';
+import { APPART_ALBUM, withBase } from '../data';
 import { useI18n } from '../i18n';
 
 // L'album de la maison : les vraies photos, deposees dans /public/appart/.
@@ -91,11 +90,10 @@ export default function Appartement() {
                 vide sous le plus court. */}
             <div className={photos.length > 1 ? 'gap-5 sm:columns-2 [&>*]:mb-5' : ''}>
               {photos.map((i, n) => {
+                // La legende reste l'alternative textuelle de l'image (les
+                // lecteurs d'ecran en ont besoin), mais ne s'ecrit plus sous la
+                // photo : le titre de la piece porte deja le propos.
                 const legende = a.captions[i];
-                // La legende ne s'affiche que si elle dit autre chose que le
-                // titre de la piece : sinon on lisait « La salle de bain »
-                // quatre fois de suite sous le meme titre.
-                const utile = legende && legende !== a.rooms[r];
                 return (
                   <Reveal key={ALBUM[i]} delay={n * 90} className="flex break-inside-avoid flex-col gap-3">
                     <button
@@ -114,11 +112,6 @@ export default function Appartement() {
                         imgClassName="transition-transform duration-500 hover:scale-[1.03]"
                       />
                     </button>
-                    {utile && (
-                      <span className="text-[13px] leading-[1.4]" style={{ color: 'var(--cava-muted)' }}>
-                        {legende}
-                      </span>
-                    )}
                   </Reveal>
                 );
               })}
@@ -129,13 +122,9 @@ export default function Appartement() {
         <Lightbox images={ALBUM} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />
       </section>
 
-      {/* Meme fin que l'accueil, apres l'album : le bandeau d'images defilant
-          (la meme liste partagee, GALLERY_STRIP), puis le coucher de soleil en
-          pleine largeur — la derniere image qu'on emporte. */}
-      <section className="py-24 md:py-28">
-        <Gallery images={GALLERY_STRIP} />
-      </section>
-
+      {/* Le bandeau d'illustrations est parti : sur une page qui montre les
+          vraies pieces, ces dessins roses n'avaient rien a dire. Il vit
+          toujours sur l'accueil. */}
       <section>
         <Photo
           src="/picture-sicile/coucher-soleil.jpg"
