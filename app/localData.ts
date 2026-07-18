@@ -115,6 +115,20 @@ export const LOCAL_PLACES: LocalPlace[] = [
       en: 'Plant nursery on viale della Serenità, in Scicli. Seedlings, shrubs and flowers for the terrace and garden.' },
   },
   {
+    id: 'covo-contrabbandieri',
+    name: 'Covo dei contrabbandieri',
+    cat: 'plage',
+    town: 'Cava d’Aliga',
+    url: 'https://maps.app.goo.gl/vzvgZYVvMbR7JJPF7',
+    km: 3,
+    responsible: false,
+    blurb: {
+      fr: 'La crique des contrebandiers, sur la côte à l’est du village. On y va par le bord de mer — compter plus que les 2 km à vol d’oiseau, le sentier suit les rochers.',
+      it: 'La cala dei contrabbandieri, sulla costa a est del paese. Ci si arriva dal lungomare — conta più dei 2 km in linea d’aria, il sentiero segue gli scogli.',
+      en: 'The smugglers’ cove, along the coast east of the village. You get there by the shore — allow more than the 2 km as the crow flies, the path follows the rocks.',
+    },
+  },
+  {
     id: 'lido-bruca',
     name: 'Lido Bruca',
     cat: 'plage',

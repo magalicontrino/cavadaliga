@@ -23,6 +23,8 @@ export type PlaceCoord = { lat: number; lon: number; src: 'google' | 'nominatim'
 
 export const COORDS: Record<string, PlaceCoord> = {
   // Cava d'Aliga et la côte
+  // Covo dei contrabbandieri — lien de Mag, coordonnees de sa fiche Google.
+  'covo-contrabbandieri': { lat: 36.7174366, lon: 14.706748, src: 'google' },
   'lido-bruca': { lat: 36.7340778, lon: 14.6800518, src: 'google' },
   // Bricolage. Zisa : viale I Maggio a Scicli, geocode a la voie. ItalBrico :
   // zone Serrauccelli a Modica, meme precision — le magasin borde la route.
