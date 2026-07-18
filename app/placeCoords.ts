@@ -33,6 +33,9 @@ export const COORDS: Record<string, PlaceCoord> = {
   // Vivai Cintoli — adresse donnee par Mag, coordonnees tirees de son lien
   // Google Maps (la fiche de l'etablissement, pas un geocodage de rue).
   'vivai-cintoli': { lat: 36.7527929, lon: 14.7023483, src: 'google' },
+  // Max Centro Commerciale — lien donne par Mag ; coordonnees prises dans la
+  // fiche Google de ce lien, donc l'etablissement lui-meme.
+  'max-centro': { lat: 36.7491071, lon: 14.6818194, src: 'google' },
   zisa: { lat: 36.77904, lon: 14.68606, src: 'nominatim' },
   italbrico: { lat: 36.81246, lon: 14.77482, src: 'nominatim' },
 

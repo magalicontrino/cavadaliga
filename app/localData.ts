@@ -187,6 +187,20 @@ export const LOCAL_PLACES: LocalPlace[] = [
     },
   },
   {
+    id: 'max-centro',
+    name: 'Max Centro Commerciale',
+    cat: 'bricolage',
+    town: 'Scicli',
+    url: 'https://maps.app.goo.gl/iua5jUqR8fYQYVga9',
+    km: 3,
+    responsible: false,
+    blurb: {
+      fr: 'Le grand bazar de la route de Scicli, à 2 km. Un peu de tout : outillage, quincaillerie, rangement, cuisine, jardin, papeterie. Quand on ne sait pas où trouver un objet, c’est ici qu’on commence.',
+      it: 'Il grande bazar sulla strada di Scicli, a 2 km. Un po’ di tutto: utensili, ferramenta, contenitori, cucina, giardino, cartoleria. Quando non si sa dove trovare un oggetto, si comincia da qui.',
+      en: 'The big general store on the Scicli road, 2 km away. A little of everything: tools, hardware, storage, kitchen, garden, stationery. When you have no idea where to find something, start here.',
+    },
+  },
+  {
     id: 'zisa',
     name: 'La Ferramenta Zisa',
     cat: 'bricolage',
