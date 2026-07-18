@@ -237,6 +237,9 @@ export default function LaRegion() {
           {[
             { url: 'https://www.unescoparcoetna.it/', label: t.etnaPage.linkPark, icon: 'volcano' as IconName },
             { url: 'https://www.skiresort.info/ski-resorts/parco-delletna/', label: t.etnaPage.linkSki, icon: 'compass' as IconName },
+            // Un vrai operateur d'excursions, choisi par Mag. Son adresse suit
+            // la langue : le site existe en fr et it, sa racine sert l'anglais.
+            { url: t.etnaPage.linkToursUrl, label: t.etnaPage.linkTours, icon: 'pin' as IconName },
           ].map((l) => (
             <a
               key={l.url}

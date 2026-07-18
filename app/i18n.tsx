@@ -101,6 +101,10 @@ export type Dict = {
     facts: { icon: string; title: string; text: string }[];
     linkPark: string;
     linkSki: string;
+    /** Excursions guidees. L'URL suit la langue : le site existe en fr et it,
+     *  sa racine sert l'anglais (/en/ y redirige). */
+    linkTours: string;
+    linkToursUrl: string;
     photoAlt: string;
   };
   arabPage: {
@@ -370,6 +374,8 @@ const FR: Dict = {
       },
     ],
     linkPark: 'Le parc de l’Etna, site UNESCO',
+    linkTours: 'Excursions guidées sur l’Etna',
+    linkToursUrl: 'https://etnaway.com/fr/',
     linkSki: 'Les domaines skiables de l’Etna',
     photoAlt: 'L’Etna',
   },
@@ -820,6 +826,8 @@ const IT: Dict = {
       },
     ],
     linkPark: 'Il parco dell’Etna, sito UNESCO',
+    linkTours: 'Escursioni guidate sull’Etna',
+    linkToursUrl: 'https://etnaway.com/it/',
     linkSki: 'I comprensori sciistici dell’Etna',
     photoAlt: 'L’Etna',
   },
@@ -1270,6 +1278,8 @@ const EN: Dict = {
       },
     ],
     linkPark: 'Etna Park, a UNESCO site',
+    linkTours: 'Guided Etna excursions',
+    linkToursUrl: 'https://etnaway.com/',
     linkSki: 'Etna’s ski areas',
     photoAlt: 'Etna',
   },
