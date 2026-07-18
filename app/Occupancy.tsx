@@ -18,7 +18,7 @@ type Sejour = { label: string; start: string; end: string; tentative?: boolean }
 const SEJOURS: Sejour[] = [
   { label: 'Manon, Alex, Régine et Mag', start: '2026-07-04', end: '2026-07-14' },
   { label: 'Katia Asaro, sœur de Maria Assunta', start: '2026-07-15', end: '2026-07-28' },
-  { label: 'Angèle Contrino', start: '2026-07-30', end: '2026-08-07' },
+  { label: 'Angèle', start: '2026-07-30', end: '2026-08-07' },
   { label: 'Eve', start: '2026-08-20', end: '2026-09-01' },
   { label: 'Wk juju mamie', start: '2026-09-17', end: '2026-09-21', tentative: true },
   { label: 'Mag +++', start: '2026-09-22', end: '2026-10-01' },
