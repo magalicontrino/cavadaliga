@@ -281,11 +281,12 @@ export default function FamilyTree() {
           subtitle: s.treeMarriage1,
           children: [{ name: 'Régine' }],
         } },
-        // Le second mariage de Juliette. « Tonton Charles » est le nom que la
-        // famille lui donne — c'est le seul qu'on ait, et on n'en invente pas.
+        // Le second mariage de Juliette. Longtemps « tonton Charles » tout court,
+        // faute de mieux : Mag a donne son nom, et la question qui le demandait
+        // a quitte « Ce qu'il nous manque ».
         {
           fam: {
-          name: 'Juliette Emilienne Thurot & Charles',
+          name: 'Juliette Emilienne Thurot & Charles Gallois',
           subtitle: s.treeMarriage2,
           },
         },
@@ -471,11 +472,6 @@ const QUESTIONS: { fr: string; it: string; en: string }[] = [
     fr: 'Le nom de famille de Sophie, l’épouse de Gabi Contrino.',
     it: 'Il cognome di Sophie, la moglie di Gabi Contrino.',
     en: 'The surname of Sophie, Gabi Contrino’s wife.',
-  },
-  {
-    fr: 'Le nom de famille de Charles — « tonton Charles », le second mari de Juliette Thurot.',
-    it: 'Il cognome di Charles — « zio Charles », il secondo marito di Juliette Thurot.',
-    en: 'The surname of Charles — “uncle Charles”, Juliette Thurot’s second husband.',
   },
   {
     fr: 'Les dates de Louis Thurot, de Mélanie Souveton, de Pierre Lux et de Juliette Thurot.',
