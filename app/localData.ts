@@ -115,6 +115,20 @@ export const LOCAL_PLACES: LocalPlace[] = [
       en: 'Plant nursery on viale della Serenità, in Scicli. Seedlings, shrubs and flowers for the terrace and garden.' },
   },
   {
+    id: 'cristo-redentore',
+    name: 'Statua del Cristo Redentore',
+    cat: 'plage',
+    town: 'Portopalo di Capo Passero',
+    url: 'https://maps.app.goo.gl/eWvX9cKM9piZZYmJ9',
+    km: 55,
+    responsible: false,
+    blurb: {
+      fr: 'La statue du Christ Rédempteur à Portopalo, face à la mer, près de la pointe sud de la Sicile. On y va pour le point de vue autant que pour la statue.',
+      it: 'La statua del Cristo Redentore a Portopalo, di fronte al mare, vicino alla punta sud della Sicilia. Ci si va per il panorama quanto per la statua.',
+      en: 'The Christ the Redeemer statue at Portopalo, facing the sea, near Sicily’s southern tip. You go for the view as much as for the statue.',
+    },
+  },
+  {
     id: 'cavagrande',
     name: 'Cavagrande del Cassibile',
     cat: 'plage',
