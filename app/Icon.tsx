@@ -10,6 +10,8 @@ export type IconName =
   | 'volcano'
   | 'window'
   | 'tools'
+  | 'cleaver'
+  | 'walk'
   | 'home'
   | 'info'
   | 'pin'
@@ -95,6 +97,27 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
   // Trace ferme d'un seul tenant, comme la goutte ou la feuille du jeu.
   tools: (
     <path d="M15.2 3.4a5 5 0 0 0-6.3 6.3l-5.1 5.1a2.3 2.3 0 0 0 3.3 3.3l5.1-5.1a5 5 0 0 0 6.3-6.3l-2.9 2.9-2.7-.6-.6-2.7z" />
+  ),
+  // Couperet — la boucherie. La fourchette etant deja prise par « Manger &
+  // boire », il fallait un objet, pas un couvert : on ne va pas AU restaurant,
+  // on va CHERCHER de la viande.
+  cleaver: (
+    <>
+      <path d="M3.5 5h9a1.5 1.5 0 0 1 1.5 1.5v6a1.5 1.5 0 0 1-1.5 1.5h-9z" />
+      <path d="M14 9.5h6.5" />
+      <path d="M20.5 8v3" />
+    </>
+  ),
+  // Marcheur — « on peut y aller a pied ». Silhouette en mouvement : jambe
+  // avant pliee, bras lance, tete detachee. A 13 px dans une fiche, c'est la
+  // POSTURE qu'on reconnait, pas le detail.
+  walk: (
+    <>
+      <circle cx="13.6" cy="4" r="1.9" />
+      <path d="M10.4 21.5l2.2-6.6-2.2-2.3.9-4.4 3.3 1.9 2.3 1.4" />
+      <path d="M12.6 14.9l2.9 6.6" />
+      <path d="M11.3 8.4L8 11.6" />
+    </>
   ),
   // Volcan — l'Etna. Un cone tronque (le cratere est ouvert, pas pointu) et
   // deux volutes de fumee : de loin on lit « volcan » avant de distinguer quoi

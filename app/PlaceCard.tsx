@@ -22,7 +22,7 @@ export default function PlaceCard({
 }: {
   place: LocalPlace;
   lang: Lang;
-  labels: { map: string; badge: string; close: string; site: string };
+  labels: { map: string; badge: string; close: string; site: string; walk: string };
   /**
    * La distance, DEJA calculee par la page — pas recalculee ici.
    *
@@ -74,6 +74,12 @@ export default function PlaceCard({
             style={{ color: 'var(--cava-pink)', fontWeight: 700 }}
           >
             <Icon name="home" size={13} /> {km}
+            {/* Meme regle que la liste : metres = distance a pied. */}
+            {/\bm$/.test(km.trim()) && (
+              <span title={labels.walk} aria-label={labels.walk} className="inline-flex">
+                <Icon name="walk" size={13} />
+              </span>
+            )}
           </p>
         )}
         <p className="text-[13px] leading-[1.55]" style={{ color: 'var(--cava-muted)' }}>

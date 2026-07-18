@@ -70,7 +70,7 @@ export default function NosAdresses() {
   // Les categories qui ont un bouton. Liste ECRITE A LA MAIN, et donc a tenir a
   // jour : ajouter une categorie a CATS ne la fait pas apparaitre ici toute
   // seule. « agrumes » n'y est pas — aucune adresse ne la porte encore.
-  const FILTER_CATS: CatKey[] = ['huile', 'marche', 'plantes', 'resto', 'supermarche', 'bricolage', 'plage'];
+  const FILTER_CATS: CatKey[] = ['huile', 'marche', 'plantes', 'resto', 'supermarche', 'boucherie', 'bricolage', 'plage'];
   // « Tout voir » ouvre la ligne, en retrait. Ailleurs il la ferme, mais ici la
   // rangee glisse : le dernier bouton finirait hors champ, et c'est justement
   // l'etat par defaut — celui vers lequel on revient. Il reste discret pour
@@ -216,6 +216,13 @@ export default function NosAdresses() {
     if (depart) return ''; // sans position reelle, on n'invente pas une distance
     return l.km === 0 ? '' : `≈ ${l.km} km`;
   };
+
+  /**
+   * « On peut y aller a pied ? » — vrai des que la distance s'ecrit en metres.
+   * On lit l'ETIQUETTE plutot que de recalculer : c'est la garantie que le
+   * picto et le chiffre ne pourront jamais se contredire.
+   */
+  const aPied = (etiquette: string) => /\bm$/.test(etiquette.trim());
 
   /** Clic sur une fiche : on la met en évidence sur la carte. */
   const showOnMap = (id: string) => {
@@ -517,7 +524,7 @@ export default function NosAdresses() {
           <PlaceMap
             places={shown}
             lang={lang}
-            labels={{ map: p.mapLabel, badge: p.badge, close: p.closeLabel, site: p.siteLabel, mapFailed: p.mapFailed, mapFailedHint: p.mapFailedHint, house: p.houseHere, departReset: p.departReset }}
+            labels={{ map: p.mapLabel, badge: p.badge, close: p.closeLabel, site: p.siteLabel, walk: p.walkLabel, mapFailed: p.mapFailed, mapFailedHint: p.mapFailedHint, house: p.houseHere, departReset: p.departReset }}
             choisi={shown.find((l) => l.id === active) ?? null}
             onChoisir={(l) => setActive(l?.id ?? null)}
             me={me}
@@ -623,6 +630,15 @@ export default function NosAdresses() {
                   {kmLabel(pl) && (
                     <p className="relative inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
                       <Icon name="home" size={14} /> {kmLabel(pl)}
+                      {/* Le picto marcheur se deduit de l'UNITE : sous le
+                          kilometre on compte en metres, et c'est justement le
+                          seuil a partir duquel on y va a pied. Rien a calculer
+                          deux fois, et la carte en dira autant que la liste. */}
+                      {aPied(kmLabel(pl)) && (
+                        <span title={p.walkLabel} aria-label={p.walkLabel} className="inline-flex">
+                          <Icon name="walk" size={14} />
+                        </span>
+                      )}
                     </p>
                   )}
                   <p className="relative text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>

@@ -6,7 +6,7 @@ import type { IconName } from './Icon';
 // Textes visibles dans les 3 langues (fr · it · en).
 // ────────────────────────────────────────────────────────────────────────
 export type Lang = 'fr' | 'it' | 'en';
-export type CatKey = 'huile' | 'agrumes' | 'plantes' | 'marche' | 'resto' | 'supermarche' | 'plage' | 'bricolage';
+export type CatKey = 'huile' | 'agrumes' | 'plantes' | 'marche' | 'resto' | 'supermarche' | 'plage' | 'bricolage' | 'boucherie';
 
 export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<Lang, string> }> = {
   huile: { icon: 'droplet', bg: 'linear-gradient(135deg,#b89a4a,#856a2c)', label: { fr: 'Huile d’olive', it: 'Olio d’oliva', en: 'Olive oil' } },
@@ -15,6 +15,7 @@ export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<La
   marche: { icon: 'bag', bg: 'linear-gradient(135deg,#3a3838,#2e2d2d)', label: { fr: 'Marchés', it: 'Mercati', en: 'Markets' } },
   resto: { icon: 'fork', bg: 'linear-gradient(135deg,#c05a5a,#8f3f3f)', label: { fr: 'Manger & boire', it: 'Mangiare & bere', en: 'Eat & drink' } },
   supermarche: { icon: 'cart', bg: 'linear-gradient(135deg,#d98b3f,#a86526)', label: { fr: 'Supermarchés', it: 'Supermercati', en: 'Supermarkets' } },
+  boucherie: { icon: 'cleaver', bg: 'linear-gradient(135deg,#b5565e,#8c3a41)', label: { fr: 'Boucherie', it: 'Macelleria', en: 'Butcher' } },
   bricolage: { icon: 'tools', bg: 'linear-gradient(135deg,#7b8794,#565f6b)', label: { fr: 'Bricolage', it: 'Ferramenta & fai da te', en: 'DIY & hardware' } },
   plage: { icon: 'sun', bg: 'linear-gradient(135deg,#5aa0a0,#3f7d7d)', label: { fr: 'Plage & loisirs', it: 'Spiaggia & tempo libero', en: 'Beach & leisure' } },
 };
@@ -57,6 +58,7 @@ export const SEARCH_WORDS: WordHint[] = [
   { words: ['chocolat', 'cioccolato', 'chocolate', 'cacao', 'modica', 'douceur', 'dolci', 'sweets', 'dessert'], ids: ['bonajuto'] },
   { words: ['huile', 'olio', 'oil', 'olive', 'frantoio', 'frantoi', 'dop'], cat: 'huile' },
   { words: ['vin', 'vino', 'wine', 'apero', 'aperitivo', 'aperitif', 'drink', 'bar', 'cocktail', 'biere', 'birra', 'beer', 'verre', 'soir', 'sera'], ids: ['maracaibo', 'blazer'] },
+  { words: ['boucherie', 'macelleria', 'butcher', 'viande', 'carne', 'meat', 'boucher', 'salumi', 'charcuterie'], cat: 'boucherie' },
   { words: ['bricolage', 'brico', 'ferramenta', 'quincaillerie', 'outil', 'outils', 'utensili', 'attrezzi', 'tools', 'hardware', 'diy', 'fai da te', 'scie', 'sega', 'seghetto', 'saw', 'perceuse', 'trapano', 'drill', 'visserie', 'vis', 'viti', 'screws', 'clou', 'chiodi', 'nails', 'peinture', 'vernice', 'paint', 'cheville', 'ampoule', 'lampadina', 'bulb', 'cle', 'chiave'], cat: 'bricolage' },
   { words: ['plage', 'spiaggia', 'beach', 'mer', 'mare', 'sea', 'baignade', 'nager', 'swim', 'sable', 'sabbia', 'sand', 'lido', 'transat'], cat: 'plage' },
   { words: ['courses', 'spesa', 'groceries', 'shopping', 'supermarche', 'supermarket', 'supermercato', 'caddie', 'carrello', 'lessive', 'papier'], cat: 'supermarche' },
@@ -325,6 +327,20 @@ export const LOCAL_PLACES: LocalPlace[] = [
       fr: 'Gastronomia et boucherie du côté de Donnalucata. Les arancine y sont excellentes : passez le matin pour les commander.',
       it: 'Gastronomia e macelleria dalle parti di Donnalucata. Le arancine sono ottime: passate la mattina per ordinarle.',
       en: 'Deli and butcher over towards Donnalucata. The arancine are excellent — drop by in the morning to order them.',
+    },
+  },
+  {
+    id: 'carnico',
+    name: 'Carnicò',
+    cat: 'boucherie',
+    town: 'Cava d’Aliga',
+    url: 'https://maps.app.goo.gl/SSrHgt2GvoQ3DCNX9',
+    km: 0.3,
+    responsible: false,
+    blurb: {
+      fr: 'La boucherie du village, à 280 m de la maison. On y va à pied.',
+      it: 'La macelleria del paese, a 280 m da casa. Ci si va a piedi.',
+      en: 'The village butcher, 280 m from the house. You walk there.',
     },
   },
   {

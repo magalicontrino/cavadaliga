@@ -385,7 +385,7 @@ export default function PlaceMap({
   places: LocalPlace[];
   lang: Lang;
   // Les libellés viennent de la page : ce composant ne doit rien écrire en dur.
-  labels: { map: string; badge: string; close: string; site: string; mapFailed: string; mapFailedHint: string; house: string; departReset: string };
+  labels: { map: string; badge: string; close: string; site: string; walk: string; mapFailed: string; mapFailedHint: string; house: string; departReset: string };
   choisi: LocalPlace | null;
   onChoisir: (p: LocalPlace | null) => void;
   /** Position réelle du visiteur, s'il l'a demandée. */

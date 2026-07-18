@@ -123,6 +123,8 @@ export type Dict = {
     mapLabel: string;
     /** Bouton du site officiel, quand la fiche en a un. */
     siteLabel: string;
+    /** Le picto marcheur, quand l'adresse est a moins d'un kilometre. */
+    walkLabel: string;
     closeLabel: string;
     viewMap: string;
     viewList: string;
@@ -433,6 +435,7 @@ const FR: Dict = {
     note: 'Nous complétons cette page au fil de nos trouvailles — adresses et contacts à venir.',
     mapLabel: 'Ouvrir dans Google Maps',
     siteLabel: 'Site officiel',
+    walkLabel: 'On peut y aller à pied',
     closeLabel: 'Fermer',
     viewMap: 'Carte',
     viewList: 'Liste',
@@ -893,6 +896,7 @@ const IT: Dict = {
     note: 'Completiamo questa pagina man mano che scopriamo — indirizzi e contatti in arrivo.',
     mapLabel: 'Apri in Google Maps',
     siteLabel: 'Sito ufficiale',
+    walkLabel: 'Ci si può andare a piedi',
     closeLabel: 'Chiudi',
     viewMap: 'Mappa',
     viewList: 'Elenco',
@@ -1353,6 +1357,7 @@ const EN: Dict = {
     note: 'We complete this page as we make new finds — addresses and contacts coming soon.',
     mapLabel: 'Open in Google Maps',
     siteLabel: 'Official site',
+    walkLabel: 'Walkable from here',
     closeLabel: 'Close',
     viewMap: 'Map',
     viewList: 'List',

@@ -60,6 +60,8 @@ export const COORDS: Record<string, PlaceCoord> = {
 
   // Supermarchés
   // S.S.G. Market — lien de Mag, coordonnees de sa fiche Google.
+  // Carnico — lien de Mag, coordonnees de sa fiche Google.
+  carnico: { lat: 36.7307939, lon: 14.6871244, src: 'google' },
   'ssg-market': { lat: 36.7308227, lon: 14.6868863, src: 'google' },
   'coop-superstore': { lat: 36.7468923, lon: 14.6824101, src: 'nominatim' },
   eurospin: { lat: 36.7504564, lon: 14.6812486, src: 'nominatim' },
