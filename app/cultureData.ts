@@ -303,3 +303,30 @@ export const SCREENS: Screen[] = [
     },
   },
 ];
+
+/**
+ * Les salles ou l'on peut VOIR un film — a ne pas confondre avec SCREENS, qui
+ * liste les films tournes ici.
+ *
+ * Verifiees une a une avant publication, et ce n'etait pas une precaution
+ * inutile : le Madison de Raguse, que les annuaires listent encore, a engage
+ * en mai 2026 « la procedure de cessation definitive de l'activite ». Il n'est
+ * donc pas la. Le Cinema Aurora de Modica non plus : aucune seance programmee.
+ *
+ * Chaque lien mene au PROGRAMME DU JOUR de la ville, pas a une page vitrine :
+ * une salle de province change de film chaque semaine, et une page figee
+ * mentirait des le lendemain.
+ *
+ * Pas de telephones, comme partout sur le site.
+ */
+export const CINEMAS: {
+  name: string;
+  town: string;
+  km: number;
+  url: string;
+}[] = [
+  { name: 'Cinema Teatro Italia', town: 'Scicli', km: 8, url: 'https://www.mymovies.it/cinema/ragusa/scicli/' },
+  { name: 'Cinema Giardino', town: 'Pozzallo', km: 22, url: 'https://www.mymovies.it/cinema/ragusa/pozzallo/' },
+  { name: 'Cinema Diana', town: 'Pozzallo', km: 22, url: 'https://www.mymovies.it/cinema/ragusa/pozzallo/' },
+  { name: 'Multisala Golden', town: 'Vittoria', km: 42, url: 'https://www.mymovies.it/cinema/ragusa/vittoria/' },
+];

@@ -217,6 +217,10 @@ export type Dict = {
     intro: string;
     facts: { icon: string; title: string; text: string }[];
   };
+  // Les salles ou voir un film, a distinguer des films tournes ici.
+  cinemasTitle: string;
+  cinemasIntro: string;
+  cinemasCta: string;
   cultureFilter: {
     all: string;
     playlist: string;
@@ -567,6 +571,9 @@ const FR: Dict = {
       },
     ],
   },
+  cinemasTitle: 'Voir un film ici',
+  cinemasIntro: 'Les salles de la région, du plus près au plus loin. Une salle de province change de film chaque semaine : le lien donne le programme du jour, pas une affiche figée.',
+  cinemasCta: 'Le programme du jour',
   cultureFilter: {
     all: 'Tout voir',
     playlist: 'La playlist',
@@ -1020,6 +1027,9 @@ const IT: Dict = {
       },
     ],
   },
+  cinemasTitle: 'Vedere un film qui',
+  cinemasIntro: 'Le sale della zona, dalla più vicina alla più lontana. Una sala di provincia cambia film ogni settimana: il link dà la programmazione del giorno, non una locandina ferma.',
+  cinemasCta: 'La programmazione di oggi',
   cultureFilter: {
     all: 'Vedi tutto',
     playlist: 'La playlist',
@@ -1473,6 +1483,9 @@ const EN: Dict = {
       },
     ],
   },
+  cinemasTitle: 'Catch a film here',
+  cinemasIntro: 'The cinemas around us, nearest first. A small-town screen changes its film every week, so the link gives today’s listings rather than a fixed poster.',
+  cinemasCta: 'Today’s listings',
   cultureFilter: {
     all: 'See all',
     playlist: 'The playlist',
