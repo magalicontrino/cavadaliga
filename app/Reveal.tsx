@@ -74,15 +74,23 @@ export default function Reveal({
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          if (e.isIntersecting) {
+          // Le seuil de 15 % attend qu'un sixième de l'élément soit à l'écran.
+          // Pour un bloc plus haut que la fenêtre — l'arbre généalogique en
+          // entier — ce sixième n'y tient jamais : le seuil n'est jamais
+          // atteint et le bloc reste à opacité 0. C'est le clic « arbre ↓ » qui
+          // tombait sur un écran vide. On le révèle donc aussi dès qu'il
+          // remplit une bonne moitié de la fenêtre.
+          const rootH = e.rootBounds?.height ?? window.innerHeight;
+          const enough = e.intersectionRatio >= 0.15 || e.intersectionRect.height >= rootH * 0.5;
+          if (e.isIntersecting && enough) {
             setInView(true);
             if (once) io.unobserve(e.target);
-          } else if (!once) {
+          } else if (!once && !e.isIntersecting) {
             setInView(false);
           }
         }
       },
-      { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+      { threshold: [0, 0.15], rootMargin: '0px 0px -8% 0px' },
     );
     io.observe(el);
     return () => io.disconnect();
