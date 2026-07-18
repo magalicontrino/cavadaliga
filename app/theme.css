@@ -23,8 +23,11 @@ html {
      descend sur le BLEU (r > g > b) et tire vers le jaune ; un rose descend sur
      le VERT (r > b > g). L'ancien #f6f5f3 etait donc jaune, pas rose, ce qui
      explique qu'il ait paru terne. Ici 252/247/249 : le vert est le plus bas,
-     et l'ensemble est plus clair qu'avant (249 de moyenne contre 245). */
-  --cava-bg: #fcf7f9;
+     et l'ensemble est plus clair qu'avant (249 de moyenne contre 245).
+     Adouci ensuite a la demande de Mag : le creusement du vert passe de 5 a 3
+     points sous le rouge. C'est cet ecart qui fait le rose — moins il est
+     grand, plus le fond se rapproche du blanc sans virer au gris. */
+  --cava-bg: #fcf9fa;
   --cava-ink: #2e2d2d;
   --cava-pink: #e6296f;
   /* Le rose soutenu : la pastille choisie sur la carte. Elle etait noire, et

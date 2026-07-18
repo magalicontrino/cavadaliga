@@ -91,7 +91,7 @@ export default function Nav({ current }: { current?: string }) {
         aria-hidden
         className="pointer-events-none absolute inset-0 border-b backdrop-blur-xl transition-colors duration-300 motion-reduce:transition-none"
         style={{
-          background: 'rgba(252,247,249,0.7)',
+          background: 'rgba(252,249,250,0.7)',
           borderColor: pose && !open ? 'var(--cava-line)' : 'transparent',
         }}
       />
