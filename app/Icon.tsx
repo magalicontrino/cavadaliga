@@ -54,22 +54,29 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
       <path d="M8 14h2.5" />
     </>
   ),
-  // Porte a arc brise — la casa. Une maison disait « page d'accueil » : c'est le
-  // glyphe universel du bouton Accueil, il parlait de navigation avant de
-  // parler de la maison de famille. Une porte, elle, dit qu'on entre quelque
-  // part.
+  // Porte a arc OUTREPASSE — la casa. Une maison disait « page d'accueil » :
+  // c'est le glyphe universel du bouton Accueil, il parlait de navigation avant
+  // de parler de la maison de famille. Une porte, elle, dit qu'on entre.
   //
-  // L'arc est BRISE, pas plein cintre : c'est la signature de l'arabo-normand
-  // sicilien, deux arcs de cercle qui se rejoignent en pointe. Le meme geste
-  // que les portails de Palerme ou de Scicli — et la page raconte justement la
-  // Sicile arabe. Deux vantaux, un heurtoir, un seuil.
+  // L'arc est en fer a cheval : il depasse le demi-cercle et se resserre en bas,
+  // si bien que la porte est plus large a mi-hauteur qu'a ses montants. C'est
+  // l'arc mauresque d'Andalousie et du Maghreb, qu'on retrouve tout autour de la
+  // Mediterranee — et jusqu'en Sicile, que les Arabes ont tenue deux siecles.
+  // Une version precedente disait « arc brise » en dessinant un plein cintre :
+  // le trace, lui, ne ment pas, et c'est lui qu'il faut lire.
+  //
+  // large-arc-flag a 1 : c'est ce 1 qui fait tout. A 0, on obtient le petit arc,
+  // donc un cintre ordinaire ; a 1, le grand, qui passe au-dela des montants.
+  // Mesure : la boite fait 11,2 de large pour 10 entre les montants — l'arc
+  // deborde donc bien de 0,6 de chaque cote, et le sommet tombe a y = 3,9. Le
+  // meneau part de la ; ecrit a 6,4, il flottait sous le sommet.
   door: (
     <>
-      <path d="M4.5 20.5V11a7.5 7.5 0 0115 0v9.5" />
-      <path d="M12 3.6V20.5" />
-      <path d="M3 20.5h18" />
-      <circle cx="9.6" cy="14" r="0.85" />
-      <circle cx="14.4" cy="14" r="0.85" />
+      <path d="M7 20.5V12a5.6 5.6 0 1 1 10 0v8.5" />
+      <path d="M12 3.9V20.5" />
+      <path d="M3.5 20.5h17" />
+      <circle cx="9.7" cy="15" r="0.85" />
+      <circle cx="14.3" cy="15" r="0.85" />
     </>
   ),
   // Volcan — l'Etna. Un cone tronque (le cratere est ouvert, pas pointu) et
