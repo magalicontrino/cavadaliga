@@ -83,7 +83,13 @@ export default function NosAdresses() {
   ];
 
   const retenus = LOCAL_PLACES.filter((l) =>
-    filter === 'tout' ? true : filter === 'responsable' ? l.responsible : l.cat === filter,
+    filter === 'tout'
+      ? true
+      : filter === 'responsable'
+        ? l.responsible
+        // Une fiche peut vivre sous plusieurs boutons : sa categorie principale,
+        // et celles de `aussi`. Elle n'existe qu'une fois dans la base.
+        : l.cat === filter || (l.aussi?.includes(filter as CatKey) ?? false),
   );
 
   /**

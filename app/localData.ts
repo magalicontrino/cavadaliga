@@ -25,7 +25,14 @@ export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<La
 export type LocalPlace = {
   id: string;
   name: string; // nom propre — identique dans les 3 langues
+  /** La categorie PRINCIPALE : c'est elle qui donne le picto et le libelle
+   *  « Ville · Categorie » de la fiche. */
   cat: CatKey;
+  /** Les autres rayons ou la fiche doit apparaitre. Un lieu peut se ranger a
+   *  deux endroits sans etre duplique : Vendicari est une randonnee ET des
+   *  plages, la crique se marche ET s'y baigne. La fiche reste unique, seul le
+   *  tri la fait remonter sous plusieurs boutons. */
+  aussi?: CatKey[];
   town: string;
   /** TOUJOURS un lien de carte : c'est ce que promet le bouton. Y mettre un
    *  site officiel faisait mentir le libelle « Ouvrir dans Google Maps ». */
@@ -150,6 +157,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     id: 'vendicari',
     name: 'Oasi Faunistica di Vendicari',
     cat: 'randonnee',
+    aussi: ['plage'],
     town: 'Noto',
     url: 'https://maps.app.goo.gl/ngWVnascqBZPBeSf8',
     km: 50,
@@ -164,6 +172,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     id: 'covo-contrabbandieri',
     name: 'Covo dei contrabbandieri',
     cat: 'randonnee',
+    aussi: ['plage'],
     town: 'Cava d’Aliga',
     url: 'https://maps.app.goo.gl/vzvgZYVvMbR7JJPF7',
     km: 3,
