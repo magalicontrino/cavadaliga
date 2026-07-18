@@ -237,6 +237,12 @@ export type Dict = {
     intro: string;
     facts: { icon: string; title: string; text: string }[];
   };
+  coffeePage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    facts: { icon: string; title: string; text: string }[];
+  };
   cultureFilter: {
     all: string;
     playlist: string;
@@ -253,6 +259,7 @@ export type Dict = {
     customs: string;
     specialties: string;
     drinks: string;
+    coffee: string;
     arab: string;
     /** Rassemble les sept sections venues de « Sons & images » en un seul bouton. */
     sounds: string;
@@ -668,6 +675,43 @@ const FR: Dict = {
       },
     ],
   },
+  coffeePage: {
+    eyebrow: 'Le café',
+    title: 'Le café, tout un rituel',
+    intro: 'Ici le café rythme la journée — vif au comptoir le matin, glacé l’été, corrigé d’une goutte de liqueur après le repas. Petit mode d’emploi.',
+    facts: [
+      {
+        icon: 'droplet',
+        title: 'Un café = un espresso',
+        text: 'Ici, « un caffè », c’est un espresso serré, bu debout au comptoir en trente secondes, pour à peu près un euro. On ne s’assoit pas, on ne l’emporte pas : on le boit là, on paie, on repart. Le grand café allongé n’existe pas — demandez un caffè lungo si vous le voulez moins serré.',
+      },
+      {
+        icon: 'sun',
+        title: 'Le café glacé, à l’amande',
+        text: 'L’été, le caffè freddo : un espresso froid, souvent adouci au lait d’amande — une merveille du sud. On le trouve aussi « in ghiaccio », versé brûlant sur des glaçons. Une boisson à part entière, pas un café oublié.',
+      },
+      {
+        icon: 'cone',
+        title: 'La granita al caffè',
+        text: 'La version café de la granita du petit-déjeuner : glacée, une pointe de crème (con panna) et la brioche à tremper. Le réveil sicilien de l’été, quand il fait déjà chaud à huit heures.',
+      },
+      {
+        icon: 'list',
+        title: 'Le petit lexique du comptoir',
+        text: 'Macchiato (une goutte de lait), lungo (allongé), ristretto (encore plus serré), corretto (avec un trait de liqueur). Et le cappuccino, c’est le matin — jamais après un repas : c’est la règle non écrite.',
+      },
+      {
+        icon: 'glass',
+        title: 'Le corretto, pour finir',
+        text: 'À la fin du repas, le caffè corretto : un espresso « corrigé » d’un trait de grappa, d’anis ou d’amaro. On l’appelle aussi ammazzacaffè — « tue-café » — la gorgée qui clôt vraiment le déjeuner.',
+      },
+      {
+        icon: 'bottle',
+        title: 'La moka, à la maison',
+        text: 'Hors du bar, le café se fait à la moka — la petite cafetière qui gargouille sur le feu. Chaque maison a la sienne, culottée par les années, qu’on ne lave jamais au savon. Le bruit et l’odeur du matin.',
+      },
+    ],
+  },
   cultureFilter: {
     all: 'Tout voir',
     playlist: 'La playlist',
@@ -684,6 +728,7 @@ const FR: Dict = {
     customs: 'Us et coutumes',
     specialties: 'Spécialités',
     drinks: 'Vins & alcools',
+    coffee: 'Le café',
     arab: 'Sicile arabe',
     sounds: 'Sons & images',
     etna: 'L’Etna',
@@ -1202,6 +1247,43 @@ const IT: Dict = {
       },
     ],
   },
+  coffeePage: {
+    eyebrow: 'Il caffè',
+    title: 'Il caffè, tutto un rito',
+    intro: 'Qui il caffè scandisce la giornata — svelto al banco la mattina, freddo d’estate, corretto con una goccia di liquore dopo il pasto. Piccole istruzioni per l’uso.',
+    facts: [
+      {
+        icon: 'droplet',
+        title: 'Un caffè = un espresso',
+        text: 'Qui « un caffè » è un espresso ristretto, bevuto in piedi al banco in trenta secondi, per circa un euro. Non ci si siede, non si porta via: si beve lì, si paga, si esce. Il caffè lungo all’americana non esiste — chiedete un caffè lungo se lo volete meno concentrato.',
+      },
+      {
+        icon: 'sun',
+        title: 'Il caffè freddo, alla mandorla',
+        text: 'D’estate il caffè freddo: un espresso freddo, spesso addolcito col latte di mandorla — una meraviglia del sud. Si trova anche « in ghiaccio », versato bollente sui cubetti. Una bevanda vera e propria, non un caffè dimenticato.',
+      },
+      {
+        icon: 'cone',
+        title: 'La granita al caffè',
+        text: 'La versione al caffè della granita della colazione: ghiacciata, con un ciuffo di panna e la brioche da inzuppare. Il risveglio siciliano d’estate, quando alle otto fa già caldo.',
+      },
+      {
+        icon: 'list',
+        title: 'Il piccolo lessico del banco',
+        text: 'Macchiato (una goccia di latte), lungo (allungato), ristretto (ancora più concentrato), corretto (con un goccio di liquore). E il cappuccino è la mattina — mai dopo un pasto: è la regola non scritta.',
+      },
+      {
+        icon: 'glass',
+        title: 'Il corretto, per finire',
+        text: 'A fine pasto, il caffè corretto: un espresso « corretto » con un goccio di grappa, anice o amaro. Si chiama anche ammazzacaffè — il sorso che chiude davvero il pranzo.',
+      },
+      {
+        icon: 'bottle',
+        title: 'La moka, a casa',
+        text: 'Fuori dal bar, il caffè si fa con la moka — la caffettiera che gorgoglia sul fuoco. Ogni casa ha la sua, brunita dagli anni, che non si lava mai col sapone. Il rumore e il profumo del mattino.',
+      },
+    ],
+  },
   cultureFilter: {
     all: 'Vedi tutto',
     playlist: 'La playlist',
@@ -1218,6 +1300,7 @@ const IT: Dict = {
     customs: 'Usi e costumi',
     specialties: 'Specialità',
     drinks: 'Vini & liquori',
+    coffee: 'Il caffè',
     arab: 'Sicilia araba',
     sounds: 'Suoni & immagini',
     etna: 'L’Etna',
@@ -1736,6 +1819,43 @@ const EN: Dict = {
       },
     ],
   },
+  coffeePage: {
+    eyebrow: 'Coffee',
+    title: 'Coffee, a whole ritual',
+    intro: 'Here coffee punctuates the day — quick at the bar in the morning, iced in summer, corrected with a drop of liquor after the meal. A short guide.',
+    facts: [
+      {
+        icon: 'droplet',
+        title: 'A coffee = an espresso',
+        text: 'Here “un caffè” is a tight espresso, drunk standing at the counter in thirty seconds, for about a euro. You don’t sit, you don’t take it away: you drink it there, pay, and leave. The big American-style coffee doesn’t exist — ask for a caffè lungo if you want it less concentrated.',
+      },
+      {
+        icon: 'sun',
+        title: 'Iced coffee, with almond',
+        text: 'In summer, caffè freddo: a cold espresso, often sweetened with almond milk — a marvel of the south. You’ll also find it “in ghiaccio”, poured hot over ice cubes. A drink in its own right, not a forgotten coffee.',
+      },
+      {
+        icon: 'cone',
+        title: 'Granita al caffè',
+        text: 'The coffee version of the breakfast granita: ice-cold, with a tuft of cream (con panna) and the brioche to dip. The Sicilian summer wake-up, when it is already hot at eight.',
+      },
+      {
+        icon: 'list',
+        title: 'The little counter lexicon',
+        text: 'Macchiato (a drop of milk), lungo (long), ristretto (even tighter), corretto (with a splash of liquor). And cappuccino is for the morning — never after a meal: that is the unwritten rule.',
+      },
+      {
+        icon: 'glass',
+        title: 'The corretto, to finish',
+        text: 'At the end of the meal, caffè corretto: an espresso “corrected” with a splash of grappa, anise or amaro. Also called ammazzacaffè — the sip that truly closes lunch.',
+      },
+      {
+        icon: 'bottle',
+        title: 'The moka, at home',
+        text: 'Away from the bar, coffee is made in the moka — the little pot that gurgles on the stove. Every home has its own, darkened by the years, never washed with soap. The sound and smell of morning.',
+      },
+    ],
+  },
   cultureFilter: {
     all: 'See all',
     playlist: 'The playlist',
@@ -1752,6 +1872,7 @@ const EN: Dict = {
     customs: 'Local customs',
     specialties: 'Specialties',
     drinks: 'Wine & spirits',
+    coffee: 'Coffee',
     arab: 'Arab Sicily',
     sounds: 'Sounds & screens',
     etna: 'Etna',
