@@ -51,6 +51,8 @@ export default function LaRegion() {
   const cf = t.cultureFilter;
 
   // On arrive sur « Les lieux » : le bouton allumé correspond à ce qu'on voit.
+  // Ce n'est plus le premier bouton depuis que la Sicile arabe ouvre la rangee,
+  // mais l'accord tient — c'est bien la section affichee qui est allumee.
   // Avec « Tout » par défaut, cliquer « Les lieux » ne changeait rien à l'écran —
   // les deux commencent par la même section, et le clic semblait échouer.
   const [filter, setFilter] = useState<Key>('lieux');
@@ -76,10 +78,10 @@ export default function LaRegion() {
   // Les sections d'abord ; « Tout voir » ferme la marche, en retrait : c'est une
   // commande (tout enchaîner), pas une catégorie de plus.
   const filters: { key: Key; label: string; icon: IconName }[] = [
+    { key: 'arabe', label: rf.arab, icon: 'landmark' },
+    { key: 'etna', label: rf.etna, icon: 'volcano' },
     { key: 'lieux', label: rf.places, icon: 'pin' },
     { key: 'coutumes', label: rf.customs, icon: 'cone' },
-    { key: 'etna', label: rf.etna, icon: 'volcano' },
-    { key: 'arabe', label: rf.arab, icon: 'landmark' },
     { key: 'sons', label: rf.sounds, icon: 'vinyl' },
     { key: 'playlist', label: cf.playlist, icon: 'spotify' },
     { key: 'ecrans', label: cf.screens, icon: 'film' },
@@ -109,6 +111,147 @@ export default function LaRegion() {
           <FilterChip label={rf.all} icon="map" active={filter === 'tout'} onClick={() => choose('tout')} subtle />
         </Reveal>
       </section>
+
+      {/* La Sicile arabe — l'histoire qui explique ce qu'on a sous les yeux */}
+      {show('arabe') && (
+      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="landmark" size={16} /> {t.arabPage.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {t.arabPage.title}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {t.arabPage.intro}
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
+          {t.arabPage.facts.map((f, i) => (
+            <Reveal key={f.title} delay={(i % 2) * 80} className="flex flex-col gap-4 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
+              <span
+                className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+              >
+                <Icon name={f.icon as IconName} size={24} />
+              </span>
+              <h3 className="text-[clamp(1.1rem,2.2vw,1.4rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+                {f.title}
+              </h3>
+              <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                {f.text}
+              </p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal
+          className="mt-8 max-w-[68ch] border-l-2 pl-5 text-[15px] italic leading-[1.7]"
+          style={{ borderColor: 'var(--cava-pink)', color: 'var(--cava-muted)' }}
+        >
+          {t.arabPage.note}
+        </Reveal>
+
+        {/* Pour aller plus loin — @iosonolibero, « Musica e Sicilia Araba » */}
+        <Reveal
+          className="mt-8 flex flex-col gap-4 rounded-2xl border p-8 sm:flex-row sm:items-center sm:justify-between"
+          style={{ borderColor: 'var(--cava-line)' }}
+        >
+          <div className="max-w-[58ch]">
+            <p className="text-[12px] uppercase tracking-[0.18em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+              {t.arabPage.moreTitle}
+            </p>
+            <p className="mt-2 text-[15px] leading-[1.65]" style={{ color: 'var(--cava-muted)' }}>
+              {t.arabPage.moreDesc}
+            </p>
+          </div>
+          <a
+            href="https://www.instagram.com/iosonolibero/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cava-pill inline-flex w-fit shrink-0 items-center gap-2 px-5 py-2.5 text-[13px]"
+          >
+            <Icon name="instagram" size={15} /> @iosonolibero <span aria-hidden>↗</span>
+          </a>
+        </Reveal>
+      </section>
+      )}
+
+      {/* L'Etna, en deuxieme. Le fil de sa neige mene a la granita, dont parlent
+          « Us et coutumes » plus bas : les deux sections se repondent, meme si
+          elles ne se touchent plus. */}
+      {show('etna') && (
+      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="volcano" size={16} /> {t.etnaPage.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {t.etnaPage.title}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {t.etnaPage.intro}
+          </p>
+        </Reveal>
+
+        {/* Les deux photos de Mag. Tant qu'elles ne sont pas deposees dans
+            /public/picture-sicile/, Photo affiche son aplat de repli plutot
+            qu'une image cassee. */}
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {['/picture-sicile/etna-01.webp', '/picture-sicile/etna-02.webp'].map((src, i) => (
+            <Reveal key={src} delay={i * 90}>
+              <Photo
+                src={src}
+                alt={t.etnaPage.photoAlt}
+                tone={i === 0 ? 'ink' : 'terra'}
+                label={`${t.etnaPage.photoAlt} — à venir`}
+                className="aspect-[4/3] w-full rounded-2xl"
+              />
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
+          {t.etnaPage.facts.map((f, i) => (
+            <Reveal key={f.title} delay={(i % 2) * 80} className="flex flex-col gap-4 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
+              <span
+                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+              >
+                <Icon name={f.icon as IconName} size={28} />
+              </span>
+              <h3 className="text-[clamp(1.1rem,2.2vw,1.35rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+                {f.title}
+              </h3>
+              <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                {f.text}
+              </p>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Deux liens verifies vivants : le parc (site UNESCO officiel) et le
+            detail des domaines skiables, pour qui veut vraiment y monter. */}
+        <Reveal className="mt-8 flex flex-wrap gap-3">
+          {[
+            { url: 'https://www.unescoparcoetna.it/', label: t.etnaPage.linkPark, icon: 'volcano' as IconName },
+            { url: 'https://www.skiresort.info/ski-resorts/parco-delletna/', label: t.etnaPage.linkSki, icon: 'compass' as IconName },
+          ].map((l) => (
+            <a
+              key={l.url}
+              href={l.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 rounded-full px-5 py-3 text-[14px] transition hover:opacity-85"
+              style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)', fontWeight: 600 }}
+            >
+              <Icon name={l.icon} size={18} /> {l.label} <span aria-hidden>↗</span>
+            </a>
+          ))}
+        </Reveal>
+      </section>
+      )}
 
       {/* Les lieux autour de nous — fiches éditoriales alternées + lightbox */}
       {show('lieux') && (
@@ -220,147 +363,6 @@ export default function LaRegion() {
             </Reveal>
           ))}
         </div>
-      </section>
-      )}
-
-      {/* L'Etna — juste apres les coutumes, et ce n'est pas un hasard : la
-          granita dont on vient de parler descend de la neige de cette
-          montagne-la. Les deux sections se repondent. */}
-      {show('etna') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
-        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
-          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
-            <Icon name="volcano" size={16} /> {t.etnaPage.eyebrow}
-          </span>
-          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
-            {t.etnaPage.title}
-          </h2>
-          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
-            {t.etnaPage.intro}
-          </p>
-        </Reveal>
-
-        {/* Les deux photos de Mag. Tant qu'elles ne sont pas deposees dans
-            /public/picture-sicile/, Photo affiche son aplat de repli plutot
-            qu'une image cassee. */}
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {['/picture-sicile/etna-01.webp', '/picture-sicile/etna-02.webp'].map((src, i) => (
-            <Reveal key={src} delay={i * 90}>
-              <Photo
-                src={src}
-                alt={t.etnaPage.photoAlt}
-                tone={i === 0 ? 'ink' : 'terra'}
-                label={`${t.etnaPage.photoAlt} — à venir`}
-                className="aspect-[4/3] w-full rounded-2xl"
-              />
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
-          {t.etnaPage.facts.map((f, i) => (
-            <Reveal key={f.title} delay={(i % 2) * 80} className="flex flex-col gap-4 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
-              <span
-                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
-                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
-              >
-                <Icon name={f.icon as IconName} size={28} />
-              </span>
-              <h3 className="text-[clamp(1.1rem,2.2vw,1.35rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
-                {f.title}
-              </h3>
-              <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
-                {f.text}
-              </p>
-            </Reveal>
-          ))}
-        </div>
-
-        {/* Deux liens verifies vivants : le parc (site UNESCO officiel) et le
-            detail des domaines skiables, pour qui veut vraiment y monter. */}
-        <Reveal className="mt-8 flex flex-wrap gap-3">
-          {[
-            { url: 'https://www.unescoparcoetna.it/', label: t.etnaPage.linkPark, icon: 'volcano' as IconName },
-            { url: 'https://www.skiresort.info/ski-resorts/parco-delletna/', label: t.etnaPage.linkSki, icon: 'compass' as IconName },
-          ].map((l) => (
-            <a
-              key={l.url}
-              href={l.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 rounded-full px-5 py-3 text-[14px] transition hover:opacity-85"
-              style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)', fontWeight: 600 }}
-            >
-              <Icon name={l.icon} size={18} /> {l.label} <span aria-hidden>↗</span>
-            </a>
-          ))}
-        </Reveal>
-      </section>
-      )}
-
-      {/* La Sicile arabe — l'histoire qui explique ce qu'on a sous les yeux */}
-      {show('arabe') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
-        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
-          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
-            <Icon name="landmark" size={16} /> {t.arabPage.eyebrow}
-          </span>
-          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
-            {t.arabPage.title}
-          </h2>
-          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
-            {t.arabPage.intro}
-          </p>
-        </Reveal>
-
-        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
-          {t.arabPage.facts.map((f, i) => (
-            <Reveal key={f.title} delay={(i % 2) * 80} className="flex flex-col gap-4 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
-              <span
-                className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
-              >
-                <Icon name={f.icon as IconName} size={24} />
-              </span>
-              <h3 className="text-[clamp(1.1rem,2.2vw,1.4rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
-                {f.title}
-              </h3>
-              <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
-                {f.text}
-              </p>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal
-          className="mt-8 max-w-[68ch] border-l-2 pl-5 text-[15px] italic leading-[1.7]"
-          style={{ borderColor: 'var(--cava-pink)', color: 'var(--cava-muted)' }}
-        >
-          {t.arabPage.note}
-        </Reveal>
-
-        {/* Pour aller plus loin — @iosonolibero, « Musica e Sicilia Araba » */}
-        <Reveal
-          className="mt-8 flex flex-col gap-4 rounded-2xl border p-8 sm:flex-row sm:items-center sm:justify-between"
-          style={{ borderColor: 'var(--cava-line)' }}
-        >
-          <div className="max-w-[58ch]">
-            <p className="text-[12px] uppercase tracking-[0.18em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
-              {t.arabPage.moreTitle}
-            </p>
-            <p className="mt-2 text-[15px] leading-[1.65]" style={{ color: 'var(--cava-muted)' }}>
-              {t.arabPage.moreDesc}
-            </p>
-          </div>
-          <a
-            href="https://www.instagram.com/iosonolibero/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cava-pill inline-flex w-fit shrink-0 items-center gap-2 px-5 py-2.5 text-[13px]"
-          >
-            <Icon name="instagram" size={15} /> @iosonolibero <span aria-hidden>↗</span>
-          </a>
-        </Reveal>
       </section>
       )}
 

@@ -618,7 +618,7 @@ const FR: Dict = {
     'la-region': {
       eyebrow: 'La région',
       title: 'Découvrir le sud-est de la Sicile',
-      intro: 'Scicli, Raguse, le baroque du Val di Noto, les plages secrètes et la campagne des Iblei.',
+      intro: 'Scicli, Raguse, le baroque du Val di Noto, les plages et la campagne des Iblei.',
     },
     contact: {
       eyebrow: 'Contact',
@@ -1068,7 +1068,7 @@ const IT: Dict = {
     'la-region': {
       eyebrow: 'La regione',
       title: 'Scoprire il sud-est della Sicilia',
-      intro: 'Scicli, Ragusa, il barocco del Val di Noto, le spiagge nascoste e la campagna degli Iblei.',
+      intro: 'Scicli, Ragusa, il barocco del Val di Noto, le spiagge e la campagna degli Iblei.',
     },
     contact: {
       eyebrow: 'Contatti',
@@ -1518,7 +1518,7 @@ const EN: Dict = {
     'la-region': {
       eyebrow: 'The region',
       title: 'Discover south-east Sicily',
-      intro: 'Scicli, Ragusa, the baroque of Val di Noto, the hidden beaches and the Iblei countryside.',
+      intro: 'Scicli, Ragusa, the baroque of Val di Noto, the beaches and the Iblei countryside.',
     },
     contact: {
       eyebrow: 'Contact',
