@@ -54,7 +54,7 @@ type Side = { label: string; lignee: Lignee; families: Family[] };
 type Lignee = 'pere' | 'mere' | 'nous';
 const LIGNEES: Record<Lignee, { plein: string; surPlein: string; trait: string; texte: string }> = {
   pere: { plein: '#ffc61a', surPlein: '#2e2d2d', trait: '#e0a800', texte: '#8a6200' },
-  mere: { plein: '#2ec4c4', surPlein: '#2e2d2d', trait: '#2ec4c4', texte: '#0b6e73' },
+  mere: { plein: '#45d3d3', surPlein: '#2e2d2d', trait: '#2ec4c4', texte: '#0b6e73' },
   nous: { plein: '#d92263', surPlein: '#ffffff', trait: '#d92263', texte: '#b81a56' },
 };
 
