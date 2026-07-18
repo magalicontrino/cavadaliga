@@ -6,6 +6,7 @@ import Footer from '../Footer';
 import Reveal, { RevealNow } from '../Reveal';
 import Carousel from '../Carousel';
 import PageHeader from '../PageHeader';
+import Photo from '../Photo';
 import Icon, { type IconName } from '../Icon';
 import FilterChip from '../FilterChip';
 import { useI18n } from '../i18n';
@@ -33,7 +34,7 @@ const PLACES = [
 // « Sons & images » n'est plus une page : ses sept sections vivent ici. La
 // region, c'est aussi ce qu'on en a chante, filme, peint et photographie — une
 // page de moins dans le menu, et le meme geste pour tout parcourir.
-type Section = 'lieux' | 'coutumes' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
+type Section = 'lieux' | 'coutumes' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
 type Key = 'tout' | 'sons' | Section;
 
 // « Sons & images » n'est pas une section : c'est un GROUPE. Un bouton pour les
@@ -77,6 +78,7 @@ export default function LaRegion() {
   const filters: { key: Key; label: string; icon: IconName }[] = [
     { key: 'lieux', label: rf.places, icon: 'pin' },
     { key: 'coutumes', label: rf.customs, icon: 'cone' },
+    { key: 'etna', label: rf.etna, icon: 'volcano' },
     { key: 'arabe', label: rf.arab, icon: 'landmark' },
     { key: 'sons', label: rf.sounds, icon: 'vinyl' },
     { key: 'playlist', label: cf.playlist, icon: 'spotify' },
@@ -218,6 +220,81 @@ export default function LaRegion() {
             </Reveal>
           ))}
         </div>
+      </section>
+      )}
+
+      {/* L'Etna — juste apres les coutumes, et ce n'est pas un hasard : la
+          granita dont on vient de parler descend de la neige de cette
+          montagne-la. Les deux sections se repondent. */}
+      {show('etna') && (
+      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="volcano" size={16} /> {t.etnaPage.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {t.etnaPage.title}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {t.etnaPage.intro}
+          </p>
+        </Reveal>
+
+        {/* Les deux photos de Mag. Tant qu'elles ne sont pas deposees dans
+            /public/picture-sicile/, Photo affiche son aplat de repli plutot
+            qu'une image cassee. */}
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {['/picture-sicile/etna-01.jpg', '/picture-sicile/etna-02.jpg'].map((src, i) => (
+            <Reveal key={src} delay={i * 90}>
+              <Photo
+                src={src}
+                alt={t.etnaPage.photoAlt}
+                tone={i === 0 ? 'ink' : 'terra'}
+                label={`${t.etnaPage.photoAlt} — à venir`}
+                className="aspect-[4/3] w-full rounded-2xl"
+              />
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
+          {t.etnaPage.facts.map((f, i) => (
+            <Reveal key={f.title} delay={(i % 2) * 80} className="flex flex-col gap-4 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
+              <span
+                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+              >
+                <Icon name={f.icon as IconName} size={28} />
+              </span>
+              <h3 className="text-[clamp(1.1rem,2.2vw,1.35rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+                {f.title}
+              </h3>
+              <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                {f.text}
+              </p>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Deux liens verifies vivants : le parc (site UNESCO officiel) et le
+            detail des domaines skiables, pour qui veut vraiment y monter. */}
+        <Reveal className="mt-8 flex flex-wrap gap-3">
+          {[
+            { url: 'https://www.unescoparcoetna.it/', label: t.etnaPage.linkPark, icon: 'volcano' as IconName },
+            { url: 'https://www.skiresort.info/ski-resorts/parco-delletna/', label: t.etnaPage.linkSki, icon: 'compass' as IconName },
+          ].map((l) => (
+            <a
+              key={l.url}
+              href={l.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 rounded-full px-5 py-3 text-[14px] transition hover:opacity-85"
+              style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)', fontWeight: 600 }}
+            >
+              <Icon name={l.icon} size={18} /> {l.label} <span aria-hidden>↗</span>
+            </a>
+          ))}
+        </Reveal>
       </section>
       )}
 

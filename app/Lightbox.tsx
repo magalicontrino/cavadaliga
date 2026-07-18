@@ -50,13 +50,14 @@ export default function Lightbox({
       aria-modal="true"
       onClick={onClose}
       className="fixed inset-0 z-[80] flex items-center justify-center p-4 md:p-8"
-      style={{ background: 'rgba(24,23,23,0.94)' }}
+      style={{ background: 'rgba(255,255,255,0.96)' }}
     >
       <button
         type="button"
         onClick={onClose}
         aria-label="Fermer"
-        className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full text-[18px] text-white ring-1 ring-white/30 transition hover:bg-white/10"
+        style={{ color: 'var(--cava-ink)' }}
+        className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full text-[18px] ring-1 ring-black/15 transition hover:bg-black/5"
       >
         ✕
       </button>
@@ -67,7 +68,8 @@ export default function Lightbox({
           go(-1);
         }}
         aria-label="Photo précédente"
-        className="absolute left-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-2xl text-white ring-1 ring-white/30 transition hover:bg-white/10 md:left-6"
+        style={{ color: 'var(--cava-ink)' }}
+        className="absolute left-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-2xl ring-1 ring-black/15 transition hover:bg-black/5 md:left-6"
       >
         ‹
       </button>
@@ -76,7 +78,7 @@ export default function Lightbox({
         src={withBase(images[index])}
         alt=""
         onClick={(e) => e.stopPropagation()}
-        className="max-h-[86vh] max-w-[92vw] rounded-lg object-contain shadow-2xl"
+        className="max-h-[86vh] max-w-[92vw] rounded-lg object-contain shadow-2xl ring-1 ring-black/10"
       />
       <button
         type="button"
@@ -85,7 +87,8 @@ export default function Lightbox({
           go(1);
         }}
         aria-label="Photo suivante"
-        className="absolute right-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-2xl text-white ring-1 ring-white/30 transition hover:bg-white/10 md:right-6"
+        style={{ color: 'var(--cava-ink)' }}
+        className="absolute right-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-2xl ring-1 ring-black/15 transition hover:bg-black/5 md:right-6"
       >
         ›
       </button>

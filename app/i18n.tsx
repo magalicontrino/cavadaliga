@@ -93,6 +93,16 @@ export type Dict = {
   unescoLabel: string; // badge patrimoine mondial UNESCO
   regionHere: string; // distance affichée pour Cava d'Aliga (la maison)
   // Histoire : la Sicile arabe, très présente juste autour de la maison.
+  // L'Etna : la montagne, le ski, et le fil qui mene de sa neige a la granita.
+  etnaPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    facts: { icon: string; title: string; text: string }[];
+    linkPark: string;
+    linkSki: string;
+    photoAlt: string;
+  };
   arabPage: {
     eyebrow: string;
     title: string;
@@ -217,6 +227,7 @@ export type Dict = {
     arab: string;
     /** Rassemble les sept sections venues de « Sons & images » en un seul bouton. */
     sounds: string;
+    etna: string;
   };
   infoFilter: {
     all: string;
@@ -329,6 +340,41 @@ const FR: Dict = {
   ],
   unescoLabel: 'Patrimoine mondial UNESCO',
   regionHere: 'Sur place',
+  etnaPage: {
+    eyebrow: 'L’Etna',
+    title: 'A Muntagna',
+    intro:
+      'Les Siciliens ne disent pas « l’Etna ». Ils disent a Muntagna, la Montagne, comme s’il n’y en avait qu’une — et pour eux il n’y en a qu’une. À deux heures et demie de route de la maison, elle fume, elle gronde, elle saupoudre parfois les voitures de cendre, et elle a donné à la Sicile sa terre noire, son vin… et, pendant des siècles, sa glace.',
+    facts: [
+      {
+        icon: 'volcano',
+        title: 'Le plus haut volcan actif d’Europe',
+        text:
+          'Un peu plus de 3 300 mètres — le chiffre change à chaque éruption, la montagne se construit et s’effondre sans arrêt, si bien qu’aucune altitude n’y reste vraie très longtemps. Son activité est presque permanente, et elle est inscrite au patrimoine mondial de l’UNESCO depuis juin 2013.',
+      },
+      {
+        icon: 'compass',
+        title: 'On y skie, face à la mer',
+        text:
+          'Deux domaines, un de chaque côté. Etna Sud, au-dessus de Nicolosi, monte de 1 910 à 2 700 mètres ; Etna Nord, à Piano Provenzana au-dessus de Linguaglossa, de 1 800 à 2 340 mètres. Skier sur de la cendre noire avec la mer Ionienne en contrebas : cela ne se fait nulle part ailleurs.',
+      },
+      {
+        icon: 'droplet',
+        title: 'Les nivaroli et les neviere',
+        text:
+          'Dès le Moyen Âge, des hommes montaient récolter la neige en hiver et l’enfouissaient dans des fosses de pierre, les neviere, isolées sous la cendre volcanique, la fougère et la paille. L’été venu, ils la redescendaient à dos de mulet dans des sacs de jute. La Sicile a compté parmi les grands producteurs de glace d’Europe jusqu’au XVIIIᵉ siècle.',
+      },
+      {
+        icon: 'cone',
+        title: 'De la neige à la granita',
+        text:
+          'Cette neige râpée, arrosée de jus de citron ou de sirop de fruits, est l’ancêtre direct de la granita. Puis on découvre que la neige mêlée de sel marin refroidit sans se mélanger : elle passe d’ingrédient à réfrigérant, et la granita telle qu’on la mange aujourd’hui — celle du petit déjeuner, avec la brioche — est née de ce geste.',
+      },
+    ],
+    linkPark: 'Le parc de l’Etna, site UNESCO',
+    linkSki: 'Les domaines skiables de l’Etna',
+    photoAlt: 'L’Etna',
+  },
   arabPage: {
     eyebrow: 'Un peu d’histoire',
     title: 'La Sicile arabe, juste sous nos pieds',
@@ -529,6 +575,7 @@ const FR: Dict = {
     customs: 'Us et coutumes',
     arab: 'Sicile arabe',
     sounds: 'Sons & images',
+    etna: 'L’Etna',
   },
   infoFilter: {
     all: 'Tout voir',
@@ -745,6 +792,41 @@ const IT: Dict = {
   ],
   unescoLabel: 'Patrimonio mondiale UNESCO',
   regionHere: 'Sul posto',
+  etnaPage: {
+    eyebrow: 'L’Etna',
+    title: 'A Muntagna',
+    intro:
+      'I siciliani non dicono « l’Etna ». Dicono a Muntagna, la Montagna, come se ce ne fosse una sola — e per loro ce n’è una sola. A due ore e mezza di strada da casa, fuma, brontola, a volte impolvera le auto di cenere, e ha dato alla Sicilia la sua terra nera, il suo vino… e, per secoli, il suo ghiaccio.',
+    facts: [
+      {
+        icon: 'volcano',
+        title: 'Il vulcano attivo più alto d’Europa',
+        text:
+          'Poco più di 3 300 metri — la cifra cambia a ogni eruzione, la montagna si costruisce e crolla di continuo, tanto che nessuna quota resta vera a lungo. La sua attività è quasi permanente, ed è patrimonio mondiale UNESCO dal giugno 2013.',
+      },
+      {
+        icon: 'compass',
+        title: 'Ci si scia, davanti al mare',
+        text:
+          'Due comprensori, uno per versante. Etna Sud, sopra Nicolosi, sale da 1 910 a 2 700 metri ; Etna Nord, a Piano Provenzana sopra Linguaglossa, da 1 800 a 2 340 metri. Sciare sulla cenere nera con lo Ionio là sotto : non succede da nessun’altra parte.',
+      },
+      {
+        icon: 'droplet',
+        title: 'I nivaroli e le neviere',
+        text:
+          'Fin dal Medioevo alcuni uomini salivano a raccogliere la neve d’inverno e la seppellivano in fosse di pietra, le neviere, isolate sotto la cenere vulcanica, la felce e la paglia. D’estate la riportavano a valle a dorso di mulo, in sacchi di juta. La Sicilia è stata tra i grandi produttori di ghiaccio d’Europa fino al Settecento.',
+      },
+      {
+        icon: 'cone',
+        title: 'Dalla neve alla granita',
+        text:
+          'Quella neve grattata, bagnata di succo di limone o di sciroppo di frutta, è l’antenata diretta della granita. Poi si scopre che la neve mescolata al sale marino raffredda senza confondersi : da ingrediente diventa refrigerante, e la granita come la mangiamo oggi — quella della colazione, con la brioche — nasce da questo gesto.',
+      },
+    ],
+    linkPark: 'Il parco dell’Etna, sito UNESCO',
+    linkSki: 'I comprensori sciistici dell’Etna',
+    photoAlt: 'L’Etna',
+  },
   arabPage: {
     eyebrow: 'Un po’ di storia',
     title: 'La Sicilia araba, proprio sotto i nostri piedi',
@@ -945,6 +1027,7 @@ const IT: Dict = {
     customs: 'Usi e costumi',
     arab: 'Sicilia araba',
     sounds: 'Suoni & immagini',
+    etna: 'L’Etna',
   },
   infoFilter: {
     all: 'Vedi tutto',
@@ -1161,6 +1244,41 @@ const EN: Dict = {
   ],
   unescoLabel: 'UNESCO World Heritage',
   regionHere: 'On site',
+  etnaPage: {
+    eyebrow: 'Etna',
+    title: 'A Muntagna',
+    intro:
+      'Sicilians don’t say « Etna ». They say a Muntagna, the Mountain, as though there were only one — and for them there is only one. Two and a half hours’ drive from the house, it smokes, it rumbles, it sometimes dusts the cars with ash, and it gave Sicily its black earth, its wine… and, for centuries, its ice.',
+    facts: [
+      {
+        icon: 'volcano',
+        title: 'Europe’s highest active volcano',
+        text:
+          'A little over 3,300 metres — the figure changes with every eruption, as the mountain builds itself up and collapses again, so no altitude stays true for long. It is almost permanently active, and a UNESCO World Heritage site since June 2013.',
+      },
+      {
+        icon: 'compass',
+        title: 'You can ski there, facing the sea',
+        text:
+          'Two ski areas, one on each side. Etna Sud, above Nicolosi, runs from 1,910 to 2,700 metres ; Etna Nord, at Piano Provenzana above Linguaglossa, from 1,800 to 2,340 metres. Skiing on black ash with the Ionian Sea below : it happens nowhere else.',
+      },
+      {
+        icon: 'droplet',
+        title: 'The nivaroli and the neviere',
+        text:
+          'From the Middle Ages, men climbed up to harvest snow in winter and buried it in stone pits — the neviere — insulated under volcanic ash, ferns and straw. Come summer they carried it back down by mule, in jute sacks. Sicily was among Europe’s great ice producers until the eighteenth century.',
+      },
+      {
+        icon: 'cone',
+        title: 'From snow to granita',
+        text:
+          'That grated snow, doused with lemon juice or fruit syrup, is granita’s direct ancestor. Then came the discovery that snow mixed with sea salt chills without blending in : it went from ingredient to refrigerant, and the granita we eat today — the breakfast one, with the brioche — was born of that shift.',
+      },
+    ],
+    linkPark: 'Etna Park, a UNESCO site',
+    linkSki: 'Etna’s ski areas',
+    photoAlt: 'Etna',
+  },
   arabPage: {
     eyebrow: 'A little history',
     title: 'Arab Sicily, right under our feet',
@@ -1361,6 +1479,7 @@ const EN: Dict = {
     customs: 'Local customs',
     arab: 'Arab Sicily',
     sounds: 'Sounds & screens',
+    etna: 'Etna',
   },
   infoFilter: {
     all: 'See all',

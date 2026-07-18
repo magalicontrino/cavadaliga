@@ -7,6 +7,7 @@
  */
 export type IconName =
   | 'key'
+  | 'volcano'
   | 'home'
   | 'info'
   | 'pin'
@@ -50,6 +51,17 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
       <path d="M3.5 10h17" />
       <path d="M8 3.5v3M16 3.5v3" />
       <path d="M8 14h2.5" />
+    </>
+  ),
+  // Volcan — l'Etna. Un cone tronque (le cratere est ouvert, pas pointu) et
+  // deux volutes de fumee : de loin on lit « volcan » avant de distinguer quoi
+  // que ce soit, ce qui est tout ce qu'on demande a un picto de tri.
+  volcano: (
+    <>
+      <path d="M2.5 20.5L9.5 9h5l7 11.5z" />
+      <path d="M9.5 9h5" />
+      <path d="M10.5 6.2c0-1.4 2.5-1.4 2.5-2.8" />
+      <path d="M14.5 6.2c0-1 1.6-1 1.6-2" />
     </>
   ),
   // Clé — arrivée & départ
