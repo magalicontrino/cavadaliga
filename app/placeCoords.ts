@@ -52,6 +52,8 @@ export const COORDS: Record<string, PlaceCoord> = {
   // Supermarchés
   // S.S.G. Market — lien de Mag, coordonnees de sa fiche Google.
   // Carnico — lien de Mag, coordonnees de sa fiche Google.
+  // La plage du village — lien de Mag, coordonnees de sa fiche Google.
+  'spiaggia-cava-daliga': { lat: 36.7278175, lon: 14.6857862, src: 'google' },
   maracaibo: { lat: 36.728109, lon: 14.685499, src: 'google' },
   blazer: { lat: 36.7289037, lon: 14.6850646, src: 'google' },
   'gelateria-smile': { lat: 36.7277778, lon: 14.6863889, src: 'google' },

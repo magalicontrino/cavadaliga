@@ -232,6 +232,20 @@ export const LOCAL_PLACES: LocalPlace[] = [
       en: 'Deli and butcher over towards Donnalucata. The arancine are excellent — drop by in the morning to order them.' },
   },
   {
+    id: 'spiaggia-cava-daliga',
+    name: 'Spiaggia di Cava d’Aliga',
+    cat: 'plage',
+    town: 'Cava d’Aliga',
+    url: 'https://maps.app.goo.gl/7jSQUD6jyjv2Khzp8',
+    km: 0.1,
+    responsible: false,
+    blurb: {
+      fr: 'La plage du village, à 70 m de la porte. C’est la plus proche de toutes nos adresses — on y descend en maillot.',
+      it: 'La spiaggia del paese, a 70 m dalla porta. È la più vicina di tutti i nostri indirizzi — ci si scende in costume.',
+      en: 'The village beach, 70 m from the door. The closest of all our addresses — you walk down in your swimsuit.',
+    },
+  },
+  {
     id: 'maracaibo',
     name: 'Maracaibo',
     cat: 'resto',
