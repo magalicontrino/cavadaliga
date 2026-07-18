@@ -506,8 +506,19 @@ export default function NosAdresses() {
             glissent maintenant du doigt, une par écran. À partir de « sm » on
             retrouve la grille. Tout en CSS — rien à mesurer, rien à hydrater.
             Les marges négatives font toucher les bords de l'écran ; le padding
-            qui les compense garde la première fiche alignée sur le texte. */}
-        <div className="cava-swipe -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
+            qui les compense garde la première fiche alignée sur le texte.
+
+            `py-6 / -my-6` : la fiche survolee se souleve de 4 px et porte une
+            ombre qui descend d'une vingtaine ; `overflow-x` rognant aussi a la
+            verticale, elle etait coupee en haut et en bas. La place est faite,
+            la marge negative l'annule — rien ne bouge dans la page.
+
+            `items-start` sur telephone : etirees a la meme hauteur, les fiches
+            aux textes courts se retrouvaient avec un grand vide, car le bloc de
+            boutons porte `mt-auto`. Chacune prend maintenant sa hauteur. La
+            grille, elle, garde `items-stretch` : alignes en bas, les boutons y
+            forment une ligne, et c'est ce qu'on veut d'une grille. */}
+        <div className="cava-swipe -mx-5 -my-6 flex snap-x snap-mandatory items-start gap-4 overflow-x-auto px-5 py-6 sm:mx-0 sm:my-0 sm:grid sm:snap-none sm:grid-cols-2 sm:items-stretch sm:gap-6 sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-3">
           {shown.map((pl, i) => {
             const isActive = active === pl.id;
             return (
