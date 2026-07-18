@@ -231,6 +231,12 @@ export type Dict = {
     intro: string;
     facts: { icon: string; title: string; text: string }[];
   };
+  drinksPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    facts: { icon: string; title: string; text: string }[];
+  };
   cultureFilter: {
     all: string;
     playlist: string;
@@ -246,6 +252,7 @@ export type Dict = {
     places: string;
     customs: string;
     specialties: string;
+    drinks: string;
     arab: string;
     /** Rassemble les sept sections venues de « Sons & images » en un seul bouton. */
     sounds: string;
@@ -624,6 +631,43 @@ const FR: Dict = {
       },
     ],
   },
+  drinksPage: {
+    eyebrow: 'Vins & alcools',
+    title: 'Les vins et alcools du coin',
+    intro: 'Le sud-est est une grande terre de vin — et l’unique DOCG de Sicile est née juste à côté. De quoi accompagner la table et clore le repas.',
+    facts: [
+      {
+        icon: 'glass',
+        title: 'Le Cerasuolo di Vittoria',
+        text: 'LE vin du coin — et l’unique DOCG de toute la Sicile, née à Vittoria, juste à côté. Un assemblage de nero d’avola et de frappato sur la terre rouge du secteur : rouge cerise, sec, velouté, un nez de fleurs et de fruits rouges. Le vin des grands producteurs d’ici — COS, Planeta, Valle dell’Acate.',
+      },
+      {
+        icon: 'leaf',
+        title: 'Le frappato',
+        text: 'Le cépage léger et parfumé de Vittoria. Seul, il donne un rouge clair, presque désaltérant, sur la fraise et la cerise, qu’on sert un peu frais l’été. Le contraire d’un vin lourd — parfait à table quand il fait chaud.',
+      },
+      {
+        icon: 'bottle',
+        title: 'Le nero d’avola',
+        text: 'Le grand rouge sicilien, qui tient son nom d’Avola, tout près. Charnu, sombre, chaleureux, sur le fruit noir et les épices. C’est lui qui donne du corps au Cerasuolo, mais on le boit aussi seul, partout sur l’île.',
+      },
+      {
+        icon: 'droplet',
+        title: 'Le marsala',
+        text: 'Le célèbre vin muté de Sicile, de l’ouest de l’île. Du sec à l’ambré très doux : à l’apéritif, sur les fromages, ou en cuisine — c’est lui qui parfume le zabaione et bien des desserts. Une gorgée d’histoire sicilienne.',
+      },
+      {
+        icon: 'citrus',
+        title: 'L’amaro',
+        text: 'Le digestif de fin de repas : une liqueur amère aux herbes et aux agrumes, servie fraîche. L’Averna, né à Caltanissetta, est le plus connu de Sicile. On le boit très frais, parfois sur glace, pour clore le repas.',
+      },
+      {
+        icon: 'sun',
+        title: 'Limoncello & rosolio',
+        text: 'Les liqueurs maison qu’on sort après le café : le limoncello, aux zestes de citron, glacé ; et les rosoli, ces vieilles liqueurs siciliennes parfumées (cannelle, café, mandarine…). Souvent faites à la maison, toujours offertes.',
+      },
+    ],
+  },
   cultureFilter: {
     all: 'Tout voir',
     playlist: 'La playlist',
@@ -639,6 +683,7 @@ const FR: Dict = {
     places: 'Les lieux',
     customs: 'Us et coutumes',
     specialties: 'Spécialités',
+    drinks: 'Vins & alcools',
     arab: 'Sicile arabe',
     sounds: 'Sons & images',
     etna: 'L’Etna',
@@ -1120,6 +1165,43 @@ const IT: Dict = {
       },
     ],
   },
+  drinksPage: {
+    eyebrow: 'Vini & liquori',
+    title: 'I vini e i liquori del posto',
+    intro: 'Il sud-est è una grande terra di vino — e l’unica DOCG della Sicilia è nata qui accanto. Di che accompagnare la tavola e chiudere il pasto.',
+    facts: [
+      {
+        icon: 'glass',
+        title: 'Il Cerasuolo di Vittoria',
+        text: 'IL vino di qui — e l’unica DOCG di tutta la Sicilia, nata a Vittoria, qui accanto. Un assemblaggio di nero d’avola e frappato sulla terra rossa della zona: rosso ciliegia, secco, vellutato, un naso di fiori e frutti rossi. Il vino dei grandi produttori del posto — COS, Planeta, Valle dell’Acate.',
+      },
+      {
+        icon: 'leaf',
+        title: 'Il frappato',
+        text: 'Il vitigno leggero e profumato di Vittoria. Da solo dà un rosso chiaro, quasi dissetante, di fragola e ciliegia, da servire un po’ fresco d’estate. L’opposto di un vino pesante — perfetto a tavola quando fa caldo.',
+      },
+      {
+        icon: 'bottle',
+        title: 'Il nero d’avola',
+        text: 'Il grande rosso siciliano, che prende il nome da Avola, qui vicino. Polposo, scuro, caldo, di frutta nera e spezie. È lui a dare corpo al Cerasuolo, ma si beve anche da solo, in tutta l’isola.',
+      },
+      {
+        icon: 'droplet',
+        title: 'Il marsala',
+        text: 'Il celebre vino liquoroso di Sicilia, dall’ovest dell’isola. Dal secco all’ambrato dolcissimo: come aperitivo, sui formaggi o in cucina — è lui a profumare lo zabaione e tanti dolci. Un sorso di storia siciliana.',
+      },
+      {
+        icon: 'citrus',
+        title: 'L’amaro',
+        text: 'Il digestivo di fine pasto: un liquore amaro alle erbe e agli agrumi, servito freddo. L’Averna, nato a Caltanissetta, è il più noto di Sicilia. Si beve ghiacciato, a volte con ghiaccio, per chiudere il pasto.',
+      },
+      {
+        icon: 'sun',
+        title: 'Limoncello & rosolio',
+        text: 'I liquori di casa che si tirano fuori dopo il caffè: il limoncello, alle scorze di limone, ghiacciato; e i rosoli, i vecchi liquori siciliani profumati (cannella, caffè, mandarino…). Spesso fatti in casa, sempre offerti.',
+      },
+    ],
+  },
   cultureFilter: {
     all: 'Vedi tutto',
     playlist: 'La playlist',
@@ -1135,6 +1217,7 @@ const IT: Dict = {
     places: 'I luoghi',
     customs: 'Usi e costumi',
     specialties: 'Specialità',
+    drinks: 'Vini & liquori',
     arab: 'Sicilia araba',
     sounds: 'Suoni & immagini',
     etna: 'L’Etna',
@@ -1616,6 +1699,43 @@ const EN: Dict = {
       },
     ],
   },
+  drinksPage: {
+    eyebrow: 'Wine & spirits',
+    title: 'Local wine & spirits',
+    intro: 'The south-east is great wine country — and Sicily’s only DOCG was born right next door. Enough to carry the table and close the meal.',
+    facts: [
+      {
+        icon: 'glass',
+        title: 'Cerasuolo di Vittoria',
+        text: 'The wine of this corner — and the only DOCG in all of Sicily, born in nearby Vittoria. A blend of nero d’avola and frappato grown on the local red earth: cherry-red, dry, velvety, with flowers and red fruit on the nose. The wine of the great local producers — COS, Planeta, Valle dell’Acate.',
+      },
+      {
+        icon: 'leaf',
+        title: 'Frappato',
+        text: 'The light, perfumed grape of Vittoria. On its own it makes a pale, almost thirst-quenching red of strawberry and cherry, good served slightly chilled in summer. The opposite of a heavy wine — perfect at the table in the heat.',
+      },
+      {
+        icon: 'bottle',
+        title: 'Nero d’Avola',
+        text: 'Sicily’s great red, named after nearby Avola. Fleshy, dark and warm, with black fruit and spice. It gives the Cerasuolo its body, but it is drunk on its own all over the island too.',
+      },
+      {
+        icon: 'droplet',
+        title: 'Marsala',
+        text: 'Sicily’s famous fortified wine, from the west of the island. From dry to deep amber and sweet: as an aperitif, with cheese, or in the kitchen — it is what perfumes zabaione and many desserts. A sip of Sicilian history.',
+      },
+      {
+        icon: 'citrus',
+        title: 'Amaro',
+        text: 'The end-of-meal digestivo: a bitter herb-and-citrus liqueur served cold. Averna, born in Caltanissetta, is Sicily’s best known. Drink it ice-cold, sometimes over ice, to close the meal.',
+      },
+      {
+        icon: 'sun',
+        title: 'Limoncello & rosolio',
+        text: 'The homemade liqueurs brought out after coffee: limoncello, from lemon zest, ice-cold; and the rosoli, those old perfumed Sicilian liqueurs (cinnamon, coffee, mandarin…). Often homemade, always offered.',
+      },
+    ],
+  },
   cultureFilter: {
     all: 'See all',
     playlist: 'The playlist',
@@ -1631,6 +1751,7 @@ const EN: Dict = {
     places: 'The places',
     customs: 'Local customs',
     specialties: 'Specialties',
+    drinks: 'Wine & spirits',
     arab: 'Arab Sicily',
     sounds: 'Sounds & screens',
     etna: 'Etna',
