@@ -87,13 +87,14 @@ function barresDeLaSemaine(semaine: (Date | null)[]): Barre[] {
 /**
  * Le calendrier d'occupation — « la maison est libre quand ? ».
  *
- * C'est la question qu'on se pose le plus souvent en famille, et elle avait
- * disparu quand la page a change de nom. La voici de retour, en tete de la
- * page du calendrier : les fetes du village viennent apres.
+ * C'est la question qu'on se pose le plus souvent en famille. Elle a sa page a
+ * elle, /calendrier, atteignable par le picto de la barre du haut. Le composant
+ * ne porte donc PAS de titre : PageHeader s'en charge, et le repeter l'ecrirait
+ * deux fois.
  */
 export default function Occupancy() {
   const { t, lang } = useI18n();
-  const c = t.calendarPage;
+  const c = t.stayPage;
   const locale = LOCALES[lang] ?? 'fr-FR';
   // Les initiales des jours. Le 1er janvier 2024 etait un lundi : on part de la.
   const jours = Array.from({ length: 7 }, (_, i) =>
@@ -102,15 +103,6 @@ export default function Occupancy() {
 
   return (
     <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
-      <Reveal className="mb-6 flex flex-col gap-2">
-        <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
-          {c.stayTitle}
-        </h2>
-        <p className="max-w-[62ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
-          {c.stayIntro}
-        </p>
-      </Reveal>
-
       <Reveal className="mb-10 flex flex-wrap gap-x-6 gap-y-2 text-[13px]" style={{ color: 'var(--cava-muted)' }}>
         <span className="flex items-center gap-2">
           <span className="h-3 w-3 rounded-full" style={{ background: OCCUPE }} />

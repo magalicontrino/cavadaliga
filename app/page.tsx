@@ -64,6 +64,16 @@ export default function CavaHome() {
         />
       ))}
 
+      {/* Le calendrier des sejours, hors NAV comme La casa : la page n'est pas
+          au menu, cette vignette et le picto de la barre y menent seuls.
+          Huitieme de la serie, donc a gauche — l'alternance continue. */}
+      <CtaBadge
+        href="/calendrier"
+        title={t.stayPage.title}
+        circleId="cava-c-calendrier"
+        flip
+      />
+
       {/* ---------- Galerie : bandeau d'images défilant ---------- */}
       <section className="py-24 md:py-28">
         <Gallery images={GALLERY_STRIP} />

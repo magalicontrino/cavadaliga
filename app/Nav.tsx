@@ -58,16 +58,15 @@ export default function Nav({ current }: { current?: string }) {
             <Icon name="door" size={24} strokeWidth={1.55} />
           </a>
 
-          {/* Le calendrier, a gauche du vinyle. Il etait deja dans le menu, mais
-              il fallait l'ouvrir pour le trouver : c'est la question qu'on se
-              pose le plus souvent en famille — « la maison est libre quand ? ».
-              Meme habit que le vinyle : ces deux-la sont des raccourcis, pas des
-              pages de plus. */}
+          {/* Le calendrier des sejours. C'est le SEUL chemin vers /calendrier
+              avec la vignette de l'accueil : la page n'est pas au menu, et
+              repond pourtant a la question qu'on se pose le plus souvent en
+              famille — « la maison est libre quand ? ». */}
           <a
-            href={withBase('/evenements')}
-            aria-label={t.calendarPage.title}
-            aria-current={current === '/evenements' ? 'page' : undefined}
-            title={t.calendarPage.title}
+            href={withBase('/calendrier')}
+            aria-label={t.stayPage.title}
+            aria-current={current === '/calendrier' ? 'page' : undefined}
+            title={t.stayPage.title}
             className="cava-vinyllink flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
           >
