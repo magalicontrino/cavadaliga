@@ -328,6 +328,20 @@ export const LOCAL_PLACES: LocalPlace[] = [
     },
   },
   {
+    id: 'ssg-market',
+    name: 'S.S.G. Market',
+    cat: 'supermarche',
+    town: 'Cava d’Aliga',
+    url: 'https://maps.app.goo.gl/TLhac9uCQVuFuB7K8',
+    km: 0.3,
+    responsible: false,
+    blurb: {
+      fr: 'Le commerce d’alimentation du village, viale della Pace, à 280 m de la maison. Le plus proche de tous : celui qu’on fait à pied quand il manque quelque chose.',
+      it: 'Il market del paese, viale della Pace, a 280 m da casa. Il più vicino di tutti: quello che si fa a piedi quando manca qualcosa.',
+      en: 'The village’s food shop, viale della Pace, 280 m from the house. The closest of them all — the one you walk to when something is missing.',
+    },
+  },
+  {
     id: 'coop-superstore',
     name: 'Coop Superstore',
     cat: 'supermarche',
