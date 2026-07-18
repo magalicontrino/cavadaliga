@@ -70,7 +70,9 @@ export default function NosAdresses() {
   // Les categories qui ont un bouton. Liste ECRITE A LA MAIN, et donc a tenir a
   // jour : ajouter une categorie a CATS ne la fait pas apparaitre ici toute
   // seule. « agrumes » n'y est pas — aucune adresse ne la porte encore.
-  const FILTER_CATS: CatKey[] = ['huile', 'marche', 'plantes', 'resto', 'supermarche', 'boucherie', 'bricolage', 'plage'];
+  const FILTER_CATS: CatKey[] = ['huile', 'plantes', 'resto', 'supermarche', 'boucherie', 'bricolage', 'plage'];
+  // « marche » n'a plus d'adresse : ses trois entrees etaient des trouvailles
+  // non validees. Le bouton revient le jour ou Mag donne un marche.
   // « Tout voir » ouvre la ligne, en retrait. Ailleurs il la ferme, mais ici la
   // rangee glisse : le dernier bouton finirait hors champ, et c'est justement
   // l'etat par defaut — celui vers lequel on revient. Il reste discret pour

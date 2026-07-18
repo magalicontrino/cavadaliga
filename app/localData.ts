@@ -51,13 +51,13 @@ export const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u
 
 export const SEARCH_WORDS: WordHint[] = [
   { words: ['pain', 'pane', 'bread', 'boulangerie', 'panificio', 'bakery', 'baguette', 'brioche', 'pignolata'], cat: 'supermarche', ids: ['giannone'] },
-  { words: ['glace', 'gelato', 'gelateria', 'ice cream', 'granita', 'granite', 'cornet', 'sorbet'], ids: ['gelateria-smile'] },
-  { words: ['pizza', 'pizzeria', 'pizze'], ids: ['be-happy'] },
+  { words: ['glace', 'gelato', 'gelateria', 'ice cream', 'granita', 'granite', 'cornet', 'sorbet'] },
+  { words: ['pizza', 'pizzeria', 'pizze'] },
   { words: ['arancina', 'arancine', 'arancini', 'friture', 'fritto', 'street food', 'rosticceria'], ids: ['giannone'] },
-  { words: ['poisson', 'pesce', 'fish', 'fruits de mer', 'frutti di mare', 'seafood', 'peche', 'port', 'porto'], ids: ['poisson-donnalucata', 'rabbuso'] },
+  { words: ['poisson', 'pesce', 'fish', 'fruits de mer', 'frutti di mare', 'seafood', 'peche', 'port', 'porto'], ids: ['rabbuso'] },
   { words: ['chocolat', 'cioccolato', 'chocolate', 'cacao', 'modica', 'douceur', 'dolci', 'sweets', 'dessert'], ids: ['bonajuto'] },
   { words: ['huile', 'olio', 'oil', 'olive', 'frantoio', 'frantoi', 'dop'], cat: 'huile' },
-  { words: ['vin', 'vino', 'wine', 'apero', 'aperitivo', 'aperitif', 'drink', 'bar', 'cocktail', 'biere', 'birra', 'beer', 'verre', 'soir', 'sera'], ids: ['maracaibo', 'blazer'] },
+  { words: ['vin', 'vino', 'wine', 'apero', 'aperitivo', 'aperitif', 'drink', 'bar', 'cocktail', 'biere', 'birra', 'beer', 'verre', 'soir', 'sera'] },
   { words: ['boucherie', 'macelleria', 'butcher', 'viande', 'carne', 'meat', 'boucher', 'salumi', 'charcuterie'], cat: 'boucherie' },
   { words: ['bricolage', 'brico', 'ferramenta', 'quincaillerie', 'outil', 'outils', 'utensili', 'attrezzi', 'tools', 'hardware', 'diy', 'fai da te', 'scie', 'sega', 'seghetto', 'saw', 'perceuse', 'trapano', 'drill', 'visserie', 'vis', 'viti', 'screws', 'clou', 'chiodi', 'nails', 'peinture', 'vernice', 'paint', 'cheville', 'ampoule', 'lampadina', 'bulb', 'cle', 'chiave'], cat: 'bricolage' },
   { words: ['plage', 'spiaggia', 'beach', 'mer', 'mare', 'sea', 'baignade', 'nager', 'swim', 'sable', 'sabbia', 'sand', 'lido', 'transat'], cat: 'plage' },
@@ -65,10 +65,10 @@ export const SEARCH_WORDS: WordHint[] = [
   { words: ['marche', 'mercato', 'market', 'legume', 'verdura', 'vegetables', 'fruit', 'frutta', 'fromage', 'formaggio', 'cheese', 'producteur', 'produttore', 'farmer', 'local', 'bio'], cat: 'marche' },
   { words: ['fleur', 'fiori', 'flower', 'plante', 'pianta', 'plant', 'jardin', 'giardino', 'garden', 'vivaio', 'pepiniere', 'terrasse'], cat: 'plantes' },
   { words: ['restaurant', 'ristorante', 'trattoria', 'manger', 'mangiare', 'eat', 'diner', 'cena', 'dinner', 'midi', 'pranzo', 'lunch', 'table', 'tavola', 'food'], cat: 'resto' },
-  { words: ['cafe', 'caffe', 'coffee', 'petit dejeuner', 'colazione', 'breakfast', 'matin', 'mattina', 'morning', 'expresso', 'cappuccino'], ids: ['gelateria-smile', 'maracaibo'] },
+  { words: ['cafe', 'caffe', 'coffee', 'petit dejeuner', 'colazione', 'breakfast', 'matin', 'mattina', 'morning', 'expresso', 'cappuccino'] },
   { words: ['viande', 'carne', 'meat', 'boucherie', 'macelleria', 'butcher', 'charcuterie', 'salumi'], ids: ['giannone'] },
   { words: ['souvenir', 'cadeau', 'regalo', 'gift', 'rapporter', 'offrir', 'specialite', 'specialita'], ids: ['bonajuto'], cat: 'huile' },
-  { words: ['enfant', 'bambini', 'kids', 'famille', 'famiglia', 'family', 'gouter', 'merenda'], ids: ['gelateria-smile', 'lido-bruca'] },
+  { words: ['enfant', 'bambini', 'kids', 'famille', 'famiglia', 'family', 'gouter', 'merenda'], ids: ['lido-bruca'] },
 ];
 
 export const LOCAL_PLACES: LocalPlace[] = [
@@ -85,23 +85,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'La plus ancienne chocolaterie de Sicile (depuis 1880). Le fameux chocolat de Modica, travaillé à froid selon une recette d’origine aztèque.',
       it: 'La più antica cioccolateria della Sicilia (dal 1880). Il celebre cioccolato di Modica, lavorato a freddo secondo una ricetta di origine azteca.',
-      en: 'Sicily’s oldest chocolate maker (since 1880). The famous Modica chocolate, cold-worked to an Aztec-origin recipe.',
-    },
-  },
-  {
-    id: 'cutrera',
-    name: 'Frantoi Cutrera',
-    cat: 'huile',
-    town: 'Chiaramonte Gulfi',
-    url: 'https://www.google.com/maps/search/?api=1&query=Frantoi+Cutrera+Chiaramonte+Gulfi',
-    instagram: 'https://www.instagram.com/frantoi_cutrera/',
-    km: 35,
-    responsible: true,
-    blurb: {
-      fr: 'Moulin familial primé de Chiaramonte Gulfi. Huile extra-vierge DOP Monti Iblei (Tonda Iblea) et bottega à visiter sur place.',
-      it: 'Frantoio familiare premiato di Chiaramonte Gulfi. Olio extravergine DOP Monti Iblei (Tonda Iblea) e bottega da visitare in loco.',
-      en: 'Award-winning family mill in Chiaramonte Gulfi. Extra-virgin DOP Monti Iblei oil (Tonda Iblea), with a shop to visit on site.',
-    },
+      en: 'Sicily’s oldest chocolate maker (since 1880). The famous Modica chocolate, cold-worked to an Aztec-origin recipe.' },
   },
   {
     id: 'gatto',
@@ -115,50 +99,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Frantoio de Chiaramonte Gulfi, « ville de l’huile ». Huiles extra-vierges des monts Iblei, vente directe.',
       it: 'Frantoio di Chiaramonte Gulfi, « città dell’olio ». Oli extravergini dei monti Iblei, vendita diretta.',
-      en: 'Mill in Chiaramonte Gulfi, the “town of oil”. Extra-virgin oils from the Iblei mountains, direct sale.',
-    },
-  },
-  {
-    id: 'marche-scicli',
-    name: 'Marché de Scicli',
-    cat: 'marche',
-    town: 'Scicli',
-    url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli',
-    km: 8,
-    responsible: true,
-    blurb: {
-      fr: 'Marché hebdomadaire le mardi matin, Piazza Olimpiadi. Fruits, légumes, fromages et poisson du jour, directement des producteurs.',
-      it: 'Mercato settimanale il martedì mattina, Piazza Olimpiadi. Frutta, verdura, formaggi e pesce del giorno, direttamente dai produttori.',
-      en: 'Weekly market on Tuesday mornings, Piazza Olimpiadi. Fruit, vegetables, cheese and the day’s catch, straight from the producers.',
-    },
-  },
-  {
-    id: 'marche-marina',
-    name: 'Marché fermier de Marina di Ragusa',
-    cat: 'marche',
-    town: 'Marina di Ragusa',
-    url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa',
-    km: 13,
-    responsible: true,
-    blurb: {
-      fr: 'Marché des producteurs le vendredi matin (mi-juin à mi-septembre), Piazza Vincenzo Rabito.',
-      it: 'Mercato degli agricoltori il venerdì mattina (metà giugno – metà settembre), Piazza Vincenzo Rabito.',
-      en: 'Farmers’ market on Friday mornings (mid-June to mid-September), Piazza Vincenzo Rabito.',
-    },
-  },
-  {
-    id: 'poisson-donnalucata',
-    name: 'Marché au poisson de Donnalucata',
-    cat: 'marche',
-    town: 'Donnalucata',
-    url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata',
-    km: 3,
-    responsible: true,
-    blurb: {
-      fr: 'Le marché aux poissons du petit port : poisson frais débarqué du jour, réputé dans toute la région.',
-      it: 'Il mercato del pesce del piccolo porto: pesce fresco sbarcato in giornata, rinomato in tutta la zona.',
-      en: 'The little harbour’s fish market: fresh catch landed that day, renowned across the whole area.',
-    },
+      en: 'Mill in Chiaramonte Gulfi, the “town of oil”. Extra-virgin oils from the Iblei mountains, direct sale.' },
   },
   {
     id: 'vivai-cintoli',
@@ -171,8 +112,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Pépinière sur le viale della Serenità, à Scicli. Plants, arbustes et fleurs pour la terrasse et le jardin.',
       it: 'Vivaio sul viale della Serenità, a Scicli. Piante, arbusti e fiori per la terrazza e il giardino.',
-      en: 'Plant nursery on viale della Serenità, in Scicli. Seedlings, shrubs and flowers for the terrace and garden.',
-    },
+      en: 'Plant nursery on viale della Serenità, in Scicli. Seedlings, shrubs and flowers for the terrace and garden.' },
   },
   {
     id: 'lido-bruca',
@@ -185,8 +125,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'La plage de Bruca, juste à l’ouest de Cava d’Aliga. Le lido le plus proche de la maison : sable, transats et de quoi boire un verre.',
       it: 'La spiaggia di Bruca, appena a ovest di Cava d’Aliga. Il lido più vicino a casa: sabbia, lettini e qualcosa da bere.',
-      en: 'Bruca beach, just west of Cava d’Aliga. The closest lido to the house: sand, sunbeds and somewhere for a drink.',
-    },
+      en: 'Bruca beach, just west of Cava d’Aliga. The closest lido to the house: sand, sunbeds and somewhere for a drink.' },
   },
   {
     id: 'max-centro',
@@ -199,37 +138,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Le grand bazar de la route de Scicli, à 2 km. Un peu de tout : outillage, quincaillerie, rangement, cuisine, jardin, papeterie. Quand on ne sait pas où trouver un objet, c’est ici qu’on commence.',
       it: 'Il grande bazar sulla strada di Scicli, a 2 km. Un po’ di tutto: utensili, ferramenta, contenitori, cucina, giardino, cartoleria. Quando non si sa dove trovare un oggetto, si comincia da qui.',
-      en: 'The big general store on the Scicli road, 2 km away. A little of everything: tools, hardware, storage, kitchen, garden, stationery. When you have no idea where to find something, start here.',
-    },
-  },
-  {
-    id: 'zisa',
-    name: 'La Ferramenta Zisa',
-    cat: 'bricolage',
-    town: 'Scicli',
-    url: 'https://www.google.com/maps/search/?api=1&query=Ferramenta+Zisa+Viale+I+Maggio+174+Scicli',
-    km: 6,
-    responsible: false,
-    blurb: {
-      fr: 'La quincaillerie de Scicli, viale I Maggio. Vis, chevilles, ampoules, double des clés — ce qu’on vient chercher quand il manque une pièce et qu’on ne veut pas faire la route de Modica.',
-      it: 'La ferramenta di Scicli, viale I Maggio. Viti, tasselli, lampadine, duplicazione chiavi — quello che serve quando manca un pezzo e non si vuole fare la strada di Modica.',
-      en: 'Scicli’s hardware shop, viale I Maggio. Screws, plugs, bulbs, key cutting — what you come for when a part is missing and you would rather not drive to Modica.',
-    },
-  },
-  {
-    id: 'italbrico',
-    name: 'ItalBrico',
-    cat: 'bricolage',
-    town: 'Modica',
-    url: 'https://www.google.com/maps/search/?api=1&query=ItalBrico+Modica',
-    site: 'https://www.cicerosrl.it/',
-    km: 14,
-    responsible: false,
-    blurb: {
-      fr: 'Le grand magasin de bricolage de la région, à Modica. C’est là qu’on trouve l’outillage électroportatif — scie sauteuse, perceuse, ponceuse — la peinture et le jardin. Livraison et découpe sur place.',
-      it: 'Il grande bricocentro della zona, a Modica. Qui si trova l’elettroutensileria — seghetto alternativo, trapano, levigatrice — le vernici e il giardino. Consegna e taglio sul posto.',
-      en: 'The region’s big DIY store, in Modica. This is where the power tools are — jigsaw, drill, sander — along with paint and garden. Delivery and cutting on site.',
-    },
+      en: 'The big general store on the Scicli road, 2 km away. A little of everything: tools, hardware, storage, kitchen, garden, stationery. When you have no idea where to find something, start here.' },
   },
   {
     id: 'baqqala',
@@ -242,8 +151,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Restaurant de poisson dans le centre historique de Scicli, contre le palais Beneventano. Une terrasse, et la pêche du jour travaillée finement.',
       it: 'Ristorante di pesce nel centro storico di Scicli, accanto a Palazzo Beneventano. Una terrazza, e il pescato del giorno lavorato con finezza.',
-      en: 'Fish restaurant in Scicli’s old town, beside Palazzo Beneventano. A terrace, and the day’s catch handled with care.',
-    },
+      en: 'Fish restaurant in Scicli’s old town, beside Palazzo Beneventano. A terrace, and the day’s catch handled with care.' },
   },
   {
     id: 'la-grotta',
@@ -256,8 +164,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Une salle creusée dans la roche de la colline — d’où le nom. Pizzas au feu de bois et plats de poisson, dans un décor qu’on ne trouve nulle part ailleurs.',
       it: 'Una sala scavata nella roccia della collina — da qui il nome. Pizze al forno a legna e piatti di pesce, in un ambiente che non si trova altrove.',
-      en: 'A room carved into the hillside rock — hence the name. Wood-fired pizzas and fish dishes, in a setting you will not find anywhere else.',
-    },
+      en: 'A room carved into the hillside rock — hence the name. Wood-fired pizzas and fish dishes, in a setting you will not find anywhere else.' },
   },
   {
     id: 'prosit',
@@ -270,8 +177,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Un ancien dammuso devenu bistrot, du petit déjeuner au dîner. Produits de saison, recettes d’ici et vins naturels — c’est la maison qui va les chercher.',
       it: 'Un antico dammuso diventato bistrot, dalla colazione alla cena. Prodotti di stagione, ricette di qui e vini naturali — cercati uno per uno.',
-      en: 'An old dammuso turned bistro, from breakfast through dinner. Seasonal produce, local recipes and natural wines, each sought out by hand.',
-    },
+      en: 'An old dammuso turned bistro, from breakfast through dinner. Seasonal produce, local recipes and natural wines, each sought out by hand.' },
   },
   {
     id: 'le-gioie',
@@ -284,8 +190,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Une dizaine de tables sur une petite place, à deux pas de San Giovanni Evangelista. Cuisine sicilienne de tous les jours, sans esbroufe.',
       it: 'Una decina di tavoli su una piazzetta, a due passi da San Giovanni Evangelista. Cucina siciliana di ogni giorno, senza fronzoli.',
-      en: 'A dozen tables on a small square, steps from San Giovanni Evangelista. Everyday Sicilian cooking, no fuss.',
-    },
+      en: 'A dozen tables on a small square, steps from San Giovanni Evangelista. Everyday Sicilian cooking, no fuss.' },
   },
   {
     id: 'osteria-del-ponte',
@@ -298,8 +203,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Osteria et pizzeria, cuisine sicilienne simple à base de produits du coin. L’adresse où l’on mange bien sans y penser.',
       it: 'Osteria e pizzeria, cucina siciliana semplice con prodotti a chilometro zero. L’indirizzo dove si mangia bene senza pensarci.',
-      en: 'Osteria and pizzeria, plain Sicilian cooking from nearby producers. The place you eat well without giving it thought.',
-    },
+      en: 'Osteria and pizzeria, plain Sicilian cooking from nearby producers. The place you eat well without giving it thought.' },
   },
   {
     id: 'rabbuso',
@@ -312,8 +216,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Trattoria de poisson à Sampieri, face à la mer. Le poisson du jour, simplement cuisiné.',
       it: 'Trattoria di mare a Sampieri, di fronte al mare. Il pesce del giorno, cucinato semplicemente.',
-      en: 'Seafood trattoria in Sampieri, facing the sea. The day’s catch, simply cooked.',
-    },
+      en: 'Seafood trattoria in Sampieri, facing the sea. The day’s catch, simply cooked.' },
   },
   {
     id: 'giannone',
@@ -326,8 +229,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Gastronomia et boucherie du côté de Donnalucata. Les arancine y sont excellentes : passez le matin pour les commander.',
       it: 'Gastronomia e macelleria dalle parti di Donnalucata. Le arancine sono ottime: passate la mattina per ordinarle.',
-      en: 'Deli and butcher over towards Donnalucata. The arancine are excellent — drop by in the morning to order them.',
-    },
+      en: 'Deli and butcher over towards Donnalucata. The arancine are excellent — drop by in the morning to order them.' },
   },
   {
     id: 'carnico',
@@ -340,8 +242,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'La boucherie du village, à 280 m de la maison. On y va à pied.',
       it: 'La macelleria del paese, a 280 m da casa. Ci si va a piedi.',
-      en: 'The village butcher, 280 m from the house. You walk there.',
-    },
+      en: 'The village butcher, 280 m from the house. You walk there.' },
   },
   {
     id: 'ssg-market',
@@ -354,8 +255,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Le commerce d’alimentation du village, viale della Pace, à 280 m de la maison. Le plus proche de tous : celui qu’on fait à pied quand il manque quelque chose.',
       it: 'Il market del paese, viale della Pace, a 280 m da casa. Il più vicino di tutti: quello che si fa a piedi quando manca qualcosa.',
-      en: 'The village’s food shop, viale della Pace, 280 m from the house. The closest of them all — the one you walk to when something is missing.',
-    },
+      en: 'The village’s food shop, viale della Pace, 280 m from the house. The closest of them all — the one you walk to when something is missing.' },
   },
   {
     id: 'coop-superstore',
@@ -368,8 +268,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Le grand supermarché le plus proche, sur la route de Scicli. Le plus pratique pour les grosses courses en arrivant.',
       it: 'Il grande supermercato più vicino, sulla strada per Scicli. Il più comodo per la spesa grossa all’arrivo.',
-      en: 'The nearest big supermarket, on the road to Scicli. The easiest option for a big shop when you arrive.',
-    },
+      en: 'The nearest big supermarket, on the road to Scicli. The easiest option for a big shop when you arrive.' },
   },
   {
     id: 'eurospin',
@@ -382,8 +281,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Supermarché discount sur la route de Scicli, à côté du Coop. Pour les basiques à petit prix.',
       it: 'Supermercato discount sulla strada per Scicli, accanto alla Coop. Per i prodotti di base a poco prezzo.',
-      en: 'Discount supermarket on the road to Scicli, next to the Coop. For basics at low prices.',
-    },
+      en: 'Discount supermarket on the road to Scicli, next to the Coop. For basics at low prices.' },
   },
   {
     id: 'conad-donnalucata',
@@ -396,8 +294,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Supermarché du côté de Donnalucata, à combiner avec le marché au poisson du port.',
       it: 'Supermercato dalle parti di Donnalucata, da abbinare al mercato del pesce del porto.',
-      en: 'Supermarket over towards Donnalucata — combine it with the harbour fish market.',
-    },
+      en: 'Supermarket over towards Donnalucata — combine it with the harbour fish market.' },
   },
   {
     id: 'despar-sampieri',
@@ -410,8 +307,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'L’épicerie de Sampieri, Via Cipro. Bien pour un oubli sur la route de la plage.',
       it: 'Il market di Sampieri, Via Cipro. Utile per una dimenticanza sulla strada per la spiaggia.',
-      en: 'Sampieri’s grocery, Via Cipro. Handy for whatever you forgot on the way to the beach.',
-    },
+      en: 'Sampieri’s grocery, Via Cipro. Handy for whatever you forgot on the way to the beach.' },
   },
   {
     id: 'deco-scicli',
@@ -424,63 +320,6 @@ export const LOCAL_PLACES: LocalPlace[] = [
     blurb: {
       fr: 'Supermarché dans Scicli même, à faire en même temps qu’une balade dans le centre baroque.',
       it: 'Supermercato dentro Scicli, da fare insieme a una passeggiata nel centro barocco.',
-      en: 'Supermarket in Scicli itself — pair it with a wander through the baroque centre.',
-    },
-  },
-  {
-    id: 'maracaibo',
-    name: 'Maracaibo',
-    cat: 'resto',
-    town: 'Cava d’Aliga',
-    url: 'https://maps.app.goo.gl/KMRmcciNxkvM8Kf8A',
-    km: 0,
-    responsible: false,
-    blurb: {
-      fr: 'Bar-restaurant à Cava d’Aliga, à deux pas de la maison.',
-      it: 'Bar-ristorante a Cava d’Aliga, a due passi da casa.',
-      en: 'Bar-restaurant in Cava d’Aliga, steps from the house.',
-    },
-  },
-  {
-    id: 'blazer',
-    name: 'Blazer',
-    cat: 'resto',
-    town: 'Cava d’Aliga',
-    url: 'https://maps.app.goo.gl/DxvsZbth8ia8tmHXA',
-    km: 0,
-    responsible: false,
-    blurb: {
-      fr: 'Bar & lounge au cœur de Cava d’Aliga.',
-      it: 'Bar & lounge nel cuore di Cava d’Aliga.',
-      en: 'Bar & lounge in the heart of Cava d’Aliga.',
-    },
-  },
-  {
-    id: 'gelateria-smile',
-    name: 'Bar Gelateria Smile',
-    cat: 'resto',
-    town: 'Cava d’Aliga',
-    url: 'https://maps.app.goo.gl/XADZ7nPhhS3iAaPg7',
-    km: 0,
-    responsible: false,
-    blurb: {
-      fr: 'Bar et glacier à Cava d’Aliga — glaces, granites et cafés.',
-      it: 'Bar e gelateria a Cava d’Aliga — gelati, granite e caffè.',
-      en: 'Bar and gelateria in Cava d’Aliga — ice cream, granita and coffee.',
-    },
-  },
-  {
-    id: 'be-happy',
-    name: 'Pizzeria Be Happy',
-    cat: 'resto',
-    town: 'Cava d’Aliga',
-    url: 'https://maps.app.goo.gl/7bWbtWqT9zo1D6EA9',
-    km: 0,
-    responsible: false,
-    blurb: {
-      fr: 'Pizzeria à Cava d’Aliga, tout près de la maison.',
-      it: 'Pizzeria a Cava d’Aliga, vicinissima a casa.',
-      en: 'Pizzeria in Cava d’Aliga, very close to the house.',
-    },
+      en: 'Supermarket in Scicli itself — pair it with a wander through the baroque centre.' },
   },
 ];

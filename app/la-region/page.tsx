@@ -12,7 +12,7 @@ import FilterChip from '../FilterChip';
 import { useI18n } from '../i18n';
 import { withBase } from '../data';
 import WorkGrid from '../WorkGrid';
-import { CINEMAS, ARTISTS, ARTS, SCULPTURES, PHOTOS, SCREENS, SPOTIFY_EMBED_HEIGHT, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, MUNARI_BOOK, MUNARI_DESIGN_BOOK, MUNARI_WIKI, DE_JORIO_WIKI } from '../cultureData';
+import { ARTISTS, ARTS, SCULPTURES, PHOTOS, SCREENS, SPOTIFY_EMBED_HEIGHT, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, MUNARI_BOOK, MUNARI_DESIGN_BOOK, MUNARI_WIKI, DE_JORIO_WIKI } from '../cultureData';
 
 // Lieux autour de Cava d'Aliga (ordre = i18n regionPlaces / regionHighlights).
 // images[] = photos du lieu (carrousel, sans lightbox). Ajouter d'autres photos
@@ -34,14 +34,14 @@ const PLACES = [
 // « Sons & images » n'est plus une page : ses sept sections vivent ici. La
 // region, c'est aussi ce qu'on en a chante, filme, peint et photographie — une
 // page de moins dans le menu, et le meme geste pour tout parcourir.
-type Section = 'lieux' | 'coutumes' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'cinemas' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
+type Section = 'lieux' | 'coutumes' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
 type Key = 'tout' | 'sons' | Section;
 
 // « Sons & images » n'est pas une section : c'est un GROUPE. Un bouton pour les
 // sept d'un coup — sinon la page perdait ce qu'elle etait, et il fallait sept
 // clics pour retrouver l'ancienne. Les sept restent la, un a un, pour qui
 // cherche precisement la peinture ou les ecrans.
-const SONS: Section[] = ['playlist', 'ecrans', 'cinemas', 'peinture', 'sculpture', 'photo', 'mains', 'chansons'];
+const SONS: Section[] = ['playlist', 'ecrans', 'peinture', 'sculpture', 'photo', 'mains', 'chansons'];
 
 export default function LaRegion() {
   const { t, lang } = useI18n();
@@ -85,7 +85,6 @@ export default function LaRegion() {
     { key: 'sons', label: rf.sounds, icon: 'vinyl' },
     { key: 'playlist', label: cf.playlist, icon: 'spotify' },
     { key: 'ecrans', label: cf.screens, icon: 'film' },
-    { key: 'cinemas', label: t.cinemasTitle, icon: 'camera' },
     { key: 'peinture', label: cf.painting, icon: 'brush' },
     { key: 'sculpture', label: cf.sculpture, icon: 'landmark' },
     { key: 'photo', label: cf.photo, icon: 'camera' },
@@ -444,48 +443,6 @@ export default function LaRegion() {
 
       {/* À l'écran — films & séries tournés ici */}
       {show('ecrans') && <WorkGrid title={cf.screens} intro={c.screensIntro} items={SCREENS} icon="film" lang={lang} more={c.moreLabel} />}
-
-      {/* Ou voir un film — les vraies salles, a ne pas confondre avec « Ecrans »
-          juste au-dessus, qui liste les films tournes ici. */}
-      {show('cinemas') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
-        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
-          {/* Pas de sur-titre ici : « Ecrans » est le nom de la section voisine,
-              le reprendre melangeait les films tournes ici et les salles ou
-              l'on va en voir. Le titre suffit. */}
-          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
-            {t.cinemasTitle}
-          </h2>
-          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
-            {t.cinemasIntro}
-          </p>
-        </Reveal>
-
-        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
-          {CINEMAS.map((s, i) => (
-            <Reveal key={s.name} delay={(i % 2) * 80} className="flex flex-col gap-3 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
-              <h3 className="text-[clamp(1.1rem,2.2vw,1.35rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
-                {s.name}
-              </h3>
-              <p className="flex flex-wrap items-center gap-x-3 text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-muted)' }}>
-                {s.town}
-                <span className="inline-flex items-center gap-1.5" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
-                  <Icon name="home" size={13} /> ≈ {s.km} km
-                </span>
-              </p>
-              <a
-                href={s.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cava-pill mt-1 inline-flex w-fit items-center gap-2 px-4 py-2 text-[13px]"
-              >
-                <Icon name="film" size={15} /> {t.cinemasCta} <span aria-hidden>↗</span>
-              </a>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-      )}
 
       {/* Peint ici — Guccione & le Gruppo di Scicli */}
       {show('peinture') && <WorkGrid title={cf.painting} intro={c.artsIntro} items={ARTS} icon="brush" lang={lang} more={c.moreLabel} />}
