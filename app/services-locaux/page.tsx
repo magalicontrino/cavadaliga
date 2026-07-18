@@ -25,7 +25,9 @@ export default function NosAdresses() {
   const [filter, setFilter] = useState<'tout' | 'responsable' | CatKey>('tout');
   // « Et si j'etais la ? » — un point pose sur la carte. Tant qu'il est nul, on
   // compte depuis la maison, par la route, avec les km que Mag a saisis.
-  const [depart, setDepart] = useState<{ lat: number; lon: number } | null>(null);
+  // Le depart retient son NOM : sans lui, on ne pouvait pas dire d'ou l'on
+  // compte, et le champ de recherche se vidait juste apres le choix.
+  const [depart, setDepart] = useState<{ lat: number; lon: number; nom?: string } | null>(null);
   const [ou, setOu] = useState('');
   const [cherche, setCherche] = useState<'idle' | 'cours' | 'rien' | 'loin' | 'panne'>('idle');
   // Change a chaque demande de retour a la maison — la carte n'ecoute que ca.
@@ -157,7 +159,7 @@ export default function NosAdresses() {
 
   /** Se poser quelque part — par une suggestion, ou par la recherche. */
   const seposer = (s: { nom: string; lat: number; lon: number }) => {
-    setDepart({ lat: s.lat, lon: s.lon });
+    setDepart({ lat: s.lat, lon: s.lon, nom: s.nom });
     // Choisi dans la liste : la carte ira s'y poser. On NE bascule PAS en vue
     // carte pour autant — depuis la liste, ce qu'on attend d'un depart c'est un
     // reclassement des adresses, pas d'etre emmene ailleurs. Le recadrage a
@@ -446,6 +448,45 @@ export default function NosAdresses() {
         </div>
       </section>
 
+      {/*
+        D'ou compte-t-on ? La question n'avait aucune reponse a l'ecran.
+        Choisir « Scicli » vidait le champ de recherche : les distances
+        changeaient toutes, et plus rien ne disait pourquoi ni comment revenir
+        en arriere. Le seul retour possible etait de retrouver l'epingle sur la
+        carte et de la toucher — invisible depuis la liste.
+
+        Ce bandeau ne s'affiche que si un depart est pose. Il nomme le repere,
+        et porte le chemin du retour.
+      */}
+      {depart && (
+        <section className="mx-auto max-w-[110rem] px-5 pt-3 md:px-10">
+          <Reveal
+            className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-2xl px-5 py-3 text-[13.5px]"
+            style={{ background: 'rgba(230,41,111,0.07)' }}
+          >
+            <span className="inline-flex items-center gap-2" style={{ color: 'var(--cava-pink)' }}>
+              <Icon name="target" size={15} />
+            </span>
+            <span style={{ color: 'var(--cava-muted)' }}>
+              {p.departFrom}{' '}
+              <strong style={{ color: 'var(--cava-ink)', fontWeight: 700 }}>
+                {depart.nom ?? p.departPin}
+              </strong>
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                setDepart(null);
+                setClicks((c) => c + 1);
+              }}
+              className="cava-pill ml-auto inline-flex items-center gap-2 px-4 py-1.5 text-[13px]"
+            >
+              <Icon name="home" size={14} /> {p.departBack}
+            </button>
+          </Reveal>
+        </section>
+      )}
+
       {/* La recherche a echoue — on dit pourquoi, et on rappelle qu'il reste le doigt. */}
       {cherche !== 'idle' && cherche !== 'cours' && (
         <section className="mx-auto max-w-[110rem] px-5 pt-3 md:px-10">
@@ -554,8 +595,12 @@ export default function NosAdresses() {
                 >
                   <div className="relative flex items-start justify-between gap-3">
                     <span
+                      // Pastille rose pleine, comme les badges des boutons de
+                      // tri : en contour gris sur fond clair, le picto etait
+                      // si discret qu'on ne voyait plus a quelle categorie
+                      // appartenait la fiche.
                       className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
-                      style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-ink)' }}
+                      style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
                     >
                       <Icon name={CATS[pl.cat].icon} size={24} />
                     </span>

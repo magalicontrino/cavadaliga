@@ -126,6 +126,10 @@ export type Dict = {
     viewList: string;
     /** L'infobulle de l'epingle du depart : on l'arrache en la touchant. */
     departReset: string;
+    /** Le bandeau qui dit d'ou l'on compte, et comment revenir a la maison. */
+    departFrom: string;
+    departPin: string;
+    departBack: string;
     houseHere: string;
     wherePlaceholder: string;
     whereSearching: string;
@@ -430,6 +434,9 @@ const FR: Dict = {
     viewMap: 'Carte',
     viewList: 'Liste',
     departReset: 'Retirer ce départ — recompter depuis la maison',
+    departFrom: 'Distances depuis',
+    departPin: 'un point posé sur la carte',
+    departBack: 'Revenir à la maison',
     houseHere: 'La maison',
     wherePlaceholder: 'Vous êtes où ? Un village, une adresse…',
     whereSearching: 'On cherche…',
@@ -886,6 +893,9 @@ const IT: Dict = {
     viewMap: 'Mappa',
     viewList: 'Elenco',
     departReset: 'Togli questa partenza — ricalcola dalla casa',
+    departFrom: 'Distanze da',
+    departPin: 'un punto posato sulla mappa',
+    departBack: 'Tornare alla casa',
     houseHere: 'La casa',
     wherePlaceholder: 'Dove sei? Un paese, un indirizzo…',
     whereSearching: 'Cerco…',
@@ -1342,6 +1352,9 @@ const EN: Dict = {
     viewMap: 'Map',
     viewList: 'List',
     departReset: 'Remove this start — measure from the house again',
+    departFrom: 'Distances from',
+    departPin: 'a point dropped on the map',
+    departBack: 'Back to the house',
     houseHere: 'The house',
     wherePlaceholder: 'Where are you? A village, an address…',
     whereSearching: 'Searching…',

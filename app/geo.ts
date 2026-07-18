@@ -9,7 +9,10 @@
 // kilomètres, et personne ne pouvait le voir.
 // ────────────────────────────────────────────────────────────────────────
 
-export const HOUSE = { lat: 36.728, lon: 14.685 };
+// La maison, geocodee sur Via Basilicata a Cava d'Aliga. Le point precedent
+// (36.728 / 14.685) tombait a une centaine de metres au large : sur la carte,
+// l'epingle flottait dans le bleu. Ici, elle est dans sa rue.
+export const HOUSE = { lat: 36.72839, lon: 14.68608 };
 
 /** Distance à vol d'oiseau, en km. */
 export const distanceKm = (aLat: number, aLon: number, bLat: number, bLon: number) =>
