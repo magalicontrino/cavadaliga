@@ -558,9 +558,18 @@ html {
   pointer-events: none;
 }
 
-/* --- Galerie : pause du défilement au survol (pour cliquer) -------- */
-.cava-gallery:hover .cava-marquee-track {
-  animation-play-state: paused;
+/* --- Galerie : un bandeau qu'on fait glisser ----------------------- */
+/* Le défilement est natif (voir Gallery.tsx) : c'est ce qui donne le geste au
+   doigt sur téléphone, avec l'inertie du système. Les deux axes restent au
+   navigateur — « pan-x pan-y » : le doigt fait glisser le bandeau à
+   l'horizontale ET la page à la verticale, sans qu'on ait à choisir. La pause
+   au survol et le respect du mouvement réduit sont gérés en JS, là où on
+   avance le ruban.
+   « contain » empêche le geste, arrivé au bout, d'entraîner la page derrière
+   (ou le geste « retour » du navigateur). */
+.cava-gallery {
+  touch-action: pan-x pan-y;
+  overscroll-behavior-x: contain;
 }
 
 /* --- Arbre généalogique (org-chart pur CSS) ------------------------ */

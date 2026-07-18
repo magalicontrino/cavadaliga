@@ -6,10 +6,11 @@ import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Photo from '../Photo';
+import Icon from '../Icon';
 import CtaBadge from '../CtaBadge';
 import Lightbox from '../Lightbox';
 import Gallery from '../Gallery';
-import { GALLERY_STRIP, APPART_ALBUM } from '../data';
+import { GALLERY_STRIP, APPART_ALBUM, withBase } from '../data';
 import { useI18n } from '../i18n';
 
 // L'album de la maison : les vraies photos, deposees dans /public/appart/.
@@ -51,6 +52,24 @@ export default function Appartement() {
           gauche — il reste au regard (sticky) pendant qu'on parcourt ses photos
           a droite — et un filet la separe de la suivante. */}
       <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
+        {/* Le raccourci vers les infos pratiques, en tete de la visite : on
+            regarde les pieces, et la question qui suit — l'eau, les cles, le
+            depart — est a un clic, sans descendre jusqu'au CTA du bas. */}
+        <Reveal className="mb-12">
+          <a
+            href={withBase('/informations-pratiques')}
+            className="inline-flex items-center gap-3 rounded-full py-3 pl-3 pr-6 transition hover:opacity-85"
+            style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
+          >
+            <span className="flex h-9 w-9 items-center justify-center rounded-full" style={{ background: 'rgba(230,41,111,0.16)' }}>
+              <Icon name="info" size={20} />
+            </span>
+            <span className="text-[14px]" style={{ fontWeight: 600 }}>
+              {t.pages['informations-pratiques'].title}
+            </span>
+          </a>
+        </Reveal>
+
         {ROOMS.map((photos, r) => (
           <div
             key={a.rooms[r]}
