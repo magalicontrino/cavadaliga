@@ -74,12 +74,19 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
   // Le meneau part de y=5, sous la clef, et non du sommet : monte jusqu'a la
   // pointe, il refermait l'ogive en deux triangles au lieu de la laisser
   // respirer.
+  //
+  // Les deux poignees sont des traits d'un centieme a bout rond, pas des petits
+  // cercles : un cercle de ce diametre se lit comme un trou, le trait donne un
+  // point plein. C'est la meme astuce que `info` et `list` dans ce fichier, et
+  // elle ne coute rien en trace — l'epaisseur peut donc rester franche.
   window: (
     <>
       <path d="M5 20.5V11a8.07 8.07 0 0 1 7-8 8.07 8.07 0 0 1 7 8v9.5z" />
       <path d="M12 5v15.5" />
-      <path d="M7.2 10h9.6" />
-      <path d="M7 15.5h10" />
+      <path d="M7.2 8h9.6" />
+      <path d="M7 12h10" />
+      <path d="M7 16h10" />
+      <path d="M10.6 14h.01M13.4 14h.01" />
     </>
   ),
   // Volcan — l'Etna. Un cone tronque (le cratere est ouvert, pas pointu) et
