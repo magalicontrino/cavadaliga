@@ -77,6 +77,12 @@ export default function NosAdresses() {
   );
 
   /**
+   * Le repere de TOUTES les distances de la page : le depart si l'on en a pose
+   * un, la maison sinon. Declare ici, avant le tri qui s'en sert.
+   */
+  const dOu = depart ?? HOUSE;
+
+  /**
    * Le plus proche en premier. « Proche de quoi ? » — de la maison tant qu'on
    * n'a rien pose, du depart des qu'il existe. C'est le meme repere que les
    * pastilles de la carte : les deux vues doivent raconter la meme chose.
@@ -86,9 +92,16 @@ export default function NosAdresses() {
    * lui inventer une distance.
    */
   const rang = (l: (typeof LOCAL_PLACES)[number]) => {
-    if (!depart) return l.km;
     const co = COORDS[l.id];
-    return co ? distanceKm(depart.lat, depart.lon, co.lat, co.lon) : Infinity;
+    // Une seule regle, avec ou sans depart : la position fait foi. Avant, sans
+    // depart, on classait sur le km ecrit dans localData — et ce km ne
+    // s'accordait pas avec les coordonnees. La liste changeait donc d'ordre au
+    // moment ou l'on posait son depart, sans que rien n'ait bouge.
+    if (co) return distanceKm(dOu.lat, dOu.lon, co.lat, co.lon);
+    // Sans position (le frantoio Gatto, absent d'OpenStreetMap), on ne peut pas
+    // calculer : depuis la maison le km ecrit reste la meilleure indication,
+    // depuis un autre depart il ne veut plus rien dire — on renvoie a la fin.
+    return depart ? Infinity : l.km;
   };
   const shown = [...retenus].sort((a, b) => rang(a) - rang(b));
 
@@ -104,7 +117,6 @@ export default function NosAdresses() {
    * On coupe a sept APRES avoir trie : couper avant, c'est jeter le plus proche
    * parce qu'il est arrive dans la mauvaise couche.
    */
-  const dOu = depart ?? HOUSE;
   const suggestions = sansDoublons([...chercherIci(ou, 20), ...loin])
     .map((s) => ({ s, km: distanceKm(dOu.lat, dOu.lon, s.lat, s.lon) }))
     .sort((a, b) => a.km - b.km)
@@ -171,10 +183,18 @@ export default function NosAdresses() {
     // La maison est un cas a part : elle n'est pas dans LOCAL_PLACES, et sa
     // position est le repere de tout le reste.
     const co = l.id === '__maison__' ? HOUSE : COORDS[l.id];
-    if (!depart) return l.id === '__maison__' ? p.houseHere : l.km === 0 ? '' : `≈ ${l.km} km`;
-    if (!co) return ''; // sans position reelle, on n'invente pas une distance
-    const d = distanceKm(depart.lat, depart.lon, co.lat, co.lon);
-    return d < 0.4 ? '' : `≈ ${d < 10 ? d.toFixed(1) : Math.round(d)} km`;
+    if (!depart && l.id === '__maison__') return p.houseHere;
+    // Le chiffre affiche vient de la position, comme le tri : les deux disaient
+    // autrefois des choses differentes, et la meme adresse changeait de
+    // distance selon qu'on avait pose un depart ou non. Un des km ecrits etait
+    // meme impossible — la poissonnerie de Donnalucata annoncee a 3 km alors
+    // qu'elle est a 5,9 a vol d'oiseau, or aucune route ne raccourcit.
+    if (co) {
+      const d = distanceKm(dOu.lat, dOu.lon, co.lat, co.lon);
+      return d < 0.4 ? '' : `≈ ${d < 10 ? d.toFixed(1) : Math.round(d)} km`;
+    }
+    if (depart) return ''; // sans position reelle, on n'invente pas une distance
+    return l.km === 0 ? '' : `≈ ${l.km} km`;
   };
 
   /** Clic sur une fiche : on la met en évidence sur la carte. */
