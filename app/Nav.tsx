@@ -13,6 +13,40 @@ import { useI18n, LangSwitcher } from './i18n';
 export default function Nav({ current }: { current?: string }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
+  // A-t-on quitte le haut de page ? Sert a poser un fond sous la barre.
+  const [pose, setPose] = useState(false);
+  // Descend-on ? Alors la barre s'efface, et revient des qu'on remonte.
+  const [efface, setEfface] = useState(false);
+
+  /**
+   * La barre suit le doigt plutot que de rester plantee.
+   *
+   * Fixe et toujours visible, elle mangerait une bande de hauteur sur chaque
+   * ecran de telephone. Fixe et masquee en descendant, elle ne coute rien quand
+   * on lit — et revient au premier geste vers le haut, sans avoir a remonter
+   * toute la page.
+   *
+   * Le seuil de 8 px evite qu'un tremblement de doigt la fasse clignoter, et
+   * les 140 px laissent le haut de page tranquille : on ne masque pas une barre
+   * qu'on vient a peine de quitter.
+   */
+  useEffect(() => {
+    let precedent = window.scrollY;
+    const auDefilement = () => {
+      const y = window.scrollY;
+      setPose(y > 24);
+      if (y > 140 && y > precedent + 8) setEfface(true);
+      else if (y < precedent - 8) setEfface(false);
+      precedent = y;
+    };
+    auDefilement();
+    window.addEventListener('scroll', auDefilement, { passive: true });
+    return () => window.removeEventListener('scroll', auDefilement);
+  }, []);
+
+  // Menu ouvert : la barre reste. L'overlay est un enfant de <header> — masquer
+  // le parent l'emporterait avec lui, et le menu s'ouvrirait hors de l'ecran.
+  const cache = efface && !open;
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -22,10 +56,35 @@ export default function Nav({ current }: { current?: string }) {
   }, [open]);
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
+    // `pointer-events-none` sur l'entete : escamotee, la barre laisse derriere
+    // elle une bande vide qui, sans cela, avalerait les clics du contenu.
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
+      {/*
+        La translation vit ICI, sur un conteneur interieur, et surtout PAS sur
+        <header> — piege CSS coriace : un element transforme devient le
+        referentiel de ses descendants `fixed`. L'overlay du menu, enfant de
+        l'entete, cessait donc de couvrir l'ecran pour se replier sur la hauteur
+        de la barre. Mesure au banc : 88 px au lieu de 812. La translation
+        posee ici, l'overlay reste sibling et retrouve le viewport.
+      */}
+      <div
+        className={`pointer-events-auto relative transition-transform duration-300 motion-reduce:transition-none ${
+          cache ? '-translate-y-full' : 'translate-y-0'
+        }`}
+      >
+      {/* Le fond n'apparait qu'une fois qu'on a quitte le haut : sur le hero la
+          barre doit flotter sur l'image, ailleurs elle doit rester lisible
+          par-dessus le texte qui passe dessous. */}
+      <div
+        aria-hidden
+        className={`pointer-events-none absolute inset-0 border-b backdrop-blur-md transition-opacity duration-300 motion-reduce:transition-none ${
+          pose && !open ? 'opacity-100' : 'opacity-0'
+        }`}
+        style={{ background: 'rgba(246,245,243,0.82)', borderColor: 'var(--cava-line)' }}
+      />
       {/* Les deux côtés portent la même largeur (flex-1) : le sélecteur de langue
           reste centré sur la page quel que soit le nombre de boutons à droite. */}
-      <div className="mx-auto flex max-w-[110rem] items-center px-5 py-5 md:px-10">
+      <div className="relative mx-auto flex max-w-[110rem] items-center px-5 py-5 md:px-10">
         {/* Logo rond (carte de Scopa) */}
         <div className="flex flex-1 justify-start">
           <a href={withBase('/')} aria-label={SITE.name} className="block h-12 w-12 md:h-14 md:w-14 overflow-hidden rounded-full ring-1 ring-black/10 transition-transform duration-300 hover:scale-105">
@@ -115,9 +174,11 @@ export default function Nav({ current }: { current?: string }) {
         </div>
       </div>
 
-      {/* Overlay plein écran */}
+      </div>
+
+      {/* Overlay plein écran — hors du conteneur translate (voir plus haut). */}
       <div
-        className={`fixed inset-0 z-[60] flex flex-col transition-[opacity,visibility] duration-500 ${
+        className={`pointer-events-auto fixed inset-0 z-[60] flex flex-col transition-[opacity,visibility] duration-500 ${
           open ? 'visible opacity-100' : 'invisible opacity-0'
         }`}
         style={{ background: 'var(--cava-bg)', color: 'var(--cava-ink)' }}
