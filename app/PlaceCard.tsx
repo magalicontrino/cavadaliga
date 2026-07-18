@@ -22,7 +22,7 @@ export default function PlaceCard({
 }: {
   place: LocalPlace;
   lang: Lang;
-  labels: { map: string; badge: string; close: string };
+  labels: { map: string; badge: string; close: string; site: string };
   /**
    * La distance, DEJA calculee par la page — pas recalculee ici.
    *
@@ -89,6 +89,17 @@ export default function PlaceCard({
           >
             <Icon name="pin" size={14} /> {labels.map} <span aria-hidden>↗</span>
           </a>
+          {place.site && (
+            <a
+              href={place.site}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="cava-pill inline-flex items-center gap-2 px-3.5 py-1.5 text-[12.5px]"
+            >
+              <Icon name="compass" size={14} /> {labels.site} <span aria-hidden>↗</span>
+            </a>
+          )}
           {place.instagram && (
             <a
               href={place.instagram}

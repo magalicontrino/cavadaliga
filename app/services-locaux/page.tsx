@@ -517,7 +517,7 @@ export default function NosAdresses() {
           <PlaceMap
             places={shown}
             lang={lang}
-            labels={{ map: p.mapLabel, badge: p.badge, close: p.closeLabel, mapFailed: p.mapFailed, mapFailedHint: p.mapFailedHint, house: p.houseHere, departReset: p.departReset }}
+            labels={{ map: p.mapLabel, badge: p.badge, close: p.closeLabel, site: p.siteLabel, mapFailed: p.mapFailed, mapFailedHint: p.mapFailedHint, house: p.houseHere, departReset: p.departReset }}
             choisi={shown.find((l) => l.id === active) ?? null}
             onChoisir={(l) => setActive(l?.id ?? null)}
             me={me}
@@ -640,6 +640,17 @@ export default function NosAdresses() {
                     >
                       <Icon name="pin" size={15} /> {p.mapLabel} <span aria-hidden>↗</span>
                     </a>
+                    {pl.site && (
+                      <a
+                        href={pl.site}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]"
+                      >
+                        <Icon name="compass" size={15} /> {p.siteLabel} <span aria-hidden>↗</span>
+                      </a>
+                    )}
                     {pl.instagram && (
                       <a
                         href={pl.instagram}

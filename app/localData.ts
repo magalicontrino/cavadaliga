@@ -24,7 +24,11 @@ export type LocalPlace = {
   name: string; // nom propre — identique dans les 3 langues
   cat: CatKey;
   town: string;
-  url: string; // Google Maps ou site officiel
+  /** TOUJOURS un lien de carte : c'est ce que promet le bouton. Y mettre un
+   *  site officiel faisait mentir le libelle « Ouvrir dans Google Maps ». */
+  url: string;
+  /** Le site officiel, quand il existe — bouton distinct. */
+  site?: string;
   instagram?: string;
   responsible: boolean;
   km: number; // distance routière depuis la maison (0 = dans le village)
@@ -71,7 +75,8 @@ export const LOCAL_PLACES: LocalPlace[] = [
     name: 'Antica Dolceria Bonajuto',
     cat: 'resto',
     town: 'Modica',
-    url: 'https://www.bonajuto.it',
+    url: 'https://www.google.com/maps/search/?api=1&query=Antica+Dolceria+Bonajuto+Modica',
+    site: 'https://www.bonajuto.it',
     instagram: 'https://www.instagram.com/bonajuto/',
     km: 20,
     responsible: true,
@@ -101,7 +106,8 @@ export const LOCAL_PLACES: LocalPlace[] = [
     name: 'Gatto Frantoio',
     cat: 'huile',
     town: 'Chiaramonte Gulfi',
-    url: 'https://www.gattofrantoio.com',
+    url: 'https://www.google.com/maps/search/?api=1&query=Gatto+Frantoio+Chiaramonte+Gulfi',
+    site: 'https://www.gattofrantoio.com',
     km: 35,
     responsible: true,
     blurb: {
@@ -199,7 +205,8 @@ export const LOCAL_PLACES: LocalPlace[] = [
     name: 'ItalBrico',
     cat: 'bricolage',
     town: 'Modica',
-    url: 'https://www.cicerosrl.it/',
+    url: 'https://www.google.com/maps/search/?api=1&query=ItalBrico+Modica',
+    site: 'https://www.cicerosrl.it/',
     km: 14,
     responsible: false,
     blurb: {
