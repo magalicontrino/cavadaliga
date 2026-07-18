@@ -6,7 +6,7 @@ import type { IconName } from './Icon';
 // Textes visibles dans les 3 langues (fr · it · en).
 // ────────────────────────────────────────────────────────────────────────
 export type Lang = 'fr' | 'it' | 'en';
-export type CatKey = 'huile' | 'agrumes' | 'plantes' | 'marche' | 'resto' | 'supermarche' | 'plage' | 'bricolage' | 'boucherie';
+export type CatKey = 'huile' | 'agrumes' | 'plantes' | 'marche' | 'resto' | 'supermarche' | 'plage' | 'bricolage' | 'boucherie' | 'randonnee' | 'avoir';
 
 export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<Lang, string> }> = {
   huile: { icon: 'droplet', bg: 'linear-gradient(135deg,#b89a4a,#856a2c)', label: { fr: 'Huile d’olive', it: 'Olio d’oliva', en: 'Olive oil' } },
@@ -17,6 +17,8 @@ export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<La
   supermarche: { icon: 'cart', bg: 'linear-gradient(135deg,#d98b3f,#a86526)', label: { fr: 'Supermarchés', it: 'Supermercati', en: 'Supermarkets' } },
   boucherie: { icon: 'cleaver', bg: 'linear-gradient(135deg,#b5565e,#8c3a41)', label: { fr: 'Boucherie', it: 'Macelleria', en: 'Butcher' } },
   bricolage: { icon: 'tools', bg: 'linear-gradient(135deg,#7b8794,#565f6b)', label: { fr: 'Bricolage', it: 'Ferramenta & fai da te', en: 'DIY & hardware' } },
+  randonnee: { icon: 'walk', bg: 'linear-gradient(135deg,#8a9a6b,#5f6b47)', label: { fr: 'Randonnée', it: 'Escursioni', en: 'Hiking' } },
+  avoir: { icon: 'landmark', bg: 'linear-gradient(135deg,#7f88a8,#565f7d)', label: { fr: 'À voir', it: 'Da vedere', en: 'Sights' } },
   plage: { icon: 'sun', bg: 'linear-gradient(135deg,#5aa0a0,#3f7d7d)', label: { fr: 'Plage & loisirs', it: 'Spiaggia & tempo libero', en: 'Beach & leisure' } },
 };
 
@@ -60,6 +62,8 @@ export const SEARCH_WORDS: WordHint[] = [
   { words: ['vin', 'vino', 'wine', 'apero', 'aperitivo', 'aperitif', 'drink', 'bar', 'cocktail', 'biere', 'birra', 'beer', 'verre', 'soir', 'sera'], ids: ['maracaibo', 'blazer'] },
   { words: ['boucherie', 'macelleria', 'butcher', 'viande', 'carne', 'meat', 'boucher', 'salumi', 'charcuterie'], cat: 'boucherie' },
   { words: ['bricolage', 'brico', 'ferramenta', 'quincaillerie', 'outil', 'outils', 'utensili', 'attrezzi', 'tools', 'hardware', 'diy', 'fai da te', 'scie', 'sega', 'seghetto', 'saw', 'perceuse', 'trapano', 'drill', 'visserie', 'vis', 'viti', 'screws', 'clou', 'chiodi', 'nails', 'peinture', 'vernice', 'paint', 'cheville', 'ampoule', 'lampadina', 'bulb', 'cle', 'chiave'], cat: 'bricolage' },
+  { words: ['randonnee', 'randonnée', 'rando', 'marcher', 'sentier', 'sentiero', 'trail', 'hike', 'hiking', 'balade', 'passeggiata', 'trekking', 'canyon', 'gorge', 'crique', 'cala', 'nature'], cat: 'randonnee' },
+  { words: ['voir', 'vedere', 'see', 'monument', 'statue', 'statua', 'panorama', 'belvedere', 'belvédère', 'point de vue', 'viewpoint', 'visite', 'visita', 'curiosite'], cat: 'avoir' },
   { words: ['plage', 'spiaggia', 'beach', 'mer', 'mare', 'sea', 'baignade', 'nager', 'swim', 'sable', 'sabbia', 'sand', 'lido', 'transat'], cat: 'plage' },
   { words: ['courses', 'spesa', 'groceries', 'shopping', 'supermarche', 'supermarket', 'supermercato', 'caddie', 'carrello', 'lessive', 'papier'], cat: 'supermarche' },
   { words: ['marche', 'mercato', 'market', 'legume', 'verdura', 'vegetables', 'fruit', 'frutta', 'fromage', 'formaggio', 'cheese', 'producteur', 'produttore', 'farmer', 'local', 'bio'], cat: 'marche' },
@@ -117,7 +121,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
   {
     id: 'cristo-redentore',
     name: 'Statua del Cristo Redentore',
-    cat: 'plage',
+    cat: 'avoir',
     town: 'Portopalo di Capo Passero',
     url: 'https://maps.app.goo.gl/eWvX9cKM9piZZYmJ9',
     km: 55,
@@ -131,7 +135,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
   {
     id: 'cavagrande',
     name: 'Cavagrande del Cassibile',
-    cat: 'plage',
+    cat: 'randonnee',
     town: 'Avola',
     url: 'https://maps.app.goo.gl/iR4MYCPs6Xo9BANv9',
     km: 70,
@@ -145,7 +149,7 @@ export const LOCAL_PLACES: LocalPlace[] = [
   {
     id: 'covo-contrabbandieri',
     name: 'Covo dei contrabbandieri',
-    cat: 'plage',
+    cat: 'randonnee',
     town: 'Cava d’Aliga',
     url: 'https://maps.app.goo.gl/vzvgZYVvMbR7JJPF7',
     km: 3,
