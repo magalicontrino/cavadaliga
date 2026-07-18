@@ -252,7 +252,10 @@ export default function FamilyTree() {
           fam: {
           name: 'Angelo Contrino & Conchetta Sberna',
           subtitle: s.treeWife2,
-          children: [{ name: 'Josephine' }, { name: 'Sarro' }, { name: 'Stefano' }],
+          // « Sarro » etait une faute : un seul r. Et « Saro » est le diminutif —
+          // le prenom est Rosario. Meme convention que Rosalba dite Rose ou
+          // Giuseppina dite Jo : le prenom en titre, le surnom dessous.
+          children: [{ name: 'Josephine' }, { name: 'Rosario', subtitle: 'Saro' }, { name: 'Stefano' }],
         } },
       ],
     },
