@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { withBase } from './data';
 
 /**
@@ -26,6 +26,24 @@ export default function Lightbox({
     },
     [index, images.length, onIndex],
   );
+
+  // Glissé tactile (mobile) : on suit le doigt et, au relâché, on change de
+  // photo si le mouvement est franchement horizontal. Sans ça, sur téléphone il
+  // n'y avait que les flèches ‹ › — le geste naturel (glisser) ne faisait rien.
+  const touch = useRef({ x: 0, y: 0, active: false });
+  const onTouchStart = (e: React.TouchEvent) => {
+    const t = e.touches[0];
+    touch.current = { x: t.clientX, y: t.clientY, active: true };
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (!touch.current.active) return;
+    touch.current.active = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touch.current.x;
+    const dy = t.clientY - touch.current.y;
+    // Assez horizontal, et assez ample pour ne pas confondre avec un tapotement.
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+  };
 
   useEffect(() => {
     if (index === null) return;
@@ -78,7 +96,9 @@ export default function Lightbox({
         src={withBase(images[index])}
         alt=""
         onClick={(e) => e.stopPropagation()}
-        className="max-h-[86vh] max-w-[92vw] rounded-lg object-contain shadow-2xl ring-1 ring-black/10"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        className="max-h-[86vh] max-w-[92vw] touch-pan-y rounded-lg object-contain shadow-2xl ring-1 ring-black/10"
       />
       <button
         type="button"
