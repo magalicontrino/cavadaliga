@@ -99,7 +99,7 @@ export default function LaRegion() {
 
       {/* Le tri : la page est longue, on choisit ce qu'on cherche */}
       <section className="mx-auto max-w-[110rem] px-5 md:px-10">
-        <Reveal className="cava-swipe -mx-5 flex gap-2.5 overflow-x-auto px-5 pb-1 md:-mx-10 md:px-10">
+        <Reveal className="cava-swipe -mx-5 -my-4 flex gap-2.5 overflow-x-auto px-5 py-4 md:-mx-10 md:px-10">
           {filters.map((x) => {
             const on = filter === x.key;
             return (

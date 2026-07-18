@@ -821,6 +821,14 @@ html {
   .cava-herocard { transition: none; }
 }
 
+/* La rangee de boutons de tri respire.
+   `overflow-x: auto` fait rogner le navigateur sur les DEUX axes — c'est la
+   regle CSS : un overflow-x non-visible rend l'overflow-y non-visible a son
+   tour. Or la pastille survolee se souleve de 2 px et porte une ombre : elle
+   se retrouvait coupee net en haut. On ajoute donc du rembourrage vertical
+   (py-4) annule par une marge negative (-my-4) — la place existe, la mise en
+   page ne bouge pas d'un pixel. */
+
 /* Carrousel de fiches (téléphone) : la barre de défilement n'apprend rien,
    le geste se découvre en glissant. Le défilement reste possible au clavier
    et à la molette — on ne masque que la barre. */

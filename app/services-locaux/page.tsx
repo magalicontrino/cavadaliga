@@ -394,7 +394,7 @@ export default function NosAdresses() {
         )}
 
         <div>
-        <Reveal className="cava-swipe -mx-5 flex gap-2.5 overflow-x-auto px-5 pb-1 md:-mx-10 md:px-10">
+        <Reveal className="cava-swipe -mx-5 -my-4 flex gap-2.5 overflow-x-auto px-5 py-4 md:-mx-10 md:px-10">
           <FilterChip
             label={p.filterAll}
             icon="map"
