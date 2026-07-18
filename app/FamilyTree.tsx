@@ -26,43 +26,48 @@ import { useI18n } from './i18n';
 // d'enfant, sous Salvatore & Régine, reste « Mag ». N'étendez pas l'exception.
 // ─────────────────────────────────────────────────────────────────────────
 type Person = { name: string; subtitle?: string; children?: Person[] };
-type Family = { fam: Person; gen: number };
+type Family = { fam: Person };
 type Side = { label: string; lignee: Lignee; families: Family[] };
 
 /**
  * La couleur dit D'OU L'ON VIENT, en partant du pere.
  *
- * Deux lignees se rencontrent dans cet arbre : les Contrino, de Sicile, du cote
- * de Salvatore ; les Lux et les Thurot, de France, du cote de Regine. Chacune a
- * sa teinte — terre cuite pour l'une, bleu ardoise pour l'autre — et l'on voit
- * d'un coup d'oeil de quel bord vient quelqu'un.
+ * Deux lignees se rencontrent ici : les Contrino, de Sicile, du cote de
+ * Salvatore ; les Lux et les Thurot, de France, du cote de Regine. Chacune a sa
+ * couleur — le jaune du soleil pour la Sicile, le turquoise de la mer pour
+ * l'autre bord. La ou elles se rejoignent, sur la carte de Salvatore & Regine,
+ * c'est le rose du site : la famille qui nait d'eux, et que leurs enfants
+ * portent a leur tour.
  *
- * La ou elles se rejoignent, sur la carte de Salvatore & Regine, la couleur
- * change : c'est le rose du site, celui de la famille qui nait de ces deux-la.
- * Leurs enfants et petits-enfants le portent a leur tour.
+ * LES COUPLES SONT PLEINS, leurs enfants en contour. La hierarchie se voit donc
+ * sans lire : une pastille de couleur ouvre une branche, les cartes fines sont
+ * ce qu'elle contient.
  *
- * Dans chaque lignee, la teinte s'eclaircit a mesure qu'on descend les
- * generations : le plus fonce est le plus ancien.
+ * Chaque teinte a ete choisie sur son CONTRASTE, pas seulement sur son eclat.
+ * Le rose du site (#e6296f) ne porte pas de texte blanc lisible — 4,28 quand il
+ * en faut 4,5 : le plein descend donc d'un cran a #d92263, qu'on ne distingue
+ * pas a l'oeil du rose de la marque mais qui passe a 4,82. Le jaune et le
+ * turquoise, eux, sont trop clairs pour du blanc : ils portent l'encre du site.
+ * Et le trait des cartes fines est toujours plus fonce que le plein, sinon il
+ * palit sur le fond creme.
  */
 type Lignee = 'pere' | 'mere' | 'nous';
-const LIGNEES: Record<Lignee, string[]> = {
-  pere: ['#8c3b3b', '#a85a5a', '#bd7f7f', '#cfa1a1'],
-  mere: ['#3f5d7a', '#5b7c9c', '#84a0b8', '#a8bccd'],
-  nous: ['#b31456', '#d0206a', '#e35c92', '#ee92b5'],
+const LIGNEES: Record<Lignee, { plein: string; surPlein: string; trait: string; texte: string }> = {
+  pere: { plein: '#ffc61a', surPlein: '#2e2d2d', trait: '#e0a800', texte: '#8a6200' },
+  mere: { plein: '#2ec4c4', surPlein: '#2e2d2d', trait: '#2ec4c4', texte: '#0b6e73' },
+  nous: { plein: '#d92263', surPlein: '#ffffff', trait: '#d92263', texte: '#b81a56' },
 };
-const teinte = (l: Lignee, gen: number) => LIGNEES[l][Math.min(gen, LIGNEES[l].length - 1)];
-/** Le nom reste lisible : il ne prend jamais les deux teintes les plus claires. */
-const encre = (l: Lignee, gen: number) => LIGNEES[l][Math.min(gen, 1)];
 
-function Card({ p, gen, lignee }: { p: Person; gen: number; lignee: Lignee }) {
+function Card({ p, lignee, plein = false }: { p: Person; lignee: Lignee; plein?: boolean }) {
   const placeholder = p.name.startsWith('…');
+  const c = LIGNEES[lignee];
   return (
     <span
       className={`inline-flex flex-col items-center gap-0.5 rounded-xl px-4 py-2 ${placeholder ? 'border-dashed' : ''}`}
       style={{
-        border: `1.5px solid ${placeholder ? 'var(--cava-line)' : teinte(lignee, gen)}`,
-        background: 'var(--cava-bg)',
-        color: placeholder ? 'var(--cava-muted)' : encre(lignee, gen),
+        border: `1.5px solid ${placeholder ? 'var(--cava-line)' : plein ? c.plein : c.trait}`,
+        background: placeholder ? 'var(--cava-bg)' : plein ? c.plein : 'var(--cava-bg)',
+        color: placeholder ? 'var(--cava-muted)' : plein ? c.surPlein : c.texte,
       }}
     >
       <span className="whitespace-nowrap text-[14px]" style={{ fontWeight: placeholder ? 400 : 600 }}>
@@ -77,14 +82,14 @@ function Card({ p, gen, lignee }: { p: Person; gen: number; lignee: Lignee }) {
   );
 }
 
-function Node({ p, gen, lignee }: { p: Person; gen: number; lignee: Lignee }) {
+function Node({ p, lignee, racine = false }: { p: Person; lignee: Lignee; racine?: boolean }) {
   return (
     <li>
-      <Card p={p} gen={gen} lignee={lignee} />
+      <Card p={p} lignee={lignee} plein={racine} />
       {p.children && p.children.length > 0 && (
         <ul>
           {p.children.map((c) => (
-            <Node key={c.name} p={c} gen={gen + 1} lignee={lignee} />
+            <Node key={c.name} p={c} lignee={lignee} />
           ))}
         </ul>
       )}
@@ -105,71 +110,81 @@ function Node({ p, gen, lignee }: { p: Person; gen: number; lignee: Lignee }) {
  */
 function Famille({
   fam,
-  gen,
   lignee,
   ouvert,
   onBascule,
   labels,
 }: {
   fam: Person;
-  gen: number;
   lignee: Lignee;
   ouvert: boolean;
   onBascule: () => void;
   labels: { open: string; close: string; kid: string; kids: string };
 }) {
   const enfants = fam.children?.length ?? 0;
+  const c = LIGNEES[lignee];
+
+  // Rien a deplier : une carte simple, sans bouton qui n'ouvrirait sur rien.
   if (!enfants) {
     return (
       <div className="cava-tree overflow-x-auto pb-4">
         <ul>
-          <Node p={fam} gen={gen} lignee={lignee} />
+          <Node p={fam} lignee={lignee} racine />
         </ul>
       </div>
     );
   }
-  return (
-    <div>
-      {/* Le texte revient a la ligne, et le bouton ne depasse jamais son
-          conteneur : sans cela, « Pierre Lux & Angelina Viseux » et ses deux
-          paires de dates faisaient 444 px de large sur un ecran de 409. */}
-      <div className="flex justify-center px-1">
-        <button
-          type="button"
-          onClick={onBascule}
-          aria-expanded={ouvert}
-          className="cava-treetoggle inline-flex max-w-full items-center gap-3 rounded-xl px-4 py-2 text-left transition"
-          style={{ border: `1.5px solid ${teinte(lignee, gen)}`, background: 'var(--cava-bg)', color: encre(lignee, gen) }}
-        >
-          <span className="flex min-w-0 flex-col gap-0.5">
-            <span className="text-[14px] leading-[1.25]" style={{ fontWeight: 600 }}>
-              {fam.name}
-            </span>
-            <span className="text-[11px] uppercase leading-[1.35] tracking-[0.1em]" style={{ color: 'var(--cava-muted)' }}>
-              {fam.subtitle ? `${fam.subtitle} · ` : ''}
-              {enfants} {enfants > 1 ? labels.kids : labels.kid}
-            </span>
-          </span>
-          <span
-            aria-hidden
-            className="shrink-0 text-[13px] transition-transform duration-300"
-            style={{ transform: ouvert ? 'rotate(180deg)' : 'none' }}
-          >
-            ▾
-          </span>
-          <span className="sr-only">{ouvert ? labels.close : labels.open}</span>
-        </button>
-      </div>
 
-      {ouvert && (
-        <div className="cava-tree mt-4 overflow-x-auto pb-4">
-          <ul>
-            {/* Deplie, on redessine l'arbre complet : le couple redevient une
-                carte ordinaire, avec ses branches sous lui. */}
-            <Node p={fam} gen={gen} lignee={lignee} />
-          </ul>
-        </div>
-      )}
+  return (
+    <div className="cava-tree overflow-x-auto pb-4">
+      <ul>
+        <li>
+          {/*
+            Le bouton EST la carte du couple — il ne la precede pas.
+            Une premiere version posait le bouton au-dessus de l'arbre : deplie,
+            le nom du couple s'ecrivait deux fois de suite, une fois sur le
+            bouton et une fois sur la racine. Ici la racine se replie et se
+            deplie elle-meme. Le texte revient a la ligne et la carte ne depasse
+            jamais son conteneur : « Pierre Lux & Angelina Viseux » et ses deux
+            paires de dates faisaient 444 px sur un ecran de 409.
+          */}
+          <button
+            type="button"
+            onClick={onBascule}
+            aria-expanded={ouvert}
+            className="cava-treetoggle inline-flex max-w-full items-center gap-3 rounded-xl px-4 py-2 text-left align-middle transition"
+            style={{ border: `1.5px solid ${c.plein}`, background: c.plein, color: c.surPlein }}
+          >
+            <span className="flex min-w-0 flex-col gap-0.5">
+              <span className="text-[14px] leading-[1.25]" style={{ fontWeight: 600 }}>
+                {fam.name}
+              </span>
+              {/* Sur un aplat de couleur, le gris du site ne se lit plus : on
+                  garde l'encre du plein, juste un peu retenue. */}
+              <span className="text-[11px] uppercase leading-[1.35] tracking-[0.1em] opacity-75">
+                {fam.subtitle ? `${fam.subtitle} · ` : ''}
+                {enfants} {enfants > 1 ? labels.kids : labels.kid}
+              </span>
+            </span>
+            <span
+              aria-hidden
+              className="shrink-0 text-[13px] transition-transform duration-300"
+              style={{ transform: ouvert ? 'rotate(180deg)' : 'none' }}
+            >
+              ▾
+            </span>
+            <span className="sr-only">{ouvert ? labels.close : labels.open}</span>
+          </button>
+
+          {ouvert && (
+            <ul>
+              {fam.children!.map((enfant) => (
+                <Node key={enfant.name} p={enfant} lignee={lignee} />
+              ))}
+            </ul>
+          )}
+        </li>
+      </ul>
     </div>
   );
 }
@@ -193,7 +208,6 @@ export default function FamilyTree() {
       lignee: 'pere',
       families: [
         {
-          gen: 0,
           fam: {
           name: 'Salvatore Contrino & Giuseppina Marcino',
           subtitle: s.treeGreat,
@@ -210,7 +224,6 @@ export default function FamilyTree() {
           ],
         } },
         {
-          gen: 1,
           fam: {
           // Helene apparait deja comme fille de Salvatore & Giuseppina ci-dessus ;
           // ici c'est sa propre branche. Son mari reste inconnu (dans les
@@ -225,14 +238,12 @@ export default function FamilyTree() {
           ],
         } },
         {
-          gen: 1,
           fam: {
           name: 'Angelo Contrino & Conchetta Canolo',
           subtitle: `${s.treeWife1} · ~1900 – ~1947`,
           children: [{ name: 'Salvatore', subtitle: '1947' }],
         } },
         {
-          gen: 1,
           fam: {
           name: 'Angelo Contrino & Conchetta Sberna',
           subtitle: s.treeWife2,
@@ -245,21 +256,18 @@ export default function FamilyTree() {
       lignee: 'mere',
       families: [
         {
-          gen: 0,
           fam: {
           name: 'Pierre Lux & Angelina Viseux',
           subtitle: `${s.treeGreat} · 1881–1975 · 1882–1959`,
           children: [{ name: 'Pierre', subtitle: '1920' }],
         } },
         {
-          gen: 0,
           fam: {
           name: 'Louis Thurot & Mélanie Souveton',
           subtitle: `${s.treeGreat} · 1893`,
           children: [{ name: 'Juliette Emilienne', subtitle: '1923' }],
         } },
         {
-          gen: 1,
           fam: {
           name: 'Pierre Lux & Juliette Emilienne Thurot',
           subtitle: s.treeMarriage1,
@@ -268,7 +276,6 @@ export default function FamilyTree() {
         // Le second mariage de Juliette. « Tonton Charles » est le nom que la
         // famille lui donne — c'est le seul qu'on ait, et on n'en invente pas.
         {
-          gen: 1,
           fam: {
           name: 'Juliette Emilienne Thurot & Charles',
           subtitle: s.treeMarriage2,
@@ -315,7 +322,7 @@ export default function FamilyTree() {
             ['nous', s.treeSideUs],
           ] as [Lignee, string][]).map(([l, texte]) => (
             <span key={l} className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full" style={{ background: teinte(l, 0) }} />
+              <span className="h-3 w-3 rounded-full" style={{ background: LIGNEES[l].plein }} />
               {texte}
             </span>
           ))}
@@ -338,13 +345,12 @@ export default function FamilyTree() {
               {side.label}
             </p>
             <div className="flex flex-col gap-8">
-              {side.families.map(({ fam, gen }, i) => {
+              {side.families.map(({ fam }, i) => {
                 const cle = `${side.label}-${fam.name}-${i}`;
                 return (
                   <Famille
                     key={cle}
                     fam={fam}
-                    gen={gen}
                     lignee={side.lignee}
                     ouvert={!!ouverts[cle]}
                     onBascule={() => bascule(cle)}
@@ -367,7 +373,6 @@ export default function FamilyTree() {
             qui nait d'eux. */}
         <Famille
           fam={PARENTS}
-          gen={0}
           lignee="nous"
           ouvert={!!ouverts.parents}
           onBascule={() => bascule('parents')}
@@ -385,7 +390,6 @@ export default function FamilyTree() {
             <Famille
               key={f.name}
               fam={f}
-              gen={1}
               lignee="nous"
               ouvert={!!ouverts[f.name]}
               onBascule={() => bascule(f.name)}
