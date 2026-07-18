@@ -71,18 +71,33 @@ export default function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // Le seuil de 15 % attend qu'un sixième de l'élément soit à l'écran. Pour un
+    // bloc plus haut que la fenêtre — l'arbre généalogique en entier — ce
+    // sixième n'y tient jamais : le ratio d'intersection plafonne bien en dessous
+    // de 0,15, le seuil n'est jamais franchi, et le bloc reste à opacité 0.
+    // C'est le clic « arbre ↓ » qui tombait sur un écran vide.
+    //
+    // Deux mesures pour le corriger :
+    //   • une échelle de seuils rapprochés dès le bas, pour qu'un rappel soit
+    //     bel et bien déclenché même quand le ratio ne dépasse jamais 0,09 ;
+    //   • en plus des 15 %, on révèle dès que la partie visible du bloc remplit
+    //     la moitié de la fenêtre — ce qui, pour un grand bloc, arrive bien
+    //     avant les 15 %.
+    const thresholds = [0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.15, 0.3, 0.6, 1];
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          if (e.isIntersecting) {
+          const rootH = e.rootBounds?.height ?? window.innerHeight;
+          const enough = e.intersectionRatio >= 0.15 || e.intersectionRect.height >= rootH * 0.5;
+          if (e.isIntersecting && enough) {
             setInView(true);
             if (once) io.unobserve(e.target);
-          } else if (!once) {
+          } else if (!once && !e.isIntersecting) {
             setInView(false);
           }
         }
       },
-      { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+      { threshold: thresholds, rootMargin: '0px 0px -8% 0px' },
     );
     io.observe(el);
     return () => io.disconnect();
