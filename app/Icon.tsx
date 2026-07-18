@@ -8,7 +8,7 @@
 export type IconName =
   | 'key'
   | 'volcano'
-  | 'shutters'
+  | 'door'
   | 'home'
   | 'info'
   | 'pin'
@@ -54,21 +54,22 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
       <path d="M8 14h2.5" />
     </>
   ),
-  // Persiennes — la casa. Une maison disait « page d'accueil » avant de dire
-  // « la maison de famille » : c'est le glyphe universel du bouton Accueil. Les
-  // volets en bois, eux, ne se confondent avec rien, et ils existent vraiment —
-  // on les voit sur les photos de la grande chambre. Deux battants, deux lames
-  // chacun ; trois se brouillaient a 24 px.
-  // L'appui de fenetre a saute : mesure faite, il portait a lui seul 18 des 95
-  // unites de trace, et le picto pesait 153 d'encre contre 129 au calendrier et
-  // 127 au vinyle — il aurait noirci sa place dans la rangee. Sans lui, et le
-  // trait a peine epaissi, on retombe sur le poids des autres.
-  shutters: (
+  // Porte a arc brise — la casa. Une maison disait « page d'accueil » : c'est le
+  // glyphe universel du bouton Accueil, il parlait de navigation avant de
+  // parler de la maison de famille. Une porte, elle, dit qu'on entre quelque
+  // part.
+  //
+  // L'arc est BRISE, pas plein cintre : c'est la signature de l'arabo-normand
+  // sicilien, deux arcs de cercle qui se rejoignent en pointe. Le meme geste
+  // que les portails de Palerme ou de Scicli — et la page raconte justement la
+  // Sicile arabe. Deux vantaux, un heurtoir, un seuil.
+  door: (
     <>
-      <rect x="4" y="4.5" width="16" height="15" rx="1.5" />
-      <path d="M12 4.5v15" />
-      <path d="M6.8 9h3M6.8 14h3" />
-      <path d="M14.2 9h3M14.2 14h3" />
+      <path d="M4.5 20.5V11a7.5 7.5 0 0115 0v9.5" />
+      <path d="M12 3.6V20.5" />
+      <path d="M3 20.5h18" />
+      <circle cx="9.6" cy="14" r="0.85" />
+      <circle cx="14.4" cy="14" r="0.85" />
     </>
   ),
   // Volcan — l'Etna. Un cone tronque (le cratere est ouvert, pas pointu) et

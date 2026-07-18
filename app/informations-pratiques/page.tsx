@@ -168,7 +168,7 @@ export default function InformationsPratiques() {
       <section className="mx-auto max-w-[110rem] px-5 pb-8 pt-16 md:px-10">
         <Reveal className="mb-8 flex flex-col gap-2">
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
-            <Icon name="shutters" size={16} strokeWidth={1.55} /> {c.eyebrow}
+            <Icon name="door" size={16} strokeWidth={1.55} /> {c.eyebrow}
           </span>
           <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
             {c.title}

@@ -4,6 +4,7 @@ import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
+import Occupancy from '../Occupancy';
 import Icon from '../Icon';
 import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
@@ -91,6 +92,10 @@ export default function Calendrier() {
       <Nav current="/evenements" />
 
       <PageHeader title={c.title} intro={c.intro} />
+
+      {/* Qui est a la maison, d'abord : c'est la question qu'on se pose le plus
+          souvent en famille. Les fetes du village viennent apres. */}
+      <Occupancy />
 
       <section className="mx-auto max-w-[110rem] px-5 pb-24 md:px-10">
         {/* Le programme « Sotto il cielo di Bruca ». Sans titre de section : la

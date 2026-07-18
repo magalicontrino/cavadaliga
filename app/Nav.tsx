@@ -55,7 +55,7 @@ export default function Nav({ current }: { current?: string }) {
             className="cava-vinyllink flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
           >
-            <Icon name="shutters" size={24} strokeWidth={1.55} />
+            <Icon name="door" size={24} strokeWidth={1.55} />
           </a>
 
           {/* Le calendrier, a gauche du vinyle. Il etait deja dans le menu, mais
