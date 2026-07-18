@@ -34,7 +34,7 @@ const PLACES = [
 // « Sons & images » n'est plus une page : ses sept sections vivent ici. La
 // region, c'est aussi ce qu'on en a chante, filme, peint et photographie — une
 // page de moins dans le menu, et le meme geste pour tout parcourir.
-type Section = 'lieux' | 'coutumes' | 'specialites' | 'alcools' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
+type Section = 'lieux' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
 type Key = 'tout' | 'sons' | Section;
 
 // « Sons & images » n'est pas une section : c'est un GROUPE. Un bouton pour les
@@ -84,6 +84,7 @@ export default function LaRegion() {
     { key: 'coutumes', label: rf.customs, icon: 'cone' },
     { key: 'specialites', label: rf.specialties, icon: 'fork' },
     { key: 'alcools', label: rf.drinks, icon: 'glass' },
+    { key: 'cafe', label: rf.coffee, icon: 'droplet' },
     { key: 'sons', label: rf.sounds, icon: 'vinyl' },
     { key: 'playlist', label: cf.playlist, icon: 'spotify' },
     { key: 'ecrans', label: cf.screens, icon: 'film' },
@@ -114,6 +115,17 @@ export default function LaRegion() {
     wiki('https://fr.wikipedia.org/wiki/Marsala_(vin)', 'https://it.wikipedia.org/wiki/Marsala_(vino)', 'https://en.wikipedia.org/wiki/Marsala_wine'),
     wiki('https://fr.wikipedia.org/wiki/Amaro_(liqueur)', 'https://it.wikipedia.org/wiki/Amaro_(liquore)', 'https://en.wikipedia.org/wiki/Amaro_(liqueur)'),
     wiki('https://fr.wikipedia.org/wiki/Limoncello', 'https://it.wikipedia.org/wiki/Limoncello', 'https://en.wikipedia.org/wiki/Limoncello'),
+  ];
+  // Le café : lien seulement là où un article existe vraiment. Les cartes
+  // « rituel » (café glacé, lexique du comptoir) n'en ont pas — chaîne vide,
+  // le lien ne s'affiche pas.
+  const COFFEE_LINKS = [
+    wiki('https://fr.wikipedia.org/wiki/Espresso', 'https://it.wikipedia.org/wiki/Caffè_espresso', 'https://en.wikipedia.org/wiki/Espresso'),
+    '',
+    wiki('https://it.wikipedia.org/wiki/Granita', 'https://it.wikipedia.org/wiki/Granita', 'https://en.wikipedia.org/wiki/Granita'),
+    '',
+    wiki('https://it.wikipedia.org/wiki/Caffè_corretto', 'https://it.wikipedia.org/wiki/Caffè_corretto', 'https://en.wikipedia.org/wiki/Caffè_corretto'),
+    wiki('https://fr.wikipedia.org/wiki/Cafetière_italienne', 'https://it.wikipedia.org/wiki/Moka_(caffettiera)', 'https://en.wikipedia.org/wiki/Moka_pot'),
   ];
   const wikiLabel = lang === 'fr' ? 'Wikipédia' : 'Wikipedia';
 
@@ -476,6 +488,55 @@ export default function LaRegion() {
               {DRINK_LINKS[i] && (
                 <a
                   href={DRINK_LINKS[i]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cava-navlink mt-auto inline-flex items-center gap-1.5 pt-1 text-[13px]"
+                  style={{ color: 'var(--cava-pink)', fontWeight: 500 }}
+                >
+                  {wikiLabel} ↗
+                </a>
+              )}
+            </Reveal>
+          ))}
+        </div>
+      </section>
+      )}
+
+      {/* Le café — le rituel qui rythme la journée. Même grille de cartes ;
+          lien Wikipédia sur les cartes « objet » (espresso, granita, corretto,
+          moka), pas sur les cartes « rituel ». */}
+      {show('cafe') && (
+      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="droplet" size={16} /> {t.coffeePage.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {t.coffeePage.title}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {t.coffeePage.intro}
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-3" style={{ background: 'var(--cava-line)' }}>
+          {t.coffeePage.facts.map((f, i) => (
+            <Reveal key={f.title} delay={(i % 3) * 80} className="flex flex-col gap-4 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
+              <span
+                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+              >
+                <Icon name={f.icon as IconName} size={28} />
+              </span>
+              <h3 className="text-[clamp(1.1rem,2.2vw,1.35rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+                {f.title}
+              </h3>
+              <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                {f.text}
+              </p>
+              {COFFEE_LINKS[i] && (
+                <a
+                  href={COFFEE_LINKS[i]}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="cava-navlink mt-auto inline-flex items-center gap-1.5 pt-1 text-[13px]"
