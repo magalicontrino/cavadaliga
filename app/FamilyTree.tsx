@@ -267,7 +267,7 @@ export default function FamilyTree() {
           fam: {
           name: 'Pierre Lux & Angelina Viseux',
           subtitle: `${s.treeGreat} · 1881–1975 · 1882–1959`,
-          children: [{ name: 'Pierre', subtitle: '1920' }],
+          children: [{ name: 'Pierre', subtitle: '1920–2007' }],
         } },
         {
           fam: {
@@ -474,8 +474,8 @@ const QUESTIONS: { fr: string; it: string; en: string }[] = [
     en: 'The surname of Sophie, Gabi Contrino’s wife.',
   },
   {
-    fr: 'Les dates de Louis Thurot, de Mélanie Souveton, de Pierre Lux et de Juliette Thurot.',
-    it: 'Le date di Louis Thurot, Mélanie Souveton, Pierre Lux e Juliette Thurot.',
-    en: 'The dates of Louis Thurot, Mélanie Souveton, Pierre Lux and Juliette Thurot.',
+    fr: 'Les dates de Louis Thurot, de Mélanie Souveton et de Juliette Thurot.',
+    it: 'Le date di Louis Thurot, Mélanie Souveton e Juliette Thurot.',
+    en: 'The dates of Louis Thurot, Mélanie Souveton and Juliette Thurot.',
   },
 ];
