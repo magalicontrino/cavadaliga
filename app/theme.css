@@ -18,7 +18,13 @@ html {
 
 .cava-root {
   /* Palette relevée sur cavadaliga.webflow.io */
-  --cava-bg: #f6f5f3;
+  /* Le fond : un rose tres pale, et non un creme.
+     La nuance n'est pas qu'un gout — elle tient a l'ordre des canaux. Un creme
+     descend sur le BLEU (r > g > b) et tire vers le jaune ; un rose descend sur
+     le VERT (r > b > g). L'ancien #f6f5f3 etait donc jaune, pas rose, ce qui
+     explique qu'il ait paru terne. Ici 252/247/249 : le vert est le plus bas,
+     et l'ensemble est plus clair qu'avant (249 de moyenne contre 245). */
+  --cava-bg: #fcf7f9;
   --cava-ink: #2e2d2d;
   --cava-pink: #e6296f;
   /* Le rose soutenu : la pastille choisie sur la carte. Elle etait noire, et
