@@ -8,7 +8,7 @@
 export type IconName =
   | 'key'
   | 'volcano'
-  | 'door'
+  | 'window'
   | 'home'
   | 'info'
   | 'pin'
@@ -54,29 +54,25 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
       <path d="M8 14h2.5" />
     </>
   ),
-  // Porte a arc OUTREPASSE — la casa. Une maison disait « page d'accueil » :
-  // c'est le glyphe universel du bouton Accueil, il parlait de navigation avant
-  // de parler de la maison de famille. Une porte, elle, dit qu'on entre.
+  // Fenetre a arc BRISE, persiennes dedans — la casa. D'apres la reference
+  // choisie par Mag : la baie ogivale des fenetres arabo-normandes, dont
+  // l'interieur devient ici des lames de volet plutot qu'un moucharabieh —
+  // impossible a rendre a 24 px sans virer au gribouillis.
   //
-  // L'arc est en fer a cheval : il depasse le demi-cercle et se resserre en bas,
-  // si bien que la porte est plus large a mi-hauteur qu'a ses montants. C'est
-  // l'arc mauresque d'Andalousie et du Maghreb, qu'on retrouve tout autour de la
-  // Mediterranee — et jusqu'en Sicile, que les Arabes ont tenue deux siecles.
-  // Une version precedente disait « arc brise » en dessinant un plein cintre :
-  // le trace, lui, ne ment pas, et c'est lui qu'il faut lire.
+  // L'arc est a DEUX CENTRES, comme le vrai : deux arcs de meme rayon qui se
+  // rejoignent en pointe. Le rayon n'est pas choisi au hasard, il decoule des
+  // montants (x=5 et 19), de la naissance (y=11) et du sommet vise (12,3) —
+  // equidistance resolue : centres en x=13,07 et 10,93, rayon 8,07. C'est ce
+  // qui ferme la pointe exactement sur (12,3) au lieu d'a peu pres.
   //
-  // large-arc-flag a 1 : c'est ce 1 qui fait tout. A 0, on obtient le petit arc,
-  // donc un cintre ordinaire ; a 1, le grand, qui passe au-dela des montants.
-  // Mesure : la boite fait 11,2 de large pour 10 entre les montants — l'arc
-  // deborde donc bien de 0,6 de chaque cote, et le sommet tombe a y = 3,9. Le
-  // meneau part de la ; ecrit a 6,4, il flottait sous le sommet.
-  door: (
+  // Les trois lames suivent le retrecissement : en bas la largeur pleine entre
+  // montants, en haut la corde de l'arc a cette hauteur (mesuree : 9,6 a y=8).
+  window: (
     <>
-      <path d="M7 20.5V12a5.6 5.6 0 1 1 10 0v8.5" />
-      <path d="M12 3.9V20.5" />
-      <path d="M3.5 20.5h17" />
-      <circle cx="9.7" cy="15" r="0.85" />
-      <circle cx="14.3" cy="15" r="0.85" />
+      <path d="M5 20.5V11a8.07 8.07 0 0 1 7-8 8.07 8.07 0 0 1 7 8v9.5z" />
+      <path d="M7.2 8h9.6" />
+      <path d="M7 12.5h10" />
+      <path d="M7 17h10" />
     </>
   ),
   // Volcan — l'Etna. Un cone tronque (le cratere est ouvert, pas pointu) et
