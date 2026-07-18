@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useI18n } from './i18n';
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -26,26 +27,42 @@ import { useI18n } from './i18n';
 // ─────────────────────────────────────────────────────────────────────────
 type Person = { name: string; subtitle?: string; children?: Person[] };
 type Family = { fam: Person; gen: number };
-type Side = { label: string; families: Family[] };
+type Side = { label: string; lignee: Lignee; families: Family[] };
 
-// La couleur remonte le temps : la generation la plus ANCIENNE (Salvatore &
-// Giuseppina, Pierre Lux & Angelina — la 0) est la plus foncee, et le trait
-// s'eclaircit a chaque generation qui s'eloigne des origines. Fin, pas criard :
-// c'est le contour qui porte le degrade ; le nom, lui, reste lisible et ne
-// descend jamais sous le gris du site.
-const TREE_BORDER = ['#2e2d2d', '#565351', '#7d7a76', '#a6a29d', '#cbc7c2'];
-const TREE_TEXT = ['#2e2d2d', '#43403e', '#565250', '#6a6663', '#6f6e6e'];
-const tone = (gen: number, scale: string[]) => scale[Math.min(gen, scale.length - 1)];
+/**
+ * La couleur dit D'OU L'ON VIENT, en partant du pere.
+ *
+ * Deux lignees se rencontrent dans cet arbre : les Contrino, de Sicile, du cote
+ * de Salvatore ; les Lux et les Thurot, de France, du cote de Regine. Chacune a
+ * sa teinte — terre cuite pour l'une, bleu ardoise pour l'autre — et l'on voit
+ * d'un coup d'oeil de quel bord vient quelqu'un.
+ *
+ * La ou elles se rejoignent, sur la carte de Salvatore & Regine, la couleur
+ * change : c'est le rose du site, celui de la famille qui nait de ces deux-la.
+ * Leurs enfants et petits-enfants le portent a leur tour.
+ *
+ * Dans chaque lignee, la teinte s'eclaircit a mesure qu'on descend les
+ * generations : le plus fonce est le plus ancien.
+ */
+type Lignee = 'pere' | 'mere' | 'nous';
+const LIGNEES: Record<Lignee, string[]> = {
+  pere: ['#8c3b3b', '#a85a5a', '#bd7f7f', '#cfa1a1'],
+  mere: ['#3f5d7a', '#5b7c9c', '#84a0b8', '#a8bccd'],
+  nous: ['#b31456', '#d0206a', '#e35c92', '#ee92b5'],
+};
+const teinte = (l: Lignee, gen: number) => LIGNEES[l][Math.min(gen, LIGNEES[l].length - 1)];
+/** Le nom reste lisible : il ne prend jamais les deux teintes les plus claires. */
+const encre = (l: Lignee, gen: number) => LIGNEES[l][Math.min(gen, 1)];
 
-function Card({ p, gen }: { p: Person; gen: number }) {
+function Card({ p, gen, lignee }: { p: Person; gen: number; lignee: Lignee }) {
   const placeholder = p.name.startsWith('…');
   return (
     <span
       className={`inline-flex flex-col items-center gap-0.5 rounded-xl px-4 py-2 ${placeholder ? 'border-dashed' : ''}`}
       style={{
-        border: `1.5px solid ${placeholder ? 'var(--cava-line)' : tone(gen, TREE_BORDER)}`,
+        border: `1.5px solid ${placeholder ? 'var(--cava-line)' : teinte(lignee, gen)}`,
         background: 'var(--cava-bg)',
-        color: placeholder ? 'var(--cava-muted)' : tone(gen, TREE_TEXT),
+        color: placeholder ? 'var(--cava-muted)' : encre(lignee, gen),
       }}
     >
       <span className="whitespace-nowrap text-[14px]" style={{ fontWeight: placeholder ? 400 : 600 }}>
@@ -60,14 +77,14 @@ function Card({ p, gen }: { p: Person; gen: number }) {
   );
 }
 
-function Node({ p, gen }: { p: Person; gen: number }) {
+function Node({ p, gen, lignee }: { p: Person; gen: number; lignee: Lignee }) {
   return (
     <li>
-      <Card p={p} gen={gen} />
+      <Card p={p} gen={gen} lignee={lignee} />
       {p.children && p.children.length > 0 && (
         <ul>
           {p.children.map((c) => (
-            <Node key={c.name} p={c} gen={gen + 1} />
+            <Node key={c.name} p={c} gen={gen + 1} lignee={lignee} />
           ))}
         </ul>
       )}
@@ -75,13 +92,105 @@ function Node({ p, gen }: { p: Person; gen: number }) {
   );
 }
 
+/**
+ * Une famille qu'on deplie — ou pas.
+ *
+ * Repliee, elle ne montre que le couple et le nombre d'enfants : l'arbre entier
+ * tient alors sous les yeux, et c'est tout l'interet. Depliee, elle rend sa
+ * descendance. Le bouton porte l'etat pour les lecteurs d'ecran (aria-expanded)
+ * et le chevron tourne — deux facons de dire la meme chose.
+ *
+ * Une famille SANS enfant connu n'a rien a deplier : elle s'affiche seule, sans
+ * bouton, plutot qu'un bouton qui n'ouvrirait sur rien.
+ */
+function Famille({
+  fam,
+  gen,
+  lignee,
+  ouvert,
+  onBascule,
+  labels,
+}: {
+  fam: Person;
+  gen: number;
+  lignee: Lignee;
+  ouvert: boolean;
+  onBascule: () => void;
+  labels: { open: string; close: string; kid: string; kids: string };
+}) {
+  const enfants = fam.children?.length ?? 0;
+  if (!enfants) {
+    return (
+      <div className="cava-tree overflow-x-auto pb-4">
+        <ul>
+          <Node p={fam} gen={gen} lignee={lignee} />
+        </ul>
+      </div>
+    );
+  }
+  return (
+    <div>
+      {/* Le texte revient a la ligne, et le bouton ne depasse jamais son
+          conteneur : sans cela, « Pierre Lux & Angelina Viseux » et ses deux
+          paires de dates faisaient 444 px de large sur un ecran de 409. */}
+      <div className="flex justify-center px-1">
+        <button
+          type="button"
+          onClick={onBascule}
+          aria-expanded={ouvert}
+          className="cava-treetoggle inline-flex max-w-full items-center gap-3 rounded-xl px-4 py-2 text-left transition"
+          style={{ border: `1.5px solid ${teinte(lignee, gen)}`, background: 'var(--cava-bg)', color: encre(lignee, gen) }}
+        >
+          <span className="flex min-w-0 flex-col gap-0.5">
+            <span className="text-[14px] leading-[1.25]" style={{ fontWeight: 600 }}>
+              {fam.name}
+            </span>
+            <span className="text-[11px] uppercase leading-[1.35] tracking-[0.1em]" style={{ color: 'var(--cava-muted)' }}>
+              {fam.subtitle ? `${fam.subtitle} · ` : ''}
+              {enfants} {enfants > 1 ? labels.kids : labels.kid}
+            </span>
+          </span>
+          <span
+            aria-hidden
+            className="shrink-0 text-[13px] transition-transform duration-300"
+            style={{ transform: ouvert ? 'rotate(180deg)' : 'none' }}
+          >
+            ▾
+          </span>
+          <span className="sr-only">{ouvert ? labels.close : labels.open}</span>
+        </button>
+      </div>
+
+      {ouvert && (
+        <div className="cava-tree mt-4 overflow-x-auto pb-4">
+          <ul>
+            {/* Deplie, on redessine l'arbre complet : le couple redevient une
+                carte ordinaire, avec ses branches sous lui. */}
+            <Node p={fam} gen={gen} lignee={lignee} />
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function FamilyTree() {
   const { t, lang } = useI18n();
   const s = t.salvaPage;
 
+  /**
+   * Quelles familles sont depliees. Toutes repliees au depart : c'est ce que
+   * Mag demandait — la vue d'ensemble d'abord, le detail a la demande. Une clef
+   * par bloc, l'index seul ne suffirait pas (les deux cotes se renumerotent).
+   */
+  const [ouverts, setOuverts] = useState<Record<string, boolean>>({});
+  const bascule = (cle: string) => setOuverts((o) => ({ ...o, [cle]: !o[cle] }));
+  const labels = { open: s.treeOpen, close: s.treeClose, kid: s.treeKid, kids: s.treeKids };
+
   const SIDES: Side[] = [
     {
       label: s.treePaternal,
+      lignee: 'pere',
       families: [
         {
           gen: 0,
@@ -133,6 +242,7 @@ export default function FamilyTree() {
     },
     {
       label: s.treeMaternal,
+      lignee: 'mere',
       families: [
         {
           gen: 0,
@@ -184,8 +294,43 @@ export default function FamilyTree() {
     { name: 'Magali Contrino & Benoît Vanbastelaer', children: [{ name: 'Eve' }, { name: 'Manon' }] },
   ];
 
+  // Toutes les clefs de bloc, pour le « tout deplier » : les deux cotes, les
+  // parents, et chaque famille d'enfants.
+  const TOUTES = [
+    ...SIDES.flatMap((side) => side.families.map(({ fam }, i) => `${side.label}-${fam.name}-${i}`)),
+    'parents',
+    ...ENFANTS.map((f) => f.name),
+  ];
+  const toutOuvert = TOUTES.every((c) => ouverts[c]);
+
   return (
     <div className="flex flex-col gap-14">
+      {/* La legende des couleurs, et la commande d'ensemble. Sans legende, le
+          code couleur se devine ; avec, il se lit. */}
+      <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-[12px]" style={{ color: 'var(--cava-muted)' }}>
+          {([
+            ['pere', s.treeSideFather],
+            ['mere', s.treeSideMother],
+            ['nous', s.treeSideUs],
+          ] as [Lignee, string][]).map(([l, texte]) => (
+            <span key={l} className="flex items-center gap-2">
+              <span className="h-3 w-3 rounded-full" style={{ background: teinte(l, 0) }} />
+              {texte}
+            </span>
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={() =>
+            setOuverts(toutOuvert ? {} : Object.fromEntries(TOUTES.map((c) => [c, true])))
+          }
+          className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]"
+        >
+          {toutOuvert ? s.treeCloseAll : s.treeOpenAll}
+        </button>
+      </div>
+
       <div className="flex flex-col gap-14">
         {SIDES.map((side) => (
           <div key={side.label}>
@@ -193,13 +338,20 @@ export default function FamilyTree() {
               {side.label}
             </p>
             <div className="flex flex-col gap-8">
-              {side.families.map(({ fam, gen }, i) => (
-                <div key={`${fam.name}-${i}`} className="cava-tree overflow-x-auto pb-4">
-                  <ul>
-                    <Node p={fam} gen={gen} />
-                  </ul>
-                </div>
-              ))}
+              {side.families.map(({ fam, gen }, i) => {
+                const cle = `${side.label}-${fam.name}-${i}`;
+                return (
+                  <Famille
+                    key={cle}
+                    fam={fam}
+                    gen={gen}
+                    lignee={side.lignee}
+                    ouvert={!!ouverts[cle]}
+                    onBascule={() => bascule(cle)}
+                    labels={labels}
+                  />
+                );
+              })}
             </div>
           </div>
         ))}
@@ -210,12 +362,17 @@ export default function FamilyTree() {
         <p className="mb-5 text-center text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)' }}>
           {s.treeParents}
         </p>
-        <div className="cava-tree overflow-x-auto pb-4">
-          <ul>
-            {/* Salvatore & Regine : troisieme generation depuis l'origine. */}
-            <Node p={PARENTS} gen={2} />
-          </ul>
-        </div>
+        {/* Salvatore & Regine : la ou les deux lignees se rejoignent. La carte
+            change donc de couleur — c'est le rose du site, celui de la famille
+            qui nait d'eux. */}
+        <Famille
+          fam={PARENTS}
+          gen={0}
+          lignee="nous"
+          ouvert={!!ouverts.parents}
+          onBascule={() => bascule('parents')}
+          labels={labels}
+        />
       </div>
 
       {/* Et leurs enfants */}
@@ -225,12 +382,15 @@ export default function FamilyTree() {
         </p>
         <div className="flex flex-col gap-8">
           {ENFANTS.map((f) => (
-            <div key={f.name} className="cava-tree overflow-x-auto pb-4">
-              <ul>
-                {/* Les plus jeunes : le trait le plus clair du degrade. */}
-                <Node p={f} gen={3} />
-              </ul>
-            </div>
+            <Famille
+              key={f.name}
+              fam={f}
+              gen={1}
+              lignee="nous"
+              ouvert={!!ouverts[f.name]}
+              onBascule={() => bascule(f.name)}
+              labels={labels}
+            />
           ))}
         </div>
       </div>
