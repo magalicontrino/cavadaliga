@@ -225,6 +225,12 @@ export type Dict = {
     intro: string;
     facts: { icon: string; title: string; text: string }[];
   };
+  specialtiesPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    facts: { icon: string; title: string; text: string }[];
+  };
   cultureFilter: {
     all: string;
     playlist: string;
@@ -239,6 +245,7 @@ export type Dict = {
     all: string;
     places: string;
     customs: string;
+    specialties: string;
     arab: string;
     /** Rassemble les sept sections venues de « Sons & images » en un seul bouton. */
     sounds: string;
@@ -580,6 +587,43 @@ const FR: Dict = {
       },
     ],
   },
+  specialtiesPage: {
+    eyebrow: 'Spécialités',
+    title: 'Les spécialités du coin',
+    intro: 'Ce qu’on rapporte et ce qu’on goûte sur place — les vraies spécialités des monts Iblei, entre Scicli, Modica et Ragusa.',
+    facts: [
+      {
+        icon: 'fork',
+        title: 'La scaccia ragusana',
+        text: 'Une pâte à pain fine comme du papier, roulée sur sa garniture puis cuite au four. Les classiques : tomate et oignon, ricotta et oignon, ricotta et saucisse, tomate et aubergine. C’est le casse-croûte du coin depuis toujours — on en trouve dans toutes les boulangeries.',
+      },
+      {
+        icon: 'leaf',
+        title: 'Le chocolat de Modica',
+        text: 'Un chocolat travaillé à froid, hérité des Aztèques par les Espagnols : le sucre ne fond pas, il reste en grains, et le chocolat croque. Cannelle, vanille, piment, agrumes… À Modica, à vingt minutes, l’Antica Dolceria Bonajuto le fait depuis 1880.',
+      },
+      {
+        icon: 'cone',
+        title: 'Les teste di turco de Scicli',
+        text: 'LE dolce de Scicli : une grosse pâte soufflée en forme de turban, fourrée de ricotta ou de crème. Le nom et la forme viennent de la légende de la Madonna delle Milizie — le turban des envahisseurs turcs. On ne les trouve vraiment bien qu’ici.',
+      },
+      {
+        icon: 'cleaver',
+        title: 'Les ’mpanatigghi de Modica',
+        text: 'Des petits chaussons en demi-lune qui cachent un secret : viande de bœuf hachée, chocolat noir, amandes, sucre et épices. Sucré-salé, hérité des couvents espagnols. Étonnant — et bien meilleur que ça n’en a l’air.',
+      },
+      {
+        icon: 'droplet',
+        title: 'Le caciocavallo ragusano',
+        text: 'Le grand fromage des Iblei — le « cosacavaddu », gros pain de pâte filée, affiné en parallélépipède et pendu à une corde. Doux et frais quand il est jeune, piquant en vieillissant. Avec la provola ragusana, c’est la base de la table d’ici.',
+      },
+      {
+        icon: 'citrus',
+        title: 'Torrone et cubbaita',
+        text: 'Les douceurs d’amandes et de miel du pays : le torrone d’amandes, et la cubbaita, un nougat dur au sésame et au miel d’origine arabe, qu’on casse en morceaux. Les sucreries des fêtes, à emporter.',
+      },
+    ],
+  },
   cultureFilter: {
     all: 'Tout voir',
     playlist: 'La playlist',
@@ -594,6 +638,7 @@ const FR: Dict = {
     all: 'Tout voir',
     places: 'Les lieux',
     customs: 'Us et coutumes',
+    specialties: 'Spécialités',
     arab: 'Sicile arabe',
     sounds: 'Sons & images',
     etna: 'L’Etna',
@@ -1038,6 +1083,43 @@ const IT: Dict = {
       },
     ],
   },
+  specialtiesPage: {
+    eyebrow: 'Specialità',
+    title: 'Le specialità del posto',
+    intro: 'Quello che si porta a casa e quello che si assaggia sul posto — le vere specialità dei monti Iblei, tra Scicli, Modica e Ragusa.',
+    facts: [
+      {
+        icon: 'fork',
+        title: 'La scaccia ragusana',
+        text: 'Una sfoglia di pasta di pane sottile come carta, arrotolata sul ripieno e cotta al forno. Le classiche: pomodoro e cipolla, ricotta e cipolla, ricotta e salsiccia, pomodoro e melanzana. È da sempre il pranzo al sacco di qui — la trovi in ogni panificio.',
+      },
+      {
+        icon: 'leaf',
+        title: 'Il cioccolato di Modica',
+        text: 'Un cioccolato lavorato a freddo, ereditato dagli Aztechi tramite gli spagnoli: lo zucchero non si scioglie, resta in granuli e il cioccolato scrocchia. Cannella, vaniglia, peperoncino, agrumi… A Modica, a venti minuti, l’Antica Dolceria Bonajuto lo fa dal 1880.',
+      },
+      {
+        icon: 'cone',
+        title: 'Le teste di turco di Scicli',
+        text: 'IL dolce di Scicli: un grosso bignè a forma di turbante, farcito di ricotta o crema. Nome e forma vengono dalla leggenda della Madonna delle Milizie — il turbante degli invasori turchi. Buone davvero solo qui.',
+      },
+      {
+        icon: 'cleaver',
+        title: 'Gli ’mpanatigghi di Modica',
+        text: 'Mezzelune di pasta frolla che nascondono un segreto: carne di manzo tritata, cioccolato fondente, mandorle, zucchero e spezie. Dolce-salato, eredità dei conventi spagnoli. Sorprendenti — e molto più buoni di quanto sembri.',
+      },
+      {
+        icon: 'droplet',
+        title: 'Il caciocavallo ragusano',
+        text: 'Il grande formaggio degli Iblei — il « cosacavaddu », grande forma di pasta filata, stagionata a parallelepipedo e appesa a una corda. Dolce e fresco da giovane, piccante con la stagionatura. Con la provola ragusana, è la base della tavola di qui.',
+      },
+      {
+        icon: 'citrus',
+        title: 'Torrone e cubbaita',
+        text: 'I dolci di mandorle e miele del posto: il torrone di mandorle e la cubbaita, un croccante duro di sesamo e miele di origine araba, che si spezza a pezzi. I dolci delle feste, da portar via.',
+      },
+    ],
+  },
   cultureFilter: {
     all: 'Vedi tutto',
     playlist: 'La playlist',
@@ -1052,6 +1134,7 @@ const IT: Dict = {
     all: 'Vedi tutto',
     places: 'I luoghi',
     customs: 'Usi e costumi',
+    specialties: 'Specialità',
     arab: 'Sicilia araba',
     sounds: 'Suoni & immagini',
     etna: 'L’Etna',
@@ -1496,6 +1579,43 @@ const EN: Dict = {
       },
     ],
   },
+  specialtiesPage: {
+    eyebrow: 'Specialties',
+    title: 'Local specialties',
+    intro: 'What you take home and what you taste on the spot — the real specialties of the Iblei hills, between Scicli, Modica and Ragusa.',
+    facts: [
+      {
+        icon: 'fork',
+        title: 'Scaccia ragusana',
+        text: 'A paper-thin bread dough rolled around its filling and baked. The classics: tomato and onion, ricotta and onion, ricotta and sausage, tomato and aubergine. It has always been the local packed lunch — every bakery has it.',
+      },
+      {
+        icon: 'leaf',
+        title: 'Modica chocolate',
+        text: 'Cold-worked chocolate, handed down from the Aztecs via the Spanish: the sugar never melts, it stays grainy, and the chocolate crunches. Cinnamon, vanilla, chilli, citrus… In Modica, twenty minutes away, the Antica Dolceria Bonajuto has made it since 1880.',
+      },
+      {
+        icon: 'cone',
+        title: 'Scicli’s teste di turco',
+        text: 'Scicli’s own pastry: a big choux puff shaped like a turban, filled with ricotta or custard. The name and shape come from the legend of the Madonna delle Milizie — the turban of the Turkish invaders. Only really good right here.',
+      },
+      {
+        icon: 'cleaver',
+        title: 'Modica’s ’mpanatigghi',
+        text: 'Half-moon shortcrust pastries hiding a secret: minced beef, dark chocolate, almonds, sugar and spices. Sweet-and-savoury, inherited from the Spanish convents. Surprising — and far better than it sounds.',
+      },
+      {
+        icon: 'droplet',
+        title: 'Ragusano caciocavallo',
+        text: 'The great cheese of the Iblei — the “cosacavaddu”, a big block of stretched-curd cheese, aged in a brick shape and hung from a rope. Mild and fresh when young, sharp as it ages. With ragusana provola, it is the backbone of the table here.',
+      },
+      {
+        icon: 'citrus',
+        title: 'Torrone and cubbaita',
+        text: 'The local almond-and-honey sweets: almond torrone, and cubbaita, a hard sesame-and-honey brittle of Arab origin, snapped into pieces. Festival treats, made to take away.',
+      },
+    ],
+  },
   cultureFilter: {
     all: 'See all',
     playlist: 'The playlist',
@@ -1510,6 +1630,7 @@ const EN: Dict = {
     all: 'See all',
     places: 'The places',
     customs: 'Local customs',
+    specialties: 'Specialties',
     arab: 'Arab Sicily',
     sounds: 'Sounds & screens',
     etna: 'Etna',
