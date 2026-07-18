@@ -287,7 +287,7 @@ const FR: Dict = {
   },
   tasteOfSicily: 'Un avant-goût de la Sicile',
   sunsetAlt: 'Coucher de soleil sur la plage, la mer et le village au crépuscule',
-  apartment: { eyebrow: 'La maison', title: 'La casa', albumAlt: 'La casa de Cava d’Aliga', captions: ['La terrasse avant', 'La terrasse arrière', 'Le hamac', 'Le séjour', 'La cuisine', 'La grande chambre', 'La grande chambre', 'La chambre-bureau', 'La salle de bain', 'La salle de bain', 'La salle de bain', 'La douche'], rooms: ['La terrasse avant', 'La terrasse arrière', 'Le séjour', 'La cuisine', 'La grande chambre', 'La chambre-bureau', 'La salle de bain'], label: 'La casa' },
+  apartment: { eyebrow: 'La maison', title: 'La casa', albumAlt: 'La casa de Cava d’Aliga', captions: ['La terrasse avant', 'La terrasse arrière', 'Le hamac', 'Le séjour', 'La cuisine', 'La petite chambre', 'La petite chambre', 'La chambre-bureau', 'La salle de bain', 'La salle de bain', 'La salle de bain', 'La douche'], rooms: ['La terrasse avant', 'La terrasse arrière', 'Le séjour', 'La cuisine', 'La petite chambre', 'La chambre-bureau', 'La salle de bain'], label: 'La casa' },
   galleryAlt: [
     'La mer à quelques mètres de Cava d’Aliga',
     'Une ruelle du hameau de Cava d’Aliga',
@@ -702,7 +702,7 @@ const IT: Dict = {
   },
   tasteOfSicily: 'Un assaggio di Sicilia',
   sunsetAlt: 'Tramonto sulla spiaggia, il mare e il paese al crepuscolo',
-  apartment: { eyebrow: 'La casa', title: 'La casa', albumAlt: 'La casa di Cava d’Aliga', captions: ['La terrazza davanti', 'La terrazza sul retro', 'L’amaca', 'Il soggiorno', 'La cucina', 'La camera grande', 'La camera grande', 'La camera-studio', 'Il bagno', 'Il bagno', 'Il bagno', 'La doccia'], rooms: ['La terrazza davanti', 'La terrazza sul retro', 'Il soggiorno', 'La cucina', 'La camera grande', 'La camera-studio', 'Il bagno'], label: 'La casa' },
+  apartment: { eyebrow: 'La casa', title: 'La casa', albumAlt: 'La casa di Cava d’Aliga', captions: ['La terrazza davanti', 'La terrazza sul retro', 'L’amaca', 'Il soggiorno', 'La cucina', 'La camera piccola', 'La camera piccola', 'La camera-studio', 'Il bagno', 'Il bagno', 'Il bagno', 'La doccia'], rooms: ['La terrazza davanti', 'La terrazza sul retro', 'Il soggiorno', 'La cucina', 'La camera piccola', 'La camera-studio', 'Il bagno'], label: 'La casa' },
   galleryAlt: [
     'Il mare a pochi metri da Cava d’Aliga',
     'Un vicolo del borgo di Cava d’Aliga',
@@ -1117,7 +1117,7 @@ const EN: Dict = {
   },
   tasteOfSicily: 'A taste of Sicily',
   sunsetAlt: 'Sunset over the beach, the sea and the village at dusk',
-  apartment: { eyebrow: 'The home', title: 'La casa', albumAlt: 'La casa in Cava d’Aliga', captions: ['The front terrace', 'The back terrace', 'The hammock', 'The living room', 'The kitchen', 'The large bedroom', 'The large bedroom', 'The bedroom-study', 'The bathroom', 'The bathroom', 'The bathroom', 'The shower'], rooms: ['The front terrace', 'The back terrace', 'The living room', 'The kitchen', 'The large bedroom', 'The bedroom-study', 'The bathroom'], label: 'La casa' },
+  apartment: { eyebrow: 'The home', title: 'La casa', albumAlt: 'La casa in Cava d’Aliga', captions: ['The front terrace', 'The back terrace', 'The hammock', 'The living room', 'The kitchen', 'The small bedroom', 'The small bedroom', 'The bedroom-study', 'The bathroom', 'The bathroom', 'The bathroom', 'The shower'], rooms: ['The front terrace', 'The back terrace', 'The living room', 'The kitchen', 'The small bedroom', 'The bedroom-study', 'The bathroom'], label: 'La casa' },
   galleryAlt: [
     'The sea a few metres from Cava d’Aliga',
     'An alley in the hamlet of Cava d’Aliga',
