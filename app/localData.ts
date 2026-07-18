@@ -115,6 +115,20 @@ export const LOCAL_PLACES: LocalPlace[] = [
       en: 'Plant nursery on viale della Serenità, in Scicli. Seedlings, shrubs and flowers for the terrace and garden.' },
   },
   {
+    id: 'cavagrande',
+    name: 'Cavagrande del Cassibile',
+    cat: 'plage',
+    town: 'Avola',
+    url: 'https://maps.app.goo.gl/iR4MYCPs6Xo9BANv9',
+    km: 70,
+    responsible: false,
+    blurb: {
+      fr: 'Le canyon aux vasques naturelles, côté Avola — une journée entière. La descente se fait par la Scala Cruci, depuis le belvédère d’Avola Antica : raide, longue, et à remonter. La réserve régule ses sentiers et peut les fermer : vérifiez avant de partir.',
+      it: 'Il canyon con i laghetti naturali, verso Avola — una giornata intera. Si scende dalla Scala Cruci, dal belvedere di Avola Antica: ripida, lunga, e da risalire. La riserva regola i sentieri e può chiuderli: verificate prima di partire.',
+      en: 'The canyon with its natural pools, over towards Avola — a full day out. The descent is by the Scala Cruci from the Avola Antica viewpoint: steep, long, and to be climbed back up. The reserve regulates its paths and may close them: check before setting off.',
+    },
+  },
+  {
     id: 'covo-contrabbandieri',
     name: 'Covo dei contrabbandieri',
     cat: 'plage',

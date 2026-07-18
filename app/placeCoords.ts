@@ -24,6 +24,9 @@ export type PlaceCoord = { lat: number; lon: number; src: 'google' | 'nominatim'
 export const COORDS: Record<string, PlaceCoord> = {
   // Cava d'Aliga et la côte
   // Covo dei contrabbandieri — lien de Mag, coordonnees de sa fiche Google.
+  // Cavagrande del Cassibile — lien de Mag, coordonnees de sa fiche Google.
+  // C'est la reserve, pas le depart du sentier : on descend par Avola Antica.
+  cavagrande: { lat: 36.9724766, lon: 15.0963672, src: 'google' },
   'covo-contrabbandieri': { lat: 36.7174366, lon: 14.706748, src: 'google' },
   'lido-bruca': { lat: 36.7340778, lon: 14.6800518, src: 'google' },
   // Bricolage. Zisa : viale I Maggio a Scicli, geocode a la voie. ItalBrico :
