@@ -377,6 +377,7 @@ export default function PlaceMap({
   onRetirerDepart,
   onMaison,
   versMaison = 0,
+  versDepart = 0,
   depart = null,
   kmLabel,
 }: {
@@ -408,6 +409,10 @@ export default function PlaceMap({
   onMaison?: () => void;
   /** Change quand la page demande de revenir sur la maison. */
   versMaison?: number;
+  /** Incremente quand le depart vient de la RECHERCHE : la carte va s'y poser.
+   *  Un depart pose au doigt sur la carte ne l'incremente pas — on regarde deja
+   *  l'endroit, la vue ne doit pas sauter sous le doigt. */
+  versDepart?: number;
   depart?: { lat: number; lon: number } | null;
   /** La page decide de ce qu'affiche chaque pastille : elle seule sait si l'on
    *  compte depuis la maison (par la route) ou depuis un depart simule. */
@@ -751,6 +756,27 @@ export default function PlaceMap({
     // formes grandissent sans se pixeliser. 17, c'est la rue.
     c?.m.easeTo({ center: [HOUSE.lon, HOUSE.lat], zoom: 17, duration: 700 });
   }, [versMaison, state]);
+
+  /**
+   * Aller voir le depart qu'on vient de CHOISIR dans la recherche.
+   *
+   * Poser une epingle au doigt ne deplace rien, et c'est voulu : on regarde
+   * deja l'endroit, la vue ne doit pas sauter sous le doigt. Mais choisir
+   * « Scicli » dans la liste, c'est demander a voir Scicli — sans recadrage, on
+   * restait devant la maison avec des distances qui avaient change sans qu'on
+   * sache d'ou. D'ou ce compteur, separe de `depart` : c'est l'ORIGINE du
+   * depart qui decide, pas le depart lui-meme.
+   *
+   * Zoom 13 : le village et ses abords, pas la rue — on vient situer un point
+   * de comparaison, pas y chercher une porte.
+   */
+  useEffect(() => {
+    if (!versDepart || state !== 'ok' || !depart) return;
+    const c = map.current as Carte | null;
+    c?.m.easeTo({ center: [depart.lon, depart.lat], zoom: 13, duration: 700 });
+    // `depart` volontairement hors des dependances : seul le compteur declenche.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [versDepart, state]);
 
   // L'épingle choisie s'inverse — on doit voir de quel point la fiche parle.
   useEffect(() => {

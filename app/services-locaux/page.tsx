@@ -30,6 +30,9 @@ export default function NosAdresses() {
   const [cherche, setCherche] = useState<'idle' | 'cours' | 'rien' | 'loin' | 'panne'>('idle');
   // Change a chaque demande de retour a la maison — la carte n'ecoute que ca.
   const [versMaison, setVersMaison] = useState(0);
+  // Meme mecanique pour le depart, mais SEULEMENT quand il vient de la
+  // recherche : choisir « Scicli » dans la liste, c'est demander a le voir.
+  const [versDepart, setVersDepart] = useState(0);
   /** Ce que Photon a trouve pour la frappe en cours. Vide au depart : les deux
    *  couches locales repondent seules le temps qu'il reponde. */
   const [loin, setLoin] = useState<Suggestion[]>([]);
@@ -155,6 +158,11 @@ export default function NosAdresses() {
   /** Se poser quelque part — par une suggestion, ou par la recherche. */
   const seposer = (s: { nom: string; lat: number; lon: number }) => {
     setDepart({ lat: s.lat, lon: s.lon });
+    // Choisi dans la liste : la carte ira s'y poser. On NE bascule PAS en vue
+    // carte pour autant — depuis la liste, ce qu'on attend d'un depart c'est un
+    // reclassement des adresses, pas d'etre emmene ailleurs. Le recadrage a
+    // lieu quand meme : la carte sera au bon endroit des qu'on y passe.
+    setVersDepart((n) => n + 1);
     setOu('');
     setLoin([]);
     setCherche('idle');
@@ -488,6 +496,7 @@ export default function NosAdresses() {
               setVersMaison(Date.now());
             }}
             versMaison={versMaison}
+            versDepart={versDepart}
             onDepart={(c) => {
               setDepart(c);
               setCherche('idle');
