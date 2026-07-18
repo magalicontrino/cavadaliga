@@ -44,18 +44,23 @@ type Side = { label: string; lignee: Lignee; families: Family[] };
  * ce qu'elle contient.
  *
  * Chaque teinte a ete choisie sur son CONTRASTE, pas seulement sur son eclat.
- * Le rose du site (#e6296f) ne porte pas de texte blanc lisible — 4,28 quand il
- * en faut 4,5 : le plein descend donc d'un cran a #d92263, qu'on ne distingue
- * pas a l'oeil du rose de la marque mais qui passe a 4,82. Le jaune et le
- * turquoise, eux, sont trop clairs pour du blanc : ils portent l'encre du site.
+ * Les trois aplats portent l'ENCRE du site, jamais du blanc — c'est ce qui leur
+ * permet d'etre clairs sans devenir illisibles.
+ *
+ * Le rose a une zone morte qu'il faut connaitre avant d'y toucher. Fonce
+ * (#d92263) il porte du blanc ; pastel (#f06a9b) il porte l'encre. ENTRE LES
+ * DEUX — le rose exact de la marque, #e6296f — aucun texte ne passe : 4,28 en
+ * blanc, 3,21 en encre, quand il en faut 4,5. Vouloir « le rose du site » sur
+ * un aplat, c'est donc choisir entre l'assombrir ou l'eclaircir ; ici on
+ * l'eclaircit, a 4,73.
  * Et le trait des cartes fines est toujours plus fonce que le plein, sinon il
  * palit sur le fond creme.
  */
 type Lignee = 'pere' | 'mere' | 'nous';
 const LIGNEES: Record<Lignee, { plein: string; surPlein: string; trait: string; texte: string }> = {
-  pere: { plein: '#ffc61a', surPlein: '#2e2d2d', trait: '#e0a800', texte: '#8a6200' },
-  mere: { plein: '#45d3d3', surPlein: '#2e2d2d', trait: '#2ec4c4', texte: '#0b6e73' },
-  nous: { plein: '#d92263', surPlein: '#ffffff', trait: '#d92263', texte: '#b81a56' },
+  pere: { plein: '#ffd452', surPlein: '#2e2d2d', trait: '#e0a800', texte: '#8a6200' },
+  mere: { plein: '#5fdede', surPlein: '#2e2d2d', trait: '#2ec4c4', texte: '#0b6e73' },
+  nous: { plein: '#f06a9b', surPlein: '#2e2d2d', trait: '#d92263', texte: '#b81a56' },
 };
 
 function Card({ p, lignee, plein = false }: { p: Person; lignee: Lignee; plein?: boolean }) {
