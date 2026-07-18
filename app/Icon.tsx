@@ -9,6 +9,7 @@ export type IconName =
   | 'key'
   | 'volcano'
   | 'window'
+  | 'tools'
   | 'home'
   | 'info'
   | 'pin'
@@ -88,6 +89,12 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
       <path d="M7 16h10" />
       <path d="M10.6 14h.01M13.4 14h.01" />
     </>
+  ),
+  // Cle plate — le bricolage. Une silhouette d'outil se lit plus vite qu'un
+  // marteau de face, qui tourne vite au maillet de justice a cette taille.
+  // Trace ferme d'un seul tenant, comme la goutte ou la feuille du jeu.
+  tools: (
+    <path d="M15.2 3.4a5 5 0 0 0-6.3 6.3l-5.1 5.1a2.3 2.3 0 0 0 3.3 3.3l5.1-5.1a5 5 0 0 0 6.3-6.3l-2.9 2.9-2.7-.6-.6-2.7z" />
   ),
   // Volcan — l'Etna. Un cone tronque (le cratere est ouvert, pas pointu) et
   // deux volutes de fumee : de loin on lit « volcan » avant de distinguer quoi

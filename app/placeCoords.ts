@@ -28,6 +28,11 @@ export const COORDS: Record<string, PlaceCoord> = {
   'gelateria-smile': { lat: 36.7277778, lon: 14.6863889, src: 'google' },
   'be-happy': { lat: 36.7298231, lon: 14.6866401, src: 'google' },
   'lido-bruca': { lat: 36.7340778, lon: 14.6800518, src: 'google' },
+  // Bricolage. Zisa : viale I Maggio a Scicli, geocode a la voie. ItalBrico :
+  // zone Serrauccelli a Modica, meme precision — le magasin borde la route.
+  zisa: { lat: 36.77904, lon: 14.68606, src: 'nominatim' },
+  italbrico: { lat: 36.81246, lon: 14.77482, src: 'nominatim' },
+
   // Les cinq tables de Scicli. Coordonnees au niveau de la RUE, pas de la porte :
   // aucune n'est dans OpenStreetMap en tant qu'etablissement, et Photon ne rend
   // rien sur leurs noms. On geocode donc leur voie — precision de l'ordre de

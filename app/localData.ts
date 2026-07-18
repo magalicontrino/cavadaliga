@@ -6,7 +6,7 @@ import type { IconName } from './Icon';
 // Textes visibles dans les 3 langues (fr · it · en).
 // ────────────────────────────────────────────────────────────────────────
 export type Lang = 'fr' | 'it' | 'en';
-export type CatKey = 'huile' | 'agrumes' | 'plantes' | 'marche' | 'resto' | 'supermarche' | 'plage';
+export type CatKey = 'huile' | 'agrumes' | 'plantes' | 'marche' | 'resto' | 'supermarche' | 'plage' | 'bricolage';
 
 export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<Lang, string> }> = {
   huile: { icon: 'droplet', bg: 'linear-gradient(135deg,#b89a4a,#856a2c)', label: { fr: 'Huile d’olive', it: 'Olio d’oliva', en: 'Olive oil' } },
@@ -15,6 +15,7 @@ export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<La
   marche: { icon: 'bag', bg: 'linear-gradient(135deg,#3a3838,#2e2d2d)', label: { fr: 'Marchés', it: 'Mercati', en: 'Markets' } },
   resto: { icon: 'fork', bg: 'linear-gradient(135deg,#c05a5a,#8f3f3f)', label: { fr: 'Manger & boire', it: 'Mangiare & bere', en: 'Eat & drink' } },
   supermarche: { icon: 'cart', bg: 'linear-gradient(135deg,#d98b3f,#a86526)', label: { fr: 'Supermarchés', it: 'Supermercati', en: 'Supermarkets' } },
+  bricolage: { icon: 'tools', bg: 'linear-gradient(135deg,#7b8794,#565f6b)', label: { fr: 'Bricolage', it: 'Ferramenta & fai da te', en: 'DIY & hardware' } },
   plage: { icon: 'sun', bg: 'linear-gradient(135deg,#5aa0a0,#3f7d7d)', label: { fr: 'Plage & loisirs', it: 'Spiaggia & tempo libero', en: 'Beach & leisure' } },
 };
 
@@ -52,6 +53,7 @@ export const SEARCH_WORDS: WordHint[] = [
   { words: ['chocolat', 'cioccolato', 'chocolate', 'cacao', 'modica', 'douceur', 'dolci', 'sweets', 'dessert'], ids: ['bonajuto'] },
   { words: ['huile', 'olio', 'oil', 'olive', 'frantoio', 'frantoi', 'dop'], cat: 'huile' },
   { words: ['vin', 'vino', 'wine', 'apero', 'aperitivo', 'aperitif', 'drink', 'bar', 'cocktail', 'biere', 'birra', 'beer', 'verre', 'soir', 'sera'], ids: ['maracaibo', 'blazer'] },
+  { words: ['bricolage', 'brico', 'ferramenta', 'quincaillerie', 'outil', 'outils', 'utensili', 'attrezzi', 'tools', 'hardware', 'diy', 'fai da te', 'scie', 'sega', 'seghetto', 'saw', 'perceuse', 'trapano', 'drill', 'visserie', 'vis', 'viti', 'screws', 'clou', 'chiodi', 'nails', 'peinture', 'vernice', 'paint', 'cheville', 'ampoule', 'lampadina', 'bulb', 'cle', 'chiave'], cat: 'bricolage' },
   { words: ['plage', 'spiaggia', 'beach', 'mer', 'mare', 'sea', 'baignade', 'nager', 'swim', 'sable', 'sabbia', 'sand', 'lido', 'transat'], cat: 'plage' },
   { words: ['courses', 'spesa', 'groceries', 'shopping', 'supermarche', 'supermarket', 'supermercato', 'caddie', 'carrello', 'lessive', 'papier'], cat: 'supermarche' },
   { words: ['marche', 'mercato', 'market', 'legume', 'verdura', 'vegetables', 'fruit', 'frutta', 'fromage', 'formaggio', 'cheese', 'producteur', 'produttore', 'farmer', 'local', 'bio'], cat: 'marche' },
@@ -176,6 +178,34 @@ export const LOCAL_PLACES: LocalPlace[] = [
       fr: 'La plage de Bruca, juste à l’ouest de Cava d’Aliga. Le lido le plus proche de la maison : sable, transats et de quoi boire un verre.',
       it: 'La spiaggia di Bruca, appena a ovest di Cava d’Aliga. Il lido più vicino a casa: sabbia, lettini e qualcosa da bere.',
       en: 'Bruca beach, just west of Cava d’Aliga. The closest lido to the house: sand, sunbeds and somewhere for a drink.',
+    },
+  },
+  {
+    id: 'zisa',
+    name: 'La Ferramenta Zisa',
+    cat: 'bricolage',
+    town: 'Scicli',
+    url: 'https://www.google.com/maps/search/?api=1&query=Ferramenta+Zisa+Viale+I+Maggio+174+Scicli',
+    km: 6,
+    responsible: false,
+    blurb: {
+      fr: 'La quincaillerie de Scicli, viale I Maggio. Vis, chevilles, ampoules, double des clés — ce qu’on vient chercher quand il manque une pièce et qu’on ne veut pas faire la route de Modica.',
+      it: 'La ferramenta di Scicli, viale I Maggio. Viti, tasselli, lampadine, duplicazione chiavi — quello che serve quando manca un pezzo e non si vuole fare la strada di Modica.',
+      en: 'Scicli’s hardware shop, viale I Maggio. Screws, plugs, bulbs, key cutting — what you come for when a part is missing and you would rather not drive to Modica.',
+    },
+  },
+  {
+    id: 'italbrico',
+    name: 'ItalBrico',
+    cat: 'bricolage',
+    town: 'Modica',
+    url: 'https://www.cicerosrl.it/',
+    km: 14,
+    responsible: false,
+    blurb: {
+      fr: 'Le grand magasin de bricolage de la région, à Modica. C’est là qu’on trouve l’outillage électroportatif — scie sauteuse, perceuse, ponceuse — la peinture et le jardin. Livraison et découpe sur place.',
+      it: 'Il grande bricocentro della zona, a Modica. Qui si trova l’elettroutensileria — seghetto alternativo, trapano, levigatrice — le vernici e il giardino. Consegna e taglio sul posto.',
+      en: 'The region’s big DIY store, in Modica. This is where the power tools are — jigsaw, drill, sander — along with paint and garden. Delivery and cutting on site.',
     },
   },
   {

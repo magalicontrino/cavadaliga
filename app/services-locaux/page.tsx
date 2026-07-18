@@ -62,7 +62,10 @@ export default function NosAdresses() {
   // Le chocolat n'est plus une categorie a lui seul : Bonajuto se mange, il vit
   // donc dans « Manger & boire ». Les mots « chocolat », « cacao », « Modica »
   // le trouvent toujours par la recherche — c'est une autre liste.
-  const FILTER_CATS: CatKey[] = ['huile', 'marche', 'plantes', 'resto', 'supermarche', 'plage'];
+  // Les categories qui ont un bouton. Liste ECRITE A LA MAIN, et donc a tenir a
+  // jour : ajouter une categorie a CATS ne la fait pas apparaitre ici toute
+  // seule. « agrumes » n'y est pas — aucune adresse ne la porte encore.
+  const FILTER_CATS: CatKey[] = ['huile', 'marche', 'plantes', 'resto', 'supermarche', 'bricolage', 'plage'];
   // « Tout voir » ouvre la ligne, en retrait. Ailleurs il la ferme, mais ici la
   // rangee glisse : le dernier bouton finirait hors champ, et c'est justement
   // l'etat par defaut — celui vers lequel on revient. Il reste discret pour
