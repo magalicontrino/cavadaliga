@@ -94,6 +94,29 @@ export default function LaRegion() {
     { key: 'chansons', label: cf.songs, icon: 'vinyl' },
   ];
 
+  // Un lien Wikipédia par carte, dans la langue du lecteur — repli sur l'italien
+  // pour les spécialités siciliennes qui n'ont pas d'article ailleurs. L'ordre
+  // suit EXACTEMENT celui des cartes (t.specialtiesPage.facts / t.drinksPage.facts) :
+  // une carte ajoutée ici doit ajouter sa ligne là, sinon les liens glissent.
+  const wiki = (fr: string, it: string, en: string): string => ({ fr, it, en } as Record<string, string>)[lang] ?? it;
+  const SPEC_LINKS = [
+    wiki('https://it.wikipedia.org/wiki/Scaccia', 'https://it.wikipedia.org/wiki/Scaccia', 'https://it.wikipedia.org/wiki/Scaccia'),
+    wiki('https://fr.wikipedia.org/wiki/Chocolat_de_Modica', 'https://it.wikipedia.org/wiki/Cioccolato_di_Modica', 'https://en.wikipedia.org/wiki/Modica_chocolate'),
+    wiki('https://it.wikipedia.org/wiki/Testa_di_turco_(dolce)', 'https://it.wikipedia.org/wiki/Testa_di_turco_(dolce)', 'https://it.wikipedia.org/wiki/Testa_di_turco_(dolce)'),
+    wiki("https://it.wikipedia.org/wiki/'Mpanatigghi", "https://it.wikipedia.org/wiki/'Mpanatigghi", "https://it.wikipedia.org/wiki/'Mpanatigghi"),
+    wiki('https://fr.wikipedia.org/wiki/Caciocavallo', 'https://it.wikipedia.org/wiki/Caciocavallo', 'https://en.wikipedia.org/wiki/Caciocavallo'),
+    wiki('https://fr.wikipedia.org/wiki/Torrone', 'https://it.wikipedia.org/wiki/Torrone', 'https://en.wikipedia.org/wiki/Torrone'),
+  ];
+  const DRINK_LINKS = [
+    wiki('https://fr.wikipedia.org/wiki/Cerasuolo_di_Vittoria', 'https://it.wikipedia.org/wiki/Cerasuolo_di_Vittoria', 'https://en.wikipedia.org/wiki/Cerasuolo_di_Vittoria'),
+    wiki('https://fr.wikipedia.org/wiki/Frappato', 'https://it.wikipedia.org/wiki/Frappato', 'https://en.wikipedia.org/wiki/Frappato'),
+    wiki("https://fr.wikipedia.org/wiki/Nero_d'Avola", "https://it.wikipedia.org/wiki/Nero_d'Avola", "https://en.wikipedia.org/wiki/Nero_d'Avola"),
+    wiki('https://fr.wikipedia.org/wiki/Marsala_(vin)', 'https://it.wikipedia.org/wiki/Marsala_(vino)', 'https://en.wikipedia.org/wiki/Marsala_wine'),
+    wiki('https://fr.wikipedia.org/wiki/Amaro_(liqueur)', 'https://it.wikipedia.org/wiki/Amaro_(liquore)', 'https://en.wikipedia.org/wiki/Amaro_(liqueur)'),
+    wiki('https://fr.wikipedia.org/wiki/Limoncello', 'https://it.wikipedia.org/wiki/Limoncello', 'https://en.wikipedia.org/wiki/Limoncello'),
+  ];
+  const wikiLabel = lang === 'fr' ? 'Wikipédia' : 'Wikipedia';
+
   return (
     <RevealNow.Provider value={clicks}>
     <main>
@@ -402,6 +425,17 @@ export default function LaRegion() {
               <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
                 {f.text}
               </p>
+              {SPEC_LINKS[i] && (
+                <a
+                  href={SPEC_LINKS[i]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cava-navlink mt-auto inline-flex items-center gap-1.5 pt-1 text-[13px]"
+                  style={{ color: 'var(--cava-pink)', fontWeight: 500 }}
+                >
+                  {wikiLabel} ↗
+                </a>
+              )}
             </Reveal>
           ))}
         </div>
@@ -439,6 +473,17 @@ export default function LaRegion() {
               <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
                 {f.text}
               </p>
+              {DRINK_LINKS[i] && (
+                <a
+                  href={DRINK_LINKS[i]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cava-navlink mt-auto inline-flex items-center gap-1.5 pt-1 text-[13px]"
+                  style={{ color: 'var(--cava-pink)', fontWeight: 500 }}
+                >
+                  {wikiLabel} ↗
+                </a>
+              )}
             </Reveal>
           ))}
         </div>
