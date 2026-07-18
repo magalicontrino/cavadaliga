@@ -72,15 +72,28 @@ export default function Nav({ current }: { current?: string }) {
           cache ? '-translate-y-full' : 'translate-y-0'
         }`}
       >
-      {/* Le fond n'apparait qu'une fois qu'on a quitte le haut : sur le hero la
-          barre doit flotter sur l'image, ailleurs elle doit rester lisible
-          par-dessus le texte qui passe dessous. */}
+      {/*
+        Le voile givre est LA TOUT LE TEMPS, et c'est le point.
+        Il n'apparaissait d'abord qu'apres 24 px de defilement : au repos, sur
+        une page qui s'ouvre par une photo, les pictos roses se perdaient dans
+        l'image. Or ce voile est de la couleur du fond du site — sur le creme
+        il ne se voit pas, et par-dessus une photo il se revele en bande
+        givree. Permanent, il ne coute donc rien la ou il ne sert pas.
+
+        L'opacite reste moderee : c'est le flou qui fait le travail de
+        lisibilite, pas l'opacite. Un voile opaque poserait un bandeau franc en
+        travers du hero.
+
+        Seul le filet du bas suit le defilement : trace des le haut de page, il
+        barrerait le hero d'un trait sans raison.
+      */}
       <div
         aria-hidden
-        className={`pointer-events-none absolute inset-0 border-b backdrop-blur-md transition-opacity duration-300 motion-reduce:transition-none ${
-          pose && !open ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{ background: 'rgba(246,245,243,0.82)', borderColor: 'var(--cava-line)' }}
+        className="pointer-events-none absolute inset-0 border-b backdrop-blur-xl transition-colors duration-300 motion-reduce:transition-none"
+        style={{
+          background: 'rgba(246,245,243,0.7)',
+          borderColor: pose && !open ? 'var(--cava-line)' : 'transparent',
+        }}
       />
       {/* Les deux côtés portent la même largeur (flex-1) : le sélecteur de langue
           reste centré sur la page quel que soit le nombre de boutons à droite. */}
