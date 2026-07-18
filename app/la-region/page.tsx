@@ -244,7 +244,7 @@ export default function LaRegion() {
             /public/picture-sicile/, Photo affiche son aplat de repli plutot
             qu'une image cassee. */}
         <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {['/picture-sicile/etna-01.jpg', '/picture-sicile/etna-02.jpg'].map((src, i) => (
+          {['/picture-sicile/etna-01.webp', '/picture-sicile/etna-02.webp'].map((src, i) => (
             <Reveal key={src} delay={i * 90}>
               <Photo
                 src={src}

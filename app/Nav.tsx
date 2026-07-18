@@ -28,7 +28,7 @@ export default function Nav({ current }: { current?: string }) {
       <div className="mx-auto flex max-w-[110rem] items-center px-5 py-5 md:px-10">
         {/* Logo rond (carte de Scopa) */}
         <div className="flex flex-1 justify-start">
-          <a href={withBase('/')} aria-label={SITE.name} className="block h-14 w-14 overflow-hidden rounded-full ring-1 ring-black/10 transition-transform duration-300 hover:scale-105">
+          <a href={withBase('/')} aria-label={SITE.name} className="block h-12 w-12 md:h-14 md:w-14 overflow-hidden rounded-full ring-1 ring-black/10 transition-transform duration-300 hover:scale-105">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={withBase('/deco/logo-scopa.jpg')} alt={SITE.name} className="h-full w-full object-cover" />
           </a>
@@ -43,7 +43,7 @@ export default function Nav({ current }: { current?: string }) {
           <LangSwitcher />
         </div>
 
-        <div className="flex flex-1 items-center justify-end gap-3">
+        <div className="flex flex-1 items-center justify-end gap-2 md:gap-3">
           {/* L'appartement — en tete des raccourcis : c'est la maison, le point
               de depart de tout le reste. Sa page se construit encore ; le picto
               y mene deja, sur toutes les pages. */}
@@ -52,7 +52,7 @@ export default function Nav({ current }: { current?: string }) {
             aria-label={t.apartment.label}
             aria-current={current === '/appartement' ? 'page' : undefined}
             title={t.apartment.label}
-            className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full"
+            className="cava-vinyllink flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
           >
             <Icon name="home" size={24} strokeWidth={1.7} />
@@ -68,10 +68,23 @@ export default function Nav({ current }: { current?: string }) {
             aria-label={t.calendarPage.title}
             aria-current={current === '/evenements' ? 'page' : undefined}
             title={t.calendarPage.title}
-            className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full"
+            className="cava-vinyllink flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
           >
             <Icon name="calendar" size={24} />
+          </a>
+
+          {/* Les poubelles. « Qu'est-ce qu'on sort ce soir ? » se demande une
+              fois par jour, souvent tard : ca vaut un geste, pas trois. */}
+          <a
+            href={withBase('/poubelles')}
+            aria-label={t.wastePage.title}
+            aria-current={current === '/poubelles' ? 'page' : undefined}
+            title={t.wastePage.title}
+            className="cava-vinyllink flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full"
+            style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
+          >
+            <Icon name="trash" size={24} />
           </a>
 
           {/* Culture — sons & images (vinyle), à gauche du menu */}
@@ -79,7 +92,7 @@ export default function Nav({ current }: { current?: string }) {
             href={`${withBase('/la-region')}#sons`}
             aria-label={t.culturePage.title}
             title={t.culturePage.title}
-            className="cava-vinyllink flex h-14 w-14 items-center justify-center rounded-full"
+            className="cava-vinyllink flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
           >
             <Icon name="vinyl" size={24} />
@@ -91,7 +104,7 @@ export default function Nav({ current }: { current?: string }) {
             aria-label="Ouvrir le menu"
             aria-expanded={open}
             onClick={() => setOpen(true)}
-            className="flex h-14 w-14 items-center justify-center rounded-full transition-transform duration-300 hover:scale-105"
+            className="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full transition-transform duration-300 hover:scale-105"
             style={{ background: 'var(--cava-ink)' }}
           >
             <span className="flex flex-col gap-[5px]">
@@ -111,7 +124,7 @@ export default function Nav({ current }: { current?: string }) {
         style={{ background: 'var(--cava-bg)', color: 'var(--cava-ink)' }}
       >
         <div className="mx-auto flex w-full max-w-[110rem] items-center justify-between px-5 py-5 md:px-10">
-          <a href={withBase('/')} onClick={() => setOpen(false)} aria-label={SITE.name} className="block h-14 w-14 overflow-hidden rounded-full">
+          <a href={withBase('/')} onClick={() => setOpen(false)} aria-label={SITE.name} className="block h-12 w-12 md:h-14 md:w-14 overflow-hidden rounded-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={withBase('/deco/logo-scopa.jpg')} alt={SITE.name} className="h-full w-full object-cover" />
           </a>
@@ -121,7 +134,7 @@ export default function Nav({ current }: { current?: string }) {
               type="button"
               aria-label="Fermer le menu"
               onClick={() => setOpen(false)}
-              className="flex h-14 w-14 items-center justify-center rounded-full ring-1 ring-black/15 text-[18px] transition-transform duration-300 hover:scale-105"
+              className="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full ring-1 ring-black/15 text-[18px] transition-transform duration-300 hover:scale-105"
             >
               ✕
             </button>

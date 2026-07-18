@@ -18,7 +18,11 @@ import { WASTE, WEEK, mondayIndex } from './wasteData';
  * avant » et on complète après le montage — sinon React signalerait une
  * différence entre le HTML servi et l'affichage.
  */
-export default function WasteSchedule() {
+/**
+ * `nu` : sans son propre en-tete. Sur la page dediee, PageHeader porte deja le
+ * titre en grand — le repeter ici l'ecrivait deux fois de suite.
+ */
+export default function WasteSchedule({ nu = false }: { nu?: boolean } = {}) {
   const { t, lang } = useI18n();
   const w = t.wastePage;
   const [today, setToday] = useState<number | null>(null);
@@ -31,17 +35,19 @@ export default function WasteSchedule() {
 
   return (
     <section className="mx-auto max-w-[110rem] px-5 pt-8 md:px-10">
-      <Reveal className="mb-8 flex flex-col gap-2">
-        <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
-          <Icon name="trash" size={16} /> {w.eyebrow}
-        </span>
-        <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
-          {w.title}
-        </h2>
-        <p className="max-w-[62ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
-          {w.intro}
-        </p>
-      </Reveal>
+      {!nu && (
+        <Reveal className="mb-8 flex flex-col gap-2">
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="trash" size={16} /> {w.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+            {w.title}
+          </h2>
+          <p className="max-w-[62ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+            {w.intro}
+          </p>
+        </Reveal>
+      )}
 
       {/* Ce soir — la réponse à la seule question qu'on se pose vraiment */}
       <Reveal
