@@ -65,13 +65,19 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
   // equidistance resolue : centres en x=13,07 et 10,93, rayon 8,07. C'est ce
   // qui ferme la pointe exactement sur (12,3) au lieu d'a peu pres.
   //
-  // DEUX lames, voulues ainsi. Elles suivent le retrecissement : en bas la
-  // largeur pleine entre montants, en haut la corde de l'arc a cette hauteur.
-  // Une lame de moins, c'est 10 unites de trace en moins : le trait passe de
-  // 1,5 a 1,7 pour que le picto ne palisse pas a cote de ses voisins.
+  // DEUX VANTAUX : c'est le meneau vertical qui le dit, pas le nombre de
+  // lames. Sans lui, deux traits horizontaux dans une baie ne racontent rien —
+  // avec lui, on lit deux volets qu'on pourrait pousser. Les lames traversent
+  // le meneau au lieu de s'interrompre : coupees en six petits tirets, elles
+  // se brouillaient a 24 px.
+  //
+  // Le meneau part de y=5, sous la clef, et non du sommet : monte jusqu'a la
+  // pointe, il refermait l'ogive en deux triangles au lieu de la laisser
+  // respirer.
   window: (
     <>
       <path d="M5 20.5V11a8.07 8.07 0 0 1 7-8 8.07 8.07 0 0 1 7 8v9.5z" />
+      <path d="M12 5v15.5" />
       <path d="M7.2 10h9.6" />
       <path d="M7 15.5h10" />
     </>
