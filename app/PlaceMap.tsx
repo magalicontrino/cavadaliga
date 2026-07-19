@@ -571,7 +571,7 @@ export default function PlaceMap({
     (async () => {
       try {
         const [gl, pm] = await Promise.all([import('maplibre-gl'), import('pmtiles')]);
-        const { Map: GlMap, Marker, NavigationControl } = gl;
+        const { Map: GlMap, Marker, NavigationControl, AttributionControl } = gl;
         const { Protocol } = pm;
         if (mort || !box.current) return;
 
@@ -585,10 +585,25 @@ export default function PlaceMap({
           center: [HOUSE.lon, HOUSE.lat],
           zoom: 11,
           maxBounds: EMPRISE,
-          attributionControl: { compact: false },
+          // Pose A LA MAIN juste apres, pour la mettre a GAUCHE (voir plus bas).
+          attributionControl: false,
         });
         // En haut à droite : en bas, les commandes tomberaient derrière la fiche.
         m.addControl(new NavigationControl({ showCompass: false }), 'top-right');
+        /*
+         * L'attribution passe EN BAS A GAUCHE, et ce n'est pas un gout.
+         *
+         * Mag veut la bulle « Demander » a droite de l'ecran. Or MapLibre pose
+         * son attribution en bas a droite par defaut, et la bulle la recouvrait
+         * — mesure faite : le « © OpenStreetMap » disparaissait entierement
+         * derriere elle. Cette mention n'est pas decorative : la licence ODbL
+         * des donnees impose qu'elle reste lisible.
+         *
+         * Deplacer la mention coute moins que deplacer la bulle : les commandes
+         * de zoom sont en haut a droite, le coin bas gauche de la carte, lui,
+         * ne sert a rien.
+         */
+        m.addControl(new AttributionControl({ compact: false }), 'bottom-left');
         /**
          * On attend que la carte ait DESSINE, pas seulement chargé son style.
          *

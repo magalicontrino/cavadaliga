@@ -148,6 +148,28 @@ export default function WasteSchedule({ nu = false }: { nu?: boolean } = {}) {
         </span>
         <p>{w.eveningNote}</p>
       </Reveal>
+
+      {/*
+        L'AVERTISSEMENT, et le lien vers la source. Mag a valide ces jours — mais
+        ils changent : la commune les deplace pour les fetes, l'ete, ou quand
+        elle change de prestataire. Un tableau fige finit toujours par mentir,
+        et un bac sorti le mauvais soir reste dehors une semaine.
+        Le portail « trasparenza rifiuti » est le site institutionnel du service
+        (gere par la SRR ATO 7 Ragusa) : c'est lui qui fait foi, pas nous.
+      */}
+      <Reveal className="mt-6 flex flex-col gap-4 rounded-2xl border border-dashed p-5" style={{ borderColor: 'var(--cava-line)' }}>
+        <p className="text-[13.5px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+          {w.changeNote}
+        </p>
+        <a
+          href="https://scicli.trasparenzarifiuti.it/argomento-rt/calendario-rt/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="cava-pill inline-flex w-fit items-center gap-2 px-5 py-2.5 text-[13px]"
+        >
+          <Icon name="info" size={15} /> {w.officialLabel} ↗
+        </a>
+      </Reveal>
     </section>
   );
 }

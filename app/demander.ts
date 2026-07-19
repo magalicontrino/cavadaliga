@@ -333,6 +333,7 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
       `${t.wastePage.today} (${jours[iJour]}) — ${WASTE[WEEK[iJour]].label[lang]}.`,
       `${t.wastePage.tomorrow} (${jours[demain]}) — ${WASTE[WEEK[demain]].label[lang]}.`,
       t.wastePage.eveningNote,
+      t.wastePage.changeNote,
       ...WEEK.map((k, i) => `${jours[i]} : ${WASTE[k].label[lang]}`),
     ],
     mots: motsMaison('poubelles'),

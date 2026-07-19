@@ -276,11 +276,12 @@ export default function Assistant() {
         La bulle. z-40 : sous la barre du haut (z-50) et sous le menu plein
         ecran (z-60), qui doivent tous deux pouvoir la couvrir.
 
-        A GAUCHE, et ce n'est pas un gout : posee a droite, elle recouvrait le
-        « © OpenStreetMap » de la carte. Cette mention n'est pas decorative, la
-        licence des donnees impose qu'elle reste lisible — et sur une carte
-        elle se met par convention en bas a droite. Le coin gauche, lui, ne doit
-        rien a personne.
+        A DROITE, ou Mag la veut — et c'est aussi la que tout le monde a appris
+        a la chercher. Elle y avait ete refusee une premiere fois parce qu'elle
+        recouvrait le « © OpenStreetMap » de la carte, mention que la licence
+        des donnees veut lisible. C'est l'attribution qui a bouge : elle est
+        passee en bas a GAUCHE de la carte, ou rien ne la gene. Deplacer une
+        mention coute moins que deplacer le bouton principal du site.
       */}
       <button
         type="button"
@@ -288,7 +289,7 @@ export default function Assistant() {
         aria-label={a.label}
         aria-expanded={ouvert}
         title={a.label}
-        className="cava-demander-bulle fixed bottom-5 left-5 z-40 flex h-16 w-16 items-center justify-center rounded-full shadow-xl transition-transform duration-300 hover:scale-105 motion-reduce:transition-none md:bottom-8 md:left-8"
+        className="cava-demander-bulle fixed bottom-5 right-5 z-40 flex h-16 w-16 items-center justify-center rounded-full shadow-xl transition-transform duration-300 hover:scale-105 motion-reduce:transition-none md:bottom-8 md:right-8"
         style={{
           background: 'linear-gradient(135deg,#ff5c9a,#d81f66)',
           color: '#fff',
@@ -317,7 +318,7 @@ export default function Assistant() {
           ouvert
             ? 'cava-demander-ouvert visible opacity-100'
             : 'invisible translate-y-3 opacity-0 transition-[opacity,transform] duration-300 motion-reduce:transition-none'
-        } inset-x-3 bottom-24 h-[clamp(24rem,62vh,34rem)] max-h-[calc(100dvh-12rem)] md:inset-x-auto md:bottom-28 md:left-8 md:h-[clamp(24rem,58vh,34rem)] md:w-[27rem]`}
+        } inset-x-3 bottom-24 h-[clamp(24rem,62vh,34rem)] max-h-[calc(100dvh-12rem)] md:inset-x-auto md:bottom-28 md:right-8 md:h-[clamp(24rem,58vh,34rem)] md:w-[27rem]`}
         // Blanc franc, et surtout PAS --cava-card : cette variable vaut #2e2d2d,
         // c'est la carte SOMBRE du site. Le panneau sortait noir sur noir.
         //

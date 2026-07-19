@@ -324,6 +324,9 @@ export type Dict = {
     tomorrow: string;
     noneToday: string;
     eveningNote: string;
+    /** L'avertissement : ces jours changent, et il faut aller verifier. */
+    changeNote: string;
+    officialLabel: string;
     days: string[]; // lundi → dimanche
   };
   ctaEyebrow: string;
@@ -819,6 +822,8 @@ const FR: Dict = {
     tomorrow: 'Demain soir',
     noneToday: 'Rien à sortir',
     eveningNote: 'On sort les bacs le soir, pas le matin — le camion est déjà passé. Si vous ratez le passage la veille du départ, laissez les sacs sur la terrasse, jamais dans la rue.',
+    changeNote: 'Ces jours ont été relevés par Mag, et ils changent : la commune les modifie pour les fêtes, l’été, ou quand elle change de prestataire. Un bac sorti le mauvais soir reste dehors une semaine — au moindre doute, allez voir la page officielle, et prévenez Mag si elle ne dit plus la même chose que nous.',
+    officialLabel: 'Le calendrier officiel de la commune',
     days: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
   },
   ctaEyebrow: 'Envie de venir ?',
@@ -1419,6 +1424,8 @@ const IT: Dict = {
     tomorrow: 'Domani sera',
     noneToday: 'Niente da mettere fuori',
     eveningNote: 'I bidoni si mettono fuori la sera, non la mattina — il camion è già passato. Se saltate il passaggio prima di partire, lasciate i sacchi sulla terrazza, mai in strada.',
+    changeNote: 'Questi giorni li ha rilevati Mag, e cambiano: il comune li modifica per le feste, d’estate, o quando cambia ditta. Un bidone portato fuori la sera sbagliata resta lì una settimana — al minimo dubbio guardate la pagina ufficiale, e avvisate Mag se non dice più quello che diciamo noi.',
+    officialLabel: 'Il calendario ufficiale del comune',
     days: ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'],
   },
   ctaEyebrow: 'Voglia di venire?',
@@ -2019,6 +2026,8 @@ const EN: Dict = {
     tomorrow: 'Tomorrow evening',
     noneToday: 'Nothing to put out',
     eveningNote: 'Bins go out in the evening, not in the morning — by then the truck has been. If you miss the round before leaving, leave the bags on the terrace, never in the street.',
+    changeNote: 'These days were noted down by Mag, and they change: the town alters them for public holidays, in summer, or when it changes contractor. A bin put out on the wrong evening stays there a week — if in any doubt, check the official page, and tell Mag if it no longer says what we say.',
+    officialLabel: 'The town’s official calendar',
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
   },
   ctaEyebrow: 'Ready to come?',

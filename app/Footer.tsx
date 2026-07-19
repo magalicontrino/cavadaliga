@@ -37,9 +37,10 @@ export default function Footer() {
       </div>
 
       {/* Le bas de page se termine PLUS BAS que le reste : la bulle
-          « Demander » est posee dans ce coin, fixe, et venait recouvrir le
-          « Copyright © Mag » — au point de le rendre incliquable. Cette marge
-          laisse le credit remonter au-dessus d'elle. */}
+          « Demander » est fixe dans un coin et venait recouvrir cette rangee —
+          le « Copyright © Mag » quand elle etait a gauche, le selecteur de
+          langue depuis qu'elle est a droite. La marge protege les deux, quel
+          que soit le cote ou elle se tient. */}
       <div className="mx-auto max-w-[110rem] px-5 pb-28 pt-16 md:px-10 md:pb-32 md:pt-20">
         {/* Liens géants (maximaliste) — les pages. Contact et Instagram vivent
             au-dessus du bandeau, pas ici. */}

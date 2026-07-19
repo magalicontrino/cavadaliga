@@ -1052,8 +1052,8 @@ html {
    sans jamais se deformer. Une seule etape suffit a le decrire — c'est la
    preuve qu'il n'y a plus rien de trafique entre les deux.
 
-   L'origine reste au coin BAS GAUCHE, celui de la bulle : elle en sort au
-   lieu d'apparaitre a cote. */
+   L'origine reste au coin de la bulle — passe a DROITE avec elle : la boite en
+   sort au lieu d'apparaitre a cote. */
 @keyframes cava-demander-entre {
   0% {
     opacity: 0;
