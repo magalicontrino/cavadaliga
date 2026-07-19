@@ -30,10 +30,9 @@ import { useI18n } from './i18n';
  * chose : juste, faux, ou pas choisi.
  */
 // Le jaune de l'arbre pour la bonne reponse — Mag : « le vert non, du jaune
-// oui ». Le rouge reste : c'est la seule couleur qui n'a pas besoin d'etre
-// expliquee.
+// oui ». Une seule couleur dans tout le jeu : elle ne dit qu'une chose, et
+// on n'a jamais a se demander laquelle.
 const JAUNE = '#ffd452';
-const ROUGE = '#f3a5a5';
 
 /**
  * Melange les reponses, sinon la bonne serait TOUJOURS la premiere.
@@ -260,7 +259,13 @@ export default function Quiz() {
                  */
                 const fond = !valide
                   ? monChoix ? 'var(--cava-ink)' : 'transparent'
-                  : estBonne ? JAUNE : monChoix ? ROUGE : 'transparent';
+                  : estBonne ? JAUNE : 'transparent';
+                // L'erreur qu'on a commise : raturee, pas rougie. Mag —
+                // « laisse plutot en noir et blanc et barre au milieu, une
+                // belle barre fine a travers les mots ». Le rouge criait la
+                // faute ; le trait la constate, et laisse le jaune etre la
+                // seule couleur de l'ecran.
+                const rature = valide && monChoix && !estBonne;
                 return (
                   <button
                     key={c}
@@ -277,7 +282,23 @@ export default function Quiz() {
                       opacity: valide && !estBonne && !monChoix ? 0.45 : 1,
                     }}
                   >
-                    {c}
+                    {/* Le trait porte sur les MOTS, pas sur la pastille : il
+                        s'arrete donc avec le texte, et ne traverse pas le
+                        vide jusqu'au bord. Fin — un demi-pixel de plus et il
+                        rature au lieu de barrer. */}
+                    <span
+                      style={
+                        rature
+                          ? {
+                              textDecoration: 'line-through',
+                              textDecorationThickness: '1px',
+                              textDecorationColor: 'var(--cava-ink)',
+                            }
+                          : undefined
+                      }
+                    >
+                      {c}
+                    </span>
                   </button>
                 );
               })}
