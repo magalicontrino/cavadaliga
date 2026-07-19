@@ -25,7 +25,15 @@ export type Lien = { label: string; url: string };
 
 export type Fiche = {
   id: string;
-  /** La page d'ou vient le texte — toujours affichee sous la reponse. */
+  /**
+   * La page d'ou vient le texte — toujours affichee sous la reponse.
+   *
+   * Le fragment compte autant que la page : « Demander » coupe les reponses
+   * longues, et le lien doit reprendre la lecture LA OU elle s'arrete. Les
+   * infos pratiques n'affichent d'ailleurs qu'une section a la fois — sans
+   * fragment, le lien ouvrirait l'adresse alors qu'on demandait les
+   * poubelles. Voir informations-pratiques/page.tsx, qui lit ce fragment.
+   */
   page: string;
   titre: string;
   /** Le texte de Mag, mot pour mot. */
@@ -173,7 +181,7 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   t.arrivee.operation.forEach((g) => {
     ajouter({
       id: `op-${g.icon}`,
-      page: '/informations-pratiques',
+      page: '/informations-pratiques#arrivee',
       titre: g.title,
       lignes: g.items ?? [],
       mots: motsMaison(`op-${g.icon}`),
@@ -183,7 +191,7 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   // ── L'adresse ────────────────────────────────────────────────────────
   ajouter({
     id: 'adresse',
-    page: '/informations-pratiques',
+    page: '/informations-pratiques#adresse',
     titre: t.arrivee.addressLabel,
     lignes: t.arrivee.address,
     liens: [{ label: t.arrivee.mapsLabel, url: t.arrivee.mapsUrl }],
@@ -193,14 +201,14 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   // ── Les deux check-lists ─────────────────────────────────────────────
   ajouter({
     id: 'depart',
-    page: '/informations-pratiques',
+    page: '/informations-pratiques#depart',
     titre: t.depart.checklistTitle,
     lignes: t.depart.checklist,
     mots: motsMaison('depart'),
   });
   ajouter({
     id: 'valise',
-    page: '/preparer-le-voyage',
+    page: '/preparer-le-voyage#valise',
     titre: t.prepare.checklistTitle,
     lignes: t.prepare.checklist,
     mots: motsMaison('valise'),
@@ -210,7 +218,7 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   t.prepare.groups.forEach((g, i) => {
     ajouter({
       id: `voyage-${i}`,
-      page: '/preparer-le-voyage',
+      page: '/preparer-le-voyage#groupes',
       titre: g.title,
       lignes: g.items ?? [],
       liens: g.links,
@@ -242,7 +250,7 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   // ── Pharmacie, urgences, gaz ─────────────────────────────────────────
   ajouter({
     id: 'pharmacie',
-    page: '/informations-pratiques',
+    page: '/informations-pratiques#urgences',
     titre: PHARMACY.name,
     lignes: [PHARMACY.street, PHARMACY.hours[lang]],
     liens: [
@@ -253,14 +261,14 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   });
   ajouter({
     id: 'urgences',
-    page: '/informations-pratiques',
+    page: '/informations-pratiques#urgences',
     titre: t.movePage.urgencyTitle,
     lignes: [t.movePage.urgencyIntro, ...EMERGENCIES.map((e) => `${e.number} — ${e.label[lang]}`)],
     mots: motsMaison('urgences'),
   });
   ajouter({
     id: 'gaz',
-    page: '/informations-pratiques',
+    page: '/informations-pratiques#urgences',
     titre: GAS.name,
     lignes: [GAS.street, t.movePage.gasDesc],
     liens: [{ label: t.localPage.mapLabel, url: GAS.mapsUrl }],
@@ -271,7 +279,7 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   TRANSPORTS.forEach((tr) => {
     ajouter({
       id: `transport-${tr.id}`,
-      page: '/informations-pratiques',
+      page: '/informations-pratiques#bouger',
       titre: tr.name,
       lignes: [tr.blurb[lang]],
       liens: [
@@ -291,7 +299,7 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   });
   ajouter({
     id: 'famille',
-    page: '/famille',
+    page: '/famille#arbre',
     titre: t.salvaPage.treeTitle,
     lignes: [t.salvaPage.treeNote],
     mots: motsMaison('famille'),

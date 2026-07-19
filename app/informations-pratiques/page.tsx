@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal, { RevealNow } from '../Reveal';
@@ -17,6 +17,9 @@ import { useI18n } from '../i18n';
 
 type Key = 'tout' | 'adresse' | 'arrivee' | 'bouger' | 'urgences' | 'dechets' | 'depart';
 
+/** Les sections atteignables par un lien « #… ». « tout » n'en est pas une. */
+const SECTIONS: Key[] = ['adresse', 'arrivee', 'bouger', 'urgences', 'dechets', 'depart'];
+
 
 export default function InformationsPratiques() {
   const { t } = useI18n();
@@ -28,6 +31,43 @@ export default function InformationsPratiques() {
   // On arrive sur « Adresse » : le bouton allumé correspond à ce qu'on voit.
   // Avec « Tout » par défaut, cliquer « Adresse » ne changeait rien à l'écran.
   const [filter, setFilter] = useState<Key>('adresse');
+
+  /**
+   * On peut arriver ICI, sur une section precise, par « #urgences » ou
+   * « #depart ».
+   *
+   * La page n'affiche qu'une section a la fois : une ancre seule aurait vise
+   * un titre que le filtre tenait cache, et le navigateur n'aurait rien
+   * trouve ou l'aurait fait defiler dans le vide. Le fragment choisit donc
+   * D'ABORD le bouton, et le defilement suit une fois la section posee.
+   *
+   * C'est « Demander » qui s'en sert : ses reponses sont coupees court et
+   * renvoient a l'endroit exact d'ou vient le texte.
+   */
+  const [cible, setCible] = useState<Key | null>(null);
+  useEffect(() => {
+    const cle = window.location.hash.slice(1) as Key;
+    if (!cle || !SECTIONS.includes(cle)) return;
+    setFilter(cle);
+    setClicks((c) => c + 1);
+    setCible(cle);
+  }, []);
+
+  /*
+   * Le defilement attend que la section EXISTE.
+   *
+   * Il partait d'abord dans le meme elan que le choix du filtre, au frame
+   * suivant : trop tot. React n'avait pas encore pose la section, getElementById
+   * rendait null, et la page restait en haut — mesure au banc, scrollY a 0 pour
+   * une section a 505 px. En passant par un effet qui suit `filter`, on ne vise
+   * qu'une fois la section rendue.
+   */
+  useEffect(() => {
+    if (!cible || filter !== cible) return;
+    // `instant` : on arrive d'ailleurs, voir app/ancre.ts.
+    document.getElementById(cible)?.scrollIntoView({ block: 'start', behavior: 'instant' });
+    setCible(null);
+  }, [cible, filter]);
   // Incrementé à chaque choix : dit aux Reveal en dessous de se montrer d'un coup.
   const [clicks, setClicks] = useState(0);
   const choose = (k: Key) => {
@@ -71,7 +111,7 @@ export default function InformationsPratiques() {
           défaut. Filtrable comme les autres : haute de 800 px, elle repoussait
           sinon tout contenu cliqué sous la ligne de flottaison. */}
       {show('adresse') && (
-      <section className="mx-auto max-w-[110rem] px-5 pb-10 pt-12 md:px-10">
+      <section id="adresse" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-10 pt-12 md:px-10">
         <Reveal
           className="flex flex-col gap-8 rounded-3xl border p-8 md:flex-row md:items-center md:justify-between md:p-12"
           style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
@@ -111,7 +151,7 @@ export default function InformationsPratiques() {
 
       {/* Arrivée : le guide des premières heures */}
       {show('arrivee') && (
-        <section className="mx-auto max-w-[110rem] px-5 pb-8 pt-12 md:px-10">
+        <section id="arrivee" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-8 pt-12 md:px-10">
           <Reveal className="mb-8 flex flex-col gap-2">
             <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
               <Icon name="key" size={16} /> {a.eyebrow}
@@ -156,10 +196,26 @@ export default function InformationsPratiques() {
         </section>
       )}
 
-      {show('bouger') && <Transports />}
-      {show('urgences') && <Emergencies />}
-      {show('dechets') && <WasteSchedule />}
-      {show('depart') && <DepartChecklist />}
+      {show('bouger') && (
+        <div id="bouger" className="scroll-mt-24">
+          <Transports />
+        </div>
+      )}
+      {show('urgences') && (
+        <div id="urgences" className="scroll-mt-24">
+          <Emergencies />
+        </div>
+      )}
+      {show('dechets') && (
+        <div id="dechets" className="scroll-mt-24">
+          <WasteSchedule />
+        </div>
+      )}
+      {show('depart') && (
+        <div id="depart" className="scroll-mt-24">
+          <DepartChecklist />
+        </div>
+      )}
 
       {/* Un rappel de la casa, hors filtres : on est ici pour se reperer, et
           revoir les pieces aide. Les douze photos y passent en defilant, ce qui

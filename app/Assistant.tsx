@@ -353,8 +353,43 @@ export default function Assistant() {
   );
 }
 
+/**
+ * On COUPE les reponses longues.
+ *
+ * La check-list de depart fait dix lignes, les poubelles en font treize : la
+ * boite se remplissait d'un mur de texte qu'on ne lit pas dans une bulle. On
+ * en montre le debut, on pose trois points, et le lien reprend la lecture a
+ * l'endroit exact — la page ET sa section.
+ *
+ * Deux limites plutot qu'une : trois lignes, mais aussi 260 signes. Une seule
+ * ligne peut etre un paragraphe entier (la note sur les bacs du soir en fait
+ * 200 a elle seule) — compter les lignes ne dit rien de ce qu'on voit.
+ */
+const MAX_LIGNES = 3;
+const MAX_SIGNES = 260;
+
+function couper(lignes: string[]): { visibles: string[]; coupe: boolean } {
+  const visibles: string[] = [];
+  let total = 0;
+  for (const l of lignes) {
+    if (visibles.length >= MAX_LIGNES || total >= MAX_SIGNES) return { visibles, coupe: true };
+    if (total + l.length > MAX_SIGNES) {
+      // On coupe au dernier espace : un mot tranche en deux se lit mal.
+      const reste = MAX_SIGNES - total;
+      const bout = l.slice(0, reste);
+      const espace = bout.lastIndexOf(' ');
+      visibles.push((espace > 40 ? bout.slice(0, espace) : bout).trimEnd());
+      return { visibles, coupe: true };
+    }
+    visibles.push(l);
+    total += l.length;
+  }
+  return { visibles, coupe: false };
+}
+
 /** Une reponse : le texte de Mag, ses liens, et la page d'ou il sort. */
 function Carte({ fiche, sourceLabel }: { fiche: Fiche; sourceLabel: string }) {
+  const { visibles, coupe } = couper(fiche.lignes);
   return (
     // Le filet rose sur le flanc gauche : il donne un bord franc a la reponse
     // et la separe des suggestions, sans ajouter une bordure complete qui
@@ -367,9 +402,10 @@ function Carte({ fiche, sourceLabel }: { fiche: Fiche; sourceLabel: string }) {
         {fiche.titre}
       </h3>
       <div className="flex flex-col gap-2">
-        {fiche.lignes.map((l, i) => (
+        {visibles.map((l, i) => (
           <p key={i} className="text-[13.5px] leading-[1.75]">
             {l}
+            {coupe && i === visibles.length - 1 && <span aria-hidden> …</span>}
           </p>
         ))}
       </div>
@@ -393,8 +429,14 @@ function Carte({ fiche, sourceLabel }: { fiche: Fiche; sourceLabel: string }) {
           toujours aller lire la phrase dans son contexte. */}
       <a
         href={withBase(fiche.page)}
-        className="inline-flex w-fit items-center gap-1 text-[12px] underline underline-offset-4"
-        style={{ color: 'var(--cava-pink-fonce, var(--cava-pink))' }}
+        className={`inline-flex w-fit items-center gap-1.5 underline-offset-4 ${
+          coupe ? 'rounded-full px-4 py-2 text-[12.5px] no-underline' : 'text-[12px] underline'
+        }`}
+        style={
+          coupe
+            ? { background: 'var(--cava-pink-fonce)', color: '#fff', fontWeight: 600 }
+            : { color: 'var(--cava-pink-fonce, var(--cava-pink))' }
+        }
       >
         {sourceLabel} →
       </a>

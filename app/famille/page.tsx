@@ -11,6 +11,7 @@ import Icon from '../Icon';
 import FamilyTree from '../FamilyTree';
 import { SITE } from '../data';
 import { useI18n } from '../i18n';
+import { useAncre } from '../ancre';
 
 // Galerie souvenir de Salva — vraies photos dans /public/picture-sicile/.
 // Pas de repli déco (illustrations siciliennes) pour des portraits : à défaut
@@ -26,6 +27,9 @@ const SALVA = Array.from({ length: 20 }, (_, i) => ({
 }));
 
 export default function Salva() {
+  // Arriver par « #valise » ou « #arbre » depuis « Demander » doit ouvrir
+  // la bonne section, pas le haut de la page.
+  useAncre();
   const { t } = useI18n();
   const s = t.salvaPage;
   const [open, setOpen] = useState<number | null>(null);
@@ -130,7 +134,7 @@ export default function Salva() {
       </section>
 
       {/* Arbre généalogique — cible du renvoi place sous le titre de la page. */}
-      <section id="arbre" className="mx-auto max-w-[110rem] scroll-mt-8 px-5 pb-24 md:px-10">
+      <section id="arbre" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-24 md:px-10">
         <Reveal>
           {/* Le meme habit que le titre de la page : capitales, gras, et le
               dernier mot enferme dans sa pilule. Plus petit, parce qu'une

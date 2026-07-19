@@ -1036,34 +1036,46 @@ html {
    mou, et Mag l'a trouve terne : il monte donc en depassant sa place avant de
    s'y poser.
 
-   PAS DE REBOND — on l'a essaye, Mag n'en veut pas : « juste un effet
-   sympa ». Un ressort qui depasse puis revient, c'est du dessin anime ; ici la
-   boite se DEPLIE depuis la bulle et s'arrete net, sans jamais revenir en
-   arriere.
+   DU CARTOON, et pas un simple rebond — Mag a refuse le ressort qui monte et
+   redescend, puis demande « plus dynamique, plus cartoon ». Ce n'est pas
+   contradictoire : le ressort vertical faisait jouet, l'ecrasement fait
+   dessin anime.
 
-   Tout le mouvement tient dans l'echelle et l'origine : elle grandit depuis
-   son coin BAS GAUCHE, celui ou se tient la bulle, donc elle en sort au lieu
-   d'apparaitre a cote. La courbe est une sortie douce, monotone — c'est ce qui
-   fait la difference entre « ca s'ouvre » et « ca rebondit ».
+   D'ou le squash & stretch, le b.a.-ba de l'animation : la boite jaillit
+   ETIREE (X plus etroit, Y plus grand), s'ECRASE en arrivant (X plus large, Y
+   plus plat), puis retrouve sa forme. C'est la deformation qui donne la
+   matiere et le poids, pas le deplacement — elle bouge a peine, et pourtant
+   ca vit.
 
-   L'opacite finit tot (a 40 %) : le contenu est lisible bien avant que le
-   mouvement ne s'acheve, et l'ouverture parait plus vive qu'elle ne dure. */
+   Deux details qui font tout : l'origine au coin BAS GAUCHE, celui de la
+   bulle, pour qu'elle en jaillisse au lieu d'apparaitre a cote ; et une
+   opacite finie a 25 %, pour qu'on lise le contenu pendant que la forme
+   travaille encore. */
 @keyframes cava-demander-entre {
   0% {
     opacity: 0;
-    transform: translateY(26px) scale(0.9);
+    transform: translateY(34px) scale(0.72, 0.86);
   }
-  40% {
+  25% {
     opacity: 1;
+  }
+  45% {
+    transform: translateY(-6px) scale(1.06, 1.02);
+  }
+  65% {
+    transform: translateY(2px) scale(0.97, 1.03);
+  }
+  82% {
+    transform: translateY(0) scale(1.02, 0.99);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1, 1);
   }
 }
 .cava-demander-ouvert {
   transform-origin: bottom left;
-  animation: cava-demander-entre 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: cava-demander-entre 0.58s cubic-bezier(0.3, 0.85, 0.4, 1) both;
 }
 /* La bulle elle-meme accuse le coup quand on la touche. */
 @keyframes cava-demander-pouce {

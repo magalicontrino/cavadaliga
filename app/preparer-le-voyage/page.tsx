@@ -7,8 +7,12 @@ import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Shape from '../Shape';
 import { useI18n } from '../i18n';
+import { useAncre } from '../ancre';
 
 export default function PreparerLeVoyage() {
+  // Arriver par « #valise » ou « #arbre » depuis « Demander » doit ouvrir
+  // la bonne section, pas le haut de la page.
+  useAncre();
   const { t } = useI18n();
   const p = t.prepare;
   const [checked, setChecked] = useState<Set<number>>(new Set());
@@ -30,7 +34,7 @@ export default function PreparerLeVoyage() {
 
       {/* Rubriques — empilées les unes sous les autres, style éditorial façon
           CTA de l'accueil (grand titre en capitales, filet, sans cadre). */}
-      <section className="mx-auto max-w-[110rem] px-5 md:px-10">
+      <section id="groupes" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 md:px-10">
         {p.groups.map((g, gi) => {
           const words = g.title.split(' ');
           const last = words.pop();
@@ -90,7 +94,7 @@ export default function PreparerLeVoyage() {
       </section>
 
       {/* Check-list cochable */}
-      <section className="mx-auto max-w-[110rem] px-5 pb-24 pt-16 md:px-10">
+      <section id="valise" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-24 pt-16 md:px-10">
         <Reveal className="rounded-2xl p-8 text-white md:p-12" style={{ background: 'var(--cava-ink)' }}>
           <div className="mb-2 flex items-center gap-3">
             <span aria-hidden style={{ color: 'var(--cava-pink)' }}>
