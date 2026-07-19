@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
@@ -8,6 +8,7 @@ import PageHeader from '../PageHeader';
 import BottomSheet from '../BottomSheet';
 import Icon, { type IconName } from '../Icon';
 import { useI18n } from '../i18n';
+import type { Lang } from '../localData';
 import { PRONONCIATION, LECONS, CONJUGAISONS, PRONOMS, EXERCICES, AILLEURS } from '../italienData';
 
 /**
@@ -42,6 +43,66 @@ function melange<T>(liste: T[], graine: number): T[] {
     [out[i], out[k]] = [out[k], out[i]];
   }
   return out;
+}
+
+/*
+ * LES RENVOIS A WIKIPEDIA. Mag : « quand tu cites des gens historiques ou des
+ * lieux, fais-en un lien vers Wikipedia ». On ne lie que des NOMS PROPRES
+ * verifies — une personne, un lieu — jamais un mot courant : sur-souligner un
+ * texte le rend illisible et fait douter de chaque lien.
+ *
+ * Le lien pointe vers le Wikipedia de la LANGUE lue (fr / it / en). La plupart
+ * des articles portent le meme titre dans les trois langues ; les exceptions
+ * (la ville de Raguse en francais, Cava d'Aliga qui n'existe que sur l'edition
+ * italienne) sont ecrites a la main ci-dessous.
+ */
+const wiki = (edition: string, titre: string) => `https://${edition}.wikipedia.org/wiki/${titre}`;
+
+const REFERENCES: { formes: string[]; url: Record<Lang, string> }[] = [
+  { formes: ['Maria Occhipinti'], url: { fr: wiki('fr', 'Maria_Occhipinti'), it: wiki('it', 'Maria_Occhipinti'), en: wiki('en', 'Maria_Occhipinti') } },
+  { formes: ['Scicli'], url: { fr: wiki('fr', 'Scicli'), it: wiki('it', 'Scicli'), en: wiki('en', 'Scicli') } },
+  { formes: ['Comiso'], url: { fr: wiki('fr', 'Comiso'), it: wiki('it', 'Comiso'), en: wiki('en', 'Comiso') } },
+  // Cava d'Aliga n'a d'article que sur l'edition italienne : on y renvoie quelle
+  // que soit la langue lue. La forme a apostrophe courbe est celle du texte.
+  { formes: ['Cava d’Aliga', "Cava d'Aliga"], url: { fr: wiki('it', "Cava_d'Aliga"), it: wiki('it', "Cava_d'Aliga"), en: wiki('it', "Cava_d'Aliga") } },
+  // « Raguse » en francais, « Ragusa » en italien et en anglais.
+  { formes: ['Raguse', 'Ragusa'], url: { fr: wiki('fr', 'Raguse_(Italie)'), it: wiki('it', 'Ragusa'), en: wiki('en', 'Ragusa') } },
+];
+
+/*
+ * Reecrit un texte en semant des liens : on cherche la premiere occurrence
+ * d'un nom connu, on la change en lien, et on recommence sur la suite. A
+ * egalite de position, la forme la plus longue gagne (evite qu'un nom court
+ * mange un nom long qui commence pareil).
+ */
+function avecLiens(texte: string, lang: Lang): ReactNode {
+  let trouve: { i: number; forme: string; url: string } | null = null;
+  for (const ref of REFERENCES) {
+    for (const forme of ref.formes) {
+      const i = texte.indexOf(forme);
+      if (i === -1) continue;
+      if (!trouve || i < trouve.i || (i === trouve.i && forme.length > trouve.forme.length)) {
+        trouve = { i, forme, url: ref.url[lang] };
+      }
+    }
+  }
+  if (!trouve) return texte;
+  return (
+    <>
+      {texte.slice(0, trouve.i)}
+      <a
+        href={trouve.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="cava-navlink"
+        style={{ color: 'var(--cava-pink)', fontWeight: 500 }}
+        title="Wikipédia ↗"
+      >
+        {trouve.forme}
+      </a>
+      {avecLiens(texte.slice(trouve.i + trouve.forme.length), lang)}
+    </>
+  );
 }
 
 export default function Italien() {
@@ -224,11 +285,11 @@ export default function Italien() {
                       {f.pron}
                     </p>
                     <p className="mt-2 text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
-                      {f.sens[lang]}
+                      {avecLiens(f.sens[lang], lang)}
                     </p>
                     {f.note && (
                       <p className="mt-2 max-w-[64ch] border-l-2 pl-3 text-[13px] leading-[1.6]" style={{ borderColor: '#ffd452', color: 'var(--cava-ink)' }}>
-                        {f.note[lang]}
+                        {avecLiens(f.note[lang], lang)}
                       </p>
                     )}
                   </li>
@@ -306,7 +367,7 @@ export default function Italien() {
               <p className="text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)', fontWeight: 700 }}>
                 {p.progress.replace('{n}', String(n + 1)).replace('{t}', String(paquet.length))}
               </p>
-              <p className="max-w-[60ch] text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>{ex.consigne[lang]}</p>
+              <p className="max-w-[60ch] text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>{avecLiens(ex.consigne[lang], lang)}</p>
               <p className="max-w-[46ch] text-[clamp(1.3rem,3vw,1.9rem)] leading-[1.25]" style={{ fontWeight: 600 }}>
                 {ex.question}
               </p>
@@ -338,7 +399,7 @@ export default function Italien() {
                     {choisi === bonne ? p.good : p.wrong}
                   </p>
                   <p className="max-w-[70ch] border-l-2 pl-4 text-[14px] leading-[1.65]" style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)' }}>
-                    {ex.pourquoi[lang]}
+                    {avecLiens(ex.pourquoi[lang], lang)}
                   </p>
                   <button type="button" onClick={suivant} className="w-fit rounded-full px-5 py-2.5 text-[13px]" style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)', fontWeight: 600 }}>
                     {n + 1 === paquet.length ? p.drillTitle : p.next} →
