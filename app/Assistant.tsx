@@ -280,6 +280,11 @@ export default function Assistant() {
     setQ('');
     setChoisie(null);
     setEpinglee(null);
+    // On remet aussi la MISE EN PAGE a zero : sans ca, la boite pouvait rester
+    // resserree — entete tasse, robot maigre — apres une longue reponse.
+    setSerrer(0);
+    setDeborde(false);
+    corps.current?.scrollTo({ top: 0 });
     champ.current?.focus();
   };
 
@@ -644,7 +649,26 @@ export default function Assistant() {
             */}
             <input
               ref={champ}
-              type="search"
+              /*
+               * `text`, et PAS `search` — bien que ce champ en soit un.
+               *
+               * `type="search"` fait apparaitre la croix NATIVE de Chrome, a
+               * cote de la notre. Deux croix, dont une qui vide l'affichage
+               * sans prevenir React : le champ etant controle, React
+               * reaffichait aussitot l'ancienne valeur, et le texte semblait
+               * revenir tout seul. C'est ce que Mag a vu — « quand je retire
+               * ce que j'ai ecrit, ca ne revient pas a 0 ».
+               *
+               * On peut masquer cette croix en CSS, mais je n'ai pas su le
+               * VERIFIER depuis mon banc, qui ne lit pas ces pseudo-elements.
+               * Supprimer la cause vaut mieux que masquer un symptome qu'on ne
+               * sait pas mesurer : sans `type="search"`, la croix n'existe pas.
+               *
+               * Les gestionnaires de mots de passe restent tenus a distance
+               * par les attributs ci-dessous, qui sont de toute façon le vrai
+               * mecanisme — `type` n'y a jamais ete pour grand-chose.
+               */
+              type="text"
               inputMode="search"
               name="demander"
               autoComplete="off"

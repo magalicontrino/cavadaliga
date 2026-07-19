@@ -1100,3 +1100,17 @@ body[data-fiche-carte='1'] .cava-demander-bulle {
   pointer-events: none;
   transform: scale(0.8);
 }
+
+/* La croix NATIVE du champ de recherche de « Demander » — supprimee.
+   Le champ est en `type="search"` pour que les gestionnaires de mots de passe
+   le laissent tranquille. Mais Chrome y ajoute alors sa propre croix, a cote
+   de la notre : deux croix, dont une qui vide l'affichage SANS prevenir React.
+   Le champ etant controle, React reaffichait aussitot l'ancienne valeur — et
+   le texte semblait revenir tout seul. C'est ce que Mag a vu.
+   La variante Tailwind ne prenait pas ; ce selecteur, si. */
+.cava-root input[type='search']::-webkit-search-cancel-button,
+.cava-root input[type='search']::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}

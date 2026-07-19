@@ -89,7 +89,8 @@ export const SEARCH_WORDS: WordHint[] = [
   // L'epicerie de tous les jours : ca, c'est le supermarche.
   { words: ['lait', 'oeuf', 'oeufs', 'beurre', 'yaourt', 'farine', 'sucre', 'sel', 'poivre', 'pates', 'riz', 'conserve', 'biscuit', 'cereales', 'confiture', 'jus', 'boisson', 'biere', 'soda', 'couche', 'couches', 'savon', 'shampoing', 'dentifrice', 'mouchoirs', 'sac poubelle', 'piles',
     'latte', 'uova', 'burro', 'yogurt', 'farina', 'zucchero', 'sale', 'pepe', 'pasta', 'riso', 'biscotti', 'marmellata', 'succo', 'bibita', 'pannolini', 'sapone', 'dentifricio',
-    'milk', 'eggs', 'butter', 'yoghurt', 'flour', 'sugar', 'salt', 'pepper', 'pasta', 'rice', 'jam', 'juice', 'nappies', 'soap', 'toothpaste', 'batteries'], cat: 'supermarche' },
+    'milk', 'eggs', 'butter', 'yoghurt', 'flour', 'sugar', 'salt', 'pepper', 'pasta', 'rice', 'jam', 'juice', 'nappies', 'soap', 'toothpaste', 'batteries',
+    'brosse a dents', 'brosse', 'dents', 'hygiene', 'gel douche', 'papier toilette', 'essuie tout', 'eponge', 'liquide vaisselle', 'spazzolino', 'igiene', 'carta igienica', 'spugna', 'toothbrush', 'shower gel', 'toilet paper', 'sponge', 'washing up'], cat: 'supermarche' },
   { words: ['fleur', 'fiori', 'flower', 'plante', 'pianta', 'plant', 'jardin', 'giardino', 'garden', 'vivaio', 'pepiniere', 'terrasse'], cat: 'plantes' },
   { words: ['restaurant', 'ristorante', 'trattoria', 'manger', 'mangiare', 'eat', 'diner', 'cena', 'dinner', 'midi', 'pranzo', 'lunch', 'table', 'tavola', 'food'], cat: 'resto' },
   { words: ['cafe', 'caffe', 'coffee', 'petit dejeuner', 'colazione', 'breakfast', 'matin', 'mattina', 'morning', 'expresso', 'cappuccino'], ids: ['gelateria-smile', 'maracaibo'] },

@@ -109,76 +109,82 @@ const MOTS_MAISON: Record<string, string> = {
     + 'non funziona guasto rotto broken not working '
     + 'electricite courant lumiere lumieres disjoncteur compteur interrupteur interrupteurs panne noir ' +
     'elettricita corrente luce luci interruttore contatore buio ' +
-    'electricity power light lights switch breaker meter blackout',
+    'electricity power light lights switch breaker meter blackout prise prises branchement ampoule ampoules lampe plafonnier fusible tableau electrique coupure presa spina lampadina lampada fusibile quadro elettrico blackout socket plug bulb lamp fuse fusebox outage',
   'op-drop':
     'fonctionne panne casse non funziona guasto rotto broken '
     + 'eau vanne robinet douche pression fuite couper ouvrir buanderie evier ' +
     'acqua valvola rubinetto doccia pressione perdita chiudere aprire lavanderia lavello ' +
-    'water valve tap faucet shower pressure leak turn laundry sink',
+    'water valve tap faucet shower pressure leak turn laundry sink chaude froide chauffe eau ballon boiler robinet fuite goutte bouchon canalisation wc toilette chasse calda fredda scaldabagno rubinetto perdita goccia scarico water sciacquone hot cold boiler heater tap dripping drain toilet flush',
   'op-flame':
     'fonctionne panne casse non funziona guasto rotto broken '
     + 'gaz bouteille cuisiniere gaziniere plaque feu bonbonne cuisson recharge ' +
     'bombola cucina fornello fuoco ricarica ' +
-    'gas bottle cylinder stove cooker hob refill',
+    'gas bottle cylinder stove cooker hob refill allumer eteindre allumage flamme casserole poele four brulure securite odeur accendere spegnere fiamma pentola forno odore sicurezza light turn on off flame pan oven smell safety',
   'op-signal':
     'fonctionne panne casse non funziona guasto rotto broken '
     + 'wifi wi internet reseau code password mot passe connexion connecter box debit recharger ' +
     'rete parola chiave collegare connessione ricaricare ' +
-    'network connect connection login broadband',
+    'network connect connection login broadband identifiant login se connecter deconnecte lent coupe routeur modem antenne 4g 5g donnees partage credenziali collegarsi lento router modem dati credentials sign in slow router modem data hotspot tethering',
   // « aller » a du quitter cette ligne : c'est le verbe de TOUS les trajets.
   // « aller a l'aeroport » repondait l'adresse de la maison.
   adresse:
     'adresse situe maison casa appartement rue via numero itineraire plan ' +
     'indirizzo strada mappa ' +
-    'address street house flat apartment directions map',
+    'address street house flat apartment directions map ou sommes nous venir arriver acces portail entree etage rez chaussee dove siamo venire arrivare accesso cancello ingresso piano terra where are we come arrive access gate entrance floor ground',
   depart:
     'partir depart quitter fermer cle cles rendre laisser derniere check liste verifier avant ' +
     'partire partenza chiudere chiave chiavi lasciare ultima controllare prima ' +
-    'leave leaving departure lock key keys checklist last check before',
+    'leave leaving departure lock key keys checklist last check before menage nettoyer ranger vaisselle poubelle derniere minute rendre restituer volets fenetres pulire riordinare stoviglie ultimo minuto restituire persiane finestre clean tidy dishes last minute return shutters windows checkout',
   valise:
     'valise bagage emporter prendre apporter preparer papiers passeport permis carte identite ' +
     'assurance adaptateur prise argent especes ' +
     'valigia bagaglio portare preparare documenti passaporto patente carta identita contanti ' +
-    'luggage pack bring passport licence id insurance adapter plug cash money',
+    'luggage pack bring passport licence id insurance adapter plug cash money maillot serviette creme solaire chapeau lunettes chaussures medicaments trousse chargeur adaptateur costume asciugamano crema solare cappello occhiali scarpe medicine caricabatterie swimsuit towel sunscreen hat sunglasses shoes medicine charger',
   poubelles:
     'poubelle poubelles dechets tri ordures benne bac sac ramassage collecte sortir verre ' +
     'plastique papier carton organique compost recyclage ' +
     'rifiuti spazzatura differenziata raccolta giorno vetro plastica carta cartone organico umido ' +
-    'bin bins rubbish waste sorting recycling collection glass plastic paper cardboard organic',
+    'bin bins rubbish waste sorting recycling collection glass plastic paper cardboard organic conteneur container benne sortir soir camion passage tri selectif dechetterie encombrant contenitore cassonetto sera camion ingombranti isola ecologica container bin lorry truck evening bulky recycling centre',
   pharmacie:
     'pharmacie pharmacien medicament medicaments ordonnance garde malade grippe ' +
     'farmacia medicina medicine ricetta turno malato ' +
-    'pharmacy chemist medicine prescription duty ill sick',
+    'pharmacy chemist medicine prescription duty ill sick parapharmacie creme piqure moustique brulure soleil fievre mal tete ventre pansement farmacia crema puntura zanzara febbre mal di testa cerotto chemist cream bite mosquito sunburn fever headache plaster bandage',
   urgences:
     'urgence urgences secours pompier pompiers police carabinieri ambulance hopital docteur medecin garde '
     + '112 118 115 113 numero unique guardia ' +
     'accident noye sauvetage numero appeler ' +
     'emergenza soccorso vigili fuoco polizia ambulanza ospedale medico incidente chiamare ' +
-    'emergency ambulance fire police hospital doctor accident drowning rescue call',
+    'emergency ambulance fire police hospital doctor accident drowning rescue call sos aide danger blesse malaise brulure noyade meduse serpent chien morsure commissariat aiuto pericolo ferito malore ustione annegamento medusa serpente morso help danger injured faint burn drowning jellyfish snake bite police station',
   parking:
     'parking parkings garer stationner stationnement place places emplacement voiture auto bleu blanc '
     + 'jaune rose vert ligne lignes bande bandes horodateur parcometre ticket disque amende pv fourriere '
     + 'parcheggio parcheggiare sosta stallo stalli strisce blu bianche gialle rosa verdi disco orario multa '
-    + 'park parking bay bays lines blue white yellow meter ticket disc fine',
+    + 'park parking bay bays lines blue white yellow meter ticket disc fine se garer voiture stationner amende contravention fourriere gratuit payant place libre parcheggiare multa carro attrezzi gratuito pagamento posto libero park fine towed free paid space',
   plombier:
     'plombier plomberie fuite tuyau canalisation bouche evier lavabo toilette wc chasse '
     + 'idraulico tubo scarico lavandino perdita '
     + 'plumber pipe drain leak sink toilet blocked '
-    + 'devis preventivo quote',
+    + 'devis preventivo quote chasse wc bouche deborde inonde chauffe eau siphon joint robinet qui fuit artisan depannage intasato allagato sifone guarnizione idraulico pronto intervento blocked overflowing flooded siphon washer emergency callout',
   gaz:
     'gaz bouteille bonbonne livraison reparer cuisiniere marchand mormina ' +
     'bombola consegna riparare fornello ' +
-    'gas bottle cylinder delivery repair cooker supplier',
+    'gas bottle cylinder delivery repair cooker supplier bonbonne vide changer echanger livrer commander brancher detendeur tuyau bombola vuota cambiare consegnare ordinare collegare regolatore tubo empty change swap deliver order connect regulator hose',
+  // « nuit », « notte », « night » n'y sont PAS, et c'est deliberе. Je les
+  // avais ajoutes en enrichissant : « le prix de la nuit » s'est mis a repondre
+  // « Le calendrier », alors que le site ne parle d'aucun prix — c'est la regle
+  // de fond de Mag, ce n'est pas une location. Une question d'argent doit
+  // rester sans reponse. Le calendrier se trouve tres bien par « semaine »,
+  // « dates », « libre », « dormir », « sejour ».
   calendrier:
     'calendrier libre libres disponible disponibilite occupe reserve dates sejour sejours quand ' +
     'venir monde qui vient planning ' +
     'calendario libero disponibile occupato date soggiorno quando venire chi viene ' +
-    'calendar free available booked dates stay when coming who',
+    'calendar free available booked dates stay when coming who reserver reservation planning agenda semaine mois sejourner rester dormir dates libres prenotare prenotazione settimana mese dormire date libere book booking week month sleep stay free dates dort dorment couche loge heberge occupe qui vient',
   famille:
     'famille arbre genealogie genealogique ancetre ancetres grand grands parents cousin cousins ' +
     'origine nom histoire salva contrino ' +
     'famiglia albero genealogico antenati nonni cugini origine storia ' +
-    'family tree genealogy ancestors grandparents cousins origin history',
+    'family tree genealogy ancestors grandparents cousins origin history parents grands parents oncle tante cousin cousine ancetre aieul nom prenom genealogie racines genitori nonni zio zia cugino antenati cognome radici parents grandparents uncle aunt cousin ancestors surname roots pere mere papa maman arriere bisaieul aieule frere soeur neveu niece padre madre nonno nonna bisnonno fratello sorella father mother great grandfather grandmother brother sister',
   // Les trois groupes de « Preparer le voyage », reperes par leur EMOJI.
   //
   // Leurs libelles de liens sont des marques — Skyscanner, Trenitalia, Goldcar
@@ -198,57 +204,57 @@ const MOTS_MAISON: Record<string, string> = {
   'transport-sais':
     'bus autobus car navette arret arrets ligne horaire horaires passage village '
     + 'fermata fermate orario orari corriera pullman '
-    + 'stop stops timetable schedule coach',
+    + 'stop stops timetable schedule coach arret navette ticket billet monter descendre ligne direction plage village voisin fermata biglietto salire scendere linea paese vicino stop ticket board get off line neighbouring village',
   'transport-ast':
     'bus autobus car interurbain horaire horaires modica ragusa raguse noto siracusa syracuse pozzallo ispica '
     + 'corriera pullman orario orari '
-    + 'coach intercity timetable',
-  'transport-catania': 'aeroport aeroporto airport avion aereo plane vol volo flight catane catania arrivee partenza retard ritardo delay porte gate bagage',
+    + 'coach intercity timetable car autocar liaison interurbain gare routiere correspondance pullman collegamento autostazione coincidenza coach connection bus station transfer',
+  'transport-catania': 'aeroport aeroporto airport avion aereo plane vol volo flight catane catania arrivee partenza retard ritardo delay porte gate bagage atterrissage decollage terminal enregistrement navette location voiture parking longue duree atterraggio decollo check in navetta noleggio landing takeoff terminal check in shuttle rental long stay',
   'region-etna':
     'etna volcan volcanique eruption lave cratere neige ski skier montagne granita nivaroli excursion '
     + 'vulcano eruzione lava cratere neve sciare montagna gita '
-    + 'volcano eruption crater snow skiing mountain hike',
+    + 'volcano eruption crater snow skiing mountain hike altitude sommet randonner telepherique guide sortie coulee cendres fumee sud nord refuge altitudine cima funivia guida colata cenere fumo rifugio altitude summit cable car guide lava ash smoke refuge',
   'region-arabe':
     'arabe arabes arabo normand histoire musulman sarrasin conquete heritage architecture nom noms toponymie '
     + 'sicile passe siecle moyen age '
     + 'arabo normanno storia musulmano saraceno conquista eredita '
-    + 'arab norman history moorish conquest heritage',
+    + 'arab norman history moorish conquest heritage sarrasin berbere irrigation jardin agrume mot nom de lieu quartier ruelle saraceno berbero irrigazione giardino agrume toponimo quartiere vicolo saracen berber irrigation garden citrus place name quarter alley',
   'region-coutumes':
     'coutume coutumes habitude habitudes usage usages horaire horaires sieste riposo pourboire mancia '
     + 'magasin magasins boutique boutiques commerce commerces ouvert ouverte ferme fermeture ouverture midi '
     + 'negozio negozi aperto chiuso chiusura apertura pomeriggio '
     + 'shop shops opening closing closed open lunchtime '
     + 'politesse maniere vivre local abitudini orari usanze '
-    + 'customs habits opening hours siesta tipping manners',
+    + 'customs habits opening hours siesta tipping manners pourboire service politesse tutoiement horaire repas diner tard sieste dimanche ferie mancia servizio educazione orario pasto cena tardi domenica festivo tipping service manners mealtime dinner late sunday public holiday',
   'region-specialites':
     'specialite specialites cuisine plat plats manger typique arancina cannolo cassata caponata pasta '
     + 'norma sarde ricotta amande pistache '
     + 'specialita piatti tipici mandorla pistacchio '
-    + 'speciality dishes food typical almond pistachio',
+    + 'speciality dishes food typical almond pistachio arancina cannolo cassata caponata granita brioche pasta alla norma sarde pistache amande ricotta mandorla pistacchio ricotta sarde almond pistachio ricotta street food snack',
   'region-alcools':
     'vin vins alcool alcools cave vigne cepage nero avola frappato cerasuolo marsala passito moscato '
     + 'amaro liqueur biere aperitif '
     + 'vino vini cantina vigna vitigno birra liquore '
-    + 'wine wines vineyard grape beer liqueur',
+    + 'wine wines vineyard grape beer liqueur cave domaine degustation bouteille rouge blanc rose sec doux liquoreux digestif cantina degustazione bottiglia rosso bianco secco dolce digestivo winery tasting bottle red white dry sweet digestif',
   'region-cafe':
     'cafe caffe expresso espresso ristretto macchiato cappuccino comptoir bar matin granita brioche '
     + 'colazione banco mattina '
-    + 'coffee breakfast counter morning',
+    + 'coffee breakfast counter morning comptoir debout sucre lait mousse tasse petit dejeuner croissant banco in piedi zucchero latte schiuma tazza colazione cornetto counter standing sugar milk foam cup breakfast pastry',
   'region-lieux':
     'baroque unesco patrimoine ville villes village alentour autour visiter visite excursion journee '
     + 'scicli modica raguse ragusa noto syracuse siracusa donnalucata sampieri marina '
     + 'barocco patrimonio citta paese visitare gita dintorni '
-    + 'baroque unesco heritage town towns visit day trip nearby around',
+    + 'baroque unesco heritage town towns visit day trip nearby around excursion journee visiter eglise cathedrale palais escalier vue point de vue vieille ville centre historique gita visitare chiesa cattedrale palazzo scalinata veduta centro storico day trip visit church cathedral palace stairs view old town historic centre',
   evenements:
     'evenement evenements fete fetes festival festivals feria procession patron sagra concert spectacle '
     + 'programme agenda saison ete quoi faire sortir sortie '
     + 'evento eventi festa feste sagra processione programma stagione estate '
-    + 'event events festival celebration procession programme season summer',
+    + 'event events festival celebration procession programme season summer programme date heure lieu billet gratuit famille enfants feu artifice musique danse programma data ora luogo biglietto gratuito bambini fuochi artificio musica ballo programme date time venue ticket free children fireworks music dance',
   culture:
     'musique musiques playlist chanson chansons disque vinyle spotify film films cinema serie montalbano '
     + 'peinture peintre art artiste sculpture photo photographie livre lecture '
     + 'musica canzone disco vinile pittura pittore arte scultura fotografia libro '
-    + 'music song record vinyl movie movies painting painter art sculpture photography book',
+    + 'music song record vinyl movie movies painting painter art sculpture photography book ecouter regarder lire voir artiste auteur realisateur album titre morceau serie tournage decor ascoltare guardare leggere autore regista album brano serie riprese listen watch read artist author director album track series filming location',
   meteo: 'meteo temps pluie soleil vent temperature chaud froid previsions tempo pioggia sole vento caldo freddo weather rain sun wind forecast hot cold',
 };
 
