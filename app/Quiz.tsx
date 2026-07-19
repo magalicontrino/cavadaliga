@@ -16,8 +16,21 @@ import { useI18n } from './i18n';
  * ne veut pas qu'un bouton de tri le fasse disparaitre.
  */
 
-/** Les couleurs des reponses — celles de l'arbre, deja choisies par Mag. */
-const GAIES = ['#ffd452', '#5fdede', '#c8e6a0'];
+/*
+ * Les propositions ne sont PAS colorees tant qu'on n'a pas repondu.
+ *
+ * Elles l'ont ete — jaune, cyan, vert tendre, les couleurs de l'arbre. Mag :
+ * « retire ces couleurs, c'est perturbant, on a l'impression qu'on a deja
+ * joue ». Elle a raison, et la raison est mecanique : le vert et le rouge
+ * sont deja le langage de la correction, juste en dessous. Peindre les choix
+ * avant la reponse, c'est parler deux fois la meme langue pour dire deux
+ * choses differentes.
+ *
+ * La couleur ne sort donc qu'apres le clic, et elle ne veut plus dire qu'une
+ * chose : juste, faux, ou pas choisi.
+ */
+const VERT = '#c8e6a0';
+const ROUGE = '#f3a5a5';
 
 /**
  * Melange les reponses, sinon la bonne serait TOUJOURS la premiere.
@@ -213,12 +226,12 @@ export default function Quiz() {
             </h3>
 
             <div className="flex flex-col gap-3 md:flex-row md:flex-wrap">
-              {choix.map((c, i) => {
+              {choix.map((c) => {
                 const repondu = choisi !== null;
                 const estBonne = c === bonne;
                 // Une fois repondu, on montre TOUJOURS la bonne — sinon on
                 // repart sans savoir, et le jeu n'apprend rien.
-                const fond = !repondu ? GAIES[i % GAIES.length] : estBonne ? '#c8e6a0' : c === choisi ? '#f3a5a5' : 'transparent';
+                const fond = !repondu ? 'transparent' : estBonne ? VERT : c === choisi ? ROUGE : 'transparent';
                 return (
                   <button
                     key={c}
