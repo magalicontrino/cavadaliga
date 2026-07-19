@@ -230,19 +230,6 @@ export default function Italien() {
       <Nav />
       <PageHeader title={p.title} intro={p.intro} />
 
-      {/* La méthode. Elle vient en premier parce qu’une méthode qu’on ne lit
-          pas ne sert à rien — et celle-ci tient en un paragraphe. */}
-      <section className="mx-auto max-w-[110rem] px-5 pt-4 md:px-10">
-        <Reveal className="rounded-2xl border p-6 md:p-8" style={{ borderColor: 'var(--cava-line)' }}>
-          <h2 className="mb-3 flex items-center gap-2 text-[13px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
-            <Icon name="info" size={16} /> {p.methodTitle}
-          </h2>
-          <p className="max-w-[70ch] text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
-            {p.method}
-          </p>
-        </Reveal>
-      </section>
-
       {/*
         LE SOMMAIRE, par niveaux — une liste des sections dans l'ordre, du plus
         simple au plus exigeant. Le titre « Le programme » et sa phrase d'intro

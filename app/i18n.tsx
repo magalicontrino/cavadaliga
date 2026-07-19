@@ -357,8 +357,6 @@ export type Dict = {
     eyebrow: string;
     title: string;
     intro: string;
-    methodTitle: string;
-    method: string;
     backToTop: string;
     elsewhereTitle: string;
     elsewhereIntro: string;
@@ -1064,8 +1062,6 @@ const FR: Dict = {
     ],
     title: 'Parler italien ici',
     intro: 'Pas un cours de grammaire : de quoi se débrouiller dès le premier matin, puis comprendre ce qu’on dit. On commence par prononcer, on continue par des phrases entières, la grammaire vient après — et on s’entraîne à la fin.',
-    methodTitle: 'Comment s’en servir',
-    method: 'Dix minutes par jour valent mieux qu’une heure le dimanche. Lisez à voix haute, même seul, même mal : l’italien s’attrape par l’oreille et par la bouche, pas par les yeux. Ne cherchez pas à tout retenir — prenez les trois phrases dont vous avez besoin aujourd’hui, servez-vous-en pour de vrai, et revenez demain. C’est le principe des méthodes qui marchent, celle d’Assimil la première : des leçons courtes, des phrases entières, et la règle expliquée seulement une fois qu’on la dit déjà.',
     backToTop: 'Remonter en haut de la page',
     elsewhereTitle: 'Continuer ailleurs',
     elsewhereIntro: 'Cette page n’a pas de son, et c’est sa limite : on n’apprend pas à prononcer une langue sans l’entendre. Voilà où aller pour ça — et pour les heures d’exercices qu’un site de famille ne fera jamais.',
@@ -1980,8 +1976,6 @@ const IT: Dict = {
     ],
     title: 'Parlare italiano qui',
     intro: 'Non un corso di grammatica: quanto basta per cavarsela dal primo mattino, e poi per capire quello che si dice. Prima la pronuncia, poi frasi intere, la grammatica dopo — e alla fine gli esercizi. Questa versione serve soprattutto a chi vuole rivedere le regole o aiutare qualcuno a impararle.',
-    methodTitle: 'Come usarlo',
-    method: 'Dieci minuti al giorno valgono più di un’ora la domenica. Leggete ad alta voce, anche da soli, anche male. Non cercate di ricordare tutto: prendete le tre frasi che vi servono oggi, usatele davvero, e tornate domani. È il principio dei metodi che funzionano, a cominciare da Assimil: lezioni brevi, frasi intere, e la regola spiegata solo quando la si dice già.',
     backToTop: 'Torna in cima alla pagina',
     elsewhereTitle: 'Continuare altrove',
     elsewhereIntro: 'Questa pagina non ha audio, ed è il suo limite: non si impara a pronunciare una lingua senza sentirla. Ecco dove andare.',
@@ -2896,8 +2890,6 @@ const EN: Dict = {
     ],
     title: 'Speaking Italian here',
     intro: 'Not a grammar course: enough to get by from the first morning, and then to understand what you are saying. Pronunciation first, whole sentences next, grammar after that — and exercises at the end.',
-    methodTitle: 'How to use it',
-    method: 'Ten minutes a day beats an hour on Sunday. Read out loud, even alone, even badly: Italian is caught by ear and mouth, not by eye. Do not try to remember everything — take the three sentences you need today, actually use them, and come back tomorrow. That is the principle behind the methods that work, Assimil first among them: short lessons, whole sentences, and the rule explained only once you are already saying it.',
     backToTop: 'Back to the top of the page',
     elsewhereTitle: 'Carrying on elsewhere',
     elsewhereIntro: 'This page has no sound, and that is its limit: you cannot learn to pronounce a language without hearing it. Here is where to go for that — and for the hours of drilling a family website will never provide.',
