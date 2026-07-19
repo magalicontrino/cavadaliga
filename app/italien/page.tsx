@@ -519,7 +519,18 @@ export default function Italien() {
                   {v.verbe}
                   <span className="ml-2 text-[13px]" style={{ color: 'var(--cava-muted)', fontWeight: 400 }}>{v.sens[lang]}</span>
                 </p>
-                <dl className="mt-3 grid grid-cols-2 gap-x-5 gap-y-2 sm:grid-cols-3">
+                {/*
+                  Sur grand ecran, les colonnes se calent sur LEUR CONTENU
+                  (`max-content`) au lieu de se partager la largeur en trois.
+                  Mag : « sur ecran, mets moins d'espace entre les colonnes ».
+                  Avec des tiers, « io parlerò » et « tu parlerai » se
+                  retrouvaient a huit cents pixels l'un de l'autre sur un ecran
+                  large — l'oeil ne rattache plus le pronom a sa forme, et la
+                  conjugaison cesse de se lire comme un ensemble.
+                  Sur telephone on garde les deux colonnes pleines : la largeur
+                  y est comptee, et la partager reste le meilleur usage.
+                */}
+                <dl className="mt-3 grid grid-cols-2 gap-x-5 gap-y-2 sm:grid-cols-[repeat(3,minmax(0,max-content))] sm:gap-x-12">
                   {v.formes.map((f, i) => (
                     <div key={i}>
                       <dt className="text-[11px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
