@@ -1030,3 +1030,58 @@ html {
 .cava-suggestion:hover {
   background: rgb(230 41 111 / 0.07);
 }
+
+/* ── « Demander » — la bulle qui cherche dans le site ──────────────────
+   Le panneau ARRIVE, il n'apparait pas. Un simple fondu le faisait naitre
+   mou, et Mag l'a trouve terne : il monte donc en depassant sa place avant de
+   s'y poser.
+
+   Le depassement est ECRIT dans les etapes, il n'est pas laisse a la courbe.
+   Une courbe qui finit au-dessus de 1 le fabrique bien, mais elle ne le
+   fabrique qu'en proportion du chemin parcouru : mesure au banc, 16 px de
+   montee ne donnaient que 1,5 px de depassement et 0,5 % d'echelle — un
+   rebond qu'on ne voit pas. Ici il vaut 6 px et 2 %, ce qui se remarque sans
+   faire jouet. */
+@keyframes cava-demander-entre {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(-6px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.cava-demander-ouvert {
+  animation: cava-demander-entre 0.44s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+/* La bulle elle-meme accuse le coup quand on la touche. */
+@keyframes cava-demander-pouce {
+  50% {
+    transform: scale(0.9);
+  }
+}
+.cava-demander-bulle:active {
+  animation: cava-demander-pouce 0.22s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-demander-ouvert,
+  .cava-demander-bulle:active {
+    animation: none;
+  }
+}
+
+/* Une fiche de lieu occupe le bas de l'ecran (telephone) : la bulle s'efface.
+   Elle est en bas a gauche pour laisser lire le « © OpenStreetMap » de la
+   carte ; c'est justement la que la piste de fiches passe. Entre les deux,
+   c'est la fiche que l'on est en train de lire qui prime. Voir PlaceMap.tsx,
+   qui pose l'attribut. */
+body[data-fiche-carte='1'] .cava-demander-bulle {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+}

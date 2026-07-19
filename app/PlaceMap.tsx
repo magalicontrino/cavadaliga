@@ -27,6 +27,9 @@ import PlaceCard from './PlaceCard';
 
 const INK = '#2e2d2d';
 const BG = '#fcf9fa';
+/** La mer. Sert deux fois : la couche « ocean », et le fond une fois les
+ *  tuiles posees — tout autour de l'ile, c'est elle. */
+const MER = '#e88aab';
 /** Les petits noms de lieux : presents, mais qui ne volent pas la vedette aux
  *  villes ni aux epingles. C'est le gris du site. */
 const MUET = '#6f6e6e';
@@ -224,7 +227,7 @@ const style = (tiles: string) => ({
      * Tout etait peint d'un meme rose : un lac de barrage au milieu des terres
      * se lisait comme un bout de mer. Les eaux interieures prennent un ton plus
      * dense — on les distingue sans quitter la couleur. */
-    { id: 'mer', type: 'fill' as const, source: 'p', 'source-layer': 'water', filter: ['==', ['get', 'kind'], 'ocean'] as never, paint: { 'fill-color': '#e88aab' } },
+    { id: 'mer', type: 'fill' as const, source: 'p', 'source-layer': 'water', filter: ['==', ['get', 'kind'], 'ocean'] as never, paint: { 'fill-color': MER } },
     /* Les eaux interieures — de PRES seulement.
      *
      * Mag : « quoi, c'est un defaut ? ». Non : ce sont de vrais plans d'eau
@@ -440,6 +443,27 @@ export default function PlaceMap({
   choisiRef.current = choisi;
   const onChoisirRef = useRef(onChoisir);
   onChoisirRef.current = onChoisir;
+
+  /**
+   * On previent le reste de la page qu'une fiche occupe le bas de l'ecran.
+   *
+   * La bulle « Demander » est posee en bas a gauche — elle y est pour ne pas
+   * recouvrir le « © OpenStreetMap », que la licence des donnees veut lisible.
+   * Mais sur telephone, la piste de fiches occupe cette meme bande : la bulle
+   * mangeait le bord de la premiere fiche.
+   *
+   * Un attribut sur <body> plutot qu'un etat partage : la bulle vit dans le
+   * layout, tres loin d'ici, et une simple regle CSS (voir theme.css) suffit a
+   * l'effacer. Pas de contexte a traverser pour une question de decor.
+   */
+  useEffect(() => {
+    if (choisi) document.body.dataset.ficheCarte = '1';
+    else delete document.body.dataset.ficheCarte;
+    return () => {
+      delete document.body.dataset.ficheCarte;
+    };
+  }, [choisi]);
+
   const piste = useRef<HTMLDivElement>(null);
   // La fiche des grands ecrans : on la mesure pour savoir de combien pousser
   // l'epingle qu'elle couvrirait.
@@ -588,6 +612,25 @@ export default function PlaceMap({
           if (mort) return;
           window.clearTimeout(filet);
           setState('ok');
+          /*
+           * Les tuiles sont posees : le fond peut devenir la mer.
+           *
+           * Il nait creme, et c'est voulu — voir la couche « fond » : le creme
+           * est AUSSI ce qu'on voit pendant que l'archive de 60 Mo arrive, et
+           * un aplat rose franc a chaque ouverture, Mag l'a vu tout de suite.
+           *
+           * Mais une fois la carte dessinee, le creme ment : cadree sur tous
+           * les lieux, la vue descend sous la limite sud de nos tuiles (36,6°)
+           * et posait la une bande creme large comme un sixieme de la carte —
+           * « la carte ne remplit pas tout l'espace ». Or sous cette ligne,
+           * c'est la Mediterranee. Le passage se fait donc APRES le premier
+           * rendu : plus de gifle a l'ouverture, plus de bande morte ensuite.
+           */
+          try {
+            m.setPaintProperty('fond', 'background-color', MER);
+          } catch {
+            /* Le style a pu etre remplace : ce n'est qu'une couleur. */
+          }
         };
         m.on('idle', montrer);
         filet = window.setTimeout(montrer, 8000);
@@ -900,16 +943,23 @@ export default function PlaceMap({
           carte suit.
           Sa hauteur est PLAFONNEE. Libre, elle suivait son texte : sur un
           telephone court (375x667), elle mangeait 80 % de la carte et recouvrait
-          la cible et la maison, en haut a droite. Elle s'arrete maintenant a
-          58 %, s'aligne en bas (items-end) pour que les fiches courtes gardent
-          leur taille, et defile en dedans quand le texte deborde. Bonus :
-          aCote() mesure cette piste pour placer l'epingle choisie — la bande
-          libre au-dessus est d'autant plus large. */}
+          la cible et la maison, en haut a droite. Elle s'arrete donc a 58 %, et
+          defile en dedans quand le texte deborde. Bonus : aCote() mesure cette
+          piste pour placer l'epingle choisie — la bande libre au-dessus est
+          d'autant plus large.
+
+          Et TOUTES LES FICHES ONT LA MEME HAUTEUR (items-stretch). Alignees en
+          bas, chacune suivait son texte : en glissant d'une adresse a l'autre,
+          le haut de la fiche sautait a chaque fois, plus haut, plus bas. La
+          piste prend maintenant la hauteur de la plus longue — plafonnee a
+          58 % — et les autres s'y tiennent. Un jeu de fiches courtes reste
+          donc court : c'est la plus grande qui commande, pas une valeur
+          arbitraire. */}
       {choisi && (
         <div
           ref={piste}
           onScroll={onGlisse}
-          className="cava-swipe absolute inset-x-0 bottom-3 z-10 flex max-h-[58%] snap-x snap-mandatory items-end gap-3 overflow-x-auto px-3 pb-1 sm:hidden"
+          className="cava-swipe absolute inset-x-0 bottom-3 z-10 flex max-h-[58%] snap-x snap-mandatory items-stretch gap-3 overflow-x-auto px-3 pb-1 sm:hidden"
         >
           {liste.map((p) => (
             <div key={p.id} className="max-h-full w-[86%] shrink-0 snap-center overflow-y-auto">
