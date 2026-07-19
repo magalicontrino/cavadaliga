@@ -41,6 +41,8 @@ export const COORDS: Record<string, PlaceCoord> = {
   'lo-bartolo': { lat: 36.72466, lon: 14.69222, src: 'nominatim' },
   // Photon sur « Via Badiula Scicli » — le marche se tient sur le terre-plein
   // qui domine ce parking.
+  // OpenStreetMap : « Mercato Ittico all'aperto », sur le port.
+  'mercato-pesce': { lat: 36.76307, lon: 14.6348, src: 'nominatim' },
   'campagna-amica': { lat: 36.79181, lon: 14.70335, src: 'nominatim' },
   'mercato-scicli': { lat: 36.77627, lon: 14.69927, src: 'approx' },
   // Cava d'Aliga et la côte

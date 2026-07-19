@@ -83,7 +83,12 @@ export const SEARCH_WORDS: WordHint[] = [
   { words: ['plage', 'spiaggia', 'beach', 'mer', 'mare', 'sea', 'baignade', 'nager', 'swim', 'sable', 'sabbia', 'sand', 'lido', 'transat'], cat: 'plage' },
   { words: ['courses', 'spesa', 'groceries', 'shopping', 'supermarche', 'supermarket', 'supermercato', 'caddie', 'carrello', 'lessive', 'papier'], cat: 'supermarche' },
   { words: ['badiula', 'campagna amica', 'campagna', 'amica'], ids: ['campagna-amica'] },
+  { words: ['poisson', 'poissons', 'pesce', 'pescato', 'fish', 'pescheria', 'poissonnerie', 'fishmonger', 'criee', 'mercato ittico', 'ittico', 'peche du jour', 'marche au poisson', 'marche poisson', 'mercato del pesce', 'mercato pesce', 'fish market', 'acheter du poisson', 'comprare pesce', 'buy fish'], ids: ['mercato-pesce'] },
+  { words: ['coucher de soleil', 'tramonto', 'sunset', 'apero', 'aperitivo', 'aperitif'], ids: ['lido-bruca'] },
   { words: ['zagarone', 'contrada zagarone'], ids: ['mercato-scicli'] },
+  { words: ['piment', 'piments', 'peperoncino', 'peperoncini', 'chili', 'chilli', 'pimente', 'piccante', 'spicy', 'fort',
+    'origan', 'origano', 'oregano', 'herbe', 'herbes', 'erbe', 'aromatiche', 'herbs', 'basilic', 'basilico',
+    'epice', 'epices', 'spezie', 'spices', 'sel', 'sel de mer', 'sale', 'salt', 'terroir', 'tipici', 'local produce'], cat: 'marche' },
   { words: ['marche', 'mercato', 'market', 'horaire', 'horaires', 'orario', 'orari', 'hours', 'opening', 'heure', 'heures', 'ora', 'ore', 'time', 'quel jour', 'che giorno', 'what day', 'mardi', 'martedi', 'tuesday', 'vendredi', 'venerdi', 'friday', 'paysan', 'contadino', 'farmers', 'circuit court', 'filiera corta', 'matin', 'mattina', 'morning', 'legume', 'verdura', 'vegetables', 'fruit', 'frutta', 'fromage', 'formaggio', 'cheese', 'producteur', 'produttore', 'farmer', 'local', 'bio'], cat: 'marche' },
   // Ce qu'on met dans un panier, produit par produit. Mag a tape « pomme » et
   // n'a rien eu : la table couvrait les ENVIES (pizza, apero, glace) et les
@@ -225,9 +230,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     km: 2,
     responsible: false,
     blurb: {
-      fr: 'La plage de Bruca, juste à l’ouest de Cava d’Aliga. Le lido le plus proche de la maison : sable, transats et de quoi boire un verre.',
-      it: 'La spiaggia di Bruca, appena a ovest di Cava d’Aliga. Il lido più vicino a casa: sabbia, lettini e qualcosa da bere.',
-      en: 'Bruca beach, just west of Cava d’Aliga. The closest lido to the house: sand, sunbeds and somewhere for a drink.' },
+      fr: 'La plage de Bruca, juste à l’ouest de Cava d’Aliga. Le lido le plus proche de la maison : sable, transats et de quoi boire un verre. C’est l’endroit parfait pour prendre un verre en regardant le soleil se coucher — la côte regarde plein ouest.',
+      it: 'La spiaggia di Bruca, appena a ovest di Cava d’Aliga. Il lido più vicino a casa: sabbia, lettini e qualcosa da bere. È il posto giusto per un aperitivo guardando il tramonto — la costa guarda a ovest.',
+      en: 'Bruca beach, just west of Cava d’Aliga. The closest lido to the house: sand, sunbeds and somewhere for a drink. It is the place for a drink while the sun goes down — the coast faces due west.' },
   },
   {
     id: 'leroy-merlin-catania',
@@ -407,6 +412,25 @@ export const LOCAL_PLACES: LocalPlace[] = [
       fr: 'Le bar-tabac du village, Via Tolstoj — la rue de Mormina Gas. On y trouve ce qu’un tabacchi italien vend : timbres, tickets de bus, disque de stationnement, loto, journaux. Et le café au comptoir.',
       it: 'Il bar-tabacchi del paese, in Via Tolstoj — la strada di Mormina Gas. C’è quello che vende un tabacchi: francobolli, biglietti dell’autobus, disco orario, lotto, giornali. E il caffè al banco.',
       en: 'The village bar-tabacchi, on Via Tolstoj — Mormina Gas’s street. It sells what an Italian tabacchi sells: stamps, bus tickets, the parking disc, lottery, newspapers. And coffee at the counter.' },
+  },
+  {
+    /*
+     * Le marche au poisson de Donnalucata. Il n'etait qu'une ligne dans la
+     * liste des marches : ni distance, ni epingle, introuvable par le chat et
+     * absent de la carte. Lien donne par Mag ; OpenStreetMap le connait sous
+     * « Mercato Ittico all'aperto », ce qui donne l'epingle.
+     */
+    id: 'mercato-pesce',
+    name: 'Mercato del pesce di Donnalucata',
+    cat: 'marche',
+    town: 'Donnalucata',
+    url: 'https://www.google.com/maps/search/?api=1&query=Mercato+del+pesce+Donnalucata+Scicli+RG',
+    km: 6,
+    responsible: true,
+    blurb: {
+      fr: 'Le marché au poisson, en plein air, sur le port de Donnalucata. On y achète la pêche du jour à ceux qui l’ont sortie — le matin tôt, et ça se termine quand tout est vendu.',
+      it: 'Il mercato ittico, all’aperto, sul porto di Donnalucata. Si compra il pescato del giorno da chi l’ha tirato su — la mattina presto, e finisce quando è tutto venduto.',
+      en: 'The open-air fish market on Donnalucata harbour. You buy the day’s catch from the people who landed it — early morning, and it ends when everything is sold.' },
   },
   {
     /*
