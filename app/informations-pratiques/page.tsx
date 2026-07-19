@@ -15,10 +15,10 @@ import Gallery from '../Gallery';
 import { withBase, APPART_ALBUM } from '../data';
 import { useI18n } from '../i18n';
 
-type Key = 'tout' | 'adresse' | 'arrivee' | 'bouger' | 'urgences' | 'dechets' | 'depart';
+type Key = 'tout' | 'adresse' | 'arrivee' | 'bouger' | 'parking' | 'urgences' | 'dechets' | 'depart';
 
 /** Les sections atteignables par un lien « #… ». « tout » n'en est pas une. */
-const SECTIONS: Key[] = ['adresse', 'arrivee', 'bouger', 'urgences', 'dechets', 'depart'];
+const SECTIONS: Key[] = ['adresse', 'arrivee', 'bouger', 'parking', 'urgences', 'dechets', 'depart'];
 
 
 export default function InformationsPratiques() {
@@ -82,6 +82,7 @@ export default function InformationsPratiques() {
     { key: 'adresse', label: f.address, icon: 'pin' },
     { key: 'arrivee', label: f.arrival, icon: 'key' },
     { key: 'bouger', label: f.move, icon: 'compass' },
+    { key: 'parking', label: f.parking, icon: 'car' },
     { key: 'urgences', label: f.urgent, icon: 'phone' },
     { key: 'dechets', label: f.waste, icon: 'trash' },
     { key: 'depart', label: f.leaving, icon: 'home' },
@@ -201,6 +202,50 @@ export default function InformationsPratiques() {
           <Transports />
         </div>
       )}
+      {/* Se garer : les couleurs au sol. Mag l'a demande apres avoir vu que le
+          site n'en disait rien — et c'est la premiere chose qu'on affronte en
+          arrivant avec une voiture de location. */}
+      {show('parking') && (
+        <section id="parking" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-8 pt-12 md:px-10">
+          <Reveal className="mb-8 flex flex-col gap-2">
+            <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+              <Icon name="car" size={16} /> {t.parkingPage.eyebrow}
+            </span>
+            <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+              {t.parkingPage.title}
+            </h2>
+            <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+              {t.parkingPage.intro}
+            </p>
+          </Reveal>
+
+          <div className="grid gap-px overflow-hidden rounded-2xl md:grid-cols-3" style={{ background: 'var(--cava-line)' }}>
+            {t.parkingPage.facts.map((f, i) => (
+              <Reveal key={f.title} delay={(i % 3) * 80} className="flex flex-col gap-4 p-8" style={{ background: 'var(--cava-bg)' }}>
+                {/* La pastille EST l'information : on montre la couleur des
+                    lignes, pas un dessin de voiture repete cinq fois. Le blanc
+                    porte un filet, sans quoi il disparaitrait sur le fond. */}
+                <span
+                  aria-hidden
+                  className="h-10 w-10 shrink-0 rounded-full"
+                  style={{ background: f.couleur, border: `1px solid ${f.bord ?? f.couleur}` }}
+                />
+                <h3 className="text-[clamp(1.05rem,2vw,1.25rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+                  {f.title}
+                </h3>
+                <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                  {f.text}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mt-6 max-w-[68ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+            {t.parkingPage.note}
+          </Reveal>
+        </section>
+      )}
+
       {show('urgences') && (
         <div id="urgences" className="scroll-mt-24">
           <Emergencies />

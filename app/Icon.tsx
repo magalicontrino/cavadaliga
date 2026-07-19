@@ -6,6 +6,7 @@
  * viewBox 24×24, bouts arrondis. Ajouter une entrée = ajouter un cas ici.
  */
 export type IconName =
+  | 'car'
   | 'robot'
   | 'chat'
   | 'key'
@@ -155,6 +156,17 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
       <circle cx="12" cy="12" r="8.5" />
       <path d="M12 11v5" />
       <path d="M12 8h.01" />
+    </>
+  ),
+  // La voiture — « se garer ». Vue de profil, deux roues et un pare-brise
+  // incline : a 16 px, c'est la silhouette qui se lit, pas le detail.
+  car: (
+    <>
+      <path d="M3 13.5h18" />
+      <path d="M5 13.5 7 8h10l2 5.5" />
+      <rect x="3" y="13.5" width="18" height="5" rx="1.6" />
+      <path d="M7 18.5v1.6M17 18.5v1.6" />
+      <path d="M6.5 16h1.2M16.3 16h1.2" />
     </>
   ),
   // Le robot de « Demander ». Une tete carree aux coins tres arrondis — la

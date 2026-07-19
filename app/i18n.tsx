@@ -268,11 +268,26 @@ export type Dict = {
   infoFilter: {
     all: string;
     address: string;
+    parking: string;
     arrival: string;
     move: string;
     urgent: string;
     waste: string;
     leaving: string;
+  };
+  /**
+   * Se garer en Sicile — c'est-a-dire en Italie : les couleurs au sol sont
+   * fixees par le code de la route national, pas par la commune.
+   *
+   * Chaque cas porte SA COULEUR plutot qu'un picto : ici c'est la couleur qui
+   * EST l'information. Un dessin de voiture ne dirait rien de plus que le mot.
+   */
+  parkingPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    note: string;
+    facts: { couleur: string; bord?: string; title: string; text: string }[];
   };
   askMag: {
     text: string;
@@ -757,11 +772,25 @@ const FR: Dict = {
   infoFilter: {
     all: 'Tout voir',
     address: 'Adresse',
+    parking: 'Se garer',
     arrival: 'Arrivée',
     move: 'Se déplacer',
     urgent: 'Urgences',
     waste: 'Déchets',
     leaving: 'Le départ',
+  },
+  parkingPage: {
+    eyebrow: 'Se garer',
+    title: 'Les couleurs au sol',
+    intro: 'En Italie, la couleur des lignes dit tout, et elle est la même partout : c’est le code de la route qui la fixe, pas la commune. Trois couleurs suffisent à s’en sortir.',
+    note: 'Ticket non affiché ou disque oublié : 41 €. Le disque de stationnement se garde dans la voiture — un loueur en fournit un, sinon il se trouve dans n’importe quel bureau de tabac.',
+    facts: [
+      { couleur: '#2f6fd0', title: 'Bleu — payant', text: 'On paie au parcomètre, à l’heure, et on pose le ticket derrière le pare-brise. C’est ce qu’on trouve dans les centres, et sur le bord de mer l’été.' },
+      { couleur: '#ffffff', bord: '#d9d9d9', title: 'Blanc — gratuit', text: 'Mais lisez le panneau : certaines places blanches sont limitées dans le temps. Il faut alors afficher le disque de stationnement — le disco orario — avec l’heure d’arrivée.' },
+      { couleur: '#f2c033', title: 'Jaune — réservé', text: 'Handicapés avec macaron, livraisons, forces de l’ordre, parfois les résidents. On ne s’y gare pas, même cinq minutes.' },
+      { couleur: '#f06a9b', title: 'Rose — femmes enceintes', text: 'Et parents d’un enfant de moins de deux ans. Officiel depuis 2021, mais il faut un permis délivré par sa commune de résidence : de passage, on n’y a pas droit.' },
+      { couleur: '#6f8f5f', title: 'Vert — recharge', text: 'Le plus souvent réservé aux voitures électriques en train de se recharger. On ne s’y arrête pas pour autre chose.' },
+    ],
   },
   askMag: {
     text: 'On n’a pas encore l’info ici. Écrivez à Mag : elle vous répond, et on l’ajoute pour les suivants.',
@@ -1343,11 +1372,25 @@ const IT: Dict = {
   infoFilter: {
     all: 'Vedi tutto',
     address: 'Indirizzo',
+    parking: 'Parcheggiare',
     arrival: 'Arrivo',
     move: 'Spostarsi',
     urgent: 'Emergenze',
     waste: 'Rifiuti',
     leaving: 'La partenza',
+  },
+  parkingPage: {
+    eyebrow: 'Parcheggiare',
+    title: 'I colori sull’asfalto',
+    intro: 'In Italia il colore delle strisce dice tutto, ed è lo stesso ovunque: lo fissa il codice della strada, non il comune. Bastano tre colori per cavarsela.',
+    note: 'Ticket non esposto o disco dimenticato: 41 €. Il disco orario si tiene in macchina — un autonoleggio lo fornisce, altrimenti si trova in qualsiasi tabaccheria.',
+    facts: [
+      { couleur: '#2f6fd0', title: 'Blu — a pagamento', text: 'Si paga al parcometro, a ore, e si mette il ticket dietro il parabrezza. È quello che si trova nei centri, e sul lungomare d’estate.' },
+      { couleur: '#ffffff', bord: '#d9d9d9', title: 'Bianco — gratuito', text: 'Ma leggete il cartello: alcuni stalli bianchi hanno un tempo massimo. Allora bisogna esporre il disco orario con l’ora di arrivo.' },
+      { couleur: '#f2c033', title: 'Giallo — riservato', text: 'Disabili con contrassegno, carico e scarico, forze dell’ordine, a volte i residenti. Non ci si parcheggia, nemmeno cinque minuti.' },
+      { couleur: '#f06a9b', title: 'Rosa — donne in gravidanza', text: 'E genitori con un bambino sotto i due anni. Ufficiale dal 2021, ma serve il permesso rilasciato dal proprio comune di residenza: di passaggio, non spetta.' },
+      { couleur: '#6f8f5f', title: 'Verde — ricarica', text: 'Di solito riservato alle auto elettriche in ricarica. Non ci si ferma per altro.' },
+    ],
   },
   askMag: {
     text: 'Qui non abbiamo ancora l’informazione. Scrivete a Mag: vi risponde, e noi la aggiungiamo per i prossimi.',
@@ -1929,11 +1972,25 @@ const EN: Dict = {
   infoFilter: {
     all: 'See all',
     address: 'Address',
+    parking: 'Parking',
     arrival: 'Arriving',
     move: 'Getting around',
     urgent: 'Emergencies',
     waste: 'Waste',
     leaving: 'Leaving',
+  },
+  parkingPage: {
+    eyebrow: 'Parking',
+    title: 'The colours on the ground',
+    intro: 'In Italy the colour of the lines tells you everything, and it is the same everywhere: it is set by national law, not by the town. Three colours are enough to manage.',
+    note: 'No ticket on show, or a forgotten disc: €41. The parking disc lives in the car — a rental firm provides one, otherwise any tobacconist sells them.',
+    facts: [
+      { couleur: '#2f6fd0', title: 'Blue — paid', text: 'You pay at the meter, by the hour, and put the ticket behind the windscreen. That is what you find in town centres, and along the seafront in summer.' },
+      { couleur: '#ffffff', bord: '#d9d9d9', title: 'White — free', text: 'But read the sign: some white bays have a time limit. You must then display the parking disc — the disco orario — showing your arrival time.' },
+      { couleur: '#f2c033', title: 'Yellow — reserved', text: 'Blue-badge holders, loading, police, sometimes residents. You do not park there, not even for five minutes.' },
+      { couleur: '#f06a9b', title: 'Pink — expectant mothers', text: 'And parents of a child under two. Official since 2021, but it needs a permit issued by your town of residence: as a visitor, you are not entitled.' },
+      { couleur: '#6f8f5f', title: 'Green — charging', text: 'Usually reserved for electric cars while charging. You do not stop there for anything else.' },
+    ],
   },
   askMag: {
     text: 'We do not have this yet. Write to Mag: she will answer you, and we will add it here for the next ones.',

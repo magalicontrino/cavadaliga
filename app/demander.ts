@@ -155,6 +155,11 @@ const MOTS_MAISON: Record<string, string> = {
     'accident noye sauvetage numero appeler ' +
     'emergenza soccorso vigili fuoco polizia ambulanza ospedale medico incidente chiamare ' +
     'emergency ambulance fire police hospital doctor accident drowning rescue call',
+  parking:
+    'parking parkings garer stationner stationnement place places emplacement voiture auto bleu blanc '
+    + 'jaune rose vert ligne lignes bande bandes horodateur parcometre ticket disque amende pv fourriere '
+    + 'parcheggio parcheggiare sosta stallo stalli strisce blu bianche gialle rosa verdi disco orario multa '
+    + 'park parking bay bays lines blue white yellow meter ticket disc fine',
   plombier:
     'plombier plomberie fuite tuyau canalisation bouche evier lavabo toilette wc chasse '
     + 'idraulico tubo scarico lavandino perdita '
@@ -311,6 +316,15 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
       t.movePage.urgencyIntro,
     ],
     mots: motsMaison('urgences'),
+  });
+  // Se garer. Les couleurs au sol sont la premiere chose qu'on affronte en
+  // arrivant avec une voiture de location, et le site n'en disait rien.
+  ajouter({
+    id: 'parking',
+    page: '/informations-pratiques#parking',
+    titre: t.parkingPage.title,
+    lignes: [...t.parkingPage.facts.map((f) => `${f.title} — ${f.text}`), t.parkingPage.note],
+    mots: motsMaison('parking'),
   });
   // Le plombier. Il etait ecrit sur la page et introuvable ici : « un
   // plombier » ne rendait rien. C'est pourtant le genre de question qu'on pose
