@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Icon from './Icon';
 import { SITE, withBase } from './data';
 import { useI18n } from './i18n';
-import { chercher, construireIndex, type Fiche, type Reponse } from './demander';
+import { chercher, construireIndex, motsDe, type Fiche, type Reponse } from './demander';
 
 /**
  * Les couleurs des exemples — celles que Mag a choisies pour l'arbre.
@@ -199,6 +199,27 @@ export default function Assistant() {
     champ.current?.focus();
   };
 
+  /** Les exemples qui collent a ce qu'on tape — ou tous, si aucun ne colle. */
+  const propositions = useMemo(() => {
+    const n = motsDe(question);
+    if (!n.length) return a.suggestions;
+    const gardees = a.suggestions.filter((s) => {
+      const m = motsDe(s);
+      return n.some((mot) => m.some((k) => k.startsWith(mot) || mot.startsWith(k)));
+    });
+    return gardees.length ? gardees : a.suggestions;
+  }, [question, a.suggestions]);
+
+  /*
+   * Trois etats, et un seul a la fois :
+   *   une reponse                     → la fiche, et les autres pistes
+   *   rien, mais on ecrit encore      → les propositions
+   *   rien, et on s'est arrete        → l'aveu
+   * L'aveu remplace les propositions au lieu de s'ajouter : la boite ne defile
+   * plus, les deux ensemble ne tiendraient pas.
+   */
+  const montrerRefus = question.length >= 3 && pause && !enAvant;
+
   const sujet = encodeURIComponent(question ? `${t.askMag.subject} — ${question}` : t.askMag.subject);
 
   return (
@@ -340,9 +361,22 @@ export default function Assistant() {
         >
           {/* Rien de tape encore : on montre par ou commencer. Un champ vide
               sans exemple ne dit pas ce qu'on a le droit de demander. */}
-          {!question && (
+          {/*
+            LES PROPOSITIONS RESTENT PENDANT LA FRAPPE.
+            
+            Elles disparaissaient des la premiere lettre : entre « u » et
+            « un », la boite etait vide — on tapait dans le noir. Elles se
+            montrent donc tant qu'aucune reponse n'est trouvee, et se
+            RESSERRENT sur ce qu'on ecrit : taper « p » ne laisse que
+            « Poubelles ce soir ? », « Une pizza ? » et « Du pain ? ».
+            
+            Si plus rien ne colle, on remet la liste entiere plutot que rien :
+            une piste vaut mieux qu'un vide, meme si ce n'est pas celle qu'on
+            cherchait.
+          */}
+          {!enAvant && !montrerRefus && (
             <div className="flex flex-wrap gap-2.5">
-              {a.suggestions.map((s, i) => (
+              {propositions.map((s, i) => (
                 <button
                   key={s}
                   type="button"
@@ -396,7 +430,7 @@ export default function Assistant() {
 
           {/* On a cherche et on n'a rien. On le dit, et on donne quelqu'un a
               qui ecrire — c'est exactement ce que fait deja AskMag ailleurs. */}
-          {question.length >= 3 && pause && !enAvant && (
+          {montrerRefus && (
             <div className="flex flex-col gap-3 rounded-2xl border border-dashed p-4" style={{ borderColor: 'var(--cava-line)' }}>
               <p className="text-[14px]" style={{ fontWeight: 600 }}>
                 {a.noneTitle}
@@ -514,7 +548,17 @@ function couper(lignes: string[], maxLignes: number, maxSignes: number): { visib
       const reste = maxSignes - total;
       const bout = l.slice(0, reste);
       const espace = bout.lastIndexOf(' ');
-      visibles.push((espace > 25 ? bout.slice(0, espace) : bout).trimEnd());
+      const morceau = (espace > 25 ? bout.slice(0, espace) : bout).trimEnd();
+      /*
+       * Un morceau vide ne devient PAS une ligne.
+       *
+       * Quand le budget etait deja epuise par la ligne precedente, on poussait
+       * une chaine vide — et les trois points s'affichaient seuls sur leur
+       * ligne, sous « Cava d'Aliga · Randonnee · Plage & loisirs ». Mag l'a vu.
+       * Sans cette ligne fantome, les points se collent a la fin du texte
+       * precedent, ce qui est leur place.
+       */
+      if (morceau) visibles.push(morceau);
       return { visibles, coupe: true };
     }
     visibles.push(l);
