@@ -61,6 +61,15 @@ export type Fiche = {
    * TOUS ses mots sont dans la question.
    */
   expressions?: string[][];
+  /**
+   * La distance depuis la maison, pour les adresses seulement.
+   *
+   * Elle ne sert PAS a trouver, elle sert a departager : voir le tri de
+   * `chercher`. « Du pain » touchait la Gastronomia Giannone et l'epicerie du
+   * village avec exactement le meme score, et c'est la plus lointaine qui
+   * passait devant — six kilometres contre deux cent quatre-vingts metres.
+   */
+  km?: number;
 };
 
 /** Mots trop courants pour departager quoi que ce soit — les 3 langues melees,
@@ -722,6 +731,7 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
       ],
       motsPrecis: syn.precis,
       expressions: syn.expressions,
+      km: l.km,
       // PLUS les mots larges : ils appartiennent au rayon (voir plus haut).
       // Restent le nom, la ville, et les envies qui visent cette adresse-la.
       mots: motsDe(l.town),
@@ -882,10 +892,24 @@ export function chercher(question: string, index: Fiche[], max = 4): Reponse[] {
      * touchait qu'un mot mais le bon. Deux correspondances faibles ne valent
      * pas une forte ; le score, lui, sait deja la difference.
      */
+    /*
+     * A merite egal, LE PLUS PROCHE gagne.
+     *
+     * On est a pied, un verre a la main, et on demande « du pain ». Deux
+     * adresses en vendent : l'epicerie du village a 280 m et une gastronomia a
+     * 5,8 km. Elles touchaient le meme mot avec le meme poids, et c'est la
+     * longueur du texte qui tranchait — donc le hasard de la redaction. La
+     * lointaine passait devant.
+     *
+     * Les fiches sans distance (la maison, les pages) valent zero : elles ne
+     * sont jamais en concurrence avec une adresse a score egal, et si ca
+     * arrivait, la maison a bien le droit de passer la premiere.
+     */
     .sort(
       (a, b) =>
         b.score - a.score ||
         b.couverts - a.couverts ||
+        (a.fiche.km ?? 0) - (b.fiche.km ?? 0) ||
         a.fiche.lignes.join(' ').length - b.fiche.lignes.join(' ').length,
     )
     .slice(0, max);

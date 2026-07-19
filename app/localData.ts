@@ -64,7 +64,7 @@ export type WordHint = { words: string[]; cat?: CatKey; ids?: string[] };
 export const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 export const SEARCH_WORDS: WordHint[] = [
-  { words: ['pain', 'pane', 'bread', 'boulangerie', 'panificio', 'bakery', 'baguette', 'brioche', 'pignolata'], cat: 'supermarche', ids: ['giannone'] },
+  { words: ['pain', 'pane', 'bread', 'boulangerie', 'panificio', 'bakery', 'baguette', 'brioche', 'pignolata', 'epicerie', 'alimentari', 'grocery', 'miche', 'pagnotta', 'loaf'], cat: 'supermarche', ids: ['ssg-market', 'giannone'] },
   { words: ['glace', 'gelato', 'gelateria', 'ice cream', 'granita', 'granite', 'cornet', 'sorbet'], ids: ['gelateria-smile'] },
   { words: ['pizza', 'pizzeria', 'pizze'], ids: ['be-happy'] },
   { words: ['arancina', 'arancine', 'arancini', 'friture', 'fritto', 'street food', 'rosticceria'], ids: ['giannone'] },
@@ -511,9 +511,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     km: 0.3,
     responsible: false,
     blurb: {
-      fr: 'Le commerce d’alimentation du village, viale della Pace, à 280 m de la maison. Le plus proche de tous : celui qu’on fait à pied quand il manque quelque chose.',
-      it: 'Il market del paese, viale della Pace, a 280 m da casa. Il più vicino di tutti: quello che si fa a piedi quando manca qualcosa.',
-      en: 'The village’s food shop, viale della Pace, 280 m from the house. The closest of them all — the one you walk to when something is missing.' },
+      fr: 'L’épicerie du village, viale della Pace, à 280 m de la maison. La plus proche de tous : celle qu’on fait à pied quand il manque quelque chose. Et on y trouve du pain — pas la peine d’aller plus loin pour ça.',
+      it: 'Il market del paese, viale della Pace, a 280 m da casa. Il più vicino di tutti: quello che si fa a piedi quando manca qualcosa. E c’è il pane — non serve andare più lontano per quello.',
+      en: 'The village grocery, viale della Pace, 280 m from the house. The closest of them all — the one you walk to when something is missing. And it has bread, so there is no need to go further for that.' },
   },
   {
     id: 'coop-superstore',
