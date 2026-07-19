@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Icon from './Icon';
 import { SITE, withBase } from './data';
 import { useI18n } from './i18n';
@@ -38,7 +38,8 @@ export default function Assistant() {
   const [choisie, setChoisie] = useState<string | null>(null);
   const champ = useRef<HTMLInputElement>(null);
   const panneau = useRef<HTMLDivElement>(null);
-  /** La zone qui defile : l'entete et le champ, eux, ne bougent pas. */
+  /** La zone de contenu. Elle ne defile plus — voir le commentaire de la
+   *  coupe des reponses : Mag n'en veut pas d'ascenseur. */
   const corps = useRef<HTMLDivElement>(null);
 
   const index = useMemo<Fiche[]>(() => construireIndex(t, lang), [t, lang]);
@@ -56,7 +57,10 @@ export default function Assistant() {
    */
   const question = q.trim();
   const resultats = useMemo<Reponse[]>(
-    () => (question.length >= 2 ? chercher(question, index) : []),
+    // Trois pistes au plus : la reponse, et deux autres. Au-dela, la rangee
+    // « Aussi » passait sur deux lignes et poussait la fiche hors de la boite,
+    // qui ne defile plus.
+    () => (question.length >= 2 ? chercher(question, index, 3) : []),
     [question, index],
   );
 
@@ -107,6 +111,59 @@ export default function Assistant() {
       vv.removeEventListener('scroll', suivre);
     };
   }, []);
+
+  /*
+   * Le contenu SE SERRE jusqu'a tenir. Mag ne veut pas d'ascenseur dans la
+   * boite : « les points suffisent, et renvoient au bon endroit ».
+   *
+   * Couper a l'aveugle ne pouvait pas marcher. J'ai commence par reduire les
+   * reponses a deux lignes — et mesure ensuite que neuf questions sur seize
+   * debordaient encore, la pire de 146 px. C'est normal : la place disponible
+   * depend de la taille de l'ecran, et le cout d'une fiche depend de ce
+   * qu'elle porte (un lieu a deux boutons de lien, une check-list n'en a
+   * aucun). Aucune valeur fixe ne pouvait convenir aux deux.
+   *
+   * La boite mesure donc ce qui depasse et se serre d'un cran, jusqu'a quatre :
+   *   0 — deux lignes, les autres pistes, les liens
+   *   1 — une seule ligne
+   *   2 — sans les autres pistes
+   *   3 — sans les liens : le debut de la reponse et le bouton vers la page
+   *   4 — sans le texte du tout : le titre de la fiche et le bouton. Sur un
+   *       ecran de 600 px il ne reste que 211 px de contenu, et meme le cran 3
+   *       depassait de 16 px. Un titre et un chemin, c'est peu, mais c'est
+   *       juste — et ca vaut mieux qu'une reponse coupee par le bord.
+   *
+   * En `useLayoutEffect`, donc avant que l'ecran ne soit peint : on ne voit
+   * jamais l'etat trop grand, seulement le bon.
+   */
+  const [serrer, setSerrer] = useState(0);
+  /** La question a laquelle le cran courant se rapporte. */
+  const serrePour = useRef('');
+  /*
+   * UN SEUL effet, sans liste de dependances, et c'est deliberе.
+   *
+   * Il y en avait deux : l'un remettait le cran a zero quand la question
+   * changeait, l'autre mesurait et resserrait. Ils se marchaient dessus. Dans
+   * le meme rendu, la remise a zero n'avait pas encore pris effet quand la
+   * mesure lisait le DOM : celle-ci jugeait donc l'ANCIENNE mise en page, la
+   * declarait bonne, et on restait coince trop large. Le defaut ne se voyait
+   * qu'en ENCHAINANT deux questions — en repartant d'un champ vide, tout allait
+   * bien, ce qui l'a rendu long a trouver.
+   *
+   * Ici, remise a zero et mesure se suivent dans le meme fil : on ne mesure
+   * jamais une mise en page qui ne correspond pas au cran affiche.
+   */
+  useLayoutEffect(() => {
+    const c = corps.current;
+    if (!c) return;
+    const cle = `${question}|${choisie ?? ''}|${clavier}`;
+    if (serrePour.current !== cle) {
+      serrePour.current = cle;
+      if (serrer !== 0) setSerrer(0);
+      return;
+    }
+    if (serrer < 4 && c.scrollHeight > c.clientHeight + 1) setSerrer((n) => n + 1);
+  });
 
   const [pause, setPause] = useState(false);
   useEffect(() => {
@@ -276,7 +333,8 @@ export default function Assistant() {
           // ne le montraient pas — mais des qu'une reponse arrivait, elle se
           // collait sous l'aplat rose de l'entete, et l'aveu « je ne trouve
           // pas » y touchait aussi.
-          className={`flex flex-1 flex-col gap-5 overflow-y-auto overscroll-contain px-6 pb-7 pt-6 ${
+          data-serrer={serrer}
+          className={`flex flex-1 flex-col gap-4 overflow-hidden px-6 pb-7 pt-6 ${
             question ? 'justify-start' : 'justify-center'
           }`}
         >
@@ -305,9 +363,17 @@ export default function Assistant() {
             </div>
           )}
 
-          {enAvant && <Carte fiche={enAvant.fiche} sourceLabel={a.sourceLabel} />}
+          {enAvant && (
+            <Carte
+              fiche={enAvant.fiche}
+              sourceLabel={a.sourceLabel}
+              maxLignes={serrer >= 4 ? 0 : serrer >= 1 ? 1 : 2}
+              maxSignes={SIGNES_PAR_CRAN[Math.min(serrer, SIGNES_PAR_CRAN.length - 1)]}
+              avecLiens={serrer < 3}
+            />
+          )}
 
-          {autres.length > 0 && (
+          {autres.length > 0 && serrer < 2 && (
             <div className="flex flex-col gap-2">
               <p className="text-[11px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-pink-fonce)', fontWeight: 700 }}>
                 {a.alsoTitle}
@@ -335,9 +401,14 @@ export default function Assistant() {
               <p className="text-[14px]" style={{ fontWeight: 600 }}>
                 {a.noneTitle}
               </p>
-              <p className="text-[13px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
-                {a.noneText}
-              </p>
+              {/* L'explication tombe aussi quand la place manque : sur un
+                  petit ecran, elle seule faisait deborder l'aveu. Le titre et
+                  le bouton disent l'essentiel — je ne trouve pas, ecrivez-lui. */}
+              {serrer < 2 && (
+                <p className="text-[13px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+                  {a.noneText}
+                </p>
+              )}
               <a href={`mailto:${SITE.email}?subject=${sujet}`} className="cava-pill inline-flex w-fit items-center gap-2 px-4 py-2 text-[13px]">
                 <Icon name="phone" size={14} /> {t.askMag.cta}
               </a>
@@ -414,24 +485,36 @@ export default function Assistant() {
  * en montre le debut, on pose trois points, et le lien reprend la lecture a
  * l'endroit exact — la page ET sa section.
  *
- * Deux limites plutot qu'une : trois lignes, mais aussi 260 signes. Une seule
+ * Deux limites plutot qu'une : deux lignes, mais aussi 170 signes. Une seule
  * ligne peut etre un paragraphe entier (la note sur les bacs du soir en fait
  * 200 a elle seule) — compter les lignes ne dit rien de ce qu'on voit.
+ *
+ * Ces valeurs ont ete resserrees quand Mag a demande qu'il n'y ait PLUS
+ * D'ASCENSEUR dans la boite : « les points suffisent, et renvoient au bon
+ * endroit ». Une reponse doit donc tenir entiere dans la place disponible —
+ * elles sont calees sur la plus petite boite, pas sur la plus grande.
  */
-const MAX_LIGNES = 3;
-const MAX_SIGNES = 260;
+/**
+ * Combien de SIGNES on garde a chaque cran, et pas seulement combien de lignes.
+ *
+ * Compter les lignes du tableau ne suffisait pas : une « ligne » de 170 signes
+ * se replie en cinq lignes a l'ecran dans une boite etroite. Passer de deux
+ * entrees a une ne faisait donc presque rien gagner en hauteur, et la boite
+ * debordait toujours. C'est le nombre de signes qui commande la hauteur reelle.
+ */
+const SIGNES_PAR_CRAN = [170, 110, 80, 60, 0];
 
-function couper(lignes: string[]): { visibles: string[]; coupe: boolean } {
+function couper(lignes: string[], maxLignes: number, maxSignes: number): { visibles: string[]; coupe: boolean } {
   const visibles: string[] = [];
   let total = 0;
   for (const l of lignes) {
-    if (visibles.length >= MAX_LIGNES || total >= MAX_SIGNES) return { visibles, coupe: true };
-    if (total + l.length > MAX_SIGNES) {
+    if (visibles.length >= maxLignes || total >= maxSignes) return { visibles, coupe: true };
+    if (total + l.length > maxSignes) {
       // On coupe au dernier espace : un mot tranche en deux se lit mal.
-      const reste = MAX_SIGNES - total;
+      const reste = maxSignes - total;
       const bout = l.slice(0, reste);
       const espace = bout.lastIndexOf(' ');
-      visibles.push((espace > 40 ? bout.slice(0, espace) : bout).trimEnd());
+      visibles.push((espace > 25 ? bout.slice(0, espace) : bout).trimEnd());
       return { visibles, coupe: true };
     }
     visibles.push(l);
@@ -441,8 +524,22 @@ function couper(lignes: string[]): { visibles: string[]; coupe: boolean } {
 }
 
 /** Une reponse : le texte de Mag, ses liens, et la page d'ou il sort. */
-function Carte({ fiche, sourceLabel }: { fiche: Fiche; sourceLabel: string }) {
-  const { visibles, coupe } = couper(fiche.lignes);
+function Carte({
+  fiche,
+  sourceLabel,
+  maxLignes,
+  maxSignes,
+  avecLiens,
+}: {
+  fiche: Fiche;
+  sourceLabel: string;
+  maxLignes: number;
+  maxSignes: number;
+  avecLiens: boolean;
+}) {
+  const { visibles, coupe } = couper(fiche.lignes, maxLignes, maxSignes);
+  // Coupee d'une façon ou d'une autre, la fiche doit inviter a lire la suite.
+  const incomplet = coupe || !avecLiens || visibles.length < fiche.lignes.length;
   return (
     // Le filet rose sur le flanc gauche : il donne un bord franc a la reponse
     // et la separe des suggestions, sans ajouter une bordure complete qui
@@ -462,7 +559,7 @@ function Carte({ fiche, sourceLabel }: { fiche: Fiche; sourceLabel: string }) {
           </p>
         ))}
       </div>
-      {fiche.liens && fiche.liens.length > 0 && (
+      {avecLiens && fiche.liens && fiche.liens.length > 0 && (
         <div className="flex flex-wrap gap-2.5">
           {fiche.liens.map((l) => (
             <a
@@ -483,10 +580,10 @@ function Carte({ fiche, sourceLabel }: { fiche: Fiche; sourceLabel: string }) {
       <a
         href={withBase(fiche.page)}
         className={`inline-flex w-fit items-center gap-1.5 underline-offset-4 ${
-          coupe ? 'rounded-full px-4 py-2 text-[12.5px] no-underline' : 'text-[12px] underline'
+          incomplet ? 'rounded-full px-4 py-2 text-[12.5px] no-underline' : 'text-[12px] underline'
         }`}
         style={
-          coupe
+          incomplet
             ? { background: 'var(--cava-pink-fonce)', color: '#fff', fontWeight: 600 }
             : { color: 'var(--cava-pink-fonce, var(--cava-pink))' }
         }
