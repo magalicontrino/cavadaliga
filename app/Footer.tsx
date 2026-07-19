@@ -68,9 +68,12 @@ export default function Footer() {
         */}
         <a
           href={`${withBase('/la-region')}#quiz`}
-          className="cava-pill mt-8 inline-flex w-fit items-center gap-2 px-5 py-2.5 text-[13px]"
+          aria-label={t.quizPage.title}
+          title={t.quizPage.title}
+          className="cava-vinyllink mt-8 flex h-12 w-12 items-center justify-center rounded-full"
+          style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
         >
-          <Icon name="target" size={16} /> {t.quizPage.title}
+          <Icon name="target" size={24} />
         </a>
       </div>
     </footer>

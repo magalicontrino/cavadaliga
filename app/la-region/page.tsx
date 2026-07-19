@@ -224,6 +224,31 @@ export default function LaRegion() {
 
       <PageHeader title={p.title} intro={p.intro} />
 
+      {/*
+        Le quiz, AVANT le tri — Mag : « aussi par la pour le voir avant le
+        tri, mais discret ».
+        Il etait dans la rangee de tri : mal place deux fois. Cette rangee
+        defile horizontalement, il fallait donc la pousser pour le decouvrir ;
+        et surtout ce n'est pas un tri — cliquer un filtre et voir la page se
+        vider de tout sauf d'un jeu serait un contresens. Un simple picto, du
+        meme rond que ceux de la barre du haut, sans un mot : il se voit sans
+        rien peser.
+      */}
+      <section className="mx-auto max-w-[110rem] px-5 pt-2 md:px-10">
+        <Reveal>
+          <button
+            type="button"
+            onClick={() => allerAuQuiz()}
+            aria-label={q.title}
+            title={q.title}
+            className="cava-vinyllink flex h-11 w-11 items-center justify-center rounded-full"
+            style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
+          >
+            <Icon name="target" size={22} />
+          </button>
+        </Reveal>
+      </section>
+
       {/* Le tri : la page est longue, on choisit ce qu'on cherche */}
       <section className="mx-auto max-w-[110rem] px-5 md:px-10">
         <Reveal className="cava-swipe -mx-5 -my-4 flex gap-2.5 overflow-x-auto px-5 py-4 md:-mx-10 md:px-10">
@@ -234,23 +259,7 @@ export default function LaRegion() {
             );
           })}
           <FilterChip label={rf.all} icon="map" active={filter === 'tout'} onClick={() => choose('tout')} subtle />
-          {/*
-            Le quiz, en haut, avec les autres — Mag le voulait « quelque part
-            en haut de la page avec la liste ».
-            Il n'est PAS un filtre : il vit au bas de la page, hors des tris,
-            et cette pastille ne fait que l'y emmener. D'ou le defilement au
-            lieu d'un `choose()` — cliquer un tri et voir la page se vider de
-            tout sauf d'un jeu serait un contresens.
-            Il a d'abord ete essaye dans la barre du haut : a 375 px, le
-            cinquieme picto poussait le bouton menu 21 px hors de l'ecran.
-            Mesure faite, pas devinee.
-          */}
-          <FilterChip
-            label={q.eyebrow}
-            icon="target"
-            active={false}
-            onClick={() => allerAuQuiz()}
-          />
+
         </Reveal>
       </section>
 
