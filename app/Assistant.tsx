@@ -193,27 +193,22 @@ export default function Assistant() {
           tient 4,9:1 au point le plus clair et 6,3:1 au plus fonce.
         */}
         <div
-          className="flex shrink-0 items-center justify-between gap-3 px-6 py-6"
+          className="flex shrink-0 items-center justify-between gap-3 px-6 py-4"
           style={{ background: 'linear-gradient(135deg,#d81f66,#9c1246)', color: '#fff' }}
         >
           {/*
-            Le titre est CERCLE, comme « VISITER LA (CASA) » et les autres
-            titres du site : c'est la bulle maison, et elle avait sa place ici
-            plus qu'ailleurs — c'est une conversation. On cercle le titre
-            entier plutot qu'un seul mot : le decoupage marchait en francais et
-            tombait a plat en italien, ou « Una domanda? » n'a pas de mot final
-            a isoler.
+            PAS DE TITRE ECRIT — Mag l'a retire. « Une question ? » nommait ce
+            que la boite montre deja : un champ de recherche et des exemples.
+            Le robot le dit mieux, et sans mot.
+            
+            Il reste dans `aria-label` sur la boite : ce qui devient evident a
+            l'oeil ne l'est pas pour qui navigue au lecteur d'ecran, et une
+            fenetre sans nom ne s'annonce pas.
           */}
-          <h2
-            className="inline-flex items-center rounded-full px-5 py-2 text-[clamp(1.05rem,4.4vw,1.3rem)] uppercase leading-none tracking-[-0.01em]"
-            style={{ fontWeight: 900, border: '2px solid rgba(255,255,255,0.85)' }}
-          >
-            {a.title}
-          </h2>
+          <span aria-hidden className="flex items-center">
+            <Icon name="robot" size={40} strokeWidth={1.4} />
+          </span>
           <div className="flex items-center gap-2">
-            <span aria-hidden style={{ opacity: 0.9 }}>
-              <Icon name="robot" size={22} strokeWidth={1.5} />
-            </span>
             <button
               type="button"
               onClick={() => setOuvert(false)}
@@ -283,7 +278,21 @@ export default function Assistant() {
           </div>
         </form>
 
-        <div ref={corps} className="flex flex-1 flex-col gap-5 overflow-y-auto overscroll-contain px-6 pb-7">
+        <div
+          ref={corps}
+          /*
+           * Sans question, le contenu se CENTRE dans la hauteur libre.
+           *
+           * La boite a une taille fixe : les exemples se collaient en haut et
+           * laissaient 135 px de blanc dessous — « pas equilibre ». Centres,
+           * les memes 135 px se partagent de part et d'autre et ne se lisent
+           * plus comme un oubli. Des qu'une reponse arrive, on repasse en
+           * haut : une reponse se lit du debut, elle ne flotte pas.
+           */
+          className={`flex flex-1 flex-col gap-5 overflow-y-auto overscroll-contain px-6 pb-7 ${
+            question ? 'justify-start' : 'justify-center'
+          }`}
+        >
           {/* Rien de tape encore : on montre par ou commencer. Un champ vide
               sans exemple ne dit pas ce qu'on a le droit de demander. */}
           {!question && (
