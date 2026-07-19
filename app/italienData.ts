@@ -629,4 +629,28 @@ export const EXERCICES: Exercice[] = [
     choix: ['può', 'puoi', 'posso'],
     pourquoi: { fr: 'Potere : posso, puoi, può, possiamo, potete, possono. La même forme può sert au vouvoiement — la politesse italienne passe par la troisième personne.', it: 'Potere: posso, puoi, può… La stessa forma serve per la cortesia.', en: 'Potere: posso, puoi, può, possiamo, potete, possono. The same può serves as the polite form — Italian politeness uses the third person.' },
   },
+  {
+    question: 'Malatesta ___ un grande anarchico.',
+    consigne: { fr: 'Passé composé d’essere (être), 3e personne — à propos d’Errico Malatesta.', it: 'Passato prossimo di essere, terza persona — su Errico Malatesta.', en: 'Past tense of essere (to be), third person — about Errico Malatesta.' },
+    choix: ['è stato', 'ha stato', 'è stata'],
+    pourquoi: { fr: 'Essere se conjugue avec lui-même : è stato. « Ha stato » n’existe pas, et le participe est ici au masculin (Malatesta, un homme) : stato, pas stata.', it: 'Essere: è stato. « Ha stato » non esiste; al maschile: stato.', en: 'Essere takes essere as its auxiliary: è stato. “Ha stato” does not exist, and the participle is masculine here: stato, not stata.' },
+  },
+  {
+    question: 'Sacco e Vanzetti ___ giustiziati.',
+    consigne: { fr: 'Passé composé, 3e personne du pluriel — les deux anarchistes Sacco e Vanzetti.', it: 'Passato prossimo, terza plurale — Sacco e Vanzetti.', en: 'Past tense, third person plural — the two anarchists Sacco and Vanzetti.' },
+    choix: ['sono stati', 'hanno stati', 'sono stato'],
+    pourquoi: { fr: 'Deux hommes : essere au pluriel, participe masculin pluriel — sono stati. « Hanno stati » n’existe pas.', it: 'Due uomini: sono stati. « Hanno stati » non esiste.', en: 'Two men: essere in the plural, masculine plural participle — sono stati. “Hanno stati” does not exist.' },
+  },
+  {
+    question: 'Virgilia D’Andrea ___ una poetessa.',
+    consigne: { fr: 'Passé composé d’essere, à propos d’une femme — la poétesse Virgilia D’Andrea.', it: 'Passato prossimo di essere, su una donna: Virgilia D’Andrea.', en: 'Past tense of essere, about a woman — the poet Virgilia D’Andrea.' },
+    choix: ['è stata', 'è stato', 'ha stata'],
+    pourquoi: { fr: 'Avec essere, le participe s’accorde : une femme, donc è stata. Un homme dirait è stato.', it: 'Con essere il participio si accorda: è stata.', en: 'With essere the participle agrees: a woman, so è stata. A man would say è stato.' },
+  },
+  {
+    question: 'Pietro Gori ___ molte canzoni.',
+    consigne: { fr: 'Passé composé de scrivere (écrire) — à propos de Pietro Gori.', it: 'Passato prossimo di scrivere — su Pietro Gori.', en: 'Past tense of scrivere (to write) — about Pietro Gori.' },
+    choix: ['ha scritto', 'ha scrivuto', 'è scritto'],
+    pourquoi: { fr: 'Scrivere se conjugue avec avere, et son participe est irrégulier : scritto. « Scrivuto » n’existe pas.', it: 'Scrivere vuole avere e ha il participio irregolare: scritto.', en: 'Scrivere takes avere, and its participle is irregular: scritto. “Scrivuto” does not exist.' },
+  },
 ];
