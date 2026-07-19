@@ -697,7 +697,8 @@ const FR: Dict = {
       title: 'Marchés',
       desc: 'Fruits, légumes, fromages et poisson du jour, directement des producteurs.',
       list: [
-        { label: 'Marché de Scicli — mardi matin, Piazza Olimpiadi', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli' },
+        { label: 'Marché de Scicli — le mardi, 8 h-13 h, contrada Zagarone', url: 'https://www.google.com/maps/search/?api=1&query=mercato+settimanale+contrada+Zagarone+Scicli+RG' },
+        { label: 'Marché paysan Campagna Amica — le vendredi, 8 h-13 h, via Badiula (Scicli)', url: 'https://www.google.com/maps/search/?api=1&query=Via+Badiula+Scicli+RG' },
         { label: 'Marché fermier de Marina di Ragusa — vendredi matin (juin–sept.)', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa' },
         { label: 'Marché au poisson de Donnalucata — poisson frais du jour', url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata' },
       ],
@@ -1515,7 +1516,8 @@ const IT: Dict = {
       title: 'Mercati',
       desc: 'Frutta, verdura, formaggi e pesce del giorno, direttamente dai produttori.',
       list: [
-        { label: 'Mercato di Scicli — martedì mattina, Piazza Olimpiadi', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli' },
+        { label: 'Mercato di Scicli — il martedì, 8-13, contrada Zagarone', url: 'https://www.google.com/maps/search/?api=1&query=mercato+settimanale+contrada+Zagarone+Scicli+RG' },
+        { label: 'Mercato Campagna Amica — il venerdì, 8-13, via Badiula (Scicli)', url: 'https://www.google.com/maps/search/?api=1&query=Via+Badiula+Scicli+RG' },
         { label: 'Mercato degli agricoltori di Marina di Ragusa — venerdì mattina (giu–set)', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa' },
         { label: 'Mercato del pesce di Donnalucata — pesce fresco del giorno', url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata' },
       ],
@@ -2333,7 +2335,8 @@ const EN: Dict = {
       title: 'Markets',
       desc: 'Fruit, vegetables, cheese and the day’s catch, straight from the producers.',
       list: [
-        { label: 'Scicli market — Tuesday morning, Piazza Olimpiadi', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Olimpiadi+Scicli' },
+        { label: 'Scicli market — Tuesdays, 8 am-1 pm, contrada Zagarone', url: 'https://www.google.com/maps/search/?api=1&query=mercato+settimanale+contrada+Zagarone+Scicli+RG' },
+        { label: 'Campagna Amica farmers’ market — Fridays, 8 am-1 pm, via Badiula (Scicli)', url: 'https://www.google.com/maps/search/?api=1&query=Via+Badiula+Scicli+RG' },
         { label: 'Marina di Ragusa farmers’ market — Friday morning (Jun–Sep)', url: 'https://www.google.com/maps/search/?api=1&query=Piazza+Vincenzo+Rabito+Marina+di+Ragusa' },
         { label: 'Donnalucata fish market — fresh catch of the day', url: 'https://www.google.com/maps/search/?api=1&query=Mercato+ittico+Donnalucata' },
       ],

@@ -82,7 +82,9 @@ export const SEARCH_WORDS: WordHint[] = [
   { words: ['voir', 'vedere', 'see', 'monument', 'statue', 'statua', 'panorama', 'belvedere', 'belvédère', 'point de vue', 'viewpoint', 'visite', 'visita', 'curiosite'], cat: 'avoir' },
   { words: ['plage', 'spiaggia', 'beach', 'mer', 'mare', 'sea', 'baignade', 'nager', 'swim', 'sable', 'sabbia', 'sand', 'lido', 'transat'], cat: 'plage' },
   { words: ['courses', 'spesa', 'groceries', 'shopping', 'supermarche', 'supermarket', 'supermercato', 'caddie', 'carrello', 'lessive', 'papier'], cat: 'supermarche' },
-  { words: ['marche', 'mercato', 'market', 'horaire', 'horaires', 'orario', 'orari', 'hours', 'opening', 'heure', 'heures', 'ora', 'ore', 'time', 'quel jour', 'che giorno', 'what day', 'mardi', 'martedi', 'tuesday', 'matin', 'mattina', 'morning', 'legume', 'verdura', 'vegetables', 'fruit', 'frutta', 'fromage', 'formaggio', 'cheese', 'producteur', 'produttore', 'farmer', 'local', 'bio'], cat: 'marche' },
+  { words: ['badiula', 'campagna amica', 'campagna', 'amica'], ids: ['campagna-amica'] },
+  { words: ['zagarone', 'contrada zagarone'], ids: ['mercato-scicli'] },
+  { words: ['marche', 'mercato', 'market', 'horaire', 'horaires', 'orario', 'orari', 'hours', 'opening', 'heure', 'heures', 'ora', 'ore', 'time', 'quel jour', 'che giorno', 'what day', 'mardi', 'martedi', 'tuesday', 'vendredi', 'venerdi', 'friday', 'paysan', 'contadino', 'farmers', 'circuit court', 'filiera corta', 'matin', 'mattina', 'morning', 'legume', 'verdura', 'vegetables', 'fruit', 'frutta', 'fromage', 'formaggio', 'cheese', 'producteur', 'produttore', 'farmer', 'local', 'bio'], cat: 'marche' },
   // Ce qu'on met dans un panier, produit par produit. Mag a tape « pomme » et
   // n'a rien eu : la table couvrait les ENVIES (pizza, apero, glace) et les
   // rayons, jamais les articles eux-memes. Or on cherche ce qu'on veut acheter,
@@ -287,9 +289,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     km: 8,
     responsible: true,
     blurb: {
-      fr: 'Le marché hebdomadaire, le mardi, en bordure de Scicli — sur l’aire de foire de contrada Zagarone. En principe de 8 h à 13 h : l’horaire n’est publié nulle part officiellement, alors venez tôt plutôt que tard.',
-      it: 'Il mercato settimanale, il martedì, ai margini di Scicli — nell’area fiera di contrada Zagarone. In linea di massima dalle 8 alle 13: l’orario non è pubblicato ufficialmente da nessuna parte, quindi meglio presto che tardi.',
-      en: 'The weekly market, on Tuesdays, on the edge of Scicli — at the contrada Zagarone fairground. Roughly 8 am to 1 pm: the hours are not published officially anywhere, so come early rather than late.' },
+      fr: 'Le marché hebdomadaire de Scicli : tous les mardis de l’année, de 8 h à 13 h, à contrada Zagarone, en bordure de ville. Alimentation, fruits et légumes, produits du terroir, gastronomie — et de l’habillement. Les horaires peuvent bouger avec la saison : au moindre doute, la mairie de Scicli renseigne.',
+      it: 'Il mercato settimanale di Scicli: ogni martedì dell’anno, dalle 8 alle 13, in contrada Zagarone, ai margini della città. Alimentari, frutta e verdura, prodotti tipici, gastronomia — e abbigliamento. Gli orari possono cambiare con la stagione: nel dubbio, il Comune di Scicli informa.',
+      en: 'Scicli’s weekly market: every Tuesday of the year, 8 am to 1 pm, at contrada Zagarone on the edge of town. Food, fruit and vegetables, local produce, delicatessen — and clothing. Hours can shift with the season: when in doubt, Scicli town hall will tell you.' },
   },
   {
     id: 'baqqala',
@@ -405,6 +407,28 @@ export const LOCAL_PLACES: LocalPlace[] = [
       fr: 'Le bar-tabac du village, Via Tolstoj — la rue de Mormina Gas. On y trouve ce qu’un tabacchi italien vend : timbres, tickets de bus, disque de stationnement, loto, journaux. Et le café au comptoir.',
       it: 'Il bar-tabacchi del paese, in Via Tolstoj — la strada di Mormina Gas. C’è quello che vende un tabacchi: francobolli, biglietti dell’autobus, disco orario, lotto, giornali. E il caffè al banco.',
       en: 'The village bar-tabacchi, on Via Tolstoj — Mormina Gas’s street. It sells what an Italian tabacchi sells: stamps, bus tickets, the parking disc, lottery, newspapers. And coffee at the counter.' },
+  },
+  {
+    /*
+     * Le marche paysan du vendredi, donne par Mag avec sa source : la page
+     * du Comune di Scicli. C'est la seule adresse du site dont la source soit
+     * la commune elle-meme — elle a donc droit au bouton « Site officiel ».
+     *
+     * Le telephone du service Culture et Tourisme n'y figure pas : aucun
+     * numero ne s'affiche sur ce site.
+     */
+    id: 'campagna-amica',
+    name: 'Mercato Campagna Amica',
+    cat: 'marche',
+    town: 'Scicli',
+    url: 'https://www.google.com/maps/search/?api=1&query=Via+Badiula+Scicli+RG',
+    site: 'https://www.comune.scicli.rg.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/10513',
+    km: 8,
+    responsible: true,
+    blurb: {
+      fr: 'Le marché paysan, tous les vendredis matin de 8 h à 13 h, sur le terre-plein au-dessus du parking de via Badiula. On y rencontre les producteurs eux-mêmes, en circuit court : c’est le marché à privilégier si vous voulez acheter local.',
+      it: 'Il mercato contadino, ogni venerdì mattina dalle 8 alle 13, nell’area sopra il parcheggio di via Badiula. Si incontrano direttamente i produttori, a filiera corta: è il mercato da preferire per comprare locale.',
+      en: 'The farmers’ market, every Friday morning from 8 am to 1 pm, on the ground above the via Badiula car park. You meet the growers themselves, straight from the farm — the one to choose if you want to buy local.' },
   },
   {
     id: 'giannone',

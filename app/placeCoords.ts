@@ -36,6 +36,9 @@ export const COORDS: Record<string, PlaceCoord> = {
   // Photon sur « Via Tolstoj Scicli » : la rue ressort en district
   // « Cava d'Aliga ». C'est bien le tabacchi du village.
   'lo-bartolo': { lat: 36.72466, lon: 14.69222, src: 'nominatim' },
+  // Photon sur « Via Badiula Scicli » — le marche se tient sur le terre-plein
+  // qui domine ce parking.
+  'campagna-amica': { lat: 36.79181, lon: 14.70335, src: 'nominatim' },
   'mercato-scicli': { lat: 36.79357, lon: 14.70696, src: 'approx' },
   // Cava d'Aliga et la côte
   // Covo dei contrabbandieri — lien de Mag, coordonnees de sa fiche Google.
