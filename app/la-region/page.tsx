@@ -234,7 +234,14 @@ export default function LaRegion() {
         meme rond que ceux de la barre du haut, sans un mot : il se voit sans
         rien peser.
       */}
-      <section className="mx-auto max-w-[110rem] px-5 pt-2 md:px-10">
+      {/* `pb-10` : le picto touchait presque les pastilles de tri, et on lisait
+          une rangee de six boutons au lieu d'un picto et d'une rangee. Mag :
+          « il n'y a pas assez d'ecart entre les boutons du tri et ce picto ».
+          En bas de page il respirait deja — c'est la marge qui manquait.
+          Mesure : 24 px entre le picto et la premiere pastille avec `pb-6`,
+          encore trop peu ; 40 px avec `pb-10`, et la rangee redevient une
+          rangee. La marge est mangee en partie par le `-my-4` du tri. */}
+      <section className="mx-auto max-w-[110rem] px-5 pb-10 pt-2 md:px-10">
         <Reveal>
           <button
             type="button"
@@ -244,7 +251,7 @@ export default function LaRegion() {
             className="cava-vinyllink flex h-11 w-11 items-center justify-center rounded-full"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
           >
-            <Icon name="target" size={22} />
+            <Icon name="question" size={22} />
           </button>
         </Reveal>
       </section>
