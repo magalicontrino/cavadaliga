@@ -936,6 +936,19 @@ const FR: Dict = {
         ],
       },
       {
+        icon: '⛴️',
+        title: 'Venir en voiture',
+        links: [
+          { label: 'GNV — Gênes ↔ Palerme', url: 'https://www.gnv.it/fr/destinations-des-ferries/sicile/g%C3%AAnes-palerme' },
+          { label: 'Caronte & Tourist — la traversée du détroit', url: 'https://www.carontetourist.it/' },
+        ],
+        items: [
+          'Le bateau depuis Gênes — de loin le plus reposant. GNV part le soir, la traversée dure une vingtaine d’heures et on débarque à Palerme le lendemain, la voiture chargée et la route de France déjà derrière soi. Il reste environ 3 h jusqu’à la maison.',
+          'La descente de la Botte — on roule jusqu’en Calabre et on embarque pour Messine. Attention : le ferry ne part pas de Reggio de Calabre même mais de Villa San Giovanni, quelques kilomètres avant, là où l’autoroute s’arrête. La traversée fait une vingtaine de minutes, sans réservation, et il reste ensuite environ 3 h de route.',
+          'Entre les deux, c’est une question de fatigue : Gênes coûte une nuit en cabine et vous épargne toute l’Italie du Sud au volant.',
+        ],
+      },
+      {
         icon: '🚗',
         title: 'Rejoindre Casa Cava d’Aliga',
         links: [
@@ -1575,6 +1588,19 @@ const IT: Dict = {
         ],
       },
       {
+        icon: '⛴️',
+        title: 'Venire in auto',
+        links: [
+          { label: 'GNV — Genova ↔ Palermo', url: 'https://www.gnv.it/it/destinazioni-traghetti/sicilia/genova-palermo' },
+          { label: 'Caronte & Tourist — la traversata dello Stretto', url: 'https://www.carontetourist.it/' },
+        ],
+        items: [
+          'La nave da Genova — di gran lunga la più riposante. GNV parte la sera, la traversata dura una ventina d’ore e si sbarca a Palermo l’indomani, con l’auto carica e tutta la strada già alle spalle. Restano circa 3 h fino a casa.',
+          'Scendere lungo lo Stivale — si guida fino in Calabria e ci si imbarca per Messina. Attenzione: il traghetto non parte da Reggio Calabria ma da Villa San Giovanni, qualche chilometro prima, dove finisce l’autostrada. La traversata dura una ventina di minuti, senza prenotazione, e poi restano circa 3 h di strada.',
+          'Tra le due è una questione di stanchezza: Genova costa una notte in cabina e vi risparmia tutto il Sud Italia al volante.',
+        ],
+      },
+      {
         icon: '🚗',
         title: 'Raggiungere Casa Cava d’Aliga',
         links: [
@@ -2211,6 +2237,19 @@ const EN: Dict = {
           'Catania (CTA) — our recommended airport: the most flights and a direct bus to the area (about 1 h 30 by car).',
           'Comiso (CIY) — the closest, about 40 min away.',
           'Palermo (PMO) — the furthest, about 3 h, only for great deals.',
+        ],
+      },
+      {
+        icon: '⛴️',
+        title: 'Coming by car',
+        links: [
+          { label: 'GNV — Genoa ↔ Palermo', url: 'https://www.gnv.it/en/ferries-destinations/sicily/genoa-palermo' },
+          { label: 'Caronte & Tourist — crossing the strait', url: 'https://www.carontetourist.it/' },
+        ],
+        items: [
+          'The boat from Genoa — by far the restful one. GNV sails in the evening, the crossing takes about twenty hours, and you land in Palermo the next day with the car loaded and the whole drive through France behind you. About 3 h left to the house.',
+          'Driving down the boot — you drive to Calabria and board for Messina. Careful: the ferry does not leave from Reggio Calabria itself but from Villa San Giovanni, a few kilometres earlier, where the motorway ends. The crossing takes about twenty minutes, no booking needed, and roughly 3 h of road remain.',
+          'Between the two it is a question of tiredness: Genoa costs you a night in a cabin and spares you the whole of southern Italy at the wheel.',
         ],
       },
       {

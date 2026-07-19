@@ -226,6 +226,12 @@ const MOTS_MAISON: Record<string, string> = {
   // qu'un index ne garantissait pas.
   'voyage-✈️': 'vol vols avion billet compagnie escale bagage valise skyscanner volo aereo biglietto flight plane ticket luggage',
   'voyage-🛬': 'aeroport aeroporto airport catane catania palerme palermo comiso atterrir arrivee arrivo landing',
+  'voyage-⛴️':
+    'voiture auto route conduire rouler venir descendre traverser trajet autoroute peage '
+    + 'bateau ferry traversier traversee genes genova gene palerme palermo messine messina calabre calabria reggio villa san giovanni detroit stretto gnv caronte cabine nuit embarquer embarquement '
+    + 'duree dure heures longtemps combien durata dura ore duration how long hours '
+    + 'nave traghetto traghetti guidare strada autostrada pedaggio imbarco cabina notte venire in auto '
+    + 'car drive driving road motorway toll boat ferry crossing genoa palermo messina calabria strait cabin overnight board boarding come by car bring the car',
   'voyage-🚗':
     'voiture louer location loueur auto taxi uber vtc train navette transfert conduire permis autoroute peage '
     + 'macchina noleggio noleggiare treno trasferimento guidare patente autostrada pedaggio '
