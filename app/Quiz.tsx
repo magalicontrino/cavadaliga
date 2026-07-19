@@ -4,6 +4,8 @@ import { useMemo, useState } from 'react';
 import Reveal from './Reveal';
 import Icon from './Icon';
 import { useI18n } from './i18n';
+import { withBase } from './data';
+import { PRONONCIATION, LECONS, CHANSONS } from './italienData';
 
 /**
  * Le quiz de « La region ».
@@ -69,6 +71,13 @@ function melange<T>(liste: T[], graine: number): T[] {
  * quiz. Deux listes de themes qui divergent, c'est une question qui renvoie
  * vers une section qui ne s'appelle plus pareil.
  */
+/*
+ * `page` n'est la que pour les themes dont le texte vit AILLEURS que sur « La
+ * region ». Le cours d'italien est le premier du genre : « relire le passage »
+ * doit alors quitter la page au lieu de chercher une ancre qui n'existe pas
+ * ici — sans ça, le lien tomberait dans le vide, comme au tout premier jour du
+ * quiz.
+ */
 const THEMES = [
   { ancre: 'lieux', cle: 'places' },
   { ancre: 'etna', cle: 'etna' },
@@ -80,6 +89,7 @@ const THEMES = [
   { ancre: 'faune', cle: 'fauna' },
   { ancre: 'histoire', cle: 'history' },
   { ancre: 'livres', cle: 'books' },
+  { ancre: 'italien', cle: 'italian', page: '/italien' },
 ] as const;
 
 /*
@@ -108,7 +118,7 @@ const nettoie = (x: string) =>
   x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 /** Le texte de la section d'ou vient la reponse — la meme que `ancre`. */
-function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string): string {
+function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string, lang: 'fr' | 'it' | 'en'): string {
   switch (ancre) {
     case 'lieux':
       return [t.placesIntro, ...t.regionPlaces].join(' ');
@@ -130,6 +140,34 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string): string {
       return [t.historyPage.intro, ...t.historyPage.facts.map((f) => f.text)].join(' ');
     case 'livres':
       return t.booksPage.list.map((b) => `${b.titre}, ${b.auteur}. ${b.text}`).join(' ');
+    /*
+     * L'italien : l'extrait se batit EN DEUX LANGUES, la phrase italienne
+     * suivie de son sens. C'est ce que Mag demande — « fais tout en bilingue
+     * pour que ça ait du sens » — et c'est la seule facon qu'un extrait soit
+     * lisible : « Odio gli indifferenti » tout seul ne dit rien a qui ne parle
+     * pas italien, et sa traduction seule ne prouve rien.
+     */
+    case 'italien':
+      return [
+        // Les regles de prononciation aussi : une question sur le son de
+        // « sciopero » n'avait aucun texte ou puiser son extrait.
+        ...PRONONCIATION.map((r) => r.regle[lang]),
+        ...LECONS.flatMap((l) =>
+          l.phrases.flatMap((f) => [`${f.it} — ${f.sens[lang]}`, ...(f.note ? [f.note[lang]] : [])]),
+        ),
+        ...CHANSONS.flatMap((c) => [c.quoi[lang], c.langue[lang], ...c.mots.map((m) => `${m.it} — ${m.sens[lang]}`)]),
+      ]
+        /*
+         * Chaque entree est CLOSE avant d'etre recollee aux autres.
+         *
+         * Sans ça, « Sciopero — La grève » n'ayant pas de point final se
+         * soudait a ce qui l'entourait, et l'extrait ressortait en bouillie :
+         * « Vous pouvez venir aujourd'hui ? Sciopero — La grève Se prononce… »
+         * — la fin d'une lecon sur le plombier collee au mot « greve ». Mesure
+         * faite. Un point, et chaque phrase redevient une phrase.
+         */
+        .map((x) => (/[.!?\u2026]$/.test(x.trim()) ? x.trim() : `${x.trim()}.`))
+        .join(' ');
     default:
       return '';
   }
@@ -138,9 +176,13 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string): string {
 function extraitPour(texte: string, reponse: string): string | null {
   // Les mots qui portent le sens : au moins quatre lettres, ou un nombre.
   // « la », « du », « les » se retrouvent partout et ne designent rien.
-  const cles = nettoie(reponse)
-    .split(/[^a-z0-9\u2018\u2019']+/)
-    .filter((m) => m.length >= 4 || /^[0-9]+$/.test(m));
+  const mots = nettoie(reponse).split(/[^a-z0-9\u2018\u2019']+/).filter(Boolean);
+  let cles = mots.filter((m) => m.length >= 4 || /^[0-9]+$/.test(m));
+  // Une reponse faite de petits mots n'a aucune cle de quatre lettres :
+  // « Let me » n'en laissait aucune, et l'extrait sortait vide alors que la
+  // phrase etait dans la page. On redescend alors a deux lettres — c'est moins
+  // precis, mais chercher quelque chose vaut mieux que ne rien chercher.
+  if (!cles.length) cles = mots.filter((m) => m.length >= 2);
   if (!cles.length) return null;
 
   // Decoupage en PHRASES, et rien de plus fin.
@@ -175,10 +217,19 @@ function extraitPour(texte: string, reponse: string): string | null {
   let score = 0;
   for (const ph of phrases) {
     const n = nettoie(ph);
-    const touches = cles.filter((m) => n.includes(m)).length;
-    // A egalite, la phrase la plus courte : c'est un extrait, pas un chapitre.
-    if (touches > score || (touches === score && touches > 0 && meilleure && ph.length < meilleure.length)) {
-      score = touches;
+    /*
+     * On compte la LONGUEUR des mots retrouves, pas leur nombre.
+     *
+     * A compter les mots, « Sono anarchica » tombait sur « Sono allergico ai
+     * crostacei » : les deux phrases partagent « sono », une touche chacune,
+     * et la plus courte gagnait. Or « anarchica » vaut evidemment mieux que
+     * « sono » — un mot long est un mot rare, donc un mot qui designe. Neuf
+     * lettres contre quatre, et la bonne phrase repasse devant.
+     */
+    const poids = cles.filter((m) => n.includes(m)).reduce((somme, m) => somme + m.length, 0);
+    // A merite egal, la phrase la plus courte : c'est un extrait, pas un chapitre.
+    if (poids > score || (poids === score && poids > 0 && meilleure && ph.length < meilleure.length)) {
+      score = poids;
       meilleure = ph;
     }
   }
@@ -206,7 +257,7 @@ function Puce({ on, onClick, children }: { on: boolean; onClick: () => void; chi
 }
 
 export default function Quiz() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const q = t.quizPage;
   /*
    * La graine du hasard, tiree A CHAQUE PARTIE.
@@ -299,8 +350,8 @@ export default function Quiz() {
   /** La phrase de la page qui porte la bonne reponse. Vide si on ne la
    *  retrouve pas — mieux vaut rien qu'un extrait a cote. */
   const extrait = useMemo(
-    () => (question && bonne ? extraitPour(texteDe(t, question.ancre), bonne) : null),
-    [question, bonne, t],
+    () => (question && bonne ? extraitPour(texteDe(t, question.ancre, lang), bonne) : null),
+    [question, bonne, t, lang],
   );
 
   const libelleTheme = (ancre: string) => {
@@ -517,9 +568,20 @@ export default function Quiz() {
 
                 <div className="flex flex-wrap gap-3">
                   {/* Le renvoi au texte : c'est lui qui fait du jeu une lecture. */}
-                  <a href={`#${question.ancre}`} className="cava-pill px-5 py-2.5 text-[13px]">
-                    {q.seeSection} ↑
-                  </a>
+                  {(() => {
+                    // Un theme qui vit ailleurs emmene sur SA page ; les autres
+                    // gardent l'ancre locale et la fleche qui monte.
+                    const th = THEMES.find((x) => x.ancre === question.ancre);
+                    const ailleurs = th && 'page' in th ? (th as { page: string }).page : null;
+                    return (
+                      <a
+                        href={ailleurs ? withBase(ailleurs) : `#${question.ancre}`}
+                        className="cava-pill px-5 py-2.5 text-[13px]"
+                      >
+                        {q.seeSection} {ailleurs ? '→' : '↑'}
+                      </a>
+                    );
+                  })()}
                   <button type="button" onClick={suivante} className="rounded-full px-5 py-2.5 text-[13px]" style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)', fontWeight: 600 }}>
                     {n + 1 === paquet.length ? q.scoreTitle : q.next} →
                   </button>

@@ -267,6 +267,8 @@ export type Dict = {
     fauna: string;
     books: string;
     history: string;
+    /** Le cours d'italien : un theme de quiz qui vit sur une AUTRE page. */
+    italian: string;
   };
   infoFilter: {
     all: string;
@@ -1011,6 +1013,7 @@ const FR: Dict = {
     etna: 'L’Etna',
     fauna: 'La faune',
     books: 'Des livres',
+    italian: 'L’italien',
     history: 'Luttes & mémoire',
   },
   infoFilter: {
@@ -1303,6 +1306,16 @@ const FR: Dict = {
       { q: 'Comment les survivants appelaient-ils les marches vers les camps russes ?', choix: ['Les marches du « davaï »', 'Les marches blanches', 'Les marches du Don'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
       { q: 'Sur les prisonniers italiens des camps soviétiques, combien sont revenus ?', choix: ['Environ dix mille', 'Presque tous', 'Aucun'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
       { q: 'Quand les derniers prisonniers italiens de Russie ont-ils été libérés ?', choix: ['En 1954, après la mort de Staline', 'En 1945, à la fin de la guerre', 'En 1948'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
+      { q: '« Odio gli indifferenti », écrit Gramsci en 1917. Que veut-il dire ?', choix: ['Je hais les indifférents', 'J’aime les différences', 'J’écoute les autres'], bonne: 0, ancre: 'italien', niveau: 'facile' },
+      { q: '« Sciopero » veut dire…', choix: ['La grève', 'Le travail', 'La fête'], bonne: 0, ancre: 'italien', niveau: 'facile' },
+      { q: 'Comment se prononce le début de « sciopero » ?', choix: ['Cho, comme dans « chocolat »', 'Sko', 'Tcho'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      { q: '« Né dio né padrone » — que signifie « padrone » ?', choix: ['Le patron, le propriétaire, le maître', 'Le prêtre', 'Le père'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      { q: '« Non si parte ! » était le cri de janvier 1945. Il voulait dire…', choix: ['On ne part pas — refus d’aller à la guerre', 'La fête commence', 'On s’en va tous'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      { q: 'Dans « lasciatemi cantare », que veut dire « lasciatemi » ?', choix: ['Laissez-moi', 'Chantez-moi', 'Écoutez-moi'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      { q: '« Ora e sempre Resistenza » se traduit par…', choix: ['Maintenant et toujours, Résistance', 'Hier et demain, la paix', 'Ici et là, la patrie'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      { q: '« Bella ciao » — que veut dire « ciao » dans ce refrain ?', choix: ['Adieu : on part se battre', 'Bonjour : on arrive', 'Merci : on remercie'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      { q: 'Comment dit-on « je suis anarchiste » (au féminin) ?', choix: ['Sono anarchica', 'Sono anarchico', 'Ho anarchica'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      { q: '« Pessimismo dell’intelligenza, ottimismo della volontà » — cette devise de Gramsci dit…', choix: ['Voir clair sans renoncer à agir', 'Espérer sans réfléchir', 'Se taire et attendre'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
     ],
   },
   askMag: {
@@ -1932,6 +1945,7 @@ const IT: Dict = {
     etna: 'L’Etna',
     fauna: 'La fauna',
     books: 'Libri',
+    italian: 'L’italiano',
     history: 'Lotte & memoria',
   },
   infoFilter: {
@@ -2224,6 +2238,16 @@ const IT: Dict = {
       { q: 'Come chiamavano i sopravvissuti le marce verso i campi russi?', choix: ['Le marce del « davaj »', 'Le marce bianche', 'Le marce del Don'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
       { q: 'Dei prigionieri italiani nei campi sovietici, quanti sono tornati?', choix: ['Circa diecimila', 'Quasi tutti', 'Nessuno'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
       { q: 'Quando sono stati liberati gli ultimi prigionieri italiani in Russia?', choix: ['Nel 1954, dopo la morte di Stalin', 'Nel 1945, a fine guerra', 'Nel 1948'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
+      { q: '« Odio gli indifferenti », scrive Gramsci nel 1917. Che cosa significa?', choix: ['Odio chi non prende posizione', 'Amo le differenze', 'Ascolto gli altri'], bonne: 0, ancre: 'italien', niveau: 'facile' },
+      { q: '« Sciopero » significa…', choix: ['L’astensione dal lavoro', 'Il lavoro', 'La festa'], bonne: 0, ancre: 'italien', niveau: 'facile' },
+      { q: 'Come si pronuncia l’inizio di « sciopero »?', choix: ['Come in « pesce »', 'Sko', 'Tcho'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      { q: '« Né dio né padrone » — che cosa vuol dire « padrone »?', choix: ['Il capo, il proprietario', 'Il prete', 'Il padre'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      { q: '« Non si parte! » era il grido del gennaio 1945. Voleva dire…', choix: ['Rifiuto della leva militare', 'Comincia la festa', 'Andiamo via tutti'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      { q: 'In « lasciatemi cantare », che cosa vuol dire « lasciatemi »?', choix: ['Permettetemi', 'Cantatemi', 'Ascoltatemi'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      { q: '« Ora e sempre Resistenza » significa…', choix: ['Adesso e per sempre, Resistenza', 'Ieri e domani, la pace', 'Qui e là, la patria'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      { q: '« Bella ciao » — che cosa vuol dire « ciao » in questo ritornello?', choix: ['Addio: si parte a combattere', 'Buongiorno: si arriva', 'Grazie: si ringrazia'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      { q: 'Come si dice « sono anarchica » al femminile?', choix: ['Sono anarchica', 'Sono anarchico', 'Ho anarchica'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      { q: '« Pessimismo dell’intelligenza, ottimismo della volontà » — il motto di Gramsci dice…', choix: ['Vedere chiaro senza rinunciare ad agire', 'Sperare senza pensare', 'Tacere e aspettare'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
     ],
   },
   askMag: {
@@ -2853,6 +2877,7 @@ const EN: Dict = {
     etna: 'Etna',
     fauna: 'Wildlife',
     books: 'Books',
+    italian: 'Italian',
     history: 'Struggles & memory',
   },
   infoFilter: {
@@ -3145,6 +3170,16 @@ const EN: Dict = {
       { q: 'What did survivors call the marches to the Russian camps?', choix: ['The “davai” marches', 'The white marches', 'The Don marches'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
       { q: 'Of the Italian prisoners in the Soviet camps, how many came home?', choix: ['About ten thousand', 'Nearly all of them', 'None'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
       { q: 'When were the last Italian prisoners in Russia freed?', choix: ['In 1954, after Stalin’s death', 'In 1945, at the end of the war', 'In 1948'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
+      { q: '“Odio gli indifferenti”, Gramsci wrote in 1917. What does it mean?', choix: ['I hate the indifferent', 'I love differences', 'I listen to others'], bonne: 0, ancre: 'italien', niveau: 'facile' },
+      { q: '“Sciopero” means…', choix: ['Strike', 'Work', 'Party'], bonne: 0, ancre: 'italien', niveau: 'facile' },
+      { q: 'How does “sciopero” begin?', choix: ['Sh, as in “ship”', 'Sko', 'Cho'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      { q: '“Né dio né padrone” — what does “padrone” mean?', choix: ['The boss, the owner, the master', 'The priest', 'The father'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      { q: '“Non si parte!” was the cry of January 1945. It meant…', choix: ['We are not going — refusing conscription', 'The party is starting', 'We are all leaving'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      { q: 'In “lasciatemi cantare”, what does “lasciatemi” mean?', choix: ['Let me', 'Sing to me', 'Listen to me'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      { q: '“Ora e sempre Resistenza” translates as…', choix: ['Now and always, Resistance', 'Yesterday and tomorrow, peace', 'Here and there, homeland'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      { q: '“Bella ciao” — what does “ciao” mean in this refrain?', choix: ['Goodbye: you are leaving to fight', 'Hello: you are arriving', 'Thank you'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      { q: 'How does a woman say “I am an anarchist”?', choix: ['Sono anarchica', 'Sono anarchico', 'Ho anarchica'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      { q: '“Pessimismo dell’intelligenza, ottimismo della volontà” — Gramsci’s motto says…', choix: ['See clearly, act anyway', 'Hope without thinking', 'Stay silent and wait'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
     ],
   },
   askMag: {

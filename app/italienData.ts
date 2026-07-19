@@ -638,7 +638,7 @@ export const CHANSONS: Chanson[] = [
       en: 'The song the rest of the world takes for the Italian anthem. Cutugno paints an ordinary Italian — his coffee, his guitar, his contradictions — and the refrain simply asks to be allowed to sing.',
     },
     mots: [
-      { it: 'lasciare', pron: 'la·SCIA·re', sens: { fr: 'laisser — « lasciatemi » veut dire « laissez-moi »', it: 'permettere, lasciar fare', en: 'to let — “lasciatemi” means “let me”' } },
+      { it: 'lasciare', pron: 'la·SCIA·re', sens: { fr: 'laisser — « lasciatemi » veut dire « laissez-moi »', it: 'permettere: « lasciatemi » vale « permettetemi »', en: 'to let — “lasciatemi” means “let me”' } },
       { it: 'cantare', pron: 'can·TA·re', sens: { fr: 'chanter', it: 'cantare', en: 'to sing' } },
       { it: 'la chitarra', pron: 'la chi·TAR·ra', sens: { fr: 'la guitare — attention, « chi » se dit ki', it: 'strumento a corde', en: 'the guitar — note that “chi” sounds like ki' } },
       { it: 'orgoglioso', pron: 'or·go·GLIO·so', sens: { fr: 'fier', it: 'che prova orgoglio', en: 'proud' } },
