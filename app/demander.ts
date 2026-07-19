@@ -102,20 +102,27 @@ const synonymesDuLieu = (id: string, cat: CatKey, aussi: CatKey[] = []) => {
 // les poubelles » — jamais le titre exact de la rubrique. Enrichir = ajouter
 // des mots a une ligne.
 const MOTS_MAISON: Record<string, string> = {
+  // Les mots de la PANNE sur les quatre : c'est ainsi qu'on signale une chose
+  // cassee. « marche » et « marcher » n'y sont PAS — voir MOTS_AMBIGUS.
   'op-bolt':
-    'electricite courant lumiere lumieres disjoncteur compteur interrupteur interrupteurs panne noir ' +
+    'fonctionne panne casse '
+    + 'non funziona guasto rotto broken not working '
+    + 'electricite courant lumiere lumieres disjoncteur compteur interrupteur interrupteurs panne noir ' +
     'elettricita corrente luce luci interruttore contatore buio ' +
     'electricity power light lights switch breaker meter blackout',
   'op-drop':
-    'eau vanne robinet douche pression fuite couper ouvrir buanderie evier ' +
+    'fonctionne panne casse non funziona guasto rotto broken '
+    + 'eau vanne robinet douche pression fuite couper ouvrir buanderie evier ' +
     'acqua valvola rubinetto doccia pressione perdita chiudere aprire lavanderia lavello ' +
     'water valve tap faucet shower pressure leak turn laundry sink',
   'op-flame':
-    'gaz bouteille cuisiniere gaziniere plaque feu bonbonne cuisson recharge ' +
+    'fonctionne panne casse non funziona guasto rotto broken '
+    + 'gaz bouteille cuisiniere gaziniere plaque feu bonbonne cuisson recharge ' +
     'bombola cucina fornello fuoco ricarica ' +
     'gas bottle cylinder stove cooker hob refill',
   'op-signal':
-    'wifi wi internet reseau code password mot passe connexion connecter box debit recharger ' +
+    'fonctionne panne casse non funziona guasto rotto broken '
+    + 'wifi wi internet reseau code password mot passe connexion connecter box debit recharger ' +
     'rete parola chiave collegare connessione ricaricare ' +
     'network connect connection login broadband',
   // « aller » a du quitter cette ligne : c'est le verbe de TOUS les trajets.
@@ -134,7 +141,7 @@ const MOTS_MAISON: Record<string, string> = {
     'valigia bagaglio portare preparare documenti passaporto patente carta identita contanti ' +
     'luggage pack bring passport licence id insurance adapter plug cash money',
   poubelles:
-    'poubelle poubelles dechets tri ordures benne bac sac ramassage collecte jour sortir verre ' +
+    'poubelle poubelles dechets tri ordures benne bac sac ramassage collecte sortir verre ' +
     'plastique papier carton organique compost recyclage ' +
     'rifiuti spazzatura differenziata raccolta giorno vetro plastica carta cartone organico umido ' +
     'bin bins rubbish waste sorting recycling collection glass plastic paper cardboard organic',
@@ -143,10 +150,16 @@ const MOTS_MAISON: Record<string, string> = {
     'farmacia medicina medicine ricetta turno malato ' +
     'pharmacy chemist medicine prescription duty ill sick',
   urgences:
-    'urgence urgences secours pompier pompiers police carabinieri ambulance hopital docteur medecin ' +
+    'urgence urgences secours pompier pompiers police carabinieri ambulance hopital docteur medecin garde '
+    + '112 118 115 113 numero unique guardia ' +
     'accident noye sauvetage numero appeler ' +
     'emergenza soccorso vigili fuoco polizia ambulanza ospedale medico incidente chiamare ' +
     'emergency ambulance fire police hospital doctor accident drowning rescue call',
+  plombier:
+    'plombier plomberie fuite tuyau canalisation bouche evier lavabo toilette wc chasse '
+    + 'idraulico tubo scarico lavandino perdita '
+    + 'plumber pipe drain leak sink toilet blocked '
+    + 'devis preventivo quote',
   gaz:
     'gaz bouteille bonbonne livraison reparer cuisiniere marchand mormina ' +
     'bombola consegna riparare fornello ' +
@@ -161,6 +174,31 @@ const MOTS_MAISON: Record<string, string> = {
     'origine nom histoire salva contrino ' +
     'famiglia albero genealogico antenati nonni cugini origine storia ' +
     'family tree genealogy ancestors grandparents cousins origin history',
+  // Les trois groupes de « Preparer le voyage », reperes par leur EMOJI.
+  //
+  // Leurs libelles de liens sont des marques — Skyscanner, Trenitalia, Goldcar
+  // — et aucun ne contient les mots qu'on tape : « louer une voiture » ne
+  // rendait rien. Leurs titres non plus (« Rejoindre Casa Cava d'Aliga »).
+  // L'emoji, lui, ne change ni avec la langue ni avec le rang du groupe, ce
+  // qu'un index ne garantissait pas.
+  'voyage-✈️': 'vol vols avion billet compagnie escale bagage valise skyscanner volo aereo biglietto flight plane ticket luggage',
+  'voyage-🛬': 'aeroport aeroporto airport catane catania palerme palermo comiso atterrir arrivee arrivo landing',
+  'voyage-🚗':
+    'voiture louer location loueur auto taxi uber vtc train navette transfert conduire permis autoroute peage '
+    + 'macchina noleggio noleggiare treno trasferimento guidare patente autostrada pedaggio '
+    + 'car rent rental hire drive licence motorway toll transfer shuttle',
+  // Les transports. Sans ces mots, « le bus pour Modica » repondait la
+  // chocolaterie de Modica : « modica » etait son mot, et « bus » n'etait celui
+  // de personne.
+  'transport-sais':
+    'bus autobus car navette arret arrets ligne horaire horaires passage village '
+    + 'fermata fermate orario orari corriera pullman '
+    + 'stop stops timetable schedule coach',
+  'transport-ast':
+    'bus autobus car interurbain horaire horaires modica ragusa raguse noto siracusa syracuse pozzallo ispica '
+    + 'corriera pullman orario orari '
+    + 'coach intercity timetable',
+  'transport-catania': 'aeroport aeroporto airport avion aereo plane vol volo flight catane catania arrivee partenza retard ritardo delay porte gate bagage',
   meteo: 'meteo temps pluie soleil vent temperature chaud froid previsions tempo pioggia sole vento caldo freddo weather rain sun wind forecast hot cold',
 };
 
@@ -222,6 +260,9 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
       titre: g.title,
       lignes: g.items ?? [],
       liens: g.links,
+      // Les marques citees en lien comptent aussi : on cherche parfois
+      // « Trenitalia » ou « Goldcar » par leur nom.
+      mots: [...motsMaison(`voyage-${g.icon}`), ...motsDuTexte((g.links ?? []).map((l) => l.label))],
     });
   });
 
@@ -263,8 +304,23 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     id: 'urgences',
     page: '/informations-pratiques#urgences',
     titre: t.movePage.urgencyTitle,
-    lignes: [t.movePage.urgencyIntro, ...EMERGENCIES.map((e) => `${e.number} — ${e.label[lang]}`)],
+    lignes: [
+      `112 — ${t.movePage.nueLabel}`,
+      t.movePage.nueNote,
+      ...EMERGENCIES.map((e) => `${e.number} — ${e.label[lang]}`),
+      t.movePage.urgencyIntro,
+    ],
     mots: motsMaison('urgences'),
+  });
+  // Le plombier. Il etait ecrit sur la page et introuvable ici : « un
+  // plombier » ne rendait rien. C'est pourtant le genre de question qu'on pose
+  // en catastrophe, un dimanche.
+  ajouter({
+    id: 'plombier',
+    page: '/informations-pratiques#urgences',
+    titre: t.movePage.plumberTitle,
+    lignes: [t.movePage.plumberDesc],
+    mots: motsMaison('plombier'),
   });
   ajouter({
     id: 'gaz',
@@ -282,6 +338,7 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
       page: '/informations-pratiques#bouger',
       titre: tr.name,
       lignes: [tr.blurb[lang]],
+      mots: motsMaison(`transport-${tr.id}`),
       liens: [
         { label: tr.name, url: tr.url },
         ...(tr.appUrl && tr.appLabel ? [{ label: tr.appLabel, url: tr.appUrl }] : []),
@@ -352,11 +409,29 @@ export type Reponse = { fiche: Fiche; score: number };
  * question precise se noyait dans une categorie entiere : « du pain » — dont
  * Mag a pourtant liste l'adresse exacte — rendait le premier supermarche venu.
  */
+/**
+ * Les mots qui sont deux choses a la fois.
+ *
+ * « marche » est un nom (le marche de Scicli) ET un verbe (« ca ne marche
+ * pas »). Il ne peut donc pas peser autant qu'un mot qui ne designe qu'une
+ * chose. J'ai d'abord essaye l'inverse — semer « marche » dans les fiches de
+ * panne — et casse le marche : les six fiches se valaient, la plus courte
+ * gagnait, et « ou est le marche » repondait « Electricite ».
+ *
+ * Plafonnes au seuil, ces mots suffisent SEULS a repondre (« ou est le
+ * marche » rend bien le marche) mais s'effacent des qu'un mot franc les
+ * accompagne (« le wifi ne marche pas » rend le wifi).
+ */
+const MOTS_AMBIGUS = new Set(['marche', 'marcher', 'sortie', 'passe', 'passage', 'coin', 'point']);
+
 const poidsDesMots = (index: Fiche[]): Map<string, number> => {
   const combien = new Map<string, number>();
   for (const f of index) for (const m of new Set(f.mots)) combien.set(m, (combien.get(m) ?? 0) + 1);
   const poids = new Map<string, number>();
-  for (const [m, n] of combien) poids.set(m, n === 1 ? 10 : n <= 3 ? 8 : 6);
+  for (const [m, n] of combien) {
+    if (MOTS_AMBIGUS.has(m)) poids.set(m, SEUIL);
+    else poids.set(m, n === 1 ? 10 : n <= 3 ? 8 : 6);
+  }
   return poids;
 };
 
@@ -381,6 +456,24 @@ const scorer = (
 
   for (const m of mots) {
     let meilleur = 0;
+    /*
+     * Un mot ambigu ne vaut QUE s'il tombe juste.
+     *
+     * « quel jour le marche » rendait Cavagrande del Cassibile : sa fiche
+     * porte « marcher » (c'est une randonnee), qui ressemble assez a
+     * « marche » pour marquer des points, et sa description contient
+     * « journee ». Deux a-peu-pres battaient une correspondance exacte.
+     * Sur ces mots-la, on ignore donc les racines et le corps du texte : ou
+     * bien le mot est celui de la fiche, ou bien il ne compte pas.
+     */
+    if (MOTS_AMBIGUS.has(m)) {
+      if (fiche.mots.includes(m) || motsDuTitre.has(m)) {
+        meilleur = SEUIL;
+        couverts++;
+        score += meilleur;
+      }
+      continue;
+    }
     if (fiche.motsPrecis?.includes(m)) meilleur = POIDS_PRECIS;
     if (meilleur < POIDS_TITRE_MOT && fiche.mots.includes(m)) meilleur = poids.get(m) ?? 8;
     if (meilleur < POIDS_TITRE_MOT && motsDuTitre.has(m)) meilleur = POIDS_TITRE_MOT;
