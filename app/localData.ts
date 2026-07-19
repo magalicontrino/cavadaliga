@@ -74,6 +74,22 @@ export const SEARCH_WORDS: WordHint[] = [
   { words: ['plage', 'spiaggia', 'beach', 'mer', 'mare', 'sea', 'baignade', 'nager', 'swim', 'sable', 'sabbia', 'sand', 'lido', 'transat'], cat: 'plage' },
   { words: ['courses', 'spesa', 'groceries', 'shopping', 'supermarche', 'supermarket', 'supermercato', 'caddie', 'carrello', 'lessive', 'papier'], cat: 'supermarche' },
   { words: ['marche', 'mercato', 'market', 'legume', 'verdura', 'vegetables', 'fruit', 'frutta', 'fromage', 'formaggio', 'cheese', 'producteur', 'produttore', 'farmer', 'local', 'bio'], cat: 'marche' },
+  // Ce qu'on met dans un panier, produit par produit. Mag a tape « pomme » et
+  // n'a rien eu : la table couvrait les ENVIES (pizza, apero, glace) et les
+  // rayons, jamais les articles eux-memes. Or on cherche ce qu'on veut acheter,
+  // pas le nom du rayon.
+  //
+  // Les fruits et legumes pointent le SUPERMARCHE, pas le marche : le marche
+  // n'ouvre qu'un mardi, les supermarches tous les jours et il y en a deux
+  // dans le village. Le marche reste trouvable par ses propres mots
+  // (« marche », « fruit », « legume »), et ressort en second.
+  { words: ['pomme', 'poire', 'orange', 'citron', 'tomate', 'salade', 'banane', 'fraise', 'raisin', 'peche', 'melon', 'pasteque', 'courgette', 'aubergine', 'oignon', 'ail', 'basilic', 'herbes', 'patate', 'pommes de terre',
+    'mela', 'pera', 'arancia', 'limone', 'pomodoro', 'insalata', 'fragola', 'uva', 'pesca', 'melone', 'anguria', 'zucchina', 'melanzana', 'cipolla', 'aglio', 'basilico', 'patata',
+    'apple', 'pear', 'lemon', 'tomato', 'salad', 'strawberry', 'grapes', 'peach', 'watermelon', 'courgette', 'aubergine', 'onion', 'garlic', 'basil', 'potato'], cat: 'supermarche' },
+  // L'epicerie de tous les jours : ca, c'est le supermarche.
+  { words: ['lait', 'oeuf', 'oeufs', 'beurre', 'yaourt', 'farine', 'sucre', 'sel', 'poivre', 'pates', 'riz', 'conserve', 'biscuit', 'cereales', 'confiture', 'jus', 'boisson', 'biere', 'soda', 'couche', 'couches', 'savon', 'shampoing', 'dentifrice', 'mouchoirs', 'sac poubelle', 'piles',
+    'latte', 'uova', 'burro', 'yogurt', 'farina', 'zucchero', 'sale', 'pepe', 'pasta', 'riso', 'biscotti', 'marmellata', 'succo', 'bibita', 'pannolini', 'sapone', 'dentifricio',
+    'milk', 'eggs', 'butter', 'yoghurt', 'flour', 'sugar', 'salt', 'pepper', 'pasta', 'rice', 'jam', 'juice', 'nappies', 'soap', 'toothpaste', 'batteries'], cat: 'supermarche' },
   { words: ['fleur', 'fiori', 'flower', 'plante', 'pianta', 'plant', 'jardin', 'giardino', 'garden', 'vivaio', 'pepiniere', 'terrasse'], cat: 'plantes' },
   { words: ['restaurant', 'ristorante', 'trattoria', 'manger', 'mangiare', 'eat', 'diner', 'cena', 'dinner', 'midi', 'pranzo', 'lunch', 'table', 'tavola', 'food'], cat: 'resto' },
   { words: ['cafe', 'caffe', 'coffee', 'petit dejeuner', 'colazione', 'breakfast', 'matin', 'mattina', 'morning', 'expresso', 'cappuccino'], ids: ['gelateria-smile', 'maracaibo'] },

@@ -480,6 +480,39 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     mots: motsMaison('culture'),
   });
 
+  // ── Les rayons de « Nos adresses » ───────────────────────────────────
+  //
+  // Un mot LARGE mene au rayon, un mot PRECIS mene a l'adresse. Mag l'avait
+  // demande pour les pastilles — « le nom des lieux, je ne suis pas certaine ;
+  // plutot diriger vers le bouton qui coincide » — et ca vaut autant pour les
+  // reponses : elle a tape « pomme » et obtenu le Despar de Sampieri, alors
+  // qu'il y a deux epiceries dans le village. Une enseigne prise au hasard
+  // parmi six repond moins bien que le rayon, ou l'on choisit par distance.
+  //
+  // Les mots precis, eux, gardent leur adresse : « pizza » rend toujours la
+  // pizzeria, « chocolat » la dolceria — ce sont des envies a UNE adresse.
+  const rayons = new Map<CatKey, string[]>();
+  LOCAL_PLACES.forEach((l) => {
+    [l.cat, ...(l.aussi ?? [])].forEach((c) => {
+      if (!rayons.has(c)) rayons.set(c, []);
+    });
+  });
+  rayons.forEach((_, cle) => {
+    const larges = SEARCH_WORDS.filter((h) => h.cat === cle).flatMap((h) => h.words.flatMap(motsDe));
+    const combien = LOCAL_PLACES.filter((l) => l.cat === cle || l.aussi?.includes(cle)).length;
+    ajouter({
+      id: `rayon-${cle}`,
+      page: `/services-locaux#${cle}`,
+      titre: CATS[cle].label[lang],
+      lignes: [t.localPage.intro],
+      liens: [],
+      mots: [...larges, ...motsDuTexte([CATS[cle].label[lang]])],
+      // Un rayon d'une seule adresse n'a pas d'interet a s'interposer : on
+      // laisse alors l'adresse repondre directement.
+      motsPrecis: combien <= 1 ? [] : undefined,
+    });
+  });
+
   // ── Nos adresses ─────────────────────────────────────────────────────
   RAYON_DU_LIEU.clear();
   LOCAL_PLACES.forEach((l) => {
@@ -496,7 +529,9 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
         ...(l.site ? [{ label: t.localPage.siteLabel, url: l.site }] : []),
       ],
       motsPrecis: syn.precis,
-      mots: [...syn.larges, ...motsDuTexte(cats.map((c) => CATS[c].label[lang])), ...motsDe(l.town)],
+      // PLUS les mots larges : ils appartiennent au rayon (voir plus haut).
+      // Restent le nom, la ville, et les envies qui visent cette adresse-la.
+      mots: motsDe(l.town),
     });
   });
 
