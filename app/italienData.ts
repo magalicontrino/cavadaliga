@@ -56,7 +56,10 @@ export type Lecon = {
  * grammaire attendra, mais quelqu'un qui prononce « tchi » au lieu de « ki »
  * pour « chi » ne sera pas compris, meme avec le bon mot.
  */
-export type Regle = { regle: Texte; exemples: { it: string; pron: string }[] };
+// Le sens des mots-exemples n'est donne qu'en francais et en anglais : le mot
+// EST italien, un lecteur italien n'a pas besoin qu'on le lui traduise (on ne
+// l'affiche donc pas pour lui, voir la page).
+export type Regle = { regle: Texte; exemples: { it: string; pron: string; sens: { fr: string; en: string } }[] };
 
 export const PRONONCIATION: Regle[] = [
   {
@@ -66,9 +69,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'C and G soften before E and I: “ce, ci” sound like ch in church, “ge, gi” like j in jam. Before A, O, U they stay hard.',
     },
     exemples: [
-      { it: 'giustizia', pron: 'giu·STI·zia' },
-      { it: 'società', pron: 'so·cie·TÀ' },
-      { it: 'compagno', pron: 'com·PA·gno' },
+      { it: 'giustizia', pron: 'giu·STI·zia', sens: { fr: 'justice', en: 'justice' } },
+      { it: 'società', pron: 'so·cie·TÀ', sens: { fr: 'société', en: 'society' } },
+      { it: 'compagno', pron: 'com·PA·gno', sens: { fr: 'camarade', en: 'comrade' } },
     ],
   },
   {
@@ -78,9 +81,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'An H after C or G makes them hard again. That is all H does in Italian — it is never pronounced itself.',
     },
     exemples: [
-      { it: 'anarchico', pron: 'a·NAR·chi·co' },
-      { it: 'borghesia', pron: 'bor·ghe·SI·a' },
-      { it: 'oligarchia', pron: 'o·li·gar·CHI·a' },
+      { it: 'anarchico', pron: 'a·NAR·chi·co', sens: { fr: 'anarchiste', en: 'anarchist' } },
+      { it: 'borghesia', pron: 'bor·ghe·SI·a', sens: { fr: 'bourgeoisie', en: 'bourgeoisie' } },
+      { it: 'oligarchia', pron: 'o·li·gar·CHI·a', sens: { fr: 'oligarchie', en: 'oligarchy' } },
     ],
   },
   {
@@ -90,9 +93,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'GN sounds like the ni in onion. GLI sounds like the lli in million.',
     },
     exemples: [
-      { it: 'compagni', pron: 'com·PA·gni' },
-      { it: 'consiglio', pron: 'con·SI·glio' },
-      { it: 'battaglia', pron: 'bat·TA·glia' },
+      { it: 'compagni', pron: 'com·PA·gni', sens: { fr: 'camarades', en: 'comrades' } },
+      { it: 'consiglio', pron: 'con·SI·glio', sens: { fr: 'conseil', en: 'council' } },
+      { it: 'battaglia', pron: 'bat·TA·glia', sens: { fr: 'bataille', en: 'battle' } },
     ],
   },
   {
@@ -102,9 +105,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'SC before E or I sounds like sh in ship. Before A, O, U it sounds like sk.',
     },
     exemples: [
-      { it: 'sciopero', pron: 'SCIO·pe·ro' },
-      { it: 'coscienza', pron: 'co·SCIEN·za' },
-      { it: 'sconfitta', pron: 'scon·FIT·ta' },
+      { it: 'sciopero', pron: 'SCIO·pe·ro', sens: { fr: 'grève', en: 'strike' } },
+      { it: 'coscienza', pron: 'co·SCIEN·za', sens: { fr: 'conscience', en: 'conscience' } },
+      { it: 'sconfitta', pron: 'scon·FIT·ta', sens: { fr: 'défaite', en: 'defeat' } },
     ],
   },
   {
@@ -114,9 +117,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'Double consonants are actually held longer. It is the single most audible giveaway for foreigners — and sometimes it changes the word.',
     },
     exemples: [
-      { it: 'occupazione', pron: 'oc·cu·pa·ZIO·ne' },
-      { it: 'assemblea', pron: 'as·sem·BLE·a' },
-      { it: 'bandiera rossa', pron: 'ban·DIE·ra ROS·sa' },
+      { it: 'occupazione', pron: 'oc·cu·pa·ZIO·ne', sens: { fr: 'occupation', en: 'occupation' } },
+      { it: 'assemblea', pron: 'as·sem·BLE·a', sens: { fr: 'assemblée', en: 'assembly' } },
+      { it: 'bandiera rossa', pron: 'ban·DIE·ra ROS·sa', sens: { fr: 'drapeau rouge', en: 'red flag' } },
     ],
   },
   {
@@ -126,9 +129,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'Every vowel is pronounced, including the final one. No nasal vowels, nothing swallowed: “pane” is two clear syllables.',
     },
     exemples: [
-      { it: 'popolo', pron: 'PO·po·lo' },
-      { it: 'terra', pron: 'TER·ra' },
-      { it: 'compagne', pron: 'com·PA·gne' },
+      { it: 'popolo', pron: 'PO·po·lo', sens: { fr: 'peuple', en: 'people' } },
+      { it: 'terra', pron: 'TER·ra', sens: { fr: 'terre', en: 'land' } },
+      { it: 'compagne', pron: 'com·PA·gne', sens: { fr: 'camarades (f.)', en: 'comrades (f.)' } },
     ],
   },
   {
@@ -138,9 +141,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'The stress almost always falls on the second-to-last syllable. When it falls on the last one, it is written: caffè, città, perché.',
     },
     exemples: [
-      { it: 'libertà', pron: 'li·ber·TÀ' },
-      { it: 'solidarietà', pron: 'so·li·da·rie·TÀ' },
-      { it: 'uguaglianza', pron: 'u·gua·GLIAN·za' },
+      { it: 'libertà', pron: 'li·ber·TÀ', sens: { fr: 'liberté', en: 'freedom' } },
+      { it: 'solidarietà', pron: 'so·li·da·rie·TÀ', sens: { fr: 'solidarité', en: 'solidarity' } },
+      { it: 'uguaglianza', pron: 'u·gua·GLIAN·za', sens: { fr: 'égalité', en: 'equality' } },
     ],
   },
   {
@@ -150,9 +153,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'Z sounds like ts or dz depending on the word — Sicilians lean towards ts. R is rolled, but lightly: one flick of the tongue is enough.',
     },
     exemples: [
-      { it: 'rivoluzione', pron: 'ri·vo·lu·TSIO·ne' },
-      { it: 'resistenza', pron: 're·si·STEN·za' },
-      { it: 'giustizia', pron: 'giu·STI·tsia' },
+      { it: 'rivoluzione', pron: 'ri·vo·lu·TSIO·ne', sens: { fr: 'révolution', en: 'revolution' } },
+      { it: 'resistenza', pron: 're·si·STEN·za', sens: { fr: 'résistance', en: 'resistance' } },
+      { it: 'giustizia', pron: 'giu·STI·tsia', sens: { fr: 'justice', en: 'justice' } },
     ],
   },
 ];

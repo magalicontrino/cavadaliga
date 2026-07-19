@@ -331,6 +331,12 @@ export default function Italien() {
                 {r.exemples.map((x) => (
                   <span key={x.it} className="rounded-full px-3.5 py-2 text-[13px]" style={{ background: '#ffd452', color: 'var(--cava-ink)', fontWeight: 600 }}>
                     {x.it} <span style={{ opacity: 0.7 }}>· {x.pron}</span>
+                    {/* Le sens, en fin de pastille — sauf pour un lecteur italien,
+                        qui lit deja le mot. En italique pour ne pas le confondre
+                        avec la prononciation, qui est en milieu de point. */}
+                    {lang !== 'it' && (
+                      <span className="italic" style={{ opacity: 0.75, fontWeight: 500 }}> — {x.sens[lang]}</span>
+                    )}
                   </span>
                 ))}
               </div>
