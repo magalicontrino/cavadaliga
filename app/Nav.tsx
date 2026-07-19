@@ -258,6 +258,27 @@ export default function Nav({ current }: { current?: string }) {
               </span>
             </a>
           ))}
+          {/* Le cours d'italien — dans le menu, mais hors de NAV : NAV nourrit
+              aussi les sections de l'accueil, le pied de page et le 404. On ne
+              le veut qu'ici (et sur son picto, tout en bas du pied de page),
+              d'ou cet ajout a la main plutot qu'une entree dans NAV. */}
+          <a
+            href={withBase('/italien')}
+            onClick={() => setOpen(false)}
+            aria-current={current === '/italien' ? 'page' : undefined}
+            className="cava-footlink group flex items-center justify-between border-b py-[1.1vh] aria-[current=page]:opacity-45"
+            style={{ borderColor: 'var(--cava-line)' }}
+          >
+            <span
+              className="text-[clamp(1.6rem,5.6vh,3.6rem)] uppercase leading-[1.02] tracking-[-0.02em]"
+              style={{ fontWeight: 900 }}
+            >
+              {t.italianPage.menuLabel}
+            </span>
+            <span className="cava-footlink-arrow text-[clamp(1.1rem,3vw,2rem)]" aria-hidden>
+              ↗
+            </span>
+          </a>
         </nav>
 
         {/* Bas du menu : copyright (même style que le footer) */}

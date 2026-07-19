@@ -388,6 +388,7 @@ export type Dict = {
     score: string;
     progress: string;
     start: string;
+    menuLabel: string;
   };
   booksPage: {
     eyebrow: string;
@@ -1042,6 +1043,7 @@ const FR: Dict = {
   },
   italianPage: {
     eyebrow: 'Apprendre l’italien',
+    menuLabel: 'L’italien',
     title: 'Parler italien ici',
     intro: 'Pas un cours de grammaire : de quoi se débrouiller dès le premier matin, puis comprendre ce qu’on dit. On commence par prononcer, on continue par des phrases entières, la grammaire vient après — et on s’entraîne à la fin.',
     methodTitle: 'Comment s’en servir',
@@ -1944,6 +1946,7 @@ const IT: Dict = {
   },
   italianPage: {
     eyebrow: 'Imparare l’italiano',
+    menuLabel: 'L’italiano',
     title: 'Parlare italiano qui',
     intro: 'Non un corso di grammatica: quanto basta per cavarsela dal primo mattino, e poi per capire quello che si dice. Prima la pronuncia, poi frasi intere, la grammatica dopo — e alla fine gli esercizi. Questa versione serve soprattutto a chi vuole rivedere le regole o aiutare qualcuno a impararle.',
     methodTitle: 'Come usarlo',
@@ -2846,6 +2849,7 @@ const EN: Dict = {
   },
   italianPage: {
     eyebrow: 'Learning Italian',
+    menuLabel: 'Italian',
     title: 'Speaking Italian here',
     intro: 'Not a grammar course: enough to get by from the first morning, and then to understand what you are saying. Pronunciation first, whole sentences next, grammar after that — and exercises at the end.',
     methodTitle: 'How to use it',
