@@ -289,6 +289,30 @@ export type Dict = {
     note: string;
     facts: { couleur: string; bord?: string; title: string; text: string }[];
   };
+  /**
+   * Le quiz de « La region ».
+   *
+   * REGLE : chaque bonne reponse est ecrite noir sur blanc dans une section du
+   * site, et `ancre` dit laquelle. Rien n'est invente, rien ne vient d'ailleurs
+   * — comme « Demander ». Corriger un texte corrige donc le quiz, et une
+   * question dont on ne trouve plus la reponse sur le site est une question a
+   * retirer.
+   */
+  quizPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    start: string;
+    next: string;
+    seeSection: string;
+    good: string;
+    wrong: string;
+    progress: string;
+    scoreTitle: string;
+    scoreLine: string;
+    again: string;
+    questions: { q: string; choix: string[]; bonne: number; ancre: string }[];
+  };
   askMag: {
     text: string;
     textFor: string;
@@ -793,6 +817,34 @@ const FR: Dict = {
       { couleur: '#f2c033', title: 'Jaune — réservé', text: 'Handicapés avec macaron, livraisons, forces de l’ordre, parfois les résidents. On ne s’y gare pas, même cinq minutes.' },
       { couleur: '#f06a9b', title: 'Rose — femmes enceintes', text: 'Et parents d’un enfant de moins de deux ans. Officiel depuis 2021, mais il faut un permis délivré par sa commune de résidence : de passage, on n’y a pas droit.' },
       { couleur: '#6f8f5f', title: 'Vert — recharge', text: 'Le plus souvent réservé aux voitures électriques en train de se recharger. On ne s’y arrête pas pour autre chose.' },
+    ],
+  },
+  quizPage: {
+    eyebrow: 'Petit jeu',
+    title: 'Vous connaissez la région ?',
+    intro: 'Douze questions, trois réponses possibles. Tout ce qu’il faut savoir est écrit plus haut sur cette page — et chaque réponse vous dit où aller relire.',
+    start: 'Commencer',
+    next: 'Question suivante',
+    seeSection: 'Relire le passage',
+    good: 'C’est ça',
+    wrong: 'Raté',
+    progress: 'Question {n} sur {t}',
+    scoreTitle: 'Terminé',
+    scoreLine: '{n} bonnes réponses sur {t}',
+    again: 'Rejouer',
+    questions: [
+      { q: 'Comment les Siciliens appellent-ils l’Etna ?', choix: ['A Muntagna', 'Il Vulcano', 'La Signora'], bonne: 0, ancre: 'etna' },
+      { q: 'Peut-on skier sur l’Etna ?', choix: ['Oui, sur deux domaines', 'Non, il fait trop chaud', 'Oui, mais un seul mois par an'], bonne: 0, ancre: 'etna' },
+      { q: 'Que récoltaient les nivaroli sur l’Etna ?', choix: ['La neige', 'Le soufre', 'La lave refroidie'], bonne: 0, ancre: 'etna' },
+      { q: 'En quelle année les Arabes débarquent-ils en Sicile ?', choix: ['827', '1091', '1492'], bonne: 0, ancre: 'arabe' },
+      { q: 'Que veut dire « Donnalucata » ?', choix: ['La source des heures', 'La dame du lac', 'Le port aux poissons'], bonne: 0, ancre: 'arabe' },
+      { q: 'Les noms qui commencent par « Calta- » viennent de l’arabe qal‘at. Ça veut dire…', choix: ['La forteresse', 'La rivière', 'Le marché'], bonne: 0, ancre: 'arabe' },
+      { q: 'À Palerme, on dit…', choix: ['Arancina, au féminin', 'Arancino, au masculin', 'Les deux, au choix'], bonne: 0, ancre: 'coutumes' },
+      { q: 'Le vrai petit-déjeuner sicilien de l’été, c’est…', choix: ['Une granita et une brioche', 'Un cappuccino et un cannolo', 'Du pain et de l’huile d’olive'], bonne: 0, ancre: 'coutumes' },
+      { q: 'Le chocolat de Modica est travaillé…', choix: ['À froid, le sucre reste en grains', 'À très haute température', 'Avec du beurre de cacao ajouté'], bonne: 0, ancre: 'specialites' },
+      { q: 'Que cachent les ’mpanatigghi de Modica ?', choix: ['De la viande de bœuf', 'De la ricotta', 'Des figues sèches'], bonne: 0, ancre: 'specialites' },
+      { q: 'Quel est l’unique DOCG de toute la Sicile ?', choix: ['Le Cerasuolo di Vittoria', 'Le nero d’avola', 'Le marsala'], bonne: 0, ancre: 'alcools' },
+      { q: 'Au bar, un « caffè corretto », c’est un espresso…', choix: ['Avec un trait de liqueur', 'Avec beaucoup de lait', 'Servi avec un verre d’eau'], bonne: 0, ancre: 'cafe' },
     ],
   },
   askMag: {
@@ -1399,6 +1451,34 @@ const IT: Dict = {
       { couleur: '#6f8f5f', title: 'Verde — ricarica', text: 'Di solito riservato alle auto elettriche in ricarica. Non ci si ferma per altro.' },
     ],
   },
+  quizPage: {
+    eyebrow: 'Piccolo gioco',
+    title: 'Conoscete la regione?',
+    intro: 'Dodici domande, tre risposte possibili. Tutto quello che serve è scritto più in alto in questa pagina — e ogni risposta vi dice dove rileggere.',
+    start: 'Iniziare',
+    next: 'Domanda successiva',
+    seeSection: 'Rileggere il passaggio',
+    good: 'Esatto',
+    wrong: 'Sbagliato',
+    progress: 'Domanda {n} di {t}',
+    scoreTitle: 'Finito',
+    scoreLine: '{n} risposte giuste su {t}',
+    again: 'Rigiocare',
+    questions: [
+      { q: 'Come chiamano l’Etna i siciliani?', choix: ['A Muntagna', 'Il Vulcano', 'La Signora'], bonne: 0, ancre: 'etna' },
+      { q: 'Si può sciare sull’Etna?', choix: ['Sì, su due comprensori', 'No, fa troppo caldo', 'Sì, ma un solo mese all’anno'], bonne: 0, ancre: 'etna' },
+      { q: 'Cosa raccoglievano i nivaroli sull’Etna?', choix: ['La neve', 'Lo zolfo', 'La lava raffreddata'], bonne: 0, ancre: 'etna' },
+      { q: 'In che anno gli arabi sbarcano in Sicilia?', choix: ['827', '1091', '1492'], bonne: 0, ancre: 'arabe' },
+      { q: 'Cosa significa « Donnalucata »?', choix: ['La sorgente delle ore', 'La signora del lago', 'Il porto dei pesci'], bonne: 0, ancre: 'arabe' },
+      { q: 'I nomi che iniziano con « Calta- » vengono dall’arabo qal‘at. Vuol dire…', choix: ['La fortezza', 'Il fiume', 'Il mercato'], bonne: 0, ancre: 'arabe' },
+      { q: 'A Palermo si dice…', choix: ['Arancina, al femminile', 'Arancino, al maschile', 'Tutti e due, a scelta'], bonne: 0, ancre: 'coutumes' },
+      { q: 'La vera colazione siciliana d’estate è…', choix: ['Granita e brioche', 'Cappuccino e cannolo', 'Pane e olio d’oliva'], bonne: 0, ancre: 'coutumes' },
+      { q: 'Il cioccolato di Modica è lavorato…', choix: ['A freddo, lo zucchero resta in grani', 'Ad altissima temperatura', 'Con burro di cacao aggiunto'], bonne: 0, ancre: 'specialites' },
+      { q: 'Cosa nascondono gli ’mpanatigghi di Modica?', choix: ['Carne di manzo', 'Ricotta', 'Fichi secchi'], bonne: 0, ancre: 'specialites' },
+      { q: 'Qual è l’unica DOCG di tutta la Sicilia?', choix: ['Il Cerasuolo di Vittoria', 'Il nero d’avola', 'Il marsala'], bonne: 0, ancre: 'alcools' },
+      { q: 'Al bar, un « caffè corretto » è un espresso…', choix: ['Con un goccio di liquore', 'Con molto latte', 'Servito con un bicchiere d’acqua'], bonne: 0, ancre: 'cafe' },
+    ],
+  },
   askMag: {
     text: 'Qui non abbiamo ancora l’informazione. Scrivete a Mag: vi risponde, e noi la aggiungiamo per i prossimi.',
     textFor: 'Per {what}: qui non abbiamo ancora l’informazione. Scrivete a Mag, vi risponde — e noi la aggiungiamo per i prossimi.',
@@ -2001,6 +2081,34 @@ const EN: Dict = {
       { couleur: '#f2c033', title: 'Yellow — reserved', text: 'Blue-badge holders, loading, police, sometimes residents. You do not park there, not even for five minutes.' },
       { couleur: '#f06a9b', title: 'Pink — expectant mothers', text: 'And parents of a child under two. Official since 2021, but it needs a permit issued by your town of residence: as a visitor, you are not entitled.' },
       { couleur: '#6f8f5f', title: 'Green — charging', text: 'Usually reserved for electric cars while charging. You do not stop there for anything else.' },
+    ],
+  },
+  quizPage: {
+    eyebrow: 'A little game',
+    title: 'How well do you know the region?',
+    intro: 'Twelve questions, three answers each. Everything you need is written further up this page — and every answer tells you where to go back and read.',
+    start: 'Start',
+    next: 'Next question',
+    seeSection: 'Read that part again',
+    good: 'That’s it',
+    wrong: 'Not quite',
+    progress: 'Question {n} of {t}',
+    scoreTitle: 'Done',
+    scoreLine: '{n} right out of {t}',
+    again: 'Play again',
+    questions: [
+      { q: 'What do Sicilians call Etna?', choix: ['A Muntagna', 'Il Vulcano', 'La Signora'], bonne: 0, ancre: 'etna' },
+      { q: 'Can you ski on Etna?', choix: ['Yes, on two ski areas', 'No, it is far too hot', 'Yes, but only one month a year'], bonne: 0, ancre: 'etna' },
+      { q: 'What did the nivaroli harvest on Etna?', choix: ['Snow', 'Sulphur', 'Cooled lava'], bonne: 0, ancre: 'etna' },
+      { q: 'In what year did the Arabs land in Sicily?', choix: ['827', '1091', '1492'], bonne: 0, ancre: 'arabe' },
+      { q: 'What does “Donnalucata” mean?', choix: ['The spring of the hours', 'The lady of the lake', 'The fishing harbour'], bonne: 0, ancre: 'arabe' },
+      { q: 'Names starting with “Calta-” come from the Arabic qal‘at. It means…', choix: ['The fortress', 'The river', 'The market'], bonne: 0, ancre: 'arabe' },
+      { q: 'In Palermo, people say…', choix: ['Arancina, feminine', 'Arancino, masculine', 'Either one, as you like'], bonne: 0, ancre: 'coutumes' },
+      { q: 'The real Sicilian summer breakfast is…', choix: ['A granita and a brioche', 'A cappuccino and a cannolo', 'Bread and olive oil'], bonne: 0, ancre: 'coutumes' },
+      { q: 'Modica chocolate is worked…', choix: ['Cold, so the sugar stays grainy', 'At very high temperature', 'With added cocoa butter'], bonne: 0, ancre: 'specialites' },
+      { q: 'What is hidden inside Modica’s ’mpanatigghi?', choix: ['Minced beef', 'Ricotta', 'Dried figs'], bonne: 0, ancre: 'specialites' },
+      { q: 'Which is the only DOCG in the whole of Sicily?', choix: ['Cerasuolo di Vittoria', 'Nero d’avola', 'Marsala'], bonne: 0, ancre: 'alcools' },
+      { q: 'At the bar, a “caffè corretto” is an espresso…', choix: ['With a dash of liqueur', 'With plenty of milk', 'Served with a glass of water'], bonne: 0, ancre: 'cafe' },
     ],
   },
   askMag: {

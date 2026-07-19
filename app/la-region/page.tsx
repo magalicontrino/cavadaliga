@@ -13,6 +13,7 @@ import { useI18n } from '../i18n';
 import { withBase } from '../data';
 import WorkGrid from '../WorkGrid';
 import { ARTISTS, ARTS, SCULPTURES, PHOTOS, SCREENS, SPOTIFY_EMBED_HEIGHT, SPOTIFY_EMBED_URL, SPOTIFY_PLAYLIST_URL, MUNARI_BOOK, MUNARI_DESIGN_BOOK, MUNARI_WIKI, DE_JORIO_WIKI } from '../cultureData';
+import Quiz from '../Quiz';
 
 // Lieux autour de Cava d'Aliga (ordre = i18n regionPlaces / regionHighlights).
 // images[] = photos du lieu (carrousel, sans lightbox). Ajouter d'autres photos
@@ -69,12 +70,27 @@ export default function LaRegion() {
    * section rendue. C'est « Demander » qui s'en sert.
    */
   const [cible, setCible] = useState<Key | null>(null);
+  /*
+   * On ecoute AUSSI les changements d'ancre en cours de page, pas seulement
+   * celle du chargement.
+   *
+   * Le quiz, en bas, propose « relire le passage » et pointe #etna, #arabe…
+   * Sans cet ecouteur, l'ancre changeait et il ne se passait rien : la page
+   * n'affiche qu'une section a la fois, et celle qu'on visait n'existait meme
+   * pas dans le document. Mesure au banc : hash a « #etna », sections
+   * presentes « lieux » et « quiz » — le lien tombait dans le vide.
+   */
   useEffect(() => {
-    const cle = window.location.hash.slice(1) as Key;
-    if (!cle || !SECTIONS_ANCREES.includes(cle as Section)) return;
-    setFilter(cle);
-    setClicks((c) => c + 1);
-    setCible(cle);
+    const viser = () => {
+      const cle = window.location.hash.slice(1) as Key;
+      if (!cle || !SECTIONS_ANCREES.includes(cle as Section)) return;
+      setFilter(cle);
+      setClicks((c) => c + 1);
+      setCible(cle);
+    };
+    viser();
+    window.addEventListener('hashchange', viser);
+    return () => window.removeEventListener('hashchange', viser);
   }, []);
   useEffect(() => {
     if (!cible || filter !== cible) return;
@@ -840,6 +856,14 @@ export default function LaRegion() {
 
       {/* Plus de cale ici : la note portait deja pb-24, et l'ancienne cale en
           ajoutait 96 autres — 192 px de vide avant le pied de page. */}
+
+
+      {/* Le quiz ferme la page, HORS des filtres : on joue apres avoir lu, et
+
+          un bouton de tri ne doit pas le faire disparaitre. */}
+
+      <Quiz />
+
 
       <Footer />
     </main>
