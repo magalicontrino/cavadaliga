@@ -52,6 +52,15 @@ export type Fiche = {
   mots: string[];
   /** Les mots qui designent CETTE fiche et pas une famille de fiches. */
   motsPrecis?: string[];
+  /**
+   * Les EXPRESSIONS — plusieurs mots qui ne valent qu'ensemble.
+   *
+   * « fruits de mer » etait decoupe en mots isoles, et « fruits » devenait
+   * donc un mot-clef de la trattoria de poisson : « des fruits » repondait un
+   * restaurant au lieu du rayon. Une expression ne compte desormais que si
+   * TOUS ses mots sont dans la question.
+   */
+  expressions?: string[][];
 };
 
 /** Mots trop courants pour departager quoi que ce soit — les 3 langues melees,
@@ -86,13 +95,18 @@ const motsDuTexte = (parties: string[]): string[] => [...new Set(parties.flatMap
  * de mots ecrits dans les trois langues pour relier une envie (« pizza »,
  * « apero », « gouter ») a une adresse. Elle sert enfin.
  */
+const unMot = (w: string) => motsDe(w).length === 1;
+
 const synonymesDuLieu = (id: string, cat: CatKey, aussi: CatKey[] = []) => {
   const cats = [cat, ...aussi];
+  const pourLui = SEARCH_WORDS.filter((h) => h.ids?.includes(id));
   return {
     // Mag a ecrit « pain » en visant Giannone : c'est une adresse, pas un rayon.
-    precis: SEARCH_WORDS.filter((h) => h.ids?.includes(id)).flatMap((h) => h.words.flatMap(motsDe)),
+    // Seuls les mots SIMPLES comptent isolement — voir `expressions`.
+    precis: pourLui.flatMap((h) => h.words.filter(unMot).flatMap(motsDe)),
     // « plage » vise huit endroits : le mot situe, il ne designe pas.
-    larges: SEARCH_WORDS.filter((h) => h.cat && cats.includes(h.cat)).flatMap((h) => h.words.flatMap(motsDe)),
+    larges: SEARCH_WORDS.filter((h) => h.cat && cats.includes(h.cat)).flatMap((h) => h.words.filter(unMot).flatMap(motsDe)),
+    expressions: pourLui.flatMap((h) => h.words.filter((w) => !unMot(w)).map(motsDe)),
   };
 };
 
@@ -510,7 +524,12 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
       id: `rayon-${cle}`,
       page: `/services-locaux#${cle}`,
       titre: CATS[cle].label[lang],
-      lignes: [t.localPage.intro],
+      // AUCUN texte : la fiche d'un rayon n'a rien a raconter, elle a un
+      // chemin a donner. Elle portait l'intro de la page « Nos adresses » —
+      // un paragraphe entier, qui gonflait la carte, declenchait le
+      // resserrement, et faisait donc disparaitre la rangee « Aussi » ou
+      // l'autre rayon devait s'afficher. Titre + bouton suffisent.
+      lignes: [],
       liens: [],
       mots: [...larges, ...motsDuTexte([CATS[cle].label[lang]])],
       // Un rayon d'une seule adresse n'a pas d'interet a s'interposer : on
@@ -535,6 +554,7 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
         ...(l.site ? [{ label: t.localPage.siteLabel, url: l.site }] : []),
       ],
       motsPrecis: syn.precis,
+      expressions: syn.expressions,
       // PLUS les mots larges : ils appartiennent au rayon (voir plus haut).
       // Restent le nom, la ville, et les envies qui visent cette adresse-la.
       mots: motsDe(l.town),
@@ -548,7 +568,16 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
 // Trois niveaux de preuve, du plus sur au plus faible : un mot-clef choisi,
 // un mot du titre, un mot du corps. Un mot du corps ne peut PAS, a lui seul,
 // declencher une reponse — c'est ce qui permet de se taire.
-const POIDS_PRECIS = 10;
+/**
+ * Un mot que Mag a rattache a UNE adresse bat toujours un rayon.
+ *
+ * Il valait 10, autant qu'un mot-clef rare de rayon — et depuis que les fiches
+ * de rayon n'ont plus de texte, elles gagnaient les egalites en etant les plus
+ * courtes : « du pain » repondait « Supermarches » au lieu de la Gastronomia
+ * Giannone, que Mag avait pourtant designee expressement. A 12, le choix
+ * explicite l'emporte, ce qui est la moindre des choses.
+ */
+const POIDS_PRECIS = 12;
 const POIDS_TITRE_MOT = 7;
 const POIDS_RACINE = 5;
 const POIDS_TITRE_BOUT = 4;
@@ -614,6 +643,15 @@ const scorer = (
   const corps = norm(fiche.lignes.join(' '));
   let score = 0;
   let couverts = 0;
+
+  // Une expression vaut autant qu'un mot precis, mais seulement en entier :
+  // « fruits de mer » compte si les deux mots sont la, « fruits » seul non.
+  for (const exp of fiche.expressions ?? []) {
+    if (exp.length && exp.every((m) => mots.includes(m))) {
+      score += POIDS_PRECIS;
+      couverts += exp.length;
+    }
+  }
 
   for (const m of mots) {
     let meilleur = 0;

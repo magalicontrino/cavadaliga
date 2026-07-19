@@ -79,13 +79,18 @@ export const SEARCH_WORDS: WordHint[] = [
   // rayons, jamais les articles eux-memes. Or on cherche ce qu'on veut acheter,
   // pas le nom du rayon.
   //
-  // Les fruits et legumes pointent le SUPERMARCHE, pas le marche : le marche
-  // n'ouvre qu'un mardi, les supermarches tous les jours et il y en a deux
-  // dans le village. Le marche reste trouvable par ses propres mots
-  // (« marche », « fruit », « legume »), et ressort en second.
+  // Les fruits et legumes pointent LES DEUX rayons — Mag : « tu peux pointer
+  // aussi vers les marches ». C'est plus juste : un marche est fait pour ca.
+  // La meme liste est donc rattachee au supermarche ET au marche. Le
+  // supermarche reste en tete parce qu'il ouvre tous les jours et qu'il y en a
+  // deux dans le village ; le marche, lui, s'affiche juste a cote, dans
+  // « Aussi » — un mardi, c'est la qu'il faut aller.
   { words: ['pomme', 'poire', 'orange', 'citron', 'tomate', 'salade', 'banane', 'fraise', 'raisin', 'peche', 'melon', 'pasteque', 'courgette', 'aubergine', 'oignon', 'ail', 'basilic', 'herbes', 'patate', 'pommes de terre',
     'mela', 'pera', 'arancia', 'limone', 'pomodoro', 'insalata', 'fragola', 'uva', 'pesca', 'melone', 'anguria', 'zucchina', 'melanzana', 'cipolla', 'aglio', 'basilico', 'patata',
     'apple', 'pear', 'lemon', 'tomato', 'salad', 'strawberry', 'grapes', 'peach', 'watermelon', 'courgette', 'aubergine', 'onion', 'garlic', 'basil', 'potato'], cat: 'supermarche' },
+  { words: ['pomme', 'poire', 'orange', 'citron', 'tomate', 'salade', 'banane', 'fraise', 'raisin', 'peche', 'melon', 'pasteque', 'courgette', 'aubergine', 'oignon', 'ail', 'basilic', 'herbes', 'patate', 'pommes de terre',
+    'mela', 'pera', 'arancia', 'limone', 'pomodoro', 'insalata', 'fragola', 'uva', 'pesca', 'melone', 'anguria', 'zucchina', 'melanzana', 'cipolla', 'aglio', 'basilico', 'patata',
+    'apple', 'pear', 'lemon', 'tomato', 'salad', 'strawberry', 'grapes', 'peach', 'watermelon', 'courgette', 'aubergine', 'onion', 'garlic', 'basil', 'potato'], cat: 'marche' },
   // L'epicerie de tous les jours : ca, c'est le supermarche.
   { words: ['lait', 'oeuf', 'oeufs', 'beurre', 'yaourt', 'farine', 'sucre', 'sel', 'poivre', 'pates', 'riz', 'conserve', 'biscuit', 'cereales', 'confiture', 'jus', 'boisson', 'biere', 'soda', 'couche', 'couches', 'savon', 'shampoing', 'dentifrice', 'mouchoirs', 'sac poubelle', 'piles',
     'latte', 'uova', 'burro', 'yogurt', 'farina', 'zucchero', 'sale', 'pepe', 'pasta', 'riso', 'biscotti', 'marmellata', 'succo', 'bibita', 'pannolini', 'sapone', 'dentifricio',
