@@ -1039,17 +1039,29 @@ html {
    Le depassement est ECRIT dans les etapes, il n'est pas laisse a la courbe.
    Une courbe qui finit au-dessus de 1 le fabrique bien, mais elle ne le
    fabrique qu'en proportion du chemin parcouru : mesure au banc, 16 px de
-   montee ne donnaient que 1,5 px de depassement et 0,5 % d'echelle — un
-   rebond qu'on ne voit pas. Ici il vaut 6 px et 2 %, ce qui se remarque sans
-   faire jouet. */
+   montee ne donnaient que 1,5 px de depassement — un rebond qu'on ne voit pas.
+
+   Mag l'a voulu franc : la boite part de 60 px plus bas et de 80 % de sa
+   taille, depasse de 18 px, redescend de 7, puis se pose. Trois oscillations
+   qui s'amortissent, comme un objet qui tombe — une seule aurait fait ressort
+   de dessin anime.
+
+   Elle grandit depuis son coin BAS GAUCHE (transform-origin), celui ou se
+   tient la bulle : la boite sort de la bulle au lieu d'apparaitre a cote. */
 @keyframes cava-demander-entre {
   0% {
     opacity: 0;
-    transform: translateY(18px) scale(0.94);
+    transform: translateY(60px) scale(0.8);
   }
-  55% {
+  45% {
     opacity: 1;
-    transform: translateY(-6px) scale(1.02);
+    transform: translateY(-18px) scale(1.06);
+  }
+  70% {
+    transform: translateY(7px) scale(0.98);
+  }
+  88% {
+    transform: translateY(-3px) scale(1.008);
   }
   100% {
     opacity: 1;
@@ -1057,7 +1069,8 @@ html {
   }
 }
 .cava-demander-ouvert {
-  animation: cava-demander-entre 0.44s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: bottom left;
+  animation: cava-demander-entre 0.62s cubic-bezier(0.33, 1, 0.68, 1) both;
 }
 /* La bulle elle-meme accuse le coup quand on la touche. */
 @keyframes cava-demander-pouce {

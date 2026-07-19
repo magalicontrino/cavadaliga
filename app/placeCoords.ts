@@ -50,6 +50,8 @@ export const COORDS: Record<string, PlaceCoord> = {
   // rien sur leurs noms. On geocode donc leur voie — precision de l'ordre de
   // cent metres, ce qui situe le quartier sans pretendre a l'adresse exacte.
   // Baqqala suit le palais Beneventano, qui borde sa place.
+  // Le marche : la PLACE, pas un etal — c'est bien ce qu'on cherche ici.
+  'mercato-scicli': { lat: 36.79184, lon: 14.70486, src: 'nominatim' },
   baqqala: { lat: 36.7933, lon: 14.70753, src: 'nominatim' },
   'la-grotta': { lat: 36.79404, lon: 14.71195, src: 'nominatim' },
   prosit: { lat: 36.79397, lon: 14.70927, src: 'nominatim' },

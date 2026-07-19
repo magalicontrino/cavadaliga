@@ -405,13 +405,20 @@ export function chercher(question: string, index: Fiche[], max = 4): Reponse[] {
       return { fiche, score: assez ? score : 0, couverts };
     })
     .filter((r) => r.score >= SEUIL)
-    // D'abord ce qui repond au PLUS de mots de la question, ensuite ce qui y
-    // repond le plus fort. L'inverse laissait un seul mot rare l'emporter sur
-    // une fiche qui repondait a toute la question.
+    /*
+     * On classe par FORCE, et le nombre de mots touches ne fait que departager.
+     *
+     * L'inverse a ete essaye : compter d'abord les mots couverts. « Quel jour
+     * le marche » repondait alors Cavagrande del Cassibile — sa description
+     * contient « journee » (qui contient « jour ») et « marcher » ressemble a
+     * « marche », deux miettes qui battaient le marche de Scicli, lequel ne
+     * touchait qu'un mot mais le bon. Deux correspondances faibles ne valent
+     * pas une forte ; le score, lui, sait deja la difference.
+     */
     .sort(
       (a, b) =>
-        b.couverts - a.couverts ||
         b.score - a.score ||
+        b.couverts - a.couverts ||
         a.fiche.lignes.join(' ').length - b.fiche.lignes.join(' ').length,
     )
     .slice(0, max);

@@ -281,15 +281,18 @@ export type Dict = {
     subject: string;
   };
   // « Demander » — la bulle qui cherche dans le site. Ses reponses sont les
-  // textes ci-dessous, mot pour mot : rien ici ne redige, d'ou `promise`, qui
-  // le dit au visiteur plutot que de le lui laisser deviner.
+  // textes du site, mot pour mot : rien ici ne redige.
+  //
+  // Elle a porte un temps une phrase qui l'annonçait (« je reponds avec ce qui
+  // est ecrit, rien d'invente »). Mag l'a retiree : ce site s'adresse a des
+  // proches, pas a des inconnus a rassurer, et la promesse encombrait une
+  // boite qu'on ouvre pour taper trois mots. La garantie, elle, n'a pas
+  // bouge — chaque reponse porte le lien de la page d'ou elle sort.
   assistant: {
     label: string;
     title: string;
-    promise: string;
     placeholder: string;
     send: string;
-    suggestionsTitle: string;
     suggestions: string[];
     sourceLabel: string;
     alsoTitle: string;
@@ -769,11 +772,9 @@ const FR: Dict = {
   assistant: {
     label: 'Demander',
     title: 'Une question ?',
-    promise: 'Je cherche dans le site et je réponds avec ce qui y est écrit, mot pour mot. Rien d’inventé.',
     placeholder: 'Le code du wifi, la vanne d’eau, une pizza…',
     send: 'Chercher',
-    suggestionsTitle: 'Par exemple',
-    suggestions: ['Le code du wifi', 'Quelle poubelle ce soir ?', 'Où couper l’eau ?', 'Où manger une pizza ?'],
+    suggestions: ['Le code du wifi', 'Quelle poubelle ce soir ?', 'Où couper l’eau ?', 'Où manger une pizza ?', 'Où acheter du pain ?', 'Les numéros d’urgence'],
     sourceLabel: 'Voir la page',
     alsoTitle: 'Aussi',
     noneTitle: 'Je ne trouve pas.',
@@ -1357,11 +1358,9 @@ const IT: Dict = {
   assistant: {
     label: 'Chiedere',
     title: 'Una domanda?',
-    promise: 'Cerco nel sito e rispondo con quello che c’è scritto, parola per parola. Niente di inventato.',
     placeholder: 'La password del wifi, la valvola dell’acqua, una pizza…',
     send: 'Cerca',
-    suggestionsTitle: 'Per esempio',
-    suggestions: ['La password del wifi', 'Quale rifiuto stasera?', 'Dove chiudere l’acqua?', 'Dove mangiare una pizza?'],
+    suggestions: ['La password del wifi', 'Quale rifiuto stasera?', 'Dove chiudere l’acqua?', 'Dove mangiare una pizza?', 'Dove comprare il pane?', 'I numeri d’emergenza'],
     sourceLabel: 'Vedi la pagina',
     alsoTitle: 'Anche',
     noneTitle: 'Non trovo.',
@@ -1945,11 +1944,9 @@ const EN: Dict = {
   assistant: {
     label: 'Ask',
     title: 'A question?',
-    promise: 'I search the site and answer with what is written there, word for word. Nothing invented.',
     placeholder: 'The wifi password, the water valve, a pizza…',
     send: 'Search',
-    suggestionsTitle: 'For example',
-    suggestions: ['The wifi password', 'Which bin tonight?', 'Where do I turn the water off?', 'Where can I eat pizza?'],
+    suggestions: ['The wifi password', 'Which bin tonight?', 'Where do I turn the water off?', 'Where can I eat pizza?', 'Where to buy bread?', 'Emergency numbers'],
     sourceLabel: 'See the page',
     alsoTitle: 'Also',
     noneTitle: 'I cannot find it.',

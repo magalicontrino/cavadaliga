@@ -18,6 +18,17 @@ import { chercher, construireIndex, type Fiche, type Reponse } from './demander'
  * de la langue lue, et une reponse en francais sous un site en italien serait
  * pire que pas de reponse.
  */
+/**
+ * Les couleurs des exemples — celles que Mag a choisies pour l'arbre.
+ *
+ * Elle voulait la boite « plus ludique, avec de la couleur ». Plutot que
+ * d'inventer une palette de plus, on reprend le jaune, le turquoise et le rose
+ * de l'arbre genealogique : ils sont deja les siens, et deja valides. Toutes
+ * portent l'encre du site tres au-dessus du seuil de lisibilite — c'est
+ * d'ailleurs pour ca qu'elle les avait retenus la-bas.
+ */
+const GAIES = ['#ffd452', '#5fdede', '#f06a9b', '#c8e6a0'];
+
 export default function Assistant() {
   const { t, lang } = useI18n();
   const a = t.assistant;
@@ -95,17 +106,13 @@ export default function Assistant() {
         <Icon name={ouvert ? 'search' : 'chat'} size={26} strokeWidth={1.6} />
       </button>
 
-      {/* Le voile — seulement sur telephone, ou le panneau occupe l'ecran.
-          Sur grand ecran le panneau est une carte de coin : voiler la page
-          entiere pour un champ de recherche serait disproportionne. */}
-      <div
-        aria-hidden
-        onClick={() => setOuvert(false)}
-        className={`fixed inset-0 z-40 transition-opacity duration-300 motion-reduce:transition-none md:hidden ${
-          ouvert ? 'opacity-100' : 'pointer-events-none opacity-0'
-        }`}
-        style={{ background: 'rgba(46,45,45,0.35)' }}
-      />
+      {/*
+        PAS DE VOILE derriere le panneau — Mag : « le fond en fade, c'est non ».
+        Il assombrissait toute la page pour un champ de recherche, alors que la
+        boite se referme d'un geste. On garde une zone de sortie invisible :
+        toucher a cote referme, sans que rien ne s'obscurcisse.
+      */}
+      {ouvert && <div aria-hidden onClick={() => setOuvert(false)} className="fixed inset-0 z-30 md:hidden" />}
 
       <div
         ref={panneau}
@@ -116,7 +123,7 @@ export default function Assistant() {
           ouvert
             ? 'cava-demander-ouvert visible opacity-100'
             : 'invisible translate-y-3 opacity-0 transition-[opacity,transform] duration-300 motion-reduce:transition-none'
-        } inset-x-3 bottom-24 max-h-[72vh] md:inset-x-auto md:bottom-28 md:left-8 md:max-h-[min(34rem,72vh)] md:w-[27rem]`}
+        } inset-x-3 bottom-24 max-h-[85vh] min-h-[26rem] md:inset-x-auto md:bottom-28 md:left-8 md:max-h-[min(44rem,85vh)] md:w-[27rem]`}
         // Blanc franc, et surtout PAS --cava-card : cette variable vaut #2e2d2d,
         // c'est la carte SOMBRE du site. Le panneau sortait noir sur noir.
         style={{ background: '#fff', boxShadow: '0 24px 60px rgba(46,45,45,0.28)' }}
@@ -149,11 +156,6 @@ export default function Assistant() {
               ✕
             </button>
           </div>
-          {/* La promesse est ecrite, pas sous-entendue : le visiteur doit
-              savoir qu'il lit Mag et non une machine qui parle. */}
-          <p className="mt-2 max-w-[46ch] text-[12.5px] leading-[1.5]" style={{ color: 'rgba(255,255,255,0.92)' }}>
-            {a.promise}
-          </p>
         </div>
 
         <form
@@ -191,23 +193,18 @@ export default function Assistant() {
           {/* Rien de tape encore : on montre par ou commencer. Un champ vide
               sans exemple ne dit pas ce qu'on a le droit de demander. */}
           {!pose && (
-            <div className="flex flex-col gap-2">
-              <p className="text-[11px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-pink-fonce)', fontWeight: 700 }}>
-                {a.suggestionsTitle}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {a.suggestions.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    onClick={() => chercherMaintenant(s)}
-                    className="rounded-full px-3.5 py-2 text-[12.5px] transition-transform duration-200 hover:scale-[1.04] motion-reduce:transition-none"
-                    style={{ background: 'rgba(230,41,111,0.1)', color: 'var(--cava-pink-fonce)', fontWeight: 600 }}
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
+            <div className="flex flex-wrap gap-2">
+              {a.suggestions.map((s, i) => (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => chercherMaintenant(s)}
+                  className="rounded-full px-3.5 py-2 text-[12.5px] transition-transform duration-200 hover:scale-[1.05] motion-reduce:transition-none"
+                  style={{ background: GAIES[i % GAIES.length], color: 'var(--cava-ink)', fontWeight: 600 }}
+                >
+                  {s}
+                </button>
+              ))}
             </div>
           )}
 
