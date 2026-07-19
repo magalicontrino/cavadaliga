@@ -326,6 +326,21 @@ export const LECONS: Lecon[] = [
       { it: 'Né dio né padrone', pron: 'né DI·o né pa·DRO·ne', sens: { fr: 'Ni dieu ni maître', it: 'Motto anarchico', en: 'No gods, no masters' },
         note: { fr: 'Padrone veut dire le patron, le propriétaire, le maître — les trois à la fois.', it: 'Padrone: il capo, il proprietario, il padrone di casa.', en: 'Padrone means boss, owner and master all at once.' } },
       { it: 'L’unione fa la forza', pron: 'lu·NIO·ne fa la FOR·za', sens: { fr: 'L’union fait la force', it: 'Proverbio, e slogan', en: 'Unity is strength' } },
+      // Des figures, pas seulement des slogans : des anarchistes italiens qu'on
+      // peut nommer. Chaque phrase est au passe compose — le temps du cours — et
+      // les noms renvoient a Wikipedia (voir REFERENCES dans la page).
+      { it: 'Errico Malatesta è stato il più grande anarchico italiano', pron: 'ER·ri·co ma·la·TE·sta',
+        sens: { fr: 'Errico Malatesta a été le plus grand anarchiste italien', it: 'La figura di riferimento dell’anarchismo italiano', en: 'Errico Malatesta was the greatest Italian anarchist' },
+        note: { fr: 'Né en 1853, mort à Rome en 1932 sous surveillance fasciste. « è stato », c’est le passé composé — le temps du cours.', it: 'Nato nel 1853, morto a Roma nel 1932, sorvegliato dal fascismo.', en: 'Born in 1853, died in Rome in 1932 under fascist surveillance. “è stato” is the passato prossimo — the tense of this course.' } },
+      { it: 'Sacco e Vanzetti sono stati giustiziati nel 1927', pron: 'SAC·co e van·ZET·ti',
+        sens: { fr: 'Sacco et Vanzetti ont été exécutés en 1927', it: 'Due anarchici italiani giustiziati negli Stati Uniti', en: 'Sacco and Vanzetti were executed in 1927' },
+        note: { fr: 'Deux ouvriers anarchistes italiens condamnés à mort aux États-Unis au terme d’un procès inique — un symbole mondial de l’injustice.', it: 'Due operai anarchici condannati a morte negli USA dopo un processo iniquo.', en: 'Two Italian anarchist workers sentenced to death in the USA after an unfair trial — a worldwide symbol of injustice.' } },
+      { it: 'L’anarchico Pinelli è morto in questura', pron: 'la·NAR·chi·co pi·NEL·li',
+        sens: { fr: 'L’anarchiste Pinelli est mort au commissariat', it: 'Giuseppe Pinelli, ferroviere anarchico', en: 'The anarchist Pinelli died in the police station' },
+        note: { fr: 'Giuseppe Pinelli, cheminot, tombé d’une fenêtre de la questure de Milan en 1969. Dario Fo en a tiré « Mort accidentelle d’un anarchiste ».', it: 'Giuseppe Pinelli cadde da una finestra della questura di Milano nel 1969.', en: 'Giuseppe Pinelli, a railway worker, fell from a window of the Milan police station in 1969. Dario Fo based “Accidental Death of an Anarchist” on it.' } },
+      { it: 'Pietro Gori ha scritto canzoni anarchiche', pron: 'PIE·tro GO·ri',
+        sens: { fr: 'Pietro Gori a écrit des chansons anarchistes', it: 'Avvocato e poeta anarchico', en: 'Pietro Gori wrote anarchist songs' },
+        note: { fr: 'Avocat et poète, auteur d’« Addio a Lugano ». Participe irrégulier : scrivere → scritto.', it: 'Autore di « Addio a Lugano ». Participio irregolare: scrivere → scritto.', en: 'A lawyer and poet, author of “Addio a Lugano”. Irregular participle: scrivere → scritto.' } },
     ],
   },
   {
