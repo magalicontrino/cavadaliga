@@ -45,6 +45,41 @@ type Key = 'tout' | 'sons' | Section;
 const SONS: Section[] = ['playlist', 'ecrans', 'peinture', 'sculpture', 'photo', 'mains', 'chansons'];
 
 /** Les sections qu'un lien « #… » peut ouvrir — celles qui portent une ancre. */
+/*
+ * Emmener au quiz, et l'y TENIR.
+ *
+ * Le quiz est a huit mille pixels du haut, et la page ne tient pas en place :
+ * les sections au-dessus se replient une fois qu'on les a depassees. Mesure
+ * au banc, trois fois : visee juste (1 px), puis la page se retracte de
+ * 1 272 px et le quiz repart hors de l'ecran.
+ *
+ * Poser l'ancre ne suffit pas non plus — le saut natif ne fonctionne pas sur
+ * ce site, les pages sont des composants client et le navigateur cherche
+ * l'ancre avant qu'elle existe (voir app/ancre.ts, meme constat).
+ *
+ * On corrige donc la visee pendant deux secondes et demie, sans s'arreter
+ * plus tot : c'est le temps qu'il faut a la page pour se figer. Et on LACHE
+ * des que quelqu'un touche l'ecran ou la molette — se battre contre le doigt
+ * de quelqu'un serait pire que de le laisser un peu loin du but.
+ */
+function allerAuQuiz() {
+  const jusqua = performance.now() + 2500;
+  let vivant = true;
+  const lacher = () => {
+    vivant = false;
+    for (const e of ['wheel', 'touchstart', 'keydown']) window.removeEventListener(e, lacher);
+  };
+  for (const e of ['wheel', 'touchstart', 'keydown']) window.addEventListener(e, lacher, { passive: true });
+
+  const viser = () => {
+    if (!vivant) return;
+    document.getElementById('quiz')?.scrollIntoView({ block: 'start', behavior: 'instant' as ScrollBehavior });
+    if (performance.now() < jusqua) window.setTimeout(viser, 80);
+    else lacher();
+  };
+  viser();
+}
+
 const SECTIONS_ANCREES: Section[] = ['lieux', 'faune', 'coutumes', 'specialites', 'alcools', 'cafe', 'etna', 'arabe', 'playlist'];
 
 export default function LaRegion() {
@@ -52,6 +87,7 @@ export default function LaRegion() {
   const p = t.pages['la-region'];
   const rf = t.regionFilter;
   const c = t.culturePage;
+  const q = t.quizPage;
   const cf = t.cultureFilter;
 
   // On arrive sur « Les lieux » : le bouton allumé correspond à ce qu'on voit.
@@ -189,6 +225,23 @@ export default function LaRegion() {
             );
           })}
           <FilterChip label={rf.all} icon="map" active={filter === 'tout'} onClick={() => choose('tout')} subtle />
+          {/*
+            Le quiz, en haut, avec les autres — Mag le voulait « quelque part
+            en haut de la page avec la liste ».
+            Il n'est PAS un filtre : il vit au bas de la page, hors des tris,
+            et cette pastille ne fait que l'y emmener. D'ou le defilement au
+            lieu d'un `choose()` — cliquer un tri et voir la page se vider de
+            tout sauf d'un jeu serait un contresens.
+            Il a d'abord ete essaye dans la barre du haut : a 375 px, le
+            cinquieme picto poussait le bouton menu 21 px hors de l'ecran.
+            Mesure faite, pas devinee.
+          */}
+          <FilterChip
+            label={q.eyebrow}
+            icon="target"
+            active={false}
+            onClick={() => allerAuQuiz()}
+          />
         </Reveal>
       </section>
 

@@ -281,7 +281,20 @@ const MOTS_MAISON: Record<string, string> = {
     + 'vulcano eruzione lava cratere neve sciare montagna gita '
     + 'volcano eruption crater snow skiing mountain hike altitude sommet randonner telepherique guide sortie coulee cendres fumee sud nord refuge altitudine cima funivia guida colata cenere fumo rifugio altitude summit cable car guide lava ash smoke refuge',
   'region-arabe':
-    'arabe arabes arabo normand histoire musulman sarrasin conquete heritage architecture nom noms toponymie '
+    // L'heritage arabe s'est etoffe : les pates seches de Trabia, le riz et le
+    // safran, l'agrodolce, la patisserie d'amande, le rais des tonnare. Ces
+    // mots-la ne se devinent pas depuis « arabe » — il faut les nommer, sinon
+    // « les premieres pates » ne trouve rien. Mag : « quand tu rajoutes du
+    // contenu tu dois alimenter le chat et le quizz a chaque fois ».
+    'pate pates spaghetti semoule itriyya trabia idrisi livre roger marco polo seche seches origine invente '
+    + 'riz safran arancina sfincione frit friture agrodolce aigre doux sucre sale sardine sardines fenouil pignon raisin sec '
+    + 'patisserie amande marzipan martorana pasta reale cubbaita qubbayt cassata qasah sucre canne '
+    + 'rais tonnara tonnare thon peche couscous cuscus trapani san vito lo capo '
+    + 'pasta semola secca origine inventata riso zafferano fritto agrodolce sarde finocchietto pinoli uvetta '
+    + 'mandorla marzapane pasticceria zucchero canna raìs tonno pesca cuscus '
+    + 'pasta dried semolina invented rice saffron fried sweet sour sardines fennel pine nuts raisins '
+    + 'almond marzipan pastry sugar cane tuna fishery couscous '
+    + 'arabe arabes arabo normand histoire musulman sarrasin conquete heritage architecture nom noms toponymie '
     + 'sicile passe siecle moyen age '
     + 'arabo normanno storia musulmano saraceno conquista eredita '
     + 'arab norman history moorish conquest heritage sarrasin berbere irrigation jardin agrume mot nom de lieu quartier ruelle saraceno berbero irrigazione giardino agrume toponimo quartiere vicolo saracen berber irrigation garden citrus place name quarter alley',
@@ -293,7 +306,11 @@ const MOTS_MAISON: Record<string, string> = {
     + 'politesse maniere vivre local abitudini orari usanze '
     + 'customs habits opening hours siesta tipping manners pourboire service politesse tutoiement horaire repas diner tard sieste dimanche ferie mancia servizio educazione orario pasto cena tardi domenica festivo tipping service manners mealtime dinner late sunday public holiday',
   'region-specialites':
-    'specialite specialites cuisine plat plats manger typique arancina cannolo cassata caponata pasta '
+    'sarde sardines fenouil pignons raisins safran caponata vinaigre aigre doux martorana amande pate '
+    + 'cassata qasah scaccia teste turco mpanatigghi caciocavallo cubbaita torrone sesame miel '
+    + 'finocchietto pinoli uvetta zafferano aceto agrodolce mandorla sesamo miele '
+    + 'sardines fennel pine nuts raisins saffron vinegar sweet sour almond sesame honey nougat '
+    + 'specialite specialites cuisine plat plats manger typique arancina cannolo cassata caponata pasta '
     + 'norma sarde ricotta amande pistache '
     + 'specialita piatti tipici mandorla pistacchio '
     + 'speciality dishes food typical almond pistachio arancina cannolo cassata caponata granita brioche pasta alla norma sarde pistache amande ricotta mandorla pistacchio ricotta sarde almond pistachio ricotta street food snack',
