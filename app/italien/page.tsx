@@ -31,27 +31,97 @@ import { PRONONCIATION, LECONS, CONJUGAISONS, PRONOMS, EXERCICES, AILLEURS } fro
 /*
  * Aller a une section du sommaire, et l'y TENIR (grand ecran seulement).
  *
- * Le saut natif ne suffit pas : les blocs au-dessus grandissent encore pendant
- * que leurs apparitions se jouent, si bien qu'on vise juste et qu'on tombe a
- * cote. On corrige donc la visee pendant une seconde et demie, et on LACHE des
- * que quelqu'un touche la molette ou l'ecran — se battre contre un doigt serait
- * pire que d'arriver un peu bas.
+ * LE DEFILEMENT EST DOUX, comme celui de la fleche de retour — Mag les voulait
+ * pareils, et elle a raison : deux facons de se deplacer sur la meme page, ça
+ * se remarque. Il respecte « moins d'animation » si le systeme le demande.
+ *
+ * Mais on ne peut pas se contenter d'un glissement : les blocs au-dessus
+ * grandissent encore pendant que leurs apparitions se jouent, si bien qu'on
+ * arrive a cote de la cible — mesure faite, « Le futur » tombait 558 px trop
+ * bas. La version precedente reglait ça en visant en boucle, sechement, dix
+ * fois par seconde : ça arrivait juste, et ça sautait.
+ *
+ * On fait donc les deux dans l'ordre : un seul glissement doux, puis on ATTEND
+ * QU'IL SE POSE — trois mesures identiques d'affilee — et alors seulement on
+ * corrige, en douceur aussi, si la cible a bouge entre-temps. Trois retouches
+ * au maximum : au-dela, la page ne se stabilise pas et s'acharner ferait
+ * osciller l'ecran.
+ *
+ * Et on LACHE des que quelqu'un touche la molette ou l'ecran : se battre
+ * contre un doigt serait pire que d'arriver un peu bas.
  */
 function allerA(id: string) {
-  const jusqua = performance.now() + 1500;
+  const doux = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let vivant = true;
   const lacher = () => {
     vivant = false;
     for (const e of ['wheel', 'touchstart', 'keydown']) window.removeEventListener(e, lacher);
   };
   for (const e of ['wheel', 'touchstart', 'keydown']) window.addEventListener(e, lacher, { passive: true });
-  const viser = () => {
+
+  const viser = () =>
+    document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: doux ? 'smooth' : ('instant' as ScrollBehavior) });
+
+  viser();
+  if (!doux) {
+    lacher();
+    return;
+  }
+
+  /*
+   * LE FILET DE SECURITE. Un glissement doux a besoin d'images pour avancer :
+   * dans un onglet en arriere-plan, le navigateur n'en fournit aucune et le
+   * defilement ne demarre tout simplement PAS — mesure au banc, dix
+   * echantillons a zero pendant qu'un defilement sec, lui, arrivait a bon
+   * port. Sans ce filet, un clic dans ces conditions-la ne ferait rien du
+   * tout, et « rien » est la pire des reponses.
+   *
+   * Si l'ecran n'a pas bouge d'un pixel apres une demi-seconde, on tranche :
+   * on y va sechement. Mieux vaut un saut qu'une porte qui ne s'ouvre pas.
+   */
+  const depart = Math.round(window.scrollY);
+  window.setTimeout(() => {
     if (!vivant) return;
-    document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: 'instant' as ScrollBehavior });
-    if (performance.now() < jusqua) window.setTimeout(viser, 80);
+    if (Math.round(window.scrollY) === depart) {
+      document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: 'instant' as ScrollBehavior });
+    }
+  }, 500);
+
+  let dernier = Number.NaN;
+  let immobile = 0;
+  let retouches = 0;
+  const jusqua = performance.now() + 3000;
+
+  const surveiller = () => {
+    if (!vivant) return;
+    const y = Math.round(window.scrollY);
+    if (y === dernier) immobile += 1;
+    else {
+      immobile = 0;
+      dernier = y;
+    }
+
+    if (immobile >= 3) {
+      const el = document.getElementById(id);
+      // La marge visee est celle de la section elle-meme (`scroll-mt-24`), lue
+      // plutot que recopiee : le jour ou la barre du haut change de hauteur,
+      // cette mesure suit toute seule.
+      const marge = el ? parseFloat(getComputedStyle(el).scrollMarginTop) || 0 : 0;
+      const ecart = el ? Math.round(el.getBoundingClientRect().top - marge) : 0;
+      if (el && Math.abs(ecart) > 4 && retouches < 3) {
+        retouches += 1;
+        immobile = 0;
+        viser();
+      } else {
+        lacher();
+        return;
+      }
+    }
+
+    if (performance.now() < jusqua) window.setTimeout(surveiller, 60);
     else lacher();
   };
-  viser();
+  window.setTimeout(surveiller, 120);
 }
 
 /** Le meme melange stable que le quiz — voir app/Quiz.tsx. */
@@ -187,8 +257,21 @@ export default function Italien() {
    * pas dependre d'un etat qui aurait pu changer entre-temps.
    */
   const surCarte = (id: string) => {
-    if (typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches) allerA(id);
-    else ouvrir(id);
+    if (typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches) {
+      /*
+       * L'ancre est REPOSEE a la main. Le commentaire ci-dessus l'annoncait
+       * depuis le debut, mais `preventDefault` — necessaire pour prendre en
+       * charge le defilement nous-memes — l'empechait d'arriver dans l'URL :
+       * on repartait avec une adresse nue. Mesure faite, hash vide sur les
+       * cinq sections.
+       *
+       * `replaceState` et non `pushState` : sinon parcourir le sommaire
+       * remplirait l'historique de sept ancres, et le bouton « retour »
+       * remonterait le cours a l'envers au lieu de quitter la page.
+       */
+      window.history.replaceState(null, '', `#${id}`);
+      allerA(id);
+    } else ouvrir(id);
   };
 
   /*
