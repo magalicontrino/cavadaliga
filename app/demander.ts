@@ -138,6 +138,14 @@ const MOTS_MAISON: Record<string, string> = {
     'buanderie lave linge machine laver lessive etendre seche linge cle clef accrochee buffet salon bois '
     + 'lavanderia lavatrice bucato stendere chiave credenza salotto legno '
     + 'laundry washing machine wash clothes key sideboard living room',
+  'op-leaf':
+    'plante plantes arroser arrosage eau litres jasmin jasmins bougainvillier bougainvilliers bougainvillee fleur fleurs jardin terrasse pot pots '
+    + 'pianta piante annaffiare innaffiare annaffiatura gelsomino gelsomini bougainvillee fiori giardino vaso vasi litri '
+    + 'plant plants water watering jasmine bougainvillea flowers garden pot pots litres how often tous les combien frequence quand arroser',
+  'op-wave':
+    'douche doucher sable plage mer canalisation canalisations plomberie tuyau tuyaux bouche bouché evacuation rincer rincage se rincer '
+    + 'doccia sabbia spiaggia mare tubature idraulico tubo intasato sciacquare risciacquo '
+    + 'shower sand beach sea pipes plumbing drain blocked rinse rinsing before coming home avant de rentrer',
   'op-signal':
     'fonctionne panne casse non funziona guasto rotto broken '
     + 'wifi wi internet reseau code password mot passe connexion connecter box debit recharger ' +
@@ -152,6 +160,7 @@ const MOTS_MAISON: Record<string, string> = {
   depart:
     'partir depart quitter fermer cle cles rendre laisser derniere check liste verifier avant ' +
     'partire partenza chiudere chiave chiavi lasciare ultima controllare prima ' +
+    'linge lessive laver machine lave lit lits draps refaire couvertures serviettes buanderie biancheria bucato lavare lavatrice letto letti lenzuola rifare asciugamani laundry wash washing machine bed beds sheets make towels ' +
     'leave leaving departure lock key keys checklist last check before menage nettoyer ranger vaisselle poubelle derniere minute rendre restituer volets fenetres pulire riordinare stoviglie ultimo minuto restituire persiane finestre clean tidy dishes last minute return shutters windows checkout',
   valise:
     'valise bagage emporter prendre apporter preparer papiers passeport permis carte identite ' +
@@ -174,7 +183,12 @@ const MOTS_MAISON: Record<string, string> = {
     'emergenza soccorso vigili fuoco polizia ambulanza ospedale medico incidente chiamare ' +
     'emergency ambulance fire police hospital doctor accident drowning rescue call sos aide danger blesse malaise brulure noyade meduse serpent chien morsure commissariat aiuto pericolo ferito malore ustione annegamento medusa serpente morso help danger injured faint burn drowning jellyfish snake bite police station',
   parking:
-    'parking parkings garer stationner stationnement place places emplacement voiture auto bleu blanc '
+    // Le gardien a la casquette : on le cherche avec des mots tres varies —
+    // « type qui garde les voitures », « faut payer le gars ». On ratisse.
+    'gardien gardiens casquette surveillant parcheggiatore posteggiatore abusivo pourboire tip mancia '
+    + 'garde surveille surveiller monsieur type gars homme voiture volee vol securite sicurezza sorvegliare custode attendant watchman minder '
+    + 'cap hat man guy bloke someone watching my car who is he should i pay him uomo berretto cappello chi e devo pagarlo '
+    + 'parking parkings garer stationner stationnement place places emplacement voiture auto bleu blanc '
     + 'jaune rose vert ligne lignes bande bandes horodateur parcometre ticket disque amende pv fourriere '
     + 'parcheggio parcheggiare sosta stallo stalli strisce blu bianche gialle rosa verdi disco orario multa '
     + 'park parking bay bays lines blue white yellow meter ticket disc fine se garer voiture stationner amende contravention fourriere gratuit payant place libre parcheggiare multa carro attrezzi gratuito pagamento posto libero park fine towed free paid space',
@@ -393,7 +407,7 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     id: 'parking',
     page: '/informations-pratiques#parking',
     titre: t.parkingPage.title,
-    lignes: [...t.parkingPage.facts.map((f) => `${f.title} — ${f.text}`), t.parkingPage.note],
+    lignes: [...t.parkingPage.facts.map((f) => `${f.title} — ${f.text}`), t.parkingPage.note, `${t.parkingPage.gardien.title} — ${t.parkingPage.gardien.text}`],
     mots: motsMaison('parking'),
   });
   // Le plombier. Il etait ecrit sur la page et introuvable ici : « un

@@ -243,6 +243,19 @@ export default function InformationsPratiques() {
           <Reveal className="mt-6 max-w-[68ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
             {t.parkingPage.note}
           </Reveal>
+
+          {/* Le gardien : pas une couleur au sol, une coutume. Mag y tient —
+              c'est la situation qui surprend le plus quelqu'un qui debarque,
+              et savoir a quoi s'en tenir vaut mieux que de le decouvrir la
+              portiere a la main. D'ou l'encadre, a part des pastilles. */}
+          <Reveal className="mt-8 rounded-2xl border p-6 md:p-8" style={{ borderColor: 'var(--cava-line)' }}>
+            <h3 className="mb-3 flex items-center gap-2 text-[clamp(1.05rem,2vw,1.25rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+              <Icon name="info" size={18} /> {t.parkingPage.gardien.title}
+            </h3>
+            <p className="max-w-[68ch] text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+              {t.parkingPage.gardien.text}
+            </p>
+          </Reveal>
         </section>
       )}
 

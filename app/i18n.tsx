@@ -288,6 +288,11 @@ export type Dict = {
     intro: string;
     note: string;
     facts: { couleur: string; bord?: string; title: string; text: string }[];
+    /**
+     * Le « gardien » des parkings publics. Ce n'est pas une couleur au sol,
+     * donc pas une fact : c'est une coutume, et elle merite son encadre.
+     */
+    gardien: { title: string; text: string };
   };
   /**
    * Le quiz de « La region ».
@@ -818,6 +823,10 @@ const FR: Dict = {
       { couleur: '#f06a9b', title: 'Rose — femmes enceintes', text: 'Et parents d’un enfant de moins de deux ans. Officiel depuis 2021, mais il faut un permis délivré par sa commune de résidence : de passage, on n’y a pas droit.' },
       { couleur: '#6f8f5f', title: 'Vert — recharge', text: 'Le plus souvent réservé aux voitures électriques en train de se recharger. On ne s’y arrête pas pour autre chose.' },
     ],
+    gardien: {
+      title: 'Le gardien à la casquette',
+      text: 'Sur les parkings publics des grandes villes et des sites très touristiques, quelqu’un vient souvent vous placer et surveiller la voiture. Officiel ou non, on ne le sait pas toujours. Il demande peu, il surveille vraiment bien, et là-bas mieux vaut accepter — on ne sait pas trop ce qui arrive à la voiture si on refuse. Chez nous, à Cava d’Aliga, la question ne se pose pas : on est loin des lieux touristiques.',
+    },
   },
   quizPage: {
     eyebrow: 'Petit jeu',
@@ -971,6 +980,8 @@ const FR: Dict = {
       { icon: 'flame', title: 'Gaz', items: ['Mormina Gas, Via Tolstoj — il vend les bouteilles, livre à domicile et répare les cuisinières. Ses coordonnées sont plus bas, dans les contacts.'] },
       { icon: 'signal', title: 'Wifi', items: ['Réseau : cacestlaissetomber', 'Mot de passe : jamonito', 'Le wifi fonctionne avec un système de recharge : contactez-moi avant votre arrivée pour que je le recharge.'] },
       { icon: 'key', title: 'Buanderie', items: ['La clé de la buanderie est accrochée sur la grosse clé en bois, à droite du buffet blanc dans le salon.'] },
+      { icon: 'leaf', title: 'Arroser les plantes', items: ['Un arrosage tous les trois ou quatre jours, environ 3 litres par plante.', 'Deux jasmins — un devant, un derrière — et deux bougainvilliers derrière. Toutes les autres plantes de la maison suivent le même rythme.'] },
+      { icon: 'wave', title: 'La douche de la plage', items: ['En rentrant de la mer, passez sous la douche du bord de plage. Le sable qu’on ramène sur soi finit dans les canalisations — c’est comme ça qu’on se retrouve avec un problème de plomberie.'] },
     ],
   },
   depart: {
@@ -987,7 +998,8 @@ const FR: Dict = {
       'Sortir les poubelles selon le tri du jour. Passage manqué ? Laissez-les sur la terrasse, jamais dans la rue.',
       'Rentrer le tissu du hamac, le petit banc en bois et les tabourets en bois. Rien en bois ne passe l’hiver dehors — seule la structure du hamac reste en place.',
       'Fermer volets et fenêtres.',
-      'Linge sale sec dans le panier, avec les serviettes et les draps utilisés. Encore humide ? Laissez-le étendu quelque part dans la maison plutôt que dans le panier.',
+      'Laver le linge avant de partir — draps et serviettes utilisés — et refaire les lits pour les suivants.',
+      'Encore humide au moment de fermer ? Laissez-le étendu quelque part dans la maison, jamais plié dans le panier.',
       'Dernier tour : chargeurs, salle de bain, terrasse, sous les lits.',
       'Remettre la clé de la buanderie sur la grosse clé en bois, à droite du buffet blanc dans le salon — c’est là qu’on la cherchera.',
       'Fermer à clé et remettre les clés à leur place.',
@@ -1450,6 +1462,10 @@ const IT: Dict = {
       { couleur: '#f06a9b', title: 'Rosa — donne in gravidanza', text: 'E genitori con un bambino sotto i due anni. Ufficiale dal 2021, ma serve il permesso rilasciato dal proprio comune di residenza: di passaggio, non spetta.' },
       { couleur: '#6f8f5f', title: 'Verde — ricarica', text: 'Di solito riservato alle auto elettriche in ricarica. Non ci si ferma per altro.' },
     ],
+    gardien: {
+      title: 'Il posteggiatore',
+      text: 'Nei parcheggi pubblici delle grandi città e dei posti molto turistici arriva spesso qualcuno a farvi posteggiare e a sorvegliare l’auto. Se sia autorizzato o no, non si sa sempre. Chiede poco, sorveglia davvero bene, e lì conviene accettare — non si sa bene cosa succeda all’auto se si dice di no. Da noi, a Cava d’Aliga, il problema non si pone: siamo lontani dai luoghi turistici.',
+    },
   },
   quizPage: {
     eyebrow: 'Piccolo gioco',
@@ -1603,6 +1619,8 @@ const IT: Dict = {
       { icon: 'flame', title: 'Gas', items: ['Mormina Gas, Via Tolstoj — vende le bombole, consegna a domicilio e ripara le cucine. I contatti sono più sotto.'] },
       { icon: 'signal', title: 'Wifi', items: ['Rete: cacestlaissetomber', 'Password: jamonito', 'Il wifi funziona con un sistema di ricarica: contattatemi prima del vostro arrivo così lo ricarico.'] },
       { icon: 'key', title: 'Lavanderia', items: ['La chiave della lavanderia è appesa alla grossa chiave di legno, a destra della credenza bianca in salotto.'] },
+      { icon: 'leaf', title: 'Annaffiare le piante', items: ['Un’annaffiatura ogni tre o quattro giorni, circa 3 litri a pianta.', 'Due gelsomini — uno davanti, uno dietro — e due bougainvillee dietro. Tutte le altre piante della casa seguono lo stesso ritmo.'] },
+      { icon: 'wave', title: 'La doccia in spiaggia', items: ['Tornando dal mare, fate la doccia sul bordo della spiaggia. La sabbia che ci si porta addosso finisce nelle tubature — ed è così che nascono i problemi idraulici.'] },
     ],
   },
   depart: {
@@ -1619,7 +1637,8 @@ const IT: Dict = {
       'Portare fuori i rifiuti secondo la raccolta del giorno. Passaggio mancato? Lasciateli sulla terrazza, mai in strada.',
       'Ritirare in casa il telo dell’amaca, la panchetta di legno e gli sgabelli di legno. Niente di legno passa l’inverno all’aperto — resta fuori solo la struttura dell’amaca.',
       'Chiudere persiane e finestre.',
-      'Panni sporchi asciutti nel cesto, con gli asciugamani e le lenzuola usati. Ancora umidi? Lasciateli stesi da qualche parte in casa invece che nel cesto.',
+      'Lavare la biancheria prima di partire — lenzuola e asciugamani usati — e rifare i letti per chi arriva dopo.',
+      'Ancora umida al momento di chiudere? Lasciatela stesa da qualche parte in casa, mai piegata nel cesto.',
       'Ultimo giro: caricabatterie, bagno, terrazza, sotto i letti.',
       'Rimettere la chiave della lavanderia sulla grossa chiave di legno, a destra della credenza bianca in salotto — è lì che la si cercherà.',
       'Chiudere a chiave e rimettere le chiavi al loro posto.',
@@ -2082,6 +2101,10 @@ const EN: Dict = {
       { couleur: '#f06a9b', title: 'Pink — expectant mothers', text: 'And parents of a child under two. Official since 2021, but it needs a permit issued by your town of residence: as a visitor, you are not entitled.' },
       { couleur: '#6f8f5f', title: 'Green — charging', text: 'Usually reserved for electric cars while charging. You do not stop there for anything else.' },
     ],
+    gardien: {
+      title: 'The man in the cap',
+      text: 'In public car parks in big cities and very touristy spots, someone often turns up to wave you into a space and watch the car. Whether he is official or not, you cannot always tell. He asks for little, he really does keep an eye on it, and there it is better to accept — you never quite know what happens to the car if you say no. Here in Cava d’Aliga the question does not arise: we are far from the tourist spots.',
+    },
   },
   quizPage: {
     eyebrow: 'A little game',
@@ -2235,6 +2258,8 @@ const EN: Dict = {
       { icon: 'flame', title: 'Gas', items: ['Mormina Gas, Via Tolstoj — he sells the bottles, delivers to your door and repairs cookers. His details are further down, in the contacts.'] },
       { icon: 'signal', title: 'Wifi', items: ['Network: cacestlaissetomber', 'Password: jamonito', 'The wifi runs on a top-up system: contact me before you arrive so I can recharge it.'] },
       { icon: 'key', title: 'Laundry room', items: ['The laundry-room key hangs on the big wooden key, to the right of the white sideboard in the living room.'] },
+      { icon: 'leaf', title: 'Watering the plants', items: ['Water them every three or four days, about 3 litres per plant.', 'Two jasmines — one at the front, one at the back — and two bougainvilleas at the back. Every other plant in the house follows the same rhythm.'] },
+      { icon: 'wave', title: 'The beach shower', items: ['On your way back from the sea, use the shower at the edge of the beach. The sand you carry back ends up in the pipes — that is how plumbing trouble starts.'] },
     ],
   },
   depart: {
@@ -2251,7 +2276,8 @@ const EN: Dict = {
       'Put the bins out according to the day’s collection. Missed the round? Leave them on the terrace, never in the street.',
       'Bring in the hammock fabric, the little wooden bench and the wooden stools. Nothing wooden survives a winter outdoors — only the hammock frame stays in place.',
       'Close shutters and windows.',
-      'Dry dirty laundry in the basket, along with used towels and sheets. Still damp? Leave it hanging somewhere in the house rather than in the basket.',
+      'Wash the laundry before you leave — used sheets and towels — and make the beds up again for the next people.',
+      'Still damp when you close the door? Leave it hanging somewhere in the house, never folded in the basket.',
       'Last sweep: chargers, bathroom, terrace, under the beds.',
       'Put the laundry-room key back on the big wooden key, to the right of the white sideboard in the living room — that is where the next people will look.',
       'Lock up and put the keys back where they belong.',
@@ -2259,7 +2285,8 @@ const EN: Dict = {
   },
 };
 
-const DICTS: Record<Lang, Dict> = { fr: FR, it: IT, en: EN };
+/** Exporte pour pouvoir interroger l'index de « Demander » hors du navigateur. */
+export const DICTS: Record<Lang, Dict> = { fr: FR, it: IT, en: EN };
 export const LANG_LABELS: Record<Lang, string> = { it: 'IT', fr: 'FR', en: 'EN' };
 
 type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: Dict };
