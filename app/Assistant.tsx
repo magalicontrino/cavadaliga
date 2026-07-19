@@ -340,6 +340,12 @@ export default function Assistant() {
         des donnees veut lisible. C'est l'attribution qui a bouge : elle est
         passee en bas a GAUCHE de la carte, ou rien ne la gene. Deplacer une
         mention coute moins que deplacer le bouton principal du site.
+
+        ELLE S'EFFACE QUAND LA BOITE EST OUVERTE. Mag : « ca nous fait perdre
+        de la place de laisser visible le bouton du chat ». Elle ne sert plus a
+        rien a ce moment-la — le ✕ ferme, et toucher a cote aussi — et elle
+        occupait justement le coin ou la place est la plus rare, clavier leve.
+        Effacee, la boite descend de 80 px et gagne autant de hauteur utile.
       */}
       <button
         ref={bulle}
@@ -348,7 +354,9 @@ export default function Assistant() {
         aria-label={a.label}
         aria-expanded={ouvert}
         title={a.label}
-        className="cava-demander-bulle fixed bottom-5 right-5 z-40 flex h-16 w-16 items-center justify-center rounded-full shadow-xl transition-transform duration-300 hover:scale-105 motion-reduce:transition-none md:bottom-8 md:right-8"
+        className={`cava-demander-bulle fixed bottom-5 right-5 z-40 flex h-16 w-16 items-center justify-center rounded-full shadow-xl transition-[transform,opacity] duration-300 motion-reduce:transition-none md:bottom-8 md:right-8 ${
+          ouvert ? 'pointer-events-none scale-75 opacity-0' : 'hover:scale-105'
+        }`}
         style={{
           background: 'linear-gradient(135deg,#ff5c9a,#d81f66)',
           color: '#fff',
@@ -376,7 +384,7 @@ export default function Assistant() {
           ouvert
             ? 'cava-demander-ouvert visible opacity-100'
             : 'invisible translate-y-3 opacity-0 transition-[opacity,transform] duration-300 motion-reduce:transition-none'
-        } inset-x-3 bottom-24 h-[clamp(24rem,62dvh,34rem)] max-h-[calc(100dvh-11rem)] md:inset-x-auto md:bottom-28 md:right-8 md:h-[clamp(24rem,58dvh,34rem)] md:w-[27rem]`}
+        } inset-x-3 bottom-4 h-[clamp(24rem,62dvh,34rem)] max-h-[calc(100dvh-7rem)] md:inset-x-auto md:bottom-6 md:right-8 md:h-[clamp(24rem,58dvh,34rem)] md:w-[27rem]`}
         // Blanc franc, et surtout PAS --cava-card : cette variable vaut #2e2d2d,
         // c'est la carte SOMBRE du site. Le panneau sortait noir sur noir.
         //
@@ -409,7 +417,7 @@ export default function Assistant() {
           // toute seule : `clavier` y vaut 0 (voir l'effet plus haut), et cette
           // ligne ne fait rien. Sur les anciens, elle remonte la boite au-dessus
           // du clavier. Les deux ne se cumulent donc jamais.
-          ...(clavier ? { bottom: clavier + 12, maxHeight: `calc(100dvh - ${clavier + 140}px)` } : null),
+          ...(clavier ? { bottom: clavier + 16, maxHeight: `calc(100dvh - ${clavier + 112}px)` } : null),
         }}
       >
         {/*
@@ -432,8 +440,11 @@ export default function Assistant() {
             l'oeil ne l'est pas pour qui navigue au lecteur d'ecran, et une
             fenetre sans nom ne s'annonce pas.
           */}
+          {/* Le decor cede avant le contenu : quand la boite est a l'etroit
+              (clavier leve sur un petit ecran), l'entete se resserre et le
+              robot maigrit. Ce sont des pixels qui ne portent aucune reponse. */}
           <span aria-hidden className="flex items-center">
-            <Icon name="robot" size={40} strokeWidth={1.4} />
+            <Icon name="robot" size={serrer >= 2 ? 28 : 40} strokeWidth={1.4} />
           </span>
           <div className="flex items-center gap-2">
             <button
@@ -471,9 +482,9 @@ export default function Assistant() {
           // collait sous l'aplat rose de l'entete, et l'aveu « je ne trouve
           // pas » y touchait aussi.
           data-serrer={serrer}
-          className={`flex flex-1 flex-col justify-start gap-4 px-6 pb-7 pt-6 ${
-            deborde ? 'overflow-y-auto overscroll-contain' : 'overflow-hidden'
-          }`}
+          className={`flex flex-1 flex-col justify-start gap-4 px-6 ${
+            serrer >= 2 ? 'pb-4 pt-4' : 'pb-7 pt-6'
+          } ${deborde ? 'overflow-y-auto overscroll-contain' : 'overflow-hidden'}`}
         >
           {/* Rien de tape encore : on montre par ou commencer. Un champ vide
               sans exemple ne dit pas ce qu'on a le droit de demander. */}
@@ -610,7 +621,7 @@ export default function Assistant() {
             requestAnimationFrame(() => corps.current?.scrollTo({ top: 0 }));
           }}
           autoComplete="off"
-          className="shrink-0 px-6 pb-5 pt-4"
+          className={`shrink-0 px-6 ${serrer >= 2 ? 'pb-3 pt-3' : 'pb-5 pt-4'}`}
           style={{ background: '#fff', borderTop: '1px solid var(--cava-line)' }}
         >
           <div
