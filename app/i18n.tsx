@@ -397,10 +397,7 @@ export type Dict = {
     scoreTitle: string;
     scoreLine: string;
     again: string;
-    /** Les niveaux, dans l'ordre ou on les propose. */
-    levels: { facile: string; moyen: string; difficile: string };
     allThemes: string;
-    allLevels: string;
     /** Quand le tri ne laisse aucune question — ça ne doit jamais arriver, mais. */
     empty: string;
     pick: string;
@@ -1033,7 +1030,7 @@ const FR: Dict = {
   quizPage: {
     eyebrow: 'Petit jeu',
     title: 'Vous connaissez la région ?',
-    intro: 'Par thème, par niveau, ou tout mélangé. Trois réponses possibles à chaque fois, et tout ce qu’il faut savoir est écrit plus haut sur cette page — chaque réponse vous dit où aller relire.',
+    intro: 'Par thème, ou tout mélangé. Trois réponses possibles à chaque fois, et tout ce qu’il faut savoir est écrit plus haut sur cette page — chaque réponse vous dit où aller relire.',
     start: 'Commencer',
     next: 'Question suivante',
     check: 'Valider',
@@ -1044,11 +1041,9 @@ const FR: Dict = {
     scoreTitle: 'Terminé',
     scoreLine: '{n} bonnes réponses sur {t}',
     again: 'Rejouer',
-    levels: { facile: 'Facile', moyen: 'Moyen', difficile: 'Costaud' },
     allThemes: 'Tous les thèmes',
-    allLevels: 'Tous niveaux',
     empty: 'Aucune question avec ce tri — élargissez un peu.',
-    pick: 'Choisissez un thème et un niveau, ou lancez-vous tel quel.',
+    pick: 'Choisissez un thème, ou lancez-vous sur tout.',
     questions: [
       { q: 'D’où vient le nom « Cava d’Aliga » ?', choix: ['Des algues — « aliga » en sicilien', 'D’une ancienne carrière de pierre', 'Du nom d’un saint local'], bonne: 0, ancre: 'lieux', niveau: 'facile' },
       { q: 'Quelle série télévisée a fait de Scicli son décor ?', choix: ['Le commissaire Montalbano', 'Le Guépard', 'Gomorra'], bonne: 0, ancre: 'lieux', niveau: 'facile' },
@@ -1852,7 +1847,7 @@ const IT: Dict = {
   quizPage: {
     eyebrow: 'Piccolo gioco',
     title: 'Conoscete la regione?',
-    intro: 'Per tema, per livello, o tutto mescolato. Tre risposte possibili ogni volta, e tutto quello che serve sapere è scritto più su in questa pagina — ogni risposta vi dice dove rileggere.',
+    intro: 'Per tema, o tutto mescolato. Tre risposte possibili ogni volta, e tutto quello che serve sapere è scritto più su in questa pagina — ogni risposta vi dice dove rileggere.',
     start: 'Iniziare',
     next: 'Domanda successiva',
     check: 'Conferma',
@@ -1863,11 +1858,9 @@ const IT: Dict = {
     scoreTitle: 'Finito',
     scoreLine: '{n} risposte giuste su {t}',
     again: 'Rigiocare',
-    levels: { facile: 'Facile', moyen: 'Medio', difficile: 'Tosto' },
     allThemes: 'Tutti i temi',
-    allLevels: 'Tutti i livelli',
     empty: 'Nessuna domanda con questi filtri — allargate un po’.',
-    pick: 'Scegliete un tema e un livello, oppure partite così.',
+    pick: 'Scegliete un tema, oppure partite su tutto.',
     questions: [
       { q: 'Da dove viene il nome « Cava d’Aliga »?', choix: ['Dalle alghe — « aliga » in siciliano', 'Da un’antica cava di pietra', 'Dal nome di un santo locale'], bonne: 0, ancre: 'lieux', niveau: 'facile' },
       { q: 'Quale serie televisiva ha scelto Scicli come set?', choix: ['Il commissario Montalbano', 'Il Gattopardo', 'Gomorra'], bonne: 0, ancre: 'lieux', niveau: 'facile' },
@@ -2671,7 +2664,7 @@ const EN: Dict = {
   quizPage: {
     eyebrow: 'A little game',
     title: 'How well do you know the region?',
-    intro: 'By theme, by level, or all mixed up. Three answers to choose from each time, and everything you need is written further up this page — each answer tells you where to read it again.',
+    intro: 'By theme, or all mixed up. Three answers to choose from each time, and everything you need is written further up this page — each answer tells you where to read it again.',
     start: 'Start',
     next: 'Next question',
     check: 'Check',
@@ -2682,11 +2675,9 @@ const EN: Dict = {
     scoreTitle: 'Done',
     scoreLine: '{n} right out of {t}',
     again: 'Play again',
-    levels: { facile: 'Easy', moyen: 'Medium', difficile: 'Tough' },
     allThemes: 'All themes',
-    allLevels: 'All levels',
     empty: 'No question matches that — widen the choice a little.',
-    pick: 'Pick a theme and a level, or just dive in.',
+    pick: 'Pick a theme, or take on the lot.',
     questions: [
       { q: 'Where does the name “Cava d’Aliga” come from?', choix: ['From seaweed — “aliga” in Sicilian', 'From an old stone quarry', 'From a local saint’s name'], bonne: 0, ancre: 'lieux', niveau: 'facile' },
       { q: 'Which TV series uses Scicli as its set?', choix: ['Inspector Montalbano', 'The Leopard', 'Gomorrah'], bonne: 0, ancre: 'lieux', niveau: 'facile' },

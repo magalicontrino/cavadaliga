@@ -80,7 +80,12 @@ const THEMES = [
   { ancre: 'faune', cle: 'fauna' },
 ] as const;
 
-const NIVEAUX = ['facile', 'moyen', 'difficile'] as const;
+/*
+ * Les NIVEAUX ont ete retires — Mag les a juges de trop. Le champ `niveau`
+ * reste sur chaque question dans i18n : il ne coute rien, il documente la
+ * difficulte pour qui relit la liste, et le retirer voudrait dire toucher
+ * soixante-trois lignes dans trois langues pour ne rien gagner.
+ */
 
 /*
  * L'EXTRAIT : la phrase de la page qui porte la reponse.
@@ -201,9 +206,8 @@ export default function Quiz() {
    */
   const [valide, setValide] = useState(false);
   const [points, setPoints] = useState(0);
-  /** null = on ne trie pas. Mag : « par themes, par niveau ». */
+  /** null = on ne trie pas. Le tri se fait par theme, et par theme seulement. */
   const [theme, setTheme] = useState<string | null>(null);
-  const [niveau, setNiveau] = useState<string | null>(null);
 
   /*
    * Le paquet de la partie en cours.
@@ -215,11 +219,9 @@ export default function Quiz() {
    * previsible des la premiere.
    */
   const paquet = useMemo(() => {
-    const choisies = q.questions.filter(
-      (x) => (!theme || x.ancre === theme) && (!niveau || x.niveau === niveau),
-    );
+    const choisies = q.questions.filter((x) => !theme || x.ancre === theme);
     return melange(choisies, partie * 7919 + choisies.length);
-  }, [q.questions, theme, niveau, partie]);
+  }, [q.questions, theme, partie]);
 
   const question = paquet[n];
   const bonne = question?.choix[question.bonne];
@@ -230,6 +232,8 @@ export default function Quiz() {
 
   const fini = n >= 0 && n >= paquet.length;
 
+  /** Lancer une partie depuis l'ecran de choix. (« Rejouer », lui, revient a
+   *  cet ecran : voir le bouton de fin.) */
   const rejouer = () => {
     setPartie((p) => p + 1);
     setPoints(0);
@@ -302,26 +306,12 @@ export default function Quiz() {
               colonne — deux questions differentes posees au meme endroit.
             */}
             <div className="cava-swipe -mx-6 shrink-0 overflow-x-auto px-6 md:-mx-10 md:px-10">
-              <div className="grid w-max gap-2" style={{ gridTemplateRows: 'repeat(2, auto)', gridAutoFlow: 'column', gridAutoColumns: 'max-content' }}>
-                <div style={{ gridRow: 1 }}>
-                  <Puce on={theme === null} onClick={() => trier(() => setTheme(null))}>{q.allThemes}</Puce>
-                </div>
+              <div className="flex w-max gap-2">
+                <Puce on={theme === null} onClick={() => trier(() => setTheme(null))}>{q.allThemes}</Puce>
                 {THEMES.map((x) => (
-                  <div key={x.ancre} style={{ gridRow: 1 }}>
-                    <Puce on={theme === x.ancre} onClick={() => trier(() => setTheme(x.ancre))}>
-                      {t.regionFilter[x.cle]}
-                    </Puce>
-                  </div>
-                ))}
-                <div style={{ gridRow: 2 }}>
-                  <Puce on={niveau === null} onClick={() => trier(() => setNiveau(null))}>{q.allLevels}</Puce>
-                </div>
-                {NIVEAUX.map((x) => (
-                  <div key={x} style={{ gridRow: 2 }}>
-                    <Puce on={niveau === x} onClick={() => trier(() => setNiveau(x))}>
-                      {q.levels[x]}
-                    </Puce>
-                  </div>
+                  <Puce key={x.ancre} on={theme === x.ancre} onClick={() => trier(() => setTheme(x.ancre))}>
+                    {t.regionFilter[x.cle]}
+                  </Puce>
                 ))}
               </div>
             </div>
@@ -341,7 +331,7 @@ export default function Quiz() {
             <p className="text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)', fontWeight: 700 }}>
               {q.progress.replace('{n}', String(n + 1)).replace('{t}', String(paquet.length))}
               {' · '}
-              {libelleTheme(question.ancre)} · {q.levels[question.niveau]}
+              {libelleTheme(question.ancre)}
             </p>
 
             <h3 className="max-w-[46ch] text-[clamp(1.2rem,2.6vw,1.7rem)] leading-[1.25]" style={{ fontWeight: 600 }}>
@@ -465,21 +455,19 @@ export default function Quiz() {
             <p className="text-[clamp(1.6rem,4vw,2.4rem)] leading-[1.1]" style={{ fontWeight: 900 }}>
               {q.scoreLine.replace('{n}', String(points)).replace('{t}', String(paquet.length))}
             </p>
-            <div className="flex flex-wrap gap-3">
-              <button type="button" onClick={rejouer} className="cava-pill px-6 py-3 text-[15px]">
-                {q.again} ↻
-              </button>
-              {/* Retour au tri : apres une partie, on veut souvent changer de
-                  theme plutot que refaire le meme paquet. */}
-              <button
-                type="button"
-                onClick={() => trier(() => {})}
-                className="rounded-full px-6 py-3 text-[15px]"
-                style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)', fontWeight: 600 }}
-              >
-                {q.pick.split(/[,.]/)[0]}
-              </button>
-            </div>
+            {/* « Rejouer » ramene aux CHOIX INITIAUX — Mag : « il faut que ca
+                revienne au choix initiaux avec les themes ». Apres une partie,
+                on veut presque toujours changer de sujet plutot que refaire le
+                meme paquet. Il n'y a donc plus qu'un bouton.
+
+                Le theme repart a zero, et pas seulement l'ecran : en gardant
+                le dernier choisi, on revenait sur une rangee ou AUCUNE
+                pastille visible n'etait allumee — celle qui l'etait se
+                trouvait hors ecran, a droite — pendant que le bouton annoncait
+                « Commencer · 5 ». On lisait un compte sans sa raison. */}
+            <button type="button" onClick={() => trier(() => setTheme(null))} className="cava-pill px-6 py-3 text-[15px]">
+              {q.again} ↻
+            </button>
           </div>
         )}
       </Reveal>
