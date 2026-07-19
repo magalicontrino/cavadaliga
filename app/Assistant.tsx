@@ -349,6 +349,12 @@ export default function Assistant() {
            * les memes 135 px se partagent de part et d'autre et ne se lisent
            * plus comme un oubli. Des qu'une reponse arrive, on repasse en
            * haut : une reponse se lit du debut, elle ne flotte pas.
+           *
+           * Le centrage suit CE QUI EST AFFICHE, pas le champ de saisie. Il
+           * suivait le champ : les memes pastilles etaient centrees a vide et
+           * collees en haut des la premiere lettre — elles sautaient sous le
+           * doigt alors que rien d'autre n'avait change. Tant que ce sont les
+           * propositions qu'on voit, elles restent au milieu.
            */
           // `pt-6` : le corps n'avait AUCUNE marge haute. Les exemples, centres,
           // ne le montraient pas — mais des qu'une reponse arrivait, elle se
@@ -356,7 +362,7 @@ export default function Assistant() {
           // pas » y touchait aussi.
           data-serrer={serrer}
           className={`flex flex-1 flex-col gap-4 overflow-hidden px-6 pb-7 pt-6 ${
-            question ? 'justify-start' : 'justify-center'
+            enAvant || montrerRefus ? 'justify-start' : 'justify-center'
           }`}
         >
           {/* Rien de tape encore : on montre par ou commencer. Un champ vide
