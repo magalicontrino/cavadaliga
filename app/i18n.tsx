@@ -274,6 +274,7 @@ export type Dict = {
     urgent: string;
     waste: string;
     leaving: string;
+    money: string;
   };
   /**
    * Se garer en Sicile — c'est-a-dire en Italie : les couleurs au sol sont
@@ -293,6 +294,25 @@ export type Dict = {
      * donc pas une fact : c'est une coutume, et elle merite son encadre.
      */
     gardien: { title: string; text: string };
+  };
+  /**
+   * Retirer de l'argent a Donnalucata.
+   *
+   * Deux endroits, pas un : l'agence bancaire ET le bureau de poste. Un
+   * guichet en panne un dimanche d'aout ne doit bloquer personne, et le
+   * Postamat de la poste accepte les cartes etrangeres comme n'importe quel
+   * Bancomat.
+   *
+   * Le mot affiche est « Bancomat ». « Bancontact », « Mister Cash », « carte
+   * bleue » ne veulent rien dire ici : c'est « Bancomat » qui est ecrit sur
+   * les facades, donc c'est ce mot qu'il faut avoir en tete en cherchant.
+   */
+  cashPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    note: string;
+    spots: { title: string; where: string; text: string; label: string; url: string }[];
   };
   /**
    * Le quiz de « La region ».
@@ -810,6 +830,7 @@ const FR: Dict = {
     urgent: 'Urgences',
     waste: 'Déchets',
     leaving: 'Le départ',
+    money: 'Retirer de l’argent',
   },
   parkingPage: {
     eyebrow: 'Se garer',
@@ -827,6 +848,28 @@ const FR: Dict = {
       title: 'Le gardien à la casquette',
       text: 'Sur les parkings publics des grandes villes et des sites très touristiques, quelqu’un vient souvent vous placer et surveiller la voiture. Officiel ou non, on ne le sait pas toujours. Il demande peu, il surveille vraiment bien, et là-bas mieux vaut accepter — on ne sait pas trop ce qui arrive à la voiture si on refuse. Chez nous, à Cava d’Aliga, la question ne se pose pas : on est loin des lieux touristiques.',
     },
+  },
+  cashPage: {
+    eyebrow: 'Retirer de l’argent',
+    title: 'Où trouver un Bancomat',
+    intro: 'En Italie, un distributeur s’appelle un Bancomat — c’est le mot écrit sur les façades, et le seul que tout le monde comprendra si vous demandez votre chemin. Il y en a deux à Donnalucata.',
+    spots: [
+      {
+        title: 'Banca Agricola Popolare di Sicilia',
+        where: 'Via Miccichè 23, Donnalucata',
+        text: 'L’agence du village. Le distributeur est en façade, accessible aux heures d’ouverture et souvent au-delà.',
+        label: 'Ouvrir dans Google Maps',
+        url: 'https://www.google.com/maps/search/?api=1&query=Banca+Agricola+Popolare+di+Sicilia+Via+Miccich%C3%A8+23+Donnalucata+Scicli+RG',
+      },
+      {
+        title: 'Le bureau de poste — Postamat',
+        where: 'Via Casmene, Donnalucata',
+        text: 'La poste italienne a son propre distributeur, le Postamat. Il accepte les cartes étrangères comme n’importe quel Bancomat, et dépanne quand la banque est fermée.',
+        label: 'Ouvrir dans Google Maps',
+        url: 'https://www.google.com/maps/search/?api=1&query=Poste+Italiane+Via+Casmene+Donnalucata+Scicli+RG',
+      },
+    ],
+    note: 'Les deux adresses sont sûres, mais qu’un appareil soit en service tel jour, personne ne peut le promettre — d’où les deux plutôt qu’un seul. Prévoyez un peu d’espèces d’avance : beaucoup de petits commerces, et le marché, n’acceptent que ça.',
   },
   quizPage: {
     eyebrow: 'Petit jeu',
@@ -1462,6 +1505,7 @@ const IT: Dict = {
     urgent: 'Emergenze',
     waste: 'Rifiuti',
     leaving: 'La partenza',
+    money: 'Prelevare contanti',
   },
   parkingPage: {
     eyebrow: 'Parcheggiare',
@@ -1479,6 +1523,28 @@ const IT: Dict = {
       title: 'Il posteggiatore',
       text: 'Nei parcheggi pubblici delle grandi città e dei posti molto turistici arriva spesso qualcuno a farvi posteggiare e a sorvegliare l’auto. Se sia autorizzato o no, non si sa sempre. Chiede poco, sorveglia davvero bene, e lì conviene accettare — non si sa bene cosa succeda all’auto se si dice di no. Da noi, a Cava d’Aliga, il problema non si pone: siamo lontani dai luoghi turistici.',
     },
+  },
+  cashPage: {
+    eyebrow: 'Prelevare contanti',
+    title: 'Dove trovare un Bancomat',
+    intro: 'A Donnalucata ci sono due sportelli automatici.',
+    spots: [
+      {
+        title: 'Banca Agricola Popolare di Sicilia',
+        where: 'Via Miccichè 23, Donnalucata',
+        text: 'La filiale del paese. Lo sportello è sulla facciata, accessibile negli orari di apertura e spesso anche oltre.',
+        label: 'Apri in Google Maps',
+        url: 'https://www.google.com/maps/search/?api=1&query=Banca+Agricola+Popolare+di+Sicilia+Via+Miccich%C3%A8+23+Donnalucata+Scicli+RG',
+      },
+      {
+        title: 'L’ufficio postale — Postamat',
+        where: 'Via Casmene, Donnalucata',
+        text: 'Le Poste hanno il proprio sportello, il Postamat. Accetta le carte straniere come qualsiasi Bancomat e salva la giornata quando la banca è chiusa.',
+        label: 'Apri in Google Maps',
+        url: 'https://www.google.com/maps/search/?api=1&query=Poste+Italiane+Via+Casmene+Donnalucata+Scicli+RG',
+      },
+    ],
+    note: 'Gli indirizzi sono certi, ma che un apparecchio funzioni proprio quel giorno nessuno può prometterlo — per questo ne indichiamo due e non uno. Tenete un po’ di contanti da parte: molti piccoli negozi, e il mercato, prendono solo quelli.',
   },
   quizPage: {
     eyebrow: 'Piccolo gioco',
@@ -2114,6 +2180,7 @@ const EN: Dict = {
     urgent: 'Emergencies',
     waste: 'Waste',
     leaving: 'Leaving',
+    money: 'Cash',
   },
   parkingPage: {
     eyebrow: 'Parking',
@@ -2131,6 +2198,28 @@ const EN: Dict = {
       title: 'The man in the cap',
       text: 'In public car parks in big cities and very touristy spots, someone often turns up to wave you into a space and watch the car. Whether he is official or not, you cannot always tell. He asks for little, he really does keep an eye on it, and there it is better to accept — you never quite know what happens to the car if you say no. Here in Cava d’Aliga the question does not arise: we are far from the tourist spots.',
     },
+  },
+  cashPage: {
+    eyebrow: 'Getting cash',
+    title: 'Where to find a Bancomat',
+    intro: 'In Italy a cash machine is called a Bancomat — that is the word on the shopfronts, and the only one everyone will understand if you ask for directions. There are two in Donnalucata.',
+    spots: [
+      {
+        title: 'Banca Agricola Popolare di Sicilia',
+        where: 'Via Miccichè 23, Donnalucata',
+        text: 'The village branch. The machine is on the front wall, available during opening hours and often beyond.',
+        label: 'Open in Google Maps',
+        url: 'https://www.google.com/maps/search/?api=1&query=Banca+Agricola+Popolare+di+Sicilia+Via+Miccich%C3%A8+23+Donnalucata+Scicli+RG',
+      },
+      {
+        title: 'The post office — Postamat',
+        where: 'Via Casmene, Donnalucata',
+        text: 'The Italian post office has its own machine, the Postamat. It takes foreign cards like any Bancomat, and saves the day when the bank is shut.',
+        label: 'Open in Google Maps',
+        url: 'https://www.google.com/maps/search/?api=1&query=Poste+Italiane+Via+Casmene+Donnalucata+Scicli+RG',
+      },
+    ],
+    note: 'Both addresses are certain, but no one can promise a given machine is working on a given day — hence two rather than one. Keep some cash on you: plenty of small shops, and the market, take nothing else.',
   },
   quizPage: {
     eyebrow: 'A little game',

@@ -164,9 +164,9 @@ const MOTS_MAISON: Record<string, string> = {
     'leave leaving departure lock key keys checklist last check before menage nettoyer ranger vaisselle poubelle derniere minute rendre restituer volets fenetres pulire riordinare stoviglie ultimo minuto restituire persiane finestre clean tidy dishes last minute return shutters windows checkout',
   valise:
     'valise bagage emporter prendre apporter preparer papiers passeport permis carte identite ' +
-    'assurance adaptateur prise argent especes ' +
+    'assurance adaptateur prise ' +
     'valigia bagaglio portare preparare documenti passaporto patente carta identita contanti ' +
-    'luggage pack bring passport licence id insurance adapter plug cash money maillot serviette creme solaire chapeau lunettes chaussures medicaments trousse chargeur adaptateur costume asciugamano crema solare cappello occhiali scarpe medicine caricabatterie swimsuit towel sunscreen hat sunglasses shoes medicine charger',
+    'luggage pack bring passport licence id insurance adapter plug maillot serviette creme solaire chapeau lunettes chaussures medicaments trousse chargeur adaptateur costume asciugamano crema solare cappello occhiali scarpe medicine caricabatterie swimsuit towel sunscreen hat sunglasses shoes medicine charger',
   poubelles:
     'poubelle poubelles dechets tri ordures benne bac sac ramassage collecte sortir verre ' +
     'plastique papier carton organique compost recyclage ' +
@@ -182,6 +182,11 @@ const MOTS_MAISON: Record<string, string> = {
     'accident noye sauvetage numero appeler ' +
     'emergenza soccorso vigili fuoco polizia ambulanza ospedale medico incidente chiamare ' +
     'emergency ambulance fire police hospital doctor accident drowning rescue call sos aide danger blesse malaise brulure noyade meduse serpent chien morsure commissariat aiuto pericolo ferito malore ustione annegamento medusa serpente morso help danger injured faint burn drowning jellyfish snake bite police station',
+  argent:
+    'argent liquide especes cash monnaie retirer retrait distributeur dab bancomat postamat guichet automatique '
+    + 'banque banca poste posta bureau poste carte bleue carte bancaire visa mastercard paiement payer especes seulement '
+    + 'contanti prelevare prelievo sportello automatico bancomat ufficio postale banca carta pagare soldi '
+    + 'money cash withdraw withdrawal atm cash machine cashpoint bank post office card visa mastercard pay where to get cash mister cash bancontact',
   parking:
     // Le gardien a la casquette : on le cherche avec des mots tres varies —
     // « type qui garde les voitures », « faut payer le gars ». On ratisse.
@@ -224,14 +229,14 @@ const MOTS_MAISON: Record<string, string> = {
   // rendait rien. Leurs titres non plus (« Rejoindre Casa Cava d'Aliga »).
   // L'emoji, lui, ne change ni avec la langue ni avec le rang du groupe, ce
   // qu'un index ne garantissait pas.
-  'voyage-✈️': 'vol vols avion billet compagnie escale bagage valise skyscanner volo aereo biglietto flight plane ticket luggage',
+  'voyage-✈️': 'vol vols avion billet compagnie escale bagage skyscanner volo aereo biglietto flight plane ticket luggage',
   'voyage-🛬': 'aeroport aeroporto airport catane catania palerme palermo comiso atterrir arrivee arrivo landing',
   'voyage-⛴️':
     'voiture auto route conduire rouler venir descendre traverser trajet autoroute peage '
-    + 'bateau ferry traversier traversee genes genova gene palerme palermo messine messina calabre calabria reggio villa san giovanni detroit stretto gnv caronte cabine nuit embarquer embarquement '
-    + 'duree dure heures longtemps combien durata dura ore duration how long hours '
-    + 'nave traghetto traghetti guidare strada autostrada pedaggio imbarco cabina notte venire in auto '
-    + 'car drive driving road motorway toll boat ferry crossing genoa palermo messina calabria strait cabin overnight board boarding come by car bring the car',
+    + 'bateau ferry traversier traversee genes genova gene palerme palermo messine messina calabre calabria reggio villa san giovanni detroit stretto gnv caronte cabine embarquer embarquement '
+    + 'duree dure heures longtemps durata dura ore duration how long hours '
+    + 'nave traghetto traghetti guidare strada autostrada pedaggio imbarco cabina venire in auto '
+    + 'car drive driving road motorway toll boat ferry crossing genoa palermo messina calabria strait cabin board boarding come by car bring the car',
   'voyage-🚗':
     'voiture louer location loueur auto taxi uber vtc train navette transfert conduire permis autoroute peage '
     + 'macchina noleggio noleggiare treno trasferimento guidare patente autostrada pedaggio '
@@ -409,6 +414,15 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   });
   // Se garer. Les couleurs au sol sont la premiere chose qu'on affronte en
   // arrivant avec une voiture de location, et le site n'en disait rien.
+  ajouter({
+    id: 'argent',
+    page: '/informations-pratiques#argent',
+    titre: t.cashPage.title,
+    lignes: [...t.cashPage.spots.map((x) => `${x.title} — ${x.where}. ${x.text}`), t.cashPage.note],
+    liens: t.cashPage.spots.map((x) => ({ label: `${x.title} — ${x.label}`, url: x.url })),
+    mots: motsMaison('argent'),
+  });
+
   ajouter({
     id: 'parking',
     page: '/informations-pratiques#parking',

@@ -15,10 +15,10 @@ import Gallery from '../Gallery';
 import { withBase, APPART_ALBUM } from '../data';
 import { useI18n } from '../i18n';
 
-type Key = 'tout' | 'adresse' | 'arrivee' | 'bouger' | 'parking' | 'urgences' | 'dechets' | 'depart';
+type Key = 'tout' | 'adresse' | 'arrivee' | 'bouger' | 'parking' | 'argent' | 'urgences' | 'dechets' | 'depart';
 
 /** Les sections atteignables par un lien « #… ». « tout » n'en est pas une. */
-const SECTIONS: Key[] = ['adresse', 'arrivee', 'bouger', 'parking', 'urgences', 'dechets', 'depart'];
+const SECTIONS: Key[] = ['adresse', 'arrivee', 'bouger', 'parking', 'argent', 'urgences', 'dechets', 'depart'];
 
 
 export default function InformationsPratiques() {
@@ -83,6 +83,7 @@ export default function InformationsPratiques() {
     { key: 'arrivee', label: f.arrival, icon: 'key' },
     { key: 'bouger', label: f.move, icon: 'compass' },
     { key: 'parking', label: f.parking, icon: 'car' },
+    { key: 'argent', label: f.money, icon: 'bag' },
     { key: 'urgences', label: f.urgent, icon: 'phone' },
     { key: 'dechets', label: f.waste, icon: 'trash' },
     { key: 'depart', label: f.leaving, icon: 'home' },
@@ -255,6 +256,49 @@ export default function InformationsPratiques() {
             <p className="max-w-[68ch] text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
               {t.parkingPage.gardien.text}
             </p>
+          </Reveal>
+        </section>
+      )}
+
+      {/* Retirer de l'argent. Mag ne savait pas s'il y avait un distributeur a
+          Donnalucata ; verification faite, il y en a deux — la banque et la
+          poste. On les donne tous les deux exprès : un appareil en panne un
+          dimanche d'aout ne doit bloquer personne. */}
+      {show('argent') && (
+        <section id="argent" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-8 pt-12 md:px-10">
+          <Reveal className="mb-8 flex flex-col gap-2">
+            <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+              <Icon name="bag" size={16} /> {t.cashPage.eyebrow}
+            </span>
+            <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+              {t.cashPage.title}
+            </h2>
+            <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+              {t.cashPage.intro}
+            </p>
+          </Reveal>
+
+          <div className="grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
+            {t.cashPage.spots.map((x, i) => (
+              <Reveal key={x.title} delay={i * 80} className="flex flex-col gap-3 p-8" style={{ background: 'var(--cava-bg)' }}>
+                <h3 className="text-[clamp(1.05rem,2vw,1.25rem)] leading-[1.25]" style={{ fontWeight: 600 }}>
+                  {x.title}
+                </h3>
+                <p className="text-[14px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 600 }}>
+                  {x.where}
+                </p>
+                <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                  {x.text}
+                </p>
+                <a href={x.url} target="_blank" rel="noreferrer" className="cava-pill mt-2 self-start px-5 py-2.5 text-[13px]">
+                  {x.label} ↗
+                </a>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mt-6 max-w-[68ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+            {t.cashPage.note}
           </Reveal>
         </section>
       )}
