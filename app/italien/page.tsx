@@ -180,20 +180,23 @@ export default function Italien() {
    * present ensuite, qui porte l'essentiel ; le passe et le futur en dernier,
    * dont on se passe une semaine sans que personne s'en apercoive.
    */
-  const PLAN = [
-    { id: 'prononcer', titre: p.soundTitle, niveau: p.level1 },
-    { id: 'parler', titre: p.talkTitle, niveau: p.level1 },
-    { id: 'presente', titre: CONJUGAISONS[0].temps[lang], niveau: p.level2 },
-    { id: 'passato', titre: CONJUGAISONS[1].temps[lang], niveau: p.level2 },
-    { id: 'futuro', titre: CONJUGAISONS[2].temps[lang], niveau: p.level3 },
-    { id: 'exercices', titre: p.drillTitle, niveau: p.levelAll },
-    { id: 'ailleurs', titre: p.elsewhereTitle, niveau: p.levelAll },
+  const PLAN: { id: string; titre: string; niveau: string; icon: IconName }[] = [
+    { id: 'prononcer', titre: p.soundTitle, niveau: p.level1, icon: 'chat' },
+    { id: 'parler', titre: p.talkTitle, niveau: p.level1, icon: 'parler' },
+    { id: 'presente', titre: CONJUGAISONS[0].temps[lang], niveau: p.level2, icon: 'sun' },
+    { id: 'passato', titre: CONJUGAISONS[1].temps[lang], niveau: p.level2, icon: 'landmark' },
+    { id: 'futuro', titre: CONJUGAISONS[2].temps[lang], niveau: p.level3, icon: 'compass' },
+    { id: 'exercices', titre: p.drillTitle, niveau: p.levelAll, icon: 'target' },
+    { id: 'ailleurs', titre: p.elsewhereTitle, niveau: p.levelAll, icon: 'map' },
   ];
 
-  /* Une ligne du sommaire — la meme dans la liste du bureau et dans la feuille
-     du telephone. Cliquer y saute et referme la feuille (sans effet sur le
-     bureau, ou elle est deja close). */
-  const ligneSommaire = (x: (typeof PLAN)[number]) => (
+  /*
+   * Une CARTE de section — le style que Mag a montre sur son modele : un titre,
+   * une phrase, et une icone en bas. La meme dans la grille du bureau et dans la
+   * feuille du telephone. Cliquer y saute et referme la feuille (sans effet sur
+   * le bureau, ou elle est deja close).
+   */
+  const carteSommaire = (x: (typeof PLAN)[number], i: number) => (
     <a
       key={x.id}
       href={`#${x.id}`}
@@ -202,16 +205,22 @@ export default function Italien() {
         setSommaireOuvert(false);
         allerA(x.id);
       }}
-      className="cava-footlink group flex items-baseline justify-between gap-4 px-5 py-4 transition-colors"
-      style={{ background: 'var(--cava-bg)' }}
+      className="group flex flex-col justify-between gap-6 rounded-2xl border p-5 transition-transform duration-200 hover:scale-[1.01] motion-reduce:transition-none"
+      style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
     >
-      <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span className="text-[15px]" style={{ fontWeight: 600 }}>{x.titre}</span>
-        <span className="text-[12px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
-          {x.niveau}
-        </span>
+      <div className="flex flex-col gap-2">
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="text-[15px] leading-tight" style={{ fontWeight: 700 }}>{x.titre}</span>
+          <span className="shrink-0 text-[11px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+            {x.niveau}
+          </span>
+        </div>
+        <p className="text-[13px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>{p.planDesc[i]}</p>
+      </div>
+      {/* L'icone, en bas et bien pleine — comme sur le modele. */}
+      <span style={{ color: 'var(--cava-ink)' }}>
+        <Icon name={x.icon} size={30} strokeWidth={1.6} />
       </span>
-      <span className="shrink-0 text-[13px]" style={{ color: 'var(--cava-muted)' }} aria-hidden>↓</span>
     </a>
   );
 
@@ -251,9 +260,9 @@ export default function Italien() {
           </p>
         </Reveal>
 
-        {/* Sur grand ecran, la liste s'affiche en clair. */}
-        <Reveal className="mt-6 hidden overflow-hidden rounded-2xl md:flex md:flex-col md:gap-px" style={{ background: 'var(--cava-line)' }}>
-          {PLAN.map(ligneSommaire)}
+        {/* Sur grand ecran, les sections s'affichent en grille de cartes. */}
+        <Reveal className="mt-6 hidden gap-3 md:grid md:grid-cols-2">
+          {PLAN.map(carteSommaire)}
         </Reveal>
 
         {/* Sur telephone, un bouton ouvre la meme liste dans une feuille qui
@@ -612,8 +621,8 @@ export default function Italien() {
         intro={p.planIntro}
         labelFermer={p.sheetClose}
       >
-        <div className="flex flex-col gap-px overflow-hidden rounded-2xl" style={{ background: 'var(--cava-line)' }}>
-          {PLAN.map(ligneSommaire)}
+        <div className="grid grid-cols-2 gap-3">
+          {PLAN.map(carteSommaire)}
         </div>
       </BottomSheet>
 
