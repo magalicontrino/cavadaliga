@@ -75,6 +75,39 @@ export default function Assistant() {
    * Une demi-seconde de silence, et seulement alors elle repond qu'elle
    * ne sait pas.
    */
+  /*
+   * De combien le clavier mange l'ecran, en pixels.
+   *
+   * Le champ est passe EN BAS, comme dans toutes les messageries — c'est la
+   * que le pouce le trouve. Mais c'est aussi exactement la que le clavier se
+   * leve : une boite `fixed` ne recule pas devant lui, parce que le viewport
+   * de mise en page, lui, ne retrecit pas. Le champ se serait retrouve
+   * dessous, invisible au moment precis ou l'on tape.
+   *
+   * `visualViewport` est le seul a savoir ce qui reste VU. On lui demande la
+   * hauteur cachee en bas, et la boite remonte d'autant.
+   *
+   * Le seuil de 120 px evite de confondre le clavier avec la barre d'adresse
+   * qui se retracte au defilement — elle fait quelques dizaines de pixels, un
+   * clavier en fait des centaines.
+   */
+  const [clavier, setClavier] = useState(0);
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!vv) return;
+    const suivre = () => {
+      const cache = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+      setClavier(cache > 120 ? Math.round(cache) : 0);
+    };
+    suivre();
+    vv.addEventListener('resize', suivre);
+    vv.addEventListener('scroll', suivre);
+    return () => {
+      vv.removeEventListener('resize', suivre);
+      vv.removeEventListener('scroll', suivre);
+    };
+  }, []);
+
   const [pause, setPause] = useState(false);
   useEffect(() => {
     setPause(false);
@@ -183,7 +216,13 @@ export default function Assistant() {
         // CONTENU qui defile dedans (voir le bloc `flex-1 overflow-y-auto` plus
         // bas). L'entete et le champ restent en place, la reponse glisse
         // dessous. Rien ne pousse plus les bords.
-        style={{ background: '#fff', boxShadow: '0 24px 60px rgba(46,45,45,0.28)' }}
+        style={{
+          background: '#fff',
+          boxShadow: '0 24px 60px rgba(46,45,45,0.28)',
+          // Clavier leve : la boite remonte au-dessus de lui, et se rogne pour
+          // ne pas depasser en haut. Sans clavier, on laisse la classe decider.
+          ...(clavier ? { bottom: clavier + 12, maxHeight: `calc(100vh - ${clavier + 150}px)` } : null),
+        }}
       >
         {/*
           L'entete est un aplat de couleur, et c'est ce qui reveille le tout :
@@ -221,62 +260,6 @@ export default function Assistant() {
           </div>
         </div>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            // La reponse s'ecrit deja a la frappe : valider ne relance rien, ca
-            // RANGE le clavier. Sur telephone il couvre la moitie de l'ecran,
-            // et la reponse se lisait derriere.
-            champ.current?.blur();
-            requestAnimationFrame(() => corps.current?.scrollTo({ top: 0 }));
-          }}
-          className="shrink-0 px-6 pb-4 pt-5"
-          style={{ background: '#fff' }}
-        >
-          <div
-            className="flex items-center gap-2 rounded-full py-2.5 pl-5 pr-2"
-            style={{ border: '2px solid var(--cava-pink)', background: 'rgba(230,41,111,0.05)' }}
-          >
-            <input
-              ref={champ}
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder={a.placeholder}
-              aria-label={a.title}
-              className="min-w-0 flex-1 bg-transparent text-[15px] outline-none"
-            />
-            {q && (
-              <button
-                type="button"
-                onClick={vider}
-                aria-label={a.clear}
-                className="shrink-0 px-1 text-[15px] leading-none"
-                style={{ color: 'var(--cava-muted)' }}
-              >
-                ✕
-              </button>
-            )}
-            {/*
-              La fleche. Mag : « ce n'est pas evident, il faudrait une fleche ».
-              La loupe a gauche disait « on cherche » sans dire QUE FAIRE ; un
-              bouton plein a droite se touche. Il ne declenche plus la
-              recherche — elle a lieu a la frappe — mais il range le clavier, ce
-              qui est justement le geste qui manquait.
-            */}
-            <button
-              type="submit"
-              aria-label={a.send}
-              title={a.send}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 motion-reduce:transition-none"
-              style={{ background: 'var(--cava-pink)', color: '#fff' }}
-            >
-              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <path d="M5 12h13" />
-                <path d="m12.5 6 6 6-6 6" />
-              </svg>
-            </button>
-          </div>
-        </form>
 
         <div
           ref={corps}
@@ -357,6 +340,63 @@ export default function Assistant() {
             </div>
           )}
         </div>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            // La reponse s'ecrit deja a la frappe : valider ne relance rien, ca
+            // RANGE le clavier. Sur telephone il couvre la moitie de l'ecran,
+            // et la reponse se lisait derriere.
+            champ.current?.blur();
+            requestAnimationFrame(() => corps.current?.scrollTo({ top: 0 }));
+          }}
+          className="shrink-0 px-6 pb-5 pt-4"
+          style={{ background: '#fff', borderTop: '1px solid var(--cava-line)' }}
+        >
+          <div
+            className="flex items-center gap-2 rounded-full py-2.5 pl-5 pr-2"
+            style={{ border: '2px solid var(--cava-pink)', background: 'rgba(230,41,111,0.05)' }}
+          >
+            <input
+              ref={champ}
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder={a.placeholder}
+              aria-label={a.title}
+              className="min-w-0 flex-1 bg-transparent text-[15px] outline-none"
+            />
+            {q && (
+              <button
+                type="button"
+                onClick={vider}
+                aria-label={a.clear}
+                className="shrink-0 px-1 text-[15px] leading-none"
+                style={{ color: 'var(--cava-muted)' }}
+              >
+                ✕
+              </button>
+            )}
+            {/*
+              La fleche. Mag : « ce n'est pas evident, il faudrait une fleche ».
+              La loupe a gauche disait « on cherche » sans dire QUE FAIRE ; un
+              bouton plein a droite se touche. Il ne declenche plus la
+              recherche — elle a lieu a la frappe — mais il range le clavier, ce
+              qui est justement le geste qui manquait.
+            */}
+            <button
+              type="submit"
+              aria-label={a.send}
+              title={a.send}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 motion-reduce:transition-none"
+              style={{ background: 'var(--cava-pink)', color: '#fff' }}
+            >
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M5 12h13" />
+                <path d="m12.5 6 6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+        </form>
       </div>
     </>
   );

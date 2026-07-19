@@ -1036,40 +1036,37 @@ html {
    mou, et Mag l'a trouve terne : il monte donc en depassant sa place avant de
    s'y poser.
 
-   VIF, mais plus dessin anime. Le squash & stretch precedent partait de 0,72
-   de large et rebondissait trois fois : Mag l'a trouve trop cartoon, tout en
-   voulant garder l'elan.
+   AUCUNE DEFORMATION — Mag : « je n'aime pas la deformation a la fin, je
+   voudrais juste un petit effet elastique ».
 
-   Ce qui reste, c'est donc la VITESSE et une deformation legere — un seul
-   depassement, a peine, et le compte est bon. La boite part de 0,88 sur 0,94
-   (encore un peu etiree, ce qui donne l'elan), passe une fois par 1,015 sur
-   0,995, et se pose. Un seul aller-retour se lit comme de l'energie ; trois
-   se lisent comme un ressort.
+   Les versions precedentes etiraient la boite (X et Y a des valeurs
+   differentes) pour imiter le dessin anime. On y renonce : l'echelle est
+   UNIFORME du debut a la fin, la boite garde toujours ses proportions. Elle
+   grandit, point.
 
-   Le nerf tient surtout a la courbe et a la duree : 0,4 s, et une sortie qui
-   freine tard. Deux details qui font le reste : l'origine au coin BAS GAUCHE,
-   celui de la bulle, pour qu'elle en jaillisse au lieu d'apparaitre a cote ;
-   et une opacite finie a 25 %, pour qu'on lise pendant que la forme travaille
-   encore. */
+   L'elastique ne vient donc plus des etapes mais de la COURBE, qui finit
+   au-dessus de 1 : la boite depasse legerement sa taille avant de se poser,
+   sans jamais se deformer. Une seule etape suffit a le decrire — c'est la
+   preuve qu'il n'y a plus rien de trafique entre les deux.
+
+   L'origine reste au coin BAS GAUCHE, celui de la bulle : elle en sort au
+   lieu d'apparaitre a cote. */
 @keyframes cava-demander-entre {
   0% {
     opacity: 0;
-    transform: translateY(24px) scale(0.88, 0.94);
+    transform: translateY(18px) scale(0.94);
   }
-  25% {
+  30% {
     opacity: 1;
-  }
-  62% {
-    transform: translateY(-3px) scale(1.015, 0.995);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1, 1);
+    transform: translateY(0) scale(1);
   }
 }
 .cava-demander-ouvert {
   transform-origin: bottom left;
-  animation: cava-demander-entre 0.4s cubic-bezier(0.22, 0.9, 0.3, 1) both;
+  animation: cava-demander-entre 0.42s cubic-bezier(0.34, 1.45, 0.64, 1) both;
 }
 /* La bulle elle-meme accuse le coup quand on la touche. */
 @keyframes cava-demander-pouce {
