@@ -207,10 +207,11 @@ export default function Italien() {
               <h3 className="flex items-center gap-2.5 text-[clamp(1.15rem,2.4vw,1.5rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
                 <Icon name={l.icon as IconName} size={22} /> {l.titre[lang]}
               </h3>
-              <p className="mt-2 max-w-[70ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
-                {l.intro[lang]}
-              </p>
 
+              {/* Plus de phrase d'intro sous le titre (Mag) : dans « Parler, par
+                  situation », on ne garde que le titre et les phrases. Le texte
+                  d'intro reste dans les donnees (LECONS[].intro), simplement il
+                  ne s'affiche plus ici. */}
               <ul className="mt-6 flex flex-col gap-5">
                 {l.phrases.map((f) => (
                   <li key={f.it} className="border-t pt-5" style={{ borderColor: 'var(--cava-line)' }}>
