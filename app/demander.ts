@@ -524,3 +524,60 @@ export function chercher(question: string, index: Fiche[], max = 4): Reponse[] {
     )
     .slice(0, max);
 }
+
+// ── Ce qu'on propose PENDANT qu'on tape ──────────────────────────────────
+
+export type Proposition = { id: string; label: string };
+
+/**
+ * Les pastilles qui suivent la frappe, lettre par lettre.
+ *
+ * Elles etaient huit, ecrites d'avance, et ne bougeaient pas : taper « g » ne
+ * changeait rien a l'ecran. Mag l'a vu tout de suite — « il faudrait que tu
+ * anticipes pour chaque frappe ».
+ *
+ * Elles sortent donc de l'index lui-meme : « g » propose Gaz, la Gastronomia
+ * Giannone, la Gelateria. Rien n'est ecrit d'avance, tout vient de ce que le
+ * site contient deja — et le jour ou Mag ajoute une adresse, elle apparait ici
+ * sans que personne n'y pense.
+ *
+ * On regarde le DERNIER mot tape, pas la phrase entiere : on cherche pendant
+ * qu'on ecrit, et c'est le mot en cours qui dit ce qu'on vise. « une pi »
+ * propose donc la pizzeria, ce que « une pi » en entier n'aurait pas trouve.
+ */
+export function proposer(saisie: string, index: Fiche[], max = 6): Proposition[] {
+  const brut = norm(saisie).replace(/[^a-z0-9]+/g, ' ').trim();
+  if (!brut) return [];
+  const bouts = brut.split(' ');
+  const prefixe = bouts[bouts.length - 1];
+  if (prefixe.length < 1) return [];
+  // Les mots pleins deja tapes : ils affinent, sans etre obligatoires.
+  const avant = motsDe(bouts.slice(0, -1).join(' '));
+
+  const notees = index
+    .map((f) => {
+      const titre = norm(f.titre);
+      const motsTitre = motsDe(f.titre);
+      let note = 0;
+      if (titre.startsWith(prefixe)) note = 10;
+      else if (motsTitre.some((m) => m.startsWith(prefixe))) note = 8;
+      else if ([...f.mots, ...(f.motsPrecis ?? [])].some((m) => m.startsWith(prefixe))) note = 6;
+      else if (titre.includes(prefixe)) note = 3;
+      if (!note) return null;
+      // Un mot deja tape qui retombe sur la meme fiche la fait remonter.
+      if (avant.some((m) => f.mots.includes(m) || f.motsPrecis?.includes(m) || motsTitre.includes(m))) note += 4;
+      return { f, note };
+    })
+    .filter((x): x is { f: Fiche; note: number } => x !== null)
+    .sort((a, b) => b.note - a.note || a.f.titre.length - b.f.titre.length);
+
+  const vus = new Set<string>();
+  const sorties: Proposition[] = [];
+  for (const { f } of notees) {
+    if (vus.has(f.titre)) continue;
+    vus.add(f.titre);
+    sorties.push({ id: f.id, label: f.titre });
+    if (sorties.length >= max) break;
+  }
+  return sorties;
+}

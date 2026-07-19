@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Icon from './Icon';
 import { SITE, withBase } from './data';
 import { useI18n } from './i18n';
-import { chercher, construireIndex, motsDe, type Fiche, type Reponse } from './demander';
+import { chercher, construireIndex, proposer, type Fiche, type Reponse } from './demander';
 
 /**
  * Les couleurs des exemples — celles que Mag a choisies pour l'arbre.
@@ -36,6 +36,15 @@ export default function Assistant() {
   const [q, setQ] = useState('');
   /** La fiche mise en avant, quand on en choisit une autre dans « Aussi ». */
   const [choisie, setChoisie] = useState<string | null>(null);
+  /**
+   * La fiche demandee par une pastille de proposition.
+   *
+   * Cliquer « Gaz » doit montrer Gaz, meme si taper « Gaz » aurait donne autre
+   * chose : on a designe une fiche, pas lance une recherche. Toute frappe
+   * l'oublie — a partir du moment ou l'on ecrit, c'est la recherche qui
+   * commande a nouveau.
+   */
+  const [epinglee, setEpinglee] = useState<string | null>(null);
   const champ = useRef<HTMLInputElement>(null);
   const panneau = useRef<HTMLDivElement>(null);
   /** La zone de contenu. Elle ne defile plus — voir le commentaire de la
@@ -64,7 +73,10 @@ export default function Assistant() {
     [question, index],
   );
 
-  const enAvant = resultats.find((r) => r.fiche.id === choisie) ?? resultats[0];
+  const ficheEpinglee = epinglee ? index.find((f) => f.id === epinglee) : undefined;
+  const enAvant = ficheEpinglee
+    ? { fiche: ficheEpinglee, score: 0 }
+    : (resultats.find((r) => r.fiche.id === choisie) ?? resultats[0]);
   const autres = resultats.filter((r) => r.fiche.id !== enAvant?.fiche.id);
 
   /*
@@ -156,11 +168,23 @@ export default function Assistant() {
   useLayoutEffect(() => {
     const c = corps.current;
     if (!c) return;
-    const cle = `${question}|${choisie ?? ''}|${clavier}`;
+    const cle = `${question}|${choisie ?? ''}|${epinglee ?? ''}|${clavier}`;
     if (serrePour.current !== cle) {
       serrePour.current = cle;
-      if (serrer !== 0) setSerrer(0);
-      return;
+      /*
+       * On ne sort QUE s'il y a vraiment eu remise a zero.
+       *
+       * On sortait dans tous les cas — et quand le cran valait deja zero,
+       * setSerrer(0) ne declenchait aucun rendu : la mesure ne se faisait
+       * donc qu'au reveil suivant, cinq cents millisecondes plus tard, le
+       * temps que « pause » bascule. Mesure au banc : dix pixels debordaient
+       * pendant tout ce temps, puis rentraient dans l'ordre. Ici, on
+       * enchaine dans la meme passe.
+       */
+      if (serrer !== 0) {
+        setSerrer(0);
+        return;
+      }
     }
     if (serrer < 4 && c.scrollHeight > c.clientHeight + 1) setSerrer((n) => n + 1);
   });
@@ -185,9 +209,10 @@ export default function Assistant() {
     return () => window.removeEventListener('keydown', auClavier);
   }, [ouvert]);
 
-  const chercherMaintenant = (texte: string) => {
+  const chercherMaintenant = (texte: string, id?: string) => {
     setQ(texte);
     setChoisie(null);
+    setEpinglee(id || null);
     // Une nouvelle reponse arrive tout en haut : on y remonte, sinon elle
     // s'ecrit sous le pli et on croit qu'il ne s'est rien passe.
     requestAnimationFrame(() => corps.current?.scrollTo({ top: 0 }));
@@ -196,29 +221,32 @@ export default function Assistant() {
   const vider = () => {
     setQ('');
     setChoisie(null);
+    setEpinglee(null);
     champ.current?.focus();
   };
 
-  /** Les exemples qui collent a ce qu'on tape — ou tous, si aucun ne colle. */
-  const propositions = useMemo(() => {
-    const n = motsDe(question);
-    if (!n.length) return a.suggestions;
-    const gardees = a.suggestions.filter((s) => {
-      const m = motsDe(s);
-      return n.some((mot) => m.some((k) => k.startsWith(mot) || mot.startsWith(k)));
-    });
-    return gardees.length ? gardees : a.suggestions;
-  }, [question, a.suggestions]);
+  /**
+   * Les pastilles : les exemples de Mag quand le champ est vide, et sinon des
+   * propositions tirees de l'index, qui suivent la frappe lettre par lettre.
+   */
+  const propositions = useMemo(
+    () => (question ? proposer(question, index) : a.suggestions.map((label) => ({ id: '', label }))),
+    [question, index, a.suggestions],
+  );
 
   /*
    * Trois etats, et un seul a la fois :
-   *   une reponse                     → la fiche, et les autres pistes
-   *   rien, mais on ecrit encore      → les propositions
-   *   rien, et on s'est arrete        → l'aveu
+   *   une reponse                          → la fiche, et les autres pistes
+   *   pas de reponse, mais des pistes       → les propositions
+   *   ni l'une ni les autres, apres un temps → l'aveu
+   *
+   * L'aveu ne sort donc QUE si rien du tout ne correspond, meme de loin. Tant
+   * qu'une pastille peut etre proposee, elle vaut mieux que « je ne trouve
+   * pas » : elle donne une porte, la ou l'aveu ferme.
    * L'aveu remplace les propositions au lieu de s'ajouter : la boite ne defile
    * plus, les deux ensemble ne tiendraient pas.
    */
-  const montrerRefus = question.length >= 3 && pause && !enAvant;
+  const montrerRefus = question.length >= 3 && pause && !enAvant && propositions.length === 0;
 
   const sujet = encodeURIComponent(question ? `${t.askMag.subject} — ${question}` : t.askMag.subject);
 
@@ -384,9 +412,9 @@ export default function Assistant() {
             <div className="flex flex-wrap gap-2.5">
               {propositions.map((s, i) => (
                 <button
-                  key={s}
+                  key={s.id || s.label}
                   type="button"
-                  onClick={() => chercherMaintenant(s)}
+                  onClick={() => chercherMaintenant(s.label, s.id)}
                   className="rounded-full px-4 py-2.5 text-[13px] transition-transform duration-200 hover:scale-[1.05] motion-reduce:transition-none"
                   style={{
                     background: GAIES[i % GAIES.length],
@@ -397,7 +425,7 @@ export default function Assistant() {
                     border: '1px solid var(--cava-ink)',
                   }}
                 >
-                  {s}
+                  {s.label}
                 </button>
               ))}
             </div>
@@ -475,7 +503,10 @@ export default function Assistant() {
             <input
               ref={champ}
               value={q}
-              onChange={(e) => setQ(e.target.value)}
+              onChange={(e) => {
+                setQ(e.target.value);
+                setEpinglee(null);
+              }}
               placeholder={a.placeholder}
               aria-label={a.title}
               className="min-w-0 flex-1 bg-transparent text-[15px] outline-none"
