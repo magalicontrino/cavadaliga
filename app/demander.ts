@@ -214,6 +214,18 @@ const MOTS_MAISON: Record<string, string> = {
     'essence carburant station pompe gasoil gazole diesel sans plomb plein faire le plein reservoir '
     + 'benzina distributore carburante gasolio pompa fare il pieno serbatoio '
     + 'petrol fuel gas station unleaded fill up tank',
+  /*
+   * « Peut-on boire l'eau du robinet ? » — la question de securite du site.
+   *
+   * Mag : « c'est tres important que les gens le sachent ». On ratisse donc
+   * large, et dans les trois langues : c'est typiquement ce qu'on demande au
+   * chat, un verre a la main, plutot que d'aller lire une page.
+   */
+  'op-bottle':
+    'boire bois buvable potable robinet eau eau du robinet verre glacon glacons bouteille pack '
+    + 'peut on boire est ce potable dangereux malade ventre cuisine cuisiner pates cafe laver fruits legumes dents '
+    + 'bere bevibile potabile rubinetto acqua bicchiere ghiaccio bottiglia si puo bere pericoloso cucinare lavare frutta verdura denti '
+    + 'drink drinkable potable tap water tap glass ice cubes bottle bottled safe to drink sick cook cooking pasta coffee wash fruit vegetables teeth',
   // Le chauffe-eau, les draps, la climatisation : trois questions qu'on se
   // pose une fois arrive, et auxquelles le site ne repondait pas.
   'op-drop-plus':

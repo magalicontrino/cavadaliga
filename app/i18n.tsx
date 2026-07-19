@@ -1244,6 +1244,7 @@ const FR: Dict = {
     operation: [
       { icon: 'bolt', title: 'Électricité', items: ['Interrupteurs à activer dehors, sur la terrasse de devant, à droite de la porte.'] },
       { icon: 'drop', title: 'Eau', items: ['Pour ouvrir l’eau : la vanne est dans la buanderie, à l’arrière, sur le mur entre le lave-linge et l’évier. La clé de la buanderie est juste là, dans le petit meuble à tiroirs du buffet du salon.', 'Le chauffe-eau est dans la salle de bain, dans la douche.'] },
+      { icon: 'bottle', title: 'Ne pas boire l’eau du robinet', items: ['On ne la boit pas, et on ne s’en sert pas pour les glaçons. L’eau de boisson s’achète en bouteille — tous les supermarchés du coin en vendent, en packs de six litres et demi.', 'Pour tout le reste, elle est parfaitement bonne : la cuisine, les pâtes, le café, laver les fruits et les légumes, la vaisselle et la douche.'] },
       { icon: 'flame', title: 'Gaz', items: ['Mormina Gas, Via Tolstoj — il vend les bouteilles, livre à domicile et répare les cuisinières. Ses coordonnées sont plus bas, dans les contacts.'] },
       { icon: 'signal', title: 'Wifi', items: ['Réseau : cacestlaissetomber', 'Mot de passe : jamonito', 'Le wifi fonctionne avec un système de recharge : contactez-moi avant votre arrivée pour que je le recharge.'] },
       { icon: 'key', title: 'Buanderie', items: ['La clé de la buanderie est dans le petit meuble à tiroirs, à l’intérieur du buffet du salon. Elle est apparente, on la voit tout de suite.'] },
@@ -2061,6 +2062,7 @@ const IT: Dict = {
     operation: [
       { icon: 'bolt', title: 'Elettricità', items: ['Interruttori da attivare fuori, sulla terrazza davanti, a destra della porta.'] },
       { icon: 'drop', title: 'Acqua', items: ['Per aprire l’acqua: la valvola è in lavanderia, sul retro, sul muro tra la lavatrice e il lavello. La chiave della lavanderia è lì vicino, nel mobiletto a cassetti della credenza del salotto.', 'Lo scaldabagno è in bagno, dentro la doccia.'] },
+      { icon: 'bottle', title: 'Non bere l’acqua del rubinetto', items: ['Non si beve, e non si usa nemmeno per il ghiaccio. L’acqua da bere si compra in bottiglia — la vendono tutti i supermercati della zona, a confezioni.', 'Per tutto il resto va benissimo: cucinare, la pasta, il caffè, lavare frutta e verdura, i piatti e la doccia.'] },
       { icon: 'flame', title: 'Gas', items: ['Mormina Gas, Via Tolstoj — vende le bombole, consegna a domicilio e ripara le cucine. I contatti sono più sotto.'] },
       { icon: 'signal', title: 'Wifi', items: ['Rete: cacestlaissetomber', 'Password: jamonito', 'Il wifi funziona con un sistema di ricarica: contattatemi prima del vostro arrivo così lo ricarico.'] },
       { icon: 'key', title: 'Lavanderia', items: ['La chiave della lavanderia è nel mobiletto a cassetti, dentro la credenza del salotto. È in vista, si trova subito.'] },
@@ -2878,6 +2880,7 @@ const EN: Dict = {
     operation: [
       { icon: 'bolt', title: 'Electricity', items: ['Switches to turn on outside, on the front terrace, to the right of the door.'] },
       { icon: 'drop', title: 'Water', items: ['To turn the water on: the valve is in the laundry room at the back, on the wall between the washing machine and the sink. The laundry-room key is right there, in the little chest of drawers in the living-room sideboard.', 'The water heater is in the bathroom, inside the shower.'] },
+      { icon: 'bottle', title: 'Do not drink the tap water', items: ['Do not drink it, and do not use it for ice cubes either. Drinking water is bought in bottles — every supermarket nearby sells it, by the pack.', 'For everything else it is perfectly fine: cooking, pasta, coffee, washing fruit and vegetables, the dishes and the shower.'] },
       { icon: 'flame', title: 'Gas', items: ['Mormina Gas, Via Tolstoj — he sells the bottles, delivers to your door and repairs cookers. His details are further down, in the contacts.'] },
       { icon: 'signal', title: 'Wifi', items: ['Network: cacestlaissetomber', 'Password: jamonito', 'The wifi runs on a top-up system: contact me before you arrive so I can recharge it.'] },
       { icon: 'key', title: 'Laundry room', items: ['The laundry-room key is in the little chest of drawers, inside the living-room sideboard. It is in plain sight — you will spot it straight away.'] },
