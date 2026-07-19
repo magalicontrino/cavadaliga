@@ -48,6 +48,43 @@ function melange<T>(liste: T[], graine: number): T[] {
   return out;
 }
 
+/**
+ * Le theme d'une question EST la section d'ou vient sa reponse — et son
+ * libelle est celui du bouton de tri de la page, pas un mot invente pour le
+ * quiz. Deux listes de themes qui divergent, c'est une question qui renvoie
+ * vers une section qui ne s'appelle plus pareil.
+ */
+const THEMES = [
+  { ancre: 'lieux', cle: 'places' },
+  { ancre: 'etna', cle: 'etna' },
+  { ancre: 'arabe', cle: 'arab' },
+  { ancre: 'coutumes', cle: 'customs' },
+  { ancre: 'specialites', cle: 'specialties' },
+  { ancre: 'alcools', cle: 'drinks' },
+  { ancre: 'cafe', cle: 'coffee' },
+] as const;
+
+const NIVEAUX = ['facile', 'moyen', 'difficile'] as const;
+
+/** La puce de tri : allumee, elle prend l'encre ; eteinte, elle attend. */
+function Puce({ on, onClick, children }: { on: boolean; onClick: () => void; children: React.ReactNode }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="rounded-full px-4 py-2 text-[13px] transition-transform duration-200 hover:scale-[1.04] motion-reduce:transition-none"
+      style={{
+        background: on ? 'var(--cava-ink)' : 'transparent',
+        color: on ? 'var(--cava-bg)' : 'var(--cava-ink)',
+        border: '1px solid var(--cava-ink)',
+        fontWeight: 600,
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
 export default function Quiz() {
   const { t } = useI18n();
   const q = t.quizPage;
@@ -55,21 +92,54 @@ export default function Quiz() {
   const [n, setN] = useState(-1); // -1 = ecran d'accueil
   const [choisi, setChoisi] = useState<string | null>(null);
   const [points, setPoints] = useState(0);
+  /** null = on ne trie pas. Mag : « par themes, par niveau ». */
+  const [theme, setTheme] = useState<string | null>(null);
+  const [niveau, setNiveau] = useState<string | null>(null);
 
-  const question = q.questions[n];
+  /*
+   * Le paquet de la partie en cours.
+   *
+   * Il est fige au demarrage (`partie`), pas recalcule a chaque rendu : sans
+   * ca, changer un tri en pleine partie decalerait les questions sous le
+   * doigt. On melange aussi l'ORDRE des questions — a 46 questions, les
+   * reprendre toujours dans le meme ordre rendrait la deuxieme partie
+   * previsible des la premiere.
+   */
+  const paquet = useMemo(() => {
+    const choisies = q.questions.filter(
+      (x) => (!theme || x.ancre === theme) && (!niveau || x.niveau === niveau),
+    );
+    return melange(choisies, partie * 7919 + choisies.length);
+  }, [q.questions, theme, niveau, partie]);
+
+  const question = paquet[n];
   const bonne = question?.choix[question.bonne];
   const choix = useMemo(
     () => (question ? melange(question.choix, partie * 1000 + n) : []),
     [question, partie, n],
   );
 
-  const fini = n >= q.questions.length;
+  const fini = n >= 0 && n >= paquet.length;
 
   const rejouer = () => {
     setPartie((p) => p + 1);
     setPoints(0);
     setChoisi(null);
     setN(0);
+  };
+
+  /** Changer un tri remet le jeu a l'accueil : on ne change pas de paquet en
+   *  cours de route sans le dire. */
+  const trier = (f: () => void) => {
+    f();
+    setN(-1);
+    setChoisi(null);
+    setPoints(0);
+  };
+
+  const libelleTheme = (ancre: string) => {
+    const x = THEMES.find((y) => y.ancre === ancre);
+    return x ? t.regionFilter[x.cle] : ancre;
   };
 
   const suivante = () => {
@@ -96,15 +166,45 @@ export default function Quiz() {
         style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
       >
         {n === -1 && (
-          <button type="button" onClick={rejouer} className="cava-pill px-6 py-3 text-[15px]">
-            {q.start} →
-          </button>
+          <div className="flex flex-col gap-5">
+            <p className="text-[14px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+              {q.pick}
+            </p>
+
+            <div className="flex flex-wrap gap-2">
+              <Puce on={theme === null} onClick={() => trier(() => setTheme(null))}>{q.allThemes}</Puce>
+              {THEMES.map((x) => (
+                <Puce key={x.ancre} on={theme === x.ancre} onClick={() => trier(() => setTheme(x.ancre))}>
+                  {t.regionFilter[x.cle]}
+                </Puce>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <Puce on={niveau === null} onClick={() => trier(() => setNiveau(null))}>{q.allLevels}</Puce>
+              {NIVEAUX.map((x) => (
+                <Puce key={x} on={niveau === x} onClick={() => trier(() => setNiveau(x))}>
+                  {q.levels[x]}
+                </Puce>
+              ))}
+            </div>
+
+            {paquet.length === 0 ? (
+              <p className="text-[14px]" style={{ fontWeight: 600 }}>{q.empty}</p>
+            ) : (
+              <button type="button" onClick={rejouer} className="cava-pill w-fit px-6 py-3 text-[15px]">
+                {q.start} · {paquet.length} →
+              </button>
+            )}
+          </div>
         )}
 
         {question && (
           <div className="flex flex-col gap-6">
             <p className="text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)', fontWeight: 700 }}>
-              {q.progress.replace('{n}', String(n + 1)).replace('{t}', String(q.questions.length))}
+              {q.progress.replace('{n}', String(n + 1)).replace('{t}', String(paquet.length))}
+              {' · '}
+              {libelleTheme(question.ancre)} · {q.levels[question.niveau]}
             </p>
 
             <h3 className="max-w-[46ch] text-[clamp(1.2rem,2.6vw,1.7rem)] leading-[1.25]" style={{ fontWeight: 600 }}>
@@ -153,7 +253,7 @@ export default function Quiz() {
                     {q.seeSection} ↑
                   </a>
                   <button type="button" onClick={suivante} className="rounded-full px-5 py-2.5 text-[13px]" style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)', fontWeight: 600 }}>
-                    {n + 1 === q.questions.length ? q.scoreTitle : q.next} →
+                    {n + 1 === paquet.length ? q.scoreTitle : q.next} →
                   </button>
                 </div>
               </div>
@@ -167,11 +267,23 @@ export default function Quiz() {
               {q.scoreTitle}
             </p>
             <p className="text-[clamp(1.6rem,4vw,2.4rem)] leading-[1.1]" style={{ fontWeight: 900 }}>
-              {q.scoreLine.replace('{n}', String(points)).replace('{t}', String(q.questions.length))}
+              {q.scoreLine.replace('{n}', String(points)).replace('{t}', String(paquet.length))}
             </p>
-            <button type="button" onClick={rejouer} className="cava-pill px-6 py-3 text-[15px]">
-              {q.again} ↻
-            </button>
+            <div className="flex flex-wrap gap-3">
+              <button type="button" onClick={rejouer} className="cava-pill px-6 py-3 text-[15px]">
+                {q.again} ↻
+              </button>
+              {/* Retour au tri : apres une partie, on veut souvent changer de
+                  theme plutot que refaire le meme paquet. */}
+              <button
+                type="button"
+                onClick={() => trier(() => {})}
+                className="rounded-full px-6 py-3 text-[15px]"
+                style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)', fontWeight: 600 }}
+              >
+                {q.pick.split(/[,.]/)[0]}
+              </button>
+            </div>
           </div>
         )}
       </Reveal>
