@@ -82,6 +82,84 @@ const THEMES = [
 
 const NIVEAUX = ['facile', 'moyen', 'difficile'] as const;
 
+/*
+ * L'EXTRAIT : la phrase de la page qui porte la reponse.
+ *
+ * Mag : « quand c'est faux, note juste l'extrait court en plus du lien
+ * "relire le passage" — et quand c'est bon aussi ». Le lien renvoie plus haut ;
+ * l'extrait, lui, repond tout de suite, sans quitter le jeu.
+ *
+ * Il n'est PAS ecrit a la main. Soixante-trois extraits recopies dans trois
+ * langues, ce sont soixante-trois occasions de dire autre chose que la
+ * section — et le jour ou Mag corrige un texte, l'extrait mentirait sans que
+ * personne s'en apercoive. On va donc le CHERCHER dans la page : on decoupe
+ * la section en phrases, et on garde celle qui contient le plus de mots de la
+ * bonne reponse. Corriger le texte corrige l'extrait, comme pour tout le
+ * reste du quiz.
+ */
+const nettoie = (x: string) =>
+  x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+/** Le texte de la section d'ou vient la reponse — la meme que `ancre`. */
+function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string): string {
+  switch (ancre) {
+    case 'lieux':
+      return [t.placesIntro, ...t.regionPlaces].join(' ');
+    case 'etna':
+      return [t.etnaPage.intro, ...t.etnaPage.facts.map((f) => f.text)].join(' ');
+    case 'arabe':
+      return [t.arabPage.intro, ...t.arabPage.facts.map((f) => f.text), t.arabPage.note].join(' ');
+    case 'coutumes':
+      return t.tastePage.facts.map((f) => f.text).join(' ');
+    case 'specialites':
+      return t.specialtiesPage.facts.map((f) => f.text).join(' ');
+    case 'alcools':
+      return t.drinksPage.facts.map((f) => f.text).join(' ');
+    case 'cafe':
+      return t.coffeePage.facts.map((f) => f.text).join(' ');
+    case 'faune':
+      return [t.faunaPage.intro, ...t.faunaPage.facts.map((f) => f.text), t.faunaPage.note].join(' ');
+    default:
+      return '';
+  }
+}
+
+function extraitPour(texte: string, reponse: string): string | null {
+  // Les mots qui portent le sens : au moins quatre lettres, ou un nombre.
+  // « la », « du », « les » se retrouvent partout et ne designent rien.
+  const cles = nettoie(reponse)
+    .split(/[^a-z0-9\u2018\u2019']+/)
+    .filter((m) => m.length >= 4 || /^[0-9]+$/.test(m));
+  if (!cles.length) return null;
+
+  // Decoupage en PHRASES, et rien de plus fin.
+  //
+  // J'avais aussi coupe sur le tiret cadratin, pour des extraits plus courts.
+  // Mesure : « les hommes enfouissaient la neige dans des fosses de pierre —
+  // les neviere — isolees sous la cendre » donnait « les neviere », treize
+  // signes, jete par le filtre de longueur. La reponse etait dans la page et
+  // l'extrait sortait vide. Le tiret est une respiration, pas une fin de
+  // phrase.
+  const phrases = texte
+    .split(/(?<=[.!?\u2026])\s+|;\s+/)
+    .map((x) => x.trim())
+    .filter((x) => x.length > 25);
+
+  let meilleure: string | null = null;
+  let score = 0;
+  for (const ph of phrases) {
+    const n = nettoie(ph);
+    const touches = cles.filter((m) => n.includes(m)).length;
+    // A egalite, la phrase la plus courte : c'est un extrait, pas un chapitre.
+    if (touches > score || (touches === score && touches > 0 && meilleure && ph.length < meilleure.length)) {
+      score = touches;
+      meilleure = ph;
+    }
+  }
+  if (!meilleure || score === 0) return null;
+  return meilleure.length > 230 ? `${meilleure.slice(0, 227).trimEnd()}\u2026` : meilleure;
+}
+
 /** La puce de tri : allumee, elle prend l'encre ; eteinte, elle attend. */
 function Puce({ on, onClick, children }: { on: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -170,6 +248,13 @@ export default function Quiz() {
     setPoints(0);
   };
 
+  /** La phrase de la page qui porte la bonne reponse. Vide si on ne la
+   *  retrouve pas — mieux vaut rien qu'un extrait a cote. */
+  const extrait = useMemo(
+    () => (question && bonne ? extraitPour(texteDe(t, question.ancre), bonne) : null),
+    [question, bonne, t],
+  );
+
   const libelleTheme = (ancre: string) => {
     const x = THEMES.find((y) => y.ancre === ancre);
     return x ? t.regionFilter[x.cle] : ancre;
@@ -205,22 +290,40 @@ export default function Quiz() {
               {q.pick}
             </p>
 
-            <div className="flex flex-wrap gap-2">
-              <Puce on={theme === null} onClick={() => trier(() => setTheme(null))}>{q.allThemes}</Puce>
-              {THEMES.map((x) => (
-                <Puce key={x.ancre} on={theme === x.ancre} onClick={() => trier(() => setTheme(x.ancre))}>
-                  {t.regionFilter[x.cle]}
-                </Puce>
-              ))}
-            </div>
+            {/*
+              TOUT REUNI, en un seul ruban — comme les pastilles du chat.
+              Les themes et les niveaux prenaient trois lignes de haut, et sur
+              un telephone le bouton « Commencer » tombait sous le pli : on
+              choisissait sans voir par ou partir. Ils glissent maintenant
+              ensemble, d'un seul geste, sur deux lignes alignees.
 
-            <div className="flex flex-wrap gap-2">
-              <Puce on={niveau === null} onClick={() => trier(() => setNiveau(null))}>{q.allLevels}</Puce>
-              {NIVEAUX.map((x) => (
-                <Puce key={x} on={niveau === x} onClick={() => trier(() => setNiveau(x))}>
-                  {q.levels[x]}
-                </Puce>
-              ))}
+              Chaque pastille garde SA ligne (`gridRow`), sinon le remplissage
+              en colonnes melangerait un theme et un niveau dans la meme
+              colonne — deux questions differentes posees au meme endroit.
+            */}
+            <div className="cava-swipe -mx-6 shrink-0 overflow-x-auto px-6 md:-mx-10 md:px-10">
+              <div className="grid w-max gap-2" style={{ gridTemplateRows: 'repeat(2, auto)', gridAutoFlow: 'column', gridAutoColumns: 'max-content' }}>
+                <div style={{ gridRow: 1 }}>
+                  <Puce on={theme === null} onClick={() => trier(() => setTheme(null))}>{q.allThemes}</Puce>
+                </div>
+                {THEMES.map((x) => (
+                  <div key={x.ancre} style={{ gridRow: 1 }}>
+                    <Puce on={theme === x.ancre} onClick={() => trier(() => setTheme(x.ancre))}>
+                      {t.regionFilter[x.cle]}
+                    </Puce>
+                  </div>
+                ))}
+                <div style={{ gridRow: 2 }}>
+                  <Puce on={niveau === null} onClick={() => trier(() => setNiveau(null))}>{q.allLevels}</Puce>
+                </div>
+                {NIVEAUX.map((x) => (
+                  <div key={x} style={{ gridRow: 2 }}>
+                    <Puce on={niveau === x} onClick={() => trier(() => setNiveau(x))}>
+                      {q.levels[x]}
+                    </Puce>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {paquet.length === 0 ? (
@@ -327,6 +430,19 @@ export default function Quiz() {
                 <p className="text-[15px]" style={{ fontWeight: 600, color: choisi === bonne ? '#3b6d11' : 'var(--cava-pink-fonce)' }}>
                   {choisi === bonne ? q.good : q.wrong}
                 </p>
+                {/* L'extrait, avant les boutons : on repond a la question
+                    posee avant de proposer d'aller relire. Il est en italique
+                    et entre guillemets — ce n'est pas notre phrase, c'est
+                    celle de la page. */}
+                {extrait && (
+                  <p
+                    className="max-w-[70ch] border-l-2 pl-4 text-[14px] italic leading-[1.65]"
+                    style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)' }}
+                  >
+                    « {extrait} »
+                  </p>
+                )}
+
                 <div className="flex flex-wrap gap-3">
                   {/* Le renvoi au texte : c'est lui qui fait du jeu une lecture. */}
                   <a href={`#${question.ancre}`} className="cava-pill px-5 py-2.5 text-[13px]">

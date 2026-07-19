@@ -549,16 +549,12 @@ export default function Assistant() {
              * bas, puis on passe a la colonne suivante. Les lignes restent donc
              * alignees, ce qu'un `flex-wrap` ne sait pas faire.
              */
-            <div
-              className="cava-swipe my-auto -mx-6 shrink-0 overflow-x-auto px-6"
-              style={{
-                // Un voile sur le bord droit : il dit qu'il y a une suite, sans
-                // barre de defilement — Mag n'en veut pas, et sur telephone il
-                // n'y en a de toute facon aucune a voir.
-                maskImage: 'linear-gradient(to right, #000 calc(100% - 20px), transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to right, #000 calc(100% - 20px), transparent 100%)',
-              }}
-            >
+            /*
+             * Pas de voile sur le bord droit : Mag n'en veut pas, et elle a
+             * raison — une pastille a moitie visible dit deja qu'il y a une
+             * suite, sans rien delaver.
+             */
+            <div className="cava-swipe my-auto -mx-6 shrink-0 overflow-x-auto px-6">
               <div
                 className="grid w-max gap-2.5"
                 style={{
