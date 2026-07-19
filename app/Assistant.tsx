@@ -526,6 +526,7 @@ export default function Assistant() {
             champ.current?.blur();
             requestAnimationFrame(() => corps.current?.scrollTo({ top: 0 }));
           }}
+          autoComplete="off"
           className="shrink-0 px-6 pb-5 pt-4"
           style={{ background: '#fff', borderTop: '1px solid var(--cava-line)' }}
         >
@@ -533,8 +534,32 @@ export default function Assistant() {
             className="flex items-center gap-2 rounded-full py-2.5 pl-5 pr-2"
             style={{ border: '2px solid var(--cava-pink)', background: 'rgba(230,41,111,0.05)' }}
           >
+            {/*
+              CE N'EST PAS UN CHAMP DE MOT DE PASSE, et il faut le crier.
+
+              Les gestionnaires de mots de passe devinent au flair : un champ
+              texte, seul dans un formulaire, dont l'invite contient « password
+              du wifi »… et ils proposent de generer un mot de passe par-dessus
+              la boite. Mag l'a vu en italien, ou l'invite commence justement
+              par « La password del wifi ».
+
+              `autocomplete="off"` seul ne suffit pas — ils l'ignorent souvent.
+              On ajoute donc les marqueurs propres a chacun (1Password,
+              LastPass, Dashlane), et `type="search"`, qui est de toute façon
+              ce que ce champ EST.
+            */}
             <input
               ref={champ}
+              type="search"
+              inputMode="search"
+              name="demander"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck={false}
+              data-1p-ignore
+              data-lpignore="true"
+              data-form-type="other"
               value={q}
               onChange={(e) => {
                 setQ(e.target.value);
@@ -542,7 +567,7 @@ export default function Assistant() {
               }}
               placeholder={a.placeholder}
               aria-label={a.title}
-              className="min-w-0 flex-1 bg-transparent text-[15px] outline-none"
+              className="min-w-0 flex-1 bg-transparent text-[15px] outline-none [&::-webkit-search-cancel-button]:appearance-none"
             />
             {q && (
               <button
