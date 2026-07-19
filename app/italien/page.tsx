@@ -205,22 +205,23 @@ export default function Italien() {
         setSommaireOuvert(false);
         allerA(x.id);
       }}
-      className="group flex flex-col justify-between gap-6 rounded-2xl border p-5 transition-transform duration-200 hover:scale-[1.01] motion-reduce:transition-none"
+      className="group flex min-h-[9.5rem] flex-col justify-between gap-5 rounded-2xl border p-6 transition-transform duration-200 hover:scale-[1.01] motion-reduce:transition-none"
       style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
     >
       <div className="flex flex-col gap-2">
-        <div className="flex items-baseline justify-between gap-2">
-          <span className="text-[15px] leading-tight" style={{ fontWeight: 700 }}>{x.titre}</span>
-          <span className="shrink-0 text-[11px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
-            {x.niveau}
-          </span>
-        </div>
+        <span className="text-[17px] leading-tight" style={{ fontWeight: 800 }}>{x.titre}</span>
         <p className="text-[13px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>{p.planDesc[i]}</p>
       </div>
-      {/* L'icone, en bas et bien pleine — comme sur le modele. */}
-      <span style={{ color: 'var(--cava-ink)' }}>
-        <Icon name={x.icon} size={30} strokeWidth={1.6} />
-      </span>
+      {/* L'icone en bas, grande et grasse comme sur le modele ; le niveau se
+          range a cote, discret. */}
+      <div className="flex items-end justify-between gap-2">
+        <span style={{ color: 'var(--cava-ink)' }}>
+          <Icon name={x.icon} size={38} strokeWidth={1.9} />
+        </span>
+        <span className="text-[11px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+          {x.niveau}
+        </span>
+      </div>
     </a>
   );
 
