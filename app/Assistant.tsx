@@ -100,20 +100,38 @@ export default function Assistant() {
    * de mise en page, lui, ne retrecit pas. Le champ se serait retrouve
    * dessous, invisible au moment precis ou l'on tape.
    *
-   * `visualViewport` est le seul a savoir ce qui reste VU. On lui demande la
-   * hauteur cachee en bas, et la boite remonte d'autant.
+   * C'EST DESORMAIS UN REPLI. Depuis qu'on declare `interactive-widget:
+   * resizes-content` (voir layout.tsx), la page retrecit d'elle-meme quand le
+   * clavier monte, et `dvh` + `fixed bottom` suffisent. `window.innerHeight`
+   * retrecit alors AVEC elle, donc `innerHeight - vv.height` tombe a ~0 : le
+   * calcul ci-dessous rend 0 et ne fait rien. Sur les vieux navigateurs (iOS
+   * 15 et avant) qui ignorent le mot-clef, la page ne bouge pas, la difference
+   * vaut la hauteur du clavier, et la boite remonte a la main.
    *
-   * Le seuil de 120 px evite de confondre le clavier avec la barre d'adresse
-   * qui se retracte au defilement — elle fait quelques dizaines de pixels, un
-   * clavier en fait des centaines.
+   * `visualViewport` reste le seul a savoir ce qui est vu. Le seuil de 120 px
+   * evite de confondre le clavier avec la barre d'adresse qui se retracte au
+   * defilement — elle fait quelques dizaines de pixels, un clavier des
+   * centaines.
    */
   const [clavier, setClavier] = useState(0);
+  /**
+   * Un simple compteur qui s'incremente a CHAQUE changement de taille visible.
+   *
+   * Il ne sert qu'a re-declencher le resserrement du contenu (voir plus bas).
+   * Sans lui, le contenu ne se remesurait qu'au changement de question ou de
+   * `clavier` — or sur navigateur moderne, quand le clavier monte, c'est la
+   * PAGE qui retrecit (interactive-widget), `clavier` reste a 0, et la boite
+   * plus courte gardait un contenu trop grand : coupe par le bas. Un coup
+   * d'oeil de plus a chaque resize regle ca.
+   */
+  const [taille, setTaille] = useState(0);
   useEffect(() => {
     const vv = window.visualViewport;
     if (!vv) return;
     const suivre = () => {
       const cache = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
       setClavier(cache > 120 ? Math.round(cache) : 0);
+      setTaille((n) => n + 1);
     };
     suivre();
     vv.addEventListener('resize', suivre);
@@ -149,6 +167,17 @@ export default function Assistant() {
    * jamais l'etat trop grand, seulement le bon.
    */
   const [serrer, setSerrer] = useState(0);
+  /**
+   * Vrai quand MEME LE CRAN LE PLUS SERRE deborde encore.
+   *
+   * Mag ne veut pas d'ascenseur, et il n'y en a pas — sauf ici. Sur un tres
+   * petit ecran clavier leve, il ne reste parfois que 127 px de contenu, et le
+   * cran 4 (titre + bouton) en demande 180. Ce qui se fait couper, alors,
+   * c'est le BOUTON qui mene a la page : la seule porte de sortie de la
+   * reponse. Entre clipper cette porte et laisser glisser le contenu, on
+   * laisse glisser. Ca n'arrive que la, et c'est mieux que de perdre le lien.
+   */
+  const [deborde, setDeborde] = useState(false);
   /** La question a laquelle le cran courant se rapporte. */
   const serrePour = useRef('');
   /*
@@ -168,7 +197,7 @@ export default function Assistant() {
   useLayoutEffect(() => {
     const c = corps.current;
     if (!c) return;
-    const cle = `${question}|${choisie ?? ''}|${epinglee ?? ''}|${clavier}`;
+    const cle = `${question}|${choisie ?? ''}|${epinglee ?? ''}|${clavier}|${taille}`;
     if (serrePour.current !== cle) {
       serrePour.current = cle;
       /*
@@ -181,12 +210,19 @@ export default function Assistant() {
        * pendant tout ce temps, puis rentraient dans l'ordre. Ici, on
        * enchaine dans la meme passe.
        */
+      if (deborde) setDeborde(false);
       if (serrer !== 0) {
         setSerrer(0);
         return;
       }
     }
-    if (serrer < 4 && c.scrollHeight > c.clientHeight + 1) setSerrer((n) => n + 1);
+    const trop = c.scrollHeight > c.clientHeight + 1;
+    if (serrer < 4 && trop) {
+      setSerrer((n) => n + 1);
+      return;
+    }
+    // Au bout des crans : on constate, et on laisse glisser si besoin.
+    if (deborde !== trop) setDeborde(trop);
   });
 
   const [pause, setPause] = useState(false);
@@ -340,7 +376,7 @@ export default function Assistant() {
           ouvert
             ? 'cava-demander-ouvert visible opacity-100'
             : 'invisible translate-y-3 opacity-0 transition-[opacity,transform] duration-300 motion-reduce:transition-none'
-        } inset-x-3 bottom-24 h-[clamp(24rem,62vh,34rem)] max-h-[calc(100dvh-12rem)] md:inset-x-auto md:bottom-28 md:right-8 md:h-[clamp(24rem,58vh,34rem)] md:w-[27rem]`}
+        } inset-x-3 bottom-24 h-[clamp(24rem,62dvh,34rem)] max-h-[calc(100dvh-11rem)] md:inset-x-auto md:bottom-28 md:right-8 md:h-[clamp(24rem,58dvh,34rem)] md:w-[27rem]`}
         // Blanc franc, et surtout PAS --cava-card : cette variable vaut #2e2d2d,
         // c'est la carte SOMBRE du site. Le panneau sortait noir sur noir.
         //
@@ -368,9 +404,12 @@ export default function Assistant() {
         style={{
           background: '#fff',
           boxShadow: '0 24px 60px rgba(46,45,45,0.28)',
-          // Clavier leve : la boite remonte au-dessus de lui, et se rogne pour
-          // ne pas depasser en haut. Sans clavier, on laisse la classe decider.
-          ...(clavier ? { bottom: clavier + 12, maxHeight: `calc(100vh - ${clavier + 150}px)` } : null),
+          // REPLI pour les vieux navigateurs qui n'ont pas `interactive-widget`
+          // (iOS 15 et anterieurs). Sur iOS 16+/Chrome, la page retrecit deja
+          // toute seule : `clavier` y vaut 0 (voir l'effet plus haut), et cette
+          // ligne ne fait rien. Sur les anciens, elle remonte la boite au-dessus
+          // du clavier. Les deux ne se cumulent donc jamais.
+          ...(clavier ? { bottom: clavier + 12, maxHeight: `calc(100dvh - ${clavier + 140}px)` } : null),
         }}
       >
         {/*
@@ -432,7 +471,9 @@ export default function Assistant() {
           // collait sous l'aplat rose de l'entete, et l'aveu « je ne trouve
           // pas » y touchait aussi.
           data-serrer={serrer}
-          className={`flex flex-1 flex-col gap-4 overflow-hidden px-6 pb-7 pt-6 ${
+          className={`flex flex-1 flex-col gap-4 px-6 pb-7 pt-6 ${
+            deborde ? 'overflow-y-auto overscroll-contain' : 'overflow-hidden'
+          } ${
             enAvant || montrerRefus ? 'justify-start' : 'justify-center'
           }`}
         >
