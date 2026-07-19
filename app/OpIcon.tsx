@@ -5,9 +5,17 @@
  * cartes « Fonctionnement de la maison ». Tracés maison en currentColor,
  * viewBox 24×24, aucune dépendance externe. Remplacent les emojis ⚡💧🔥📶.
  */
-export type OpIconName = 'bolt' | 'drop' | 'flame' | 'signal';
+export type OpIconName = 'bolt' | 'drop' | 'flame' | 'signal' | 'key';
 
 const PATHS: Record<OpIconName, React.ReactNode> = {
+  // La clef — la buanderie. Elle ne se trouve pas, elle se DONNE : c'est un
+  // objet a repérer dans le salon, pas un compteur a manoeuvrer.
+  key: (
+    <>
+      <circle cx="8" cy="8" r="4" />
+      <path d="M11 11l8 8M16 16l2-2M18.5 18.5l2-2" />
+    </>
+  ),
   // Éclair — électricité
   bolt: <path d="M7 2v11h3v9l7-12h-4l4-8z" />,
   // Goutte — eau (pointe nette en haut, base arrondie)

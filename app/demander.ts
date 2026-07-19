@@ -134,6 +134,10 @@ const MOTS_MAISON: Record<string, string> = {
     + 'gaz bouteille cuisiniere gaziniere plaque feu bonbonne cuisson recharge ' +
     'bombola cucina fornello fuoco ricarica ' +
     'gas bottle cylinder stove cooker hob refill allumer eteindre allumage flamme casserole poele four brulure securite odeur accendere spegnere fiamma pentola forno odore sicurezza light turn on off flame pan oven smell safety',
+  'op-key':
+    'buanderie lave linge machine laver lessive etendre seche linge cle clef accrochee buffet salon bois '
+    + 'lavanderia lavatrice bucato stendere chiave credenza salotto legno '
+    + 'laundry washing machine wash clothes key sideboard living room',
   'op-signal':
     'fonctionne panne casse non funziona guasto rotto broken '
     + 'wifi wi internet reseau code password mot passe connexion connecter box debit recharger ' +

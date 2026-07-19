@@ -918,6 +918,7 @@ const FR: Dict = {
       { icon: 'drop', title: 'Eau', items: ['Pour ouvrir l’eau : la vanne est dans la buanderie, à l’arrière, sur le mur entre le lave-linge et l’évier.'] },
       { icon: 'flame', title: 'Gaz', items: ['Mormina Gas, Via Tolstoj — il vend les bouteilles, livre à domicile et répare les cuisinières. Ses coordonnées sont plus bas, dans les contacts.'] },
       { icon: 'signal', title: 'Wifi', items: ['Réseau : cacestlaissetomber', 'Mot de passe : jamonito', 'Le wifi fonctionne avec un système de recharge : contactez-moi avant votre arrivée pour que je le recharge.'] },
+      { icon: 'key', title: 'Buanderie', items: ['La clé de la buanderie est accrochée sur la grosse clé en bois, à droite du buffet blanc dans le salon.'] },
     ],
   },
   depart: {
@@ -1520,6 +1521,7 @@ const IT: Dict = {
       { icon: 'drop', title: 'Acqua', items: ['Per aprire l’acqua: la valvola è in lavanderia, sul retro, sul muro tra la lavatrice e il lavello.'] },
       { icon: 'flame', title: 'Gas', items: ['Mormina Gas, Via Tolstoj — vende le bombole, consegna a domicilio e ripara le cucine. I contatti sono più sotto.'] },
       { icon: 'signal', title: 'Wifi', items: ['Rete: cacestlaissetomber', 'Password: jamonito', 'Il wifi funziona con un sistema di ricarica: contattatemi prima del vostro arrivo così lo ricarico.'] },
+      { icon: 'key', title: 'Lavanderia', items: ['La chiave della lavanderia è appesa alla grossa chiave di legno, a destra della credenza bianca in salotto.'] },
     ],
   },
   depart: {
@@ -2122,6 +2124,7 @@ const EN: Dict = {
       { icon: 'drop', title: 'Water', items: ['To turn the water on: the valve is in the laundry room at the back, on the wall between the washing machine and the sink.'] },
       { icon: 'flame', title: 'Gas', items: ['Mormina Gas, Via Tolstoj — he sells the bottles, delivers to your door and repairs cookers. His details are further down, in the contacts.'] },
       { icon: 'signal', title: 'Wifi', items: ['Network: cacestlaissetomber', 'Password: jamonito', 'The wifi runs on a top-up system: contact me before you arrive so I can recharge it.'] },
+      { icon: 'key', title: 'Laundry room', items: ['The laundry-room key hangs on the big wooden key, to the right of the white sideboard in the living room.'] },
     ],
   },
   depart: {
