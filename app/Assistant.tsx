@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Icon from './Icon';
 import { SITE, withBase } from './data';
 import { useI18n } from './i18n';
-import { chercher, construireIndex, motsDe, proposer, type Fiche, type Reponse } from './demander';
+import { chercher, construireIndex, motsDe, proposer, type Fiche, type Proposition, type Reponse } from './demander';
 
 /**
  * Les couleurs des exemples — celles que Mag a choisies pour l'arbre.
@@ -240,7 +240,7 @@ export default function Assistant() {
    * de laisser le vide. Une lettre tapee de travers n'est pas une impasse :
    * c'est le moment ou l'on a le plus besoin qu'on vous montre par ou aller.
    */
-  const propositions = useMemo(
+  const propositions = useMemo<Proposition[]>(
     () => (pistes.length ? pistes : a.suggestions.map((label) => ({ id: '', label }))),
     [pistes, a.suggestions],
   );
@@ -430,24 +430,36 @@ export default function Assistant() {
           */}
           {!enAvant && !montrerRefus && (
             <div className="flex flex-wrap gap-2.5">
-              {propositions.map((s, i) => (
-                <button
-                  key={s.id || s.label}
-                  type="button"
-                  onClick={() => chercherMaintenant(s.label, s.id)}
-                  className="rounded-full px-4 py-2.5 text-[13px] transition-transform duration-200 hover:scale-[1.05] motion-reduce:transition-none"
-                  style={{
-                    background: GAIES[i % GAIES.length],
-                    color: 'var(--cava-ink)',
-                    fontWeight: 600,
-                    // Le filet d'encre : c'est lui qui les rattache aux pastilles
-                    // du site plutot que d'en faire des etiquettes de plus.
-                    border: '1px solid var(--cava-ink)',
-                  }}
-                >
-                  {s.label}
-                </button>
-              ))}
+              {propositions.map((s, i) => {
+                // Deux sortes de pastilles : celles qui ouvrent une fiche ici
+                // meme, et celles qui menent au bon rayon de « Nos adresses ».
+                // Les secondes portent une fleche — on quitte la boite.
+                const style = {
+                  background: GAIES[i % GAIES.length],
+                  color: 'var(--cava-ink)',
+                  fontWeight: 600,
+                  // Le filet d'encre : c'est lui qui les rattache aux pastilles
+                  // du site plutot que d'en faire des etiquettes de plus.
+                  border: '1px solid var(--cava-ink)',
+                } as const;
+                const classe =
+                  'rounded-full px-4 py-2.5 text-[13px] transition-transform duration-200 hover:scale-[1.05] motion-reduce:transition-none';
+                return s.href ? (
+                  <a key={s.href} href={withBase(s.href)} className={classe} style={style}>
+                    {s.label} →
+                  </a>
+                ) : (
+                  <button
+                    key={s.id || s.label}
+                    type="button"
+                    onClick={() => chercherMaintenant(s.label, s.id)}
+                    className={classe}
+                    style={style}
+                  >
+                    {s.label}
+                  </button>
+                );
+              })}
             </div>
           )}
 

@@ -363,9 +363,11 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   });
 
   // ── Nos adresses ─────────────────────────────────────────────────────
+  RAYON_DU_LIEU.clear();
   LOCAL_PLACES.forEach((l) => {
     const cats = [l.cat, ...(l.aussi ?? [])];
     const syn = synonymesDuLieu(l.id, l.cat, l.aussi);
+    RAYON_DU_LIEU.set(`lieu-${l.id}`, { cle: l.cat, label: CATS[l.cat].label[lang] });
     ajouter({
       id: `lieu-${l.id}`,
       page: '/services-locaux',
@@ -527,7 +529,13 @@ export function chercher(question: string, index: Fiche[], max = 4): Reponse[] {
 
 // ── Ce qu'on propose PENDANT qu'on tape ──────────────────────────────────
 
-export type Proposition = { id: string; label: string };
+export type Proposition = {
+  /** La fiche a ouvrir dans la boite. Vide si la pastille est un lien. */
+  id: string;
+  label: string;
+  /** Une page a ouvrir, quand la pastille vise un rayon plutot qu'une fiche. */
+  href?: string;
+};
 
 /**
  * Les pastilles qui suivent la frappe, lettre par lettre.
@@ -544,7 +552,21 @@ export type Proposition = { id: string; label: string };
  * On regarde le DERNIER mot tape, pas la phrase entiere : on cherche pendant
  * qu'on ecrit, et c'est le mot en cours qui dit ce qu'on vise. « une pi »
  * propose donc la pizzeria, ce que « une pi » en entier n'aurait pas trouve.
+ *
+ * LES ADRESSES NE SE PROPOSENT PAS PAR LEUR NOM. Mag : « le nom des lieux, je
+ * ne suis pas certaine ; plutot diriger vers le bouton qui coincide, comme
+ * manger et boire ». Elle a raison — personne ne cherche « Baqqala » ou
+ * « Prosit Sicilian Bistrot », on cherche a manger. Une adresse trouvee rend
+ * donc son RAYON, une seule fois, et la pastille mene a la page des adresses
+ * ouverte sur ce bouton. Les fiches de la maison, elles, gardent leur nom :
+ * « Gaz », « Plombier », « Wifi » sont exactement les mots qu'on tape.
  */
+/**
+ * Quel bouton de « Nos adresses » ouvre chaque lieu. Rempli en meme temps que
+ * l'index, dans la langue lue — le libelle affiche doit etre celui du bouton.
+ */
+const RAYON_DU_LIEU = new Map<string, { cle: CatKey; label: string }>();
+
 export function proposer(saisie: string, index: Fiche[], max = 6): Proposition[] {
   const brut = norm(saisie).replace(/[^a-z0-9]+/g, ' ').trim();
   if (!brut) return [];
@@ -574,9 +596,15 @@ export function proposer(saisie: string, index: Fiche[], max = 6): Proposition[]
   const vus = new Set<string>();
   const sorties: Proposition[] = [];
   for (const { f } of notees) {
-    if (vus.has(f.titre)) continue;
-    vus.add(f.titre);
-    sorties.push({ id: f.id, label: f.titre });
+    const rayon = RAYON_DU_LIEU.get(f.id);
+    const cle = rayon ? `rayon:${rayon.cle}` : `fiche:${f.titre}`;
+    if (vus.has(cle)) continue;
+    vus.add(cle);
+    sorties.push(
+      rayon
+        ? { id: '', label: rayon.label, href: `/services-locaux#${rayon.cle}` }
+        : { id: f.id, label: f.titre },
+    );
     if (sorties.length >= max) break;
   }
   return sorties;

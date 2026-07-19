@@ -23,6 +23,7 @@ export default function NosAdresses() {
   const p = t.localPage;
 
   const [filter, setFilter] = useState<'tout' | 'responsable' | CatKey>('tout');
+
   // « Et si j'etais la ? » — un point pose sur la carte. Tant qu'il est nul, on
   // compte depuis la maison, par la route, avec les km que Mag a saisis.
   // Le depart retient son NOM : sans lui, on ne pouvait pas dire d'ou l'on
@@ -40,6 +41,23 @@ export default function NosAdresses() {
   const [loin, setLoin] = useState<Suggestion[]>([]);
   // Incrementé à chaque tri ou recherche : les fiches se montrent d'un coup.
   const [clicks, setClicks] = useState(0);
+
+  /**
+   * On peut arriver ici sur un rayon precis : « #resto », « #plage »…
+   *
+   * C'est « Demander » qui s'en sert. Ses pastilles ne citent plus les lieux
+   * par leur nom — Mag : « le nom des lieux, je ne suis pas certaine ; plutot
+   * diriger vers le bouton qui coincide, comme manger et boire ». Elles
+   * pointent donc le RAYON, et il faut que le rayon s'ouvre a l'arrivee.
+   */
+  useEffect(() => {
+    const cle = window.location.hash.slice(1) as CatKey;
+    if (cle && cle in CATS) {
+      setFilter(cle);
+      setClicks((c) => c + 1);
+    }
+  }, []);
+
   const [active, setActive] = useState<string | null>(null);
   // Carte ou liste : les deux disent la même chose autrement. La liste répond à
   // « qu'est-ce qu'il y a ? », la carte à « c'est où ? ». La liste d'abord :
