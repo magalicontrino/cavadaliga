@@ -38,6 +38,8 @@ export default function Assistant() {
   const [choisie, setChoisie] = useState<string | null>(null);
   const champ = useRef<HTMLInputElement>(null);
   const panneau = useRef<HTMLDivElement>(null);
+  /** La zone qui defile : l'entete et le champ, eux, ne bougent pas. */
+  const corps = useRef<HTMLDivElement>(null);
 
   const index = useMemo<Fiche[]>(() => construireIndex(t, lang), [t, lang]);
 
@@ -98,7 +100,7 @@ export default function Assistant() {
     setChoisie(null);
     // Une nouvelle reponse arrive tout en haut : on y remonte, sinon elle
     // s'ecrit sous le pli et on croit qu'il ne s'est rien passe.
-    requestAnimationFrame(() => panneau.current?.scrollTo({ top: 0 }));
+    requestAnimationFrame(() => corps.current?.scrollTo({ top: 0 }));
   };
 
   const vider = () => {
@@ -152,24 +154,35 @@ export default function Assistant() {
         role="dialog"
         aria-modal="false"
         aria-label={a.title}
-        className={`fixed z-40 flex flex-col overflow-y-auto overscroll-contain rounded-[28px] shadow-2xl ${
+        className={`fixed z-40 flex flex-col overflow-hidden rounded-[28px] shadow-2xl ${
           ouvert
             ? 'cava-demander-ouvert visible opacity-100'
             : 'invisible translate-y-3 opacity-0 transition-[opacity,transform] duration-300 motion-reduce:transition-none'
-        } inset-x-3 bottom-24 max-h-[82vh] md:inset-x-auto md:bottom-28 md:left-8 md:max-h-[min(42rem,82vh)] md:w-[27rem]`}
+        } inset-x-3 bottom-24 h-[clamp(24rem,62vh,34rem)] max-h-[calc(100dvh-12rem)] md:inset-x-auto md:bottom-28 md:left-8 md:h-[clamp(24rem,58vh,34rem)] md:w-[27rem]`}
         // Blanc franc, et surtout PAS --cava-card : cette variable vaut #2e2d2d,
         // c'est la carte SOMBRE du site. Le panneau sortait noir sur noir.
         //
-        // AUCUNE hauteur minimale : la boite epouse son contenu et ne s'arrete
-        // qu'au plafond. Elle en a porte une, pour ne pas paraitre etriquee ;
-        // ca laissait une flaque blanche sous les exemples, et c'est ce que Mag
-        // a vu en disant « c'est mal proportionne ».
+        // UNE HAUTEUR BORNEE DES DEUX COTES — jamais moins de 24 rem, jamais
+        // plus de 34 rem, et au plus 62 % de l'ecran entre les deux.
         //
-        // Elle la trouvait ensuite trop basse, et voulait « plus d'espaces ».
-        // Les deux demandes n'en font qu'une : c'est l'INTERIEUR qui a grandi —
-        // marges, interlignes, pastilles au doigt — et la hauteur a suivi
-        // toute seule. Forcer un minimum aurait ramene la flaque ; donner de
-        // l'air remplit la meme hauteur avec quelque chose.
+        // Le `max-h` en calc() passe avant le plancher, et c'est voulu : sur un
+        // ecran de 560 px, les 24 rem faisaient remonter la boite SOUS la barre
+        // du haut, qui est au-dessus d'elle (z-50 contre z-40) et lui mangeait
+        // son titre. Mesure au banc : bord haut a 80 px pour une barre qui en
+        // fait 88. La place disponible l'emporte donc sur la hauteur souhaitee
+        // — mieux vaut une boite un peu courte qu'une boite decapitee. Sur un
+        // telephone ordinaire, ce plafond ne se declenche jamais.
+        //
+        // Elle a d'abord epouse son contenu. C'etait juste, mais ca bougeait :
+        // la boite grandissait a la premiere reponse, rapetissait quand on
+        // effaçait, sautait d'une question a l'autre. Une boite qui change de
+        // taille sous le doigt, on ne sait plus ou viser.
+        //
+        // La flaque blanche que ces bornes avaient causee la premiere fois ne
+        // revient pas, parce que ce n'est plus la boite qui s'etire : c'est le
+        // CONTENU qui defile dedans (voir le bloc `flex-1 overflow-y-auto` plus
+        // bas). L'entete et le champ restent en place, la reponse glisse
+        // dessous. Rien ne pousse plus les bords.
         style={{ background: '#fff', boxShadow: '0 24px 60px rgba(46,45,45,0.28)' }}
       >
         {/*
@@ -180,7 +193,7 @@ export default function Assistant() {
           tient 4,9:1 au point le plus clair et 6,3:1 au plus fonce.
         */}
         <div
-          className="sticky top-0 z-20 flex items-center justify-between gap-3 px-6 py-6"
+          className="flex shrink-0 items-center justify-between gap-3 px-6 py-6"
           style={{ background: 'linear-gradient(135deg,#d81f66,#9c1246)', color: '#fff' }}
         >
           {/*
@@ -220,9 +233,9 @@ export default function Assistant() {
             // RANGE le clavier. Sur telephone il couvre la moitie de l'ecran,
             // et la reponse se lisait derriere.
             champ.current?.blur();
-            requestAnimationFrame(() => panneau.current?.scrollTo({ top: 0 }));
+            requestAnimationFrame(() => corps.current?.scrollTo({ top: 0 }));
           }}
-          className="px-6 pb-4 pt-5"
+          className="shrink-0 px-6 pb-4 pt-5"
           style={{ background: '#fff' }}
         >
           <div
@@ -270,7 +283,7 @@ export default function Assistant() {
           </div>
         </form>
 
-        <div className="flex flex-col gap-5 px-6 pb-7">
+        <div ref={corps} className="flex flex-1 flex-col gap-5 overflow-y-auto overscroll-contain px-6 pb-7">
           {/* Rien de tape encore : on montre par ou commencer. Un champ vide
               sans exemple ne dit pas ce qu'on a le droit de demander. */}
           {!question && (
