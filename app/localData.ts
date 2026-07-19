@@ -6,7 +6,7 @@ import type { IconName } from './Icon';
 // Textes visibles dans les 3 langues (fr · it · en).
 // ────────────────────────────────────────────────────────────────────────
 export type Lang = 'fr' | 'it' | 'en';
-export type CatKey = 'huile' | 'agrumes' | 'plantes' | 'marche' | 'resto' | 'supermarche' | 'plage' | 'bricolage' | 'boucherie' | 'randonnee' | 'avoir' | 'tabac';
+export type CatKey = 'huile' | 'agrumes' | 'plantes' | 'marche' | 'resto' | 'supermarche' | 'plage' | 'bricolage' | 'boucherie' | 'randonnee' | 'avoir' | 'tabac' | 'essence';
 
 export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<Lang, string> }> = {
   huile: { icon: 'droplet', bg: 'linear-gradient(135deg,#b89a4a,#856a2c)', label: { fr: 'Huile d’olive', it: 'Olio d’oliva', en: 'Olive oil' } },
@@ -19,6 +19,7 @@ export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<La
   bricolage: { icon: 'tools', bg: 'linear-gradient(135deg,#7b8794,#565f6b)', label: { fr: 'Bricolage', it: 'Ferramenta & fai da te', en: 'DIY & hardware' } },
   randonnee: { icon: 'walk', bg: 'linear-gradient(135deg,#8a9a6b,#5f6b47)', label: { fr: 'Randonnée', it: 'Escursioni', en: 'Hiking' } },
   avoir: { icon: 'landmark', bg: 'linear-gradient(135deg,#7f88a8,#565f7d)', label: { fr: 'À voir', it: 'Da vedere', en: 'Sights' } },
+  essence: { icon: 'car', bg: 'linear-gradient(135deg,#5f8f7a,#3f6b58)', label: { fr: 'Station essence', it: 'Distributore', en: 'Petrol station' } },
   // Le tabacchi n'est pas qu'un bureau de tabac : timbres, tickets de bus,
   // disque de stationnement, loto, journaux. Il meritait son rayon plutot que
   // d'etre range sous « supermarche », ou personne ne l'aurait cherche.
@@ -72,6 +73,7 @@ export const SEARCH_WORDS: WordHint[] = [
   { words: ['huile', 'olio', 'oil', 'olive', 'frantoio', 'frantoi', 'dop'], cat: 'huile' },
   { words: ['vin', 'vino', 'wine', 'apero', 'aperitivo', 'aperitif', 'drink', 'bar', 'cocktail', 'biere', 'birra', 'beer', 'verre', 'soir', 'sera'], ids: ['maracaibo', 'blazer'] },
   { words: ['boucherie', 'macelleria', 'butcher', 'viande', 'carne', 'meat', 'boucher', 'salumi', 'charcuterie'], cat: 'boucherie' },
+  { words: ['essence', 'carburant', 'station', 'station essence', 'pompe', 'gasoil', 'gazole', 'diesel', 'sans plomb', 'benzina', 'distributore', 'carburante', 'gasolio', 'pompa', 'petrol', 'fuel', 'gas station', 'petrol station', 'unleaded', 'faire le plein', 'plein', 'fare il pieno', 'fill up'], cat: 'essence' },
   // Le tabacchi : on y va rarement pour le tabac. Timbres, tickets de bus,
   // disque de stationnement (cite dans « Se garer »), loto, journaux.
   { words: ['tabac', 'tabacchi', 'tabaccheria', 'tabaccaio', 'tobacconist', 'cigarette', 'cigarettes', 'sigarette', 'clope', 'briquet', 'accendino', 'lighter', 'timbre', 'timbres', 'francobollo', 'francobolli', 'stamp', 'stamps', 'carte postale', 'cartolina', 'postcard', 'poste', 'ticket', 'tickets', 'biglietto', 'biglietti', 'bus', 'autobus', 'disque', 'disque de stationnement', 'disco orario', 'parking disc', 'loto', 'lotto', 'gratter', 'gratta e vinci', 'lottery', 'journal', 'journaux', 'giornale', 'giornali', 'newspaper', 'presse', 'edicola', 'recharge', 'ricarica', 'top up'], cat: 'tabac' },
@@ -80,7 +82,7 @@ export const SEARCH_WORDS: WordHint[] = [
   { words: ['voir', 'vedere', 'see', 'monument', 'statue', 'statua', 'panorama', 'belvedere', 'belvédère', 'point de vue', 'viewpoint', 'visite', 'visita', 'curiosite'], cat: 'avoir' },
   { words: ['plage', 'spiaggia', 'beach', 'mer', 'mare', 'sea', 'baignade', 'nager', 'swim', 'sable', 'sabbia', 'sand', 'lido', 'transat'], cat: 'plage' },
   { words: ['courses', 'spesa', 'groceries', 'shopping', 'supermarche', 'supermarket', 'supermercato', 'caddie', 'carrello', 'lessive', 'papier'], cat: 'supermarche' },
-  { words: ['marche', 'mercato', 'market', 'legume', 'verdura', 'vegetables', 'fruit', 'frutta', 'fromage', 'formaggio', 'cheese', 'producteur', 'produttore', 'farmer', 'local', 'bio'], cat: 'marche' },
+  { words: ['marche', 'mercato', 'market', 'horaire', 'horaires', 'orario', 'orari', 'hours', 'opening', 'heure', 'heures', 'ora', 'ore', 'time', 'quel jour', 'che giorno', 'what day', 'mardi', 'martedi', 'tuesday', 'matin', 'mattina', 'morning', 'legume', 'verdura', 'vegetables', 'fruit', 'frutta', 'fromage', 'formaggio', 'cheese', 'producteur', 'produttore', 'farmer', 'local', 'bio'], cat: 'marche' },
   // Ce qu'on met dans un panier, produit par produit. Mag a tape « pomme » et
   // n'a rien eu : la table couvrait les ENVIES (pizza, apero, glace) et les
   // rayons, jamais les articles eux-memes. Or on cherche ce qu'on veut acheter,
@@ -285,9 +287,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     km: 8,
     responsible: true,
     blurb: {
-      fr: 'Le marché hebdomadaire, le mardi, en bordure de Scicli — sur l’aire de foire de contrada Zagarone. Comme partout en Sicile, il se tient le matin et plie en début d’après-midi.',
-      it: 'Il mercato settimanale, il martedì, ai margini di Scicli — nell’area fiera di contrada Zagarone. Come ovunque in Sicilia, si tiene la mattina e smonta nel primo pomeriggio.',
-      en: 'The weekly market, on Tuesdays, on the edge of Scicli — at the contrada Zagarone fairground. As everywhere in Sicily, it runs in the morning and packs up in the early afternoon.' },
+      fr: 'Le marché hebdomadaire, le mardi, en bordure de Scicli — sur l’aire de foire de contrada Zagarone. En principe de 8 h à 13 h : l’horaire n’est publié nulle part officiellement, alors venez tôt plutôt que tard.',
+      it: 'Il mercato settimanale, il martedì, ai margini di Scicli — nell’area fiera di contrada Zagarone. In linea di massima dalle 8 alle 13: l’orario non è pubblicato ufficialmente da nessuna parte, quindi meglio presto che tardi.',
+      en: 'The weekly market, on Tuesdays, on the edge of Scicli — at the contrada Zagarone fairground. Roughly 8 am to 1 pm: the hours are not published officially anywhere, so come early rather than late.' },
   },
   {
     id: 'baqqala',
@@ -366,6 +368,26 @@ export const LOCAL_PLACES: LocalPlace[] = [
       fr: 'Trattoria de poisson à Sampieri, face à la mer. Le poisson du jour, simplement cuisiné.',
       it: 'Trattoria di mare a Sampieri, di fronte al mare. Il pesce del giorno, cucinato semplicemente.',
       en: 'Seafood trattoria in Sampieri, facing the sea. The day’s catch, simply cooked.' },
+  },
+  {
+    /*
+     * La station essence, decrite par Mag et par elle seule : « juste dans la
+     * rue principale en haut de la maison ». Pas de nom, pas de numero — donc
+     * ni l'un ni l'autre ici. Le lien est une RECHERCHE cartographique, pas
+     * une adresse inventee, et le texte donne le repere qui sert vraiment sur
+     * place : la rue principale, en montant.
+     */
+    id: 'essence-cava',
+    name: 'La station essence du village',
+    cat: 'essence',
+    town: 'Cava d\u2019Aliga',
+    url: 'https://www.google.com/maps/search/?api=1&query=distributore+carburante+Cava+d%27Aliga+Scicli+RG',
+    km: 0,
+    responsible: false,
+    blurb: {
+      fr: 'Dans la rue principale, en haut de la maison — on y monte à pied. C’est la plus proche de loin ; la suivante demande la voiture.',
+      it: 'Sulla via principale, sopra la casa — ci si arriva a piedi. È di gran lunga la più vicina; per la successiva serve l’auto.',
+      en: 'On the main street, up above the house — walkable. By far the closest one; the next needs the car.' },
   },
   {
     // Adresse donnee par Mag (lien Google), verifiee : Via Leone Tolstoj est

@@ -88,7 +88,7 @@ export default function NosAdresses() {
   // Les categories qui ont un bouton. Liste ECRITE A LA MAIN, et donc a tenir a
   // jour : ajouter une categorie a CATS ne la fait pas apparaitre ici toute
   // seule. « agrumes » n'y est pas — aucune adresse ne la porte encore.
-  const FILTER_CATS: CatKey[] = ['huile', 'plantes', 'resto', 'supermarche', 'marche', 'boucherie', 'tabac', 'bricolage', 'plage', 'randonnee', 'avoir'];
+  const FILTER_CATS: CatKey[] = ['huile', 'plantes', 'resto', 'supermarche', 'marche', 'boucherie', 'tabac', 'essence', 'bricolage', 'plage', 'randonnee', 'avoir'];
   // « marche » est revenu, avec une seule adresse et un jour verifie a la
   // source. Ses trois entrees d'avant etaient des trouvailles non validees,
   // dont un « mardi » que les annuaires de sortie recopient et que la commune

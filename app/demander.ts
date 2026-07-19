@@ -210,6 +210,22 @@ const MOTS_MAISON: Record<string, string> = {
     + 'banque banca poste posta bureau poste carte bleue carte bancaire visa mastercard paiement payer especes seulement '
     + 'contanti prelevare prelievo sportello automatico bancomat ufficio postale banca carta pagare soldi '
     + 'money cash withdraw withdrawal atm cash machine cashpoint bank post office card visa mastercard pay where to get cash mister cash bancontact',
+  essence:
+    'essence carburant station pompe gasoil gazole diesel sans plomb plein faire le plein reservoir '
+    + 'benzina distributore carburante gasolio pompa fare il pieno serbatoio '
+    + 'petrol fuel gas station unleaded fill up tank',
+  // Le chauffe-eau, les draps, la climatisation : trois questions qu'on se
+  // pose une fois arrive, et auxquelles le site ne repondait pas.
+  'op-drop-plus':
+    'chauffe eau chauffe-eau ballon boiler eau chaude douche scaldabagno acqua calda doccia water heater hot water shower',
+  'op-box':
+    'drap draps linge lit lits armoire tiroir petite chambre couette housse taie oreiller '
+    + 'lenzuolo lenzuola armadio cassetto cameretta federa cuscino '
+    + 'sheet sheets bed linen wardrobe drawer small bedroom duvet pillowcase where are the sheets',
+  'op-sun':
+    'climatisation clim climatiseur air conditionne ventilateur chaud chaleur fraicheur frais volets '
+    + 'aria condizionata condizionatore ventilatore caldo fresco persiane '
+    + 'air conditioning aircon ac fan hot heat cool shutters is there air conditioning',
   tabac:
     'tabac tabacchi tabaccheria bureau tabac cigarette cigarettes clope briquet timbre timbres '
     + 'carte postale ticket tickets bus autobus disque stationnement disco orario loto gratter journal journaux presse '
@@ -273,7 +289,7 @@ const MOTS_MAISON: Record<string, string> = {
   // chocolaterie de Modica : « modica » etait son mot, et « bus » n'etait celui
   // de personne.
   'transport-sais':
-    'bus autobus car navette arret arrets ligne horaire horaires passage village '
+    'bus autobus car navette arret arrets ligne horaire horaires heure heures passe passage village '
     + 'fermata fermate orario orari corriera pullman '
     + 'stop stops timetable schedule coach arret navette ticket billet monter descendre ligne direction plage village voisin fermata biglietto salire scendere linea paese vicino stop ticket board get off line neighbouring village',
   'transport-ast':
