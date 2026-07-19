@@ -67,10 +67,23 @@ export default function Nav({ current }: { current?: string }) {
         de la barre. Mesure au banc : 88 px au lieu de 812. La translation
         posee ici, l'overlay reste sibling et retrouve le viewport.
       */}
+      {/*
+        Menu ouvert : la barre s'efface D'UN COUP, sans transition.
+        L'overlay redessine deja le logo, les langues et un bouton rond a
+        l'emplacement exact du hamburger — les laisser tous les deux peints
+        superposait le ✕ sur le disque noir, et laissait voir les pictos au
+        travers tant que le fondu n'etait pas fini.
+
+        Pire, la barre finissait son glissement pendant ce temps : tapee alors
+        qu'elle remontait, elle partait de -68 px pour rejoindre 20 px en
+        300 ms, quand le ✕ etait deja pose. Mesure au banc : jusqu'a 88 px
+        d'ecart entre les deux boutons, d'ou l'impression de deux menus mal
+        alignes. Invisible, elle peut finir sa course sans que ca se voie.
+      */}
       <div
         className={`pointer-events-auto relative transition-transform duration-300 motion-reduce:transition-none ${
           cache ? '-translate-y-full' : 'translate-y-0'
-        }`}
+        } ${open ? 'invisible' : 'visible'}`}
       >
       {/*
         Le voile givre est LA TOUT LE TEMPS, et c'est le point.
@@ -190,9 +203,17 @@ export default function Nav({ current }: { current?: string }) {
       </div>
 
       {/* Overlay plein écran — hors du conteneur translate (voir plus haut). */}
+      {/*
+        Le fondu est court a l'ouverture, long a la fermeture — volontairement.
+        A l'aller, tant qu'il dure, la page d'accueil se lit EN TRANSPARENCE
+        derriere les mots du menu : le titre du hero, le bouton « Nous ecrire »
+        et les photos se melaient aux libelles. 500 ms suffisaient largement a
+        le remarquer ; 180 ms se lisent comme un basculement franc.
+        Au retour, rien ne gene derriere : le menu peut s'evaporer tranquillement.
+      */}
       <div
-        className={`pointer-events-auto fixed inset-0 z-[60] flex flex-col transition-[opacity,visibility] duration-500 ${
-          open ? 'visible opacity-100' : 'invisible opacity-0'
+        className={`pointer-events-auto fixed inset-0 z-[60] flex flex-col transition-[opacity,visibility] motion-reduce:transition-none ${
+          open ? 'visible opacity-100 duration-[180ms]' : 'invisible opacity-0 duration-500'
         }`}
         style={{ background: 'var(--cava-bg)', color: 'var(--cava-ink)' }}
       >
