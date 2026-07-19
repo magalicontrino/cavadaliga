@@ -2,23 +2,20 @@
 
 import ContactCta from './ContactCta';
 import Marquee from './Marquee';
-import Icon, { type IconName } from './Icon';
+import Icon from './Icon';
 import PersoLink from './PersoLink';
 import { NAV, withBase } from './data';
 import { useI18n, LangSwitcher } from './i18n';
 
 /** Un lien géant du footer — une page du site. */
-function FootLink({ href, label, icon }: { href: string; label: string; icon?: IconName }) {
+function FootLink({ href, label }: { href: string; label: string }) {
   return (
     <a
       href={href}
       className="cava-footlink group flex items-center justify-between border-b py-4 md:py-5"
       style={{ borderColor: 'var(--cava-line)' }}
     >
-      <span className="flex items-center gap-3 text-[clamp(1.7rem,7vw,4.5rem)] uppercase leading-[0.95] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
-        {/* Le picto ne sert qu'au quiz : il dit « ceci est un jeu », au milieu
-            d'une liste de rubriques. Les pages, elles, n'en ont pas besoin. */}
-        {icon && <Icon name={icon} size={28} strokeWidth={1.6} />}
+      <span className="text-[clamp(1.7rem,7vw,4.5rem)] uppercase leading-[0.95] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
         {label}
       </span>
       <span className="cava-footlink-arrow text-[clamp(1.1rem,3vw,2rem)]" aria-hidden>
@@ -52,10 +49,6 @@ export default function Footer() {
           {NAV.map((item, i) => (
             <FootLink key={item.href} href={withBase(item.href)} label={t.nav[item.href]} />
           ))}
-          {/* Le quiz n'est pas une page, mais il se cherche comme une : il a
-              donc sa ligne ici, a la suite des autres, avec son picto pour
-              qu'on voie tout de suite que c'est un jeu et pas une rubrique. */}
-          <FootLink href={`${withBase('/la-region')}#quiz`} label={t.quizPage.title} icon="target" />
         </nav>
 
         {/* Bas de footer — les langues y sont sur TOUS les ecrans : c'est le
@@ -64,6 +57,21 @@ export default function Footer() {
           <PersoLink />
           <LangSwitcher />
         </div>
+
+        {/*
+          Le quiz, tout en bas, sous les langues — la ou Mag l'a place.
+          Il a d'abord ete une ligne geante dans la liste au-dessus : « non,
+          pas dans le menu ». Elle a raison, cette liste ne contient que des
+          PAGES, et le quiz n'en est pas une. Ici il ne promet rien d'autre
+          que ce qu'il est : une porte discrete vers un jeu, avec son picto
+          pour qu'on la reconnaisse sans lire.
+        */}
+        <a
+          href={`${withBase('/la-region')}#quiz`}
+          className="cava-pill mt-8 inline-flex w-fit items-center gap-2 px-5 py-2.5 text-[13px]"
+        >
+          <Icon name="target" size={16} /> {t.quizPage.title}
+        </a>
       </div>
     </footer>
   );

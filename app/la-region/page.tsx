@@ -118,11 +118,20 @@ export default function LaRegion() {
    */
   useEffect(() => {
     const viser = () => {
-      const cle = window.location.hash.slice(1) as Key;
+      // Lu en texte brut, pas en `Key` : « #quiz » n'est justement PAS une
+      // section triable, et le typer comme telle rendait le test impossible.
+      const cle = window.location.hash.slice(1);
+      /*
+       * « #quiz » ne designe pas une section triable : le quiz vit hors des
+       * filtres, tout en bas. Il faut pourtant l'atteindre — le lien du bas de
+       * page y mene depuis n'importe ou. Sans cette ligne, on arrivait en haut
+       * de « La region » : defilement a 0, quiz a 8447 px. Mesure au banc.
+       */
+      if (cle === 'quiz') { allerAuQuiz(); return; }
       if (!cle || !SECTIONS_ANCREES.includes(cle as Section)) return;
-      setFilter(cle);
+      setFilter(cle as Key);
       setClicks((c) => c + 1);
-      setCible(cle);
+      setCible(cle as Key);
     };
     viser();
     window.addEventListener('hashchange', viser);
