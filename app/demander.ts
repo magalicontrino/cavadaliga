@@ -283,6 +283,11 @@ const MOTS_MAISON: Record<string, string> = {
     'cafe caffe expresso espresso ristretto macchiato cappuccino comptoir bar matin granita brioche '
     + 'colazione banco mattina '
     + 'coffee breakfast counter morning comptoir debout sucre lait mousse tasse petit dejeuner croissant banco in piedi zucchero latte schiuma tazza colazione cornetto counter standing sugar milk foam cup breakfast pastry',
+  // « quiz » s'ecrit avec un z, deux z, ou pas du tout — on prend les trois.
+  quiz:
+    'quiz quizz quizs questionnaire jeu jouer question questions test s amuser distraire connaissances culture '
+    + 'gioco giocare quiz domande test divertirsi conoscenze '
+    + 'game play questions test fun trivia knowledge how well do you know',
   'region-lieux':
     'baroque unesco patrimoine ville villes village alentour autour visiter visite excursion journee '
     + 'scicli modica raguse ragusa noto syracuse siracusa donnalucata sampieri marina '
@@ -517,6 +522,16 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     titre: t.placesTitle,
     lignes: [t.placesIntro, ...t.regionPlaces.slice(0, 4)],
     mots: motsMaison('region-lieux'),
+  });
+
+  // Le quiz. Mag a tape « quizz » : rien. Rien du tout — ni pastille, ni aveu.
+  // Un jeu qu'on ne trouve pas n'existe pas.
+  ajouter({
+    id: 'quiz',
+    page: '/la-region#quiz',
+    titre: t.quizPage.title,
+    lignes: [t.quizPage.intro],
+    mots: motsMaison('quiz'),
   });
 
   // Les evenements et les fetes : une page a elle seule, jamais indexee.

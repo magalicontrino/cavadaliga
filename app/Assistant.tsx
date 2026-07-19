@@ -45,6 +45,18 @@ export default function Assistant() {
    * commande a nouveau.
    */
   const [epinglee, setEpinglee] = useState<string | null>(null);
+  /**
+   * On a appuye sur la fleche.
+   *
+   * Tant qu'on tape, une frappe courte ne merite pas « je ne trouve pas » :
+   * « zt » est un debut de mot, pas une question. Mais la fleche, elle, dit
+   * « j'ai fini, reponds-moi ». Mag l'a vu tout de suite : elle a tape
+   * « quizz », clique, et il ne s'est RIEN passe. Un bouton qui ne fait rien
+   * est pire qu'un aveu — on ne sait meme pas si on a ete entendu.
+   *
+   * Toute frappe suivante l'oublie : on est reparti a ecrire.
+   */
+  const [valide, setValide] = useState(false);
   const champ = useRef<HTMLInputElement>(null);
   const panneau = useRef<HTMLDivElement>(null);
   /** La zone de contenu. Elle ne defile plus — voir le commentaire de la
@@ -278,6 +290,7 @@ export default function Assistant() {
 
   const vider = () => {
     setQ('');
+    setValide(false);
     setChoisie(null);
     setEpinglee(null);
     // On remet aussi la MISE EN PAGE a zero : sans ca, la boite pouvait rester
@@ -329,7 +342,7 @@ export default function Assistant() {
    * pas » serait a la fois faux et decourageant.
    */
   const vraieQuestion = motsDe(question).length >= 2 || question.length >= 6;
-  const montrerRefus = pause && !enAvant && !pistes.length && vraieQuestion;
+  const montrerRefus = pause && !enAvant && !pistes.length && (vraieQuestion || valide);
 
   const sujet = encodeURIComponent(question ? `${t.askMag.subject} — ${question}` : t.askMag.subject);
 
@@ -622,6 +635,7 @@ export default function Assistant() {
             // La reponse s'ecrit deja a la frappe : valider ne relance rien, ca
             // RANGE le clavier. Sur telephone il couvre la moitie de l'ecran,
             // et la reponse se lisait derriere.
+            setValide(true);
             champ.current?.blur();
             requestAnimationFrame(() => corps.current?.scrollTo({ top: 0 }));
           }}
@@ -681,6 +695,7 @@ export default function Assistant() {
               value={q}
               onChange={(e) => {
                 setQ(e.target.value);
+                setValide(false);
                 setEpinglee(null);
               }}
               placeholder={a.placeholder}
