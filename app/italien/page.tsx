@@ -572,8 +572,17 @@ export default function Italien() {
                 {ex.question}
               </p>
 
-              {/* Les reponses en clair, a portee de pouce dans la feuille. */}
-              <div className="flex flex-col gap-3">
+              {/*
+                Les reponses. En COLONNE PLEINE sur telephone : dans la
+                feuille, on repond au pouce, et une cible large se touche sans
+                viser. En RANGEE des qu'il y a de la place — Mag : « moins longs
+                les boutons, non ? ». Elle a raison : etires sur toute la
+                largeur d'un ecran, trois mots deviennent trois barres de
+                1 900 px, et on ne lit plus des reponses mais des lignes de
+                formulaire. Ils se calent donc sur leur texte, et se rangent
+                cote a cote.
+              */}
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 {choix.map((c) => boutonChoix(c, !valide))}
               </div>
 
