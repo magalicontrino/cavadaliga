@@ -347,6 +347,38 @@ export type Dict = {
    * « Republique de Comiso » a tenu six jours a vingt kilometres de la
    * maison. C'est de l'histoire locale, pas un cours general.
    */
+  /**
+   * Le cours d'italien. Le CONTENU (phrases, tableaux, exercices) vit dans
+   * app/italienData.ts, pas ici : l'italien enseigne ne doit exister qu'une
+   * fois, sinon les trois versions du site finiraient par enseigner trois
+   * italiens differents. Ici, seulement le decor de la page.
+   */
+  italianPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    methodTitle: string;
+    method: string;
+    soundTitle: string;
+    soundIntro: string;
+    talkTitle: string;
+    talkIntro: string;
+    grammarTitle: string;
+    grammarIntro: string;
+    whenLabel: string;
+    howLabel: string;
+    trapLabel: string;
+    drillTitle: string;
+    drillIntro: string;
+    check: string;
+    good: string;
+    wrong: string;
+    next: string;
+    again: string;
+    score: string;
+    progress: string;
+    start: string;
+  };
   booksPage: {
     eyebrow: string;
     title: string;
@@ -997,6 +1029,32 @@ const FR: Dict = {
     antsTitle: 'Les fourmis',
     antsText: 'C’est la vraie raison de tout ce qui précède. Elles ne piquent pas et ne transportent rien de grave, mais une fois qu’une file a trouvé le chemin du sucre, elle le refait pendant des jours. On ne les combat pas : on ne leur donne rien.',
     faunaLink: 'Qui vit ici — geckos, lézards, serpents, scorpions',
+  },
+  italianPage: {
+    eyebrow: 'Apprendre l’italien',
+    title: 'Parler italien ici',
+    intro: 'Pas un cours de grammaire : de quoi se débrouiller dès le premier matin, puis comprendre ce qu’on dit. On commence par prononcer, on continue par des phrases entières, la grammaire vient après — et on s’entraîne à la fin.',
+    methodTitle: 'Comment s’en servir',
+    method: 'Dix minutes par jour valent mieux qu’une heure le dimanche. Lisez à voix haute, même seul, même mal : l’italien s’attrape par l’oreille et par la bouche, pas par les yeux. Ne cherchez pas à tout retenir — prenez les trois phrases dont vous avez besoin aujourd’hui, servez-vous-en pour de vrai, et revenez demain. C’est le principe des méthodes qui marchent, celle d’Assimil la première : des leçons courtes, des phrases entières, et la règle expliquée seulement une fois qu’on la dit déjà.',
+    soundTitle: 'D’abord, prononcer',
+    soundIntro: 'Huit règles et vous lisez l’italien à voix haute sans vous tromper. C’est la vraie porte d’entrée : on pardonne une faute de grammaire, on ne comprend pas un mot mal prononcé. L’accent tonique est marqué en majuscules.',
+    talkTitle: 'Parler, par situation',
+    talkIntro: 'Des phrases entières, à resservir telles quelles. On n’a jamais besoin du mot « café » tout seul — on a besoin de savoir commander un café.',
+    grammarTitle: 'Les trois temps',
+    grammarIntro: 'Le présent, le passé, le futur. Dans cet ordre : le présent porte l’essentiel et remplace même le futur proche ; le futur est celui dont on se passe le plus facilement.',
+    whenLabel: 'Quand s’en servir',
+    howLabel: 'Comment ça se fabrique',
+    trapLabel: 'Ce qui piège',
+    drillTitle: 'S’entraîner',
+    drillIntro: 'Douze exercices, corrigés tout de suite et expliqués. Une réponse fausse sans explication ne sert à rien : on retient l’erreur aussi bien que la solution.',
+    check: 'Vérifier',
+    good: 'C’est ça',
+    wrong: 'Pas tout à fait',
+    next: 'Exercice suivant',
+    again: 'Recommencer',
+    score: '{n} bonnes réponses sur {t}',
+    progress: 'Exercice {n} sur {t}',
+    start: 'Commencer les exercices',
   },
   booksPage: {
     eyebrow: 'Des livres',
@@ -1864,6 +1922,32 @@ const IT: Dict = {
     antsText: 'È il vero motivo di tutto quanto sopra. Non pungono e non portano nulla di grave, ma una volta che una fila ha trovato la strada dello zucchero la rifà per giorni. Non si combattono: non si dà loro niente.',
     faunaLink: 'Chi vive qui — gechi, lucertole, serpenti, scorpioni',
   },
+  italianPage: {
+    eyebrow: 'Imparare l’italiano',
+    title: 'Parlare italiano qui',
+    intro: 'Non un corso di grammatica: quanto basta per cavarsela dal primo mattino, e poi per capire quello che si dice. Prima la pronuncia, poi frasi intere, la grammatica dopo — e alla fine gli esercizi. Questa versione serve soprattutto a chi vuole rivedere le regole o aiutare qualcuno a impararle.',
+    methodTitle: 'Come usarlo',
+    method: 'Dieci minuti al giorno valgono più di un’ora la domenica. Leggete ad alta voce, anche da soli, anche male. Non cercate di ricordare tutto: prendete le tre frasi che vi servono oggi, usatele davvero, e tornate domani. È il principio dei metodi che funzionano, a cominciare da Assimil: lezioni brevi, frasi intere, e la regola spiegata solo quando la si dice già.',
+    soundTitle: 'Prima, la pronuncia',
+    soundIntro: 'Otto regole e si legge l’italiano ad alta voce senza sbagliare. L’accento tonico è segnato in maiuscolo.',
+    talkTitle: 'Parlare, per situazione',
+    talkIntro: 'Frasi intere, da riutilizzare così come sono. Non serve mai la parola « caffè » da sola: serve saperlo ordinare.',
+    grammarTitle: 'I tre tempi',
+    grammarIntro: 'Presente, passato, futuro. In quest’ordine: il presente regge quasi tutto e sostituisce perfino il futuro vicino.',
+    whenLabel: 'Quando si usa',
+    howLabel: 'Come si forma',
+    trapLabel: 'Dove si sbaglia',
+    drillTitle: 'Esercitarsi',
+    drillIntro: 'Dodici esercizi, corretti subito e spiegati. Una risposta sbagliata senza spiegazione non serve a nulla.',
+    check: 'Verifica',
+    good: 'Esatto',
+    wrong: 'Non proprio',
+    next: 'Esercizio successivo',
+    again: 'Ricominciare',
+    score: '{n} risposte giuste su {t}',
+    progress: 'Esercizio {n} di {t}',
+    start: 'Iniziare gli esercizi',
+  },
   booksPage: {
     eyebrow: 'Libri',
     title: 'Da leggere prima, durante, dopo',
@@ -2729,6 +2813,32 @@ const EN: Dict = {
     antsTitle: 'The ants',
     antsText: 'They are the real reason for everything above. They do not sting and carry nothing serious, but once a line has found the way to the sugar it will take it again for days. You do not fight them: you give them nothing.',
     faunaLink: 'Who lives here — geckos, lizards, snakes, scorpions',
+  },
+  italianPage: {
+    eyebrow: 'Learning Italian',
+    title: 'Speaking Italian here',
+    intro: 'Not a grammar course: enough to get by from the first morning, and then to understand what you are saying. Pronunciation first, whole sentences next, grammar after that — and exercises at the end.',
+    methodTitle: 'How to use it',
+    method: 'Ten minutes a day beats an hour on Sunday. Read out loud, even alone, even badly: Italian is caught by ear and mouth, not by eye. Do not try to remember everything — take the three sentences you need today, actually use them, and come back tomorrow. That is the principle behind the methods that work, Assimil first among them: short lessons, whole sentences, and the rule explained only once you are already saying it.',
+    soundTitle: 'First, the sounds',
+    soundIntro: 'Eight rules and you can read Italian aloud without going wrong. This is the real front door: people forgive a grammar mistake, but they cannot understand a mispronounced word. Stress is marked in capitals.',
+    talkTitle: 'Speaking, by situation',
+    talkIntro: 'Whole sentences, to be reused exactly as they are. You never need the word “coffee” on its own — you need to know how to order one.',
+    grammarTitle: 'The three tenses',
+    grammarIntro: 'Present, past, future. In that order: the present carries most of the load and even stands in for the near future; the future is the one you can most easily do without.',
+    whenLabel: 'When to use it',
+    howLabel: 'How it is built',
+    trapLabel: 'Where it trips you',
+    drillTitle: 'Practice',
+    drillIntro: 'Twelve exercises, marked at once and explained. A wrong answer with no explanation is worthless: you remember the mistake just as well as the fix.',
+    check: 'Check',
+    good: 'That is it',
+    wrong: 'Not quite',
+    next: 'Next exercise',
+    again: 'Start again',
+    score: '{n} correct out of {t}',
+    progress: 'Exercise {n} of {t}',
+    start: 'Start the exercises',
   },
   booksPage: {
     eyebrow: 'Books',

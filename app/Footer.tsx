@@ -66,15 +66,28 @@ export default function Footer() {
           que ce qu'il est : une porte discrete vers un jeu, avec son picto
           pour qu'on la reconnaisse sans lire.
         */}
-        <a
-          href={`${withBase('/la-region')}#quiz`}
-          aria-label={t.quizPage.title}
-          title={t.quizPage.title}
-          className="cava-vinyllink mt-8 flex h-12 w-12 items-center justify-center rounded-full"
-          style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
-        >
-          <Icon name="hourglass" size={24} />
-        </a>
+        {/* Le jeu et le cours d'italien, cote a cote : ce sont les deux
+            choses du site qu'on FAIT au lieu de les lire. */}
+        <div className="mt-8 flex items-center gap-3">
+          <a
+            href={`${withBase('/la-region')}#quiz`}
+            aria-label={t.quizPage.title}
+            title={t.quizPage.title}
+            className="cava-vinyllink flex h-12 w-12 items-center justify-center rounded-full"
+            style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
+          >
+            <Icon name="hourglass" size={24} />
+          </a>
+          <a
+            href={withBase('/italien')}
+            aria-label={t.italianPage.title}
+            title={t.italianPage.title}
+            className="cava-vinyllink flex h-12 w-12 items-center justify-center rounded-full"
+            style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
+          >
+            <Icon name="parler" size={24} />
+          </a>
+        </div>
       </div>
     </footer>
   );

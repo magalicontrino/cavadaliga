@@ -370,6 +370,13 @@ const MOTS_MAISON: Record<string, string> = {
     'quiz quizz quizs questionnaire jeu jouer question questions test s amuser distraire connaissances culture '
     + 'gioco giocare quiz domande test divertirsi conoscenze '
     + 'game play questions test fun trivia knowledge how well do you know',
+  italien:
+    'italien italienne langue parler apprendre cours lecon lecons vocabulaire grammaire conjugaison verbe verbes '
+    + 'prononcer prononciation accent traduire traduction phrase phrases mot mots dire comment dit on exercice exercices '
+    + 'present passe futur compose participe auxiliaire infinitif terminaison passato prossimo semplice presente futuro '
+    + 'bonjour merci sil vous plait commander demander politesse tutoyer vouvoyer '
+    + 'italiano lingua parlare imparare corso lezione vocabolario grammatica coniugazione pronuncia tradurre frase esercizio '
+    + 'italian language speak learn course lesson vocabulary grammar conjugation pronunciation translate phrase exercise how do you say',
   'region-livres':
     'livre livres lire lecture roman romans auteur ecrivain bouquin bibliotheque histoire sicilienne '
     + 'occhipinti corti gattopardo lampedusa sciascia levi vittorini verga camilleri malavoglia civetta conversazione '
@@ -675,6 +682,16 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     titre: t.historyPage.title,
     lignes: [t.historyPage.intro, ...t.historyPage.facts.map((f) => `${f.title} — ${f.text}`), t.historyPage.note],
     mots: motsMaison('region-histoire'),
+  });
+
+  // Le cours d'italien : une page a lui, et le chat doit y mener — c'est
+  // typiquement ce qu'on demande a voix basse avant d'entrer dans un magasin.
+  ajouter({
+    id: 'italien',
+    page: '/italien',
+    titre: t.italianPage.title,
+    lignes: [t.italianPage.intro, t.italianPage.soundIntro, t.italianPage.talkIntro, t.italianPage.grammarIntro],
+    mots: motsMaison('italien'),
   });
 
   // Le quiz. Mag a tape « quizz » : rien. Rien du tout — ni pastille, ni aveu.

@@ -9,6 +9,7 @@ export type IconName =
   | 'car'
   | 'hourglass'
   | 'tabac'
+  | 'parler'
   | 'robot'
   | 'chat'
   | 'key'
@@ -371,6 +372,19 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
     <>
       <rect x="3.5" y="3.5" width="17" height="17" rx="2.5" />
       <path d="M8 8.6h8M12 8.6v6.8" />
+    </>
+  ),
+  /*
+   * Deux bulles qui se repondent — le cours d'italien.
+   *
+   * Pas la bulle unique de « Demander » : celle-la veut dire « posez votre
+   * question ». Deux bulles, c'est un echange, donc une langue qu'on parle.
+   * La petite est decalee et plus basse, comme une reponse qui arrive.
+   */
+  parler: (
+    <>
+      <path d="M3 6.5a2 2 0 012-2h9a2 2 0 012 2v4a2 2 0 01-2 2H8l-3.5 3v-3H5a2 2 0 01-2-2v-4z" />
+      <path d="M18 9.5h1a2 2 0 012 2v4a2 2 0 01-2 2h-.5v2.5l-3-2.5h-3" />
     </>
   ),
   /*
