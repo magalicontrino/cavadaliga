@@ -293,7 +293,9 @@ export default function Assistant() {
    * propositions tirees de l'index, qui suivent la frappe lettre par lettre.
    */
   /** Ce que l'index sait proposer sur ce qu'on tape. Vide = aucune piste. */
-  const pistes = useMemo(() => (question ? proposer(question, index) : []), [question, index]);
+  // Douze plutot que six : trois lignes qui defilent tiennent bien plus qu'une
+  // grappe qui retombe a la ligne, et c'est tout l'interet du ruban.
+  const pistes = useMemo(() => (question ? proposer(question, index, 12) : []), [question, index]);
 
   /*
    * IL Y A TOUJOURS DES PASTILLES — Mag : « fais-le pour chaque frappe, pour
@@ -529,7 +531,47 @@ export default function Assistant() {
              * en a plus. Le contenu repart alors du haut et ne deborde que par
              * le bas, la ou la mesure le voit et peut agir.
              */
-            <div className="my-auto flex flex-wrap gap-2.5">
+            /*
+             * LE RUBAN : trois lignes en maconnerie, qui defilent ENSEMBLE.
+             *
+             * Mag l'a demande en voyant les pastilles retomber a la ligne et
+             * manger la hauteur de la boite. Restait a trancher : trois lignes
+             * qui glissent chacune de son cote, ou d'un seul bloc ?
+             *
+             * D'un seul bloc. Dans une boite large de six centimetres, trois
+             * zones de defilement independantes veulent dire qu'un glissement
+             * du pouce n'en bouge qu'une — on croit avoir tout vu alors que
+             * deux lignes sur trois n'ont pas bouge. Un seul geste montre
+             * tout, et la maconnerie tient quand meme : les pastilles n'ont
+             * pas la meme largeur, les colonnes se decalent d'elles-memes.
+             *
+             * `gridAutoFlow: 'column'` fait le travail : on remplit de haut en
+             * bas, puis on passe a la colonne suivante. Les lignes restent donc
+             * alignees, ce qu'un `flex-wrap` ne sait pas faire.
+             */
+            <div
+              className="cava-swipe my-auto -mx-6 shrink-0 overflow-x-auto px-6"
+              style={{
+                // Un voile sur le bord droit : il dit qu'il y a une suite, sans
+                // barre de defilement — Mag n'en veut pas, et sur telephone il
+                // n'y en a de toute facon aucune a voir.
+                maskImage: 'linear-gradient(to right, #000 calc(100% - 20px), transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to right, #000 calc(100% - 20px), transparent 100%)',
+              }}
+            >
+              <div
+                className="grid w-max gap-2.5"
+                style={{
+                  // Les crans ne coupent plus les pastilles : ils enlevent des
+                  // LIGNES. On garde donc l'acces a tout, clavier leve — il
+                  // suffit de faire glisser. Avant, quatre a six pastilles sur
+                  // huit disparaissaient purement et simplement.
+                  gridTemplateRows: `repeat(${[3, 3, 2, 2, 1][serrer] ?? 1}, auto)`,
+                  gridAutoFlow: 'column',
+                  gridAutoColumns: 'max-content',
+                  justifyItems: 'start',
+                }}
+              >
               {/*
                 MOINS DE PASTILLES quand la place manque. Les crans ne
                 touchaient que la fiche de reponse : les huit pastilles
@@ -537,7 +579,7 @@ export default function Assistant() {
                 Elles suivent maintenant le meme resserrement — jamais moins de
                 deux, pour qu'il reste toujours quelque chose a toucher.
               */}
-              {propositions.slice(0, [8, 6, 4, 3, 2][serrer] ?? 2).map((s, i) => {
+              {propositions.map((s, i) => {
                 // Deux sortes de pastilles : celles qui ouvrent une fiche ici
                 // meme, et celles qui menent au bon rayon de « Nos adresses ».
                 // Les secondes portent une fleche — on quitte la boite.
@@ -567,6 +609,7 @@ export default function Assistant() {
                   </button>
                 );
               })}
+              </div>
             </div>
           )}
 
