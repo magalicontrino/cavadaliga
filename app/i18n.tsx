@@ -393,6 +393,7 @@ export type Dict = {
     answerCta: string;
     answerChange: string;
     sheetClose: string;
+    planDesc: string[];
   };
   booksPage: {
     eyebrow: string;
@@ -1052,6 +1053,15 @@ const FR: Dict = {
     answerCta: 'Répondre',
     answerChange: 'Changer',
     sheetClose: 'Fermer',
+    planDesc: [
+      'Les sons de l’italien, et comment les dire juste.',
+      'Des phrases entières, prêtes pour chaque situation.',
+      'Le temps de tous les jours — demander, commander, se présenter.',
+      'Raconter ce qui s’est déjà passé.',
+      'Dire ce qu’on fera, sans se tromper de terminaison.',
+      'S’entraîner, une question à la fois, le score à la fin.',
+      'Où continuer : applis, livres et sites choisis.',
+    ],
     title: 'Parler italien ici',
     intro: 'Pas un cours de grammaire : de quoi se débrouiller dès le premier matin, puis comprendre ce qu’on dit. On commence par prononcer, on continue par des phrases entières, la grammaire vient après — et on s’entraîne à la fin.',
     methodTitle: 'Comment s’en servir',
@@ -1959,6 +1969,15 @@ const IT: Dict = {
     answerCta: 'Rispondi',
     answerChange: 'Cambia',
     sheetClose: 'Chiudi',
+    planDesc: [
+      'I suoni dell’italiano, e come pronunciarli bene.',
+      'Frasi intere, pronte per ogni situazione.',
+      'Il tempo di tutti i giorni — chiedere, ordinare, presentarsi.',
+      'Raccontare ciò che è già successo.',
+      'Dire ciò che si farà, senza sbagliare la desinenza.',
+      'Allenarsi, una domanda alla volta, il punteggio alla fine.',
+      'Dove continuare: app, libri e siti scelti.',
+    ],
     title: 'Parlare italiano qui',
     intro: 'Non un corso di grammatica: quanto basta per cavarsela dal primo mattino, e poi per capire quello che si dice. Prima la pronuncia, poi frasi intere, la grammatica dopo — e alla fine gli esercizi. Questa versione serve soprattutto a chi vuole rivedere le regole o aiutare qualcuno a impararle.',
     methodTitle: 'Come usarlo',
@@ -2866,6 +2885,15 @@ const EN: Dict = {
     answerCta: 'Answer',
     answerChange: 'Change',
     sheetClose: 'Close',
+    planDesc: [
+      'The sounds of Italian, and how to get them right.',
+      'Whole sentences, ready for every situation.',
+      'The everyday tense — asking, ordering, introducing yourself.',
+      'Telling what has already happened.',
+      'Saying what you’ll do, with the right ending.',
+      'Practise, one question at a time, score at the end.',
+      'Where to go next: apps, books and hand-picked sites.',
+    ],
     title: 'Speaking Italian here',
     intro: 'Not a grammar course: enough to get by from the first morning, and then to understand what you are saying. Pronunciation first, whole sentences next, grammar after that — and exercises at the end.',
     methodTitle: 'How to use it',
