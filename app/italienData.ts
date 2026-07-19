@@ -326,6 +326,12 @@ export const LECONS: Lecon[] = [
       { it: 'Né dio né padrone', pron: 'né DI·o né pa·DRO·ne', sens: { fr: 'Ni dieu ni maître', it: 'Motto anarchico', en: 'No gods, no masters' },
         note: { fr: 'Padrone veut dire le patron, le propriétaire, le maître — les trois à la fois.', it: 'Padrone: il capo, il proprietario, il padrone di casa.', en: 'Padrone means boss, owner and master all at once.' } },
       { it: 'L’unione fa la forza', pron: 'lu·NIO·ne fa la FOR·za', sens: { fr: 'L’union fait la force', it: 'Proverbio, e slogan', en: 'Unity is strength' } },
+      { it: 'Ora e sempre Resistenza', pron: 'O·ra e SEM·pre re·si·STEN·za', sens: { fr: '« Maintenant et toujours, Résistance » — la formule de Piero Calamandrei', it: 'La formula di Piero Calamandrei', en: '“Now and always, Resistance” — Piero Calamandrei’s phrase' },
+        note: { fr: 'Gravée sur les monuments aux partisans dans toute l’Italie. On la lit encore sur les murs le 25 avril, jour de la Libération.', it: 'Incisa sui monumenti ai partigiani. Si legge ancora sui muri il 25 aprile.', en: 'Carved on partisan memorials across Italy. Still written on walls every 25 April, Liberation Day.' } },
+      { it: 'Odio gli indifferenti', pron: 'O·dio gli in·dif·fe·REN·ti', sens: { fr: '« Je hais les indifférents » — Antonio Gramsci, 1917', it: '« Odio gli indifferenti » — Antonio Gramsci, 1917', en: '“I hate the indifferent” — Antonio Gramsci, 1917' },
+        note: { fr: 'La phrase la plus citée de Gramsci, écrite à vingt-six ans dans La Città Futura. Elle vise ceux qui ne prennent pas parti.', it: 'La frase più citata di Gramsci, scritta a ventisei anni su La Città Futura.', en: 'Gramsci’s most quoted line, written at twenty-six in La Città Futura. It is aimed at those who take no side.' } },
+      { it: 'Pessimismo dell’intelligenza, ottimismo della volontà', pron: 'pes·si·MI·smo · ot·ti·MI·smo', sens: { fr: '« Pessimisme de l’intelligence, optimisme de la volonté » — Gramsci', it: 'La formula che Gramsci riprende da Romain Rolland', en: '“Pessimism of the intellect, optimism of the will” — Gramsci' },
+        note: { fr: 'Gramsci l’emprunte à Romain Rolland et en fait sa devise. Voir clair sans renoncer à agir : tout le programme en six mots.', it: 'Gramsci la riprende da Romain Rolland e la fa sua.', en: 'Gramsci borrowed it from Romain Rolland and made it his motto: see clearly, act anyway.' } },
       // Des figures, pas seulement des slogans : des anarchistes italiens qu'on
       // peut nommer. Chaque phrase est au passe compose — le temps du cours — et
       // les noms renvoient a Wikipedia (voir REFERENCES dans la page).
@@ -631,6 +637,18 @@ export const EXERCICES: Exercice[] = [
     consigne: { fr: 'Futur d’essere, troisième personne — « ce sera une longue lutte ».', it: 'Futuro di essere, terza persona.', en: 'Future of essere, third person — “it will be a long struggle”.' },
     choix: ['Sarà', 'Sarai', 'Saremo'],
     pourquoi: { fr: 'Essere au futur : sarò, sarai, sarà, saremo, sarete, saranno. Et « sarà » sert aussi à supposer : « ça doit être ça ».', it: 'Essere al futuro: sarò, sarai, sarà… « Sarà » serve anche per supporre.', en: 'Essere in the future: sarò, sarai, sarà, saremo, sarete, saranno. And “sarà” also expresses a guess.' },
+  },
+  {
+    question: '___ gli indifferenti.',
+    consigne: { fr: 'Présent d’odiare (haïr), première personne. C’est le début de la phrase la plus connue de Gramsci.', it: 'Presente di odiare, prima persona: l’inizio della frase più nota di Gramsci.', en: 'Present of odiare (to hate), first person — the opening of Gramsci’s best-known line.' },
+    choix: ['Odio', 'Odia', 'Odiamo'],
+    pourquoi: { fr: 'Odiare suit le modèle de parlare : odio, odi, odia, odiamo, odiate, odiano. Gramsci écrit « Odio gli indifferenti » en 1917, à vingt-six ans.', it: 'Odiare segue parlare: odio, odi, odia… Gramsci scrive « Odio gli indifferenti » nel 1917.', en: 'Odiare follows the parlare pattern: odio, odi, odia, odiamo, odiate, odiano. Gramsci wrote “Odio gli indifferenti” in 1917, aged twenty-six.' },
+  },
+  {
+    question: 'Il fascismo non ___.',
+    consigne: { fr: 'Futur de passare (passer), troisième personne — « le fascisme ne passera pas ».', it: 'Futuro di passare, terza persona.', en: 'Future of passare, third person — “fascism shall not pass”.' },
+    choix: ['passerà', 'passera', 'passarà'],
+    pourquoi: { fr: 'Les verbes en -are changent le a en e au futur : passare donne passerò, passerai, passerà. Et l’accent de la troisième personne s’écrit : passerà.', it: 'I verbi in -are cambiano la a in e: passerà, con l’accento scritto.', en: 'Verbs in -are turn the a into an e in the future: passare gives passerò, passerai, passerà — and the accent is written.' },
   },
   {
     question: 'Chi ___ decidere per noi?',
