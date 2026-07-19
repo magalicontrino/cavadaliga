@@ -471,10 +471,8 @@ export default function Assistant() {
           // collait sous l'aplat rose de l'entete, et l'aveu « je ne trouve
           // pas » y touchait aussi.
           data-serrer={serrer}
-          className={`flex flex-1 flex-col gap-4 px-6 pb-7 pt-6 ${
+          className={`flex flex-1 flex-col justify-start gap-4 px-6 pb-7 pt-6 ${
             deborde ? 'overflow-y-auto overscroll-contain' : 'overflow-hidden'
-          } ${
-            enAvant || montrerRefus ? 'justify-start' : 'justify-center'
           }`}
         >
           {/* Rien de tape encore : on montre par ou commencer. Un champ vide
@@ -493,8 +491,30 @@ export default function Assistant() {
             cherchait.
           */}
           {!enAvant && !montrerRefus && (
-            <div className="flex flex-wrap gap-2.5">
-              {propositions.map((s, i) => {
+            /*
+             * `my-auto` — et surtout PAS `justify-center` sur le conteneur.
+             *
+             * Mag l'a vu sur son telephone, clavier leve : les pastilles
+             * etaient coupees EN HAUT ET EN BAS. C'est la signature d'un
+             * contenu centre trop grand pour sa boite — il deborde des deux
+             * cotes a la fois. Pire, ca rendait ma mesure aveugle :
+             * `scrollHeight` n'attrape pas un debordement symetrique, donc le
+             * resserrement ne se declenchait jamais.
+             *
+             * Une marge automatique, elle, absorbe la place libre quand il y en
+             * a — les pastilles restent centrees — et tombe a zero quand il n'y
+             * en a plus. Le contenu repart alors du haut et ne deborde que par
+             * le bas, la ou la mesure le voit et peut agir.
+             */
+            <div className="my-auto flex flex-wrap gap-2.5">
+              {/*
+                MOINS DE PASTILLES quand la place manque. Les crans ne
+                touchaient que la fiche de reponse : les huit pastilles
+                restaient, et quatre a six se faisaient couper clavier leve.
+                Elles suivent maintenant le meme resserrement — jamais moins de
+                deux, pour qu'il reste toujours quelque chose a toucher.
+              */}
+              {propositions.slice(0, [8, 6, 4, 3, 2][serrer] ?? 2).map((s, i) => {
                 // Deux sortes de pastilles : celles qui ouvrent une fiche ici
                 // meme, et celles qui menent au bon rayon de « Nos adresses ».
                 // Les secondes portent une fleche — on quitte la boite.
