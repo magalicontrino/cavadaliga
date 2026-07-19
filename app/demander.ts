@@ -834,7 +834,12 @@ export function proposer(saisie: string, index: Fiche[], max = 6): Proposition[]
       if (titre.startsWith(prefixe)) note = 10;
       else if (motsTitre.some((m) => m.startsWith(prefixe))) note = 8;
       else if ([...f.mots, ...(f.motsPrecis ?? [])].some((m) => m.startsWith(prefixe))) note = 6;
-      else if (titre.includes(prefixe)) note = 3;
+      // « Selon le DEBUT des resultats », dit Mag — d'ou le seuil de trois
+      // lettres ici. Accepter une correspondance au MILIEU d'un titre des la
+      // premiere lettre proposait n'importe quoi : « x » sortait les bus SAIS.
+      // A trois lettres la trouvaille redevient probable — « stronomia »
+      // retrouve la Gastronomia — et la regle reprend.
+      else if (prefixe.length >= 3 && titre.includes(prefixe)) note = 3;
       if (!note) return null;
       // Un mot deja tape qui retombe sur la meme fiche la fait remonter.
       if (avant.some((m) => f.mots.includes(m) || f.motsPrecis?.includes(m) || motsTitre.includes(m))) note += 4;

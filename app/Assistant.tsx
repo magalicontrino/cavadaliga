@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Icon from './Icon';
 import { SITE, withBase } from './data';
 import { useI18n } from './i18n';
-import { chercher, construireIndex, motsDe, proposer, type Fiche, type Proposition, type Reponse } from './demander';
+import { chercher, construireIndex, proposer, type Fiche, type Proposition, type Reponse } from './demander';
 
 /**
  * Les couleurs des exemples — celles que Mag a choisies pour l'arbre.
@@ -45,18 +45,6 @@ export default function Assistant() {
    * commande a nouveau.
    */
   const [epinglee, setEpinglee] = useState<string | null>(null);
-  /**
-   * On a appuye sur la fleche.
-   *
-   * Tant qu'on tape, une frappe courte ne merite pas « je ne trouve pas » :
-   * « zt » est un debut de mot, pas une question. Mais la fleche, elle, dit
-   * « j'ai fini, reponds-moi ». Mag l'a vu tout de suite : elle a tape
-   * « quizz », clique, et il ne s'est RIEN passe. Un bouton qui ne fait rien
-   * est pire qu'un aveu — on ne sait meme pas si on a ete entendu.
-   *
-   * Toute frappe suivante l'oublie : on est reparti a ecrire.
-   */
-  const [valide, setValide] = useState(false);
   const champ = useRef<HTMLInputElement>(null);
   const panneau = useRef<HTMLDivElement>(null);
   /** La zone de contenu. Elle ne defile plus — voir le commentaire de la
@@ -290,7 +278,6 @@ export default function Assistant() {
 
   const vider = () => {
     setQ('');
-    setValide(false);
     setChoisie(null);
     setEpinglee(null);
     // On remet aussi la MISE EN PAGE a zero : sans ca, la boite pouvait rester
@@ -317,8 +304,14 @@ export default function Assistant() {
    * c'est le moment ou l'on a le plus besoin qu'on vous montre par ou aller.
    */
   const propositions = useMemo<Proposition[]>(
-    () => (pistes.length ? pistes : a.suggestions.map((label) => ({ id: '', label }))),
-    [pistes, a.suggestions],
+    // Les exemples de Mag SEULEMENT quand le champ est vide. Des qu'on tape,
+    // les pastilles suivent la frappe — et si rien ne commence par ces
+    // lettres, on le dit. Mag : « meme avec une lettre ca devrait ecrire ca,
+    // mais on va plutot proposer des pastilles selon le debut des resultats
+    // possibles ». Remettre les huit exemples devant une frappe qui ne donne
+    // rien, c'etait faire croire qu'il ne s'etait rien passe.
+    () => (question ? pistes : a.suggestions.map((label) => ({ id: '', label }))),
+    [question, pistes, a.suggestions],
   );
 
   /*
@@ -334,15 +327,16 @@ export default function Assistant() {
    * plus, les deux ensemble ne tiendraient pas.
    */
   /*
-   * L'aveu ne sort que devant une VRAIE question restee sans reponse.
+   * L'aveu sort des la premiere lettre, si aucune pastille ne peut sortir.
    *
-   * Deux mots, ou six lettres au moins : « le prix de la nuit » ou « piscine »
-   * meritent qu'on avoue et qu'on renvoie vers Mag. « zt », non — ce n'est pas
-   * une question, c'est une frappe en cours, et lui repondre « je ne trouve
-   * pas » serait a la fois faux et decourageant.
+   * La regle etait plus prudente : deux mots, ou six lettres, pour ne pas
+   * decourager une frappe en cours. Mag l'a corrigee, et elle a raison — les
+   * pastilles suivent maintenant le DEBUT de ce qu'on tape, donc tant qu'une
+   * seule fiche du site commence par ces lettres, elle apparait. S'il n'y en a
+   * aucune, il n'y en aura pas davantage a la lettre suivante : autant le dire
+   * tout de suite plutot que de laisser croire qu'on cherche encore.
    */
-  const vraieQuestion = motsDe(question).length >= 2 || question.length >= 6;
-  const montrerRefus = pause && !enAvant && !pistes.length && (vraieQuestion || valide);
+  const montrerRefus = pause && !enAvant && !pistes.length && question.length > 0;
 
   const sujet = encodeURIComponent(question ? `${t.askMag.subject} — ${question}` : t.askMag.subject);
 
@@ -635,7 +629,6 @@ export default function Assistant() {
             // La reponse s'ecrit deja a la frappe : valider ne relance rien, ca
             // RANGE le clavier. Sur telephone il couvre la moitie de l'ecran,
             // et la reponse se lisait derriere.
-            setValide(true);
             champ.current?.blur();
             requestAnimationFrame(() => corps.current?.scrollTo({ top: 0 }));
           }}
@@ -695,7 +688,6 @@ export default function Assistant() {
               value={q}
               onChange={(e) => {
                 setQ(e.target.value);
-                setValide(false);
                 setEpinglee(null);
               }}
               placeholder={a.placeholder}
