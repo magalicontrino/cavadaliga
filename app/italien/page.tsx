@@ -5,6 +5,7 @@ import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
+import BottomSheet from '../BottomSheet';
 import Icon, { type IconName } from '../Icon';
 import { useI18n } from '../i18n';
 import { PRONONCIATION, LECONS, CONJUGAISONS, PRONOMS, EXERCICES, AILLEURS } from '../italienData';
@@ -102,6 +103,15 @@ export default function Italien() {
   const [valide, setValide] = useState(false);
   const [points, setPoints] = useState(0);
 
+  /*
+   * Les feuilles qui montent du bas — Mag les veut sur telephone : une pour le
+   * sommaire (sauter a une section), une pour repondre aux exercices (les
+   * boutons a portee de pouce, tout en bas). Sur grand ecran, les listes
+   * restent en clair et ces feuilles ne s'ouvrent jamais (boutons `md:hidden`).
+   */
+  const [sommaireOuvert, setSommaireOuvert] = useState(false);
+  const [exoOuvert, setExoOuvert] = useState(false);
+
   const paquet = useMemo(() => (graine ? melange(EXERCICES, graine) : EXERCICES), [graine]);
   const ex = paquet[n];
   const bonne = ex?.choix[0];
@@ -122,6 +132,49 @@ export default function Italien() {
   };
 
   /*
+   * Choisir une reponse depuis la feuille : on retient le choix ET on referme
+   * la feuille, pour revenir a la question avec le bouton « Verifier » sous les
+   * yeux. Depuis la liste en clair du bureau, refermer une feuille deja close
+   * ne fait rien — c'est le meme geste pour les deux.
+   */
+  const choisir = (c: string) => {
+    setChoisi(c);
+    setExoOuvert(false);
+  };
+
+  /*
+   * Un bouton de reponse. Le meme code sert la liste du bureau et la feuille du
+   * telephone : c'est le placement qui change, pas la reponse. `interactif` est
+   * faux une fois la reponse validee — le jaune dit alors la bonne, le trait
+   * dit l'erreur.
+   */
+  const boutonChoix = (c: string, interactif: boolean) => {
+    const monChoix = c === choisi;
+    const estBonne = c === bonne;
+    const fond = !valide ? (monChoix ? 'var(--cava-ink)' : 'transparent') : estBonne ? '#ffd452' : 'transparent';
+    return (
+      <button
+        key={c}
+        type="button"
+        disabled={!interactif || valide}
+        onClick={interactif ? () => choisir(c) : undefined}
+        className="rounded-full px-5 py-3 text-left text-[15px] transition-transform duration-200 hover:scale-[1.02] disabled:hover:scale-100 motion-reduce:transition-none"
+        style={{
+          background: fond,
+          color: !valide && monChoix ? 'var(--cava-bg)' : 'var(--cava-ink)',
+          fontWeight: 600,
+          border: '1px solid var(--cava-ink)',
+          opacity: valide && !estBonne && !monChoix ? 0.45 : 1,
+        }}
+      >
+        <span style={valide && monChoix && !estBonne ? { textDecoration: 'line-through', textDecorationThickness: '1px' } : undefined}>
+          {c}
+        </span>
+      </button>
+    );
+  };
+
+  /*
    * Le sommaire. Les niveaux ne sont pas decoratifs : ils disent dans quel
    * ordre ça sert. Prononcer et parler d'abord — sans eux on ne dit rien ; le
    * present ensuite, qui porte l'essentiel ; le passe et le futur en dernier,
@@ -136,6 +189,31 @@ export default function Italien() {
     { id: 'exercices', titre: p.drillTitle, niveau: p.levelAll },
     { id: 'ailleurs', titre: p.elsewhereTitle, niveau: p.levelAll },
   ];
+
+  /* Une ligne du sommaire — la meme dans la liste du bureau et dans la feuille
+     du telephone. Cliquer y saute et referme la feuille (sans effet sur le
+     bureau, ou elle est deja close). */
+  const ligneSommaire = (x: (typeof PLAN)[number]) => (
+    <a
+      key={x.id}
+      href={`#${x.id}`}
+      onClick={(e) => {
+        e.preventDefault();
+        setSommaireOuvert(false);
+        allerA(x.id);
+      }}
+      className="cava-footlink group flex items-baseline justify-between gap-4 px-5 py-4 transition-colors"
+      style={{ background: 'var(--cava-bg)' }}
+    >
+      <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span className="text-[15px]" style={{ fontWeight: 600 }}>{x.titre}</span>
+        <span className="text-[12px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+          {x.niveau}
+        </span>
+      </span>
+      <span className="shrink-0 text-[13px]" style={{ color: 'var(--cava-muted)' }} aria-hidden>↓</span>
+    </a>
+  );
 
   return (
     <main>
@@ -173,24 +251,23 @@ export default function Italien() {
           </p>
         </Reveal>
 
-        <Reveal className="mt-6 flex flex-col gap-px overflow-hidden rounded-2xl" style={{ background: 'var(--cava-line)' }}>
-          {PLAN.map((x) => (
-            <a
-              key={x.id}
-              href={`#${x.id}`}
-              onClick={(e) => { e.preventDefault(); allerA(x.id); }}
-              className="cava-footlink group flex items-baseline justify-between gap-4 px-5 py-4 transition-colors"
-              style={{ background: 'var(--cava-bg)' }}
-            >
-              <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <span className="text-[15px]" style={{ fontWeight: 600 }}>{x.titre}</span>
-                <span className="text-[12px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
-                  {x.niveau}
-                </span>
-              </span>
-              <span className="shrink-0 text-[13px]" style={{ color: 'var(--cava-muted)' }} aria-hidden>↓</span>
-            </a>
-          ))}
+        {/* Sur grand ecran, la liste s'affiche en clair. */}
+        <Reveal className="mt-6 hidden overflow-hidden rounded-2xl md:flex md:flex-col md:gap-px" style={{ background: 'var(--cava-line)' }}>
+          {PLAN.map(ligneSommaire)}
+        </Reveal>
+
+        {/* Sur telephone, un bouton ouvre la meme liste dans une feuille qui
+            monte du bas — a portee de pouce, sans manger la page. */}
+        <Reveal className="md:hidden">
+          <button
+            type="button"
+            onClick={() => setSommaireOuvert(true)}
+            className="mt-6 flex w-full items-center justify-between gap-4 rounded-2xl border px-5 py-4"
+            style={{ borderColor: 'var(--cava-line)' }}
+          >
+            <span className="text-[15px]" style={{ fontWeight: 600 }}>{p.tocOpen}</span>
+            <span aria-hidden className="text-[16px]" style={{ color: 'var(--cava-pink)' }}>↑</span>
+          </button>
         </Reveal>
       </section>
 
@@ -384,35 +461,46 @@ export default function Italien() {
                 {ex.question}
               </p>
 
-              <div className="flex flex-col gap-3 md:flex-row md:flex-wrap">
-                {choix.map((c) => {
-                  const monChoix = c === choisi;
-                  const estBonne = c === bonne;
-                  const fond = !valide ? (monChoix ? 'var(--cava-ink)' : 'transparent') : estBonne ? '#ffd452' : 'transparent';
-                  return (
-                    <button
-                      key={c}
-                      type="button"
-                      disabled={valide}
-                      onClick={() => setChoisi(c)}
-                      className="rounded-full px-5 py-3 text-left text-[15px] transition-transform duration-200 hover:scale-[1.02] disabled:hover:scale-100 motion-reduce:transition-none"
-                      style={{
-                        background: fond,
-                        color: !valide && monChoix ? 'var(--cava-bg)' : 'var(--cava-ink)',
-                        fontWeight: 600,
-                        border: '1px solid var(--cava-ink)',
-                        opacity: valide && !estBonne && !monChoix ? 0.45 : 1,
-                      }}
-                    >
-                      {/* Même langage que le quiz : le jaune dit la bonne
-                          réponse, le trait dit l’erreur qu’on a faite. */}
-                      <span style={valide && monChoix && !estBonne ? { textDecoration: 'line-through', textDecorationThickness: '1px' } : undefined}>
-                        {c}
-                      </span>
-                    </button>
-                  );
-                })}
+              {/* Les reponses en clair : sur grand ecran tout le temps, sur
+                  telephone SEULEMENT une fois la reponse validee — le jaune dit
+                  alors la bonne, le trait l'erreur. Avant de valider, le
+                  telephone passe par la feuille du bas. */}
+              <div className={`${valide ? 'flex' : 'hidden md:flex'} flex-col gap-3 md:flex-row md:flex-wrap`}>
+                {choix.map((c) => boutonChoix(c, !valide))}
               </div>
+
+              {/* Telephone, avant de valider : un bouton ouvre la feuille pour
+                  repondre ; une fois choisi, on voit sa reponse et on peut en
+                  changer. « Verifier » reste juste en dessous, commun aux deux. */}
+              {!valide && (
+                <div className="md:hidden">
+                  {choisi === null ? (
+                    <button
+                      type="button"
+                      onClick={() => setExoOuvert(true)}
+                      className="flex w-full items-center justify-center gap-2 rounded-full px-5 py-3.5 text-[15px]"
+                      style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)', fontWeight: 600 }}
+                    >
+                      {p.answerCta} <span aria-hidden>↑</span>
+                    </button>
+                  ) : (
+                    <div
+                      className="flex items-center justify-between gap-3 rounded-full px-5 py-3"
+                      style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)' }}
+                    >
+                      <span className="text-[15px]" style={{ fontWeight: 600 }}>{choisi}</span>
+                      <button
+                        type="button"
+                        onClick={() => setExoOuvert(true)}
+                        className="shrink-0 text-[13px] underline underline-offset-2"
+                        style={{ color: 'var(--cava-bg)' }}
+                      >
+                        {p.answerChange}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {choisi !== null && !valide && (
                 <div className="border-t pt-5" style={{ borderColor: 'var(--cava-line)' }}>
@@ -514,6 +602,34 @@ export default function Italien() {
       </section>
 
       <Footer />
+
+      {/* La feuille du sommaire — ouverte par le bouton du telephone. Sur grand
+          ecran, rien ne l'ouvre : la liste y est deja en clair. */}
+      <BottomSheet
+        ouvert={sommaireOuvert}
+        onFermer={() => setSommaireOuvert(false)}
+        titre={p.planTitle}
+        intro={p.planIntro}
+        labelFermer={p.sheetClose}
+      >
+        <div className="flex flex-col gap-px overflow-hidden rounded-2xl" style={{ background: 'var(--cava-line)' }}>
+          {PLAN.map(ligneSommaire)}
+        </div>
+      </BottomSheet>
+
+      {/* La feuille des reponses — la question en titre, les choix a portee de
+          pouce. Choisir referme et ramene au bouton « Verifier ». */}
+      <BottomSheet
+        ouvert={exoOuvert}
+        onFermer={() => setExoOuvert(false)}
+        titre={ex ? ex.question : ''}
+        intro={ex ? ex.consigne[lang] : undefined}
+        labelFermer={p.sheetClose}
+      >
+        <div className="flex flex-col gap-3">
+          {choix.map((c) => boutonChoix(c, true))}
+        </div>
+      </BottomSheet>
 
       <button
         type="button"

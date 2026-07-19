@@ -244,7 +244,7 @@ export default function LaRegion() {
           encore trop peu ; 40 px avec `pb-10`, et la rangee redevient une
           rangee. La marge est mangee en partie par le `-my-4` du tri. */}
       <section className="mx-auto max-w-[110rem] px-5 pb-10 pt-2 md:px-10">
-        <Reveal>
+        <Reveal className="flex items-center gap-3">
           <button
             type="button"
             onClick={() => allerAuQuiz()}
@@ -255,6 +255,17 @@ export default function LaRegion() {
           >
             <Icon name="hourglass" size={22} />
           </button>
+          {/* Le cours d'italien, a cote du quiz : deux choses qu'on FAIT, et
+              parler la langue commence justement ici, dans la region. */}
+          <a
+            href={withBase('/italien')}
+            aria-label={t.italianPage.title}
+            title={t.italianPage.title}
+            className="cava-vinyllink flex h-11 w-11 items-center justify-center rounded-full"
+            style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
+          >
+            <Icon name="parler" size={22} />
+          </a>
         </Reveal>
       </section>
 

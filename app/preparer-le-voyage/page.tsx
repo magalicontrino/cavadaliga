@@ -6,7 +6,9 @@ import Footer from '../Footer';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Shape from '../Shape';
+import Icon from '../Icon';
 import { useI18n } from '../i18n';
+import { withBase } from '../data';
 import { useAncre } from '../ancre';
 
 export default function PreparerLeVoyage() {
@@ -31,6 +33,23 @@ export default function PreparerLeVoyage() {
       <Nav current="/preparer-le-voyage" />
 
       <PageHeader title={p.title} intro={p.intro} />
+
+      {/* Le cours d'italien, en raccourci : preparer le voyage, c'est aussi
+          apprendre a se debrouiller dans la langue avant de partir. Meme picto
+          rond que partout ailleurs. */}
+      <section className="mx-auto max-w-[110rem] px-5 pt-2 md:px-10">
+        <Reveal>
+          <a
+            href={withBase('/italien')}
+            aria-label={t.italianPage.title}
+            title={t.italianPage.title}
+            className="cava-vinyllink flex h-11 w-11 items-center justify-center rounded-full"
+            style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
+          >
+            <Icon name="parler" size={22} />
+          </a>
+        </Reveal>
+      </section>
 
       {/* Rubriques — empilées les unes sous les autres, style éditorial façon
           CTA de l'accueil (grand titre en capitales, filet, sans cadre). */}
