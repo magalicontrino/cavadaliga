@@ -163,8 +163,13 @@ export default function Assistant() {
         // AUCUNE hauteur minimale : la boite epouse son contenu et ne s'arrete
         // qu'au plafond. Elle en a porte une, pour ne pas paraitre etriquee ;
         // ca laissait une flaque blanche sous les exemples, et c'est ce que Mag
-        // a vu en disant « c'est mal proportionne ». Une boite courte sur un
-        // contenu court n'est pas etriquee — elle est juste.
+        // a vu en disant « c'est mal proportionne ».
+        //
+        // Elle la trouvait ensuite trop basse, et voulait « plus d'espaces ».
+        // Les deux demandes n'en font qu'une : c'est l'INTERIEUR qui a grandi —
+        // marges, interlignes, pastilles au doigt — et la hauteur a suivi
+        // toute seule. Forcer un minimum aurait ramene la flaque ; donner de
+        // l'air remplit la meme hauteur avec quelque chose.
         style={{ background: '#fff', boxShadow: '0 24px 60px rgba(46,45,45,0.28)' }}
       >
         {/*
@@ -175,7 +180,7 @@ export default function Assistant() {
           tient 4,9:1 au point le plus clair et 6,3:1 au plus fonce.
         */}
         <div
-          className="sticky top-0 z-20 flex items-center justify-between gap-3 px-5 py-4"
+          className="sticky top-0 z-20 flex items-center justify-between gap-3 px-6 py-6"
           style={{ background: 'linear-gradient(135deg,#d81f66,#9c1246)', color: '#fff' }}
         >
           {/*
@@ -187,7 +192,7 @@ export default function Assistant() {
             a isoler.
           */}
           <h2
-            className="inline-flex items-center rounded-full px-4 py-1.5 text-[clamp(1.05rem,4.4vw,1.3rem)] uppercase leading-none tracking-[-0.01em]"
+            className="inline-flex items-center rounded-full px-5 py-2 text-[clamp(1.05rem,4.4vw,1.3rem)] uppercase leading-none tracking-[-0.01em]"
             style={{ fontWeight: 900, border: '2px solid rgba(255,255,255,0.85)' }}
           >
             {a.title}
@@ -217,11 +222,11 @@ export default function Assistant() {
             champ.current?.blur();
             requestAnimationFrame(() => panneau.current?.scrollTo({ top: 0 }));
           }}
-          className="px-5 pb-3 pt-4"
+          className="px-6 pb-4 pt-5"
           style={{ background: '#fff' }}
         >
           <div
-            className="flex items-center gap-2 rounded-full py-1.5 pl-4 pr-1.5"
+            className="flex items-center gap-2 rounded-full py-2.5 pl-5 pr-2"
             style={{ border: '2px solid var(--cava-pink)', background: 'rgba(230,41,111,0.05)' }}
           >
             <input
@@ -230,7 +235,7 @@ export default function Assistant() {
               onChange={(e) => setQ(e.target.value)}
               placeholder={a.placeholder}
               aria-label={a.title}
-              className="min-w-0 flex-1 bg-transparent text-[14.5px] outline-none"
+              className="min-w-0 flex-1 bg-transparent text-[15px] outline-none"
             />
             {q && (
               <button
@@ -254,7 +259,7 @@ export default function Assistant() {
               type="submit"
               aria-label={a.send}
               title={a.send}
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 motion-reduce:transition-none"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 motion-reduce:transition-none"
               style={{ background: 'var(--cava-pink)', color: '#fff' }}
             >
               <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -265,17 +270,17 @@ export default function Assistant() {
           </div>
         </form>
 
-        <div className="flex flex-col gap-4 px-5 pb-6">
+        <div className="flex flex-col gap-5 px-6 pb-7">
           {/* Rien de tape encore : on montre par ou commencer. Un champ vide
               sans exemple ne dit pas ce qu'on a le droit de demander. */}
           {!question && (
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2.5">
               {a.suggestions.map((s, i) => (
                 <button
                   key={s}
                   type="button"
                   onClick={() => chercherMaintenant(s)}
-                  className="rounded-full px-3.5 py-1.5 text-[12.5px] transition-transform duration-200 hover:scale-[1.05] motion-reduce:transition-none"
+                  className="rounded-full px-4 py-2.5 text-[13px] transition-transform duration-200 hover:scale-[1.05] motion-reduce:transition-none"
                   style={{
                     background: GAIES[i % GAIES.length],
                     color: 'var(--cava-ink)',
@@ -298,13 +303,13 @@ export default function Assistant() {
               <p className="text-[11px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-pink-fonce)', fontWeight: 700 }}>
                 {a.alsoTitle}
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2.5">
                 {autres.map((r) => (
                   <button
                     key={r.fiche.id}
                     type="button"
                     onClick={() => setChoisie(r.fiche.id)}
-                    className="rounded-full px-3.5 py-1.5 text-[12.5px] transition-transform duration-200 hover:scale-[1.04] motion-reduce:transition-none"
+                    className="rounded-full px-4 py-2.5 text-[13px] transition-transform duration-200 hover:scale-[1.04] motion-reduce:transition-none"
                     style={{ background: '#fff', color: 'var(--cava-ink)', fontWeight: 600, border: '1px solid var(--cava-ink)' }}
                   >
                     {r.fiche.titre}
@@ -342,7 +347,7 @@ function Carte({ fiche, sourceLabel }: { fiche: Fiche; sourceLabel: string }) {
     // et la separe des suggestions, sans ajouter une bordure complete qui
     // aurait enferme le texte.
     <div
-      className="flex flex-col gap-3 rounded-2xl p-4 pl-[18px]"
+      className="flex flex-col gap-4 rounded-2xl p-5 pl-[22px]"
       style={{ background: 'rgba(230,41,111,0.06)', borderLeft: '4px solid var(--cava-pink)' }}
     >
       <h3 className="text-[17px] leading-tight" style={{ fontWeight: 800, color: 'var(--cava-pink-fonce)' }}>
@@ -350,13 +355,13 @@ function Carte({ fiche, sourceLabel }: { fiche: Fiche; sourceLabel: string }) {
       </h3>
       <div className="flex flex-col gap-2">
         {fiche.lignes.map((l, i) => (
-          <p key={i} className="text-[13.5px] leading-[1.65]">
+          <p key={i} className="text-[13.5px] leading-[1.75]">
             {l}
           </p>
         ))}
       </div>
       {fiche.liens && fiche.liens.length > 0 && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2.5">
           {fiche.liens.map((l) => (
             <a
               key={l.url}
