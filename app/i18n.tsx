@@ -265,6 +265,8 @@ export type Dict = {
     sounds: string;
     etna: string;
     fauna: string;
+    books: string;
+    history: string;
   };
   infoFilter: {
     all: string;
@@ -334,6 +336,33 @@ export type Dict = {
     faunaLink: string;
   };
   /**
+   * Des livres, et l'histoire des luttes d'ici.
+   *
+   * Mag : « rajoute une liste de livres qui parlent de la Sicile ou qui s'y
+   * passent. De l'histoire aussi. De la guerre, du communisme. Tu peux aussi
+   * parler de l'histoire du communisme sicilien dans la region. »
+   *
+   * La region n'a pas ete choisie au hasard : la revolte antimilitariste de
+   * janvier 1945 a eclate le plus fort dans la PROVINCE DE RAGUSE, et la
+   * « Republique de Comiso » a tenu six jours a vingt kilometres de la
+   * maison. C'est de l'histoire locale, pas un cours general.
+   */
+  booksPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    list: { titre: string; auteur: string; annee: string; text: string; lien: string }[];
+    linkLabel: string;
+  };
+  historyPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    facts: { icon: string; title: string; text: string; lien: string }[];
+    note: string;
+    linkLabel: string;
+  };
+  /**
    * La faune, cote LA REGION : qui vit ici.
    *
    * Ca rassure — mais SANS mentir. Mag croyait qu'il n'y avait ni serpents ni
@@ -390,6 +419,8 @@ export type Dict = {
     next: string;
     /** « Valider » : on choisit d'abord, on verifie ensuite. */
     check: string;
+    /** « Question précédente » : on revient relire, sans rejouer. */
+    back: string;
     seeSection: string;
     good: string;
     wrong: string;
@@ -918,6 +949,8 @@ const FR: Dict = {
     sounds: 'Sons & images',
     etna: 'L’Etna',
     fauna: 'La faune',
+    books: 'Des livres',
+    history: 'Luttes & mémoire',
   },
   infoFilter: {
     all: 'Tout voir',
@@ -964,6 +997,35 @@ const FR: Dict = {
     antsTitle: 'Les fourmis',
     antsText: 'C’est la vraie raison de tout ce qui précède. Elles ne piquent pas et ne transportent rien de grave, mais une fois qu’une file a trouvé le chemin du sucre, elle le refait pendant des jours. On ne les combat pas : on ne leur donne rien.',
     faunaLink: 'Qui vit ici — geckos, lézards, serpents, scorpions',
+  },
+  booksPage: {
+    eyebrow: 'Des livres',
+    title: 'À lire avant, pendant, après',
+    intro: 'Sept livres qui parlent de la Sicile ou s’y passent — et deux qui racontent ce que les familles d’ici ont traversé. Rien d’obligatoire : c’est une étagère, pas un programme.',
+    linkLabel: 'La fiche du livre',
+    list: [
+      { titre: 'Una donna di Ragusa', auteur: 'Maria Occhipinti', annee: '1957', lien: 'https://it.wikipedia.org/wiki/Una_donna_di_Ragusa', text: 'Le livre d’ici. Maria Occhipinti avait vingt-trois ans et cinq mois de grossesse quand elle s’est couchée devant le camion militaire qui emportait les garçons de son quartier, à Ragusa, le 4 janvier 1945. Elle l’a payé de la déportation à Ustica, où elle a accouché, puis de la prison. Son autobiographie est passée inaperçue en 1957 et a fait l’effet d’une bombe à sa réédition en 1976.' },
+      { titre: 'La plupart ne reviendront pas', auteur: 'Eugenio Corti', annee: '1947', lien: 'https://it.wikipedia.org/wiki/I_pi%C3%B9_non_ritornano', text: 'Le choix de Mag. Le journal d’un survivant de la retraite de Russie : vingt-huit jours d’encerclement dans la neige, écrits par un homme de vingt-deux ans qui en est sorti. Ce n’est pas un livre sicilien, mais il raconte ce que des milliers de familles d’ici ont vécu sans le dire — et cette maison en sait quelque chose.' },
+      { titre: 'Le parole sono pietre', auteur: 'Carlo Levi', annee: '1955', lien: 'https://it.wikipedia.org/wiki/Carlo_Levi', text: 'Trois voyages en Sicile, entre les mines de soufre, les paysans qui occupent les terres et le souvenir tout frais de Portella della Ginestra. « Les mots sont des pierres » : le titre dit le livre. C’est le meilleur récit de ce que fut la lutte pour la terre dans l’île, écrit à chaud par quelqu’un qui écoutait.' },
+      { titre: 'Il Gattopardo', auteur: 'Giuseppe Tomasi di Lampedusa', annee: '1958', lien: 'https://it.wikipedia.org/wiki/Il_Gattopardo', text: 'Le grand roman sicilien, écrit par un prince à la fin de sa vie et refusé par deux éditeurs avant de devenir un classique. La Sicile de 1860, un monde qui s’effondre et une phrase que tout le monde cite : « il faut que tout change pour que rien ne change ».' },
+      { titre: 'Il giorno della civetta', auteur: 'Leonardo Sciascia', annee: '1961', lien: 'https://it.wikipedia.org/wiki/Il_giorno_della_civetta', text: 'Le livre qui a nommé ce dont on ne parlait pas. Un capitaine venu du Nord enquête sur un meurtre dans un village sicilien, et se heurte à un mur de silence. Sciascia écrivait à une époque où l’existence même de la mafia était officiellement discutée.' },
+      { titre: 'Conversazione in Sicilia', auteur: 'Elio Vittorini', annee: '1941', lien: 'https://it.wikipedia.org/wiki/Conversazione_in_Sicilia', text: 'Un homme rentre voir sa mère en Sicile après quinze ans. Publié sous le fascisme, le livre dit tout sans jamais rien nommer — c’est pour cela qu’il a passé la censure, et c’est pour cela qu’il a compté.' },
+      { titre: 'I Malavoglia', auteur: 'Giovanni Verga', annee: '1881', lien: 'https://it.wikipedia.org/wiki/I_Malavoglia', text: 'Une famille de pêcheurs, une barque, une dette, et la mer qui reprend tout. Verga écrit les pauvres sans les plaindre ni les embellir : c’est la Sicile d’avant les photos, celle des villages de la côte.' },
+    ],
+  },
+  historyPage: {
+    eyebrow: 'Luttes & mémoire',
+    title: 'Ce qui s’est passé ici',
+    intro: 'On vient en Sicile pour le baroque et la mer, et on repart sans savoir que la province de Raguse a connu l’une des révoltes les plus oubliées de l’histoire italienne. Voilà de quoi il s’agit — et pourquoi les vieux d’ici ne racontent pas tout.',
+    linkLabel: 'En savoir plus',
+    note: 'Cette page ne prend pas parti : elle raconte ce qui a eu lieu, à l’endroit où ça a eu lieu. Les livres juste au-dessus vont beaucoup plus loin que nous, et ceux qui l’ont vécu les ont écrits eux-mêmes.',
+    facts: [
+      { icon: 'landmark', lien: 'https://it.wikipedia.org/wiki/Fasci_siciliani', title: 'Les Fasci siciliani, 1891-1894', text: 'Avant les partis, il y eut les fasci : des ligues de paysans, de soufriers et d’artisans, jusqu’à trois cent mille adhérents dans une île misérable. Ils réclamaient des contrats, des terres, la fin des abus. Le gouvernement Crispi — un Sicilien — a répondu par l’état de siège en janvier 1894, des morts, des tribunaux militaires. C’est le premier grand mouvement social de l’Italie unie, et il est né ici.' },
+      { icon: 'walk', lien: 'https://it.wikipedia.org/wiki/Nonsiparte', title: '« Non si parte ! » — janvier 1945, ici même', text: 'La guerre finit au nord, et Rome rappelle les jeunes Siciliens sous les drapeaux. L’île refuse. La révolte éclate le plus fort dans la province de Raguse : le 4 janvier 1945, l’armée ratisse les quartiers populaires pour emmener les garçons. C’est la révolte antimilitariste la plus oubliée de l’histoire italienne — et elle s’est passée à quelques kilomètres de cette maison.' },
+      { icon: 'info', lien: 'https://it.wikipedia.org/wiki/Maria_Occhipinti', title: 'La femme qui s’est couchée devant le camion', text: 'Maria Occhipinti, vingt-trois ans, enceinte de cinq mois, s’allonge devant le camion militaire qui emporte les garçons de son quartier. Les soldats tirent sur la foule. Elle sera déportée à Ustica, où elle accouche, puis emprisonnée à Palerme. Le Parti communiste ayant condamné la révolte, elle rompt avec lui et finira anarchiste. Elle a raconté tout cela elle-même — voir les livres.' },
+      { icon: 'home', lien: 'https://it.wikipedia.org/wiki/Nonsiparte', title: 'La « République de Comiso », six jours', text: 'À Comiso, à vingt kilomètres d’ici, les insurgés font prisonniers les carabiniers les 5 et 6 janvier et proclament un gouvernement populaire : comité de salut public, équipes d’ordre, distribution de vivres à prix coûtant. Ça tient six jours. Le 11 janvier, sous la menace d’un bombardement allié sur la ville, ils négocient leur reddition.' },
+      { icon: 'cone', lien: 'https://it.wikipedia.org/wiki/Portella_della_Ginestra', title: 'Portella della Ginestra, 1er mai 1947', text: 'Deux ans plus tard, la gauche gagne les élections régionales siciliennes. Le 1er mai, des familles fêtent le travail dans un col au-dessus de Piana degli Albanesi ; la bande du bandit Giuliano tire sur la foule. Onze morts, dont des enfants. C’est le premier massacre politique de la République italienne, et il n’a jamais été entièrement élucidé.' },
+    ],
   },
   faunaPage: {
     eyebrow: 'La faune',
@@ -1035,6 +1097,7 @@ const FR: Dict = {
     start: 'Commencer',
     next: 'Question suivante',
     check: 'Valider',
+    back: 'Question précédente',
     seeSection: 'Relire le passage',
     good: 'C’est ça',
     wrong: 'Raté',
@@ -1109,6 +1172,17 @@ const FR: Dict = {
       { q: 'Qu’est-ce qui caractérise la caponata ?', choix: ['L’aigre-doux : vinaigre et sucre', 'Le piment fort', 'La cuisson au feu de bois'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'La frutta martorana est faite de…', choix: ['Pâte d’amande', 'Pâte à sucre', 'Chocolat de Modica'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'La cassata tiendrait son nom de qas‘ah, qui désigne…', choix: ['Le bol dans lequel on la moulait', 'La ricotta', 'Une fête religieuse'], bonne: 0, ancre: 'arabe', niveau: 'difficile' },
+      { q: 'En janvier 1945, où la révolte « Non si parte ! » a-t-elle éclaté le plus fort ?', choix: ['Dans la province de Raguse', 'À Palerme', 'En Calabre'], bonne: 0, ancre: 'histoire', niveau: 'facile' },
+      { q: 'Contre quoi les Siciliens se soulèvent-ils en janvier 1945 ?', choix: ['Contre l’appel des jeunes sous les drapeaux', 'Contre le prix du pain', 'Contre la fermeture des mines'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
+      { q: 'Qu’a fait Maria Occhipinti, enceinte de cinq mois, le 4 janvier 1945 ?', choix: ['Elle s’est couchée devant le camion militaire', 'Elle a caché les garçons dans sa cave', 'Elle a écrit au préfet'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
+      { q: 'Combien de temps a tenu la « République de Comiso » ?', choix: ['Six jours', 'Six semaines', 'Six mois'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
+      { q: 'Qu’étaient les Fasci siciliani de 1891-1894 ?', choix: ['Des ligues de paysans, soufriers et artisans', 'Un parti fasciste avant l’heure', 'Une confrérie religieuse'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
+      { q: 'Que s’est-il passé à Portella della Ginestra le 1er mai 1947 ?', choix: ['Une fusillade sur la foule du 1er mai', 'Une éruption de l’Etna', 'Une grève générale'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
+      { q: 'Qui a écrit « Una donna di Ragusa » ?', choix: ['Maria Occhipinti', 'Leonardo Sciascia', 'Elio Vittorini'], bonne: 0, ancre: 'livres', niveau: 'facile' },
+      { q: '« La plupart ne reviendront pas » raconte…', choix: ['La retraite de Russie', 'Le débarquement allié en Sicile', 'La construction de l’autoroute'], bonne: 0, ancre: 'livres', niveau: 'moyen' },
+      { q: 'Dans quel livre trouve-t-on « il faut que tout change pour que rien ne change » ?', choix: ['Il Gattopardo', 'I Malavoglia', 'Conversazione in Sicilia'], bonne: 0, ancre: 'livres', niveau: 'moyen' },
+      { q: 'De quoi parle « Il giorno della civetta » de Sciascia ?', choix: ['De la mafia, à une époque où on niait son existence', 'De la pêche au thon', 'Du tremblement de terre de 1693'], bonne: 0, ancre: 'livres', niveau: 'difficile' },
+      { q: '« Le parole sono pietre » de Carlo Levi raconte…', choix: ['Trois voyages en Sicile et la lutte pour la terre', 'Un séjour à Venise', 'L’histoire du chocolat de Modica'], bonne: 0, ancre: 'livres', niveau: 'difficile' },
     ],
   },
   askMag: {
@@ -1737,6 +1811,8 @@ const IT: Dict = {
     sounds: 'Suoni & immagini',
     etna: 'L’Etna',
     fauna: 'La fauna',
+    books: 'Libri',
+    history: 'Lotte & memoria',
   },
   infoFilter: {
     all: 'Vedi tutto',
@@ -1783,6 +1859,35 @@ const IT: Dict = {
     antsTitle: 'Le formiche',
     antsText: 'È il vero motivo di tutto quanto sopra. Non pungono e non portano nulla di grave, ma una volta che una fila ha trovato la strada dello zucchero la rifà per giorni. Non si combattono: non si dà loro niente.',
     faunaLink: 'Chi vive qui — gechi, lucertole, serpenti, scorpioni',
+  },
+  booksPage: {
+    eyebrow: 'Libri',
+    title: 'Da leggere prima, durante, dopo',
+    intro: 'Sette libri che parlano della Sicilia o che ci si svolgono — e due che raccontano quello che le famiglie di qui hanno attraversato. Niente di obbligatorio: è uno scaffale, non un programma.',
+    linkLabel: 'La scheda del libro',
+    list: [
+      { titre: 'Una donna di Ragusa', auteur: 'Maria Occhipinti', annee: '1957', lien: 'https://it.wikipedia.org/wiki/Una_donna_di_Ragusa', text: 'Il libro di qui. Maria Occhipinti aveva ventitré anni ed era incinta di cinque mesi quando si sdraiò davanti al camion militare che portava via i ragazzi del suo quartiere, a Ragusa, il 4 gennaio 1945. Lo pagò con il confino a Ustica, dove partorì, e poi con il carcere. La sua autobiografia passò inosservata nel 1957 e fece l’effetto di una bomba alla riedizione del 1976.' },
+      { titre: 'La plupart ne reviendront pas', auteur: 'Eugenio Corti', annee: '1947', lien: 'https://it.wikipedia.org/wiki/I_pi%C3%B9_non_ritornano', text: 'La scelta di Mag. Il diario di un sopravvissuto alla ritirata di Russia: ventotto giorni di accerchiamento nella neve, scritti da un ragazzo di ventidue anni che ne è uscito. Non è un libro siciliano, ma racconta quello che migliaia di famiglie di qui hanno vissuto senza dirlo — e questa casa ne sa qualcosa.' },
+      { titre: 'Le parole sono pietre', auteur: 'Carlo Levi', annee: '1955', lien: 'https://it.wikipedia.org/wiki/Carlo_Levi', text: 'Tre viaggi in Sicilia, tra le zolfare, i contadini che occupano le terre e il ricordo ancora fresco di Portella della Ginestra. Il titolo dice il libro. È il racconto migliore di che cosa fu la lotta per la terra nell’isola, scritto a caldo da uno che ascoltava.' },
+      { titre: 'Il Gattopardo', auteur: 'Giuseppe Tomasi di Lampedusa', annee: '1958', lien: 'https://it.wikipedia.org/wiki/Il_Gattopardo', text: 'Il grande romanzo siciliano, scritto da un principe alla fine della sua vita e rifiutato da due editori prima di diventare un classico. La Sicilia del 1860, un mondo che crolla e una frase che tutti citano: « se vogliamo che tutto rimanga come è, bisogna che tutto cambi ».' },
+      { titre: 'Il giorno della civetta', auteur: 'Leonardo Sciascia', annee: '1961', lien: 'https://it.wikipedia.org/wiki/Il_giorno_della_civetta', text: 'Il libro che ha dato un nome a ciò di cui non si parlava. Un capitano venuto dal Nord indaga su un omicidio in un paese siciliano e sbatte contro un muro di silenzio. Sciascia scriveva quando l’esistenza stessa della mafia era ufficialmente in discussione.' },
+      { titre: 'Conversazione in Sicilia', auteur: 'Elio Vittorini', annee: '1941', lien: 'https://it.wikipedia.org/wiki/Conversazione_in_Sicilia', text: 'Un uomo torna a trovare sua madre in Sicilia dopo quindici anni. Pubblicato sotto il fascismo, il libro dice tutto senza nominare mai nulla — per questo passò la censura, e per questo contò.' },
+      { titre: 'I Malavoglia', auteur: 'Giovanni Verga', annee: '1881', lien: 'https://it.wikipedia.org/wiki/I_Malavoglia', text: 'Una famiglia di pescatori, una barca, un debito, e il mare che si riprende tutto. Verga scrive i poveri senza compatirli né abbellirli: è la Sicilia di prima delle fotografie, quella dei paesi di costa.' },
+    ],
+  },
+  historyPage: {
+    eyebrow: 'Lotte & memoria',
+    title: 'Che cosa è successo qui',
+    intro: 'Si viene in Sicilia per il barocco e per il mare, e si riparte senza sapere che la provincia di Ragusa ha conosciuto una delle rivolte più dimenticate della storia italiana. Ecco di che si tratta — e perché i vecchi di qui non raccontano tutto.',
+    linkLabel: 'Per saperne di più',
+    note: 'Questa pagina non prende posizione: racconta quello che è successo, nel posto in cui è successo. I libri qui sopra vanno molto più lontano di noi, e chi l’ha vissuto li ha scritti di persona.',
+    facts: [
+      { icon: 'landmark', lien: 'https://it.wikipedia.org/wiki/Fasci_siciliani', title: 'I Fasci siciliani, 1891-1894', text: 'Prima dei partiti ci furono i fasci: leghe di contadini, zolfatari e artigiani, fino a trecentomila iscritti in un’isola miserabile. Chiedevano contratti, terre, la fine degli abusi. Il governo Crispi — un siciliano — rispose con lo stato d’assedio nel gennaio 1894, con i morti e i tribunali militari. È il primo grande movimento sociale dell’Italia unita, ed è nato qui.' },
+      { icon: 'walk', lien: 'https://it.wikipedia.org/wiki/Nonsiparte', title: '« Non si parte! » — gennaio 1945, proprio qui', text: 'La guerra finisce al nord, e Roma richiama i giovani siciliani sotto le armi. L’isola rifiuta. La rivolta esplode più forte nella provincia di Ragusa: il 4 gennaio 1945 l’esercito rastrella i quartieri popolari per portare via i ragazzi. È la rivolta antimilitarista più dimenticata della storia italiana — ed è successa a pochi chilometri da questa casa.' },
+      { icon: 'info', lien: 'https://it.wikipedia.org/wiki/Maria_Occhipinti', title: 'La donna che si sdraiò davanti al camion', text: 'Maria Occhipinti, ventitré anni, incinta di cinque mesi, si sdraia davanti al camion militare che porta via i ragazzi del suo quartiere. I soldati sparano sulla folla. Sarà confinata a Ustica, dove partorisce, e poi incarcerata a Palermo. Poiché il Partito comunista condannò la rivolta, ruppe con esso e finì anarchica. Ha raccontato tutto lei stessa — vedi i libri.' },
+      { icon: 'home', lien: 'https://it.wikipedia.org/wiki/Nonsiparte', title: 'La « Repubblica di Comiso », sei giorni', text: 'A Comiso, a venti chilometri da qui, gli insorti fanno prigionieri i carabinieri il 5 e 6 gennaio e proclamano un governo popolare: comitato di salute pubblica, squadre per l’ordine, distribuzione di viveri a prezzo di consorzio. Dura sei giorni. L’11 gennaio, sotto la minaccia di un bombardamento alleato sulla città, trattano la resa.' },
+      { icon: 'cone', lien: 'https://it.wikipedia.org/wiki/Portella_della_Ginestra', title: 'Portella della Ginestra, 1º maggio 1947', text: 'Due anni dopo, la sinistra vince le elezioni regionali siciliane. Il 1º maggio alcune famiglie festeggiano il lavoro in un valico sopra Piana degli Albanesi; la banda del bandito Giuliano spara sulla folla. Undici morti, tra cui dei bambini. È la prima strage politica della Repubblica italiana, e non è mai stata chiarita del tutto.' },
+    ],
   },
   faunaPage: {
     eyebrow: 'La fauna',
@@ -1854,6 +1959,7 @@ const IT: Dict = {
     start: 'Iniziare',
     next: 'Domanda successiva',
     check: 'Conferma',
+    back: 'Domanda precedente',
     seeSection: 'Rileggere il passaggio',
     good: 'Esatto',
     wrong: 'Sbagliato',
@@ -1928,6 +2034,17 @@ const IT: Dict = {
       { q: 'Che cosa caratterizza la caponata?', choix: ['L’agrodolce: aceto e zucchero', 'Il peperoncino forte', 'La cottura a legna'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'La frutta martorana è fatta di…', choix: ['Pasta di mandorle', 'Pasta di zucchero', 'Cioccolato di Modica'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'La cassata prenderebbe il nome da qas‘ah, che indica…', choix: ['La scodella in cui la si modellava', 'La ricotta', 'Una festa religiosa'], bonne: 0, ancre: 'arabe', niveau: 'difficile' },
+      { q: 'Nel gennaio 1945, dove è esplosa più forte la rivolta del « Non si parte! »?', choix: ['Nella provincia di Ragusa', 'A Palermo', 'In Calabria'], bonne: 0, ancre: 'histoire', niveau: 'facile' },
+      { q: 'Contro che cosa insorgono i siciliani nel gennaio 1945?', choix: ['Contro la chiamata alle armi dei giovani', 'Contro il prezzo del pane', 'Contro la chiusura delle miniere'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
+      { q: 'Che cosa ha fatto Maria Occhipinti, incinta di cinque mesi, il 4 gennaio 1945?', choix: ['Si è sdraiata davanti al camion militare', 'Ha nascosto i ragazzi in cantina', 'Ha scritto al prefetto'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
+      { q: 'Quanto è durata la « Repubblica di Comiso »?', choix: ['Sei giorni', 'Sei settimane', 'Sei mesi'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
+      { q: 'Che cos’erano i Fasci siciliani del 1891-1894?', choix: ['Leghe di contadini, zolfatari e artigiani', 'Un partito fascista ante litteram', 'Una confraternita religiosa'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
+      { q: 'Che cosa è successo a Portella della Ginestra il 1º maggio 1947?', choix: ['Una sparatoria sulla folla del Primo Maggio', 'Un’eruzione dell’Etna', 'Uno sciopero generale'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
+      { q: 'Chi ha scritto « Una donna di Ragusa »?', choix: ['Maria Occhipinti', 'Leonardo Sciascia', 'Elio Vittorini'], bonne: 0, ancre: 'livres', niveau: 'facile' },
+      { q: '« I più non ritornano » racconta…', choix: ['La ritirata di Russia', 'Lo sbarco alleato in Sicilia', 'La costruzione dell’autostrada'], bonne: 0, ancre: 'livres', niveau: 'moyen' },
+      { q: 'In quale libro si trova « bisogna che tutto cambi perché nulla cambi »?', choix: ['Il Gattopardo', 'I Malavoglia', 'Conversazione in Sicilia'], bonne: 0, ancre: 'livres', niveau: 'moyen' },
+      { q: 'Di che cosa parla « Il giorno della civetta » di Sciascia?', choix: ['Della mafia, quando se ne negava l’esistenza', 'Della pesca al tonno', 'Del terremoto del 1693'], bonne: 0, ancre: 'livres', niveau: 'difficile' },
+      { q: '« Le parole sono pietre » di Carlo Levi racconta…', choix: ['Tre viaggi in Sicilia e la lotta per la terra', 'Un soggiorno a Venezia', 'La storia del cioccolato di Modica'], bonne: 0, ancre: 'livres', niveau: 'difficile' },
     ],
   },
   askMag: {
@@ -2556,6 +2673,8 @@ const EN: Dict = {
     sounds: 'Sounds & screens',
     etna: 'Etna',
     fauna: 'Wildlife',
+    books: 'Books',
+    history: 'Struggles & memory',
   },
   infoFilter: {
     all: 'See all',
@@ -2602,6 +2721,35 @@ const EN: Dict = {
     antsTitle: 'The ants',
     antsText: 'They are the real reason for everything above. They do not sting and carry nothing serious, but once a line has found the way to the sugar it will take it again for days. You do not fight them: you give them nothing.',
     faunaLink: 'Who lives here — geckos, lizards, snakes, scorpions',
+  },
+  booksPage: {
+    eyebrow: 'Books',
+    title: 'To read before, during, after',
+    intro: 'Seven books about Sicily or set in Sicily — and two that tell what the families here lived through. Nothing compulsory: this is a shelf, not a syllabus.',
+    linkLabel: 'About the book',
+    list: [
+      { titre: 'Una donna di Ragusa', auteur: 'Maria Occhipinti', annee: '1957', lien: 'https://it.wikipedia.org/wiki/Una_donna_di_Ragusa', text: 'The book from here. Maria Occhipinti was twenty-three and five months pregnant when she lay down in front of the army truck taking away the young men of her neighbourhood, in Ragusa, on 4 January 1945. She paid for it with internal exile on Ustica, where she gave birth, and then prison. Her autobiography went unnoticed in 1957 and landed like a bomb when it was reissued in 1976.' },
+      { titre: 'La plupart ne reviendront pas', auteur: 'Eugenio Corti', annee: '1947', lien: 'https://it.wikipedia.org/wiki/I_pi%C3%B9_non_ritornano', text: 'Mag’s pick. The diary of a survivor of the retreat from Russia: twenty-eight days encircled in the snow, written by a twenty-two-year-old who came out alive. It is not a Sicilian book, but it tells what thousands of families here lived through without ever speaking of it — and this house knows something about that.' },
+      { titre: 'Le parole sono pietre', auteur: 'Carlo Levi', annee: '1955', lien: 'https://it.wikipedia.org/wiki/Carlo_Levi', text: 'Three journeys through Sicily, among the sulphur mines, the peasants occupying the land, and the still-fresh memory of Portella della Ginestra. “Words are stones”: the title says the book. It is the finest account of what the struggle for land in the island really was, written in the moment by someone who listened.' },
+      { titre: 'Il Gattopardo', auteur: 'Giuseppe Tomasi di Lampedusa', annee: '1958', lien: 'https://it.wikipedia.org/wiki/Il_Gattopardo', text: 'The great Sicilian novel, written by a prince at the end of his life and turned down by two publishers before becoming a classic. The Sicily of 1860, a world collapsing, and the line everyone quotes: everything must change so that everything can stay the same.' },
+      { titre: 'Il giorno della civetta', auteur: 'Leonardo Sciascia', annee: '1961', lien: 'https://it.wikipedia.org/wiki/Il_giorno_della_civetta', text: 'The book that named what nobody named. A carabinieri captain from the north investigates a killing in a Sicilian village and runs into a wall of silence. Sciascia was writing at a time when the very existence of the mafia was officially up for debate.' },
+      { titre: 'Conversazione in Sicilia', auteur: 'Elio Vittorini', annee: '1941', lien: 'https://it.wikipedia.org/wiki/Conversazione_in_Sicilia', text: 'A man goes back to see his mother in Sicily after fifteen years. Published under fascism, the book says everything while naming nothing — which is how it got past the censors, and why it mattered.' },
+      { titre: 'I Malavoglia', auteur: 'Giovanni Verga', annee: '1881', lien: 'https://it.wikipedia.org/wiki/I_Malavoglia', text: 'A family of fishermen, a boat, a debt, and the sea taking it all back. Verga writes the poor without pity and without prettifying: this is the Sicily from before photographs, the Sicily of the coastal villages.' },
+    ],
+  },
+  historyPage: {
+    eyebrow: 'Struggles & memory',
+    title: 'What happened here',
+    intro: 'People come to Sicily for the baroque and the sea, and leave without knowing that the province of Ragusa saw one of the most forgotten revolts in Italian history. Here is what it was — and why the old people here do not tell you everything.',
+    linkLabel: 'Read more',
+    note: 'This page takes no side: it tells what happened, in the place where it happened. The books just above go much further than we do, and the people who lived it wrote them themselves.',
+    facts: [
+      { icon: 'landmark', lien: 'https://it.wikipedia.org/wiki/Fasci_siciliani', title: 'The Sicilian Fasci, 1891-1894', text: 'Before the parties there were the fasci: leagues of peasants, sulphur miners and artisans, up to three hundred thousand members in a destitute island. They demanded contracts, land, an end to abuse. The Crispi government — a Sicilian — answered with a state of siege in January 1894, with deaths and military tribunals. It is united Italy’s first great social movement, and it was born here.' },
+      { icon: 'walk', lien: 'https://it.wikipedia.org/wiki/Nonsiparte', title: '“Non si parte!” — January 1945, right here', text: 'The war was ending in the north, and Rome called Sicily’s young men up. The island refused. The revolt burned hottest in the province of Ragusa: on 4 January 1945 the army swept the working-class districts to take the boys away. It is the most forgotten antimilitarist revolt in Italian history — and it happened a few kilometres from this house.' },
+      { icon: 'info', lien: 'https://it.wikipedia.org/wiki/Maria_Occhipinti', title: 'The woman who lay down in front of the truck', text: 'Maria Occhipinti, twenty-three, five months pregnant, lay down in front of the army truck carrying off the young men of her neighbourhood. The soldiers fired into the crowd. She was exiled to Ustica, where she gave birth, then jailed in Palermo. Because the Communist Party condemned the revolt, she broke with it and ended an anarchist. She told all of it herself — see the books.' },
+      { icon: 'home', lien: 'https://it.wikipedia.org/wiki/Nonsiparte', title: 'The “Comiso Republic”, six days', text: 'At Comiso, twenty kilometres from here, the insurgents took the carabinieri prisoner on 5 and 6 January and proclaimed a people’s government: a committee of public safety, order squads, food handed out at cost. It lasted six days. On 11 January, under threat of an Allied bombing of the town, they negotiated their surrender.' },
+      { icon: 'cone', lien: 'https://it.wikipedia.org/wiki/Portella_della_Ginestra', title: 'Portella della Ginestra, 1 May 1947', text: 'Two years later the left won the Sicilian regional elections. On May Day, families were celebrating in a mountain pass above Piana degli Albanesi when the bandit Giuliano’s gang fired into the crowd. Eleven dead, children among them. It is the first political massacre of the Italian Republic, and it has never been fully explained.' },
+    ],
   },
   faunaPage: {
     eyebrow: 'Wildlife',
@@ -2673,6 +2821,7 @@ const EN: Dict = {
     start: 'Start',
     next: 'Next question',
     check: 'Check',
+    back: 'Previous question',
     seeSection: 'Read that part again',
     good: 'That’s it',
     wrong: 'Not quite',
@@ -2747,6 +2896,17 @@ const EN: Dict = {
       { q: 'What defines caponata?', choix: ['Sweet and sour: vinegar and sugar', 'Fierce chilli heat', 'Cooking over a wood fire'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Frutta martorana is made of…', choix: ['Almond paste', 'Sugar paste', 'Modica chocolate'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Cassata may be named after qas‘ah, which means…', choix: ['The bowl it was shaped in', 'Ricotta', 'A religious feast'], bonne: 0, ancre: 'arabe', niveau: 'difficile' },
+      { q: 'In January 1945, where did the “Non si parte!” revolt burn hottest?', choix: ['In the province of Ragusa', 'In Palermo', 'In Calabria'], bonne: 0, ancre: 'histoire', niveau: 'facile' },
+      { q: 'What did Sicilians rise up against in January 1945?', choix: ['The call-up of their young men', 'The price of bread', 'The closing of the mines'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
+      { q: 'What did Maria Occhipinti, five months pregnant, do on 4 January 1945?', choix: ['She lay down in front of the army truck', 'She hid the boys in her cellar', 'She wrote to the prefect'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
+      { q: 'How long did the “Comiso Republic” last?', choix: ['Six days', 'Six weeks', 'Six months'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
+      { q: 'What were the Sicilian Fasci of 1891-1894?', choix: ['Leagues of peasants, sulphur miners and artisans', 'An early fascist party', 'A religious brotherhood'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
+      { q: 'What happened at Portella della Ginestra on 1 May 1947?', choix: ['A shooting into the May Day crowd', 'An eruption of Etna', 'A general strike'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
+      { q: 'Who wrote “Una donna di Ragusa”?', choix: ['Maria Occhipinti', 'Leonardo Sciascia', 'Elio Vittorini'], bonne: 0, ancre: 'livres', niveau: 'facile' },
+      { q: '“I più non ritornano” tells the story of…', choix: ['The retreat from Russia', 'The Allied landing in Sicily', 'The building of the motorway'], bonne: 0, ancre: 'livres', niveau: 'moyen' },
+      { q: 'Which book contains “everything must change so that nothing changes”?', choix: ['Il Gattopardo', 'I Malavoglia', 'Conversazione in Sicilia'], bonne: 0, ancre: 'livres', niveau: 'moyen' },
+      { q: 'What is Sciascia’s “Il giorno della civetta” about?', choix: ['The mafia, when its existence was still denied', 'Tuna fishing', 'The 1693 earthquake'], bonne: 0, ancre: 'livres', niveau: 'difficile' },
+      { q: 'Carlo Levi’s “Le parole sono pietre” tells of…', choix: ['Three journeys in Sicily and the struggle for land', 'A stay in Venice', 'The story of Modica chocolate'], bonne: 0, ancre: 'livres', niveau: 'difficile' },
     ],
   },
   askMag: {

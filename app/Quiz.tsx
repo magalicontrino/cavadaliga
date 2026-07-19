@@ -78,6 +78,8 @@ const THEMES = [
   { ancre: 'alcools', cle: 'drinks' },
   { ancre: 'cafe', cle: 'coffee' },
   { ancre: 'faune', cle: 'fauna' },
+  { ancre: 'histoire', cle: 'history' },
+  { ancre: 'livres', cle: 'books' },
 ] as const;
 
 /*
@@ -124,6 +126,10 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string): string {
       return t.coffeePage.facts.map((f) => f.text).join(' ');
     case 'faune':
       return [t.faunaPage.intro, ...t.faunaPage.facts.map((f) => f.text), t.faunaPage.note].join(' ');
+    case 'histoire':
+      return [t.historyPage.intro, ...t.historyPage.facts.map((f) => f.text)].join(' ');
+    case 'livres':
+      return t.booksPage.list.map((b) => `${b.titre}, ${b.auteur}. ${b.text}`).join(' ');
     default:
       return '';
   }
@@ -145,10 +151,25 @@ function extraitPour(texte: string, reponse: string): string | null {
   // signes, jete par le filtre de longueur. La reponse etait dans la page et
   // l'extrait sortait vide. Le tiret est une respiration, pas une fin de
   // phrase.
-  const phrases = texte
+  const morceaux = texte
     .split(/(?<=[.!?\u2026])\s+|;\s+/)
     .map((x) => x.trim())
-    .filter((x) => x.length > 25);
+    .filter(Boolean);
+
+  /*
+   * Une phrase trop courte se RECOLLE a la suivante, elle ne se jette pas.
+   *
+   * Le filtre de longueur avait deja mange « les neviere » ; il a remis ca
+   * avec « Ca tient six jours. », dix-huit signes, alors que c'est exactement
+   * la reponse a la question. Une phrase breve n'est pas une phrase pauvre :
+   * c'est souvent la chute, donc le fait. On la garde, avec ce qui suit pour
+   * lui donner un contexte.
+   */
+  const phrases: string[] = [];
+  for (const m of morceaux) {
+    if (phrases.length && phrases[phrases.length - 1].length < 40) phrases[phrases.length - 1] += ` ${m}`;
+    else phrases.push(m);
+  }
 
   let meilleure: string | null = null;
   let score = 0;
@@ -162,7 +183,7 @@ function extraitPour(texte: string, reponse: string): string | null {
     }
   }
   if (!meilleure || score === 0) return null;
-  return meilleure.length > 230 ? `${meilleure.slice(0, 227).trimEnd()}\u2026` : meilleure;
+  return meilleure.length > 400 ? `${meilleure.slice(0, 397).trimEnd()}\u2026` : meilleure;
 }
 
 /** La puce de tri : allumee, elle prend l'encre ; eteinte, elle attend. */
@@ -221,6 +242,9 @@ export default function Quiz() {
    * gratuit : le jeu n'apprendrait plus rien.
    */
   const [valide, setValide] = useState(false);
+  /** Ce qu'on a repondu, question par question — pour le remontrer en
+   *  revenant en arriere. */
+  const [memoire, setMemoire] = useState<(string | null)[]>([]);
   const [points, setPoints] = useState(0);
   /** null = on ne trie pas. Le tri se fait par theme, et par theme seulement. */
   const [theme, setTheme] = useState<string | null>(null);
@@ -257,6 +281,7 @@ export default function Quiz() {
     setPoints(0);
     setChoisi(null);
     setValide(false);
+    setMemoire([]);
     setN(0);
   };
 
@@ -267,6 +292,7 @@ export default function Quiz() {
     setN(-1);
     setChoisi(null);
     setValide(false);
+    setMemoire([]);
     setPoints(0);
   };
 
@@ -282,9 +308,30 @@ export default function Quiz() {
     return x ? t.regionFilter[x.cle] : ancre;
   };
 
+  /*
+   * REVENIR EN ARRIERE — Mag : « permets de revenir en arriere au cas ou on
+   * voudrait relire une reponse ».
+   *
+   * La question precedente se rouvre DEJA VALIDEE : on y revient pour relire
+   * l'extrait et la bonne reponse, pas pour rejouer un coup deja joue. Le
+   * point reste donc acquis, et le score ne bouge pas — sans quoi il suffirait
+   * de reculer pour se rattraper.
+   *
+   * Le paquet ne bouge pas non plus : il tient a la graine de la partie, la
+   * question d'avant est exactement celle qu'on avait sous les yeux.
+   */
+  const precedente = () => {
+    setChoisi(memoire[n - 1] ?? null);
+    setValide(true);
+    setN((i) => i - 1);
+  };
+
   const suivante = () => {
-    setChoisi(null);
-    setValide(false);
+    // Si la suivante a deja ete jouee — on etait revenu en arriere — on la
+    // rouvre telle qu'on l'avait laissee plutot que de la reposer a blanc.
+    const dejaJouee = memoire[n + 1] !== undefined;
+    setChoisi(dejaJouee ? memoire[n + 1] : null);
+    setValide(dejaJouee);
     setN((i) => i + 1);
   };
 
@@ -415,6 +462,22 @@ export default function Quiz() {
               })}
             </div>
 
+            {/* Revenir en arriere : disponible a tout moment, pas seulement
+                une fois la question validee. On veut souvent relire la
+                precedente AVANT de repondre a celle-ci — c'est meme le cas le
+                plus frequent, et l'exiger d'avoir repondu d'abord serait une
+                porte fermee de plus. */}
+            {n > 0 && (
+              <button
+                type="button"
+                onClick={precedente}
+                className="w-fit rounded-full px-4 py-2 text-[13px] transition-transform duration-200 hover:scale-[1.03] motion-reduce:transition-none"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-muted)', fontWeight: 600 }}
+              >
+                ← {q.back}
+              </button>
+            )}
+
             {/* Tant qu'on n'a pas valide : un seul bouton, et rien d'autre.
                 Le verdict n'apparait pas, donc rien ne presse. */}
             {choisi !== null && !valide && (
@@ -423,6 +486,7 @@ export default function Quiz() {
                   type="button"
                   onClick={() => {
                     setValide(true);
+                    setMemoire((m) => { const c = [...m]; c[n] = choisi; return c; });
                     if (choisi === bonne) setPoints((p) => p + 1);
                   }}
                   className="rounded-full px-6 py-2.5 text-[14px]"

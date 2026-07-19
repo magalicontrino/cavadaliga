@@ -370,6 +370,17 @@ const MOTS_MAISON: Record<string, string> = {
     'quiz quizz quizs questionnaire jeu jouer question questions test s amuser distraire connaissances culture '
     + 'gioco giocare quiz domande test divertirsi conoscenze '
     + 'game play questions test fun trivia knowledge how well do you know',
+  'region-livres':
+    'livre livres lire lecture roman romans auteur ecrivain bouquin bibliotheque histoire sicilienne '
+    + 'occhipinti corti gattopardo lampedusa sciascia levi vittorini verga camilleri malavoglia civetta conversazione '
+    + 'libro libri leggere lettura romanzo autore scrittore biblioteca '
+    + 'book books read reading novel novels author writer library what to read',
+  'region-histoire':
+    'histoire historique guerre resistance communisme communiste socialisme anarchiste lutte luttes greve '
+    + 'fasci siciliani crispi non si parte revolte insurrection comiso republique occhipinti ustica portella ginestra giuliano '
+    + 'paysans terres occupation zolfatari soufre 1945 1947 1894 mussolini fascisme antimilitariste conscription '
+    + 'storia guerra resistenza comunismo comunista anarchico lotta sciopero rivolta contadini terre zolfare '
+    + 'history war resistance communism communist anarchist struggle strike revolt uprising peasants land sulphur miners',
   'region-lieux':
     'baroque unesco patrimoine ville villes village alentour autour visiter visite excursion journee '
     + 'scicli modica raguse ragusa noto syracuse siracusa donnalucata sampieri marina '
@@ -645,6 +656,22 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     titre: t.placesTitle,
     lignes: [t.placesIntro, ...t.regionPlaces.slice(0, 4)],
     mots: motsMaison('region-lieux'),
+  });
+
+  ajouter({
+    id: 'region-livres',
+    page: '/la-region#livres',
+    titre: t.booksPage.title,
+    lignes: [t.booksPage.intro, ...t.booksPage.list.map((b) => `${b.titre} — ${b.auteur} (${b.annee}). ${b.text}`)],
+    mots: motsMaison('region-livres'),
+  });
+
+  ajouter({
+    id: 'region-histoire',
+    page: '/la-region#histoire',
+    titre: t.historyPage.title,
+    lignes: [t.historyPage.intro, ...t.historyPage.facts.map((f) => `${f.title} — ${f.text}`), t.historyPage.note],
+    mots: motsMaison('region-histoire'),
   });
 
   // Le quiz. Mag a tape « quizz » : rien. Rien du tout — ni pastille, ni aveu.
