@@ -203,35 +203,39 @@ export default function Italien() {
                 </div>
               </div>
 
-              {/* Les tableaux défilent horizontalement plutôt que de casser la
-                  page : six formes ne tiennent pas en largeur sur un
-                  téléphone, et les tasser les rendrait illisibles. */}
-              <div className="cava-swipe -mx-6 mt-6 overflow-x-auto px-6 md:-mx-8 md:px-8">
-                <table className="w-max border-collapse text-[14px]">
-                  <thead>
-                    <tr>
-                      <th className="sticky left-0 py-2 pr-5 text-left text-[12px] uppercase tracking-[0.1em]" style={{ background: 'var(--cava-bg)', color: 'var(--cava-muted)' }} />
-                      {PRONOMS.map((pr) => (
-                        <th key={pr} className="px-3 py-2 text-left text-[12px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-muted)', fontWeight: 600 }}>
-                          {pr}
-                        </th>
+              {/*
+                PAS DE TABLEAU. Il y en a eu un, qui defilait de cote avec la
+                colonne des verbes collee a gauche. Mag l'a vu tout de suite :
+                les formes du milieu passaient sous cette colonne et on lisait
+                « a », « nde », « ne » — des bouts de mots. C'est le defaut
+                connu des tableaux colles sur telephone, et aucun reglage de
+                fond ou de z-index ne le repare : la cellule EST a moitie
+                cachee, c'est le principe meme.
+
+                Un verbe tient donc dans son bloc, et ses six formes se posent
+                en grille : deux colonnes sur telephone, six sur grand ecran.
+                Rien ne defile, rien ne se coupe, et le pronom reste collé a sa
+                forme au lieu d'etre a l'autre bout d'une ligne.
+              */}
+              <div className="mt-6 flex flex-col gap-px overflow-hidden rounded-2xl" style={{ background: 'var(--cava-line)' }}>
+                {c.tables.map((v) => (
+                  <div key={v.verbe} className="p-5" style={{ background: 'var(--cava-bg)' }}>
+                    <p className="text-[15px]" style={{ fontWeight: 600 }}>
+                      {v.verbe}
+                      <span className="ml-2 text-[13px]" style={{ color: 'var(--cava-muted)', fontWeight: 400 }}>{v.sens[lang]}</span>
+                    </p>
+                    <dl className="mt-3 grid grid-cols-2 gap-x-5 gap-y-2 sm:grid-cols-3 md:grid-cols-6">
+                      {v.formes.map((f, i) => (
+                        <div key={i}>
+                          <dt className="text-[11px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+                            {PRONOMS[i]}
+                          </dt>
+                          <dd className="text-[15px] leading-[1.4]">{f}</dd>
+                        </div>
                       ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {c.tables.map((v) => (
-                      <tr key={v.verbe} className="border-t" style={{ borderColor: 'var(--cava-line)' }}>
-                        <th className="sticky left-0 py-2.5 pr-5 text-left" style={{ background: 'var(--cava-bg)', fontWeight: 600 }}>
-                          {v.verbe}
-                          <span className="block text-[12px]" style={{ color: 'var(--cava-muted)', fontWeight: 400 }}>{v.sens[lang]}</span>
-                        </th>
-                        {v.formes.map((f, i) => (
-                          <td key={i} className="whitespace-nowrap px-3 py-2.5">{f}</td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </dl>
+                  </div>
+                ))}
               </div>
 
               <div className="mt-6 rounded-xl p-4" style={{ background: 'rgba(255,212,82,0.22)' }}>
