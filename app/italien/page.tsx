@@ -244,25 +244,14 @@ export default function Italien() {
       </section>
 
       {/*
-        LE PROGRAMME, par niveaux — Mag : « tu dois faire une liste par
-        section sur la page, par ordre de niveaux ».
-        Il ne se contente pas de lister : il HIERARCHISE. Une page longue sans
-        sommaire donne l'impression qu'il faut tout avaler ; celui-ci dit
-        d'emblee que le niveau 1 suffit pour tenir une semaine, et que le reste
-        attendra. C'est la promesse qui fait rester.
+        LE SOMMAIRE, par niveaux — une liste des sections dans l'ordre, du plus
+        simple au plus exigeant. Le titre « Le programme » et sa phrase d'intro
+        ont ete retires (Mag) : les cartes se suffisent, chacune dit deja son
+        niveau.
       */}
       <section className="mx-auto max-w-[110rem] px-5 pt-10 md:px-10">
-        <Reveal className="flex flex-col gap-2">
-          <h2 className="text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
-            {p.planTitle}
-          </h2>
-          <p className="max-w-[64ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
-            {p.planIntro}
-          </p>
-        </Reveal>
-
         {/* Sur grand ecran, les sections s'affichent en grille de cartes. */}
-        <Reveal className="mt-6 hidden gap-3 md:grid md:grid-cols-2">
+        <Reveal className="hidden gap-3 md:grid md:grid-cols-2">
           {PLAN.map(carteSommaire)}
         </Reveal>
 
@@ -272,7 +261,7 @@ export default function Italien() {
           <button
             type="button"
             onClick={() => setSommaireOuvert(true)}
-            className="mt-6 flex w-full items-center justify-between gap-4 rounded-2xl border px-5 py-4"
+            className="flex w-full items-center justify-between gap-4 rounded-2xl border px-5 py-4"
             style={{ borderColor: 'var(--cava-line)' }}
           >
             <span className="text-[15px]" style={{ fontWeight: 600 }}>{p.tocOpen}</span>
@@ -618,8 +607,7 @@ export default function Italien() {
       <BottomSheet
         ouvert={sommaireOuvert}
         onFermer={() => setSommaireOuvert(false)}
-        titre={p.planTitle}
-        intro={p.planIntro}
+        titre={p.tocOpen}
         labelFermer={p.sheetClose}
       >
         <div className="grid grid-cols-2 gap-3">
