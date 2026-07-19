@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
@@ -69,6 +69,26 @@ function melange<T>(liste: T[], graine: number): T[] {
 export default function Italien() {
   const { t, lang } = useI18n();
   const p = t.italianPage;
+
+  /*
+   * LA FLECHE DE RETOUR. Mag : « mets une fleche en sticky sur cette page
+   * pour pouvoir remonter a tout moment ».
+   *
+   * Elle est a GAUCHE : la bulle « Demander » occupe le coin droit sur toutes
+   * les pages, et deux ronds qui se chevauchent valent moins que pas de
+   * fleche du tout.
+   *
+   * Elle n'apparait qu'apres un ecran de defilement. En haut de page, elle ne
+   * proposerait que d'aller la ou l'on est deja — un bouton qui ne sert a
+   * rien apprend a ignorer les boutons.
+   */
+  const [remonter, setRemonter] = useState(false);
+  useEffect(() => {
+    const voir = () => setRemonter(window.scrollY > window.innerHeight * 0.8);
+    voir();
+    window.addEventListener('scroll', voir, { passive: true });
+    return () => window.removeEventListener('scroll', voir);
+  }, []);
 
   /* ── Les exercices ──────────────────────────────────────────────────
    * Meme logique que le quiz, et pour les memes raisons : on choisit, on
@@ -439,6 +459,24 @@ export default function Italien() {
       </section>
 
       <Footer />
+
+      <button
+        type="button"
+        aria-label={p.backToTop}
+        title={p.backToTop}
+        onClick={() => {
+          // `smooth` sauf si la personne a demande moins d'animation : sur
+          // une page de cette longueur, un saut sec desoriente.
+          const doux = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          window.scrollTo({ top: 0, behavior: doux ? 'smooth' : 'instant' });
+        }}
+        className={`fixed bottom-5 left-5 z-[60] flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-[opacity,transform] duration-300 motion-reduce:transition-none md:bottom-8 md:left-8 ${
+          remonter ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
+        }`}
+        style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)' }}
+      >
+        <span aria-hidden className="text-[20px] leading-none">↑</span>
+      </button>
     </main>
   );
 }

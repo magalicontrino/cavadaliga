@@ -359,6 +359,7 @@ export type Dict = {
     intro: string;
     methodTitle: string;
     method: string;
+    backToTop: string;
     planTitle: string;
     planIntro: string;
     level1: string;
@@ -1042,6 +1043,7 @@ const FR: Dict = {
     intro: 'Pas un cours de grammaire : de quoi se débrouiller dès le premier matin, puis comprendre ce qu’on dit. On commence par prononcer, on continue par des phrases entières, la grammaire vient après — et on s’entraîne à la fin.',
     methodTitle: 'Comment s’en servir',
     method: 'Dix minutes par jour valent mieux qu’une heure le dimanche. Lisez à voix haute, même seul, même mal : l’italien s’attrape par l’oreille et par la bouche, pas par les yeux. Ne cherchez pas à tout retenir — prenez les trois phrases dont vous avez besoin aujourd’hui, servez-vous-en pour de vrai, et revenez demain. C’est le principe des méthodes qui marchent, celle d’Assimil la première : des leçons courtes, des phrases entières, et la règle expliquée seulement une fois qu’on la dit déjà.',
+    backToTop: 'Remonter en haut de la page',
     planTitle: 'Le programme',
     planIntro: 'Dans l’ordre, du plus simple au plus exigeant. Rien n’oblige à tout faire : le niveau 1 suffit pour se débrouiller une semaine.',
     level1: 'Niveau 1 · débuter',
@@ -1940,6 +1942,7 @@ const IT: Dict = {
     intro: 'Non un corso di grammatica: quanto basta per cavarsela dal primo mattino, e poi per capire quello che si dice. Prima la pronuncia, poi frasi intere, la grammatica dopo — e alla fine gli esercizi. Questa versione serve soprattutto a chi vuole rivedere le regole o aiutare qualcuno a impararle.',
     methodTitle: 'Come usarlo',
     method: 'Dieci minuti al giorno valgono più di un’ora la domenica. Leggete ad alta voce, anche da soli, anche male. Non cercate di ricordare tutto: prendete le tre frasi che vi servono oggi, usatele davvero, e tornate domani. È il principio dei metodi che funzionano, a cominciare da Assimil: lezioni brevi, frasi intere, e la regola spiegata solo quando la si dice già.',
+    backToTop: 'Torna in cima alla pagina',
     planTitle: 'Il programma',
     planIntro: 'In ordine, dal più semplice al più impegnativo. Non serve fare tutto: il livello 1 basta per cavarsela una settimana.',
     level1: 'Livello 1 · iniziare',
@@ -2838,6 +2841,7 @@ const EN: Dict = {
     intro: 'Not a grammar course: enough to get by from the first morning, and then to understand what you are saying. Pronunciation first, whole sentences next, grammar after that — and exercises at the end.',
     methodTitle: 'How to use it',
     method: 'Ten minutes a day beats an hour on Sunday. Read out loud, even alone, even badly: Italian is caught by ear and mouth, not by eye. Do not try to remember everything — take the three sentences you need today, actually use them, and come back tomorrow. That is the principle behind the methods that work, Assimil first among them: short lessons, whole sentences, and the rule explained only once you are already saying it.',
+    backToTop: 'Back to the top of the page',
     planTitle: 'The programme',
     planIntro: 'In order, from the simplest to the most demanding. You do not have to do it all: level 1 is enough to get through a week.',
     level1: 'Level 1 · starting out',
