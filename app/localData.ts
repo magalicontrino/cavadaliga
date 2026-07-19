@@ -223,27 +223,35 @@ export const LOCAL_PLACES: LocalPlace[] = [
       it: 'Il grande bazar sulla strada di Scicli, a 2 km. Un po’ di tutto: utensili, ferramenta, contenitori, cucina, giardino, cartoleria. Quando non si sa dove trovare un oggetto, si comincia da qui.',
       en: 'The big general store on the Scicli road, 2 km away. A little of everything: tools, hardware, storage, kitchen, garden, stationery. When you have no idea where to find something, start here.' },
   },
-  // Le marche de Scicli. Le JOUR vient de la commune elle-meme, qui ecrit
-  // « il mercato settimanale del sabato di Largo Gramsci » (comune.scicli.rg.it),
-  // et la presse locale le confirme. Des annuaires de sortie annoncent un
-  // mardi : c'est faux, et c'est exactement la source qui m'avait fait ecrire
-  // « mardi matin, Piazza Olimpiadi » la premiere fois. Le samedi tient sur
-  // trois sources dont deux municipales.
+  // Le marche de Scicli. C'est MARDI, et j'avais ecrit samedi avec aplomb.
   //
-  // Les HORAIRES ne sont ecrits nulle part : le texte dit donc l'usage
-  // sicilien, pas un horaire precis qu'on ne peut pas verifier.
+  // Mes trois sources disaient « il mercato settimanale del sabato di Largo
+  // Gramsci » — deux pages de la commune et un article de presse. Elles
+  // dataient de 2020 et 2023. La presse locale de mai 2026, elle, parle du
+  // « mercato rionale del martedì », a contrada Zagarone. Mag, qui y va, dit
+  // mardi. Une source officielle mais vieille ne bat pas une source recente :
+  // un marche demenage, et celui-ci a manifestement quitte le centre pour
+  // l'aire de foire.
+  //
+  // LE LIEU reste ouvert, et c'est pourquoi le lien de carte est une RECHERCHE
+  // et non un point : entre le Largo Gramsci et contrada Zagarone, se tromper
+  // enverrait quelqu'un faire huit kilometres pour rien. Pas de coordonnees
+  // non plus tant que Mag n'a pas tranche — donc pas d'epingle qui mentirait.
+  //
+  // Les HORAIRES ne sont ecrits nulle part : le texte dit l'usage sicilien,
+  // pas un horaire precis qu'on ne peut pas verifier.
   {
     id: 'mercato-scicli',
     name: 'Mercato settimanale di Scicli',
     cat: 'marche',
     town: 'Scicli',
-    url: 'https://www.google.com/maps/search/?api=1&query=Largo+Antonio+Gramsci+Scicli+RG',
+    url: 'https://www.google.com/maps/search/?api=1&query=mercato+settimanale+Scicli+RG',
     km: 8,
     responsible: true,
     blurb: {
-      fr: 'Le marché hebdomadaire de la ville, le samedi, sur le Largo Gramsci. Comme partout en Sicile, il se tient le matin et plie en début d’après-midi.',
-      it: 'Il mercato settimanale della città, il sabato, in Largo Gramsci. Come ovunque in Sicilia, si tiene la mattina e smonta nel primo pomeriggio.',
-      en: 'The town’s weekly market, on Saturdays, at Largo Gramsci. As everywhere in Sicily, it runs in the morning and packs up in the early afternoon.' },
+      fr: 'Le marché hebdomadaire de la ville, le mardi. Comme partout en Sicile, il se tient le matin et plie en début d’après-midi.',
+      it: 'Il mercato settimanale della città, il martedì. Come ovunque in Sicilia, si tiene la mattina e smonta nel primo pomeriggio.',
+      en: 'The town’s weekly market, on Tuesdays. As everywhere in Sicily, it runs in the morning and packs up in the early afternoon.' },
   },
   {
     id: 'baqqala',

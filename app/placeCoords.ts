@@ -17,6 +17,12 @@
 // Manque : gatto (Gatto Frantoio). Absent d'OpenStreetMap, et son adresse
 // (« Contrada Lago », un lieu-dit sans numéro) ne se géocode pas. À demander
 // à Mag plutôt qu'à inventer.
+//
+// Manque aussi : mercato-scicli. J'y avais mis le Largo Gramsci, sur la foi de
+// sources de 2020 et 2023. La presse locale de mai 2026 place le marché du
+// mardi à contrada Zagarone — à trois kilomètres de là. Entre les deux, une
+// épingle fausse enverrait quelqu'un faire le trajet pour rien. Elle attend
+// que Mag dise où elle va.
 // ────────────────────────────────────────────────────────────────────────
 
 export type PlaceCoord = { lat: number; lon: number; src: 'google' | 'nominatim' };
@@ -50,8 +56,6 @@ export const COORDS: Record<string, PlaceCoord> = {
   // rien sur leurs noms. On geocode donc leur voie — precision de l'ordre de
   // cent metres, ce qui situe le quartier sans pretendre a l'adresse exacte.
   // Baqqala suit le palais Beneventano, qui borde sa place.
-  // Le marche : la PLACE, pas un etal — c'est bien ce qu'on cherche ici.
-  'mercato-scicli': { lat: 36.79184, lon: 14.70486, src: 'nominatim' },
   baqqala: { lat: 36.7933, lon: 14.70753, src: 'nominatim' },
   'la-grotta': { lat: 36.79404, lon: 14.71195, src: 'nominatim' },
   prosit: { lat: 36.79397, lon: 14.70927, src: 'nominatim' },
