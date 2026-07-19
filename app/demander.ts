@@ -71,6 +71,7 @@ const VIDES = new Set(
     'comment quand pourquoi qui quoi que qu je tu il elle on nous vous ils faut il-y-a y en sur ' +
     'dans pour avec sans mon ma mes notre nos votre vos se sont ete etre avoir fait faire ' +
     'ne pas plus tres bien peut peux peuvent veux voudrais aimerais svp merci stp ' +
+    'tout toute tous toutes tutto tutta tutti tutte all every everything ' +
     'il lo la i gli le di da del della dei delle e ed o un uno una come dove quando perche chi ' +
     'che cosa si no per con senza sul nel alla al ai agli mio mia miei nostro vostro sono stato ' +
     'the a an of in on at to for with without and or is are was how what when where why who ' +
@@ -175,13 +176,23 @@ const MOTS_MAISON: Record<string, string> = {
   pharmacie:
     'pharmacie pharmacien medicament medicaments ordonnance garde malade grippe ' +
     'farmacia medicina medicine ricetta turno malato ' +
-    'pharmacy chemist medicine prescription duty ill sick parapharmacie creme piqure moustique brulure soleil fievre mal tete ventre pansement farmacia crema puntura zanzara febbre mal di testa cerotto chemist cream bite mosquito sunburn fever headache plaster bandage',
+    'pharmacy chemist medicine prescription duty ill sick parapharmacie anti antimoustique repulsif spray insecticide repellente insetticida repellent creme piqure moustique brulure soleil fievre mal tete ventre pansement farmacia crema puntura zanzara febbre mal di testa cerotto chemist cream bite mosquito sunburn fever headache plaster bandage',
   urgences:
     'urgence urgences secours pompier pompiers police carabinieri ambulance hopital docteur medecin garde '
     + '112 118 115 113 numero unique guardia ' +
     'accident noye sauvetage numero appeler ' +
     'emergenza soccorso vigili fuoco polizia ambulanza ospedale medico incidente chiamare ' +
     'emergency ambulance fire police hospital doctor accident drowning rescue call sos aide danger blesse malaise brulure noyade meduse serpent chien morsure commissariat aiuto pericolo ferito malore ustione annegamento medusa serpente morso help danger injured faint burn drowning jellyfish snake bite police station',
+  bestioles:
+    'bestiole bestioles bete betes animal animaux insecte insectes nuisible nuisibles bebete '
+    + 'gecko geckos tarente lezard lezards serpent serpents vipere scorpion scorpions fourmi fourmis '
+    + 'moustique moustiques piqure pique cafard blatte araignee mouche guepe abeille '
+    + 'miette miettes propre proprete nettoyer balayer vaisselle table debarrasser frigo ranger hermetique '
+    + 'humidite chaleur chaud eau stagnante souscoupe poubelle odeur chaussures secouer dangereux danger mord morsure venimeux '
+    + 'bestia bestie insetti nocivi geco gechi lucertola serpente vipera scorpione formiche zanzara zanzare puntura scarafaggio ragno mosca vespa '
+    + 'briciole pulizia pulire scopare piatti tavola sparecchiare frigo umidita caldo acqua ferma pattumiera scarpe pericoloso morso velenoso '
+    + 'critter critters bug bugs pest pests gecko lizard snake viper scorpion ant ants mosquito bite cockroach spider fly wasp '
+    + 'crumbs clean cleaning sweep dishes table clear fridge airtight humidity heat standing water bin shoes dangerous venomous',
   argent:
     'argent liquide especes cash monnaie retirer retrait distributeur dab bancomat postamat guichet automatique '
     + 'banque banca poste posta bureau poste carte bleue carte bancaire visa mastercard paiement payer especes seulement '
@@ -419,6 +430,32 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   });
   // Se garer. Les couleurs au sol sont la premiere chose qu'on affronte en
   // arrivant avec une voiture de location, et le site n'en disait rien.
+  ajouter({
+    id: 'bestioles',
+    page: '/informations-pratiques#bestioles',
+    titre: t.faunaPage.title,
+    lignes: [t.faunaPage.intro, ...t.faunaPage.rules, ...t.faunaPage.facts.map((x) => `${x.title} — ${x.text}`)],
+    mots: motsMaison('bestioles'),
+    /*
+     * Ces mots-la ne se partagent pas.
+     *
+     * A poids egal, « vaisselle » repondait Supermarches (le liquide
+     * vaisselle) et « mosquitoes » la pharmacie (le repulsif) — mesure faite.
+     * Quand quelqu'un tape le nom d'une bete ou « miettes », il demande ce
+     * qu'elle est et quoi faire, pas ou en acheter. Les expressions a deux
+     * mots, elles, retrouvent leur cible : « liquide vaisselle » et
+     * « anti-moustique » gagnent toujours, un mot de plus les departage.
+     */
+    motsPrecis: motsDe(
+      'gecko geckos tarente lezard lezards serpent serpents vipere viperes scorpion scorpions '
+      + 'fourmi fourmis moustique moustiques miette miettes vaisselle '
+      + 'geco gechi lucertola lucertole serpente serpenti vipera scorpione scorpioni formica formiche '
+      + 'zanzara zanzare briciola briciole '
+      + 'gecko geckos lizard lizards snake snakes viper vipers scorpion scorpions ant ants '
+      + 'mosquito mosquitoes crumb crumbs dishes',
+    ),
+  });
+
   ajouter({
     id: 'argent',
     page: '/informations-pratiques#argent',

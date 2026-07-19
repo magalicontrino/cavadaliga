@@ -15,10 +15,10 @@ import Gallery from '../Gallery';
 import { withBase, APPART_ALBUM } from '../data';
 import { useI18n } from '../i18n';
 
-type Key = 'tout' | 'adresse' | 'arrivee' | 'bouger' | 'parking' | 'argent' | 'urgences' | 'dechets' | 'depart';
+type Key = 'tout' | 'adresse' | 'arrivee' | 'bouger' | 'parking' | 'argent' | 'bestioles' | 'urgences' | 'dechets' | 'depart';
 
 /** Les sections atteignables par un lien « #… ». « tout » n'en est pas une. */
-const SECTIONS: Key[] = ['adresse', 'arrivee', 'bouger', 'parking', 'argent', 'urgences', 'dechets', 'depart'];
+const SECTIONS: Key[] = ['adresse', 'arrivee', 'bouger', 'parking', 'argent', 'bestioles', 'urgences', 'dechets', 'depart'];
 
 
 export default function InformationsPratiques() {
@@ -84,6 +84,7 @@ export default function InformationsPratiques() {
     { key: 'bouger', label: f.move, icon: 'compass' },
     { key: 'parking', label: f.parking, icon: 'car' },
     { key: 'argent', label: f.money, icon: 'bag' },
+    { key: 'bestioles', label: f.fauna, icon: 'leaf' },
     { key: 'urgences', label: f.urgent, icon: 'phone' },
     { key: 'dechets', label: f.waste, icon: 'trash' },
     { key: 'depart', label: f.leaving, icon: 'home' },
@@ -299,6 +300,63 @@ export default function InformationsPratiques() {
 
           <Reveal className="mt-6 max-w-[68ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
             {t.cashPage.note}
+          </Reveal>
+        </section>
+      )}
+
+      {/* Les bestioles et la proprete. Mag : « pas forcement evident pour les
+          nordistes » — c'est exactement le point. Les regles d'abord, parce
+          que ce sont elles qui servent tous les jours ; les animaux ensuite,
+          parce qu'ils rassurent une fois qu'on sait quoi faire. */}
+      {show('bestioles') && (
+        <section id="bestioles" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-8 pt-12 md:px-10">
+          <Reveal className="mb-8 flex flex-col gap-2">
+            <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+              <Icon name="leaf" size={16} /> {t.faunaPage.eyebrow}
+            </span>
+            <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
+              {t.faunaPage.title}
+            </h2>
+            <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+              {t.faunaPage.intro}
+            </p>
+          </Reveal>
+
+          <Reveal className="mb-10 rounded-2xl border p-6 md:p-8" style={{ borderColor: 'var(--cava-line)' }}>
+            <h3 className="mb-4 text-[13px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+              {t.faunaPage.rulesTitle}
+            </h3>
+            <ul className="flex flex-col gap-3">
+              {t.faunaPage.rules.map((r) => (
+                <li key={r} className="flex gap-3 text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                  <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: 'var(--cava-pink)' }} />
+                  {r}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          <Reveal className="mb-5 text-[13px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+            {t.faunaPage.factsTitle}
+          </Reveal>
+          <div className="grid gap-px overflow-hidden rounded-2xl md:grid-cols-3" style={{ background: 'var(--cava-line)' }}>
+            {t.faunaPage.facts.map((x, i) => (
+              <Reveal key={x.title} delay={(i % 3) * 80} className="flex flex-col gap-4 p-8" style={{ background: 'var(--cava-bg)' }}>
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl border" style={{ borderColor: 'var(--cava-line)' }}>
+                  <Icon name={x.icon as IconName} size={20} />
+                </span>
+                <h3 className="text-[clamp(1.05rem,2vw,1.25rem)] leading-[1.25]" style={{ fontWeight: 600 }}>
+                  {x.title}
+                </h3>
+                <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                  {x.text}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mt-6 max-w-[68ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+            {t.faunaPage.note}
           </Reveal>
         </section>
       )}

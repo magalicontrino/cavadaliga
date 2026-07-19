@@ -275,6 +275,7 @@ export type Dict = {
     waste: string;
     leaving: string;
     money: string;
+    fauna: string;
   };
   /**
    * Se garer en Sicile — c'est-a-dire en Italie : les couleurs au sol sont
@@ -307,6 +308,26 @@ export type Dict = {
    * bleue » ne veulent rien dire ici : c'est « Bancomat » qui est ecrit sur
    * les facades, donc c'est ce mot qu'il faut avoir en tete en cherchant.
    */
+  /**
+   * Les bestioles, et pourquoi on tient la maison propre.
+   *
+   * Mag : « pas de miettes, vaisselle faite sans trainer… pas forcement
+   * evident pour les nordistes ». C'est le fond de la page : sous 35 degres
+   * et dans l'humidite de la cote, une assiette laissee le soir n'est pas une
+   * negligence sans consequence, c'est une invitation.
+   *
+   * Le reste rassure — mais SANS mentir. Voir le commentaire des `facts`.
+   */
+  faunaPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    rulesTitle: string;
+    rules: string[];
+    factsTitle: string;
+    facts: { icon: string; title: string; text: string }[];
+    note: string;
+  };
   cashPage: {
     eyebrow: string;
     title: string;
@@ -844,6 +865,7 @@ const FR: Dict = {
     waste: 'Déchets',
     leaving: 'Le départ',
     money: 'Retirer de l’argent',
+    fauna: 'Bestioles & propreté',
   },
   parkingPage: {
     eyebrow: 'Se garer',
@@ -861,6 +883,54 @@ const FR: Dict = {
       title: 'Le gardien à la casquette',
       text: 'Sur les parkings publics des grandes villes et des sites très touristiques, quelqu’un vient souvent vous placer et surveiller la voiture. Officiel ou non, on ne le sait pas toujours. Il demande peu, il surveille vraiment bien, et là-bas mieux vaut accepter — on ne sait pas trop ce qui arrive à la voiture si on refuse. Chez nous, à Cava d’Aliga, la question ne se pose pas : on est loin des lieux touristiques.',
     },
+  },
+  faunaPage: {
+    eyebrow: 'Bestioles & propreté',
+    title: 'Vivre dans un pays chaud',
+    intro: 'Chaleur et humidité : ce qui passe inaperçu chez nous, au nord, ne pardonne pas ici. Une assiette laissée le soir, quelques miettes sous la table, et la colonne de fourmis est là au matin. Rien de dramatique — juste des réflexes à prendre, et ils deviennent vite naturels.',
+    rulesTitle: 'Les réflexes',
+    rules: [
+      'Pas de miettes. Un coup de balai après chaque repas, sous la table aussi.',
+      'La table se débarrasse et la vaisselle se fait sans traîner — pas au lendemain matin.',
+      'Tout ce qui est ouvert se range : biscuits, farine, pain, fruits, sucre. Chez nous, on met un maximum au frigo, et c’est la meilleure des boîtes hermétiques.',
+      'Poubelle fermée, et sortie le bon soir. Un sac qui passe la nuit ouvert dans la cuisine, c’est le plus sûr moyen d’avoir de la visite.',
+      'On ne laisse pas d’eau stagner : soucoupes sous les pots, seaux, arrosoir. C’est là que les moustiques pondent, et nulle part ailleurs.',
+      'On secoue les chaussures laissées dehors avant de les remettre. Vieux réflexe du sud, qui ne coûte rien.',
+    ],
+    factsTitle: 'Qui vit ici',
+    facts: [
+      {
+        icon: 'leaf',
+        title: 'Les geckos',
+        text: 'Les petites tarentes beiges qui traversent le mur le soir, immobiles autour des lampes. Elles ne mordent pas, ne s’approchent pas, ne montent pas dans les lits — et elles passent leur nuit à manger des moustiques. Ce sont les meilleures colocataires de la maison : laissez-les tranquilles.',
+      },
+      {
+        icon: 'walk',
+        title: 'Les petits lézards',
+        text: 'Ils filent entre les pierres au soleil et disparaissent dès qu’on approche. Totalement inoffensifs, et chez eux bien avant nous.',
+      },
+      {
+        icon: 'cone',
+        title: 'Les fourmis',
+        text: 'La vraie raison de la règle des miettes. Elles ne piquent pas et ne transportent rien de grave, mais une fois qu’une file a trouvé le chemin du sucre, elle le refait pendant des jours. On ne les combat pas : on ne leur donne rien.',
+      },
+      {
+        icon: 'droplet',
+        title: 'Les moustiques',
+        text: 'Ils piquent surtout au lever et au coucher du soleil, et le moustique tigre, présent en Sicile, pique aussi en pleine journée. Ils naissent dans l’eau immobile — quelques centimètres dans une soucoupe suffisent. Vider ce qui retient l’eau est plus efficace que n’importe quelle bombe.',
+      },
+      {
+        icon: 'info',
+        title: 'Les serpents : rares, mais ils existent',
+        text: 'On n’en voit pas au village, et pratiquement jamais près des maisons. Mais la Sicile en compte plusieurs espèces, et l’une d’elles est venimeuse : la vipère (Vipera aspis hugyi), qui vit dans la campagne sèche et pierreuse. Elle fuit avant qu’on l’ait vue. En randonnée, chaussures fermées et on regarde où l’on met les mains. Et en cas de morsure : on appelle les secours, on immobilise le membre — jamais de garrot, jamais d’incision, jamais d’aspiration.',
+      },
+      {
+        icon: 'target',
+        title: 'Les scorpions : présents, et sans danger',
+        text: 'Le scorpion sicilien (Euscorpius sicanus) est petit, sombre, nocturne, et se cache sous les pierres ou les pots. Il est extrêmement craintif et pique rarement ; sa piqûre fait le même effet qu’une piqûre d’ortie ou d’abeille, sans danger. C’est de là que vient l’habitude de secouer ses chaussures.',
+      },
+    ],
+    note: 'Nous ne disons pas « il n’y a rien ici » : ce serait rassurant et faux. Nous disons ce qui vit là, et ce que ça change vraiment — c’est-à-dire presque rien, à condition de tenir la cuisine propre.',
   },
   cashPage: {
     eyebrow: 'Retirer de l’argent',
@@ -1558,6 +1628,7 @@ const IT: Dict = {
     waste: 'Rifiuti',
     leaving: 'La partenza',
     money: 'Prelevare contanti',
+    fauna: 'Bestiole e pulizia',
   },
   parkingPage: {
     eyebrow: 'Parcheggiare',
@@ -1575,6 +1646,54 @@ const IT: Dict = {
       title: 'Il posteggiatore',
       text: 'Nei parcheggi pubblici delle grandi città e dei posti molto turistici arriva spesso qualcuno a farvi posteggiare e a sorvegliare l’auto. Se sia autorizzato o no, non si sa sempre. Chiede poco, sorveglia davvero bene, e lì conviene accettare — non si sa bene cosa succeda all’auto se si dice di no. Da noi, a Cava d’Aliga, il problema non si pone: siamo lontani dai luoghi turistici.',
     },
+  },
+  faunaPage: {
+    eyebrow: 'Bestiole e pulizia',
+    title: 'Vivere in un paese caldo',
+    intro: 'Caldo e umidità: quello che al nord passa inosservato, qui non perdona. Un piatto lasciato la sera, qualche briciola sotto il tavolo, e la mattina la fila di formiche è già lì. Niente di drammatico — solo qualche abitudine da prendere, e si prende in fretta.',
+    rulesTitle: 'Le abitudini',
+    rules: [
+      'Niente briciole. Una scopata dopo ogni pasto, anche sotto il tavolo.',
+      'Il tavolo si sparecchia e i piatti si lavano subito — non l’indomani mattina.',
+      'Tutto quello che è aperto si ripone: biscotti, farina, pane, frutta, zucchero. Noi mettiamo il più possibile in frigo: è il miglior contenitore ermetico che ci sia.',
+      'Pattumiera chiusa, e fuori la sera giusta. Un sacco lasciato aperto tutta la notte in cucina è l’invito più sicuro.',
+      'Mai lasciare acqua ferma: sottovasi, secchi, annaffiatoio. È lì che le zanzare depongono, e da nessun’altra parte.',
+      'Scuotere le scarpe lasciate fuori prima di rimetterle. Vecchia abitudine del sud, non costa nulla.',
+    ],
+    factsTitle: 'Chi vive qui',
+    facts: [
+      {
+        icon: 'leaf',
+        title: 'I gechi',
+        text: 'Le tarantoline chiare che attraversano il muro la sera, ferme intorno alle lampade. Non mordono, non si avvicinano, non salgono sui letti — e passano la notte a mangiare zanzare. Sono i migliori coinquilini della casa: lasciateli in pace.',
+      },
+      {
+        icon: 'walk',
+        title: 'Le lucertole',
+        text: 'Sfrecciano tra le pietre al sole e spariscono appena ci si avvicina. Del tutto innocue, e qui da molto prima di noi.',
+      },
+      {
+        icon: 'cone',
+        title: 'Le formiche',
+        text: 'Il vero motivo della regola delle briciole. Non pungono e non portano nulla di grave, ma una volta che una fila ha trovato la strada dello zucchero la rifà per giorni. Non si combattono: non si dà loro niente.',
+      },
+      {
+        icon: 'droplet',
+        title: 'Le zanzare',
+        text: 'Pungono soprattutto all’alba e al tramonto, e la zanzara tigre, presente in Sicilia, punge anche in pieno giorno. Nascono nell’acqua ferma — bastano pochi centimetri in un sottovaso. Svuotare ciò che trattiene l’acqua funziona meglio di qualsiasi spray.',
+      },
+      {
+        icon: 'info',
+        title: 'I serpenti: rari, ma esistono',
+        text: 'In paese non se ne vedono, e quasi mai vicino alle case. Ma in Sicilia vivono diverse specie, e una è velenosa: la vipera (Vipera aspis hugyi), che sta nella campagna secca e pietrosa. Fugge prima ancora che la si veda. In escursione: scarpe chiuse e attenzione a dove si mettono le mani. In caso di morso: si chiamano i soccorsi e si immobilizza l’arto — mai laccio, mai incisione, mai suzione.',
+      },
+      {
+        icon: 'target',
+        title: 'Gli scorpioni: presenti, e innocui',
+        text: 'Lo scorpione siciliano (Euscorpius sicanus) è piccolo, scuro, notturno, e si nasconde sotto le pietre o i vasi. È timidissimo e punge di rado; la puntura fa l’effetto di un’ortica o di un’ape, senza pericolo. Da qui l’abitudine di scuotere le scarpe.',
+      },
+    ],
+    note: 'Non diciamo « qui non c’è niente »: sarebbe rassicurante e falso. Diciamo che cosa vive qui e che cosa cambia davvero — cioè quasi nulla, a patto di tenere la cucina pulita.',
   },
   cashPage: {
     eyebrow: 'Prelevare contanti',
@@ -2272,6 +2391,7 @@ const EN: Dict = {
     waste: 'Waste',
     leaving: 'Leaving',
     money: 'Cash',
+    fauna: 'Critters & cleaning',
   },
   parkingPage: {
     eyebrow: 'Parking',
@@ -2289,6 +2409,54 @@ const EN: Dict = {
       title: 'The man in the cap',
       text: 'In public car parks in big cities and very touristy spots, someone often turns up to wave you into a space and watch the car. Whether he is official or not, you cannot always tell. He asks for little, he really does keep an eye on it, and there it is better to accept — you never quite know what happens to the car if you say no. Here in Cava d’Aliga the question does not arise: we are far from the tourist spots.',
     },
+  },
+  faunaPage: {
+    eyebrow: 'Critters & cleaning',
+    title: 'Living in a hot country',
+    intro: 'Heat and humidity: what goes unnoticed up north does not forgive here. One plate left overnight, a few crumbs under the table, and the line of ants is there by morning. Nothing dramatic — just a few habits to pick up, and they come quickly.',
+    rulesTitle: 'The habits',
+    rules: [
+      'No crumbs. A quick sweep after every meal, under the table too.',
+      'Clear the table and wash up without waiting — not the next morning.',
+      'Anything opened gets put away: biscuits, flour, bread, fruit, sugar. We put as much as possible in the fridge — the best airtight box there is.',
+      'Bin closed, and out on the right evening. A bag left open overnight in the kitchen is the surest invitation.',
+      'Never let water stand: pot saucers, buckets, the watering can. That is where mosquitoes breed, and nowhere else.',
+      'Shake out shoes left outside before putting them back on. An old southern habit that costs nothing.',
+    ],
+    factsTitle: 'Who lives here',
+    facts: [
+      {
+        icon: 'leaf',
+        title: 'The geckos',
+        text: 'The pale little wall geckos that cross the wall at dusk and sit motionless around the lamps. They do not bite, do not come near you, do not climb into beds — and they spend the night eating mosquitoes. They are the best housemates here: leave them be.',
+      },
+      {
+        icon: 'walk',
+        title: 'The small lizards',
+        text: 'They dart between the stones in the sun and vanish the moment you step closer. Completely harmless, and here long before we were.',
+      },
+      {
+        icon: 'cone',
+        title: 'The ants',
+        text: 'The real reason for the crumb rule. They do not sting and carry nothing serious, but once a line has found the way to the sugar it will take it again for days. You do not fight them: you give them nothing.',
+      },
+      {
+        icon: 'droplet',
+        title: 'The mosquitoes',
+        text: 'They bite mostly at sunrise and sunset, and the tiger mosquito, present in Sicily, bites in broad daylight too. They breed in still water — a few centimetres in a saucer is enough. Emptying anything that holds water beats any spray.',
+      },
+      {
+        icon: 'info',
+        title: 'Snakes: rare, but they exist',
+        text: 'You will not see them in the village, and hardly ever near the houses. But Sicily has several species, and one is venomous: the asp viper (Vipera aspis hugyi), which lives in dry stony countryside. It flees before you ever see it. Hiking: closed shoes, and watch where you put your hands. If bitten: call the emergency services and keep the limb still — never a tourniquet, never a cut, never suction.',
+      },
+      {
+        icon: 'target',
+        title: 'Scorpions: present, and harmless',
+        text: 'The Sicilian scorpion (Euscorpius sicanus) is small, dark, nocturnal, and hides under stones or flowerpots. It is extremely shy and rarely stings; the sting feels like a nettle or a bee, with no danger. That is where the habit of shaking out your shoes comes from.',
+      },
+    ],
+    note: 'We are not saying “there is nothing here”: that would be reassuring and untrue. We say what lives here and what it actually changes — which is almost nothing, as long as the kitchen stays clean.',
   },
   cashPage: {
     eyebrow: 'Getting cash',
