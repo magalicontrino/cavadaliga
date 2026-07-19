@@ -6,6 +6,7 @@
  * viewBox 24×24, bouts arrondis. Ajouter une entrée = ajouter un cas ici.
  */
 export type IconName =
+  | 'chat'
   | 'key'
   | 'volcano'
   | 'window'
@@ -153,6 +154,15 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
       <circle cx="12" cy="12" r="8.5" />
       <path d="M12 11v5" />
       <path d="M12 8h.01" />
+    </>
+  ),
+  // Bulle de parole — « Demander ». Une queue vers le bas a gauche pour qu'on
+  // lise « on parle » et non « on informe », et trois points : la question est
+  // en train de se poser.
+  chat: (
+    <>
+      <path d="M20.5 12.4c0 3.5-3.4 6.3-7.6 6.3-.9 0-1.8-.1-2.6-.4l-4.3 1.6 1.3-3.3c-1.4-1.1-2.3-2.6-2.3-4.2 0-3.5 3.4-6.3 7.6-6.3s7.9 2.8 7.9 6.3Z" />
+      <path d="M9.8 12.4h.01M12.9 12.4h.01M16 12.4h.01" />
     </>
   ),
   // Épingle — sur place

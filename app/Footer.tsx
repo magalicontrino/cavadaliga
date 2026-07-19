@@ -36,7 +36,11 @@ export default function Footer() {
         <Marquee items={['Scicli', 'Ragusa', 'Modica', 'Noto', 'Donnalucata', 'Marina di Ragusa']} duration={38} />
       </div>
 
-      <div className="mx-auto max-w-[110rem] px-5 py-16 md:px-10 md:py-20">
+      {/* Le bas de page se termine PLUS BAS que le reste : la bulle
+          « Demander » est posee dans ce coin, fixe, et venait recouvrir le
+          « Copyright © Mag » — au point de le rendre incliquable. Cette marge
+          laisse le credit remonter au-dessus d'elle. */}
+      <div className="mx-auto max-w-[110rem] px-5 pb-28 pt-16 md:px-10 md:pb-32 md:pt-20">
         {/* Liens géants (maximaliste) — les pages. Contact et Instagram vivent
             au-dessus du bandeau, pas ici. */}
         <nav className="border-t" style={{ borderColor: 'var(--cava-line)' }}>

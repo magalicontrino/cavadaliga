@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import './theme.css';
 import { LanguageProvider } from './i18n';
+import Assistant from './Assistant';
 
 export const metadata: Metadata = {
   title: "Cava d'Aliga — un village du sud-est de la Sicile",
@@ -18,7 +19,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr">
       <body>
         <LanguageProvider>
-          <div className="cava-root min-h-screen">{children}</div>
+          <div className="cava-root min-h-screen">
+            {children}
+            {/* « Demander » vit ici, hors des pages : la question se pose
+                d'ou qu'on soit, et sur place c'est souvent la seule chose
+                qu'on veut faire. */}
+            <Assistant />
+          </div>
         </LanguageProvider>
       </body>
     </html>

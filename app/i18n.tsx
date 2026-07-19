@@ -280,6 +280,24 @@ export type Dict = {
     cta: string;
     subject: string;
   };
+  // « Demander » — la bulle qui cherche dans le site. Ses reponses sont les
+  // textes ci-dessous, mot pour mot : rien ici ne redige, d'ou `promise`, qui
+  // le dit au visiteur plutot que de le lui laisser deviner.
+  assistant: {
+    label: string;
+    title: string;
+    promise: string;
+    placeholder: string;
+    send: string;
+    suggestionsTitle: string;
+    suggestions: string[];
+    sourceLabel: string;
+    alsoTitle: string;
+    noneTitle: string;
+    noneText: string;
+    close: string;
+    clear: string;
+  };
   wastePage: {
     eyebrow: string;
     title: string;
@@ -747,6 +765,21 @@ const FR: Dict = {
     textFor: 'Pour {what} : on n’a pas encore l’info ici. Écrivez à Mag, elle vous répond — et on l’ajoute pour les suivants.',
     cta: 'Écrire à Mag',
     subject: 'Une question depuis le site',
+  },
+  assistant: {
+    label: 'Demander',
+    title: 'Une question ?',
+    promise: 'Je cherche dans le site et je réponds avec ce qui y est écrit, mot pour mot. Rien d’inventé.',
+    placeholder: 'Le code du wifi, la vanne d’eau, une pizza…',
+    send: 'Chercher',
+    suggestionsTitle: 'Par exemple',
+    suggestions: ['Le code du wifi', 'Quelle poubelle ce soir ?', 'Où couper l’eau ?', 'Où manger une pizza ?'],
+    sourceLabel: 'Voir la page',
+    alsoTitle: 'Aussi',
+    noneTitle: 'Je ne trouve pas.',
+    noneText: 'Rien sur le site ne répond à ça — et je préfère le dire plutôt que d’inventer. Écrivez à Mag : elle répond, et on l’ajoute pour les suivants.',
+    close: 'Fermer',
+    clear: 'Effacer',
   },
   wastePage: {
     eyebrow: 'Tri des déchets',
@@ -1321,6 +1354,21 @@ const IT: Dict = {
     cta: 'Scrivi a Mag',
     subject: 'Una domanda dal sito',
   },
+  assistant: {
+    label: 'Chiedere',
+    title: 'Una domanda?',
+    promise: 'Cerco nel sito e rispondo con quello che c’è scritto, parola per parola. Niente di inventato.',
+    placeholder: 'La password del wifi, la valvola dell’acqua, una pizza…',
+    send: 'Cerca',
+    suggestionsTitle: 'Per esempio',
+    suggestions: ['La password del wifi', 'Quale rifiuto stasera?', 'Dove chiudere l’acqua?', 'Dove mangiare una pizza?'],
+    sourceLabel: 'Vedi la pagina',
+    alsoTitle: 'Anche',
+    noneTitle: 'Non trovo.',
+    noneText: 'Niente nel sito risponde a questo — e preferisco dirlo piuttosto che inventare. Scrivete a Mag: vi risponde, e noi lo aggiungiamo per i prossimi.',
+    close: 'Chiudi',
+    clear: 'Cancella',
+  },
   wastePage: {
     eyebrow: 'Raccolta differenziata',
     title: 'Quale pattumiera, quale sera',
@@ -1893,6 +1941,21 @@ const EN: Dict = {
     textFor: 'For {what}: we do not have this yet. Write to Mag, she will answer you — and we will add it here for the next ones.',
     cta: 'Write to Mag',
     subject: 'A question from the site',
+  },
+  assistant: {
+    label: 'Ask',
+    title: 'A question?',
+    promise: 'I search the site and answer with what is written there, word for word. Nothing invented.',
+    placeholder: 'The wifi password, the water valve, a pizza…',
+    send: 'Search',
+    suggestionsTitle: 'For example',
+    suggestions: ['The wifi password', 'Which bin tonight?', 'Where do I turn the water off?', 'Where can I eat pizza?'],
+    sourceLabel: 'See the page',
+    alsoTitle: 'Also',
+    noneTitle: 'I cannot find it.',
+    noneText: 'Nothing on the site answers that — and I would rather say so than make something up. Write to Mag: she will answer, and we will add it here for the next ones.',
+    close: 'Close',
+    clear: 'Clear',
   },
   wastePage: {
     eyebrow: 'Waste sorting',
