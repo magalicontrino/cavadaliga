@@ -196,17 +196,39 @@ export default function Assistant() {
     return () => window.clearTimeout(t);
   }, [question]);
 
-  // Ouvert : le doigt va au champ, et Echap referme. Sans le premier, il faut
-  // viser une deuxieme fois pour taper ; sans le second, on est piege sur un
-  // clavier.
+  const bulle = useRef<HTMLButtonElement>(null);
+
+  /*
+   * Ouvert : le doigt va au champ, Echap referme, et un clic DEHORS aussi.
+   *
+   * Sans le focus, il faut viser une deuxieme fois pour taper. Sans Echap, on
+   * est piege sur un clavier. Et sans le clic dehors, la boite ne se fermait
+   * qu'au telephone : une zone de sortie plein ecran y suffit, mais sur grand
+   * ecran la boite est un petit panneau de coin — un voile plein ecran
+   * bloquerait toute la page derriere elle. On ecoute donc le clic partout, et
+   * on ne ferme que s'il tombe hors de la boite ET hors de la bulle (sinon le
+   * clic qui OUVRE refermerait aussitot).
+   */
   useEffect(() => {
     if (!ouvert) return;
     champ.current?.focus();
     const auClavier = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOuvert(false);
     };
+    const auClic = (e: PointerEvent) => {
+      const c = e.target as Node;
+      if (!panneau.current?.contains(c) && !bulle.current?.contains(c)) setOuvert(false);
+    };
     window.addEventListener('keydown', auClavier);
-    return () => window.removeEventListener('keydown', auClavier);
+    // `pointerdown`, pas `click` : ferme des l'appui, avant qu'un clic sur un
+    // lien de la page ne parte. Differe d'un cran pour ne pas attraper le
+    // pointerdown qui vient d'ouvrir la boite.
+    const t = window.setTimeout(() => document.addEventListener('pointerdown', auClic), 0);
+    return () => {
+      window.removeEventListener('keydown', auClavier);
+      window.clearTimeout(t);
+      document.removeEventListener('pointerdown', auClic);
+    };
   }, [ouvert]);
 
   const chercherMaintenant = (texte: string, id?: string) => {
@@ -284,6 +306,7 @@ export default function Assistant() {
         mention coute moins que deplacer le bouton principal du site.
       */}
       <button
+        ref={bulle}
         type="button"
         onClick={() => setOuvert((o) => !o)}
         aria-label={a.label}
@@ -303,11 +326,10 @@ export default function Assistant() {
 
       {/*
         PAS DE VOILE derriere le panneau — Mag : « le fond en fade, c'est non ».
-        Il assombrissait toute la page pour un champ de recherche, alors que la
-        boite se referme d'un geste. On garde une zone de sortie invisible :
-        toucher a cote referme, sans que rien ne s'obscurcisse.
+        Toucher a cote referme quand meme, mais par l'ecouteur `pointerdown`
+        ci-dessus, pas par un voile : rien ne s'obscurcit, et ca marche aussi
+        sur grand ecran, ou un voile plein ecran aurait bloque la page.
       */}
-      {ouvert && <div aria-hidden onClick={() => setOuvert(false)} className="fixed inset-0 z-30 md:hidden" />}
 
       <div
         ref={panneau}
