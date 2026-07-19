@@ -13,21 +13,24 @@
 //   « nominatim » → géocodage OpenStreetMap du nom ou de l'adresse.
 //                   Moins précis : sur un supermarché, ça vise le bâtiment ;
 //                   sur un marché, la place.
-//   « approx »    → position assumée comme approximative, faute de source.
-//                   Le lieu-dit n'existe ni dans OpenStreetMap ni dans Photon.
-//                   L'épingle vise alors la ville, et le texte de la fiche dit
-//                   où aller vraiment. La carte du site est un dessin, pas un
-//                   plan à l'échelle : elle situe, elle ne guide pas.
+//   « approx »    → position assumée comme approximative, faute de source
+//                   exacte. Le lieu-dit n'est ni dans OpenStreetMap ni dans
+//                   Photon ; on épingle ce qu'on a de plus proche — une rue,
+//                   sinon la ville — et le texte de la fiche dit le reste.
+//                   La carte du site est un dessin, pas un plan à l'échelle :
+//                   elle situe, elle ne guide pas.
 //
 // Manque : gatto (Gatto Frantoio). Absent d'OpenStreetMap, et son adresse
 // (« Contrada Lago », un lieu-dit sans numéro) ne se géocode pas. À demander
 // à Mag plutôt qu'à inventer.
 //
-// mercato-scicli est « approx ». Contrada Zagarone n'existe ni dans
-// OpenStreetMap ni dans Photon : aucune source ne donne le point de l'aire de
-// foire. Mag : « mets de manière approximative ». L'épingle vise donc Scicli,
-// et le texte de la fiche dit le reste — le mardi matin, en bordure de ville,
-// à contrada Zagarone. Le lien Google Maps, lui, cherche le vrai endroit.
+// mercato-scicli reste « approx », mais l'épingle s'est beaucoup rapprochée.
+// Contrada Zagarone n'existe toujours ni dans OpenStreetMap ni dans Photon.
+// En revanche la fiche Google du marché, envoyée par Mag, porte une rue :
+// via Ignazio Emmolo. Elle, existe — géocodée à 2 km au sud du centre, du côté
+// de chez nous. L'épingle visait le centre de Scicli (7,8 km de la maison) ;
+// elle vise maintenant cette rue (5,8 km). Toujours approximative — le marché
+// s'étale sur une aire, pas sur un point — mais du bon côté de la ville.
 // ────────────────────────────────────────────────────────────────────────
 
 export type PlaceCoord = { lat: number; lon: number; src: 'google' | 'nominatim' | 'approx' };
@@ -39,7 +42,7 @@ export const COORDS: Record<string, PlaceCoord> = {
   // Photon sur « Via Badiula Scicli » — le marche se tient sur le terre-plein
   // qui domine ce parking.
   'campagna-amica': { lat: 36.79181, lon: 14.70335, src: 'nominatim' },
-  'mercato-scicli': { lat: 36.79357, lon: 14.70696, src: 'approx' },
+  'mercato-scicli': { lat: 36.77627, lon: 14.69927, src: 'approx' },
   // Cava d'Aliga et la côte
   // Covo dei contrabbandieri — lien de Mag, coordonnees de sa fiche Google.
   // Cavagrande del Cassibile — lien de Mag, coordonnees de sa fiche Google.

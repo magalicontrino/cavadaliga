@@ -285,13 +285,13 @@ export const LOCAL_PLACES: LocalPlace[] = [
     name: 'Mercato settimanale di Scicli',
     cat: 'marche',
     town: 'Scicli',
-    url: 'https://www.google.com/maps/search/?api=1&query=mercato+settimanale+contrada+Zagarone+Scicli+RG',
+    url: 'https://www.google.com/maps/search/?api=1&query=Mercato+non+alimentare+Via+Ignazio+Emmolo+Scicli+RG',
     km: 8,
     responsible: true,
     blurb: {
-      fr: 'Le marché hebdomadaire de Scicli : tous les mardis de l’année, de 8 h à 13 h, à contrada Zagarone, en bordure de ville. Alimentation, fruits et légumes, produits du terroir, gastronomie — et de l’habillement. Les horaires peuvent bouger avec la saison : au moindre doute, la mairie de Scicli renseigne.',
-      it: 'Il mercato settimanale di Scicli: ogni martedì dell’anno, dalle 8 alle 13, in contrada Zagarone, ai margini della città. Alimentari, frutta e verdura, prodotti tipici, gastronomia — e abbigliamento. Gli orari possono cambiare con la stagione: nel dubbio, il Comune di Scicli informa.',
-      en: 'Scicli’s weekly market: every Tuesday of the year, 8 am to 1 pm, at contrada Zagarone on the edge of town. Food, fruit and vegetables, local produce, delicatessen — and clothing. Hours can shift with the season: when in doubt, Scicli town hall will tell you.' },
+      fr: 'Le marché hebdomadaire de Scicli : tous les mardis de l’année, de 8 h à 13 h, à contrada Zagarone, du côté de la via Ignazio Emmolo, en bordure de ville. Alimentation, fruits et légumes, produits du terroir, gastronomie — et de l’habillement. Les horaires peuvent bouger avec la saison : au moindre doute, la mairie de Scicli renseigne.',
+      it: 'Il mercato settimanale di Scicli: ogni martedì dell’anno, dalle 8 alle 13, in contrada Zagarone, dalle parti di via Ignazio Emmolo, ai margini della città. Alimentari, frutta e verdura, prodotti tipici, gastronomia — e abbigliamento. Gli orari possono cambiare con la stagione: nel dubbio, il Comune di Scicli informa.',
+      en: 'Scicli’s weekly market: every Tuesday of the year, 8 am to 1 pm, at contrada Zagarone, off via Ignazio Emmolo, on the edge of town. Food, fruit and vegetables, local produce, delicatessen — and clothing. Hours can shift with the season: when in doubt, Scicli town hall will tell you.' },
   },
   {
     id: 'baqqala',
