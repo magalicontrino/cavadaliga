@@ -1036,32 +1036,25 @@ html {
    mou, et Mag l'a trouve terne : il monte donc en depassant sa place avant de
    s'y poser.
 
-   Le depassement est ECRIT dans les etapes, il n'est pas laisse a la courbe.
-   Une courbe qui finit au-dessus de 1 le fabrique bien, mais elle ne le
-   fabrique qu'en proportion du chemin parcouru : mesure au banc, 16 px de
-   montee ne donnaient que 1,5 px de depassement — un rebond qu'on ne voit pas.
+   PAS DE REBOND — on l'a essaye, Mag n'en veut pas : « juste un effet
+   sympa ». Un ressort qui depasse puis revient, c'est du dessin anime ; ici la
+   boite se DEPLIE depuis la bulle et s'arrete net, sans jamais revenir en
+   arriere.
 
-   Mag l'a voulu franc : la boite part de 60 px plus bas et de 80 % de sa
-   taille, depasse de 18 px, redescend de 7, puis se pose. Trois oscillations
-   qui s'amortissent, comme un objet qui tombe — une seule aurait fait ressort
-   de dessin anime.
+   Tout le mouvement tient dans l'echelle et l'origine : elle grandit depuis
+   son coin BAS GAUCHE, celui ou se tient la bulle, donc elle en sort au lieu
+   d'apparaitre a cote. La courbe est une sortie douce, monotone — c'est ce qui
+   fait la difference entre « ca s'ouvre » et « ca rebondit ».
 
-   Elle grandit depuis son coin BAS GAUCHE (transform-origin), celui ou se
-   tient la bulle : la boite sort de la bulle au lieu d'apparaitre a cote. */
+   L'opacite finit tot (a 40 %) : le contenu est lisible bien avant que le
+   mouvement ne s'acheve, et l'ouverture parait plus vive qu'elle ne dure. */
 @keyframes cava-demander-entre {
   0% {
     opacity: 0;
-    transform: translateY(60px) scale(0.8);
+    transform: translateY(26px) scale(0.9);
   }
-  45% {
+  40% {
     opacity: 1;
-    transform: translateY(-18px) scale(1.06);
-  }
-  70% {
-    transform: translateY(7px) scale(0.98);
-  }
-  88% {
-    transform: translateY(-3px) scale(1.008);
   }
   100% {
     opacity: 1;
@@ -1070,7 +1063,7 @@ html {
 }
 .cava-demander-ouvert {
   transform-origin: bottom left;
-  animation: cava-demander-entre 0.62s cubic-bezier(0.33, 1, 0.68, 1) both;
+  animation: cava-demander-entre 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 /* La bulle elle-meme accuse le coup quand on la touche. */
 @keyframes cava-demander-pouce {

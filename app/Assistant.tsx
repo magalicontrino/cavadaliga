@@ -7,6 +7,17 @@ import { useI18n } from './i18n';
 import { chercher, construireIndex, type Fiche, type Reponse } from './demander';
 
 /**
+ * Les couleurs des exemples — celles que Mag a choisies pour l'arbre.
+ *
+ * Elle voulait la boite « plus ludique, avec de la couleur ». Plutot que
+ * d'inventer une palette de plus, on reprend le jaune, le turquoise et le rose
+ * de l'arbre genealogique : ils sont deja les siens, et deja valides. Toutes
+ * portent l'encre du site tres au-dessus du seuil de lisibilite — c'est
+ * d'ailleurs pour ca qu'elle les avait retenus la-bas.
+ */
+const GAIES = ['#ffd452', '#5fdede', '#f06a9b', '#c8e6a0'];
+
+/**
  * « Demander » — la bulle qui cherche dans le site.
  *
  * Elle ne parle a aucune IA et n'a besoin d'aucun serveur : le site est
@@ -18,34 +29,56 @@ import { chercher, construireIndex, type Fiche, type Reponse } from './demander'
  * de la langue lue, et une reponse en francais sous un site en italien serait
  * pire que pas de reponse.
  */
-/**
- * Les couleurs des exemples — celles que Mag a choisies pour l'arbre.
- *
- * Elle voulait la boite « plus ludique, avec de la couleur ». Plutot que
- * d'inventer une palette de plus, on reprend le jaune, le turquoise et le rose
- * de l'arbre genealogique : ils sont deja les siens, et deja valides. Toutes
- * portent l'encre du site tres au-dessus du seuil de lisibilite — c'est
- * d'ailleurs pour ca qu'elle les avait retenus la-bas.
- */
-const GAIES = ['#ffd452', '#5fdede', '#f06a9b', '#c8e6a0'];
-
 export default function Assistant() {
   const { t, lang } = useI18n();
   const a = t.assistant;
   const [ouvert, setOuvert] = useState(false);
   const [q, setQ] = useState('');
-  /** La question REELLEMENT cherchee — pas celle en train d'etre tapee. */
-  const [pose, setPose] = useState('');
   /** La fiche mise en avant, quand on en choisit une autre dans « Aussi ». */
   const [choisie, setChoisie] = useState<string | null>(null);
   const champ = useRef<HTMLInputElement>(null);
   const panneau = useRef<HTMLDivElement>(null);
 
   const index = useMemo<Fiche[]>(() => construireIndex(t, lang), [t, lang]);
-  const resultats = useMemo<Reponse[]>(() => (pose ? chercher(pose, index) : []), [pose, index]);
+
+  /*
+   * On cherche A LA FRAPPE, sans attendre qu'on valide.
+   *
+   * Il fallait avant appuyer sur Entree : Mag a tape « pain » et rien n'a
+   * bouge en dessous. Elle avait raison — l'index est deja la, en memoire, il
+   * n'y a ni reseau ni attente a justifier. Chercher a chaque lettre ne coute
+   * donc rien, et la reponse se forme pendant qu'on ecrit.
+   *
+   * Deux lettres au minimum : en dessous, « o » ou « du » remontent la moitie
+   * du site et le resultat clignote a chaque touche.
+   */
+  const question = q.trim();
+  const resultats = useMemo<Reponse[]>(
+    () => (question.length >= 2 ? chercher(question, index) : []),
+    [question, index],
+  );
 
   const enAvant = resultats.find((r) => r.fiche.id === choisie) ?? resultats[0];
   const autres = resultats.filter((r) => r.fiche.id !== enAvant?.fiche.id);
+
+  /*
+   * « Je ne trouve pas » attend qu'on ait fini d'ecrire.
+   *
+   * Les reponses, elles, arrivent des la premiere lettre utile. Mais l'aveu
+   * non : en tapant « pain », le mot passe par « pai », qui ne correspond a
+   * rien — et la boite annoncait qu'elle ne trouvait pas, alors que la main
+   * etait encore sur le clavier. Elle se trompait doublement : ce n'etait pas
+   * la question, et ce n'etait pas fini.
+   *
+   * Une demi-seconde de silence, et seulement alors elle repond qu'elle
+   * ne sait pas.
+   */
+  const [pause, setPause] = useState(false);
+  useEffect(() => {
+    setPause(false);
+    const t = window.setTimeout(() => setPause(true), 500);
+    return () => window.clearTimeout(t);
+  }, [question]);
 
   // Ouvert : le doigt va au champ, et Echap referme. Sans le premier, il faut
   // viser une deuxieme fois pour taper ; sans le second, on est piege sur un
@@ -62,7 +95,6 @@ export default function Assistant() {
 
   const chercherMaintenant = (texte: string) => {
     setQ(texte);
-    setPose(texte);
     setChoisie(null);
     // Une nouvelle reponse arrive tout en haut : on y remonte, sinon elle
     // s'ecrit sous le pli et on croit qu'il ne s'est rien passe.
@@ -71,12 +103,11 @@ export default function Assistant() {
 
   const vider = () => {
     setQ('');
-    setPose('');
     setChoisie(null);
     champ.current?.focus();
   };
 
-  const sujet = encodeURIComponent(pose ? `${t.askMag.subject} — ${pose}` : t.askMag.subject);
+  const sujet = encodeURIComponent(question ? `${t.askMag.subject} — ${question}` : t.askMag.subject);
 
   return (
     <>
@@ -103,7 +134,9 @@ export default function Assistant() {
           boxShadow: '0 10px 30px rgba(216,31,102,0.45)',
         }}
       >
-        <Icon name={ouvert ? 'search' : 'chat'} size={26} strokeWidth={1.6} />
+        {/* Le robot — l'idee vient de Mag. Il dit « ca repond tout seul »
+            mieux qu'une bulle de parole, qui promettait quelqu'un au bout. */}
+        <Icon name="robot" size={27} strokeWidth={1.5} />
       </button>
 
       {/*
@@ -123,9 +156,15 @@ export default function Assistant() {
           ouvert
             ? 'cava-demander-ouvert visible opacity-100'
             : 'invisible translate-y-3 opacity-0 transition-[opacity,transform] duration-300 motion-reduce:transition-none'
-        } inset-x-3 bottom-24 max-h-[85vh] min-h-[26rem] md:inset-x-auto md:bottom-28 md:left-8 md:max-h-[min(44rem,85vh)] md:w-[27rem]`}
+        } inset-x-3 bottom-24 max-h-[82vh] md:inset-x-auto md:bottom-28 md:left-8 md:max-h-[min(42rem,82vh)] md:w-[27rem]`}
         // Blanc franc, et surtout PAS --cava-card : cette variable vaut #2e2d2d,
         // c'est la carte SOMBRE du site. Le panneau sortait noir sur noir.
+        //
+        // AUCUNE hauteur minimale : la boite epouse son contenu et ne s'arrete
+        // qu'au plafond. Elle en a porte une, pour ne pas paraitre etriquee ;
+        // ca laissait une flaque blanche sous les exemples, et c'est ce que Mag
+        // a vu en disant « c'est mal proportionne ». Une boite courte sur un
+        // contenu court n'est pas etriquee — elle est juste.
         style={{ background: '#fff', boxShadow: '0 24px 60px rgba(46,45,45,0.28)' }}
       >
         {/*
@@ -136,21 +175,32 @@ export default function Assistant() {
           tient 4,9:1 au point le plus clair et 6,3:1 au plus fonce.
         */}
         <div
-          className="sticky top-0 z-20 px-6 pb-5 pt-6"
+          className="sticky top-0 z-20 flex items-center justify-between gap-3 px-5 py-4"
           style={{ background: 'linear-gradient(135deg,#d81f66,#9c1246)', color: '#fff' }}
         >
-          <div className="flex items-start justify-between gap-4">
-            <h2
-              className="text-[clamp(1.5rem,6vw,1.9rem)] uppercase leading-[0.95] tracking-[-0.02em]"
-              style={{ fontWeight: 900 }}
-            >
-              {a.title}
-            </h2>
+          {/*
+            Le titre est CERCLE, comme « VISITER LA (CASA) » et les autres
+            titres du site : c'est la bulle maison, et elle avait sa place ici
+            plus qu'ailleurs — c'est une conversation. On cercle le titre
+            entier plutot qu'un seul mot : le decoupage marchait en francais et
+            tombait a plat en italien, ou « Una domanda? » n'a pas de mot final
+            a isoler.
+          */}
+          <h2
+            className="inline-flex items-center rounded-full px-4 py-1.5 text-[clamp(1.05rem,4.4vw,1.3rem)] uppercase leading-none tracking-[-0.01em]"
+            style={{ fontWeight: 900, border: '2px solid rgba(255,255,255,0.85)' }}
+          >
+            {a.title}
+          </h2>
+          <div className="flex items-center gap-2">
+            <span aria-hidden style={{ opacity: 0.9 }}>
+              <Icon name="robot" size={22} strokeWidth={1.5} />
+            </span>
             <button
               type="button"
               onClick={() => setOuvert(false)}
               aria-label={a.close}
-              className="-mr-1 -mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[15px] leading-none transition-colors"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[15px] leading-none"
               style={{ background: 'rgba(255,255,255,0.18)', color: '#fff' }}
             >
               ✕
@@ -161,18 +211,19 @@ export default function Assistant() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            chercherMaintenant(q);
+            // La reponse s'ecrit deja a la frappe : valider ne relance rien, ca
+            // RANGE le clavier. Sur telephone il couvre la moitie de l'ecran,
+            // et la reponse se lisait derriere.
+            champ.current?.blur();
+            requestAnimationFrame(() => panneau.current?.scrollTo({ top: 0 }));
           }}
           className="px-5 pb-3 pt-4"
           style={{ background: '#fff' }}
         >
           <div
-            className="flex items-center gap-2.5 rounded-full px-4 py-2.5"
+            className="flex items-center gap-2 rounded-full py-1.5 pl-4 pr-1.5"
             style={{ border: '2px solid var(--cava-pink)', background: 'rgba(230,41,111,0.05)' }}
           >
-            <span style={{ color: 'var(--cava-pink-fonce)' }}>
-              <Icon name="search" size={17} />
-            </span>
             <input
               ref={champ}
               value={q}
@@ -182,25 +233,57 @@ export default function Assistant() {
               className="min-w-0 flex-1 bg-transparent text-[14.5px] outline-none"
             />
             {q && (
-              <button type="button" onClick={vider} aria-label={a.clear} style={{ color: 'var(--cava-muted)' }}>
+              <button
+                type="button"
+                onClick={vider}
+                aria-label={a.clear}
+                className="shrink-0 px-1 text-[15px] leading-none"
+                style={{ color: 'var(--cava-muted)' }}
+              >
                 ✕
               </button>
             )}
+            {/*
+              La fleche. Mag : « ce n'est pas evident, il faudrait une fleche ».
+              La loupe a gauche disait « on cherche » sans dire QUE FAIRE ; un
+              bouton plein a droite se touche. Il ne declenche plus la
+              recherche — elle a lieu a la frappe — mais il range le clavier, ce
+              qui est justement le geste qui manquait.
+            */}
+            <button
+              type="submit"
+              aria-label={a.send}
+              title={a.send}
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 motion-reduce:transition-none"
+              style={{ background: 'var(--cava-pink)', color: '#fff' }}
+            >
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M5 12h13" />
+                <path d="m12.5 6 6 6-6 6" />
+              </svg>
+            </button>
           </div>
         </form>
 
         <div className="flex flex-col gap-4 px-5 pb-6">
           {/* Rien de tape encore : on montre par ou commencer. Un champ vide
               sans exemple ne dit pas ce qu'on a le droit de demander. */}
-          {!pose && (
+          {!question && (
             <div className="flex flex-wrap gap-2">
               {a.suggestions.map((s, i) => (
                 <button
                   key={s}
                   type="button"
                   onClick={() => chercherMaintenant(s)}
-                  className="rounded-full px-3.5 py-2 text-[12.5px] transition-transform duration-200 hover:scale-[1.05] motion-reduce:transition-none"
-                  style={{ background: GAIES[i % GAIES.length], color: 'var(--cava-ink)', fontWeight: 600 }}
+                  className="rounded-full px-3.5 py-1.5 text-[12.5px] transition-transform duration-200 hover:scale-[1.05] motion-reduce:transition-none"
+                  style={{
+                    background: GAIES[i % GAIES.length],
+                    color: 'var(--cava-ink)',
+                    fontWeight: 600,
+                    // Le filet d'encre : c'est lui qui les rattache aux pastilles
+                    // du site plutot que d'en faire des etiquettes de plus.
+                    border: '1px solid var(--cava-ink)',
+                  }}
                 >
                   {s}
                 </button>
@@ -221,8 +304,8 @@ export default function Assistant() {
                     key={r.fiche.id}
                     type="button"
                     onClick={() => setChoisie(r.fiche.id)}
-                    className="rounded-full px-3.5 py-2 text-[12.5px] transition-transform duration-200 hover:scale-[1.04] motion-reduce:transition-none"
-                    style={{ background: 'rgba(230,41,111,0.1)', color: 'var(--cava-pink-fonce)', fontWeight: 600 }}
+                    className="rounded-full px-3.5 py-1.5 text-[12.5px] transition-transform duration-200 hover:scale-[1.04] motion-reduce:transition-none"
+                    style={{ background: '#fff', color: 'var(--cava-ink)', fontWeight: 600, border: '1px solid var(--cava-ink)' }}
                   >
                     {r.fiche.titre}
                   </button>
@@ -233,7 +316,7 @@ export default function Assistant() {
 
           {/* On a cherche et on n'a rien. On le dit, et on donne quelqu'un a
               qui ecrire — c'est exactement ce que fait deja AskMag ailleurs. */}
-          {pose && !enAvant && (
+          {question.length >= 3 && pause && !enAvant && (
             <div className="flex flex-col gap-3 rounded-2xl border border-dashed p-4" style={{ borderColor: 'var(--cava-line)' }}>
               <p className="text-[14px]" style={{ fontWeight: 600 }}>
                 {a.noneTitle}

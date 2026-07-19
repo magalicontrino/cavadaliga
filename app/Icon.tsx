@@ -6,6 +6,7 @@
  * viewBox 24×24, bouts arrondis. Ajouter une entrée = ajouter un cas ici.
  */
 export type IconName =
+  | 'robot'
   | 'chat'
   | 'key'
   | 'volcano'
@@ -154,6 +155,20 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
       <circle cx="12" cy="12" r="8.5" />
       <path d="M12 11v5" />
       <path d="M12 8h.01" />
+    </>
+  ),
+  // Le robot de « Demander ». Une tete carree aux coins tres arrondis — la
+  // meme rondeur que les pastilles du site —, deux yeux, une antenne, et une
+  // bouche qui est un TRAIT et non une grille : la grille faisait machine a
+  // laver a 24 px. Les oreilles le posent de face, sinon la tete flottait.
+  robot: (
+    <>
+      <path d="M12 3.2v2.4" />
+      <circle cx="12" cy="2.6" r="0.9" />
+      <rect x="4" y="5.8" width="16" height="12.6" rx="4.2" />
+      <path d="M9.3 10.4v1.7M14.7 10.4v1.7" />
+      <path d="M9.6 15.1h4.8" />
+      <path d="M4 10.6H2.4M20 10.6h1.6" />
     </>
   ),
   // Bulle de parole — « Demander ». Une queue vers le bas a gauche pour qu'on
