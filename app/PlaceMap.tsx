@@ -26,7 +26,7 @@ import PlaceCard from './PlaceCard';
  */
 
 const INK = '#2e2d2d';
-const BG = '#fcf9fa';
+const BG = '#fcfafb';
 /** La mer. Sert deux fois : la couche « ocean », et le fond une fois les
  *  tuiles posees — tout autour de l'ile, c'est elle. */
 const MER = '#e88aab';
