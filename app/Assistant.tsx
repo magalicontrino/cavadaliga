@@ -331,8 +331,10 @@ export default function Assistant() {
   return (
     <>
       {/*
-        La bulle. z-40 : sous la barre du haut (z-50) et sous le menu plein
-        ecran (z-60), qui doivent tous deux pouvoir la couvrir.
+        La bulle. z-[70] : AU-DESSUS de la barre du haut (z-50) et du menu
+        plein ecran (z-60) — Mag : « le chat doit etre a un niveau de couche
+        superieur que le menu ». Elle l'a vu sur sa capture, la rangee de
+        pictos passait par-dessus l'entete de la boite.
 
         A DROITE, ou Mag la veut — et c'est aussi la que tout le monde a appris
         a la chercher. Elle y avait ete refusee une premiere fois parce qu'elle
@@ -354,7 +356,7 @@ export default function Assistant() {
         aria-label={a.label}
         aria-expanded={ouvert}
         title={a.label}
-        className={`cava-demander-bulle fixed bottom-5 right-5 z-40 flex h-16 w-16 items-center justify-center rounded-full shadow-xl transition-[transform,opacity] duration-300 motion-reduce:transition-none md:bottom-8 md:right-8 ${
+        className={`cava-demander-bulle fixed bottom-5 right-5 z-[70] flex h-16 w-16 items-center justify-center rounded-full shadow-xl transition-[transform,opacity] duration-300 motion-reduce:transition-none md:bottom-8 md:right-8 ${
           ouvert ? 'pointer-events-none scale-75 opacity-0' : 'hover:scale-105'
         }`}
         style={{
@@ -380,24 +382,22 @@ export default function Assistant() {
         role="dialog"
         aria-modal="false"
         aria-label={a.title}
-        className={`fixed z-40 flex flex-col overflow-hidden rounded-[28px] shadow-2xl ${
+        className={`fixed z-[70] flex flex-col overflow-hidden rounded-[28px] shadow-2xl ${
           ouvert
             ? 'cava-demander-ouvert visible opacity-100'
             : 'invisible translate-y-3 opacity-0 transition-[opacity,transform] duration-300 motion-reduce:transition-none'
-        } inset-x-3 bottom-4 h-[clamp(24rem,62dvh,34rem)] max-h-[calc(100dvh-7rem)] md:inset-x-auto md:bottom-6 md:right-8 md:h-[clamp(24rem,58dvh,34rem)] md:w-[27rem]`}
+        } inset-x-3 bottom-4 h-[clamp(24rem,62dvh,34rem)] max-h-[calc(100dvh-4rem)] md:inset-x-auto md:bottom-6 md:right-8 md:h-[clamp(24rem,58dvh,34rem)] md:w-[27rem]`}
         // Blanc franc, et surtout PAS --cava-card : cette variable vaut #2e2d2d,
         // c'est la carte SOMBRE du site. Le panneau sortait noir sur noir.
         //
         // UNE HAUTEUR BORNEE DES DEUX COTES — jamais moins de 24 rem, jamais
         // plus de 34 rem, et au plus 62 % de l'ecran entre les deux.
         //
-        // Le `max-h` en calc() passe avant le plancher, et c'est voulu : sur un
-        // ecran de 560 px, les 24 rem faisaient remonter la boite SOUS la barre
-        // du haut, qui est au-dessus d'elle (z-50 contre z-40) et lui mangeait
-        // son titre. Mesure au banc : bord haut a 80 px pour une barre qui en
-        // fait 88. La place disponible l'emporte donc sur la hauteur souhaitee
-        // — mieux vaut une boite un peu courte qu'une boite decapitee. Sur un
-        // telephone ordinaire, ce plafond ne se declenche jamais.
+        // Le `max-h` en calc() passe avant le plancher : la place disponible
+        // l'emporte sur la hauteur souhaitee. Il ne reserve plus que 4 rem —
+        // il en gardait 7 pour passer SOUS la barre du haut, qui la decapitait.
+        // Depuis que la boite est au-dessus d'elle (z-[70]), cette reserve n'a
+        // plus lieu d'etre : 48 px rendus, la ou ils comptent le plus.
         //
         // Elle a d'abord epouse son contenu. C'etait juste, mais ca bougeait :
         // la boite grandissait a la premiere reponse, rapetissait quand on
@@ -417,7 +417,7 @@ export default function Assistant() {
           // toute seule : `clavier` y vaut 0 (voir l'effet plus haut), et cette
           // ligne ne fait rien. Sur les anciens, elle remonte la boite au-dessus
           // du clavier. Les deux ne se cumulent donc jamais.
-          ...(clavier ? { bottom: clavier + 16, maxHeight: `calc(100dvh - ${clavier + 112}px)` } : null),
+          ...(clavier ? { bottom: clavier + 16, maxHeight: `calc(100dvh - ${clavier + 64}px)` } : null),
         }}
       >
         {/*
