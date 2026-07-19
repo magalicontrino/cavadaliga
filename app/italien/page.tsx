@@ -91,6 +91,11 @@ const REFERENCES: { formes: string[]; url: Record<Lang, string> }[] = [
   { formes: ['Sacco e Vanzetti', 'Sacco et Vanzetti', 'Sacco and Vanzetti'], url: { fr: wiki('fr', 'Sacco_et_Vanzetti'), it: wiki('it', 'Sacco_e_Vanzetti'), en: wiki('en', 'Sacco_and_Vanzetti') } },
   { formes: ['Giuseppe Pinelli', 'Pinelli'], url: { fr: wiki('fr', 'Giuseppe_Pinelli'), it: wiki('it', 'Giuseppe_Pinelli'), en: wiki('en', 'Giuseppe_Pinelli') } },
   { formes: ['Pietro Gori'], url: { fr: wiki('fr', 'Pietro_Gori'), it: wiki('it', 'Pietro_Gori'), en: wiki('en', 'Pietro_Gori') } },
+  { formes: ['Camillo Berneri'], url: { fr: wiki('fr', 'Camillo_Berneri'), it: wiki('it', 'Camillo_Berneri'), en: wiki('en', 'Camillo_Berneri') } },
+  { formes: ['Luigi Fabbri'], url: { fr: wiki('fr', 'Luigi_Fabbri'), it: wiki('it', 'Luigi_Fabbri'), en: wiki('en', 'Luigi_Fabbri') } },
+  // Virgilia D'Andrea : article sur les editions italienne et anglaise ; le
+  // lecteur francais est renvoye a l'italienne, faute d'article dedie.
+  { formes: ['Virgilia D’Andrea'], url: { fr: wiki('it', "Virgilia_D'Andrea"), it: wiki('it', "Virgilia_D'Andrea"), en: wiki('en', "Virgilia_D'Andrea") } },
   { formes: ['Dario Fo'], url: { fr: wiki('fr', 'Dario_Fo'), it: wiki('it', 'Dario_Fo'), en: wiki('en', 'Dario_Fo') } },
   { formes: ['Scicli'], url: { fr: wiki('fr', 'Scicli'), it: wiki('it', 'Scicli'), en: wiki('en', 'Scicli') } },
   { formes: ['Comiso'], url: { fr: wiki('fr', 'Comiso'), it: wiki('it', 'Comiso'), en: wiki('en', 'Comiso') } },
