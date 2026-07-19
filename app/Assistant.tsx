@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Icon from './Icon';
 import { SITE, withBase } from './data';
 import { useI18n } from './i18n';
-import { chercher, construireIndex, proposer, type Fiche, type Reponse } from './demander';
+import { chercher, construireIndex, motsDe, proposer, type Fiche, type Reponse } from './demander';
 
 /**
  * Les couleurs des exemples — celles que Mag a choisies pour l'arbre.
@@ -229,9 +229,20 @@ export default function Assistant() {
    * Les pastilles : les exemples de Mag quand le champ est vide, et sinon des
    * propositions tirees de l'index, qui suivent la frappe lettre par lettre.
    */
+  /** Ce que l'index sait proposer sur ce qu'on tape. Vide = aucune piste. */
+  const pistes = useMemo(() => (question ? proposer(question, index) : []), [question, index]);
+
+  /*
+   * IL Y A TOUJOURS DES PASTILLES — Mag : « fais-le pour chaque frappe, pour
+   * "zt" aussi par exemple ».
+   *
+   * Quand l'index ne sait rien proposer, on remet ses huit exemples plutot que
+   * de laisser le vide. Une lettre tapee de travers n'est pas une impasse :
+   * c'est le moment ou l'on a le plus besoin qu'on vous montre par ou aller.
+   */
   const propositions = useMemo(
-    () => (question ? proposer(question, index) : a.suggestions.map((label) => ({ id: '', label }))),
-    [question, index, a.suggestions],
+    () => (pistes.length ? pistes : a.suggestions.map((label) => ({ id: '', label }))),
+    [pistes, a.suggestions],
   );
 
   /*
@@ -246,7 +257,16 @@ export default function Assistant() {
    * L'aveu remplace les propositions au lieu de s'ajouter : la boite ne defile
    * plus, les deux ensemble ne tiendraient pas.
    */
-  const montrerRefus = question.length >= 3 && pause && !enAvant && propositions.length === 0;
+  /*
+   * L'aveu ne sort que devant une VRAIE question restee sans reponse.
+   *
+   * Deux mots, ou six lettres au moins : « le prix de la nuit » ou « piscine »
+   * meritent qu'on avoue et qu'on renvoie vers Mag. « zt », non — ce n'est pas
+   * une question, c'est une frappe en cours, et lui repondre « je ne trouve
+   * pas » serait a la fois faux et decourageant.
+   */
+  const vraieQuestion = motsDe(question).length >= 2 || question.length >= 6;
+  const montrerRefus = pause && !enAvant && !pistes.length && vraieQuestion;
 
   const sujet = encodeURIComponent(question ? `${t.askMag.subject} — ${question}` : t.askMag.subject);
 
