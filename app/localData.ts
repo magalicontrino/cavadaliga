@@ -6,7 +6,7 @@ import type { IconName } from './Icon';
 // Textes visibles dans les 3 langues (fr · it · en).
 // ────────────────────────────────────────────────────────────────────────
 export type Lang = 'fr' | 'it' | 'en';
-export type CatKey = 'huile' | 'agrumes' | 'plantes' | 'marche' | 'resto' | 'supermarche' | 'plage' | 'bricolage' | 'boucherie' | 'randonnee' | 'avoir';
+export type CatKey = 'huile' | 'agrumes' | 'plantes' | 'marche' | 'resto' | 'supermarche' | 'plage' | 'bricolage' | 'boucherie' | 'randonnee' | 'avoir' | 'tabac';
 
 export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<Lang, string> }> = {
   huile: { icon: 'droplet', bg: 'linear-gradient(135deg,#b89a4a,#856a2c)', label: { fr: 'Huile d’olive', it: 'Olio d’oliva', en: 'Olive oil' } },
@@ -19,6 +19,10 @@ export const CATS: Record<CatKey, { icon: IconName; bg: string; label: Record<La
   bricolage: { icon: 'tools', bg: 'linear-gradient(135deg,#7b8794,#565f6b)', label: { fr: 'Bricolage', it: 'Ferramenta & fai da te', en: 'DIY & hardware' } },
   randonnee: { icon: 'walk', bg: 'linear-gradient(135deg,#8a9a6b,#5f6b47)', label: { fr: 'Randonnée', it: 'Escursioni', en: 'Hiking' } },
   avoir: { icon: 'landmark', bg: 'linear-gradient(135deg,#7f88a8,#565f7d)', label: { fr: 'À voir', it: 'Da vedere', en: 'Sights' } },
+  // Le tabacchi n'est pas qu'un bureau de tabac : timbres, tickets de bus,
+  // disque de stationnement, loto, journaux. Il meritait son rayon plutot que
+  // d'etre range sous « supermarche », ou personne ne l'aurait cherche.
+  tabac: { icon: 'tabac', bg: 'linear-gradient(135deg,#4a6fa5,#2f4c78)', label: { fr: 'Tabac & journaux', it: 'Tabacchi & giornali', en: 'Tobacconist & press' } },
   plage: { icon: 'sun', bg: 'linear-gradient(135deg,#5aa0a0,#3f7d7d)', label: { fr: 'Plage & loisirs', it: 'Spiaggia & tempo libero', en: 'Beach & leisure' } },
 };
 
@@ -68,6 +72,9 @@ export const SEARCH_WORDS: WordHint[] = [
   { words: ['huile', 'olio', 'oil', 'olive', 'frantoio', 'frantoi', 'dop'], cat: 'huile' },
   { words: ['vin', 'vino', 'wine', 'apero', 'aperitivo', 'aperitif', 'drink', 'bar', 'cocktail', 'biere', 'birra', 'beer', 'verre', 'soir', 'sera'], ids: ['maracaibo', 'blazer'] },
   { words: ['boucherie', 'macelleria', 'butcher', 'viande', 'carne', 'meat', 'boucher', 'salumi', 'charcuterie'], cat: 'boucherie' },
+  // Le tabacchi : on y va rarement pour le tabac. Timbres, tickets de bus,
+  // disque de stationnement (cite dans « Se garer »), loto, journaux.
+  { words: ['tabac', 'tabacchi', 'tabaccheria', 'tabaccaio', 'tobacconist', 'cigarette', 'cigarettes', 'sigarette', 'clope', 'briquet', 'accendino', 'lighter', 'timbre', 'timbres', 'francobollo', 'francobolli', 'stamp', 'stamps', 'carte postale', 'cartolina', 'postcard', 'poste', 'ticket', 'tickets', 'biglietto', 'biglietti', 'bus', 'autobus', 'disque', 'disque de stationnement', 'disco orario', 'parking disc', 'loto', 'lotto', 'gratter', 'gratta e vinci', 'lottery', 'journal', 'journaux', 'giornale', 'giornali', 'newspaper', 'presse', 'edicola', 'recharge', 'ricarica', 'top up'], cat: 'tabac' },
   { words: ['bricolage', 'brico', 'ferramenta', 'quincaillerie', 'outil', 'outils', 'utensili', 'attrezzi', 'tools', 'hardware', 'diy', 'fai da te', 'scie', 'sega', 'seghetto', 'saw', 'perceuse', 'trapano', 'drill', 'visserie', 'vis', 'viti', 'screws', 'clou', 'chiodi', 'nails', 'peinture', 'vernice', 'paint', 'cheville', 'ampoule', 'lampadina', 'bulb', 'cle', 'chiave'], cat: 'bricolage' },
   { words: ['randonnee', 'randonnée', 'rando', 'marcher', 'sentier', 'sentiero', 'trail', 'hike', 'hiking', 'balade', 'passeggiata', 'trekking', 'canyon', 'gorge', 'crique', 'cala', 'nature'], cat: 'randonnee' },
   { words: ['voir', 'vedere', 'see', 'monument', 'statue', 'statua', 'panorama', 'belvedere', 'belvédère', 'point de vue', 'viewpoint', 'visite', 'visita', 'curiosite'], cat: 'avoir' },
@@ -359,6 +366,23 @@ export const LOCAL_PLACES: LocalPlace[] = [
       fr: 'Trattoria de poisson à Sampieri, face à la mer. Le poisson du jour, simplement cuisiné.',
       it: 'Trattoria di mare a Sampieri, di fronte al mare. Il pesce del giorno, cucinato semplicemente.',
       en: 'Seafood trattoria in Sampieri, facing the sea. The day’s catch, simply cooked.' },
+  },
+  {
+    // Adresse donnee par Mag (lien Google), verifiee : Via Leone Tolstoj est
+    // bien a Cava d'Aliga — la meme rue que Mormina Gas. C'est donc le
+    // tabacchi du village, a pied.
+    id: 'lo-bartolo',
+    name: 'Bar Lo Bartolo',
+    cat: 'tabac',
+    aussi: ['resto'],
+    town: 'Cava d\u2019Aliga',
+    url: 'https://www.google.com/maps/search/?api=1&query=Bar+Lo+Bartolo+Via+Tolstoj+7+Scicli+RG',
+    km: 0,
+    responsible: false,
+    blurb: {
+      fr: 'Le bar-tabac du village, Via Tolstoj — la rue de Mormina Gas. On y trouve ce qu’un tabacchi italien vend : timbres, tickets de bus, disque de stationnement, loto, journaux. Et le café au comptoir.',
+      it: 'Il bar-tabacchi del paese, in Via Tolstoj — la strada di Mormina Gas. C’è quello che vende un tabacchi: francobolli, biglietti dell’autobus, disco orario, lotto, giornali. E il caffè al banco.',
+      en: 'The village bar-tabacchi, on Via Tolstoj — Mormina Gas’s street. It sells what an Italian tabacchi sells: stamps, bus tickets, the parking disc, lottery, newspapers. And coffee at the counter.' },
   },
   {
     id: 'giannone',

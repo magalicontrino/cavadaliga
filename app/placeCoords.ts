@@ -13,21 +13,30 @@
 //   « nominatim » → géocodage OpenStreetMap du nom ou de l'adresse.
 //                   Moins précis : sur un supermarché, ça vise le bâtiment ;
 //                   sur un marché, la place.
+//   « approx »    → position assumée comme approximative, faute de source.
+//                   Le lieu-dit n'existe ni dans OpenStreetMap ni dans Photon.
+//                   L'épingle vise alors la ville, et le texte de la fiche dit
+//                   où aller vraiment. La carte du site est un dessin, pas un
+//                   plan à l'échelle : elle situe, elle ne guide pas.
 //
 // Manque : gatto (Gatto Frantoio). Absent d'OpenStreetMap, et son adresse
 // (« Contrada Lago », un lieu-dit sans numéro) ne se géocode pas. À demander
 // à Mag plutôt qu'à inventer.
 //
-// Manque aussi : mercato-scicli. J'y avais mis le Largo Gramsci, sur la foi de
-// sources de 2020 et 2023. La presse locale de mai 2026 place le marché du
-// mardi à contrada Zagarone — à trois kilomètres de là. Entre les deux, une
-// épingle fausse enverrait quelqu'un faire le trajet pour rien. Elle attend
-// que Mag dise où elle va.
+// mercato-scicli est « approx ». Contrada Zagarone n'existe ni dans
+// OpenStreetMap ni dans Photon : aucune source ne donne le point de l'aire de
+// foire. Mag : « mets de manière approximative ». L'épingle vise donc Scicli,
+// et le texte de la fiche dit le reste — le mardi matin, en bordure de ville,
+// à contrada Zagarone. Le lien Google Maps, lui, cherche le vrai endroit.
 // ────────────────────────────────────────────────────────────────────────
 
-export type PlaceCoord = { lat: number; lon: number; src: 'google' | 'nominatim' };
+export type PlaceCoord = { lat: number; lon: number; src: 'google' | 'nominatim' | 'approx' };
 
 export const COORDS: Record<string, PlaceCoord> = {
+  // Photon sur « Via Tolstoj Scicli » : la rue ressort en district
+  // « Cava d'Aliga ». C'est bien le tabacchi du village.
+  'lo-bartolo': { lat: 36.72466, lon: 14.69222, src: 'nominatim' },
+  'mercato-scicli': { lat: 36.79357, lon: 14.70696, src: 'approx' },
   // Cava d'Aliga et la côte
   // Covo dei contrabbandieri — lien de Mag, coordonnees de sa fiche Google.
   // Cavagrande del Cassibile — lien de Mag, coordonnees de sa fiche Google.

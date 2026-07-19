@@ -210,6 +210,11 @@ const MOTS_MAISON: Record<string, string> = {
     + 'banque banca poste posta bureau poste carte bleue carte bancaire visa mastercard paiement payer especes seulement '
     + 'contanti prelevare prelievo sportello automatico bancomat ufficio postale banca carta pagare soldi '
     + 'money cash withdraw withdrawal atm cash machine cashpoint bank post office card visa mastercard pay where to get cash mister cash bancontact',
+  tabac:
+    'tabac tabacchi tabaccheria bureau tabac cigarette cigarettes clope briquet timbre timbres '
+    + 'carte postale ticket tickets bus autobus disque stationnement disco orario loto gratter journal journaux presse '
+    + 'tabaccaio sigarette accendino francobollo cartolina biglietto autobus lotto gratta vinci giornale edicola ricarica '
+    + 'tobacconist cigarettes lighter stamp stamps postcard bus ticket parking disc lottery newspaper press top up',
   parking:
     // Le gardien a la casquette : on le cherche avec des mots tres varies —
     // « type qui garde les voitures », « faut payer le gars ». On ratisse.

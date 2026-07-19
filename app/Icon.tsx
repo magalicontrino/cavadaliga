@@ -8,6 +8,7 @@
 export type IconName =
   | 'car'
   | 'hourglass'
+  | 'tabac'
   | 'robot'
   | 'chat'
   | 'key'
@@ -356,6 +357,20 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
     <>
       <path d="M3 8.5a2 2 0 012-2h2.4l1.3-2.2h6.6L16.6 6.5H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2v-9z" />
       <circle cx="12" cy="12.8" r="3.7" />
+    </>
+  ),
+  /*
+   * L'enseigne des tabacchi : un T dans un rectangle.
+   *
+   * C'est le panneau qu'on cherche des yeux dans la rue en Italie, blanc sur
+   * fond sombre. Un paquet de cigarettes aurait ete a la fois moche et faux —
+   * on y va surtout pour les timbres, les tickets de bus, le disque de
+   * stationnement et le loto.
+   */
+  tabac: (
+    <>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="2.5" />
+      <path d="M8 8.6h8M12 8.6v6.8" />
     </>
   ),
   /*
