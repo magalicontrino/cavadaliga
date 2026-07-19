@@ -396,22 +396,22 @@ export default function Assistant() {
         role="dialog"
         aria-modal="false"
         aria-label={a.title}
-        className={`fixed z-[70] flex flex-col overflow-hidden rounded-[28px] shadow-2xl ${
+        className={`fixed z-[70] flex flex-col overflow-hidden shadow-2xl ${
           ouvert
             ? 'cava-demander-ouvert visible opacity-100'
             : 'invisible translate-y-3 opacity-0 transition-[opacity,transform] duration-300 motion-reduce:transition-none'
-        } inset-x-3 bottom-4 h-[clamp(24rem,62dvh,34rem)] max-h-[calc(100dvh-4rem)] md:inset-x-auto md:bottom-6 md:right-8 md:h-[clamp(24rem,58dvh,34rem)] md:w-[27rem]`}
+        } inset-0 rounded-none md:inset-x-auto md:inset-y-auto md:bottom-6 md:right-8 md:h-[clamp(24rem,58dvh,34rem)] md:w-[27rem] md:rounded-[28px]`}
         // Blanc franc, et surtout PAS --cava-card : cette variable vaut #2e2d2d,
         // c'est la carte SOMBRE du site. Le panneau sortait noir sur noir.
         //
-        // UNE HAUTEUR BORNEE DES DEUX COTES — jamais moins de 24 rem, jamais
-        // plus de 34 rem, et au plus 62 % de l'ecran entre les deux.
+        // DEUX FORMES SELON L'ECRAN. Sur telephone, `inset-0` : la boite prend
+        // TOUTE la page, bords carres, sans marge — Mag la veut plein ecran, ou
+        // le pouce et la lecture ont enfin la place. Le clavier leve, la page
+        // retrecit (interactive-widget) et le fond suit : le champ reste vu.
         //
-        // Le `max-h` en calc() passe avant le plancher : la place disponible
-        // l'emporte sur la hauteur souhaitee. Il ne reserve plus que 4 rem —
-        // il en gardait 7 pour passer SOUS la barre du haut, qui la decapitait.
-        // Depuis que la boite est au-dessus d'elle (z-[70]), cette reserve n'a
-        // plus lieu d'etre : 48 px rendus, la ou ils comptent le plus.
+        // Sur grand ecran (md:), elle redevient un petit panneau de coin, ancre
+        // en bas a droite, borne en hauteur (24 a 34 rem, au plus 58 % de
+        // l'ecran) et large de 27 rem — la, un plein ecran n'aurait aucun sens.
         //
         // Elle a d'abord epouse son contenu. C'etait juste, mais ca bougeait :
         // la boite grandissait a la premiere reponse, rapetissait quand on
