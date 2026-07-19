@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
@@ -27,6 +27,32 @@ import { PRONONCIATION, LECONS, CONJUGAISONS, PRONOMS, EXERCICES, AILLEURS } fro
  *
  * Tout le contenu vient de app/italienData.ts. La page ne fait que le poser.
  */
+
+/*
+ * Aller a une section du sommaire, et l'y TENIR (grand ecran seulement).
+ *
+ * Le saut natif ne suffit pas : les blocs au-dessus grandissent encore pendant
+ * que leurs apparitions se jouent, si bien qu'on vise juste et qu'on tombe a
+ * cote. On corrige donc la visee pendant une seconde et demie, et on LACHE des
+ * que quelqu'un touche la molette ou l'ecran — se battre contre un doigt serait
+ * pire que d'arriver un peu bas.
+ */
+function allerA(id: string) {
+  const jusqua = performance.now() + 1500;
+  let vivant = true;
+  const lacher = () => {
+    vivant = false;
+    for (const e of ['wheel', 'touchstart', 'keydown']) window.removeEventListener(e, lacher);
+  };
+  for (const e of ['wheel', 'touchstart', 'keydown']) window.addEventListener(e, lacher, { passive: true });
+  const viser = () => {
+    if (!vivant) return;
+    document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: 'instant' as ScrollBehavior });
+    if (performance.now() < jusqua) window.setTimeout(viser, 80);
+    else lacher();
+  };
+  viser();
+}
 
 /** Le meme melange stable que le quiz — voir app/Quiz.tsx. */
 function melange<T>(liste: T[], graine: number): T[] {
@@ -134,6 +160,32 @@ export default function Italien() {
   };
   const fermer = () => setOuvert(false);
 
+  /*
+   * L'AIGUILLAGE selon la taille d'ecran. Sur telephone, toucher une carte fait
+   * monter le contenu dans la feuille. Sur grand ecran, ou le contenu s'affiche
+   * en clair sous les cartes, elle y fait defiler — et l'ancre reste dans l'URL,
+   * partageable et retrouvable. On lit la taille AU CLIC, pas au rendu, pour ne
+   * pas dependre d'un etat qui aurait pu changer entre-temps.
+   */
+  const surCarte = (id: string) => {
+    if (typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches) allerA(id);
+    else ouvrir(id);
+  };
+
+  /*
+   * LA FLECHE DE RETOUR, sur grand ecran : la page y est longue (tout le cours
+   * s'affiche en clair). Elle apparait apres un ecran de defilement — en haut,
+   * elle ne menerait qu'a la ou l'on est deja. Sur telephone, la page se resume
+   * aux cartes : la fleche ne s'y declenche jamais.
+   */
+  const [remonter, setRemonter] = useState(false);
+  useEffect(() => {
+    const voir = () => setRemonter(window.scrollY > window.innerHeight * 0.8);
+    voir();
+    window.addEventListener('scroll', voir, { passive: true });
+    return () => window.removeEventListener('scroll', voir);
+  }, []);
+
   const paquet = useMemo(() => (graine ? melange(EXERCICES, graine) : EXERCICES), [graine]);
   const ex = paquet[n];
   const bonne = ex?.choix[0];
@@ -208,10 +260,13 @@ export default function Italien() {
    * ou avant on sautait dans la page.
    */
   const carteSommaire = (x: (typeof PLAN)[number], i: number) => (
-    <button
+    <a
       key={x.id}
-      type="button"
-      onClick={() => ouvrir(x.id)}
+      href={`#${x.id}`}
+      onClick={(e) => {
+        e.preventDefault();
+        surCarte(x.id);
+      }}
       className="group flex min-h-[9.5rem] flex-col justify-between gap-5 rounded-2xl border p-6 text-left transition-transform duration-200 hover:scale-[1.01] motion-reduce:transition-none"
       style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
     >
@@ -229,7 +284,33 @@ export default function Italien() {
           {x.niveau}
         </span>
       </div>
-    </button>
+    </a>
+  );
+
+  /*
+   * Une SECTION en clair — la version grand ecran. Le contenu (le meme
+   * `contenu()` que la feuille) s'affiche sous les cartes, sous un titre ancre :
+   * c'est ce que Google indexe, ce que le Ctrl+F trouve, et ce qu'un lien
+   * #prononcer partage. Masquee sur telephone (`hidden md:block`), ou la feuille
+   * prend le relais.
+   */
+  const sectionInline = (x: (typeof PLAN)[number]) => (
+    <section key={x.id} id={x.id} className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
+      <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+        <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+          <Icon name={x.icon} size={16} /> {x.niveau}
+        </span>
+        <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+          {x.titre}
+        </h2>
+        {x.intro && (
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {x.intro}
+          </p>
+        )}
+      </Reveal>
+      <div className="mt-10">{contenu(x.id)}</div>
+    </section>
   );
 
   /*
@@ -480,11 +561,18 @@ export default function Italien() {
         du bas. Le titre « Le programme » a ete retire (Mag) : les cartes se
         suffisent, chacune dit deja son niveau.
       */}
-      <section className="mx-auto max-w-[110rem] px-5 pb-24 pt-10 md:px-10">
+      <section className="mx-auto max-w-[110rem] px-5 pb-16 pt-10 md:px-10 md:pb-0">
         <Reveal className="grid grid-cols-2 gap-3 md:grid-cols-3">
           {PLAN.map(carteSommaire)}
         </Reveal>
       </section>
+
+      {/* LE COURS EN CLAIR, sur grand ecran. Sur telephone il reste masque : la
+          feuille du bas le porte, section par section. Ici il est present dans
+          le HTML (donc indexe et cherchable), sous des titres ancres. */}
+      <div className="hidden md:block">
+        {PLAN.map(sectionInline)}
+      </div>
 
       <Footer />
 
@@ -499,6 +587,25 @@ export default function Italien() {
       >
         {section && contenu(section)}
       </BottomSheet>
+
+      {/* La fleche de retour — n'apparait qu'apres un ecran de defilement, donc
+          en pratique sur grand ecran seulement (sur telephone la page tient en
+          une grille). */}
+      <button
+        type="button"
+        aria-label={p.backToTop}
+        title={p.backToTop}
+        onClick={() => {
+          const doux = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          window.scrollTo({ top: 0, behavior: doux ? 'smooth' : 'instant' });
+        }}
+        className={`fixed bottom-5 left-5 z-[60] flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-[opacity,transform] duration-300 motion-reduce:transition-none md:bottom-8 md:left-8 ${
+          remonter ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
+        }`}
+        style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)' }}
+      >
+        <span aria-hidden className="text-[20px] leading-none">↑</span>
+      </button>
     </main>
   );
 }
