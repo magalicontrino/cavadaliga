@@ -251,7 +251,7 @@ export default function LaRegion() {
             className="cava-vinyllink flex h-11 w-11 items-center justify-center rounded-full"
             style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
           >
-            <Icon name="question" size={22} />
+            <Icon name="hourglass" size={22} />
           </button>
         </Reveal>
       </section>

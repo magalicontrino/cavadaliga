@@ -7,7 +7,7 @@
  */
 export type IconName =
   | 'car'
-  | 'question'
+  | 'hourglass'
   | 'robot'
   | 'chat'
   | 'key'
@@ -359,21 +359,19 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
     </>
   ),
   /*
-   * Point d'interrogation dans un cercle — le quiz.
+   * Sablier — le quiz. Choix de Mag, apres une cible puis un point
+   * d'interrogation.
    *
-   * C'etait une cible : Mag, « ce n'est pas le sigle d'un quizz, mets un point
-   * d'interrogation ». Elle a raison, une cible dit « vous etes ici » partout
-   * ailleurs sur ce site, et elle le disait deja pour la carte.
-   *
-   * Le point est un trait de longueur nulle, pas un cercle plein : il garde
-   * ainsi l'epaisseur et le bout arrondi du reste du jeu d'icones, et il
-   * grossit avec elles.
+   * Les deux moities se rejoignent exactement en (12,12) : c'est le pincement
+   * qui fait lire un sablier plutot que deux triangles poses l'un sur
+   * l'autre. Les deux traits du haut et du bas depassent un peu des cotes,
+   * comme le bois d'un vrai sablier.
    */
-  question: (
+  hourglass: (
     <>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M9.3 9.3a2.7 2.7 0 015.2 1c0 1.8-2.5 2.2-2.5 4" />
-      <path d="M12 17.2v.01" />
+      <path d="M6 3h12M6 21h12" />
+      <path d="M7.5 3v3.3c0 .9.4 1.8 1.1 2.4L12 12l3.4-3.3c.7-.6 1.1-1.5 1.1-2.4V3" />
+      <path d="M7.5 21v-3.3c0-.9.4-1.8 1.1-2.4L12 12l3.4 3.3c.7.6 1.1 1.5 1.1 2.4V21" />
     </>
   ),
   // Cible — « vous êtes ici »

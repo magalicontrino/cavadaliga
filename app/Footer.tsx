@@ -73,7 +73,7 @@ export default function Footer() {
           className="cava-vinyllink mt-8 flex h-12 w-12 items-center justify-center rounded-full"
           style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
         >
-          <Icon name="question" size={24} />
+          <Icon name="hourglass" size={24} />
         </a>
       </div>
     </footer>
