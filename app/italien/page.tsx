@@ -7,7 +7,7 @@ import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon, { type IconName } from '../Icon';
 import { useI18n } from '../i18n';
-import { PRONONCIATION, LECONS, CONJUGAISONS, PRONOMS, EXERCICES } from '../italienData';
+import { PRONONCIATION, LECONS, CONJUGAISONS, PRONOMS, EXERCICES, AILLEURS } from '../italienData';
 
 /**
  * Le cours d'italien.
@@ -134,6 +134,7 @@ export default function Italien() {
     { id: 'passato', titre: CONJUGAISONS[1].temps[lang], niveau: p.level2 },
     { id: 'futuro', titre: CONJUGAISONS[2].temps[lang], niveau: p.level3 },
     { id: 'exercices', titre: p.drillTitle, niveau: p.levelAll },
+    { id: 'ailleurs', titre: p.elsewhereTitle, niveau: p.levelAll },
   ];
 
   return (
@@ -353,7 +354,7 @@ export default function Italien() {
       </section>
 
       {/* 4 — S’entraîner */}
-      <section id="exercices" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-24 pt-16 md:px-10">
+      <section id="exercices" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-16 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="parler" size={16} /> 4
@@ -455,6 +456,60 @@ export default function Italien() {
               </button>
             </div>
           )}
+        </Reveal>
+      </section>
+
+      {/* 5 — Ailleurs. Apres les exercices, pas avant : on ne renvoie pas
+          quelqu'un ailleurs avant qu'il ait essaye ici. */}
+      <section id="ailleurs" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-24 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="compass" size={16} /> 5
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {p.elsewhereTitle}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {p.elsewhereIntro}
+          </p>
+        </Reveal>
+
+        <div className="mt-10 flex flex-col gap-8">
+          {AILLEURS.map((g) => (
+            <Reveal key={g.titre.fr}>
+              <h3 className="mb-4 text-[13px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+                {g.titre[lang]}
+              </h3>
+              <div className="grid gap-px overflow-hidden rounded-2xl md:grid-cols-3" style={{ background: 'var(--cava-line)' }}>
+                {g.sites.map((x) => (
+                  <a
+                    key={x.url}
+                    href={x.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col gap-2 p-6 transition-transform duration-200 hover:scale-[1.01] motion-reduce:transition-none"
+                    style={{ background: 'var(--cava-bg)' }}
+                  >
+                    <span className="text-[15px]" style={{ fontWeight: 600 }}>
+                      {x.nom} <span style={{ color: 'var(--cava-pink)' }}>↗</span>
+                    </span>
+                    <span className="text-[14px] leading-[1.65]" style={{ color: 'var(--cava-muted)' }}>
+                      {x.quoi[lang]}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Assimil est cite parce que la page s'en reclame. Il est payant, et
+            ca se dit — sinon la recommandation ressemble a une reclame. */}
+        <Reveal className="mt-8 max-w-[70ch] border-l-2 pl-4 text-[14px] leading-[1.7]" style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)' }}>
+          {p.assimilNote}{' '}
+          <a href="https://www.assimil.com/" target="_blank" rel="noopener noreferrer" className="cava-navlink" style={{ color: 'var(--cava-pink)', fontWeight: 500 }}>
+            assimil.com ↗
+          </a>
         </Reveal>
       </section>
 

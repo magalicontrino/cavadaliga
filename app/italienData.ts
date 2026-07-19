@@ -468,6 +468,67 @@ export type Exercice = {
   pourquoi: Texte;
 };
 
+/* ── 5. Ailleurs ──────────────────────────────────────────────────────
+ * Ce cours n'a pas de son, et c'est sa limite : on ne peut pas apprendre a
+ * prononcer une langue sans l'entendre. Ces sites-la comblent le trou, et
+ * font ce qu'une page de site de famille ne fera jamais — des heures
+ * d'exercices, des voix, un dictionnaire complet.
+ *
+ * Chaque adresse a ete ouverte et verifiee. Aucune ne demande de compte pour
+ * commencer, sauf Duolingo, et c'est dit.
+ */
+export type Ailleurs = { titre: Texte; url: string; quoi: Texte; sites: { nom: string; url: string; quoi: Texte }[] };
+
+export const AILLEURS: { titre: Texte; sites: { nom: string; url: string; quoi: Texte }[] }[] = [
+  {
+    titre: { fr: 'Entendre la langue', it: 'Sentire la lingua', en: 'Hearing the language' },
+    sites: [
+      { nom: 'Coffee Break Italian', url: 'https://coffeebreaklanguages.com/coffeebreakitalian/',
+        quoi: { fr: 'Le podcast qui a le mieux compris qu’on apprend en écoutant quelqu’un se tromper puis se corriger. Gratuit, progressif, une saison entière pour débuter.',
+                it: 'Il podcast che ha capito meglio di tutti come si impara: ascoltando qualcuno che sbaglia e si corregge. Gratuito e progressivo.',
+                en: 'The podcast that best understood you learn by hearing someone get it wrong and then right. Free, progressive, a whole season for beginners.' } },
+      { nom: 'RaiPlay Sound', url: 'https://www.raiplaysound.it/',
+        quoi: { fr: 'La radio italienne, en direct et en rattrapage. On ne comprend rien les premiers jours : c’est normal, et c’est l’exercice.',
+                it: 'La radio italiana, in diretta e on demand. All’inizio non si capisce nulla: è l’esercizio.',
+                en: 'Italian radio, live and on demand. You will understand nothing for days — that is normal, and that is the exercise.' } },
+    ],
+  },
+  {
+    titre: { fr: 'S’exercer pour de bon', it: 'Esercitarsi sul serio', en: 'Real practice' },
+    sites: [
+      { nom: 'One World Italiano', url: 'https://oneworlditaliano.com/',
+        quoi: { fr: 'Des leçons vidéo par niveau, du débutant au confirmé, avec les exercices qui vont avec. Fait par une école de Cagliari, et entièrement gratuit.',
+                it: 'Videolezioni per livello con i relativi esercizi. Fatto da una scuola di Cagliari, del tutto gratuito.',
+                en: 'Video lessons by level, beginner to advanced, with the matching exercises. Made by a school in Cagliari, entirely free.' } },
+      { nom: 'Lingua.com', url: 'https://www.lingua.com/italian/reading/',
+        quoi: { fr: 'Des textes courts suivis de questions de compréhension. C’est l’exercice le plus utile quand on a fini le nôtre : lire pour de vrai.',
+                it: 'Testi brevi seguiti da domande di comprensione. L’esercizio più utile dopo il nostro.',
+                en: 'Short texts followed by comprehension questions. The most useful exercise once you have finished ours: actually reading.' } },
+      { nom: 'Duolingo', url: 'https://fr.duolingo.com/course/it/fr/apprendre-italien',
+        quoi: { fr: 'Cinq minutes par jour, en jeu. Ça ne fera jamais de vous un causeur, mais ça entretient le vocabulaire sans effort. Compte gratuit obligatoire.',
+                it: 'Cinque minuti al giorno, sotto forma di gioco. Non vi renderà conversatori, ma tiene vivo il vocabolario. Serve un account.',
+                en: 'Five minutes a day, as a game. It will never make you a talker, but it keeps vocabulary alive effortlessly. Free account required.' } },
+    ],
+  },
+  {
+    titre: { fr: 'Vérifier un mot, un verbe', it: 'Verificare una parola, un verbo', en: 'Checking a word, a verb' },
+    sites: [
+      { nom: 'Treccani', url: 'https://www.treccani.it/vocabolario/',
+        quoi: { fr: 'Le dictionnaire de référence de la langue italienne. En italien, donc : c’est déjà un exercice de le consulter.',
+                it: 'Il vocabolario di riferimento della lingua italiana.',
+                en: 'The reference dictionary of the Italian language. In Italian, of course — looking things up is already practice.' } },
+      { nom: 'Coniugazione.it', url: 'https://www.coniugazione.it/',
+        quoi: { fr: 'Tous les verbes, à tous les temps. Quand un participe passé vous échappe, la réponse est là en trois secondes.',
+                it: 'Tutti i verbi, a tutti i tempi. Quando sfugge un participio, la risposta è lì.',
+                en: 'Every verb, every tense. When a past participle escapes you, the answer is three seconds away.' } },
+      { nom: 'Accademia della Crusca', url: 'https://accademiadellacrusca.it/',
+        quoi: { fr: 'L’autorité sur la langue italienne depuis 1583 — c’est elle qui a tranché le débat arancina / arancino. On y lit ses réponses aux questions du public.',
+                it: 'L’autorità sulla lingua italiana dal 1583: è lei che ha risolto la disputa arancina / arancino.',
+                en: 'The authority on the Italian language since 1583 — the body that settled the arancina / arancino argument. You can read its answers to public questions.' } },
+    ],
+  },
+];
+
 export const EXERCICES: Exercice[] = [
   {
     question: 'La ___ non si compra.',
