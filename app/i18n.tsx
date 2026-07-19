@@ -348,6 +348,24 @@ export type Dict = {
     facts: { icon: string; title: string; text: string }[];
     note: string;
   };
+  /**
+   * La page 404 — la seule qu'on atteint sans l'avoir voulu.
+   *
+   * Le site n'en avait aucune : Next servait la sienne, « This page could not
+   * be found », en anglais, hors charte, sans un seul lien de retour. C'etait
+   * la seule page du site qui ne parlait ni francais ni italien.
+   *
+   * Elle doit faire trois choses, dans cet ordre : dire ou l'on est, ne
+   * culpabiliser personne, et rouvrir le chemin.
+   */
+  notFoundPage: {
+    eyebrow: string;
+    title: string;
+    text: string;
+    definition: string;
+    home: string;
+    elsewhere: string;
+  };
   cashPage: {
     eyebrow: string;
     title: string;
@@ -981,6 +999,14 @@ const FR: Dict = {
       },
     ],
     note: 'Nous ne disons pas « il n’y a rien ici » : ce serait rassurant et faux. Nous disons ce qui vit là, et ce que ça change vraiment — c’est-à-dire presque rien, à condition de tenir la cuisine propre.',
+  },
+  notFoundPage: {
+    eyebrow: 'Erreur 404',
+    title: 'Cette page n’existe pas',
+    text: 'Un lien s’est cassé quelque part, ou l’adresse a été recopiée de travers. Ça n’a rien de grave, et ce n’est pas votre faute. Voilà par où repartir.',
+    definition: '404 : le navigateur a bien joint le serveur, mais le serveur n’a pas trouvé ce qu’on lui demandait.',
+    home: 'Retour à l’accueil',
+    elsewhere: 'Ou allez directement quelque part',
   },
   cashPage: {
     eyebrow: 'Retirer de l’argent',
@@ -1791,6 +1817,14 @@ const IT: Dict = {
     ],
     note: 'Non diciamo « qui non c’è niente »: sarebbe rassicurante e falso. Diciamo che cosa vive qui e che cosa cambia davvero — cioè quasi nulla, a patto di tenere la cucina pulita.',
   },
+  notFoundPage: {
+    eyebrow: 'Errore 404',
+    title: 'Questa pagina non esiste',
+    text: 'Un link si è rotto da qualche parte, oppure l’indirizzo è stato ricopiato male. Non è niente di grave, e non è colpa vostra. Ecco da dove ripartire.',
+    definition: '404: il browser ha raggiunto il server, ma il server non ha trovato quello che gli veniva chiesto.',
+    home: 'Torna alla home',
+    elsewhere: 'Oppure andate direttamente da qualche parte',
+  },
   cashPage: {
     eyebrow: 'Prelevare contanti',
     title: 'Dove trovare un Bancomat',
@@ -2599,6 +2633,14 @@ const EN: Dict = {
       },
     ],
     note: 'We are not saying “there is nothing here”: that would be reassuring and untrue. We say what lives here and what it actually changes — which is almost nothing, as long as the kitchen stays clean.',
+  },
+  notFoundPage: {
+    eyebrow: 'Error 404',
+    title: 'This page does not exist',
+    text: 'A link broke somewhere, or the address was copied down wrong. It is nothing serious, and it is not your fault. Here is where to pick things up again.',
+    definition: '404: the browser reached the server, but the server could not find what was asked of it.',
+    home: 'Back to the home page',
+    elsewhere: 'Or go straight somewhere',
   },
   cashPage: {
     eyebrow: 'Getting cash',
