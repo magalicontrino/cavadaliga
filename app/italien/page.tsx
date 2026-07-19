@@ -87,7 +87,10 @@ const wiki = (edition: string, titre: string) => `https://${edition}.wikipedia.o
 const REFERENCES: { formes: string[]; url: Record<Lang, string> }[] = [
   // Anarchistes italiens cites dans le cours.
   { formes: ['Maria Occhipinti'], url: { fr: wiki('fr', 'Maria_Occhipinti'), it: wiki('it', 'Maria_Occhipinti'), en: wiki('en', 'Maria_Occhipinti') } },
-  { formes: ['Errico Malatesta'], url: { fr: wiki('fr', 'Errico_Malatesta'), it: wiki('it', 'Errico_Malatesta'), en: wiki('en', 'Errico_Malatesta') } },
+  // « Errico Malatesta » d'abord, « Malatesta » seul ensuite : la forme longue
+  // gagne quand les deux sont la, la courte relie les notes qui ne citent que
+  // le nom de famille.
+  { formes: ['Errico Malatesta', 'Malatesta'], url: { fr: wiki('fr', 'Errico_Malatesta'), it: wiki('it', 'Errico_Malatesta'), en: wiki('en', 'Errico_Malatesta') } },
   { formes: ['Sacco e Vanzetti', 'Sacco et Vanzetti', 'Sacco and Vanzetti'], url: { fr: wiki('fr', 'Sacco_et_Vanzetti'), it: wiki('it', 'Sacco_e_Vanzetti'), en: wiki('en', 'Sacco_and_Vanzetti') } },
   { formes: ['Giuseppe Pinelli', 'Pinelli'], url: { fr: wiki('fr', 'Giuseppe_Pinelli'), it: wiki('it', 'Giuseppe_Pinelli'), en: wiki('en', 'Giuseppe_Pinelli') } },
   { formes: ['Pietro Gori'], url: { fr: wiki('fr', 'Pietro_Gori'), it: wiki('it', 'Pietro_Gori'), en: wiki('en', 'Pietro_Gori') } },
@@ -96,6 +99,11 @@ const REFERENCES: { formes: string[]; url: Record<Lang, string> }[] = [
   // Virgilia D'Andrea : article sur les editions italienne et anglaise ; le
   // lecteur francais est renvoye a l'italienne, faute d'article dedie.
   { formes: ['Virgilia D’Andrea'], url: { fr: wiki('it', "Virgilia_D'Andrea"), it: wiki('it', "Virgilia_D'Andrea"), en: wiki('en', "Virgilia_D'Andrea") } },
+  { formes: ['Armando Borghi'], url: { fr: wiki('it', 'Armando_Borghi'), it: wiki('it', 'Armando_Borghi'), en: wiki('en', 'Armando_Borghi') } },
+  { formes: ['Leda Rafanelli'], url: { fr: wiki('it', 'Leda_Rafanelli'), it: wiki('it', 'Leda_Rafanelli'), en: wiki('en', 'Leda_Rafanelli') } },
+  // L'evenement — renvoye a l'edition italienne dans toutes les langues, la
+  // seule ou l'article existe a coup sur. On relie chaque forme traduite.
+  { formes: ['Settimana Rossa', 'Semaine rouge', 'Red Week'], url: { fr: wiki('it', 'Settimana_rossa'), it: wiki('it', 'Settimana_rossa'), en: wiki('it', 'Settimana_rossa') } },
   { formes: ['Dario Fo'], url: { fr: wiki('fr', 'Dario_Fo'), it: wiki('it', 'Dario_Fo'), en: wiki('en', 'Dario_Fo') } },
   { formes: ['Scicli'], url: { fr: wiki('fr', 'Scicli'), it: wiki('it', 'Scicli'), en: wiki('en', 'Scicli') } },
   { formes: ['Comiso'], url: { fr: wiki('fr', 'Comiso'), it: wiki('it', 'Comiso'), en: wiki('en', 'Comiso') } },
