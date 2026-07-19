@@ -43,6 +43,9 @@ type Key = 'tout' | 'sons' | Section;
 // cherche precisement la peinture ou les ecrans.
 const SONS: Section[] = ['playlist', 'ecrans', 'peinture', 'sculpture', 'photo', 'mains', 'chansons'];
 
+/** Les sections qu'un lien « #… » peut ouvrir — celles qui portent une ancre. */
+const SECTIONS_ANCREES: Section[] = ['lieux', 'coutumes', 'specialites', 'alcools', 'cafe', 'etna', 'arabe', 'playlist'];
+
 export default function LaRegion() {
   const { t, lang } = useI18n();
   const p = t.pages['la-region'];
@@ -56,6 +59,29 @@ export default function LaRegion() {
   // Avec « Tout » par défaut, cliquer « Les lieux » ne changeait rien à l'écran —
   // les deux commencent par la même section, et le clic semblait échouer.
   const [filter, setFilter] = useState<Key>('lieux');
+
+  /**
+   * On peut arriver sur une section precise : « #etna », « #cafe », « #arabe »…
+   *
+   * Comme les infos pratiques, cette page n'affiche qu'UNE section a la fois :
+   * une ancre seule aurait vise un titre que le filtre tenait cache. Le
+   * fragment choisit donc d'abord le bouton, et le defilement suit une fois la
+   * section rendue. C'est « Demander » qui s'en sert.
+   */
+  const [cible, setCible] = useState<Key | null>(null);
+  useEffect(() => {
+    const cle = window.location.hash.slice(1) as Key;
+    if (!cle || !SECTIONS_ANCREES.includes(cle as Section)) return;
+    setFilter(cle);
+    setClicks((c) => c + 1);
+    setCible(cle);
+  }, []);
+  useEffect(() => {
+    if (!cible || filter !== cible) return;
+    // `instant` : on arrive d'une autre page, voir app/ancre.ts.
+    document.getElementById(cible)?.scrollIntoView({ block: 'start', behavior: 'instant' });
+    setCible(null);
+  }, [cible, filter]);
   // Incrementé à chaque choix : dit aux Reveal en dessous de se montrer d'un coup.
   const [clicks, setClicks] = useState(0);
   const choose = (k: Key) => {
@@ -151,7 +177,7 @@ export default function LaRegion() {
 
       {/* La Sicile arabe — l'histoire qui explique ce qu'on a sous les yeux */}
       {show('arabe') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+      <section id="arabe" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="landmark" size={16} /> {t.arabPage.eyebrow}
@@ -219,7 +245,7 @@ export default function LaRegion() {
           « Us et coutumes » plus bas : les deux sections se repondent, meme si
           elles ne se touchent plus. */}
       {show('etna') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+      <section id="etna" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="volcano" size={16} /> {t.etnaPage.eyebrow}
@@ -295,7 +321,7 @@ export default function LaRegion() {
 
       {/* Les lieux autour de nous — fiches éditoriales alternées + lightbox */}
       {show('lieux') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-12 md:px-10">
+      <section id="lieux" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-12 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="pin" size={16} /> {t.regionFilter.places}
@@ -372,7 +398,7 @@ export default function LaRegion() {
 
       {/* Us et coutumes — granita, arancina, passeggiata */}
       {show('coutumes') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+      <section id="coutumes" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="cone" size={16} /> {t.tastePage.eyebrow}
@@ -409,7 +435,7 @@ export default function LaRegion() {
       {/* Les spécialités du coin — ce qu'on rapporte et ce qu'on goûte sur place.
           Même grille de cartes que « Us et coutumes » : les deux se répondent. */}
       {show('specialites') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+      <section id="specialites" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="fork" size={16} /> {t.specialtiesPage.eyebrow}
@@ -457,7 +483,7 @@ export default function LaRegion() {
       {/* Les vins et alcools du coin — le pendant liquide des spécialités.
           Même grille de cartes ; le Cerasuolo di Vittoria ouvre, forcément. */}
       {show('alcools') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+      <section id="alcools" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="glass" size={16} /> {t.drinksPage.eyebrow}
@@ -506,7 +532,7 @@ export default function LaRegion() {
           lien Wikipédia sur les cartes « objet » (espresso, granita, corretto,
           moka), pas sur les cartes « rituel ». */}
       {show('cafe') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-16 md:px-10">
+      <section id="cafe" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
             <Icon name="droplet" size={16} /> {t.coffeePage.eyebrow}
@@ -552,7 +578,7 @@ export default function LaRegion() {
       )}
 
       {show('playlist') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-12 md:px-10">
+      <section id="playlist" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-12 md:px-10">
         <Reveal
           className="relative overflow-hidden rounded-3xl border p-8 md:p-10"
           style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
@@ -638,7 +664,7 @@ export default function LaRegion() {
 
       {/* Designer — Munari, son dictionnaire de gestes et son livre sur le design */}
       {show('mains') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-20 md:px-10">
+      <section id="mains" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-20 md:px-10">
         <Reveal
           as="h2"
           className="border-t pt-8 text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]"
@@ -755,7 +781,7 @@ export default function LaRegion() {
 
       {/* Chansons & histoires de Sicile — mini-liste, tout en bas */}
       {show('chansons') && (
-      <section className="mx-auto max-w-[110rem] px-5 pt-20 md:px-10">
+      <section id="chansons" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-20 md:px-10">
         <Reveal
           as="h2"
           className="border-t pt-8 text-[clamp(1.4rem,2.6vw,1.9rem)] uppercase leading-[1.05] tracking-[-0.02em]"

@@ -3,8 +3,14 @@ import type { Lang } from './localData';
 
 // ────────────────────────────────────────────────────────────────────────
 // Tri des déchets à Cava d'Aliga — calendrier des passages.
-// Source : le schéma fourni par Mag. Les bacs se sortent le soir.
-// Si la commune change les jours, tout se corrige dans WEEK ci-dessous.
+//
+// Source : le schéma fourni par Mag, et VALIDÉ PAR ELLE le 19 juillet 2026.
+// Ça compte : c'était jusque-là le seul contenu du site que personne n'avait
+// certifié, alors qu'une erreur d'un jour fait rater la collecte à quelqu'un.
+// Les bacs se sortent le soir.
+//
+// Si la commune change les jours, tout se corrige dans WEEK ci-dessous — et il
+// faudra une nouvelle validation, pas une déduction.
 // ────────────────────────────────────────────────────────────────────────
 export type WasteKey = 'organique' | 'papier' | 'plastique' | 'residuel' | 'verre';
 

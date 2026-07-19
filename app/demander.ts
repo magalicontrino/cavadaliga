@@ -204,6 +204,51 @@ const MOTS_MAISON: Record<string, string> = {
     + 'corriera pullman orario orari '
     + 'coach intercity timetable',
   'transport-catania': 'aeroport aeroporto airport avion aereo plane vol volo flight catane catania arrivee partenza retard ritardo delay porte gate bagage',
+  'region-etna':
+    'etna volcan volcanique eruption lave cratere neige ski skier montagne granita nivaroli excursion '
+    + 'vulcano eruzione lava cratere neve sciare montagna gita '
+    + 'volcano eruption crater snow skiing mountain hike',
+  'region-arabe':
+    'arabe arabes arabo normand histoire musulman sarrasin conquete heritage architecture nom noms toponymie '
+    + 'sicile passe siecle moyen age '
+    + 'arabo normanno storia musulmano saraceno conquista eredita '
+    + 'arab norman history moorish conquest heritage',
+  'region-coutumes':
+    'coutume coutumes habitude habitudes usage usages horaire horaires sieste riposo pourboire mancia '
+    + 'magasin magasins boutique boutiques commerce commerces ouvert ouverte ferme fermeture ouverture midi '
+    + 'negozio negozi aperto chiuso chiusura apertura pomeriggio '
+    + 'shop shops opening closing closed open lunchtime '
+    + 'politesse maniere vivre local abitudini orari usanze '
+    + 'customs habits opening hours siesta tipping manners',
+  'region-specialites':
+    'specialite specialites cuisine plat plats manger typique arancina cannolo cassata caponata pasta '
+    + 'norma sarde ricotta amande pistache '
+    + 'specialita piatti tipici mandorla pistacchio '
+    + 'speciality dishes food typical almond pistachio',
+  'region-alcools':
+    'vin vins alcool alcools cave vigne cepage nero avola frappato cerasuolo marsala passito moscato '
+    + 'amaro liqueur biere aperitif '
+    + 'vino vini cantina vigna vitigno birra liquore '
+    + 'wine wines vineyard grape beer liqueur',
+  'region-cafe':
+    'cafe caffe expresso espresso ristretto macchiato cappuccino comptoir bar matin granita brioche '
+    + 'colazione banco mattina '
+    + 'coffee breakfast counter morning',
+  'region-lieux':
+    'baroque unesco patrimoine ville villes village alentour autour visiter visite excursion journee '
+    + 'scicli modica raguse ragusa noto syracuse siracusa donnalucata sampieri marina '
+    + 'barocco patrimonio citta paese visitare gita dintorni '
+    + 'baroque unesco heritage town towns visit day trip nearby around',
+  evenements:
+    'evenement evenements fete fetes festival festivals feria procession patron sagra concert spectacle '
+    + 'programme agenda saison ete quoi faire sortir sortie '
+    + 'evento eventi festa feste sagra processione programma stagione estate '
+    + 'event events festival celebration procession programme season summer',
+  culture:
+    'musique musiques playlist chanson chansons disque vinyle spotify film films cinema serie montalbano '
+    + 'peinture peintre art artiste sculpture photo photographie livre lecture '
+    + 'musica canzone disco vinile pittura pittore arte scultura fotografia libro '
+    + 'music song record vinyl movie movies painting painter art sculpture photography book',
   meteo: 'meteo temps pluie soleil vent temperature chaud froid previsions tempo pioggia sole vento caldo freddo weather rain sun wind forecast hot cold',
 };
 
@@ -374,6 +419,64 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     titre: t.salvaPage.treeTitle,
     lignes: [t.salvaPage.treeNote],
     mots: motsMaison('famille'),
+  });
+
+  // ── La region ────────────────────────────────────────────────────────
+  //
+  // Toute cette moitie du site etait invisible : « l'Etna », « les vins du
+  // coin », « la Sicile arabe » ne rendaient rien, alors que Mag a ecrit des
+  // pages entieres dessus. Elles sont pourtant faites du meme materiau que le
+  // reste — un chapeau, une intro, des faits — et s'indexent donc pareil.
+  //
+  // Chaque section garde son fragment : la page « La region » n'en affiche
+  // qu'une a la fois, comme les infos pratiques.
+  const sections: { id: string; ancre: string; bloc: { eyebrow: string; title: string; intro: string; facts: { title: string; text: string }[] } }[] = [
+    { id: 'etna', ancre: 'etna', bloc: t.etnaPage },
+    { id: 'arabe', ancre: 'arabe', bloc: t.arabPage },
+    { id: 'coutumes', ancre: 'coutumes', bloc: t.tastePage },
+    { id: 'specialites', ancre: 'specialites', bloc: t.specialtiesPage },
+    { id: 'alcools', ancre: 'alcools', bloc: t.drinksPage },
+    { id: 'cafe', ancre: 'cafe', bloc: t.coffeePage },
+  ];
+  sections.forEach(({ id, ancre, bloc }) => {
+    ajouter({
+      id: `region-${id}`,
+      page: `/la-region#${ancre}`,
+      titre: bloc.title,
+      // L'intro d'abord : c'est elle qui repond a « c'est quoi ? ». Les faits
+      // suivent, et se font couper les premiers quand la place manque.
+      lignes: [bloc.intro, ...bloc.facts.map((f) => `${f.title} — ${f.text}`)],
+      mots: motsMaison(`region-${id}`),
+    });
+  });
+
+  // « Les lieux autour de nous » — Scicli, Modica, Raguse, Noto, Syracuse.
+  // C'est la que vit le baroque, et « le baroque » ne rendait rien.
+  ajouter({
+    id: 'region-lieux',
+    page: '/la-region#lieux',
+    titre: t.placesTitle,
+    lignes: [t.placesIntro, ...t.regionPlaces.slice(0, 4)],
+    mots: motsMaison('region-lieux'),
+  });
+
+  // Les evenements et les fetes : une page a elle seule, jamais indexee.
+  ajouter({
+    id: 'evenements',
+    page: '/evenements',
+    titre: t.calendarPage.title,
+    lignes: [t.calendarPage.intro, t.calendarPage.festivalsTitle, ...t.calendarPage.festivalDescs],
+    mots: motsMaison('evenements'),
+  });
+
+  // Sons & images : la playlist, les films, la peinture. Le picto vinyle de la
+  // barre du haut y mene deja ; encore fallait-il pouvoir le demander.
+  ajouter({
+    id: 'culture',
+    page: '/la-region#playlist',
+    titre: t.culturePage.title,
+    lignes: [t.culturePage.intro, t.culturePage.playlistDesc, t.culturePage.artistsIntro],
+    mots: motsMaison('culture'),
   });
 
   // ── Nos adresses ─────────────────────────────────────────────────────
