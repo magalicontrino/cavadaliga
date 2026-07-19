@@ -571,6 +571,113 @@ export const AILLEURS: { titre: Texte; sites: { nom: string; url: string; quoi: 
   },
 ];
 
+/* ── Les chansons ─────────────────────────────────────────────────────
+ * Mag les a demandees, et elles enseignent vraiment : une chanson entre par
+ * l'oreille et reste, la ou une liste de mots s'efface.
+ *
+ * CE QU'ON N'ECRIT PAS, ET POURQUOI. Les paroles de « L'italiano » (1983) et
+ * de « Via con me » (1981) appartiennent a leurs auteurs : on ne les recopie
+ * pas, meme traduites. On enseigne donc ce qui s'enseigne — les MOTS et les
+ * TOURNURES qu'on y entend, ce que la chanson raconte, la regle de grammaire
+ * qu'elle illustre — et on renvoie a l'ecoute pour le reste. C'est d'ailleurs
+ * la bonne facon d'apprendre : les mots en main, on ecoute et on reconnait.
+ *
+ * « Bella ciao » est un chant traditionnel anonyme, tombe dans le domaine
+ * public : rien n'empeche d'en citer le refrain, qui tient en trois mots et
+ * qu'on chante de toute facon dans toute l'Italie le 25 avril.
+ */
+export type Chanson = {
+  id: string;
+  titre: string;
+  auteur: string;
+  annee: string;
+  lien: string;
+  /** De quoi ça parle, et pourquoi elle compte. */
+  quoi: Texte;
+  /** Les mots a avoir en tete AVANT d'ecouter. */
+  mots: { it: string; pron: string; sens: Texte }[];
+  /** Le point de langue que la chanson montre mieux qu'un tableau. */
+  langue: Texte;
+};
+
+export const CHANSONS: Chanson[] = [
+  {
+    id: 'bella-ciao',
+    titre: 'Bella ciao',
+    auteur: 'Traditionnel — anonyme',
+    annee: 'XIXᵉ-XXᵉ s.',
+    lien: 'https://it.wikipedia.org/wiki/Bella_ciao',
+    quoi: {
+      fr: 'Le chant des partisans italiens, devenu celui de toutes les résistances. On le chante chaque 25 avril, jour de la Libération. Son refrain — « o bella ciao, bella ciao, bella ciao ciao ciao » — est un adieu : celui qu’on lance en partant se battre, sans savoir si l’on reviendra.',
+      it: 'Il canto dei partigiani italiani, diventato quello di tutte le resistenze. Si canta ogni 25 aprile. Il ritornello è un addio: quello di chi parte a combattere senza sapere se tornerà.',
+      en: 'The song of the Italian partisans, since taken up by resistance movements everywhere. It is sung every 25 April, Liberation Day. Its refrain is a farewell — the one you call out as you leave to fight, not knowing if you will come back.',
+    },
+    mots: [
+      { it: 'ciao', pron: 'CIAO', sens: { fr: 'salut — et aussi adieu : le mot sert à l’arrivée comme au départ', it: 'saluto d’arrivo e di partenza', en: 'hello — and goodbye: the word works both ways' } },
+      { it: 'il partigiano', pron: 'il par·ti·GIA·no', sens: { fr: 'le partisan, le résistant', it: 'chi combatté nella Resistenza', en: 'the partisan, the resistance fighter' } },
+      { it: 'l’invasore', pron: 'lin·va·SO·re', sens: { fr: 'l’envahisseur', it: 'chi occupa un paese', en: 'the invader' } },
+      { it: 'la montagna', pron: 'la mon·TA·gna', sens: { fr: 'la montagne — là où les partisans se cachaient', it: 'dove si nascondevano i partigiani', en: 'the mountain — where the partisans hid' } },
+      { it: 'seppellire', pron: 'sep·pel·LI·re', sens: { fr: 'enterrer', it: 'mettere sotto terra', en: 'to bury' } },
+      { it: 'il fiore', pron: 'il FIO·re', sens: { fr: 'la fleur — celle qui pousse sur la tombe, à la fin', it: 'quello che nasce sulla tomba', en: 'the flower — the one that grows on the grave, at the end' } },
+    ],
+    langue: {
+      fr: 'Elle est bâtie sur l’impératif et le futur : « portami via » (emmène-moi), « seppellire » à l’infinitif après un verbe de volonté. Et surtout, elle répète — c’est pour ça qu’on la retient sans l’apprendre.',
+      it: 'È costruita sull’imperativo e sul futuro, e soprattutto ripete: per questo si impara senza studiarla.',
+      en: 'It is built on the imperative and the future, and above all it repeats — which is why you learn it without studying it.',
+    },
+  },
+  {
+    id: 'litaliano',
+    titre: 'L’italiano',
+    auteur: 'Toto Cutugno',
+    annee: '1983',
+    lien: 'https://it.wikipedia.org/wiki/L%27italiano_(brano_musicale)',
+    quoi: {
+      fr: 'La chanson que le monde entier croit être l’hymne italien. Cutugno y dresse le portrait d’un Italien ordinaire — son café, sa guitare, ses contradictions — et le refrain, « lasciatemi cantare », demande simplement qu’on le laisse chanter. Elle s’écoute partout en Sicile, et tout le monde en connaît le refrain.',
+      it: 'La canzone che il mondo scambia per l’inno italiano. Cutugno ritrae un italiano qualunque — il caffè, la chitarra, le contraddizioni — e il ritornello chiede solo di poter cantare.',
+      en: 'The song the rest of the world takes for the Italian anthem. Cutugno paints an ordinary Italian — his coffee, his guitar, his contradictions — and the refrain simply asks to be allowed to sing.',
+    },
+    mots: [
+      { it: 'lasciare', pron: 'la·SCIA·re', sens: { fr: 'laisser — « lasciatemi » veut dire « laissez-moi »', it: 'permettere, lasciar fare', en: 'to let — “lasciatemi” means “let me”' } },
+      { it: 'cantare', pron: 'can·TA·re', sens: { fr: 'chanter', it: 'cantare', en: 'to sing' } },
+      { it: 'la chitarra', pron: 'la chi·TAR·ra', sens: { fr: 'la guitare — attention, « chi » se dit ki', it: 'strumento a corde', en: 'the guitar — note that “chi” sounds like ki' } },
+      { it: 'orgoglioso', pron: 'or·go·GLIO·so', sens: { fr: 'fier', it: 'che prova orgoglio', en: 'proud' } },
+      { it: 'la mano', pron: 'la MA·no', sens: { fr: 'la main — un des rares mots en -o qui soit féminin', it: 'una delle poche parole in -o femminili', en: 'the hand — one of the rare -o words that is feminine' } },
+      { it: 'buongiorno Italia', pron: 'buon·GIOR·no i·TA·lia', sens: { fr: 'bonjour l’Italie — la formule qui ouvre la chanson', it: 'la formula che apre la canzone', en: 'good morning Italy — the phrase that opens the song' } },
+    ],
+    langue: {
+      fr: 'Elle enseigne l’impératif de politesse au pluriel : lasciatemi, c’est « laissez-moi », avec le pronom collé au verbe. C’est très italien — en français on le mettrait devant.',
+      it: 'Insegna l’imperativo con il pronome attaccato al verbo: lasciatemi. Molto italiano.',
+      en: 'It teaches the plural imperative with the pronoun stuck onto the verb: lasciatemi. Very Italian — French and English would put it in front.',
+    },
+  },
+  {
+    id: 'via-con-me',
+    titre: 'Via con me',
+    auteur: 'Paolo Conte',
+    annee: '1981',
+    lien: 'https://it.wikipedia.org/wiki/Via_con_me',
+    quoi: {
+      fr: 'Une invitation à partir, chantée d’une voix de gorge par un avocat d’Asti devenu l’un des plus grands auteurs italiens. On la reconnaît à son « it’s wonderful » lancé en anglais au milieu de l’italien — c’est le charme de la chanson, et son ironie.',
+      it: 'Un invito a partire, cantato da un avvocato di Asti diventato uno dei più grandi autori italiani. Si riconosce dal suo « it’s wonderful » in inglese in mezzo all’italiano.',
+      en: 'An invitation to leave, sung in a growl by a lawyer from Asti who became one of Italy’s greatest songwriters. You recognise it by the “it’s wonderful” thrown in English into the middle of the Italian.',
+    },
+    mots: [
+      { it: 'via', pron: 'VI·a', sens: { fr: 'au loin, partons — le même mot veut dire « rue »', it: 'lontano, andiamo — e anche « strada »', en: 'away, let’s go — the same word also means “street”' } },
+      { it: 'con me', pron: 'con ME', sens: { fr: 'avec moi', it: 'insieme a me', en: 'with me' } },
+      { it: 'gli uomini', pron: 'gli UO·mi·ni', sens: { fr: 'les hommes — pluriel irrégulier de « uomo »', it: 'plurale irregolare di uomo', en: 'the men — irregular plural of “uomo”' } },
+      { it: 'perdere', pron: 'PER·de·re', sens: { fr: 'perdre', it: 'non trovare più', en: 'to lose' } },
+      { it: 'la notte', pron: 'la NOT·te', sens: { fr: 'la nuit', it: 'quando è buio', en: 'the night' } },
+      { it: 'meraviglioso', pron: 'me·ra·vi·GLIO·so', sens: { fr: 'merveilleux — ce que « wonderful » dit en italien', it: 'ciò che « wonderful » dice in italiano', en: 'wonderful — what the English word says in Italian' } },
+    ],
+    langue: {
+      fr: 'Elle montre l’impératif de l’invitation, celui qu’on emploie entre amis, et le pluriel irrégulier uomo → uomini. Écoutez-la surtout pour le rythme : Conte avale les syllabes comme on parle vraiment.',
+      it: 'Mostra l’imperativo dell’invito e il plurale irregolare uomo → uomini. Ascoltatela per il ritmo: Conte mangia le sillabe come si fa parlando.',
+      en: 'It shows the inviting imperative and the irregular plural uomo → uomini. Listen to it above all for the rhythm: Conte swallows syllables the way people really speak.',
+    },
+  },
+];
+
 export const EXERCICES: Exercice[] = [
   {
     question: 'La ___ non si compra.',

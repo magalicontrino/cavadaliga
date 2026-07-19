@@ -358,6 +358,12 @@ export type Dict = {
     title: string;
     intro: string;
     backToTop: string;
+    songsTitle: string;
+    songsIntro: string;
+    songsWords: string;
+    songsPoint: string;
+    songsListen: string;
+    songsWhy: string;
     elsewhereTitle: string;
     elsewhereIntro: string;
     assimilNote: string;
@@ -391,7 +397,16 @@ export type Dict = {
     answerCta: string;
     answerChange: string;
     sheetClose: string;
-    planDesc: string[];
+    /*
+     * Le resume de chaque carte, RANGE PAR NOM DE SECTION et non par position.
+     *
+     * C'etait une liste : la sixieme phrase allait a la sixieme carte. En
+     * inserant « Par les chansons » au milieu, tout ce qui suivait s'est
+     * decale d'un cran — la carte des chansons annonçait « s'entrainer, une
+     * question a la fois ». Un rangement par position se casse en silence des
+     * qu'on ajoute quelque chose ; un rangement par nom, jamais.
+     */
+    planDesc: Record<string, string>;
   };
   booksPage: {
     eyebrow: string;
@@ -1051,18 +1066,25 @@ const FR: Dict = {
     answerCta: 'Répondre',
     answerChange: 'Changer',
     sheetClose: 'Fermer',
-    planDesc: [
-      'Les sons de l’italien, et comment les dire juste.',
-      'Des phrases entières, prêtes pour chaque situation.',
-      'Le temps de tous les jours — demander, commander, se présenter.',
-      'Raconter ce qui s’est déjà passé.',
-      'Dire ce qu’on fera, sans se tromper de terminaison.',
-      'S’entraîner, une question à la fois, le score à la fin.',
-      'Où continuer : applis, livres et sites choisis.',
-    ],
+    planDesc: {
+      prononcer: 'Les sons de l’italien, et comment les dire juste.',
+      parler: 'Des phrases entières, prêtes pour chaque situation.',
+      presente: 'Le temps de tous les jours — demander, commander, se présenter.',
+      passato: 'Raconter ce qui s’est déjà passé.',
+      futuro: 'Dire ce qu’on fera, sans se tromper de terminaison.',
+      chansons: 'Trois chansons, leurs mots, et ce qu’elles apprennent.',
+      exercices: 'S’entraîner, une question à la fois, le score à la fin.',
+      ailleurs: 'Où continuer : applis, livres et sites choisis.',
+    },
     title: 'Parler italien ici',
     intro: 'Pas un cours de grammaire : de quoi se débrouiller dès le premier matin, puis comprendre ce qu’on dit. On commence par prononcer, on continue par des phrases entières, la grammaire vient après — et on s’entraîne à la fin.',
     backToTop: 'Remonter en haut de la page',
+    songsTitle: 'Par les chansons',
+    songsIntro: 'Une chanson entre par l’oreille et reste, là où une liste de mots s’efface. Pour chacune : de quoi elle parle, les mots à avoir en tête avant d’écouter, et ce qu’elle apprend de la langue.',
+    songsWords: 'Les mots à connaître',
+    songsPoint: 'Ce qu’elle apprend',
+    songsListen: 'La fiche de la chanson',
+    songsWhy: 'Nous ne recopions pas les paroles : celles de Cutugno et de Conte appartiennent à leurs auteurs. Avec ces mots en main, écoutez — vous les reconnaîtrez au passage, et c’est ainsi qu’on apprend une chanson.',
     elsewhereTitle: 'Continuer ailleurs',
     elsewhereIntro: 'Cette page n’a pas de son, et c’est sa limite : on n’apprend pas à prononcer une langue sans l’entendre. Voilà où aller pour ça — et pour les heures d’exercices qu’un site de famille ne fera jamais.',
     assimilNote: 'La méthode dont ce cours s’inspire est celle d’Assimil — leçons courtes, phrases entières, grammaire expliquée après coup. C’est un livre payant, et il vaut son prix si vous voulez aller vraiment loin.',
@@ -1965,18 +1987,25 @@ const IT: Dict = {
     answerCta: 'Rispondi',
     answerChange: 'Cambia',
     sheetClose: 'Chiudi',
-    planDesc: [
-      'I suoni dell’italiano, e come pronunciarli bene.',
-      'Frasi intere, pronte per ogni situazione.',
-      'Il tempo di tutti i giorni — chiedere, ordinare, presentarsi.',
-      'Raccontare ciò che è già successo.',
-      'Dire ciò che si farà, senza sbagliare la desinenza.',
-      'Allenarsi, una domanda alla volta, il punteggio alla fine.',
-      'Dove continuare: app, libri e siti scelti.',
-    ],
+    planDesc: {
+      prononcer: 'I suoni dell’italiano, e come pronunciarli bene.',
+      parler: 'Frasi intere, pronte per ogni situazione.',
+      presente: 'Il tempo di tutti i giorni — chiedere, ordinare, presentarsi.',
+      passato: 'Raccontare ciò che è già successo.',
+      futuro: 'Dire ciò che si farà, senza sbagliare la desinenza.',
+      chansons: 'Tre canzoni, le loro parole, e che cosa insegnano.',
+      exercices: 'Allenarsi, una domanda alla volta, il punteggio alla fine.',
+      ailleurs: 'Dove continuare: app, libri e siti scelti.',
+    },
     title: 'Parlare italiano qui',
     intro: 'Non un corso di grammatica: quanto basta per cavarsela dal primo mattino, e poi per capire quello che si dice. Prima la pronuncia, poi frasi intere, la grammatica dopo — e alla fine gli esercizi. Questa versione serve soprattutto a chi vuole rivedere le regole o aiutare qualcuno a impararle.',
     backToTop: 'Torna in cima alla pagina',
+    songsTitle: 'Con le canzoni',
+    songsIntro: 'Una canzone entra dall’orecchio e resta, dove un elenco di parole si cancella. Per ciascuna: di che parla, le parole da avere in mente prima di ascoltare, e che cosa insegna della lingua.',
+    songsWords: 'Le parole da sapere',
+    songsPoint: 'Che cosa insegna',
+    songsListen: 'La scheda della canzone',
+    songsWhy: 'Non riportiamo i testi: quelli di Cutugno e di Conte appartengono ai loro autori. Con queste parole in mano, ascoltate — le riconoscerete al volo, ed è così che si impara una canzone.',
     elsewhereTitle: 'Continuare altrove',
     elsewhereIntro: 'Questa pagina non ha audio, ed è il suo limite: non si impara a pronunciare una lingua senza sentirla. Ecco dove andare.',
     assimilNote: 'Il metodo a cui questo corso si ispira è quello di Assimil: lezioni brevi, frasi intere, grammatica spiegata dopo. È un libro a pagamento, e li vale.',
@@ -2879,18 +2908,25 @@ const EN: Dict = {
     answerCta: 'Answer',
     answerChange: 'Change',
     sheetClose: 'Close',
-    planDesc: [
-      'The sounds of Italian, and how to get them right.',
-      'Whole sentences, ready for every situation.',
-      'The everyday tense — asking, ordering, introducing yourself.',
-      'Telling what has already happened.',
-      'Saying what you’ll do, with the right ending.',
-      'Practise, one question at a time, score at the end.',
-      'Where to go next: apps, books and hand-picked sites.',
-    ],
+    planDesc: {
+      prononcer: 'The sounds of Italian, and how to get them right.',
+      parler: 'Whole sentences, ready for every situation.',
+      presente: 'The everyday tense — asking, ordering, introducing yourself.',
+      passato: 'Telling what has already happened.',
+      futuro: 'Saying what you’ll do, with the right ending.',
+      chansons: 'Three songs, their words, and what they teach.',
+      exercices: 'Practise, one question at a time, score at the end.',
+      ailleurs: 'Where to go next: apps, books and hand-picked sites.',
+    },
     title: 'Speaking Italian here',
     intro: 'Not a grammar course: enough to get by from the first morning, and then to understand what you are saying. Pronunciation first, whole sentences next, grammar after that — and exercises at the end.',
     backToTop: 'Back to the top of the page',
+    songsTitle: 'Through songs',
+    songsIntro: 'A song comes in through the ear and stays, where a word list fades. For each one: what it is about, the words to have in mind before listening, and what it teaches you about the language.',
+    songsWords: 'Words to know',
+    songsPoint: 'What it teaches',
+    songsListen: 'About the song',
+    songsWhy: 'We do not reproduce the lyrics: Cutugno’s and Conte’s belong to their authors. With these words in hand, listen — you will catch them as they go by, and that is how a song is learnt.',
     elsewhereTitle: 'Carrying on elsewhere',
     elsewhereIntro: 'This page has no sound, and that is its limit: you cannot learn to pronounce a language without hearing it. Here is where to go for that — and for the hours of drilling a family website will never provide.',
     assimilNote: 'The method this course is built on is Assimil’s — short lessons, whole sentences, grammar explained afterwards. It is a paid book, and it is worth it if you want to go a long way.',

@@ -9,7 +9,7 @@ import BottomSheet from '../BottomSheet';
 import Icon, { type IconName } from '../Icon';
 import { useI18n } from '../i18n';
 import type { Lang } from '../localData';
-import { PRONONCIATION, LECONS, CONJUGAISONS, PRONOMS, EXERCICES, AILLEURS } from '../italienData';
+import { PRONONCIATION, LECONS, CONJUGAISONS, PRONOMS, EXERCICES, AILLEURS, CHANSONS } from '../italienData';
 
 /**
  * Le cours d'italien.
@@ -351,6 +351,7 @@ export default function Italien() {
     { id: 'presente', titre: CONJUGAISONS[0].temps[lang], niveau: p.level2, icon: 'sun' },
     { id: 'passato', titre: CONJUGAISONS[1].temps[lang], niveau: p.level2, icon: 'landmark' },
     { id: 'futuro', titre: CONJUGAISONS[2].temps[lang], niveau: p.level3, icon: 'compass' },
+    { id: 'chansons', titre: p.songsTitle, niveau: p.levelAll, icon: 'vinyl', intro: p.songsIntro },
     { id: 'exercices', titre: p.drillTitle, niveau: p.levelAll, icon: 'target', intro: p.drillIntro },
     { id: 'ailleurs', titre: p.elsewhereTitle, niveau: p.levelAll, icon: 'map', intro: p.elsewhereIntro },
   ];
@@ -361,7 +362,7 @@ export default function Italien() {
    * une phrase, et une icone en bas. Cliquer OUVRE la feuille de la section, la
    * ou avant on sautait dans la page.
    */
-  const carteSommaire = (x: (typeof PLAN)[number], i: number) => (
+  const carteSommaire = (x: (typeof PLAN)[number]) => (
     <a
       key={x.id}
       href={`#${x.id}`}
@@ -374,7 +375,7 @@ export default function Italien() {
     >
       <div className="flex flex-col gap-2">
         <span className="text-[17px] leading-tight" style={{ fontWeight: 800 }}>{x.titre}</span>
-        <p className="text-[13px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>{p.planDesc[i]}</p>
+        <p className="text-[13px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>{p.planDesc[x.id]}</p>
       </div>
       {/* L'icone en bas, grande et grasse comme sur le modele ; le niveau se
           range a cote, discret. */}
@@ -633,6 +634,54 @@ export default function Italien() {
     }
 
     // 5 — Ailleurs
+    // Les chansons. On enseigne les MOTS et ce que la chanson montre de la
+    // langue — pas les paroles : celles de Cutugno et de Conte appartiennent a
+    // leurs auteurs, et les recopier, meme traduites, ne se fait pas. La note
+    // du bas le dit en clair plutot que de laisser croire a un oubli.
+    if (id === 'chansons') {
+      return (
+        <div className="flex flex-col gap-8">
+          {CHANSONS.map((ch) => (
+            <div key={ch.id} className="rounded-2xl border p-6 md:p-8" style={{ borderColor: 'var(--cava-line)' }}>
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <h3 className="text-[clamp(1.15rem,2.4vw,1.5rem)] leading-[1.2]" style={{ fontWeight: 600 }}>{ch.titre}</h3>
+                <span className="text-[13px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+                  {ch.auteur} · {ch.annee}
+                </span>
+              </div>
+
+              <p className="mt-3 max-w-[72ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{ch.quoi[lang]}</p>
+
+              <p className="mt-6 text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>{p.songsWords}</p>
+              <dl className="mt-3 grid grid-cols-1 gap-x-12 gap-y-3 sm:grid-cols-[repeat(2,minmax(0,max-content))]">
+                {ch.mots.map((m) => (
+                  <div key={m.it}>
+                    <dt className="text-[15px]" style={{ fontWeight: 600 }}>
+                      {m.it} <span className="text-[12px] uppercase tracking-[0.08em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>{m.pron}</span>
+                    </dt>
+                    <dd className="text-[14px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>{m.sens[lang]}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <div className="mt-6 rounded-xl p-4" style={{ background: 'rgba(255,212,82,0.22)' }}>
+                <p className="text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-ink)', fontWeight: 700 }}>{p.songsPoint}</p>
+                <p className="mt-1 max-w-[72ch] text-[14px] leading-[1.7]">{ch.langue[lang]}</p>
+              </div>
+
+              <a href={ch.lien} target="_blank" rel="noopener noreferrer" className="cava-navlink mt-5 inline-flex items-center gap-1.5 text-[13px]" style={{ color: 'var(--cava-pink)', fontWeight: 500 }}>
+                {p.songsListen} ↗
+              </a>
+            </div>
+          ))}
+
+          <p className="max-w-[72ch] border-l-2 pl-4 text-[14px] leading-[1.7]" style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)' }}>
+            {p.songsWhy}
+          </p>
+        </div>
+      );
+    }
+
     if (id === 'ailleurs') {
       return (
         <div className="flex flex-col gap-8">
@@ -691,7 +740,7 @@ export default function Italien() {
       */}
       <section className="mx-auto max-w-[110rem] px-5 pb-16 pt-10 md:px-10 md:pb-0">
         <Reveal className="grid grid-cols-2 gap-3 md:grid-cols-3">
-          {PLAN.map(carteSommaire)}
+          {PLAN.map((x) => carteSommaire(x))}
         </Reveal>
       </section>
 

@@ -376,7 +376,10 @@ const MOTS_MAISON: Record<string, string> = {
     + 'present passe futur compose participe auxiliaire infinitif terminaison passato prossimo semplice presente futuro '
     + 'bonjour merci sil vous plait commander demander politesse tutoyer vouvoyer '
     + 'italiano lingua parlare imparare corso lezione vocabolario grammatica coniugazione pronuncia tradurre frase esercizio '
-    + 'italian language speak learn course lesson vocabulary grammar conjugation pronunciation translate phrase exercise how do you say',
+    + 'italian language speak learn course lesson vocabulary grammar conjugation pronunciation translate phrase exercise how do you say '
+    + 'chanson chansons chanter musique paroles refrain bella ciao italiano cutugno conte via con me partisan '
+    + 'canzone canzoni cantare musica testo ritornello '
+    + 'song songs sing music lyrics chorus',
   'region-livres':
     'livre livres lire lecture roman romans auteur ecrivain bouquin bibliotheque histoire sicilienne '
     + 'occhipinti corti gattopardo lampedusa sciascia levi vittorini verga camilleri malavoglia civetta conversazione '
@@ -690,7 +693,7 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     id: 'italien',
     page: '/italien',
     titre: t.italianPage.title,
-    lignes: [t.italianPage.intro, t.italianPage.soundIntro, t.italianPage.talkIntro, t.italianPage.grammarIntro],
+    lignes: [t.italianPage.intro, t.italianPage.soundIntro, t.italianPage.talkIntro, t.italianPage.grammarIntro, t.italianPage.songsIntro],
     mots: motsMaison('italien'),
   });
 
