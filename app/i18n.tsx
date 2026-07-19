@@ -264,6 +264,7 @@ export type Dict = {
     /** Rassemble les sept sections venues de « Sons & images » en un seul bouton. */
     sounds: string;
     etna: string;
+    fauna: string;
   };
   infoFilter: {
     all: string;
@@ -309,22 +310,41 @@ export type Dict = {
    * les facades, donc c'est ce mot qu'il faut avoir en tete en cherchant.
    */
   /**
-   * Les bestioles, et pourquoi on tient la maison propre.
+   * La proprete, cote INFOS PRATIQUES : ce qui se traduit en gestes.
    *
    * Mag : « pas de miettes, vaisselle faite sans trainer… pas forcement
-   * evident pour les nordistes ». C'est le fond de la page : sous 35 degres
-   * et dans l'humidite de la cote, une assiette laissee le soir n'est pas une
-   * negligence sans consequence, c'est une invitation.
+   * evident pour les nordistes ». Sous la chaleur et l'humidite de la cote,
+   * une assiette laissee le soir n'est pas une negligence sans consequence,
+   * c'est une invitation.
    *
-   * Le reste rassure — mais SANS mentir. Voir le commentaire des `facts`.
+   * Puis elle a scinde : « on veut juste parler des fourmis et de la proprete
+   * dans les infos ». Elle a raison — un gecko n'est pas une consigne de
+   * menage. Les fourmis restent ici parce qu'elles sont la RAISON de la regle
+   * des miettes ; le reste de la faune est parti dans « La region », ou l'on
+   * decouvre plutot qu'on ne range.
    */
-  faunaPage: {
+  cleanPage: {
     eyebrow: string;
     title: string;
     intro: string;
     rulesTitle: string;
     rules: string[];
-    factsTitle: string;
+    antsTitle: string;
+    antsText: string;
+    faunaLink: string;
+  };
+  /**
+   * La faune, cote LA REGION : qui vit ici.
+   *
+   * Ca rassure — mais SANS mentir. Mag croyait qu'il n'y avait ni serpents ni
+   * scorpions ; verification faite, les deux existent. Voir la carte des
+   * serpents : « il n'y a rien ici » aurait ete rassurant et faux, et sur une
+   * morsure de vipere une fausse reassurance coute cher.
+   */
+  faunaPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
     facts: { icon: string; title: string; text: string }[];
     note: string;
   };
@@ -854,6 +874,7 @@ const FR: Dict = {
     arab: 'Sicile arabe',
     sounds: 'Sons & images',
     etna: 'L’Etna',
+    fauna: 'La faune',
   },
   infoFilter: {
     all: 'Tout voir',
@@ -865,7 +886,7 @@ const FR: Dict = {
     waste: 'Déchets',
     leaving: 'Le départ',
     money: 'Retirer de l’argent',
-    fauna: 'Bestioles & propreté',
+    fauna: 'Propreté',
   },
   parkingPage: {
     eyebrow: 'Se garer',
@@ -884,9 +905,9 @@ const FR: Dict = {
       text: 'Sur les parkings publics des grandes villes et des sites très touristiques, quelqu’un vient souvent vous placer et surveiller la voiture. Officiel ou non, on ne le sait pas toujours. Il demande peu, il surveille vraiment bien, et là-bas mieux vaut accepter — on ne sait pas trop ce qui arrive à la voiture si on refuse. Chez nous, à Cava d’Aliga, la question ne se pose pas : on est loin des lieux touristiques.',
     },
   },
-  faunaPage: {
-    eyebrow: 'Bestioles & propreté',
-    title: 'Vivre dans un pays chaud',
+  cleanPage: {
+    eyebrow: 'Propreté',
+    title: 'Tenir la maison dans un pays chaud',
     intro: 'Chaleur et humidité : ce qui passe inaperçu chez nous, au nord, ne pardonne pas ici. Une assiette laissée le soir, quelques miettes sous la table, et la colonne de fourmis est là au matin. Rien de dramatique — juste des réflexes à prendre, et ils deviennent vite naturels.',
     rulesTitle: 'Les réflexes',
     rules: [
@@ -897,7 +918,14 @@ const FR: Dict = {
       'On ne laisse pas d’eau stagner : soucoupes sous les pots, seaux, arrosoir. C’est là que les moustiques pondent, et nulle part ailleurs.',
       'On secoue les chaussures laissées dehors avant de les remettre. Vieux réflexe du sud, qui ne coûte rien.',
     ],
-    factsTitle: 'Qui vit ici',
+    antsTitle: 'Les fourmis',
+    antsText: 'C’est la vraie raison de tout ce qui précède. Elles ne piquent pas et ne transportent rien de grave, mais une fois qu’une file a trouvé le chemin du sucre, elle le refait pendant des jours. On ne les combat pas : on ne leur donne rien.',
+    faunaLink: 'Qui vit ici — geckos, lézards, serpents, scorpions',
+  },
+  faunaPage: {
+    eyebrow: 'La faune',
+    title: 'Qui vit ici',
+    intro: 'Les bêtes qu’on croise vraiment dans le sud-est de la Sicile — et ce qu’elles changent, c’est-à-dire presque rien. Les geckos du mur, les lézards des pierres, et deux réputations à remettre à leur place.',
     facts: [
       {
         icon: 'leaf',
@@ -908,11 +936,6 @@ const FR: Dict = {
         icon: 'walk',
         title: 'Les petits lézards',
         text: 'Ils filent entre les pierres au soleil et disparaissent dès qu’on approche. Totalement inoffensifs, et chez eux bien avant nous.',
-      },
-      {
-        icon: 'cone',
-        title: 'Les fourmis',
-        text: 'La vraie raison de la règle des miettes. Elles ne piquent pas et ne transportent rien de grave, mais une fois qu’une file a trouvé le chemin du sucre, elle le refait pendant des jours. On ne les combat pas : on ne leur donne rien.',
       },
       {
         icon: 'droplet',
@@ -1019,6 +1042,11 @@ const FR: Dict = {
       { q: 'Que veut dire « ristretto » ?', choix: ['Encore plus serré', 'Allongé', 'Avec une goutte de lait'], bonne: 0, ancre: 'cafe', niveau: 'moyen' },
       { q: 'Le caffè freddo sicilien est souvent adouci…', choix: ['Au lait d’amande', 'Au sirop de sucre de canne', 'Au miel'], bonne: 0, ancre: 'cafe', niveau: 'moyen' },
       { q: 'Que désigne l’« ammazzacaffè » ?', choix: ['Le corretto qui clôt le repas', 'Un gâteau au café', 'Une très grande tasse'], bonne: 0, ancre: 'cafe', niveau: 'difficile' },
+      { q: 'Que mangent les geckos qui traversent le mur le soir ?', choix: ['Des moustiques', 'Des miettes', 'Rien, ils dorment'], bonne: 0, ancre: 'faune', niveau: 'facile' },
+      { q: 'Y a-t-il des scorpions en Sicile ?', choix: ['Oui, mais leur piqûre est sans danger', 'Non, aucun', 'Oui, et ils sont mortels'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
+      { q: 'Où naissent les moustiques ?', choix: ['Dans l’eau immobile, même quelques centimètres', 'Dans les haies sèches', 'Sous les pierres chaudes'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
+      { q: 'Quel est le seul serpent venimeux de Sicile ?', choix: ['La vipère aspic', 'La couleuvre verte et jaune', 'Il n’y en a aucun'], bonne: 0, ancre: 'faune', niveau: 'difficile' },
+      { q: 'Que ne faut-il SURTOUT pas faire en cas de morsure de vipère ?', choix: ['Poser un garrot ou inciser', 'Appeler les secours', 'Immobiliser le membre'], bonne: 0, ancre: 'faune', niveau: 'difficile' },
     ],
   },
   askMag: {
@@ -1617,6 +1645,7 @@ const IT: Dict = {
     arab: 'Sicilia araba',
     sounds: 'Suoni & immagini',
     etna: 'L’Etna',
+    fauna: 'La fauna',
   },
   infoFilter: {
     all: 'Vedi tutto',
@@ -1628,7 +1657,7 @@ const IT: Dict = {
     waste: 'Rifiuti',
     leaving: 'La partenza',
     money: 'Prelevare contanti',
-    fauna: 'Bestiole e pulizia',
+    fauna: 'Pulizia',
   },
   parkingPage: {
     eyebrow: 'Parcheggiare',
@@ -1647,9 +1676,9 @@ const IT: Dict = {
       text: 'Nei parcheggi pubblici delle grandi città e dei posti molto turistici arriva spesso qualcuno a farvi posteggiare e a sorvegliare l’auto. Se sia autorizzato o no, non si sa sempre. Chiede poco, sorveglia davvero bene, e lì conviene accettare — non si sa bene cosa succeda all’auto se si dice di no. Da noi, a Cava d’Aliga, il problema non si pone: siamo lontani dai luoghi turistici.',
     },
   },
-  faunaPage: {
-    eyebrow: 'Bestiole e pulizia',
-    title: 'Vivere in un paese caldo',
+  cleanPage: {
+    eyebrow: 'Pulizia',
+    title: 'Tenere la casa in un paese caldo',
     intro: 'Caldo e umidità: quello che al nord passa inosservato, qui non perdona. Un piatto lasciato la sera, qualche briciola sotto il tavolo, e la mattina la fila di formiche è già lì. Niente di drammatico — solo qualche abitudine da prendere, e si prende in fretta.',
     rulesTitle: 'Le abitudini',
     rules: [
@@ -1660,7 +1689,14 @@ const IT: Dict = {
       'Mai lasciare acqua ferma: sottovasi, secchi, annaffiatoio. È lì che le zanzare depongono, e da nessun’altra parte.',
       'Scuotere le scarpe lasciate fuori prima di rimetterle. Vecchia abitudine del sud, non costa nulla.',
     ],
-    factsTitle: 'Chi vive qui',
+    antsTitle: 'Le formiche',
+    antsText: 'È il vero motivo di tutto quanto sopra. Non pungono e non portano nulla di grave, ma una volta che una fila ha trovato la strada dello zucchero la rifà per giorni. Non si combattono: non si dà loro niente.',
+    faunaLink: 'Chi vive qui — gechi, lucertole, serpenti, scorpioni',
+  },
+  faunaPage: {
+    eyebrow: 'La fauna',
+    title: 'Chi vive qui',
+    intro: 'Gli animali che si incontrano davvero nel sud-est della Sicilia — e quello che cambiano, cioè quasi nulla. I gechi del muro, le lucertole tra le pietre, e due reputazioni da rimettere a posto.',
     facts: [
       {
         icon: 'leaf',
@@ -1671,11 +1707,6 @@ const IT: Dict = {
         icon: 'walk',
         title: 'Le lucertole',
         text: 'Sfrecciano tra le pietre al sole e spariscono appena ci si avvicina. Del tutto innocue, e qui da molto prima di noi.',
-      },
-      {
-        icon: 'cone',
-        title: 'Le formiche',
-        text: 'Il vero motivo della regola delle briciole. Non pungono e non portano nulla di grave, ma una volta che una fila ha trovato la strada dello zucchero la rifà per giorni. Non si combattono: non si dà loro niente.',
       },
       {
         icon: 'droplet',
@@ -1782,6 +1813,11 @@ const IT: Dict = {
       { q: 'Che cosa vuol dire « ristretto »?', choix: ['Ancora più concentrato', 'Allungato', 'Con una goccia di latte'], bonne: 0, ancre: 'cafe', niveau: 'moyen' },
       { q: 'Il caffè freddo siciliano è spesso addolcito…', choix: ['Con il latte di mandorla', 'Con lo sciroppo di canna', 'Con il miele'], bonne: 0, ancre: 'cafe', niveau: 'moyen' },
       { q: 'Che cos’è l’« ammazzacaffè »?', choix: ['Il corretto che chiude il pasto', 'Un dolce al caffè', 'Una tazza molto grande'], bonne: 0, ancre: 'cafe', niveau: 'difficile' },
+      { q: 'Che cosa mangiano i gechi che attraversano il muro la sera?', choix: ['Le zanzare', 'Le briciole', 'Niente, dormono'], bonne: 0, ancre: 'faune', niveau: 'facile' },
+      { q: 'Ci sono scorpioni in Sicilia?', choix: ['Sì, ma la loro puntura è innocua', 'No, nessuno', 'Sì, e sono mortali'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
+      { q: 'Dove nascono le zanzare?', choix: ['Nell’acqua ferma, bastano pochi centimetri', 'Nelle siepi secche', 'Sotto le pietre calde'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
+      { q: 'Qual è l’unico serpente velenoso della Sicilia?', choix: ['La vipera aspide', 'Il biacco', 'Non ce n’è nessuno'], bonne: 0, ancre: 'faune', niveau: 'difficile' },
+      { q: 'Che cosa NON si deve assolutamente fare in caso di morso di vipera?', choix: ['Mettere un laccio o incidere', 'Chiamare i soccorsi', 'Immobilizzare l’arto'], bonne: 0, ancre: 'faune', niveau: 'difficile' },
     ],
   },
   askMag: {
@@ -2380,6 +2416,7 @@ const EN: Dict = {
     arab: 'Arab Sicily',
     sounds: 'Sounds & screens',
     etna: 'Etna',
+    fauna: 'Wildlife',
   },
   infoFilter: {
     all: 'See all',
@@ -2391,7 +2428,7 @@ const EN: Dict = {
     waste: 'Waste',
     leaving: 'Leaving',
     money: 'Cash',
-    fauna: 'Critters & cleaning',
+    fauna: 'Cleaning',
   },
   parkingPage: {
     eyebrow: 'Parking',
@@ -2410,9 +2447,9 @@ const EN: Dict = {
       text: 'In public car parks in big cities and very touristy spots, someone often turns up to wave you into a space and watch the car. Whether he is official or not, you cannot always tell. He asks for little, he really does keep an eye on it, and there it is better to accept — you never quite know what happens to the car if you say no. Here in Cava d’Aliga the question does not arise: we are far from the tourist spots.',
     },
   },
-  faunaPage: {
-    eyebrow: 'Critters & cleaning',
-    title: 'Living in a hot country',
+  cleanPage: {
+    eyebrow: 'Cleaning',
+    title: 'Keeping house in a hot country',
     intro: 'Heat and humidity: what goes unnoticed up north does not forgive here. One plate left overnight, a few crumbs under the table, and the line of ants is there by morning. Nothing dramatic — just a few habits to pick up, and they come quickly.',
     rulesTitle: 'The habits',
     rules: [
@@ -2423,7 +2460,14 @@ const EN: Dict = {
       'Never let water stand: pot saucers, buckets, the watering can. That is where mosquitoes breed, and nowhere else.',
       'Shake out shoes left outside before putting them back on. An old southern habit that costs nothing.',
     ],
-    factsTitle: 'Who lives here',
+    antsTitle: 'The ants',
+    antsText: 'They are the real reason for everything above. They do not sting and carry nothing serious, but once a line has found the way to the sugar it will take it again for days. You do not fight them: you give them nothing.',
+    faunaLink: 'Who lives here — geckos, lizards, snakes, scorpions',
+  },
+  faunaPage: {
+    eyebrow: 'Wildlife',
+    title: 'Who lives here',
+    intro: 'The creatures you actually meet in south-eastern Sicily — and what they change, which is almost nothing. The geckos on the wall, the lizards in the stones, and two reputations worth correcting.',
     facts: [
       {
         icon: 'leaf',
@@ -2434,11 +2478,6 @@ const EN: Dict = {
         icon: 'walk',
         title: 'The small lizards',
         text: 'They dart between the stones in the sun and vanish the moment you step closer. Completely harmless, and here long before we were.',
-      },
-      {
-        icon: 'cone',
-        title: 'The ants',
-        text: 'The real reason for the crumb rule. They do not sting and carry nothing serious, but once a line has found the way to the sugar it will take it again for days. You do not fight them: you give them nothing.',
       },
       {
         icon: 'droplet',
@@ -2545,6 +2584,11 @@ const EN: Dict = {
       { q: 'What does “ristretto” mean?', choix: ['Even shorter and stronger', 'Lengthened with water', 'With a drop of milk'], bonne: 0, ancre: 'cafe', niveau: 'moyen' },
       { q: 'Sicilian caffè freddo is often sweetened…', choix: ['With almond milk', 'With cane syrup', 'With honey'], bonne: 0, ancre: 'cafe', niveau: 'moyen' },
       { q: 'What is the “ammazzacaffè”?', choix: ['The corretto that ends the meal', 'A coffee cake', 'A very large cup'], bonne: 0, ancre: 'cafe', niveau: 'difficile' },
+      { q: 'What do the geckos crossing the wall at dusk eat?', choix: ['Mosquitoes', 'Crumbs', 'Nothing, they sleep'], bonne: 0, ancre: 'faune', niveau: 'facile' },
+      { q: 'Are there scorpions in Sicily?', choix: ['Yes, but their sting is harmless', 'No, none at all', 'Yes, and they are deadly'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
+      { q: 'Where do mosquitoes breed?', choix: ['In still water — a few centimetres is enough', 'In dry hedges', 'Under warm stones'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
+      { q: 'Which is the only venomous snake in Sicily?', choix: ['The asp viper', 'The western whip snake', 'There is none'], bonne: 0, ancre: 'faune', niveau: 'difficile' },
+      { q: 'What must you never do after a viper bite?', choix: ['Apply a tourniquet or cut the wound', 'Call the emergency services', 'Keep the limb still'], bonne: 0, ancre: 'faune', niveau: 'difficile' },
     ],
   },
   askMag: {

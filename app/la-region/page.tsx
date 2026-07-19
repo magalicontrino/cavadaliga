@@ -35,7 +35,7 @@ const PLACES = [
 // « Sons & images » n'est plus une page : ses sept sections vivent ici. La
 // region, c'est aussi ce qu'on en a chante, filme, peint et photographie — une
 // page de moins dans le menu, et le meme geste pour tout parcourir.
-type Section = 'lieux' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
+type Section = 'lieux' | 'faune' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
 type Key = 'tout' | 'sons' | Section;
 
 // « Sons & images » n'est pas une section : c'est un GROUPE. Un bouton pour les
@@ -45,7 +45,7 @@ type Key = 'tout' | 'sons' | Section;
 const SONS: Section[] = ['playlist', 'ecrans', 'peinture', 'sculpture', 'photo', 'mains', 'chansons'];
 
 /** Les sections qu'un lien « #… » peut ouvrir — celles qui portent une ancre. */
-const SECTIONS_ANCREES: Section[] = ['lieux', 'coutumes', 'specialites', 'alcools', 'cafe', 'etna', 'arabe', 'playlist'];
+const SECTIONS_ANCREES: Section[] = ['lieux', 'faune', 'coutumes', 'specialites', 'alcools', 'cafe', 'etna', 'arabe', 'playlist'];
 
 export default function LaRegion() {
   const { t, lang } = useI18n();
@@ -127,6 +127,7 @@ export default function LaRegion() {
     { key: 'specialites', label: rf.specialties, icon: 'fork' },
     { key: 'alcools', label: rf.drinks, icon: 'glass' },
     { key: 'cafe', label: rf.coffee, icon: 'droplet' },
+    { key: 'faune', label: rf.fauna, icon: 'leaf' },
     { key: 'sons', label: rf.sounds, icon: 'vinyl' },
     { key: 'playlist', label: cf.playlist, icon: 'spotify' },
     { key: 'ecrans', label: cf.screens, icon: 'film' },
@@ -590,6 +591,50 @@ export default function LaRegion() {
             </Reveal>
           ))}
         </div>
+      </section>
+      )}
+
+      {/* La faune. Elle etait dans les infos pratiques avec les consignes de
+          menage ; Mag l'a deplacee ici — « on veut juste parler des fourmis et
+          de la proprete dans les infos ». Un gecko n'est pas une consigne, il
+          se decouvre. Les fourmis, elles, sont restees la-bas : elles sont la
+          raison de la regle des miettes. */}
+      {show('faune') && (
+      <section id="faune" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="leaf" size={16} /> {t.faunaPage.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {t.faunaPage.title}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {t.faunaPage.intro}
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-3" style={{ background: 'var(--cava-line)' }}>
+          {t.faunaPage.facts.map((f, i) => (
+            <Reveal key={f.title} delay={(i % 3) * 80} className="flex flex-col gap-4 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
+              <span
+                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+              >
+                <Icon name={f.icon as IconName} size={28} />
+              </span>
+              <h3 className="text-[clamp(1.1rem,2.2vw,1.35rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+                {f.title}
+              </h3>
+              <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                {f.text}
+              </p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="mt-6 max-w-[68ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+          {t.faunaPage.note}
+        </Reveal>
       </section>
       )}
 

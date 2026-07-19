@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal, { RevealNow } from '../Reveal';
@@ -304,30 +305,30 @@ export default function InformationsPratiques() {
         </section>
       )}
 
-      {/* Les bestioles et la proprete. Mag : « pas forcement evident pour les
-          nordistes » — c'est exactement le point. Les regles d'abord, parce
-          que ce sont elles qui servent tous les jours ; les animaux ensuite,
-          parce qu'ils rassurent une fois qu'on sait quoi faire. */}
+      {/* La proprete. Mag : « pas forcement evident pour les nordistes » —
+          c'est exactement le point. Puis : « on veut juste parler des fourmis
+          et de la proprete dans les infos ». Le reste de la faune vit
+          desormais dans « La region », et un lien y mene. */}
       {show('bestioles') && (
         <section id="bestioles" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-8 pt-12 md:px-10">
           <Reveal className="mb-8 flex flex-col gap-2">
             <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
-              <Icon name="leaf" size={16} /> {t.faunaPage.eyebrow}
+              <Icon name="leaf" size={16} /> {t.cleanPage.eyebrow}
             </span>
             <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] leading-[1.1]" style={{ fontWeight: 500 }}>
-              {t.faunaPage.title}
+              {t.cleanPage.title}
             </h2>
             <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
-              {t.faunaPage.intro}
+              {t.cleanPage.intro}
             </p>
           </Reveal>
 
-          <Reveal className="mb-10 rounded-2xl border p-6 md:p-8" style={{ borderColor: 'var(--cava-line)' }}>
+          <Reveal className="mb-8 rounded-2xl border p-6 md:p-8" style={{ borderColor: 'var(--cava-line)' }}>
             <h3 className="mb-4 text-[13px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
-              {t.faunaPage.rulesTitle}
+              {t.cleanPage.rulesTitle}
             </h3>
             <ul className="flex flex-col gap-3">
-              {t.faunaPage.rules.map((r) => (
+              {t.cleanPage.rules.map((r) => (
                 <li key={r} className="flex gap-3 text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
                   <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: 'var(--cava-pink)' }} />
                   {r}
@@ -336,27 +337,18 @@ export default function InformationsPratiques() {
             </ul>
           </Reveal>
 
-          <Reveal className="mb-5 text-[13px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
-            {t.faunaPage.factsTitle}
-          </Reveal>
-          <div className="grid gap-px overflow-hidden rounded-2xl md:grid-cols-3" style={{ background: 'var(--cava-line)' }}>
-            {t.faunaPage.facts.map((x, i) => (
-              <Reveal key={x.title} delay={(i % 3) * 80} className="flex flex-col gap-4 p-8" style={{ background: 'var(--cava-bg)' }}>
-                <span className="flex h-11 w-11 items-center justify-center rounded-2xl border" style={{ borderColor: 'var(--cava-line)' }}>
-                  <Icon name={x.icon as IconName} size={20} />
-                </span>
-                <h3 className="text-[clamp(1.05rem,2vw,1.25rem)] leading-[1.25]" style={{ fontWeight: 600 }}>
-                  {x.title}
-                </h3>
-                <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
-                  {x.text}
-                </p>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal className="mt-6 max-w-[68ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
-            {t.faunaPage.note}
+          {/* Les fourmis restent ici : elles ne sont pas un animal a decouvrir,
+              elles sont la raison de tout ce qui precede. */}
+          <Reveal className="flex flex-col gap-4 rounded-2xl border p-6 md:p-8" style={{ borderColor: 'var(--cava-line)' }}>
+            <h3 className="flex items-center gap-2 text-[clamp(1.05rem,2vw,1.25rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+              <Icon name="cone" size={18} /> {t.cleanPage.antsTitle}
+            </h3>
+            <p className="max-w-[68ch] text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+              {t.cleanPage.antsText}
+            </p>
+            <Link href="/la-region#faune" className="cava-pill mt-1 w-fit px-5 py-2.5 text-[13px]">
+              {t.cleanPage.faunaLink} →
+            </Link>
           </Reveal>
         </section>
       )}

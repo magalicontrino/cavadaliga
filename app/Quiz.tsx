@@ -62,6 +62,7 @@ const THEMES = [
   { ancre: 'specialites', cle: 'specialties' },
   { ancre: 'alcools', cle: 'drinks' },
   { ancre: 'cafe', cle: 'coffee' },
+  { ancre: 'faune', cle: 'fauna' },
 ] as const;
 
 const NIVEAUX = ['facile', 'moyen', 'difficile'] as const;

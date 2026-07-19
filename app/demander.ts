@@ -183,16 +183,28 @@ const MOTS_MAISON: Record<string, string> = {
     'accident noye sauvetage numero appeler ' +
     'emergenza soccorso vigili fuoco polizia ambulanza ospedale medico incidente chiamare ' +
     'emergency ambulance fire police hospital doctor accident drowning rescue call sos aide danger blesse malaise brulure noyade meduse serpent chien morsure commissariat aiuto pericolo ferito malore ustione annegamento medusa serpente morso help danger injured faint burn drowning jellyfish snake bite police station',
+  // Le menage d'un cote, les betes de l'autre — comme les deux pages.
+  // « fourmi » et « moustique » figurent DANS LES DEUX : la fourmi parce
+  // qu'elle est la raison des miettes, le moustique parce que l'eau stagnante
+  // est un geste et la piqure une bestiole. Aucune des deux fiches ne peut
+  // seule repondre a « des fourmis ».
   bestioles:
-    'bestiole bestioles bete betes animal animaux insecte insectes nuisible nuisibles bebete '
-    + 'gecko geckos tarente lezard lezards serpent serpents vipere scorpion scorpions fourmi fourmis '
-    + 'moustique moustiques piqure pique cafard blatte araignee mouche guepe abeille '
-    + 'miette miettes propre proprete nettoyer balayer vaisselle table debarrasser frigo ranger hermetique '
-    + 'humidite chaleur chaud eau stagnante souscoupe poubelle odeur chaussures secouer dangereux danger mord morsure venimeux '
-    + 'bestia bestie insetti nocivi geco gechi lucertola serpente vipera scorpione formiche zanzara zanzare puntura scarafaggio ragno mosca vespa '
-    + 'briciole pulizia pulire scopare piatti tavola sparecchiare frigo umidita caldo acqua ferma pattumiera scarpe pericoloso morso velenoso '
-    + 'critter critters bug bugs pest pests gecko lizard snake viper scorpion ant ants mosquito bite cockroach spider fly wasp '
-    + 'crumbs clean cleaning sweep dishes table clear fridge airtight humidity heat standing water bin shoes dangerous venomous',
+    'miette miettes propre proprete proprete nettoyer nettoyage balayer balai vaisselle laver assiette assiettes '
+    + 'table debarrasser desservir frigo ranger rangement hermetique boite miettes ordre '
+    + 'fourmi fourmis moustique moustiques nuisible nuisibles insecte insectes cafard blatte '
+    + 'humidite chaleur chaud eau stagnante soucoupe poubelle odeur chaussures secouer '
+    + 'briciole pulizia pulire scopare piatti lavare tavola sparecchiare frigo ermetico riporre '
+    + 'formica formiche zanzara zanzare insetti nocivi scarafaggio umidita caldo acqua ferma sottovaso pattumiera odore scarpe '
+    + 'crumbs clean cleaning sweep dishes wash table clear fridge airtight tidy put away '
+    + 'ant ants mosquito mosquitoes pest pests insect cockroach humidity heat standing water saucer bin smell shoes',
+  faune:
+    'faune animal animaux bete betes bestiole bestioles bebete sauvage nature '
+    + 'gecko geckos tarente lezard lezards serpent serpents vipere venimeux morsure mord '
+    + 'scorpion scorpions pique piqure araignee dangereux danger peur mordre '
+    + 'fauna animale animali bestia bestie geco gechi lucertola lucertole serpente serpenti vipera velenoso morso '
+    + 'scorpione scorpioni puntura ragno pericoloso paura '
+    + 'wildlife animal animals critter critters gecko geckos lizard lizards snake snakes viper venomous bite '
+    + 'scorpion scorpions sting spider dangerous afraid scared',
   argent:
     'argent liquide especes cash monnaie retirer retrait distributeur dab bancomat postamat guichet automatique '
     + 'banque banca poste posta bureau poste carte bleue carte bancaire visa mastercard paiement payer especes seulement '
@@ -433,8 +445,8 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   ajouter({
     id: 'bestioles',
     page: '/informations-pratiques#bestioles',
-    titre: t.faunaPage.title,
-    lignes: [t.faunaPage.intro, ...t.faunaPage.rules, ...t.faunaPage.facts.map((x) => `${x.title} — ${x.text}`)],
+    titre: t.cleanPage.title,
+    lignes: [t.cleanPage.intro, ...t.cleanPage.rules, `${t.cleanPage.antsTitle} — ${t.cleanPage.antsText}`],
     mots: motsMaison('bestioles'),
     /*
      * Ces mots-la ne se partagent pas.
@@ -446,13 +458,28 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
      * mots, elles, retrouvent leur cible : « liquide vaisselle » et
      * « anti-moustique » gagnent toujours, un mot de plus les departage.
      */
+    // Les noms de betes ont quitte cette liste en meme temps que les betes ont
+    // quitte la page : ils appartiennent maintenant a la fiche « faune ».
+    // Restent les mots du menage — et les fourmis, qui sont ici chez elles.
+    motsPrecis: motsDe(
+      'miette miettes vaisselle fourmi fourmis moustique moustiques '
+      + 'briciola briciole piatti formica formiche zanzara zanzare '
+      + 'crumb crumbs dishes ant ants mosquito mosquitoes',
+    ),
+  });
+
+  // La faune vit dans « La region » : Mag l'a sortie des infos pratiques —
+  // « on veut juste parler des fourmis et de la proprete dans les infos ».
+  ajouter({
+    id: 'faune',
+    page: '/la-region#faune',
+    titre: t.faunaPage.title,
+    lignes: [t.faunaPage.intro, ...t.faunaPage.facts.map((x) => `${x.title} — ${x.text}`), t.faunaPage.note],
+    mots: motsMaison('faune'),
     motsPrecis: motsDe(
       'gecko geckos tarente lezard lezards serpent serpents vipere viperes scorpion scorpions '
-      + 'fourmi fourmis moustique moustiques miette miettes vaisselle '
-      + 'geco gechi lucertola lucertole serpente serpenti vipera scorpione scorpioni formica formiche '
-      + 'zanzara zanzare briciola briciole '
-      + 'gecko geckos lizard lizards snake snakes viper vipers scorpion scorpions ant ants '
-      + 'mosquito mosquitoes crumb crumbs dishes',
+      + 'geco gechi lucertola lucertole serpente serpenti vipera scorpione scorpioni '
+      + 'gecko geckos lizard lizards snake snakes viper vipers scorpion scorpions',
     ),
   });
 
