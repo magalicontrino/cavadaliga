@@ -370,6 +370,8 @@ export type Dict = {
     intro: string;
     start: string;
     next: string;
+    /** « Valider » : on choisit d'abord, on verifie ensuite. */
+    check: string;
     seeSection: string;
     good: string;
     wrong: string;
@@ -1008,6 +1010,7 @@ const FR: Dict = {
     intro: 'Par thème, par niveau, ou tout mélangé. Trois réponses possibles à chaque fois, et tout ce qu’il faut savoir est écrit plus haut sur cette page — chaque réponse vous dit où aller relire.',
     start: 'Commencer',
     next: 'Question suivante',
+    check: 'Valider',
     seeSection: 'Relire le passage',
     good: 'C’est ça',
     wrong: 'Raté',
@@ -1816,6 +1819,7 @@ const IT: Dict = {
     intro: 'Per tema, per livello, o tutto mescolato. Tre risposte possibili ogni volta, e tutto quello che serve sapere è scritto più su in questa pagina — ogni risposta vi dice dove rileggere.',
     start: 'Iniziare',
     next: 'Domanda successiva',
+    check: 'Conferma',
     seeSection: 'Rileggere il passaggio',
     good: 'Esatto',
     wrong: 'Sbagliato',
@@ -2624,6 +2628,7 @@ const EN: Dict = {
     intro: 'By theme, by level, or all mixed up. Three answers to choose from each time, and everything you need is written further up this page — each answer tells you where to read it again.',
     start: 'Start',
     next: 'Next question',
+    check: 'Check',
     seeSection: 'Read that part again',
     good: 'That’s it',
     wrong: 'Not quite',

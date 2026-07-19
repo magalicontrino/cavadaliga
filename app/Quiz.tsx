@@ -29,7 +29,10 @@ import { useI18n } from './i18n';
  * La couleur ne sort donc qu'apres le clic, et elle ne veut plus dire qu'une
  * chose : juste, faux, ou pas choisi.
  */
-const VERT = '#c8e6a0';
+// Le jaune de l'arbre pour la bonne reponse — Mag : « le vert non, du jaune
+// oui ». Le rouge reste : c'est la seule couleur qui n'a pas besoin d'etre
+// expliquee.
+const JAUNE = '#ffd452';
 const ROUGE = '#f3a5a5';
 
 /**
@@ -105,6 +108,21 @@ export default function Quiz() {
   const [partie, setPartie] = useState(0);
   const [n, setN] = useState(-1); // -1 = ecran d'accueil
   const [choisi, setChoisi] = useState<string | null>(null);
+  /*
+   * Choisir n'est pas repondre.
+   *
+   * Le premier clic revelait tout, et fermait les trois boutons dans la
+   * foulee. Mag : « je ne peux pas me raviser — si je me dis "ah bah non,
+   * c'est ni l'un ni l'autre", je ne peux plus cliquer sur autre chose ».
+   * C'etait une faute : on ferme la porte avant que la personne ait fini de
+   * penser.
+   *
+   * Le clic pose donc un choix, qui se deplace tant qu'on veut. C'est
+   * « Valider » qui tranche — et lui seul compte le point. Sans cette
+   * separation, se raviser APRES avoir vu la reponse rendrait le score
+   * gratuit : le jeu n'apprendrait plus rien.
+   */
+  const [valide, setValide] = useState(false);
   const [points, setPoints] = useState(0);
   /** null = on ne trie pas. Mag : « par themes, par niveau ». */
   const [theme, setTheme] = useState<string | null>(null);
@@ -139,6 +157,7 @@ export default function Quiz() {
     setPartie((p) => p + 1);
     setPoints(0);
     setChoisi(null);
+    setValide(false);
     setN(0);
   };
 
@@ -148,6 +167,7 @@ export default function Quiz() {
     f();
     setN(-1);
     setChoisi(null);
+    setValide(false);
     setPoints(0);
   };
 
@@ -158,6 +178,7 @@ export default function Quiz() {
 
   const suivante = () => {
     setChoisi(null);
+    setValide(false);
     setN((i) => i + 1);
   };
 
@@ -227,27 +248,33 @@ export default function Quiz() {
 
             <div className="flex flex-col gap-3 md:flex-row md:flex-wrap">
               {choix.map((c) => {
-                const repondu = choisi !== null;
                 const estBonne = c === bonne;
-                // Une fois repondu, on montre TOUJOURS la bonne — sinon on
-                // repart sans savoir, et le jeu n'apprend rien.
-                const fond = !repondu ? 'transparent' : estBonne ? VERT : c === choisi ? ROUGE : 'transparent';
+                const monChoix = c === choisi;
+                /*
+                 * Avant de valider : le choix se marque a l'encre, comme les
+                 * pastilles de tri de tout le site — « c'est celui-la que je
+                 * vise », rien de plus. Aucune couleur ne juge encore.
+                 * Apres : le jaune dit la bonne reponse, TOUJOURS, meme quand
+                 * on s'est trompe — sinon on repart sans savoir. Le rouge ne
+                 * marque que l'erreur qu'on a commise soi-meme.
+                 */
+                const fond = !valide
+                  ? monChoix ? 'var(--cava-ink)' : 'transparent'
+                  : estBonne ? JAUNE : monChoix ? ROUGE : 'transparent';
                 return (
                   <button
                     key={c}
                     type="button"
-                    disabled={repondu}
-                    onClick={() => {
-                      setChoisi(c);
-                      if (estBonne) setPoints((p) => p + 1);
-                    }}
+                    disabled={valide}
+                    aria-pressed={monChoix}
+                    onClick={() => setChoisi(c)}
                     className="rounded-full px-5 py-3 text-left text-[15px] transition-transform duration-200 hover:scale-[1.02] disabled:hover:scale-100 motion-reduce:transition-none"
                     style={{
                       background: fond,
-                      color: 'var(--cava-ink)',
+                      color: !valide && monChoix ? 'var(--cava-bg)' : 'var(--cava-ink)',
                       fontWeight: 600,
                       border: '1px solid var(--cava-ink)',
-                      opacity: repondu && !estBonne && c !== choisi ? 0.45 : 1,
+                      opacity: valide && !estBonne && !monChoix ? 0.45 : 1,
                     }}
                   >
                     {c}
@@ -256,7 +283,25 @@ export default function Quiz() {
               })}
             </div>
 
-            {choisi !== null && (
+            {/* Tant qu'on n'a pas valide : un seul bouton, et rien d'autre.
+                Le verdict n'apparait pas, donc rien ne presse. */}
+            {choisi !== null && !valide && (
+              <div className="border-t pt-5" style={{ borderColor: 'var(--cava-line)' }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setValide(true);
+                    if (choisi === bonne) setPoints((p) => p + 1);
+                  }}
+                  className="rounded-full px-6 py-2.5 text-[14px]"
+                  style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)', fontWeight: 600 }}
+                >
+                  {q.check} →
+                </button>
+              </div>
+            )}
+
+            {valide && (
               <div className="flex flex-col gap-4 border-t pt-5" style={{ borderColor: 'var(--cava-line)' }}>
                 <p className="text-[15px]" style={{ fontWeight: 600, color: choisi === bonne ? '#3b6d11' : 'var(--cava-pink-fonce)' }}>
                   {choisi === bonne ? q.good : q.wrong}
