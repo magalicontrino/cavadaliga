@@ -223,35 +223,42 @@ export const LOCAL_PLACES: LocalPlace[] = [
       it: 'Il grande bazar sulla strada di Scicli, a 2 km. Un po’ di tutto: utensili, ferramenta, contenitori, cucina, giardino, cartoleria. Quando non si sa dove trovare un oggetto, si comincia da qui.',
       en: 'The big general store on the Scicli road, 2 km away. A little of everything: tools, hardware, storage, kitchen, garden, stationery. When you have no idea where to find something, start here.' },
   },
-  // Le marche de Scicli. C'est MARDI, et j'avais ecrit samedi avec aplomb.
+  // Le marche de Scicli. MARDI, en bordure de ville — et il a fallu deux
+  // corrections pour en arriver la.
   //
-  // Mes trois sources disaient « il mercato settimanale del sabato di Largo
-  // Gramsci » — deux pages de la commune et un article de presse. Elles
-  // dataient de 2020 et 2023. La presse locale de mai 2026, elle, parle du
-  // « mercato rionale del martedì », a contrada Zagarone. Mag, qui y va, dit
-  // mardi. Une source officielle mais vieille ne bat pas une source recente :
-  // un marche demenage, et celui-ci a manifestement quitte le centre pour
-  // l'aire de foire.
+  // J'avais d'abord ecrit samedi, au Largo Gramsci, sur la foi de deux pages
+  // de la commune et d'un article de presse. Ils dataient de 2020 et 2023.
+  // Mag a dit mardi ; la presse locale de mai 2026 parle du « mercato rionale
+  // del martedi » a contrada Zagarone ; Mag a ensuite precise « au bord de
+  // Scicli », et les articles de 2026 sur le financement de cette zone la
+  // situent justement « alla periferia di Scicli ». Le marche a donc quitte le
+  // centre pour l'aire de foire, entre 2023 et aujourd'hui.
   //
-  // LE LIEU reste ouvert, et c'est pourquoi le lien de carte est une RECHERCHE
-  // et non un point : entre le Largo Gramsci et contrada Zagarone, se tromper
-  // enverrait quelqu'un faire huit kilometres pour rien. Pas de coordonnees
-  // non plus tant que Mag n'a pas tranche — donc pas d'epingle qui mentirait.
+  // La lecon, deux fois la meme : une source officielle mais vieille ne bat pas
+  // une source recente, et surtout pas quelqu'un qui y va.
   //
-  // Les HORAIRES ne sont ecrits nulle part : le texte dit l'usage sicilien,
-  // pas un horaire precis qu'on ne peut pas verifier.
+  // PAS DE COORDONNEES : contrada Zagarone est absente d'OpenStreetMap —
+  // Nominatim comme Photon rendent le vide, y compris sur l'adresse postale
+  // « Contrada Zagarone snc, 97018 Scicli ». Le lien de carte est donc une
+  // RECHERCHE, qui trouvera l'endroit sans que j'aie a inventer un point. Le
+  // km reste celui du centre de Scicli, l'aire etant a sa lisiere.
+  //
+  // Les HORAIRES ne sont donnes que par un annuaire de sorties — 8 h-13 h —,
+  // c'est-a-dire par le genre de source qui m'avait fait ecrire « mardi matin,
+  // Piazza Olimpiadi » la premiere fois. Le texte s'en tient donc a l'usage
+  // sicilien, qu'on ne risque pas de faire mentir.
   {
     id: 'mercato-scicli',
     name: 'Mercato settimanale di Scicli',
     cat: 'marche',
     town: 'Scicli',
-    url: 'https://www.google.com/maps/search/?api=1&query=mercato+settimanale+Scicli+RG',
+    url: 'https://www.google.com/maps/search/?api=1&query=mercato+settimanale+contrada+Zagarone+Scicli+RG',
     km: 8,
     responsible: true,
     blurb: {
-      fr: 'Le marché hebdomadaire de la ville, le mardi. Comme partout en Sicile, il se tient le matin et plie en début d’après-midi.',
-      it: 'Il mercato settimanale della città, il martedì. Come ovunque in Sicilia, si tiene la mattina e smonta nel primo pomeriggio.',
-      en: 'The town’s weekly market, on Tuesdays. As everywhere in Sicily, it runs in the morning and packs up in the early afternoon.' },
+      fr: 'Le marché hebdomadaire, le mardi, en bordure de Scicli — sur l’aire de foire de contrada Zagarone. Comme partout en Sicile, il se tient le matin et plie en début d’après-midi.',
+      it: 'Il mercato settimanale, il martedì, ai margini di Scicli — nell’area fiera di contrada Zagarone. Come ovunque in Sicilia, si tiene la mattina e smonta nel primo pomeriggio.',
+      en: 'The weekly market, on Tuesdays, on the edge of Scicli — at the contrada Zagarone fairground. As everywhere in Sicily, it runs in the morning and packs up in the early afternoon.' },
   },
   {
     id: 'baqqala',
