@@ -39,9 +39,9 @@ const JAUNE = '#ffd452';
  *
  * Elles sont ecrites dans l'ordre « bonne d'abord » dans i18n, parce que c'est
  * ainsi qu'on les relit sans se tromper. A l'ecran, il faut evidemment les
- * brasser — et de façon STABLE : un melange refait a chaque rendu deplacerait
- * les boutons sous le doigt. D'ou ce tirage sans hasard, tire du numero de la
- * question et de celui de la partie.
+ * brasser — et de façon STABLE pendant la partie : un melange refait a chaque
+ * rendu deplacerait les boutons sous le doigt. D'ou ce tirage reproductible,
+ * calcule a partir de la graine du jour et du rang de la question.
  */
 function melange<T>(liste: T[], graine: number): T[] {
   // Un vrai generateur (mulberry32) : ma premiere version tirait sur un
@@ -187,7 +187,23 @@ function Puce({ on, onClick, children }: { on: boolean; onClick: () => void; chi
 export default function Quiz() {
   const { t } = useI18n();
   const q = t.quizPage;
-  const [partie, setPartie] = useState(0);
+  /*
+   * La graine du hasard, tiree A CHAQUE PARTIE.
+   *
+   * Le melange etait stable, mais previsible : il se calculait a partir du
+   * NUMERO de la partie, si bien que la premiere partie sortait toujours dans
+   * le meme ordre — recharger la page redonnait exactement les memes questions
+   * dans la meme suite. Mag : « ca doit etre aleatoire, l'ordre des questions
+   * et des reponses ».
+   *
+   * Elle est tiree au clic sur « Commencer », jamais pendant un rendu : un
+   * `Math.random()` au rendu donnerait au serveur et au navigateur deux ordres
+   * differents, et React refuserait la page.
+   *
+   * Elle reste FIXE pendant toute la partie — c'est elle qui empeche les
+   * boutons de se redistribuer sous le doigt entre deux rendus.
+   */
+  const [graine, setGraine] = useState(0);
   const [n, setN] = useState(-1); // -1 = ecran d'accueil
   const [choisi, setChoisi] = useState<string | null>(null);
   /*
@@ -212,22 +228,24 @@ export default function Quiz() {
   /*
    * Le paquet de la partie en cours.
    *
-   * Il est fige au demarrage (`partie`), pas recalcule a chaque rendu : sans
-   * ca, changer un tri en pleine partie decalerait les questions sous le
-   * doigt. On melange aussi l'ORDRE des questions — a 46 questions, les
-   * reprendre toujours dans le meme ordre rendrait la deuxieme partie
+   * Il tient a la graine, tiree une fois au depart : rien ne se redistribue
+   * sous le doigt entre deux rendus, et deux parties ne se ressemblent pas.
+   * L'ORDRE DES QUESTIONS est melange lui aussi — a soixante-trois questions,
+   * les reprendre toujours dans la meme suite rendrait la deuxieme partie
    * previsible des la premiere.
    */
   const paquet = useMemo(() => {
     const choisies = q.questions.filter((x) => !theme || x.ancre === theme);
-    return melange(choisies, partie * 7919 + choisies.length);
-  }, [q.questions, theme, partie]);
+    return melange(choisies, graine);
+  }, [q.questions, theme, graine]);
 
   const question = paquet[n];
   const bonne = question?.choix[question.bonne];
+  // Chaque question tire son propre melange de la meme graine — decale par son
+  // rang, sinon deux questions voisines seraient brassees a l'identique.
   const choix = useMemo(
-    () => (question ? melange(question.choix, partie * 1000 + n) : []),
-    [question, partie, n],
+    () => (question ? melange(question.choix, graine + n * 7919) : []),
+    [question, graine, n],
   );
 
   const fini = n >= 0 && n >= paquet.length;
@@ -235,7 +253,7 @@ export default function Quiz() {
   /** Lancer une partie depuis l'ecran de choix. (« Rejouer », lui, revient a
    *  cet ecran : voir le bouton de fin.) */
   const rejouer = () => {
-    setPartie((p) => p + 1);
+    setGraine(Math.floor(Math.random() * 2147483647));
     setPoints(0);
     setChoisi(null);
     setValide(false);
