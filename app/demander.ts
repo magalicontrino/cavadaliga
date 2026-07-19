@@ -379,6 +379,9 @@ const MOTS_MAISON: Record<string, string> = {
     'histoire historique guerre resistance communisme communiste socialisme anarchiste lutte luttes greve '
     + 'fasci siciliani crispi non si parte revolte insurrection comiso republique occhipinti ustica portella ginestra giuliano '
     + 'paysans terres occupation zolfatari soufre 1945 1947 1894 mussolini fascisme antimilitariste conscription '
+    + 'russie siberie camp camps prisonnier prisonniers deporte deportation esclave esclavage travail force don armir davai staline retour rentres disparus '
+    + 'russia siberia prigioniero prigionieri campo campi deportati schiavi lavori forzati don armir davaj stalin reduci dispersi '
+    + 'russia siberia prisoner prisoners camp camps deported slave forced labour don armir davai stalin returned missing '
     + 'storia guerra resistenza comunismo comunista anarchico lotta sciopero rivolta contadini terre zolfare '
     + 'history war resistance communism communist anarchist struggle strike revolt uprising peasants land sulphur miners',
   'region-lieux':
