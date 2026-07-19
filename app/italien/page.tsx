@@ -20,6 +20,35 @@ import { PRONONCIATION, LECONS, CONJUGAISONS, PRONOMS, EXERCICES } from '../ital
  * Tout le contenu vient de app/italienData.ts. La page ne fait que le poser.
  */
 
+/*
+ * Aller a une section du sommaire, et l'y TENIR.
+ *
+ * Meme lecon que sur « La region » : le saut natif ne suffit pas ici. Les
+ * blocs au-dessus grandissent encore pendant que leurs apparitions se jouent,
+ * si bien qu'on vise juste et qu'on tombe a cote — mesure : « Le futur »
+ * atterrissait a 558 px au lieu du haut de l'ecran.
+ *
+ * On corrige donc la visee pendant une seconde et demie, et on LACHE des que
+ * quelqu'un touche la molette ou l'ecran : se battre contre un doigt serait
+ * pire que d'arriver un peu bas.
+ */
+function allerA(id: string) {
+  const jusqua = performance.now() + 1500;
+  let vivant = true;
+  const lacher = () => {
+    vivant = false;
+    for (const e of ['wheel', 'touchstart', 'keydown']) window.removeEventListener(e, lacher);
+  };
+  for (const e of ['wheel', 'touchstart', 'keydown']) window.addEventListener(e, lacher, { passive: true });
+  const viser = () => {
+    if (!vivant) return;
+    document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: 'instant' as ScrollBehavior });
+    if (performance.now() < jusqua) window.setTimeout(viser, 80);
+    else lacher();
+  };
+  viser();
+}
+
 /** Le meme melange stable que le quiz — voir app/Quiz.tsx. */
 function melange<T>(liste: T[], graine: number): T[] {
   let a = graine + 0x6d2b79f5;
@@ -72,6 +101,21 @@ export default function Italien() {
     setN((i) => i + 1);
   };
 
+  /*
+   * Le sommaire. Les niveaux ne sont pas decoratifs : ils disent dans quel
+   * ordre ça sert. Prononcer et parler d'abord — sans eux on ne dit rien ; le
+   * present ensuite, qui porte l'essentiel ; le passe et le futur en dernier,
+   * dont on se passe une semaine sans que personne s'en apercoive.
+   */
+  const PLAN = [
+    { id: 'prononcer', titre: p.soundTitle, niveau: p.level1 },
+    { id: 'parler', titre: p.talkTitle, niveau: p.level1 },
+    { id: 'presente', titre: CONJUGAISONS[0].temps[lang], niveau: p.level2 },
+    { id: 'passato', titre: CONJUGAISONS[1].temps[lang], niveau: p.level2 },
+    { id: 'futuro', titre: CONJUGAISONS[2].temps[lang], niveau: p.level3 },
+    { id: 'exercices', titre: p.drillTitle, niveau: p.levelAll },
+  ];
+
   return (
     <main>
       <Nav />
@@ -87,6 +131,45 @@ export default function Italien() {
           <p className="max-w-[70ch] text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
             {p.method}
           </p>
+        </Reveal>
+      </section>
+
+      {/*
+        LE PROGRAMME, par niveaux — Mag : « tu dois faire une liste par
+        section sur la page, par ordre de niveaux ».
+        Il ne se contente pas de lister : il HIERARCHISE. Une page longue sans
+        sommaire donne l'impression qu'il faut tout avaler ; celui-ci dit
+        d'emblee que le niveau 1 suffit pour tenir une semaine, et que le reste
+        attendra. C'est la promesse qui fait rester.
+      */}
+      <section className="mx-auto max-w-[110rem] px-5 pt-10 md:px-10">
+        <Reveal className="flex flex-col gap-2">
+          <h2 className="text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+            {p.planTitle}
+          </h2>
+          <p className="max-w-[64ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+            {p.planIntro}
+          </p>
+        </Reveal>
+
+        <Reveal className="mt-6 flex flex-col gap-px overflow-hidden rounded-2xl" style={{ background: 'var(--cava-line)' }}>
+          {PLAN.map((x) => (
+            <a
+              key={x.id}
+              href={`#${x.id}`}
+              onClick={(e) => { e.preventDefault(); allerA(x.id); }}
+              className="cava-footlink group flex items-baseline justify-between gap-4 px-5 py-4 transition-colors"
+              style={{ background: 'var(--cava-bg)' }}
+            >
+              <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <span className="text-[15px]" style={{ fontWeight: 600 }}>{x.titre}</span>
+                <span className="text-[12px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+                  {x.niveau}
+                </span>
+              </span>
+              <span className="shrink-0 text-[13px]" style={{ color: 'var(--cava-muted)' }} aria-hidden>↓</span>
+            </a>
+          ))}
         </Reveal>
       </section>
 
@@ -187,7 +270,8 @@ export default function Italien() {
 
         <div className="mt-10 flex flex-col gap-10">
           {CONJUGAISONS.map((c) => (
-            <Reveal key={c.id} className="rounded-2xl border p-6 md:p-8" style={{ borderColor: 'var(--cava-line)' }}>
+            <div key={c.id} id={c.id} className="scroll-mt-24">
+            <Reveal className="rounded-2xl border p-6 md:p-8" style={{ borderColor: 'var(--cava-line)' }}>
               <h3 className="text-[clamp(1.15rem,2.4vw,1.5rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
                 {c.temps[lang]}
               </h3>
@@ -243,6 +327,7 @@ export default function Italien() {
                 <p className="mt-1 max-w-[72ch] text-[14px] leading-[1.7]">{c.pieges[lang]}</p>
               </div>
             </Reveal>
+            </div>
           ))}
         </div>
       </section>

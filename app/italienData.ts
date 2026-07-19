@@ -66,9 +66,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'C and G soften before E and I: “ce, ci” sound like ch in church, “ge, gi” like j in jam. Before A, O, U they stay hard.',
     },
     exemples: [
-      { it: 'ciao', pron: 'CIAO' },
-      { it: 'gelato', pron: 'ge·LA·to' },
-      { it: 'casa', pron: 'CA·sa' },
+      { it: 'giustizia', pron: 'giu·STI·zia' },
+      { it: 'società', pron: 'so·cie·TÀ' },
+      { it: 'compagno', pron: 'com·PA·gno' },
     ],
   },
   {
@@ -78,9 +78,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'An H after C or G makes them hard again. That is all H does in Italian — it is never pronounced itself.',
     },
     exemples: [
-      { it: 'chi', pron: 'KI' },
-      { it: 'spaghetti', pron: 'spa·GHET·ti' },
-      { it: 'chiuso', pron: 'KIU·so' },
+      { it: 'anarchico', pron: 'a·NAR·chi·co' },
+      { it: 'borghesia', pron: 'bor·ghe·SI·a' },
+      { it: 'oligarchia', pron: 'o·li·gar·CHI·a' },
     ],
   },
   {
@@ -90,9 +90,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'GN sounds like the ni in onion. GLI sounds like the lli in million.',
     },
     exemples: [
-      { it: 'bagno', pron: 'BA·gno' },
-      { it: 'aglio', pron: 'A·glio' },
-      { it: 'famiglia', pron: 'fa·MI·glia' },
+      { it: 'compagni', pron: 'com·PA·gni' },
+      { it: 'consiglio', pron: 'con·SI·glio' },
+      { it: 'battaglia', pron: 'bat·TA·glia' },
     ],
   },
   {
@@ -102,9 +102,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'SC before E or I sounds like sh in ship. Before A, O, U it sounds like sk.',
     },
     exemples: [
-      { it: 'pesce', pron: 'PE·sce' },
-      { it: 'Scicli', pron: 'SCI·cli' },
-      { it: 'scuola', pron: 'SCUO·la' },
+      { it: 'sciopero', pron: 'SCIO·pe·ro' },
+      { it: 'coscienza', pron: 'co·SCIEN·za' },
+      { it: 'sconfitta', pron: 'scon·FIT·ta' },
     ],
   },
   {
@@ -114,9 +114,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'Double consonants are actually held longer. It is the single most audible giveaway for foreigners — and sometimes it changes the word.',
     },
     exemples: [
-      { it: 'nonno / nono', pron: 'NON·no / NO·no' },
-      { it: 'pizza', pron: 'PIZ·za' },
-      { it: 'anno / ano', pron: 'AN·no / A·no' },
+      { it: 'occupazione', pron: 'oc·cu·pa·ZIO·ne' },
+      { it: 'assemblea', pron: 'as·sem·BLE·a' },
+      { it: 'bandiera rossa', pron: 'ban·DIE·ra ROS·sa' },
     ],
   },
   {
@@ -126,9 +126,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'Every vowel is pronounced, including the final one. No nasal vowels, nothing swallowed: “pane” is two clear syllables.',
     },
     exemples: [
-      { it: 'pane', pron: 'PA·ne' },
-      { it: 'buonasera', pron: 'buo·na·SE·ra' },
-      { it: 'grazie', pron: 'GRA·zie' },
+      { it: 'popolo', pron: 'PO·po·lo' },
+      { it: 'terra', pron: 'TER·ra' },
+      { it: 'compagne', pron: 'com·PA·gne' },
     ],
   },
   {
@@ -138,9 +138,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'The stress almost always falls on the second-to-last syllable. When it falls on the last one, it is written: caffè, città, perché.',
     },
     exemples: [
-      { it: 'caffè', pron: 'caf·FÈ' },
-      { it: 'città', pron: 'cit·TÀ' },
-      { it: 'tavolo', pron: 'TA·vo·lo' },
+      { it: 'libertà', pron: 'li·ber·TÀ' },
+      { it: 'solidarietà', pron: 'so·li·da·rie·TÀ' },
+      { it: 'uguaglianza', pron: 'u·gua·GLIAN·za' },
     ],
   },
   {
@@ -150,9 +150,9 @@ export const PRONONCIATION: Regle[] = [
       en: 'Z sounds like ts or dz depending on the word — Sicilians lean towards ts. R is rolled, but lightly: one flick of the tongue is enough.',
     },
     exemples: [
-      { it: 'grazie', pron: 'GRA·tsie' },
-      { it: 'zucchero', pron: 'TSUC·che·ro' },
-      { it: 'arancina', pron: 'a·ran·CI·na' },
+      { it: 'rivoluzione', pron: 'ri·vo·lu·TSIO·ne' },
+      { it: 'resistenza', pron: 're·si·STEN·za' },
+      { it: 'giustizia', pron: 'giu·STI·tsia' },
     ],
   },
 ];
@@ -290,6 +290,39 @@ export const LECONS: Lecon[] = [
       { it: 'Il water perde', pron: 'il VA·ter PER·de', sens: { fr: 'Les toilettes fuient', it: 'Per l’idraulico', en: 'The toilet is leaking' },
         note: { fr: 'Perdere veut dire « fuir » pour un tuyau. Et water se dit « vater ».', it: '« Perdere » vale per una perdita d’acqua.', en: 'Perdere means “to leak” for a pipe. And water is said “VA-ter”.' } },
       { it: 'Può venire oggi?', pron: 'può ve·NI·re OG·gi', sens: { fr: 'Vous pouvez venir aujourd’hui ?', it: 'Per far venire un artigiano', en: 'Can you come today?' } },
+    ],
+  },
+  {
+    /*
+     * Les mots des luttes. Mag : « tous les exemples doivent avoir un rapport
+     * avec l'anarchisme, le communisme ». Les exercices et les mots de
+     * prononciation le portent ; il fallait aussi une lecon a part entiere,
+     * sinon le theme n'aurait vecu que dans les marges.
+     *
+     * Les phrases de survie, elles, restent des phrases de survie : on ne
+     * politise pas « j'ai besoin d'aide » ni « appelez une ambulance ». Ce
+     * sont des outils, pas des exemples.
+     */
+    id: 'lutte',
+    icon: 'landmark',
+    titre: { fr: 'Les mots des luttes', it: 'Le parole delle lotte', en: 'The words of the struggles' },
+    intro: {
+      fr: 'Ceux qu’on lit sur les murs, dans les livres et sur les banderoles du 1er mai. Ils viennent d’ici : la province de Raguse s’est soulevée en janvier 1945, et Comiso a tenu six jours. Voir « Luttes & mémoire » sur la page La région.',
+      it: 'Quelle che si leggono sui muri, nei libri e sugli striscioni del Primo Maggio. Vengono da qui: la provincia di Ragusa insorse nel gennaio 1945.',
+      en: 'The words you read on walls, in books and on May Day banners. They come from here: the province of Ragusa rose up in January 1945, and Comiso held out for six days.',
+    },
+    phrases: [
+      { it: 'Sciopero', pron: 'SCIO·pe·ro', sens: { fr: 'La grève', it: 'Astensione dal lavoro', en: 'Strike' },
+        note: { fr: 'Se prononce « CHO-pé-ro » : SC devant I se dit ch.', it: 'SC davanti a I si legge come in « pesce ».', en: 'Pronounced “SHO-peh-ro”: SC before I sounds like sh.' } },
+      { it: 'Compagno, compagna', pron: 'com·PA·gno · com·PA·gna', sens: { fr: 'Camarade — au masculin, puis au féminin', it: 'Appellativo tra militanti', en: 'Comrade — masculine, then feminine' },
+        note: { fr: 'Le mot dit aussi « compagnon » au sens amoureux : le contexte tranche.', it: 'La parola vale anche per il partner: decide il contesto.', en: 'The same word also means “partner” in the romantic sense — context decides.' } },
+      { it: 'La lotta continua', pron: 'la LOT·ta con·TI·nua', sens: { fr: 'La lutte continue', it: 'Slogan storico', en: 'The struggle continues' } },
+      { it: 'Non si parte!', pron: 'non si PAR·te', sens: { fr: '« On ne part pas ! » — le cri de janvier 1945, ici', it: 'Il grido del gennaio 1945, in provincia di Ragusa', en: '“We are not going!” — the cry of January 1945, right here' },
+        note: { fr: 'Le refus d’aller à la guerre. C’est le nom que l’histoire a gardé pour cette révolte.', it: 'Il rifiuto della leva. È il nome rimasto a quella rivolta.', en: 'The refusal to be conscripted. It is the name history kept for that revolt.' } },
+      { it: 'Occupare le terre', pron: 'oc·cu·PA·re le TER·re', sens: { fr: 'Occuper les terres — ce que firent les paysans siciliens', it: 'Quello che fecero i contadini siciliani', en: 'To occupy the land — what the Sicilian peasants did' } },
+      { it: 'Né dio né padrone', pron: 'né DI·o né pa·DRO·ne', sens: { fr: 'Ni dieu ni maître', it: 'Motto anarchico', en: 'No gods, no masters' },
+        note: { fr: 'Padrone veut dire le patron, le propriétaire, le maître — les trois à la fois.', it: 'Padrone: il capo, il proprietario, il padrone di casa.', en: 'Padrone means boss, owner and master all at once.' } },
+      { it: 'L’unione fa la forza', pron: 'lu·NIO·ne fa la FOR·za', sens: { fr: 'L’union fait la force', it: 'Proverbio, e slogan', en: 'Unity is strength' } },
     ],
   },
   {
@@ -437,75 +470,75 @@ export type Exercice = {
 
 export const EXERCICES: Exercice[] = [
   {
-    question: 'Un ___, per favore.',
-    consigne: { fr: 'Vous commandez un espresso au comptoir.', it: 'Ordinate un espresso al banco.', en: 'You are ordering an espresso at the counter.' },
-    choix: ['caffè', 'caffé', 'cafè'],
-    pourquoi: { fr: 'L’accent tombe sur la dernière syllabe, et il s’écrit grave : caffè. Deux f, comme souvent en italien.', it: 'L’accento cade sull’ultima sillaba ed è grave: caffè.', en: 'The stress falls on the last syllable and the accent is a grave one: caffè. Two f’s, as often in Italian.' },
+    question: 'La ___ non si compra.',
+    consigne: { fr: 'Le mot « liberté ». Attention à l’accent écrit.', it: 'La parola « libertà ». Attenzione all’accento scritto.', en: 'The word for “freedom”. Watch the written accent.' },
+    choix: ['libertà', 'libertá', 'liberta'],
+    pourquoi: { fr: 'L’accent tombe sur la dernière syllabe, et en italien il s’écrit toujours grave sur le A : libertà. Comme società, solidarietà, città.', it: 'L’accento cade sull’ultima sillaba ed è grave: libertà, società, solidarietà.', en: 'The stress falls on the last syllable and on an A it is always written grave: libertà — like società, solidarietà, città.' },
   },
   {
-    question: 'Scicli',
-    consigne: { fr: 'Comment se prononce le début du nom ?', it: 'Come si pronuncia l’inizio del nome?', en: 'How is the start of the name pronounced?' },
+    question: 'sciopero',
+    consigne: { fr: 'Le mot « grève ». Comment se prononce son début ?', it: 'La parola « sciopero »: come si pronuncia l’inizio?', en: 'The word for “strike”. How does it begin?' },
     choix: ['chi, comme dans « chat »', 'ski', 'tchi'],
-    pourquoi: { fr: 'SC devant I se dit ch. Scicli se prononce « CHI-cli » — c’est la règle qui fait trébucher tout le monde.', it: 'SC davanti a I si legge come in « pesce ».', en: 'SC before I sounds like sh. Scicli is “SHEE-clee” — the rule everyone trips over.' },
+    pourquoi: { fr: 'SC devant I ou E se dit ch. « Sciopero » commence donc comme « chocolat » — c’est la règle qui fait trébucher tout le monde, y compris sur le nom de Scicli.', it: 'SC davanti a I o E si legge come in « pesce ». Vale anche per Scicli.', en: 'SC before I or E sounds like sh. So “sciopero” starts like “shop” — the same rule that trips people up on the name Scicli.' },
   },
   {
-    question: 'Quanto ___?',
-    consigne: { fr: 'Vous demandez le prix d’un kilo de tomates.', it: 'Chiedete il prezzo di un chilo di pomodori.', en: 'You are asking the price of a kilo of tomatoes.' },
-    choix: ['costa', 'costi', 'costano'],
-    pourquoi: { fr: 'Le sujet est « un kilo », donc troisième personne du singulier : costa. Au pluriel on dirait quanto costano i pomodori ?', it: 'Il soggetto è singolare: costa.', en: 'The subject is “a kilo”, so third person singular: costa. In the plural: quanto costano i pomodori?' },
+    question: 'L’assemblea ___ alle otto.',
+    consigne: { fr: 'Présent de cominciare (commencer). Le sujet est « l’assemblée ».', it: 'Presente di cominciare. Il soggetto è « l’assemblea ».', en: 'Present of cominciare (to begin). The subject is “the assembly”.' },
+    choix: ['comincia', 'cominciano', 'cominci'],
+    pourquoi: { fr: 'Un seul sujet, donc troisième personne du singulier : comincia. Au pluriel — le assemblee — on dirait cominciano.', it: 'Soggetto singolare: comincia. Al plurale: cominciano.', en: 'A single subject, so third person singular: comincia. In the plural — le assemblee — it would be cominciano.' },
   },
   {
-    question: 'Io ___ francese.',
-    consigne: { fr: 'Présent du verbe être, première personne.', it: 'Presente del verbo essere, prima persona.', en: 'Present tense of “to be”, first person.' },
+    question: 'Io ___ anarchica.',
+    consigne: { fr: 'Présent d’essere (être), première personne. C’est ainsi que Maria Occhipinti se définissait.', it: 'Presente di essere, prima persona. Così si definiva Maria Occhipinti.', en: 'Present of essere (to be), first person. This is how Maria Occhipinti described herself.' },
     choix: ['sono', 'sei', 'siamo'],
-    pourquoi: { fr: 'Essere : sono, sei, è, siamo, siete, sono. Attention, sono sert à la fois pour « je suis » et « ils sont ».', it: 'Essere: sono, sei, è, siamo, siete, sono.', en: 'Essere: sono, sei, è, siamo, siete, sono. Note that sono covers both “I am” and “they are”.' },
+    pourquoi: { fr: 'Essere : sono, sei, è, siamo, siete, sono. Le mot anarchica est au féminin ; un homme dirait sono anarchico.', it: 'Essere: sono, sei, è, siamo, siete, sono. Al maschile: anarchico.', en: 'Essere: sono, sei, è, siamo, siete, sono. Anarchica is feminine; a man would say sono anarchico.' },
   },
   {
-    question: 'Noi ___ al mercato ogni martedì.',
-    consigne: { fr: 'Présent de andare (aller), première personne du pluriel.', it: 'Presente di andare, prima plurale.', en: 'Present of andare (to go), first person plural.' },
+    question: 'Noi ___ in piazza.',
+    consigne: { fr: 'Présent d’andare (aller), première personne du pluriel.', it: 'Presente di andare, prima plurale.', en: 'Present of andare (to go), first person plural.' },
     choix: ['andiamo', 'vanno', 'vado'],
-    pourquoi: { fr: 'Andare est irrégulier au singulier (vado, vai, va) mais redevient régulier au pluriel : andiamo, andate, vanno.', it: 'Andare è irregolare al singolare, regolare al plurale: andiamo.', en: 'Andare is irregular in the singular (vado, vai, va) but regular in the plural: andiamo, andate, vanno.' },
+    pourquoi: { fr: 'Andare est irrégulier au singulier (vado, vai, va) mais redevient sage au pluriel : andiamo, andate, vanno.', it: 'Andare è irregolare al singolare, regolare al plurale: andiamo.', en: 'Andare is irregular in the singular (vado, vai, va) but behaves in the plural: andiamo, andate, vanno.' },
   },
   {
-    question: 'Ieri ___ la granita.',
-    consigne: { fr: 'Passé composé de prendere, première personne.', it: 'Passato prossimo di prendere, prima persona.', en: 'Past tense of prendere, first person.' },
-    choix: ['ho preso', 'sono preso', 'ho prenduto'],
-    pourquoi: { fr: 'Prendere se conjugue avec avere, et son participe est irrégulier : preso, pas « prenduto ».', it: 'Prendere vuole avere e ha il participio irregolare: preso.', en: 'Prendere takes avere, and its participle is irregular: preso, not “prenduto”.' },
+    question: 'Non ___ padroni.',
+    consigne: { fr: 'Présent de volere (vouloir), première personne, à la forme négative.', it: 'Presente di volere, prima persona, negativo.', en: 'Present of volere (to want), first person, negative.' },
+    choix: ['voglio', 'vuole', 'vogliamo'],
+    pourquoi: { fr: 'La négation italienne tient en un mot placé devant le verbe : non voglio. Rien ne vient après, contrairement au « ne… pas » français.', it: 'La negazione è una sola parola davanti al verbo: non voglio.', en: 'Italian negation is one word before the verb: non voglio. Nothing follows, unlike the French “ne… pas”.' },
   },
   {
-    question: 'Maria ___ al mare.',
-    consigne: { fr: 'Passé composé d’andare, à propos d’une femme.', it: 'Passato prossimo di andare, riferito a una donna.', en: 'Past tense of andare, about a woman.' },
+    question: 'Ieri ___ il giornale.',
+    consigne: { fr: 'Passé composé de leggere (lire), première personne.', it: 'Passato prossimo di leggere, prima persona.', en: 'Past tense of leggere (to read), first person.' },
+    choix: ['ho letto', 'ho leggiuto', 'sono letto'],
+    pourquoi: { fr: 'Leggere se conjugue avec avere, et son participe est irrégulier : letto. « Leggiuto » n’existe pas — c’est le piège de tous les verbes en -ere.', it: 'Leggere vuole avere e ha il participio irregolare: letto.', en: 'Leggere takes avere, and its participle is irregular: letto. “Leggiuto” does not exist — the classic trap of -ere verbs.' },
+  },
+  {
+    question: 'Maria ___ in carcere.',
+    consigne: { fr: 'Passé composé d’andare, à propos d’une femme — Maria Occhipinti, emprisonnée après janvier 1945.', it: 'Passato prossimo di andare, riferito a una donna: Maria Occhipinti, incarcerata dopo il gennaio 1945.', en: 'Past tense of andare, about a woman — Maria Occhipinti, jailed after January 1945.' },
     choix: ['è andata', 'è andato', 'ha andato'],
     pourquoi: { fr: 'Andare se conjugue avec essere, donc le participe s’accorde : andata pour une femme. « Ha andato » n’existe pas.', it: 'Andare vuole essere e il participio si accorda: andata.', en: 'Andare takes essere, so the participle agrees: andata for a woman. “Ha andato” does not exist.' },
   },
   {
-    question: 'Domani ___ a Modica.',
-    consigne: { fr: 'Futur d’andare, première personne.', it: 'Futuro di andare, prima persona.', en: 'Future of andare, first person.' },
-    choix: ['andrò', 'anderò', 'andarò'],
-    pourquoi: { fr: 'Andare perd une voyelle au futur : andrò, andrai, andrà. Même chose pour fare (farò), potere (potrò), volere (vorrò).', it: 'Andare perde una vocale al futuro: andrò.', en: 'Andare loses a vowel in the future: andrò, andrai, andrà. Same for fare (farò), potere (potrò), volere (vorrò).' },
+    question: 'I contadini ___ le terre.',
+    consigne: { fr: 'Passé composé d’occupare, troisième personne du pluriel — les occupations de terres de l’après-guerre.', it: 'Passato prossimo di occupare, terza plurale: le occupazioni delle terre del dopoguerra.', en: 'Past tense of occupare, third person plural — the post-war land occupations.' },
+    choix: ['hanno occupato', 'sono occupati', 'hanno occupate'],
+    pourquoi: { fr: 'Occupare se conjugue avec avere, et avec avere le participe ne s’accorde pas avec le sujet : hanno occupato, quel que soit le nombre.', it: 'Con avere il participio non si accorda con il soggetto: hanno occupato.', en: 'Occupare takes avere, and with avere the participle does not agree with the subject: hanno occupato, whatever the number.' },
   },
   {
-    question: '___ bello domani.',
-    consigne: { fr: 'Futur d’essere, troisième personne — « il fera beau ».', it: 'Futuro di essere, terza persona.', en: 'Future of essere, third person — “it will be lovely”.' },
+    question: 'Domani ___ allo sciopero.',
+    consigne: { fr: 'Futur d’andare, première personne.', it: 'Futuro di andare, prima persona.', en: 'Future of andare, first person.' },
+    choix: ['andrò', 'anderò', 'andarò'],
+    pourquoi: { fr: 'Andare perd une voyelle au futur : andrò, andrai, andrà. Même chose pour fare (farò), potere (potrò), volere (vorrò), venire (verrò).', it: 'Andare perde una vocale al futuro: andrò. Come farò, potrò, vorrò, verrò.', en: 'Andare loses a vowel in the future: andrò, andrai, andrà. Same for fare (farò), potere (potrò), volere (vorrò), venire (verrò).' },
+  },
+  {
+    question: '___ una lunga lotta.',
+    consigne: { fr: 'Futur d’essere, troisième personne — « ce sera une longue lutte ».', it: 'Futuro di essere, terza persona.', en: 'Future of essere, third person — “it will be a long struggle”.' },
     choix: ['Sarà', 'Sarai', 'Saremo'],
     pourquoi: { fr: 'Essere au futur : sarò, sarai, sarà, saremo, sarete, saranno. Et « sarà » sert aussi à supposer : « ça doit être ça ».', it: 'Essere al futuro: sarò, sarai, sarà… « Sarà » serve anche per supporre.', en: 'Essere in the future: sarò, sarai, sarà, saremo, sarete, saranno. And “sarà” also expresses a guess.' },
   },
   {
-    question: 'Mi ___ male qui.',
-    consigne: { fr: 'Vous montrez où vous avez mal.', it: 'Indicate dove vi fa male.', en: 'You are showing where it hurts.' },
-    choix: ['fa', 'fai', 'faccio'],
-    pourquoi: { fr: 'Littéralement « ça me fait mal ici » : le sujet est la douleur, donc troisième personne, fa.', it: 'Il soggetto è il dolore: terza persona, fa.', en: 'Literally “it makes me pain here”: the subject is the pain, so third person, fa.' },
-  },
-  {
-    question: 'Non ___ italiano.',
-    consigne: { fr: 'Présent de parlare, première personne, à la forme négative.', it: 'Presente di parlare, prima persona, negativo.', en: 'Present of parlare, first person, negative.' },
-    choix: ['parlo', 'parla', 'parli'],
-    pourquoi: { fr: 'La négation se fait avec un seul mot placé devant le verbe : non parlo. Pas de « pas » après.', it: 'La negazione è una sola parola davanti al verbo: non parlo.', en: 'Negation is a single word before the verb: non parlo. Nothing comes after.' },
-  },
-  {
-    question: '___ ripetere più lentamente?',
-    consigne: { fr: 'Présent de potere, forme de politesse (lei).', it: 'Presente di potere, forma di cortesia.', en: 'Present of potere, polite form.' },
-    choix: ['Può', 'Puoi', 'Posso'],
-    pourquoi: { fr: 'Le vouvoiement italien passe par la troisième personne : può. Puoi serait du tutoiement, posso voudrait dire « je peux ».', it: 'La cortesia usa la terza persona: può.', en: 'Italian politeness uses the third person: può. Puoi is informal, posso means “I can”.' },
+    question: 'Chi ___ decidere per noi?',
+    consigne: { fr: 'Présent de potere (pouvoir), troisième personne.', it: 'Presente di potere, terza persona.', en: 'Present of potere (can), third person.' },
+    choix: ['può', 'puoi', 'posso'],
+    pourquoi: { fr: 'Potere : posso, puoi, può, possiamo, potete, possono. La même forme può sert au vouvoiement — la politesse italienne passe par la troisième personne.', it: 'Potere: posso, puoi, può… La stessa forma serve per la cortesia.', en: 'Potere: posso, puoi, può, possiamo, potete, possono. The same può serves as the polite form — Italian politeness uses the third person.' },
   },
 ];

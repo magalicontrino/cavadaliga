@@ -359,6 +359,12 @@ export type Dict = {
     intro: string;
     methodTitle: string;
     method: string;
+    planTitle: string;
+    planIntro: string;
+    level1: string;
+    level2: string;
+    level3: string;
+    levelAll: string;
     soundTitle: string;
     soundIntro: string;
     talkTitle: string;
@@ -1036,6 +1042,12 @@ const FR: Dict = {
     intro: 'Pas un cours de grammaire : de quoi se débrouiller dès le premier matin, puis comprendre ce qu’on dit. On commence par prononcer, on continue par des phrases entières, la grammaire vient après — et on s’entraîne à la fin.',
     methodTitle: 'Comment s’en servir',
     method: 'Dix minutes par jour valent mieux qu’une heure le dimanche. Lisez à voix haute, même seul, même mal : l’italien s’attrape par l’oreille et par la bouche, pas par les yeux. Ne cherchez pas à tout retenir — prenez les trois phrases dont vous avez besoin aujourd’hui, servez-vous-en pour de vrai, et revenez demain. C’est le principe des méthodes qui marchent, celle d’Assimil la première : des leçons courtes, des phrases entières, et la règle expliquée seulement une fois qu’on la dit déjà.',
+    planTitle: 'Le programme',
+    planIntro: 'Dans l’ordre, du plus simple au plus exigeant. Rien n’oblige à tout faire : le niveau 1 suffit pour se débrouiller une semaine.',
+    level1: 'Niveau 1 · débuter',
+    level2: 'Niveau 2 · se débrouiller',
+    level3: 'Niveau 3 · aller plus loin',
+    levelAll: 'Tous niveaux',
     soundTitle: 'D’abord, prononcer',
     soundIntro: 'Huit règles et vous lisez l’italien à voix haute sans vous tromper. C’est la vraie porte d’entrée : on pardonne une faute de grammaire, on ne comprend pas un mot mal prononcé. L’accent tonique est marqué en majuscules.',
     talkTitle: 'Parler, par situation',
@@ -1928,6 +1940,12 @@ const IT: Dict = {
     intro: 'Non un corso di grammatica: quanto basta per cavarsela dal primo mattino, e poi per capire quello che si dice. Prima la pronuncia, poi frasi intere, la grammatica dopo — e alla fine gli esercizi. Questa versione serve soprattutto a chi vuole rivedere le regole o aiutare qualcuno a impararle.',
     methodTitle: 'Come usarlo',
     method: 'Dieci minuti al giorno valgono più di un’ora la domenica. Leggete ad alta voce, anche da soli, anche male. Non cercate di ricordare tutto: prendete le tre frasi che vi servono oggi, usatele davvero, e tornate domani. È il principio dei metodi che funzionano, a cominciare da Assimil: lezioni brevi, frasi intere, e la regola spiegata solo quando la si dice già.',
+    planTitle: 'Il programma',
+    planIntro: 'In ordine, dal più semplice al più impegnativo. Non serve fare tutto: il livello 1 basta per cavarsela una settimana.',
+    level1: 'Livello 1 · iniziare',
+    level2: 'Livello 2 · cavarsela',
+    level3: 'Livello 3 · andare oltre',
+    levelAll: 'Tutti i livelli',
     soundTitle: 'Prima, la pronuncia',
     soundIntro: 'Otto regole e si legge l’italiano ad alta voce senza sbagliare. L’accento tonico è segnato in maiuscolo.',
     talkTitle: 'Parlare, per situazione',
@@ -2820,6 +2838,12 @@ const EN: Dict = {
     intro: 'Not a grammar course: enough to get by from the first morning, and then to understand what you are saying. Pronunciation first, whole sentences next, grammar after that — and exercises at the end.',
     methodTitle: 'How to use it',
     method: 'Ten minutes a day beats an hour on Sunday. Read out loud, even alone, even badly: Italian is caught by ear and mouth, not by eye. Do not try to remember everything — take the three sentences you need today, actually use them, and come back tomorrow. That is the principle behind the methods that work, Assimil first among them: short lessons, whole sentences, and the rule explained only once you are already saying it.',
+    planTitle: 'The programme',
+    planIntro: 'In order, from the simplest to the most demanding. You do not have to do it all: level 1 is enough to get through a week.',
+    level1: 'Level 1 · starting out',
+    level2: 'Level 2 · getting by',
+    level3: 'Level 3 · going further',
+    levelAll: 'All levels',
     soundTitle: 'First, the sounds',
     soundIntro: 'Eight rules and you can read Italian aloud without going wrong. This is the real front door: people forgive a grammar mistake, but they cannot understand a mispronounced word. Stress is marked in capitals.',
     talkTitle: 'Speaking, by situation',
