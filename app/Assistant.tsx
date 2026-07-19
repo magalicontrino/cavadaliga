@@ -272,7 +272,11 @@ export default function Assistant() {
            * plus comme un oubli. Des qu'une reponse arrive, on repasse en
            * haut : une reponse se lit du debut, elle ne flotte pas.
            */
-          className={`flex flex-1 flex-col gap-5 overflow-y-auto overscroll-contain px-6 pb-7 ${
+          // `pt-6` : le corps n'avait AUCUNE marge haute. Les exemples, centres,
+          // ne le montraient pas — mais des qu'une reponse arrivait, elle se
+          // collait sous l'aplat rose de l'entete, et l'aveu « je ne trouve
+          // pas » y touchait aussi.
+          className={`flex flex-1 flex-col gap-5 overflow-y-auto overscroll-contain px-6 pb-7 pt-6 ${
             question ? 'justify-start' : 'justify-center'
           }`}
         >
