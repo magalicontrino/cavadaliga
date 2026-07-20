@@ -832,19 +832,36 @@ export default function Italien() {
                 </span>
               </div>
 
+              {/* Chaque texte se donne en deux temps : l'italien en gris juste
+                  au-dessus — la langue qu'on apprend, posee en rappel — et la
+                  traduction en clair dessous, celle qu'on lit vraiment. Sur la
+                  page italienne (`lang === 'it'`) le rappel ferait doublon, on
+                  ne le met pas. */}
               {ch.quoi && (
-                <p className="mt-3 max-w-[72ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{ch.quoi[lang]}</p>
+                <div className="mt-3 max-w-[72ch]">
+                  {lang !== 'it' && (
+                    <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{ch.quoi.it}</p>
+                  )}
+                  <p className="text-[15px] leading-[1.7]">{ch.quoi[lang]}</p>
+                </div>
               )}
 
               {/* Le deroule : ce que la chanson raconte, passage par passage.
                   Il tient la place du texte qu'on ne recopie pas — et il en
-                  dit plus, puisqu'il explique au lieu de citer. */}
+                  dit plus, puisqu'il explique au lieu de citer. L'italien coiffe
+                  chaque passage en gris, la traduction se lit juste dessous. */}
               {ch.deroule && (
                 <div className="mt-6 flex flex-col gap-4">
                   {ch.deroule.map((d) => (
                     <div key={d.titre.fr} className="border-l-2 pl-4" style={{ borderColor: 'var(--cava-line)' }}>
+                      {lang !== 'it' && (
+                        <p className="text-[13px]" style={{ fontWeight: 600, color: 'var(--cava-muted)' }}>{d.titre.it}</p>
+                      )}
                       <p className="text-[14px]" style={{ fontWeight: 600 }}>{d.titre[lang]}</p>
-                      <p className="mt-1 max-w-[72ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{d.texte[lang]}</p>
+                      {lang !== 'it' && (
+                        <p className="mt-2 max-w-[72ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{d.texte.it}</p>
+                      )}
+                      <p className="mt-1 max-w-[72ch] text-[14px] leading-[1.7]">{d.texte[lang]}</p>
                     </div>
                   ))}
                 </div>
@@ -864,6 +881,9 @@ export default function Italien() {
 
               <div className="mt-6 rounded-xl p-4" style={{ background: 'rgba(255,212,82,0.22)' }}>
                 <p className="text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-ink)', fontWeight: 700 }}>{p.songsPoint}</p>
+                {lang !== 'it' && (
+                  <p className="mt-1 max-w-[72ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{ch.langue.it}</p>
+                )}
                 <p className="mt-1 max-w-[72ch] text-[14px] leading-[1.7]">{ch.langue[lang]}</p>
               </div>
 
