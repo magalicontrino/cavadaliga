@@ -265,6 +265,8 @@ export type Dict = {
     sounds: string;
     etna: string;
     fauna: string;
+    /** Les jeux de plage. */
+    sports: string;
     books: string;
     history: string;
     /** Le cours d'italien : un theme de quiz qui vit sur une AUTRE page. */
@@ -448,6 +450,24 @@ export type Dict = {
    * serpents : « il n'y a rien ici » aurait ete rassurant et faux, et sur une
    * morsure de vipere une fausse reassurance coute cher.
    */
+  /**
+   * Les JEUX DE PLAGE — Mag : « rajoute les sports dans region, tambourin et
+   * petanque sur le sable, et trouve d'autres choses si tu veux, renseigne-toi ».
+   *
+   * Verifie plutot que devine : ce que Mag appelle le tambourin s'appelle
+   * `racchettoni` en italien — il descend bien du « tamburello da spiaggia »,
+   * mais personne ne le demandera sous ce nom au marchand de jouets. Et les
+   * boules de Donnalucata ne sont pas une image d'Epinal : la presse locale a
+   * raconte en 2023 les memes retraites qui s'y retrouvent depuis plus de
+   * cinquante ans.
+   */
+  sportsPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    facts: { icon: string; title: string; text: string }[];
+    note: string;
+  };
   faunaPage: {
     eyebrow: string;
     title: string;
@@ -1040,6 +1060,7 @@ const FR: Dict = {
     sounds: 'Sons & images',
     etna: 'L’Etna',
     fauna: 'La faune',
+    sports: 'Jeux de plage',
     books: 'Des livres',
     italian: 'L’italien',
     story: 'Le récit',
@@ -1187,6 +1208,44 @@ const FR: Dict = {
       { icon: 'cone', lien: 'https://it.wikipedia.org/wiki/Portella_della_Ginestra', title: 'Portella della Ginestra, 1er mai 1947', text: 'Deux ans plus tard, la gauche gagne les élections régionales siciliennes. Le 1er mai, des familles fêtent le travail dans un col au-dessus de Piana degli Albanesi ; la bande du bandit Giuliano tire sur la foule. Onze morts, dont des enfants. C’est le premier massacre politique de la République italienne, et il n’a jamais été entièrement élucidé.' },
     ],
   },
+  sportsPage: {
+    eyebrow: 'Jeux de plage',
+    title: 'Ce qu’on joue sur le sable',
+    intro: 'Aucun de ces jeux ne demande de club, de licence ni de réservation. Une paire de raquettes en bois, trois boules, et l’après-midi passe. C’est aussi la façon la plus simple de parler à ses voisins de serviette : on prête, on compte les points, on recommence.',
+    facts: [
+      {
+        icon: 'sun',
+        title: 'I racchettoni',
+        text: 'Deux raquettes en bois, une petite balle en caoutchouc, et le seul but est de ne PAS la faire tomber : on ne marque pas de point, on tient l’échange. C’est le jeu que Mag appelle le tambourin, et elle n’a pas tort — il descend du « tamburello da spiaggia » qu’on jouait déjà sur les plages italiennes au début du XXᵉ siècle. Sous sa forme actuelle, il date des années 1970, sur la riviera de Romagne. Demandez des « racchettoni » : c’est le mot écrit sur les paquets.',
+      },
+      {
+        icon: 'cone',
+        title: 'Le beach tennis',
+        text: 'Né en Italie, et directement des racchettoni — mais avec un filet, un terrain et un vainqueur. La balle est plus grosse et moins dure, la raquette plus épaisse. C’est la version sportive du même geste : on y compte les points, et il y a des tournois tout l’été sur la côte.',
+      },
+      {
+        icon: 'pin',
+        title: 'Les boules sur le sable',
+        text: 'La pétanque italienne s’appelle les bocce, et le cochonnet le pallino. La règle tient en une phrase : la boule la plus proche du pallino gagne, et on peut chasser celle de l’adversaire en la frappant — ça s’appelle une bocciata. Sur le sable, on aplanit une bande d’une quinzaine de mètres et on joue en douze points. À Donnalucata, ce n’est pas un jeu de vacanciers : les mêmes retraités s’y retrouvent tous les après-midi depuis plus de cinquante ans.',
+      },
+      {
+        icon: 'wave',
+        title: 'Le vent, en fin de journée',
+        text: 'La brise se lève l’après-midi et forge une mer plus courte : c’est l’heure des planches. La côte de Scicli fait dix-huit kilomètres, et l’eau se hache dès qu’on s’éloigne des plages abritées, vers Sampieri. Rien de spectaculaire, mais de quoi naviguer — et de quoi rendre la baignade plus sportive si vous restez sans planche.',
+      },
+      {
+        icon: 'walk',
+        title: 'La passeggiata, qui est un sport',
+        text: 'Ne riez pas : c’est l’exercice le plus pratiqué de Sicile. Le soir, quand la chaleur tombe, tout le village descend marcher sur le front de mer, dans les deux sens, pendant une heure. On ne va nulle part. On se montre, on s’arrête, on repart. C’est gratuit, ça se fait à tout âge, et c’est là qu’on croise les gens.',
+      },
+      {
+        icon: 'tools',
+        title: 'A strummula',
+        text: 'La toupie sicilienne — dite aussi u tuppettu. Un morceau de bois tourné, une ficelle enroulée, deux traits à la craie par terre pour délimiter le terrain, et il s’agit de la faire tourner le plus longtemps possible. Ce n’est pas un jeu de plage mais un jeu de rue, et il a deux mille ans : Homère la décrit déjà dans l’Iliade. Si vous en voyez une chez un brocanteur, c’est ça.',
+      },
+    ],
+    note: 'Les raquettes, les boules et les balles se trouvent dans n’importe quel bazar de bord de mer ou supermarché du coin, pour quelques euros — inutile de les emporter de France. Rien de tout cela ne se réserve : ça se pose sur le sable et ça commence.',
+  },
   faunaPage: {
     eyebrow: 'La faune',
     title: 'Qui vit ici',
@@ -1330,6 +1389,22 @@ const FR: Dict = {
       { q: 'Où naissent les moustiques ?', choix: ['Dans l’eau immobile, même quelques centimètres', 'Dans les haies sèches', 'Sous les pierres chaudes'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Quel est le seul serpent venimeux de Sicile ?', choix: ['La vipère aspic', 'La couleuvre verte et jaune', 'Il n’y en a aucun'], bonne: 0, ancre: 'faune', niveau: 'difficile' },
       { q: 'Que ne faut-il SURTOUT pas faire en cas de morsure de vipère ?', choix: ['Poser un garrot ou inciser', 'Appeler les secours', 'Immobiliser le membre'], bonne: 0, ancre: 'faune', niveau: 'difficile' },
+      // ── Les jeux de plage. Chaque reponse est ecrite dans la section « sports ».
+      { q: 'Comment s’appelle en italien le jeu de raquettes en bois de la plage ?', choix: ['I racchettoni', 'Il pallino', 'La bocciata'], bonne: 0, ancre: 'sports', niveau: 'facile' },
+      { q: 'Aux racchettoni, quel est le but du jeu ?', choix: ['Ne pas faire tomber la balle — on tient l’échange', 'Marquer le plus de points', 'Toucher son adversaire'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'De quoi descendent les racchettoni ?', choix: ['Du tamburello da spiaggia', 'Du beach volley', 'De la pelote basque'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Où le beach tennis est-il né ?', choix: ['En Italie, des racchettoni', 'Au Brésil', 'En Californie'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Comment appelle-t-on le cochonnet, en italien ?', choix: ['Le pallino', 'La boccia', 'Il tuppettu'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Comment s’appelle le fait de chasser la boule de l’adversaire ?', choix: ['Une bocciata', 'Une passeggiata', 'Une strummula'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'En combien de points joue-t-on aux boules sur le sable ?', choix: ['Douze', 'Treize', 'Vingt et un'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Depuis combien de temps les mêmes retraités jouent-ils aux boules à Donnalucata ?', choix: ['Plus de cinquante ans', 'Deux ou trois étés', 'Depuis 2020'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Quand la brise se lève-t-elle ?', choix: ['L’après-midi', 'Au lever du jour', 'En pleine nuit'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Combien de kilomètres fait la côte de Scicli ?', choix: ['Dix-huit', 'Cinq', 'Quarante'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Qu’est-ce que la passeggiata ?', choix: ['La marche du soir sur le front de mer', 'Une course de barques', 'Un plat de pâtes'], bonne: 0, ancre: 'sports', niveau: 'facile' },
+      { q: 'Qu’est-ce que « a strummula » ?', choix: ['La toupie sicilienne', 'Une raquette en bois', 'Un filet de pêche'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Quel autre nom porte la strummula ?', choix: ['U tuppettu', 'U pallino', 'A bocciata'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Quel poète antique décrit déjà la toupie ?', choix: ['Homère, dans l’Iliade', 'Virgile, dans l’Énéide', 'Ovide'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Où trouver raquettes, boules et balles sur place ?', choix: ['Dans n’importe quel bazar de bord de mer ou supermarché', 'Uniquement à Raguse', 'Il faut les apporter de France'], bonne: 0, ancre: 'sports', niveau: 'facile' },
       { q: 'Où les premières pâtes sèches d’Europe sont-elles documentées ?', choix: ['En Sicile, à Trabia', 'À Naples', 'En Chine, rapportées par Marco Polo'], bonne: 0, ancre: 'arabe', niveau: 'facile' },
       { q: 'Comment s’appelaient ces fils de semoule décrits en 1154 ?', choix: ['Itriyya', 'Maccheroni', 'Tagliatelle'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Qui a écrit la plus ancienne mention des pâtes sèches d’Europe ?', choix: ['Al-Idrisi, dans le Livre de Roger', 'Marco Polo', 'Pline l’Ancien'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
@@ -2106,6 +2181,7 @@ const IT: Dict = {
     sounds: 'Suoni & immagini',
     etna: 'L’Etna',
     fauna: 'La fauna',
+    sports: 'Giochi da spiaggia',
     books: 'Libri',
     italian: 'L’italiano',
     story: 'Il racconto',
@@ -2253,6 +2329,44 @@ const IT: Dict = {
       { icon: 'cone', lien: 'https://it.wikipedia.org/wiki/Portella_della_Ginestra', title: 'Portella della Ginestra, 1º maggio 1947', text: 'Due anni dopo, la sinistra vince le elezioni regionali siciliane. Il 1º maggio alcune famiglie festeggiano il lavoro in un valico sopra Piana degli Albanesi; la banda del bandito Giuliano spara sulla folla. Undici morti, tra cui dei bambini. È la prima strage politica della Repubblica italiana, e non è mai stata chiarita del tutto.' },
     ],
   },
+  sportsPage: {
+    eyebrow: 'Giochi da spiaggia',
+    title: 'Quello che si gioca sulla sabbia',
+    intro: 'Nessuno di questi giochi chiede un club, una licenza o una prenotazione. Due racchette di legno, tre bocce, e il pomeriggio passa. È anche il modo più semplice per parlare con i vicini di ombrellone: si presta, si contano i punti, si ricomincia.',
+    facts: [
+      {
+        icon: 'sun',
+        title: 'I racchettoni',
+        text: 'Due racchette di legno, una pallina di gomma, e l’unico scopo è NON farla cadere: non si fanno punti, si tiene lo scambio. È il gioco che Mag chiama tambourin, e non ha torto — discende dal « tamburello da spiaggia » che si giocava sulle spiagge italiane già a inizio Novecento. Nella forma attuale nasce negli anni Settanta, sulla riviera romagnola. Chiedete « racchettoni »: è la parola scritta sulle confezioni.',
+      },
+      {
+        icon: 'cone',
+        title: 'Il beach tennis',
+        text: 'Nato in Italia, e proprio dai racchettoni — ma con una rete, un campo e un vincitore. La pallina è più grande e meno dura, la racchetta più spessa. È la versione sportiva dello stesso gesto: qui si contano i punti, e d’estate ci sono tornei lungo tutta la costa.',
+      },
+      {
+        icon: 'pin',
+        title: 'Le bocce sulla sabbia',
+        text: 'La regola sta in una frase: vince la boccia più vicina al pallino, e si può mandare via quella dell’avversario colpendola — si chiama bocciata. Sulla sabbia si spiana una striscia di una quindicina di metri e si gioca ai dodici punti. A Donnalucata non è un gioco da turisti: gli stessi pensionati si ritrovano ogni pomeriggio da più di cinquant’anni.',
+      },
+      {
+        icon: 'wave',
+        title: 'Il vento, a fine giornata',
+        text: 'La brezza si alza nel pomeriggio e increspa il mare: è l’ora delle tavole. La costa di Scicli fa diciotto chilometri, e l’acqua si fa mossa appena ci si allontana dalle spiagge riparate, verso Sampieri. Niente di spettacolare, ma abbastanza per navigare — e per rendere il bagno più sportivo se restate senza tavola.',
+      },
+      {
+        icon: 'walk',
+        title: 'La passeggiata, che è uno sport',
+        text: 'Non ridete: è l’esercizio più praticato di Sicilia. La sera, quando cala il caldo, tutto il paese scende a camminare sul lungomare, avanti e indietro, per un’ora. Non si va da nessuna parte. Ci si mostra, ci si ferma, si riparte. È gratis, si fa a ogni età, ed è lì che si incontra la gente.',
+      },
+      {
+        icon: 'tools',
+        title: 'A strummula',
+        text: 'La trottola siciliana — detta anche u tuppettu. Un pezzo di legno tornito, uno spago avvolto, due righe di gesso per terra a segnare il campo, e si tratta di farla girare il più a lungo possibile. Non è un gioco da spiaggia ma da strada, e ha duemila anni: Omero la cita già nell’Iliade. Se ne vedete una da un rigattiere, è quella.',
+      },
+    ],
+    note: 'Racchette, bocce e palline si trovano in qualsiasi bazar sul mare o supermercato della zona, per pochi euro — inutile portarle da casa. Niente di tutto questo si prenota: si posa sulla sabbia e si comincia.',
+  },
   faunaPage: {
     eyebrow: 'La fauna',
     title: 'Chi vive qui',
@@ -2396,6 +2510,22 @@ const IT: Dict = {
       { q: 'Dove nascono le zanzare?', choix: ['Nell’acqua ferma, bastano pochi centimetri', 'Nelle siepi secche', 'Sotto le pietre calde'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Qual è l’unico serpente velenoso della Sicilia?', choix: ['La vipera aspide', 'Il biacco', 'Non ce n’è nessuno'], bonne: 0, ancre: 'faune', niveau: 'difficile' },
       { q: 'Che cosa NON si deve assolutamente fare in caso di morso di vipera?', choix: ['Mettere un laccio o incidere', 'Chiamare i soccorsi', 'Immobilizzare l’arto'], bonne: 0, ancre: 'faune', niveau: 'difficile' },
+      // ── I giochi da spiaggia. Vedi la nota francese.
+      { q: 'Come si chiama il gioco delle racchette di legno da spiaggia?', choix: ['I racchettoni', 'Il pallino', 'La bocciata'], bonne: 0, ancre: 'sports', niveau: 'facile' },
+      { q: 'Ai racchettoni, qual è lo scopo del gioco?', choix: ['Non far cadere la pallina — si tiene lo scambio', 'Fare più punti possibile', 'Colpire l’avversario'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Da che cosa discendono i racchettoni?', choix: ['Dal tamburello da spiaggia', 'Dal beach volley', 'Dalla pelota basca'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Dov’è nato il beach tennis?', choix: ['In Italia, dai racchettoni', 'In Brasile', 'In California'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Come si chiama la bilia piccola, alle bocce?', choix: ['Il pallino', 'La boccia', 'U tuppettu'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Come si chiama il colpo che manda via la boccia avversaria?', choix: ['Una bocciata', 'Una passeggiata', 'Una strummula'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'A quanti punti si gioca a bocce sulla sabbia?', choix: ['Dodici', 'Tredici', 'Ventuno'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Da quanto tempo gli stessi pensionati giocano a bocce a Donnalucata?', choix: ['Da più di cinquant’anni', 'Da due o tre estati', 'Dal 2020'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Quando si alza la brezza?', choix: ['Nel pomeriggio', 'All’alba', 'Nel cuore della notte'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Quanti chilometri fa la costa di Scicli?', choix: ['Diciotto', 'Cinque', 'Quaranta'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Che cos’è la passeggiata?', choix: ['La camminata della sera sul lungomare', 'Una gara di barche', 'Un piatto di pasta'], bonne: 0, ancre: 'sports', niveau: 'facile' },
+      { q: 'Che cos’è « a strummula »?', choix: ['La trottola siciliana', 'Una racchetta di legno', 'Una rete da pesca'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Quale altro nome ha la strummula?', choix: ['U tuppettu', 'U pallino', 'A bocciata'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Quale poeta antico cita già la trottola?', choix: ['Omero, nell’Iliade', 'Virgilio, nell’Eneide', 'Ovidio'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Dove si trovano racchette, bocce e palline sul posto?', choix: ['In qualsiasi bazar sul mare o supermercato', 'Solo a Ragusa', 'Bisogna portarle da casa'], bonne: 0, ancre: 'sports', niveau: 'facile' },
       { q: 'Dove è documentata la prima pasta secca d’Europa?', choix: ['In Sicilia, a Trabia', 'A Napoli', 'In Cina, portata da Marco Polo'], bonne: 0, ancre: 'arabe', niveau: 'facile' },
       { q: 'Come si chiamavano quei fili di semola descritti nel 1154?', choix: ['Itriyya', 'Maccheroni', 'Tagliatelle'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Chi ha scritto la più antica testimonianza della pasta secca d’Europa?', choix: ['Al-Idrisi, nel Libro di Ruggero', 'Marco Polo', 'Plinio il Vecchio'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
@@ -3165,6 +3295,7 @@ const EN: Dict = {
     sounds: 'Sounds & screens',
     etna: 'Etna',
     fauna: 'Wildlife',
+    sports: 'Beach games',
     books: 'Books',
     italian: 'Italian',
     story: 'The story',
@@ -3312,6 +3443,44 @@ const EN: Dict = {
       { icon: 'cone', lien: 'https://it.wikipedia.org/wiki/Portella_della_Ginestra', title: 'Portella della Ginestra, 1 May 1947', text: 'Two years later the left won the Sicilian regional elections. On May Day, families were celebrating in a mountain pass above Piana degli Albanesi when the bandit Giuliano’s gang fired into the crowd. Eleven dead, children among them. It is the first political massacre of the Italian Republic, and it has never been fully explained.' },
     ],
   },
+  sportsPage: {
+    eyebrow: 'Beach games',
+    title: 'What gets played on the sand',
+    intro: 'None of these games needs a club, a licence or a booking. A pair of wooden bats, three boules, and the afternoon is gone. It is also the easiest way to talk to the people on the next towel: you lend, you count the points, you start again.',
+    facts: [
+      {
+        icon: 'sun',
+        title: 'I racchettoni',
+        text: 'Two wooden bats, a small rubber ball, and the only aim is NOT to let it drop: nobody scores, you keep the rally alive. This is the game Mag calls tambourin, and she is not wrong — it descends from the “tamburello da spiaggia” played on Italian beaches back in the early 1900s. In its present form it dates from the 1970s, on the Romagna riviera. Ask for “racchettoni”: that is the word written on the packets.',
+      },
+      {
+        icon: 'cone',
+        title: 'Beach tennis',
+        text: 'Born in Italy, and straight out of racchettoni — but with a net, a court and a winner. The ball is bigger and softer, the racket thicker. It is the competitive version of the same gesture: here you do score, and there are tournaments all summer along the coast.',
+      },
+      {
+        icon: 'pin',
+        title: 'Boules on the sand',
+        text: 'Italian pétanque is called bocce, and the jack is the pallino. The rule fits in one sentence: the boule closest to the pallino wins, and you may knock your opponent’s away by hitting it — that is a bocciata. On sand you flatten a strip some fifteen metres long and play to twelve points. In Donnalucata this is no holidaymakers’ game: the same retired men have met there every afternoon for over fifty years.',
+      },
+      {
+        icon: 'wave',
+        title: 'The wind, late in the day',
+        text: 'The breeze picks up in the afternoon and chops the sea short: that is board time. The Scicli coast runs eighteen kilometres, and the water turns choppy as soon as you leave the sheltered beaches, towards Sampieri. Nothing spectacular, but enough to sail — and enough to make swimming more of a workout if you have no board.',
+      },
+      {
+        icon: 'walk',
+        title: 'The passeggiata, which is a sport',
+        text: 'Do not laugh: it is the most practised exercise in Sicily. In the evening, when the heat drops, the whole village walks the seafront, up and down, for an hour. Nobody is going anywhere. You show yourself, you stop, you set off again. It is free, it works at any age, and it is where you meet people.',
+      },
+      {
+        icon: 'tools',
+        title: 'A strummula',
+        text: 'The Sicilian spinning top — also called u tuppettu. A turned piece of wood, a wound string, two chalk lines on the ground for the pitch, and the point is to keep it spinning as long as possible. It is a street game rather than a beach one, and it is two thousand years old: Homer already describes it in the Iliad. If you spot one at a junk stall, that is it.',
+      },
+    ],
+    note: 'Bats, boules and balls turn up in any seafront bazaar or local supermarket for a few euros — no need to bring them from home. None of it is bookable: you put it down on the sand and you begin.',
+  },
   faunaPage: {
     eyebrow: 'Wildlife',
     title: 'Who lives here',
@@ -3455,6 +3624,22 @@ const EN: Dict = {
       { q: 'Where do mosquitoes breed?', choix: ['In still water — a few centimetres is enough', 'In dry hedges', 'Under warm stones'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Which is the only venomous snake in Sicily?', choix: ['The asp viper', 'The western whip snake', 'There is none'], bonne: 0, ancre: 'faune', niveau: 'difficile' },
       { q: 'What must you never do after a viper bite?', choix: ['Apply a tourniquet or cut the wound', 'Call the emergency services', 'Keep the limb still'], bonne: 0, ancre: 'faune', niveau: 'difficile' },
+      // ── The beach games. See the French note.
+      { q: 'What is the Italian name of the wooden beach bat game?', choix: ['I racchettoni', 'Il pallino', 'La bocciata'], bonne: 0, ancre: 'sports', niveau: 'facile' },
+      { q: 'In racchettoni, what is the aim?', choix: ['Not to let the ball drop — you keep the rally alive', 'To score as many points as possible', 'To hit your opponent'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'What do racchettoni descend from?', choix: ['The tamburello da spiaggia', 'Beach volleyball', 'Basque pelota'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Where was beach tennis born?', choix: ['In Italy, out of racchettoni', 'In Brazil', 'In California'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'What is the jack called in Italian?', choix: ['The pallino', 'The boccia', 'U tuppettu'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'What is it called when you knock your opponent’s boule away?', choix: ['A bocciata', 'A passeggiata', 'A strummula'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'How many points do you play to, at boules on the sand?', choix: ['Twelve', 'Thirteen', 'Twenty-one'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'How long have the same retired men played boules in Donnalucata?', choix: ['For over fifty years', 'For two or three summers', 'Since 2020'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'When does the breeze pick up?', choix: ['In the afternoon', 'At daybreak', 'In the middle of the night'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'How many kilometres does the Scicli coast run?', choix: ['Eighteen', 'Five', 'Forty'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'What is the passeggiata?', choix: ['The evening walk along the seafront', 'A boat race', 'A pasta dish'], bonne: 0, ancre: 'sports', niveau: 'facile' },
+      { q: 'What is “a strummula”?', choix: ['The Sicilian spinning top', 'A wooden bat', 'A fishing net'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'What other name does the strummula go by?', choix: ['U tuppettu', 'U pallino', 'A bocciata'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Which ancient poet already describes the spinning top?', choix: ['Homer, in the Iliad', 'Virgil, in the Aeneid', 'Ovid'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Where do you find bats, boules and balls locally?', choix: ['In any seafront bazaar or supermarket', 'Only in Ragusa', 'You have to bring them from home'], bonne: 0, ancre: 'sports', niveau: 'facile' },
       { q: 'Where is Europe’s first dried pasta documented?', choix: ['In Sicily, at Trabia', 'In Naples', 'In China, brought back by Marco Polo'], bonne: 0, ancre: 'arabe', niveau: 'facile' },
       { q: 'What were those threads of semolina described in 1154 called?', choix: ['Itriyya', 'Maccheroni', 'Tagliatelle'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Who wrote the earliest record of dried pasta in Europe?', choix: ['Al-Idrisi, in the Book of Roger', 'Marco Polo', 'Pliny the Elder'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },

@@ -206,6 +206,17 @@ const MOTS_MAISON: Record<string, string> = {
     + 'formica formiche zanzara zanzare insetti nocivi scarafaggio umidita caldo acqua ferma sottovaso pattumiera odore scarpe '
     + 'crumbs clean cleaning sweep dishes wash table clear fridge airtight tidy put away '
     + 'ant ants mosquito mosquitoes pest pests insect cockroach humidity heat standing water saucer bin smell shoes',
+  // Les jeux de plage. « Tambourin » et « petanque » y sont expres : ce sont les
+  // mots de Mag, et donc ceux que sa famille tapera — pas « racchettoni », qu'on
+  // ne connait qu'une fois sur place.
+  sports:
+    'sport sports jeu jeux jouer plage sable raquette raquettes tambourin tambourins racchettoni '
+    + 'petanque boule boules boccia bocce palet cochonnet pallino beach tennis volley planche '
+    + 'windsurf surf vent brise toupie strummula tuppettu passeggiata promenade marcher activite activites enfants '
+    + 'sport sports gioco giochi giocare spiaggia sabbia racchetta racchettoni tamburello bocce pallino bocciata '
+    + 'beach tennis vento brezza tavola trottola strummula tuppettu passeggiata attivita bambini '
+    + 'sport sports game games play beach sand racket rackets bat bats boules bocce jack '
+    + 'beach tennis volleyball board windsurf wind breeze spinning top walk stroll activity activities children',
   faune:
     'faune animal animaux bete betes bestiole bestioles bebete sauvage nature '
     + 'gecko geckos tarente lezard lezards serpent serpents vipere venimeux morsure mord '
@@ -563,6 +574,22 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
       'gecko geckos tarente lezard lezards serpent serpents vipere viperes scorpion scorpions '
       + 'geco gechi lucertola lucertole serpente serpenti vipera scorpione scorpioni '
       + 'gecko geckos lizard lizards snake snakes viper vipers scorpion scorpions',
+    ),
+  });
+
+  // Les jeux de plage : une section neuve, donc invisible du chat tant qu'on ne
+  // l'y met pas. Mag les appelle « tambourin » et « petanque » ; l'italien dit
+  // « racchettoni » et « bocce ». Les quatre mots menent ici.
+  ajouter({
+    id: 'sports',
+    page: '/la-region#sports',
+    titre: t.sportsPage.title,
+    lignes: [t.sportsPage.intro, ...t.sportsPage.facts.map((x) => `${x.title} — ${x.text}`), t.sportsPage.note],
+    mots: motsMaison('sports'),
+    motsPrecis: motsDe(
+      'racchettoni tambourin petanque bocce boules pallino bocciata strummula tuppettu passeggiata '
+      + 'racchettoni tamburello bocce pallino bocciata strummula tuppettu passeggiata '
+      + 'racchettoni boules bocce pallino bocciata strummula tuppettu passeggiata',
     ),
   });
 

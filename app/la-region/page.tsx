@@ -35,7 +35,7 @@ const PLACES = [
 // « Sons & images » n'est plus une page : ses sept sections vivent ici. La
 // region, c'est aussi ce qu'on en a chante, filme, peint et photographie — une
 // page de moins dans le menu, et le meme geste pour tout parcourir.
-type Section = 'lieux' | 'faune' | 'livres' | 'histoire' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
+type Section = 'lieux' | 'sports' | 'faune' | 'livres' | 'histoire' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
 type Key = 'tout' | 'sons' | Section;
 
 // « Sons & images » n'est pas une section : c'est un GROUPE. Un bouton pour les
@@ -80,7 +80,7 @@ function allerAuQuiz() {
   viser();
 }
 
-const SECTIONS_ANCREES: Section[] = ['lieux', 'faune', 'livres', 'histoire', 'coutumes', 'specialites', 'alcools', 'cafe', 'etna', 'arabe', 'playlist'];
+const SECTIONS_ANCREES: Section[] = ['lieux', 'sports', 'faune', 'livres', 'histoire', 'coutumes', 'specialites', 'alcools', 'cafe', 'etna', 'arabe', 'playlist'];
 
 export default function LaRegion() {
   const { t, lang } = useI18n();
@@ -172,6 +172,7 @@ export default function LaRegion() {
     { key: 'specialites', label: rf.specialties, icon: 'fork' },
     { key: 'alcools', label: rf.drinks, icon: 'glass' },
     { key: 'cafe', label: rf.coffee, icon: 'droplet' },
+    { key: 'sports', label: rf.sports, icon: 'wave' },
     { key: 'faune', label: rf.fauna, icon: 'leaf' },
     { key: 'histoire', label: rf.history, icon: 'landmark' },
     { key: 'livres', label: rf.books, icon: 'list' },
@@ -690,6 +691,50 @@ export default function LaRegion() {
           de la proprete dans les infos ». Un gecko n'est pas une consigne, il
           se decouvre. Les fourmis, elles, sont restees la-bas : elles sont la
           raison de la regle des miettes. */}
+      {show('sports') && (
+      /*
+       * LES JEUX DE PLAGE. Meme habit que « La faune » : un chapeau, trois
+       * cartes par rangee, une note en bas. La section est ANCREE (`sports`),
+       * donc « Demander » et le quiz peuvent y renvoyer.
+       */
+      <section id="sports" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="wave" size={16} /> {t.sportsPage.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {t.sportsPage.title}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {t.sportsPage.intro}
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-3" style={{ background: 'var(--cava-line)' }}>
+          {t.sportsPage.facts.map((f, i) => (
+            <Reveal key={f.title} delay={(i % 3) * 80} className="flex flex-col gap-4 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
+              <span
+                className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+              >
+                <Icon name={f.icon as IconName} size={28} />
+              </span>
+              <h3 className="text-[clamp(1.1rem,2.2vw,1.35rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+                {f.title}
+              </h3>
+              <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                {f.text}
+              </p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="mt-6 max-w-[68ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+          {t.sportsPage.note}
+        </Reveal>
+      </section>
+      )}
+
       {show('faune') && (
       <section id="faune" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>

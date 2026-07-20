@@ -87,6 +87,7 @@ const THEMES = [
   { ancre: 'specialites', cle: 'specialties' },
   { ancre: 'alcools', cle: 'drinks' },
   { ancre: 'cafe', cle: 'coffee' },
+  { ancre: 'sports', cle: 'sports' },
   { ancre: 'faune', cle: 'fauna' },
   { ancre: 'histoire', cle: 'history' },
   { ancre: 'livres', cle: 'books' },
@@ -170,6 +171,8 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string, lang: 'fr' |
       return t.coffeePage.facts.map((f) => f.text).join(' ');
     case 'faune':
       return [t.faunaPage.intro, ...t.faunaPage.facts.map((f) => f.text), t.faunaPage.note].join(' ');
+    case 'sports':
+      return [t.sportsPage.intro, ...t.sportsPage.facts.map((f) => `${f.title}. ${f.text}`), t.sportsPage.note].join(' ');
     case 'histoire':
       return [t.historyPage.intro, ...t.historyPage.facts.map((f) => f.text)].join(' ');
     case 'livres':

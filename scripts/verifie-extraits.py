@@ -42,6 +42,7 @@ SOURCES = {
     'arrivee': ['arrivee'], 'depart': ['depart'], 'parking': ['parkingPage'],
     'argent': ['cashPage'], 'bestioles': ['cleanPage'], 'voyage': ['prepare'],
     'dechets': ['wastePage'],
+    'sports': ['sportsPage'],
 }
 # Pour chaque cle : [type, fr, it, en] -> on garde les trois derniers.
 TEXTES = {}
