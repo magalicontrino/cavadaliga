@@ -850,7 +850,7 @@ export default function Italien() {
         du bas. Le titre « Le programme » a ete retire (Mag) : les cartes se
         suffisent, chacune dit deja son niveau.
       */}
-      <section className="mx-auto max-w-[110rem] px-5 pb-16 pt-10 md:px-10 md:pb-0">
+      <section id="cartes" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-16 pt-10 md:px-10 md:pb-0">
         <Reveal className="grid grid-cols-2 gap-3 md:grid-cols-3">
           {PLAN.map((x) => carteSommaire(x))}
         </Reveal>
@@ -907,8 +907,22 @@ export default function Italien() {
         aria-label={p.backToTop}
         title={p.backToTop}
         onClick={() => {
+          /*
+           * La fleche remonte AUX CARTES, pas tout en haut — Mag : « quand on
+           * clique sur la fleche pour remonter, ca doit s'arreter la ».
+           *
+           * Elle a raison : on remonte pour CHOISIR une autre section, pas
+           * pour relire le titre de la page. S'arreter au chapeau obligeait a
+           * redescendre aussitot, et la fleche faisait rater sa propre cible.
+           *
+           * Si la grille manquait — impossible, mais un jour on renomme
+           * quelque chose — on repart tout en haut plutot que de ne rien
+           * faire : mieux vaut un bouton approximatif qu'un bouton mort.
+           */
           const doux = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          window.scrollTo({ top: 0, behavior: doux ? 'smooth' : 'instant' });
+          const cartes = document.getElementById('cartes');
+          if (cartes) cartes.scrollIntoView({ block: 'start', behavior: doux ? 'smooth' : ('instant' as ScrollBehavior) });
+          else window.scrollTo({ top: 0, behavior: doux ? 'smooth' : 'instant' });
         }}
         className={`fixed bottom-5 left-5 z-[60] flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-[opacity,transform] duration-300 motion-reduce:transition-none md:bottom-8 md:left-8 ${
           remonter ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
