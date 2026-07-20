@@ -697,13 +697,13 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     mots: motsMaison('italien'),
   });
 
-  // Les QUESTIONS D'ITALIEN du quiz. Il y en a cinquante-cinq, et jusqu'ici
-  // « quiz italien » ne menait nulle part : la fiche « quiz » renvoyait au
-  // melange de La region, la fiche « italien » au cours. L'ancre porte le
-  // theme — le tri se pose tout seul en arrivant.
+  // Les QUESTIONS D'ITALIEN du quiz. Il y en a cinquante-cinq, et elles vivent
+  // DANS le cours, au bas de « S'entrainer » : Mag a prefere la copie du jeu au
+  // lien qui faisait quitter la page. La fiche pointe donc la, et pas sur le
+  // quiz de La region.
   ajouter({
     id: 'quiz-italien',
-    page: '/la-region#quiz-italien',
+    page: '/italien#exercices',
     titre: t.italianPage.drillQuiz,
     lignes: [t.italianPage.drillIntro],
     /*

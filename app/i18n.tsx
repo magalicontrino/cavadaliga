@@ -488,6 +488,9 @@ export type Dict = {
     /** Le meme jeu, sur la page famille : il ne parle pas de la region. */
     familyTitle: string;
     familyIntro: string;
+    /** Et le meme jeu, au bas du cours d'italien. */
+    italianTitle: string;
+    italianIntro: string;
     start: string;
     next: string;
     /** « Valider » : on choisit d'abord, on verifie ensuite. */
@@ -1230,6 +1233,8 @@ const FR: Dict = {
     title: 'Vous connaissez la région ?',
     familyTitle: 'Vous connaissez la famille ?',
     familyIntro: 'Le récit de Salva, et l’arbre. Trois réponses possibles à chaque fois, et tout ce qu’il faut savoir est écrit plus haut sur cette page — chaque réponse vous dit où aller relire.',
+    italianTitle: 'Vous connaissez l’italien ?',
+    italianIntro: 'Cinquante-cinq questions tirées de ce cours — prononciation, conjugaison, phrases utiles, mots des chansons. Trois réponses possibles à chaque fois, et chacune vous dit où aller relire.',
     intro: 'Par thème, ou tout mélangé. Trois réponses possibles à chaque fois, et tout ce qu’il faut savoir est écrit plus haut sur cette page — chaque réponse vous dit où aller relire.',
     start: 'Commencer',
     next: 'Question suivante',
@@ -2241,6 +2246,8 @@ const IT: Dict = {
     title: 'Conoscete la regione?',
     familyTitle: 'Conoscete la famiglia?',
     familyIntro: 'Il racconto di Salva e l’albero genealogico. Tre risposte possibili ogni volta, e tutto quello che serve è scritto più in alto in questa pagina — ogni risposta vi dice dove rileggere.',
+    italianTitle: 'Conoscete l’italiano?',
+    italianIntro: 'Cinquantacinque domande tratte da questo corso — pronuncia, coniugazione, frasi utili, parole delle canzoni. Tre risposte possibili ogni volta, e ognuna vi dice dove rileggere.',
     intro: 'Per tema, o tutto mescolato. Tre risposte possibili ogni volta, e tutto quello che serve sapere è scritto più su in questa pagina — ogni risposta vi dice dove rileggere.',
     start: 'Iniziare',
     next: 'Domanda successiva',
@@ -3247,6 +3254,8 @@ const EN: Dict = {
     title: 'How well do you know the region?',
     familyTitle: 'How well do you know the family?',
     familyIntro: 'Salva’s story, and the family tree. Three possible answers each time, and everything you need is written higher up on this page — each answer tells you where to go and read it again.',
+    italianTitle: 'How well do you know Italian?',
+    italianIntro: 'Fifty-five questions drawn from this course — pronunciation, conjugation, useful phrases, words from the songs. Three possible answers each time, and each one tells you where to go and read it again.',
     intro: 'By theme, or all mixed up. Three answers to choose from each time, and everything you need is written further up this page — each answer tells you where to read it again.',
     start: 'Start',
     next: 'Next question',

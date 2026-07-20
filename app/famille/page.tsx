@@ -181,7 +181,7 @@ export default function Salva() {
         deux themes, le recit et l'arbre ; les soixante questions sur la
         Sicile restent chez elles.
       */}
-      <Quiz only={['recit', 'arbre']} famille />
+      <Quiz only={['recit', 'arbre']} titre={t.quizPage.familyTitle} intro={t.quizPage.familyIntro} />
 
       <Footer />
     </main>

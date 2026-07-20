@@ -307,14 +307,27 @@ function Puce({ on, onClick, children }: { on: boolean; onClick: () => void; chi
  * l'arbre genealogique. Les themes marques `chezElle` ne sortent jamais
  * d'eux-memes : il faut les demander.
  */
-export default function Quiz({ only, famille = false }: { only?: readonly string[]; famille?: boolean } = {}) {
+export default function Quiz({
+  only,
+  titre: titreDonne,
+  intro: introDonnee,
+  ancreLocale,
+}: { only?: readonly string[]; titre?: string; intro?: string; ancreLocale?: string } = {}) {
   const { t, lang } = useI18n();
   const q = t.quizPage;
-  // Le meme jeu, mais il ne peut pas s'annoncer « Vous connaissez la region ? »
-  // au bas d'une page qui parle de l'arbre genealogique. Seuls le titre et
-  // l'accroche changent : tout le reste est litteralement le meme quiz.
-  const titre = famille ? q.familyTitle : q.title;
-  const accroche = famille ? q.familyIntro : q.intro;
+  /*
+   * Le meme jeu, mais il ne peut pas s'annoncer « Vous connaissez la region ? »
+   * au bas d'une page qui parle de l'arbre genealogique ou du cours d'italien.
+   * Seuls le titre et l'accroche changent : tout le reste est litteralement le
+   * meme quiz.
+   *
+   * Le titre est DONNE par la page, il n'est plus deduit d'un drapeau. La
+   * premiere version avait un `famille` booleen ; il aurait fallu un `italien`,
+   * puis un autre — et le composant aurait fini par connaitre la liste des
+   * pages du site, ce qui n'est pas son affaire.
+   */
+  const titre = titreDonne ?? q.title;
+  const accroche = introDonnee ?? q.intro;
 
   const themes = useMemo(
     () => THEMES.filter((x) => (only ? only.includes(x.ancre) : !('chezElle' in x && x.chezElle))),
@@ -517,7 +530,13 @@ export default function Quiz({ only, famille = false }: { only?: readonly string
               qu'il faut, et la marge negative les reprend pour que rien ne
               bouge autour.
             */}
-            <div className="cava-swipe -mx-6 -my-2 shrink-0 overflow-x-auto px-6 py-2 md:-mx-10 md:px-10">
+            {/*
+              LE RUBAN DE TRI DISPARAIT QUAND IL N'Y A QU'UN THEME.
+              Au bas du cours d'italien, il affichait « Tous les themes » et
+              « L'italien » : deux boutons pour un seul choix, qui ne trie rien
+              et laisse croire qu'il manque quelque chose.
+            */}
+            <div className={`cava-swipe -mx-6 -my-2 shrink-0 overflow-x-auto px-6 py-2 md:-mx-10 md:px-10 ${themes.length > 1 ? '' : 'hidden'}`}>
               <div className="flex w-max gap-2">
                 <Puce on={theme === null} onClick={() => trier(() => setTheme(null))}>{q.allThemes}</Puce>
                 {themes.map((x) => (
@@ -668,10 +687,20 @@ export default function Quiz({ only, famille = false }: { only?: readonly string
                     // Un theme qui vit ailleurs emmene sur SA page ; les autres
                     // gardent l'ancre locale et la fleche qui monte.
                     const th = THEMES.find((x) => x.ancre === question.ancre);
-                    const ailleurs = th && 'page' in th ? (th as { page: string }).page : null;
+                    /*
+                     * `ancreLocale` l'emporte sur `page`.
+                     *
+                     * Le theme « italien » porte `page: '/italien'` — c'etait
+                     * juste tant que le quiz vivait sur « La region ». Depuis
+                     * qu'une copie tourne SUR le cours, ce meme lien y renvoyait
+                     * a lui-meme : un rechargement de la page ou l'on est deja,
+                     * et la partie perdue au passage. La page qui pose le quiz
+                     * dit donc ou relire chez elle.
+                     */
+                    const ailleurs = ancreLocale ? null : th && 'page' in th ? (th as { page: string }).page : null;
                     return (
                       <a
-                        href={ailleurs ? withBase(ailleurs) : `#${question.ancre}`}
+                        href={ailleurs ? withBase(ailleurs) : `#${ancreLocale ?? question.ancre}`}
                         className="cava-pill px-5 py-2.5 text-[13px]"
                       >
                         {q.seeSection} {ailleurs ? '→' : '↑'}

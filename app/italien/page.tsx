@@ -7,8 +7,8 @@ import Reveal from '../Reveal';
 import BottomSheet from '../BottomSheet';
 import Icon, { type IconName } from '../Icon';
 import GlyphePlein, { type GlypheName } from '../GlyphePlein';
+import Quiz from '../Quiz';
 import { useI18n } from '../i18n';
-import { withBase } from '../data';
 import type { Lang } from '../localData';
 import { PRONONCIATION, LECONS, CONJUGAISONS, PRONOMS, EXERCICES, AILLEURS, CHANSONS } from '../italienData';
 
@@ -684,20 +684,6 @@ export default function Italien() {
               <button type="button" onClick={lancer} className="cava-pill px-6 py-3 text-[15px]">
                 {p.start} · {EXERCICES.length} →
               </button>
-              {/*
-                LE RENVOI AU QUIZ, a cote des exercices et pas ailleurs : c'est
-                ici qu'on est venu s'entrainer. L'ancre porte le THEME —
-                `#quiz-italien` — et non le seul `#quiz` : un lien qui annonce
-                « les questions d'italien » puis depose devant les
-                quatre-vingt-dix-sept questions de la region ne tient pas sa
-                promesse. Le quiz lit l'ancre et pose le tri tout seul.
-              */}
-              <a href={withBase('/la-region#quiz-italien')} className="cava-navlink cava-ancre cava-ancre-lat inline-flex items-center gap-2.5 text-[15px]" style={{ fontWeight: 500 }}>
-                {p.drillQuiz}{' '}
-                <span className="cava-ancre-fleche" aria-hidden>
-                  →
-                </span>
-              </a>
             </div>
           )}
 
@@ -767,6 +753,21 @@ export default function Italien() {
               </button>
             </div>
           )}
+
+          {/*
+            LE QUIZ, EN ENTIER ET SUR PLACE — Mag : « mets plutot la copie du
+            quizz ici ». Il y avait un lien vers les questions d'italien de « La
+            region » ; un lien fait quitter la page, et on ne revient pas
+            toujours. Les exercices entrainent la grammaire, le quiz interroge
+            tout le cours : les deux se suivent, autant qu'ils se touchent.
+
+            `only` le limite au theme italien — les cinquante-cinq questions,
+            sans les cannoli. Le meme composant que sur « La region » et sur la
+            famille : une seule mecanique de jeu sur tout le site.
+          */}
+          <div className="mt-16 border-t pt-4" style={{ borderColor: 'var(--cava-line)' }}>
+            <Quiz only={['italien']} titre={t.quizPage.italianTitle} intro={t.quizPage.italianIntro} ancreLocale="cartes" />
+          </div>
         </div>
       );
     }
@@ -847,6 +848,32 @@ export default function Italien() {
                 texte pose a plat sur une page se lit en silence ; celui-la se
                 lit en ecoutant, ce qui est tout l'interet.
               */}
+              {/*
+                LE LECTEUR SPOTIFY, en clair — Mag : « dans la section par les
+                chansons rajoute le spotify ». Le bouton qui suit menait deja
+                chez Spotify, mais il fallait quitter la page pour entendre la
+                premiere note. Ici on ecoute en lisant les mots, ce qui est tout
+                l'interet d'apprendre par les chansons.
+
+                L'adresse du lecteur se DEDUIT de celle du morceau, elle ne se
+                ressaisit pas : douze identifiants recopies a la main, ce sont
+                douze occasions de se tromper, et une erreur ne se verrait qu'a
+                l'ecoute.
+
+                `loading="lazy"` : douze lecteurs charges d'un coup, ce serait
+                douze connexions a Spotify pour une chanson ecoutee.
+              */}
+              <iframe
+                src={`${ch.spotify.replace('/track/', '/embed/track/')}?utm_source=generator`}
+                title={`${ch.titre} — ${ch.auteur}`}
+                width="100%"
+                height="152"
+                loading="lazy"
+                allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                className="mt-6 block rounded-xl border-0"
+                style={{ colorScheme: 'normal' }}
+              />
+
               <div className="mt-5 flex flex-wrap items-center gap-3">
                 <a
                   href={ch.spotify}
