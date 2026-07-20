@@ -607,6 +607,15 @@ export type Chanson = {
   /** Le point de langue que la chanson montre mieux qu'un tableau. */
   langue: Texte;
   /**
+   * Le rayon de la chanson — c'est lui qui la range sous un bouton.
+   *
+   * Mag : « mets des boutons pour trier les chansons plus facilement parce
+   * qu'on va en avoir au moins 10 ». A trois, une liste suffit ; a dix, on ne
+   * retrouve plus rien. Le tri est donc pose maintenant, pendant qu'il ne
+   * coute rien, plutot que le jour ou la page sera devenue illisible.
+   */
+  genre: 'lutte' | 'sicile' | 'auteur';
+  /**
    * L'ecoute, sur Spotify.
    *
    * Mag voulait les paroles depliables sur la page. Elles ne peuvent pas y
@@ -635,6 +644,7 @@ export const CHANSONS: Chanson[] = [
     annee: 'XIXᵉ-XXᵉ s.',
     lien: 'https://it.wikipedia.org/wiki/Bella_ciao',
     // Version des Modena City Ramblers, celle qu'on entend le plus aujourd'hui.
+    genre: 'lutte',
     spotify: 'https://open.spotify.com/track/4oaLb6uUbrOqj9zenc6qUy',
     quoi: {
       fr: 'Le chant des partisans italiens, devenu celui de toutes les résistances. On le chante chaque 25 avril, jour de la Libération.',
@@ -682,6 +692,7 @@ export const CHANSONS: Chanson[] = [
     auteur: 'Toto Cutugno',
     annee: '1983',
     lien: 'https://it.wikipedia.org/wiki/L%27italiano_(brano_musicale)',
+    genre: 'auteur',
     spotify: 'https://open.spotify.com/track/2S7RApTsKT0CtYojYq2cKz',
     mots: [
       { it: 'lasciare', pron: 'la·SCIA·re', sens: { fr: 'laisser — « lasciatemi » veut dire « laissez-moi »', it: 'permettere: « lasciatemi » vale « permettetemi »', en: 'to let — “lasciatemi” means “let me”' } },
@@ -725,6 +736,7 @@ export const CHANSONS: Chanson[] = [
     auteur: 'Paolo Conte',
     annee: '1981',
     lien: 'https://it.wikipedia.org/wiki/Via_con_me',
+    genre: 'auteur',
     spotify: 'https://open.spotify.com/track/751bsmv3KNPrytbCUdzQJN',
     mots: [
       { it: 'via', pron: 'VI·a', sens: { fr: 'au loin, partons — le même mot veut dire « rue »', it: 'lontano, andiamo — e anche « strada »', en: 'away, let’s go — the same word also means “street”' } },
@@ -760,6 +772,96 @@ export const CHANSONS: Chanson[] = [
       { titre: { fr: '3. Le rythme plutôt que les mots', it: '3. Il ritmo più delle parole', en: '3. Rhythm over words' },
         texte: { fr: 'Écoutez-la d’abord pour la voix et la scansion. Conte avale les syllabes comme on le fait en parlant vraiment — c’est un excellent exercice d’oreille, bien plus utile qu’un texte lu lentement.', it: 'Ascoltatela prima per la voce e la scansione. Conte mangia le sillabe come si fa parlando davvero: ottimo esercizio d’orecchio.', en: 'Listen first for the voice and the beat. Conte swallows syllables the way people really do when speaking — a far better ear exercise than a text read slowly.' } },
     ],
+  },
+  {
+    /*
+     * Les trois suivantes viennent de Mag, par leurs liens Spotify. Titres et
+     * interpretes releves sur Spotify meme, pas devines : « 1908 » est de Tony
+     * Canto, « Gnè, Gnè » de Giorgio Conte — le frere de Paolo —, « Storia
+     * d'emigrante » de Teresa Merante.
+     */
+    id: 'mille-novecento-otto',
+    titre: '1908',
+    auteur: 'Tony Canto',
+    annee: '2016',
+    genre: 'sicile',
+    lien: 'https://it.wikipedia.org/wiki/Terremoto_di_Messina_del_1908',
+    spotify: 'https://open.spotify.com/track/19wxP8pv3sRzp7hiwd8GSq',
+    quoi: {
+      fr: 'Tony Canto est de Messine, et 1908 est la date qui hante sa ville : le tremblement de terre qui l’a rasée, le plus meurtrier de l’histoire européenne. Il en a fait une chanson — sur la peur qui reste, longtemps après, et qui décourage d’entreprendre.',
+      it: 'Tony Canto è di Messina, e il 1908 è la data che pesa sulla sua città: il terremoto che la rase al suolo. Ne ha fatto una canzone sulla paura che resta, molto dopo.',
+      en: 'Tony Canto is from Messina, and 1908 is the date that haunts his city: the earthquake that levelled it, the deadliest in European history. He turned it into a song about the fear that lingers long afterwards.',
+    },
+    mots: [
+      { it: 'il terremoto', pron: 'il ter·re·MO·to', sens: { fr: 'le tremblement de terre', it: 'la scossa che fa crollare', en: 'the earthquake' } },
+      { it: 'la paura', pron: 'la pa·U·ra', sens: { fr: 'la peur', it: 'quello che si prova davanti al pericolo', en: 'fear' } },
+      { it: 'la città', pron: 'la cit·TÀ', sens: { fr: 'la ville — accent écrit sur la dernière syllabe', it: 'accento scritto sull’ultima sillaba', en: 'the city — written accent on the last syllable' } },
+      { it: 'crollare', pron: 'crol·LA·re', sens: { fr: 's’effondrer', it: 'venire giù', en: 'to collapse' } },
+      { it: 'ricostruire', pron: 'ri·co·stru·I·re', sens: { fr: 'reconstruire — le préfixe ri- veut dire « de nouveau »', it: 'il prefisso ri- vuol dire « di nuovo »', en: 'to rebuild — the ri- prefix means “again”' } },
+      { it: 'la memoria', pron: 'la me·MO·ria', sens: { fr: 'la mémoire, le souvenir', it: 'quello che non si dimentica', en: 'memory' } },
+      { it: 'il mare', pron: 'il MA·re', sens: { fr: 'la mer — le détroit, à Messine', it: 'lo Stretto, a Messina', en: 'the sea — the strait, at Messina' } },
+    ],
+    langue: {
+      fr: 'Le préfixe ri- est partout en italien et se comprend d’un coup : ricostruire, rivedere, ripetere. Une fois qu’on l’a repéré, on devine des dizaines de verbes sans les avoir appris.',
+      it: 'Il prefisso ri- è ovunque: ricostruire, rivedere, ripetere. Una volta capito, si indovinano decine di verbi.',
+      en: 'The ri- prefix is everywhere in Italian and clicks at once: ricostruire, rivedere, ripetere. Spot it and you can guess dozens of verbs you never learnt.',
+    },
+  },
+  {
+    id: 'storia-emigrante',
+    titre: 'Storia d’emigrante',
+    auteur: 'Teresa Merante',
+    annee: '2006',
+    genre: 'sicile',
+    lien: 'https://it.wikipedia.org/wiki/Emigrazione_italiana',
+    spotify: 'https://open.spotify.com/track/2NwTGJmolMEE649cbsvnAo',
+    quoi: {
+      fr: 'L’histoire d’un émigrant — celle de millions d’Italiens du Sud partis chercher du travail ailleurs, et celle de cette maison : Salvatore est parti pour la Belgique à dix-neuf ans.',
+      it: 'La storia di un emigrante — quella di milioni di meridionali partiti a cercare lavoro altrove, e quella di questa casa.',
+      en: 'The story of an emigrant — that of millions of southern Italians who left to find work elsewhere, and the story of this house too.',
+    },
+    mots: [
+      { it: 'l’emigrante', pron: 'le·mi·GRAN·te', sens: { fr: 'l’émigrant — celui qui part ; celui qui arrive, c’est l’immigrato', it: 'chi parte; chi arriva è l’immigrato', en: 'the emigrant — the one who leaves; the one who arrives is immigrato' } },
+      { it: 'la valigia', pron: 'la va·LI·gia', sens: { fr: 'la valise — celle en carton, dans toutes les photos de l’époque', it: 'quella di cartone, nelle foto dell’epoca', en: 'the suitcase — the cardboard one, in every photo of the period' } },
+      { it: 'partire', pron: 'par·TI·re', sens: { fr: 'partir', it: 'andare via', en: 'to leave' } },
+      { it: 'tornare', pron: 'tor·NA·re', sens: { fr: 'revenir — le verbe de tous ceux qui espéraient rentrer', it: 'il verbo di chi sperava di rientrare', en: 'to come back — the verb of everyone who hoped to return' } },
+      { it: 'il lavoro', pron: 'il la·VO·ro', sens: { fr: 'le travail', it: 'l’impiego', en: 'work' } },
+      { it: 'la terra', pron: 'la TER·ra', sens: { fr: 'la terre — le pays qu’on quitte', it: 'il paese che si lascia', en: 'the land — the country you leave' } },
+      { it: 'lontano', pron: 'lon·TA·no', sens: { fr: 'loin', it: 'non vicino', en: 'far away' } },
+      { it: 'la nostalgia', pron: 'la no·stal·GI·a', sens: { fr: 'la nostalgie, le mal du pays', it: 'il rimpianto di casa', en: 'homesickness' } },
+    ],
+    langue: {
+      fr: 'Le titre montre l’élision : di emigrante devient d’emigrante. L’italien fait sauter la voyelle devant une autre voyelle, comme le français — c’est ce qui donne l’apostrophe.',
+      it: 'Il titolo mostra l’elisione: di emigrante diventa d’emigrante.',
+      en: 'The title shows elision: di emigrante becomes d’emigrante. Italian drops the vowel before another vowel, as French does — hence the apostrophe.',
+    },
+  },
+  {
+    id: 'gne-gne',
+    titre: 'Gnè, Gnè',
+    auteur: 'Giorgio Conte',
+    annee: '2003',
+    genre: 'auteur',
+    lien: 'https://it.wikipedia.org/wiki/Giorgio_Conte',
+    spotify: 'https://open.spotify.com/track/2qvOr9G3WEjRsuEDWf7KnO',
+    quoi: {
+      fr: 'Giorgio Conte est le frère de Paolo, et son titre n’est pas un mot : « gnè gnè » est l’onomatopée de la moquerie, ce qu’on lance en imitant quelqu’un. Le genre de chose qu’aucun manuel n’enseigne, et qu’on entend partout.',
+      it: 'Giorgio Conte è il fratello di Paolo, e il titolo non è una parola: « gnè gnè » è l’onomatopea della presa in giro.',
+      en: 'Giorgio Conte is Paolo’s brother, and his title is not a word: “gnè gnè” is the sound of mockery. The kind of thing no textbook teaches and everyone uses.',
+    },
+    mots: [
+      { it: 'gnè gnè', pron: 'GNÈ GNÈ', sens: { fr: 'na na nère — l’onomatopée de la moquerie', it: 'l’onomatopea della presa in giro', en: 'nyah nyah — the sound of mockery' } },
+      { it: 'prendere in giro', pron: 'PREN·de·re in GI·ro', sens: { fr: 'se moquer de quelqu’un — mot à mot, « prendre en rond »', it: 'burlarsi di qualcuno', en: 'to make fun of someone — literally “to take around”' } },
+      { it: 'scherzare', pron: 'scher·ZA·re', sens: { fr: 'plaisanter', it: 'non dire sul serio', en: 'to joke' } },
+      { it: 'ridere', pron: 'RI·de·re', sens: { fr: 'rire', it: 'fare una risata', en: 'to laugh' } },
+      { it: 'il fratello', pron: 'il fra·TEL·lo', sens: { fr: 'le frère — celui de Paolo Conte, justement', it: 'quello di Paolo Conte, appunto', en: 'the brother — Paolo Conte’s, as it happens' } },
+      { it: 'la canzone', pron: 'la can·ZO·ne', sens: { fr: 'la chanson', it: 'quello che si canta', en: 'the song' } },
+    ],
+    langue: {
+      fr: 'Les onomatopées sont une langue à part, et elles ne se traduisent pas : boh (aucune idée), mah (dubitatif), uffa (ras-le-bol), magari (si seulement !). En apprendre quatre vous fera passer pour quelqu’un qui parle vraiment.',
+      it: 'Le onomatopee sono una lingua a parte: boh, mah, uffa, magari. Impararne quattro fa una gran differenza.',
+      en: 'Interjections are a language of their own and do not translate: boh (no idea), mah (doubtful), uffa (fed up), magari (if only!). Learn four and you will sound like someone who really speaks.',
+    },
   },
 ];
 

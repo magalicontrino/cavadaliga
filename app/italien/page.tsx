@@ -124,6 +124,29 @@ function allerA(id: string) {
   window.setTimeout(surveiller, 120);
 }
 
+/**
+ * Une puce de tri — le meme dessin que celles du quiz : allumee elle prend
+ * l'encre, eteinte elle attend. Deux tris sur le meme site ne doivent pas se
+ * ressembler a peu pres.
+ */
+function PuceTri({ on, onClick, children }: { on: boolean; onClick: () => void; children: ReactNode }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="rounded-full px-4 py-2 text-[13px] transition-transform duration-200 hover:scale-[1.04] motion-reduce:transition-none"
+      style={{
+        background: on ? 'var(--cava-ink)' : 'transparent',
+        color: on ? 'var(--cava-bg)' : 'var(--cava-ink)',
+        border: '1px solid var(--cava-ink)',
+        fontWeight: 600,
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
 /** Le meme melange stable que le quiz — voir app/Quiz.tsx. */
 function melange<T>(liste: T[], graine: number): T[] {
   let a = graine + 0x6d2b79f5;
@@ -230,6 +253,16 @@ export default function Italien() {
    * dire. La graine est tiree au clic pour que deux seances ne se
    * ressemblent pas.
    */
+  /*
+   * LE TRI DES CHANSONS. Mag : « mets des boutons pour trier les chansons plus
+   * facilement parce qu'on va en avoir au moins 10 ».
+   *
+   * `null` = tout. Le bouton « Toutes » n'est donc pas un rayon de plus, c'est
+   * le retour a l'etat de depart — meme convention que le tri du quiz, pour
+   * qu'on n'ait pas a reapprendre deux fois la meme chose sur le meme site.
+   */
+  const [genre, setGenre] = useState<string | null>(null);
+
   const [graine, setGraine] = useState(0);
   const [n, setN] = useState(-1);
   const [choisi, setChoisi] = useState<string | null>(null);
@@ -639,9 +672,24 @@ export default function Italien() {
     // leurs auteurs, et les recopier, meme traduites, ne se fait pas. La note
     // du bas le dit en clair plutot que de laisser croire a un oubli.
     if (id === 'chansons') {
+      // Les rayons presents, dans l'ordre ou ils apparaissent : un bouton ne
+      // s'affiche que s'il a quelque chose a montrer.
+      const rayons = [...new Set(CHANSONS.map((c) => c.genre))];
+      const liste = genre ? CHANSONS.filter((c) => c.genre === genre) : CHANSONS;
       return (
         <div className="flex flex-col gap-8">
-          {CHANSONS.map((ch) => (
+          <div className="cava-swipe -mx-6 -my-2 overflow-x-auto px-6 py-2 md:-mx-8 md:px-8">
+            <div className="flex w-max gap-2">
+              <PuceTri on={genre === null} onClick={() => setGenre(null)}>{p.songsAll}</PuceTri>
+              {rayons.map((g) => (
+                <PuceTri key={g} on={genre === g} onClick={() => setGenre(g)}>
+                  {p.songsGenres[g] ?? g}
+                </PuceTri>
+              ))}
+            </div>
+          </div>
+
+          {liste.map((ch) => (
             <div key={ch.id} className="rounded-2xl border p-6 md:p-8" style={{ borderColor: 'var(--cava-line)' }}>
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <h3 className="text-[clamp(1.15rem,2.4vw,1.5rem)] leading-[1.2]" style={{ fontWeight: 600 }}>{ch.titre}</h3>

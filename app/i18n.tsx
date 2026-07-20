@@ -366,6 +366,8 @@ export type Dict = {
     songsPoint: string;
     songsListen: string;
     songsListenSpotify: string;
+    songsAll: string;
+    songsGenres: Record<string, string>;
     elsewhereTitle: string;
     elsewhereIntro: string;
     assimilNote: string;
@@ -1088,6 +1090,8 @@ const FR: Dict = {
     songsPoint: 'Ce qu’elle apprend',
     songsListen: 'La fiche de la chanson',
     songsListenSpotify: 'Écouter, et lire le texte',
+    songsAll: 'Toutes',
+    songsGenres: { lutte: 'Luttes & mémoire', sicile: 'La Sicile', auteur: 'Chanson d’auteur' },
     elsewhereTitle: 'Continuer ailleurs',
     elsewhereIntro: 'Cette page n’a pas de son, et c’est sa limite : on n’apprend pas à prononcer une langue sans l’entendre. Voilà où aller pour ça — et pour les heures d’exercices qu’un site de famille ne fera jamais.',
     assimilNote: 'La méthode dont ce cours s’inspire est celle d’Assimil — leçons courtes, phrases entières, grammaire expliquée après coup. C’est un livre payant, et il vaut son prix si vous voulez aller vraiment loin.',
@@ -2030,6 +2034,8 @@ const IT: Dict = {
     songsPoint: 'Che cosa insegna',
     songsListen: 'La scheda della canzone',
     songsListenSpotify: 'Ascoltare, e leggere il testo',
+    songsAll: 'Tutte',
+    songsGenres: { lutte: 'Lotte & memoria', sicile: 'La Sicilia', auteur: 'Cantautori' },
     elsewhereTitle: 'Continuare altrove',
     elsewhereIntro: 'Questa pagina non ha audio, ed è il suo limite: non si impara a pronunciare una lingua senza sentirla. Ecco dove andare.',
     assimilNote: 'Il metodo a cui questo corso si ispira è quello di Assimil: lezioni brevi, frasi intere, grammatica spiegata dopo. È un libro a pagamento, e li vale.',
@@ -2972,6 +2978,8 @@ const EN: Dict = {
     songsPoint: 'What it teaches',
     songsListen: 'About the song',
     songsListenSpotify: 'Listen, and read the words',
+    songsAll: 'All',
+    songsGenres: { lutte: 'Struggles & memory', sicile: 'Sicily', auteur: 'Singer-songwriters' },
     elsewhereTitle: 'Carrying on elsewhere',
     elsewhereIntro: 'This page has no sound, and that is its limit: you cannot learn to pronounce a language without hearing it. Here is where to go for that — and for the hours of drilling a family website will never provide.',
     assimilNote: 'The method this course is built on is Assimil’s — short lessons, whole sentences, grammar explained afterwards. It is a paid book, and it is worth it if you want to go a long way.',
