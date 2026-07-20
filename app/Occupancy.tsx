@@ -58,13 +58,26 @@ const LOCALES: Record<string, string> = { it: 'it-IT', fr: 'fr-FR', en: 'en-GB' 
  * repasser sur les jours sans barre pour s'en assurer. La couleur inverse le
  * geste : le libre se voit d'un coup d'oeil, a l'echelle de cinq mois.
  *
- * Les teintes sont TRES pales — 14 % — parce qu'elles portent un chiffre. Un
- * aplat franc obligerait a passer le texte en blanc, et un chiffre blanc sur
- * rose pale ne se lit pas. A cette pate, l'encre du site tient son contraste.
+ * LE CONTRASTE, refait au calcul apres que Mag l'a trouve trop faible.
+ *
+ * Ma premiere version posait les trois etats a la meme pate — 13, 14 et 22 % —
+ * en me disant que la lisibilite du chiffre commandait. C'etait mal poser le
+ * probleme. Mesure : entre « occupe » et « libre », le rapport de luminosite
+ * valait 1,04. Autrement dit AUCUN ecart de clarte : les deux cases ne se
+ * distinguaient QUE par la teinte, rose contre vert — la paire exactement que
+ * huit hommes sur cent ne separent pas, et qu'aucune photocopie ne rend.
+ *
+ * Le rose monte donc a 45 % et le vert descend a 10 % : l'ecart passe a 1,78,
+ * et le pris se voit maintenant comme une masse, pas comme une nuance. Le
+ * chiffre reste noir dessus, a 6,71 contre les 4,5 demandes — ce qui repond a
+ * ma crainte initiale : il y avait de la marge, je ne l'avais pas cherchee.
+ *
+ * L'ocre du « a confirmer » suit a 42 % : il doit se distinguer du rose (1,31)
+ * sans redescendre au rang du libre, puisqu'il dit « probablement pris ».
  */
-const OCCUPE = 'rgba(230, 41, 111, 0.13)';
-const A_CONFIRMER = 'rgba(192, 137, 74, 0.22)';
-const LIBRE = 'rgba(90, 150, 110, 0.14)';
+const OCCUPE = 'rgba(230, 41, 111, 0.45)';
+const A_CONFIRMER = 'rgba(192, 137, 74, 0.42)';
+const LIBRE = 'rgba(90, 150, 110, 0.10)';
 /** Les pastilles de la legende : pleines, elles, pour se voir a 12 px. */
 const PLEIN = { occupe: '#e6296f', confirmer: '#c0894a', libre: '#5a966e' };
 
