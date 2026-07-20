@@ -2,7 +2,7 @@
 
 import ContactCta from './ContactCta';
 import Marquee from './Marquee';
-import Icon from './Icon';
+import Icon, { type IconName } from './Icon';
 import PersoLink from './PersoLink';
 import { NAV, withBase } from './data';
 import { useI18n, LangSwitcher } from './i18n';
@@ -27,6 +27,21 @@ function FootLink({ href, label }: { href: string; label: string }) {
 
 export default function Footer() {
   const { t } = useI18n();
+
+  /*
+   * L'ordre suit celui de la barre du haut, puis les deux qui n'y sont pas.
+   * Le picto de la casa porte un trait plus fin, celui de la poubelle un peu
+   * plus gras : c'est ainsi qu'ils sont regles en haut, et deux rangees du
+   * meme site ne doivent pas se dessiner differemment.
+   */
+  const RACCOURCIS: { href: string; label: string; icon: IconName; trait?: number }[] = [
+    { href: withBase('/appartement'), label: t.apartment.label, icon: 'window', trait: 1.25 },
+    { href: withBase('/calendrier'), label: t.stayPage.title, icon: 'calendar' },
+    { href: withBase('/poubelles'), label: t.wastePage.title, icon: 'trash', trait: 1.7 },
+    { href: `${withBase('/la-region')}#sons`, label: t.culturePage.title, icon: 'vinyl' },
+    { href: `${withBase('/la-region')}#quiz`, label: t.quizPage.title, icon: 'hourglass' },
+    { href: withBase('/italien'), label: t.italianPage.title, icon: 'parler' },
+  ];
   return (
     <footer className="mt-24 border-t" style={{ borderColor: 'var(--cava-line)' }}>
       {/* Nous joindre, en grand, au-dessus du bandeau */}
@@ -59,34 +74,30 @@ export default function Footer() {
         </div>
 
         {/*
-          Le quiz, tout en bas, sous les langues — la ou Mag l'a place.
-          Il a d'abord ete une ligne geante dans la liste au-dessus : « non,
-          pas dans le menu ». Elle a raison, cette liste ne contient que des
-          PAGES, et le quiz n'en est pas une. Ici il ne promet rien d'autre
-          que ce qu'il est : une porte discrete vers un jeu, avec son picto
-          pour qu'on la reconnaisse sans lire.
+          LES RACCOURCIS, tous ensemble et a DROITE — Mag les voulait ici.
+
+          Ce sont les memes que la barre du haut (la casa, le calendrier, les
+          poubelles, sons & images), plus le quiz et le cours d'italien qui
+          n'y tiennent pas : a 375 px, un cinquieme picto poussait deja le
+          bouton menu hors de l'ecran, mesure faite. Le bas de page, lui, a la
+          place — c'est le bon endroit pour la liste complete.
+
+          Ils ne rejoignent pas la grande liste juste au-dessus : celle-la ne
+          contient que des PAGES, et ni le quiz ni les poubelles n'en sont.
         */}
-        {/* Le jeu et le cours d'italien, cote a cote : ce sont les deux
-            choses du site qu'on FAIT au lieu de les lire. */}
-        <div className="mt-8 flex items-center gap-3">
-          <a
-            href={`${withBase('/la-region')}#quiz`}
-            aria-label={t.quizPage.title}
-            title={t.quizPage.title}
-            className="cava-vinyllink flex h-12 w-12 items-center justify-center rounded-full"
-            style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
-          >
-            <Icon name="hourglass" size={24} />
-          </a>
-          <a
-            href={withBase('/italien')}
-            aria-label={t.italianPage.title}
-            title={t.italianPage.title}
-            className="cava-vinyllink flex h-12 w-12 items-center justify-center rounded-full"
-            style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
-          >
-            <Icon name="parler" size={24} />
-          </a>
+        <div className="mt-8 flex flex-wrap items-center justify-end gap-3">
+          {RACCOURCIS.map((r) => (
+            <a
+              key={r.href}
+              href={r.href}
+              aria-label={r.label}
+              title={r.label}
+              className="cava-vinyllink flex h-12 w-12 items-center justify-center rounded-full"
+              style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
+            >
+              <Icon name={r.icon} size={24} strokeWidth={r.trait} />
+            </a>
+          ))}
         </div>
       </div>
     </footer>
