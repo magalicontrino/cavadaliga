@@ -312,7 +312,24 @@ const sides: Side[] = [
         // « Sarro » etait une faute : un seul r. Et « Saro » est le diminutif —
         // le prenom est Rosario. Meme convention que Rosalba dite Rose ou
         // Giuseppina dite Jo : le prenom en titre, le surnom dessous.
-        children: [{ name: 'Josephine' }, { name: 'Rosario', subtitle: 'Saro' }, { name: 'Stefano' }],
+        //
+        // MARIA ASSUNTA arrive par le calendrier, pas par l'arbre : un sejour
+        // portait « Katia Asaro, sœur de Maria Assunta », et Maria Assunta ne
+        // figurait nulle part. Mag : « Maria Assunta est la sœur de Stephane
+        // Contrino, demi-frere de Salvatore Contrino 1947 ». Elle est donc la
+        // quatrieme de cette fratrie, et la demi-sœur du pere de Mag.
+        //
+        // ATTENTION, IL Y A DEUX STEFANO. Celui-ci est le FILS d'Angelo, donc
+        // le demi-frere de Salvatore. L'autre, ne en 1930, est un FRERE
+        // d'Angelo, plus haut dans la page — l'oncle de Salvatore, pas son
+        // demi-frere. Les confondre decalerait toute cette branche d'une
+        // generation.
+        children: [
+          { name: 'Josephine' },
+          { name: 'Rosario', subtitle: 'Saro' },
+          { name: 'Stefano' },
+          { name: 'Maria Assunta' },
+        ],
       } },
     ],
   },

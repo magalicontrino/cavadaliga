@@ -306,6 +306,7 @@ const MOTS_MAISON: Record<string, string> = {
     'lux viseux wasson thurot bourg souveton gallois gamino marcino dolciamore saint avold ' +
     'decoupigny freville guilluy carpentier duquesnoy laurent gernez coyez caillot fressin ' +
     'demare lefebvre rollencourt cresson ancetres 1700 1800 racines ' +
+    'asaro assunta sberna canolo stefano rosario josephine demi frere demi soeur ' +
     'famiglia albero genealogico antenati nonni cugini origine storia ' +
     'family tree genealogy ancestors grandparents cousins origin history parents grands parents oncle tante cousin cousine ancetre aieul nom prenom genealogie racines genitori nonni zio zia cugino antenati cognome radici parents grandparents uncle aunt cousin ancestors surname roots pere mere papa maman arriere bisaieul aieule frere soeur neveu niece padre madre nonno nonna bisnonno fratello sorella father mother great grandfather grandmother brother sister',
   // Les trois groupes de « Preparer le voyage », reperes par leur EMOJI.

@@ -56,7 +56,9 @@ export default function Nav({ current }: { current?: string }) {
     { href: withBase('/poubelles'), label: t.wastePage.title, icon: 'trash', trait: 1.7 },
     { href: `${withBase('/la-region')}#sons`, label: t.culturePage.title, icon: 'vinyl' },
     { href: `${withBase('/la-region')}#quiz`, label: t.quizPage.title, icon: 'hourglass' },
-    { href: withBase('/italien'), label: t.italianPage.title, icon: 'parler' },
+    // L'italien n'est plus dans le menu (Mag) — ni en grand lien plus haut, ni
+    // en picto ici. Il reste atteignable par le pied de page et par « La
+    // region » : la page n'est pas orpheline, elle a seulement quitte le menu.
   ];
 
   // Menu ouvert : la barre reste. L'overlay est un enfant de <header> — masquer
@@ -273,27 +275,18 @@ export default function Nav({ current }: { current?: string }) {
               </span>
             </a>
           ))}
-          {/* Le cours d'italien — dans le menu, mais hors de NAV : NAV nourrit
-              aussi les sections de l'accueil, le pied de page et le 404. On ne
-              le veut qu'ici (et sur son picto, tout en bas du pied de page),
-              d'ou cet ajout a la main plutot qu'une entree dans NAV. */}
-          <a
-            href={withBase('/italien')}
-            onClick={() => setOpen(false)}
-            aria-current={current === '/italien' ? 'page' : undefined}
-            className="cava-footlink group flex items-center justify-between border-b py-[1.1vh] aria-[current=page]:opacity-45"
-            style={{ borderColor: 'var(--cava-line)' }}
-          >
-            <span
-              className="text-[clamp(1.6rem,5.6vh,3.6rem)] uppercase leading-[1.02] tracking-[-0.02em]"
-              style={{ fontWeight: 900 }}
-            >
-              {t.italianPage.menuLabel}
-            </span>
-            <span className="cava-footlink-arrow text-[clamp(1.1rem,3vw,2rem)]" aria-hidden>
-              ↗
-            </span>
-          </a>
+          {/*
+            LE COURS D'ITALIEN A QUITTE LE MENU (Mag : « retire l'italien du
+            menu »). Il y etait ajoute a la main, sous la boucle sur NAV, parce
+            qu'il n'appartient pas a NAV — NAV nourrit aussi l'accueil, le pied
+            de page et la 404, et on ne le voulait qu'ici.
+
+            LA PAGE N'EST PAS SUPPRIMEE ET N'EST PAS ORPHELINE : le picto du
+            pied de page y mene toujours, « La region » y renvoie depuis ses
+            chansons, et « Demander » l'indexe. Retirer une entree de menu n'est
+            pas retirer une page — si c'est la page qu'on veut enlever, il
+            faudra couper ces trois-la aussi.
+          */}
         </nav>
 
         {/* Bas du menu : les raccourcis, puis le copyright (même style que le

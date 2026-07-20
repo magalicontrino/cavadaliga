@@ -51,15 +51,44 @@ const DEGRES = {
   // Ses freres : on remonte au pere, on redescend. Deux crans.
   David: 2,
   Michaël: 2,
-  // Les filles de Michaël — trois crans depuis Mag.
+  /*
+   * Les filles de Michaël — trois crans depuis Mag, ses nieces.
+   *
+   * « Marie » vaut confirmation de Mag : « c'est Marie Contrino, la fille de
+   * Michaël ». Le prenom en avait besoin — l'arbre compte maintenant une Maria
+   * (sœur d'Angelo) et une Maria Assunta, et le sejour ne dit que « Marie &
+   * Guillaume ». C'est bien la niece.
+   */
   Juliette: 3,
   Marie: 3,
   Zoé: 3,
   // Cousine germaine : Mag → son pere → ses grands-parents → Helene → Angèle.
   Angèle: 4,
-  // Hors de l'arbre. Katia est dite « sœur de Maria Assunta », et Maria Assunta
-  // ne figure nulle part dans la genealogie relevee par Mag.
-  'Katia Asaro': DEHORS,
+  /*
+   * KATIA N'EST PLUS « HORS FAMILLE », ET C'ETAIT UNE ERREUR A REPARER VITE.
+   * Elle etait rangee dehors faute de pouvoir la rattacher a quiconque : le
+   * sejour dit « sœur de Maria Assunta », et Maria Assunta ne figurait nulle
+   * part dans l'arbre. Le site l'annonçait donc publiquement comme etrangere a
+   * la famille — sur la foi d'un trou dans nos donnees, pas d'un fait.
+   *
+   * Mag a comble le trou : « Maria Assunta est la sœur de Stephane Contrino,
+   * demi-frere de Salvatore Contrino 1947 ». Le compte se fait alors tout
+   * seul — Mag, son pere (1), la demi-sœur de son pere (2 de plus) : Maria
+   * Assunta est a TROIS degres, c'est une tante. Sa sœur Katia aussi.
+   *
+   * CE QU'ON NE SAIT TOUJOURS PAS, et qui ne change rien ici : « Asaro » est
+   * vraisemblablement un nom d'epouse — deux sœurs mariees ne portent plus le
+   * meme nom. Si c'etait au contraire par alliance qu'elle est « sœur », elle
+   * serait belle-famille. Les deux lectures tombent au-dela du deuxieme degre,
+   * donc dans la meme couleur : l'affichage ne depend pas de l'incertitude, et
+   * il n'y a pas lieu d'attendre de la lever pour cesser de la mettre dehors.
+   */
+  'Katia Asaro': 3,
+  /*
+   * Alex et Guillaume restent dehors faute de les trouver dans l'arbre, et ça
+   * ne coute rien : ils partagent le sejour de quelqu'un de plus proche, et
+   * c'est le plus proche qui donne la couleur.
+   */
   Alex: DEHORS,
   Guillaume: DEHORS,
 } as const;
