@@ -22,14 +22,24 @@ for m in ["title: 'Vous connaissez la région ?'", "title: 'Conoscete la regione
 bornes.append(len(lignes))
 
 def blocs_de(cle):
-    """Tous les litteraux `cle: {...}` du fichier, dans l'ordre."""
+    """
+    Tous les litteraux `cle: {...}` OU `cle: [...]` du fichier, dans l'ordre.
+
+    Les deux formes sont necessaires : les pages sont des objets (`cleanPage: {`)
+    mais « Les lieux » est un tableau (`regionPlaces: [`). Ne gerer que l'objet
+    laissait cinq questions sur Punta Corvo hors du controle — sans que rien ne
+    le signale, puisqu'une cle absente ne leve pas d'erreur.
+    """
     out, depuis = [], 0
     while True:
-        j = src.find(cle + ': {', depuis)
-        if j < 0:
+        cands = [src.find(cle + ': ' + o, depuis) for o in ('{', '[')]
+        cands = [c for c in cands if c >= 0]
+        if not cands:
             return out
+        j = min(cands)
+        ouvrant = j + len(cle) + 2
         prof = 0
-        for i in range(src.index('{', j), len(src)):
+        for i in range(ouvrant, len(src)):
             if src[i] in '{[': prof += 1
             elif src[i] in '}]':
                 prof -= 1
@@ -43,12 +53,19 @@ SOURCES = {
     'argent': ['cashPage'], 'bestioles': ['cleanPage'], 'voyage': ['prepare'],
     'dechets': ['wastePage'],
     'sports': ['sportsPage'],
+    # « Les lieux » : un tableau, pas un objet — voir blocs_de().
+    'lieux': ['placesIntro', 'regionPlaces'],
 }
 # Pour chaque cle : [type, fr, it, en] -> on garde les trois derniers.
 TEXTES = {}
 for cles in SOURCES.values():
     for c in cles:
         b = blocs_de(c)
+        if len(b) < 3:
+            # Une simple chaine (`placesIntro: '...'`) n'a ni { ni [ : on la
+            # prend telle quelle, ses trois versions dans l'ordre du fichier.
+            import re as _re
+            b = _re.findall(r"\b%s:\s*'((?:[^'\\]|\\.)*)'" % c, src)
         TEXTES[c] = b[-3:] if len(b) >= 3 else b
 
 total = 0

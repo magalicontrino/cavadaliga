@@ -37,6 +37,17 @@ export const SOURCES: Record<string, Source[]> = {
   ],
 
   /*
+   * Les lieux. Mag a envoye le texte sur Punta Corvo ; la verification a
+   * ajoute ce qu'il ne disait pas — que le « vieux phare » est en fait la casa
+   * del finanziere, l'ancien poste de douane, et que « a spaccazza » est cette
+   * fissure ou l'on ne passe qu'un par un.
+   */
+  lieux: [
+    { label: 'Punta Corvo et Costa di Carro — Visit Vigata', url: 'https://www.visitvigata.com/punta-corvo-costa-di-carro/' },
+    { label: 'Cava d’Aliga — Visit Vigata', url: 'https://www.visitvigata.com/cava-d-aliga/' },
+  ],
+
+  /*
    * La faune. Mag croyait qu'il n'y avait ni serpents ni scorpions ; c'est
    * faux, et sur une morsure de vipere une fausse reassurance coute cher. La
    * section dit ce qui vit la — voila ou on l'a lu.

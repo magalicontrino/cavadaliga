@@ -211,7 +211,7 @@ const MOTS_MAISON: Record<string, string> = {
   // ne connait qu'une fois sur place.
   sports:
     'sport sports jeu jeux jouer plage sable raquette raquettes tambourin tambourins tamburello racchettoni '
-    + 'petanque boule boules boccia bocce palet cochonnet pallino beach tennis volley planche regle regles terrain filet bois cloutee acier '
+    + 'petanque boule boules boccia bocce palet cochonnet pallino beach tennis volley beachvolley football foot planche regle regles terrain filet bois cloutee acier tournoi tournois '
     + 'windsurf surf vent brise toupie strummula tuppettu passeggiata promenade marcher activite activites enfants '
     + 'sport sports gioco giochi giocare spiaggia sabbia racchetta racchettoni tamburello bocce pallino bocciata '
     + 'beach tennis vento brezza tavola trottola strummula tuppettu passeggiata attivita bambini legno acciaio '

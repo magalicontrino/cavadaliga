@@ -26,6 +26,12 @@ const PLACES = [
   { images: ['/picture-sicile/bruca.jpg'], label: 'Bruca', tone: 'sand', km: 4, unesco: false },
   { images: ['/picture-sicile/sampieri.jpg'], label: 'Sampieri', tone: 'sand', km: 5, unesco: false },
   { images: ['/picture-sicile/punta-pisciotto.jpg'], label: 'Punta Pisciotto', tone: 'sand', km: 6, unesco: false },
+  // Punta Corvo, donne par Mag. Elle vient en 6e position, juste apres les
+  // plages voisines : c'est la meme cote, a deux kilometres, mais ce n'est plus
+  // une plage — d'ou sa fiche a part. ATTENTION : `regionPlaces` et
+  // `regionHighlights` sont alignes sur CE tableau, dans les trois langues. Y
+  // toucher sans les six, c'est decaler toutes les descriptions d'un cran.
+  { images: [], label: 'Punta Corvo', tone: 'sand', km: 2, unesco: false },
   { images: [], label: 'Marina di Ragusa', tone: 'pink', km: 13, unesco: false },
   { images: [], label: 'Modica', tone: 'terra', km: 20, unesco: true },
   { images: [], label: 'Raguse', tone: 'ink', km: 28, unesco: true },
@@ -503,6 +509,11 @@ export default function LaRegion() {
             );
           })}
         </div>
+      
+        {/* Les sources de la section, en petit — voir app/sourcesData.ts. */}
+        <Reveal>
+          <Sources section="lieux" />
+        </Reveal>
       </section>
       )}
 
