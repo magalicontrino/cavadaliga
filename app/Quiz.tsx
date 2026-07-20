@@ -155,7 +155,14 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string, lang: 'fr' |
         ...LECONS.flatMap((l) =>
           l.phrases.flatMap((f) => [`${f.it} — ${f.sens[lang]}`, ...(f.note ? [f.note[lang]] : [])]),
         ),
-        ...CHANSONS.flatMap((c) => [c.quoi[lang], c.langue[lang], ...c.mots.map((m) => `${m.it} — ${m.sens[lang]}`)]),
+        // `quoi` est facultatif depuis que Mag l'a retire des chansons
+        // d'auteur ; le deroule, lui, porte desormais le recit.
+        ...CHANSONS.flatMap((c) => [
+          ...(c.quoi ? [c.quoi[lang]] : []),
+          ...(c.deroule ?? []).map((d) => d.texte[lang]),
+          c.langue[lang],
+          ...c.mots.map((m) => `${m.it} — ${m.sens[lang]}`),
+        ]),
       ]
         /*
          * Chaque entree est CLOSE avant d'etre recollee aux autres.

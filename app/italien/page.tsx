@@ -650,7 +650,9 @@ export default function Italien() {
                 </span>
               </div>
 
-              <p className="mt-3 max-w-[72ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{ch.quoi[lang]}</p>
+              {ch.quoi && (
+                <p className="mt-3 max-w-[72ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{ch.quoi[lang]}</p>
+              )}
 
               {/* Le deroule : ce que la chanson raconte, passage par passage.
                   Il tient la place du texte qu'on ne recopie pas — et il en

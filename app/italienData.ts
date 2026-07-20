@@ -592,8 +592,16 @@ export type Chanson = {
   auteur: string;
   annee: string;
   lien: string;
-  /** De quoi ça parle, et pourquoi elle compte. */
-  quoi: Texte;
+  /**
+   * De quoi ça parle — FACULTATIF.
+   *
+   * Mag l'a retire des chansons d'auteur : « retire les intros comme ça ». Le
+   * deroule dit deja ce qui se passe, passage par passage ; une presentation
+   * avant lui ne faisait que retarder la lecon. Bella ciao garde la sienne,
+   * reduite a ce qu'elle a d'irremplacable — le chant des partisans, le
+   * 25 avril.
+   */
+  quoi?: Texte;
   /** Les mots a avoir en tete AVANT d'ecouter. */
   mots: { it: string; pron: string; sens: Texte }[];
   /** Le point de langue que la chanson montre mieux qu'un tableau. */
@@ -617,9 +625,9 @@ export const CHANSONS: Chanson[] = [
     annee: 'XIXᵉ-XXᵉ s.',
     lien: 'https://it.wikipedia.org/wiki/Bella_ciao',
     quoi: {
-      fr: 'Le chant des partisans italiens, devenu celui de toutes les résistances. On le chante chaque 25 avril, jour de la Libération. Son refrain — « o bella ciao, bella ciao, bella ciao ciao ciao » — est un adieu : celui qu’on lance en partant se battre, sans savoir si l’on reviendra.',
-      it: 'Il canto dei partigiani italiani, diventato quello di tutte le resistenze. Si canta ogni 25 aprile. Il ritornello è un addio: quello di chi parte a combattere senza sapere se tornerà.',
-      en: 'The song of the Italian partisans, since taken up by resistance movements everywhere. It is sung every 25 April, Liberation Day. Its refrain is a farewell — the one you call out as you leave to fight, not knowing if you will come back.',
+      fr: 'Le chant des partisans italiens, devenu celui de toutes les résistances. On le chante chaque 25 avril, jour de la Libération.',
+      it: 'Il canto dei partigiani italiani, diventato quello di tutte le resistenze. Si canta ogni 25 aprile, giorno della Liberazione.',
+      en: 'The song of the Italian partisans, since taken up by resistance movements everywhere. It is sung every 25 April, Liberation Day.',
     },
     mots: [
       { it: 'ciao', pron: 'CIAO', sens: { fr: 'salut — et aussi adieu : le mot sert à l’arrivée comme au départ', it: 'saluto d’arrivo e di partenza', en: 'hello — and goodbye: the word works both ways' } },
@@ -662,11 +670,6 @@ export const CHANSONS: Chanson[] = [
     auteur: 'Toto Cutugno',
     annee: '1983',
     lien: 'https://it.wikipedia.org/wiki/L%27italiano_(brano_musicale)',
-    quoi: {
-      fr: 'La chanson que le monde entier croit être l’hymne italien. Cutugno y dresse le portrait d’un Italien ordinaire — son café, sa guitare, ses contradictions — et le refrain, « lasciatemi cantare », demande simplement qu’on le laisse chanter. Elle s’écoute partout en Sicile, et tout le monde en connaît le refrain.',
-      it: 'La canzone che il mondo scambia per l’inno italiano. Cutugno ritrae un italiano qualunque — il caffè, la chitarra, le contraddizioni — e il ritornello chiede solo di poter cantare.',
-      en: 'The song the rest of the world takes for the Italian anthem. Cutugno paints an ordinary Italian — his coffee, his guitar, his contradictions — and the refrain simply asks to be allowed to sing.',
-    },
     mots: [
       { it: 'lasciare', pron: 'la·SCIA·re', sens: { fr: 'laisser — « lasciatemi » veut dire « laissez-moi »', it: 'permettere: « lasciatemi » vale « permettetemi »', en: 'to let — “lasciatemi” means “let me”' } },
       { it: 'cantare', pron: 'can·TA·re', sens: { fr: 'chanter', it: 'cantare', en: 'to sing' } },
@@ -709,11 +712,6 @@ export const CHANSONS: Chanson[] = [
     auteur: 'Paolo Conte',
     annee: '1981',
     lien: 'https://it.wikipedia.org/wiki/Via_con_me',
-    quoi: {
-      fr: 'Une invitation à partir, chantée d’une voix de gorge par un avocat d’Asti devenu l’un des plus grands auteurs italiens. On la reconnaît à son « it’s wonderful » lancé en anglais au milieu de l’italien — c’est le charme de la chanson, et son ironie.',
-      it: 'Un invito a partire, cantato da un avvocato di Asti diventato uno dei più grandi autori italiani. Si riconosce dal suo « it’s wonderful » in inglese in mezzo all’italiano.',
-      en: 'An invitation to leave, sung in a growl by a lawyer from Asti who became one of Italy’s greatest songwriters. You recognise it by the “it’s wonderful” thrown in English into the middle of the Italian.',
-    },
     mots: [
       { it: 'via', pron: 'VI·a', sens: { fr: 'au loin, partons — le même mot veut dire « rue »', it: 'lontano, andiamo — e anche « strada »', en: 'away, let’s go — the same word also means “street”' } },
       { it: 'con me', pron: 'con ME', sens: { fr: 'avec moi', it: 'insieme a me', en: 'with me' } },

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { NAV, SITE, withBase } from './data';
-import Icon from './Icon';
+import Icon, { type IconName } from './Icon';
 import PersoLink from './PersoLink';
 import { useI18n, LangSwitcher } from './i18n';
 
@@ -43,6 +43,21 @@ export default function Nav({ current }: { current?: string }) {
     window.addEventListener('scroll', auDefilement, { passive: true });
     return () => window.removeEventListener('scroll', auDefilement);
   }, []);
+
+  /*
+   * Les memes raccourcis que le pied de page — la casa, le calendrier, les
+   * poubelles, sons & images, le quiz, l'italien. Les epaisseurs de trait sont
+   * celles de la barre du haut : deux rangees du meme site ne doivent pas se
+   * dessiner differemment.
+   */
+  const RACCOURCIS: { href: string; label: string; icon: IconName; trait?: number }[] = [
+    { href: withBase('/appartement'), label: t.apartment.label, icon: 'window', trait: 1.25 },
+    { href: withBase('/calendrier'), label: t.stayPage.title, icon: 'calendar' },
+    { href: withBase('/poubelles'), label: t.wastePage.title, icon: 'trash', trait: 1.7 },
+    { href: `${withBase('/la-region')}#sons`, label: t.culturePage.title, icon: 'vinyl' },
+    { href: `${withBase('/la-region')}#quiz`, label: t.quizPage.title, icon: 'hourglass' },
+    { href: withBase('/italien'), label: t.italianPage.title, icon: 'parler' },
+  ];
 
   // Menu ouvert : la barre reste. L'overlay est un enfant de <header> — masquer
   // le parent l'emporterait avec lui, et le menu s'ouvrirait hors de l'ecran.
@@ -281,11 +296,30 @@ export default function Nav({ current }: { current?: string }) {
           </a>
         </nav>
 
-        {/* Bas du menu : copyright (même style que le footer) */}
+        {/* Bas du menu : les raccourcis, puis le copyright (même style que le
+            pied de page). Mag les veut ici aussi — le menu est plein écran,
+            c'est le seul endroit où les six tiennent sans se battre pour la
+            place, contrairement à la barre du haut où le cinquième poussait
+            déjà le bouton hors de l'écran. */}
         <div
-          className="mx-auto flex w-full max-w-[110rem] px-5 pb-8 pt-5 text-[12px] md:px-10"
+          className="mx-auto flex w-full max-w-[110rem] flex-col gap-4 px-5 pb-8 pt-5 text-[12px] md:px-10"
           style={{ color: 'var(--cava-muted)' }}
         >
+          <div className="flex flex-wrap items-center gap-2.5">
+            {RACCOURCIS.map((r) => (
+              <a
+                key={r.href}
+                href={r.href}
+                onClick={() => setOpen(false)}
+                aria-label={r.label}
+                title={r.label}
+                className="cava-vinyllink flex h-11 w-11 items-center justify-center rounded-full"
+                style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
+              >
+                <Icon name={r.icon} size={22} strokeWidth={r.trait} />
+              </a>
+            ))}
+          </div>
           <PersoLink />
         </div>
       </div>
