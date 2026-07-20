@@ -243,7 +243,13 @@ export default function FamilyTree() {
             { name: 'Stefano', subtitle: '1930' },
             { name: 'Joseph' },
             { name: 'Gabi' },
-            { name: 'Jacques' },
+            {
+              // Les deux enfants de Jacques, donnes par Mag. Meme construction
+              // que pour Helene : ils descendent d'un cran sous leur parent, a
+              // leur generation, plutot que d'ouvrir un bloc a part.
+              name: 'Jacques',
+              children: [{ name: 'Nathalie' }, { name: 'Olivier' }],
+            },
             { name: 'Benito', subtitle: '1943' },
             { name: 'Lucia' },
             {
