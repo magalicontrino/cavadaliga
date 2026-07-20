@@ -321,11 +321,140 @@ const sides: Side[] = [
     lignee: 'mere',
     families: [
       /*
+       * ══ LES ASCENDANTS D'ANGELINA VISEUX, jusqu'a 1702 ══
+       *
+       * Quinze couples, remontes du releve que Mag a envoye. C'est de loin la
+       * plus vieille branche du site : la precedente s'arretait a Augustin
+       * Viseux, ne en 1853.
+       *
+       * ILS SONT RANGES DU PLUS ANCIEN AU PLUS RECENT, a rebours de la lecture
+       * habituelle. C'est ce que la structure impose — chaque carte montre son
+       * ENFANT, donc lire de haut en bas, c'est descendre le temps. Jean
+       * Baptiste Viseux ouvre, Angelina ferme.
+       *
+       * LA COHERENCE A ETE VERIFIEE AVANT LA SAISIE, couple par couple : aucun
+       * enfant ne nait apres la mort d'un parent, aucun mariage avant quinze
+       * ans, aucune naissance avant son mariage. Deux meres sortent du lot
+       * sans etre impossibles — Marie Barbe de Rollencourt a 42 ans et Agnes
+       * Isabelle Decoupigny a 41 — et elles sont ecrites telles que le releve
+       * les donne.
+       *
+       * LES NOTATIONS DU RELEVE SONT TRADUITES, pas recopiees. « ca 1702-/1764 »
+       * ne veut rien dire pour qui lit cette page : ça devient « vers 1702 –
+       * avant 1764 », dans les trois langues. Le « † » seul — pose sur Pierre
+       * Timothee Joseph Duquesnoy — est simplement omis : dire d'un homme ne
+       * vers 1700 qu'il est mort n'apprend rien a personne.
+       *
+       * DEUX FAMILLES LAURENT SE CROISENT ici sans etre parentes, a deux
+       * siecles et deux branches d'ecart : Marie Anne Joseph Laurent (vers
+       * 1705) du cote Viseux, et Philippe Albert Laurent (vers 1723) du cote
+       * Guilluy. C'est une homonymie, pas un lien — ne les rapprochez pas.
+       */
+      {
+        fam: {
+        name: 'Jean Baptiste Viseux & Marie Anne Joseph Laurent',
+        subtitle: `${s.treeGen8} · ${s.treeAbout} 1702 – ${s.treeBefore} 1764 · ${s.treeAbout} 1705 – ${s.treeBefore} 1764 · ${s.treeWedAbout} 1729`,
+        children: [{ name: 'Antoine Joseph', subtitle: '1737–1821' }],
+      } },
+      {
+        fam: {
+        name: 'Pierre Timothée Joseph Duquesnoy & Marie Anne Démaré',
+        subtitle: `${s.treeGen8} · ${s.treeBefore} 1764`,
+        children: [{ name: 'Marie Alexandrine Joseph', subtitle: '1738–1825' }],
+      } },
+      {
+        fam: {
+        name: 'Raimond Decoupigny & Marie Guislaine Fressin',
+        subtitle: `${s.treeGen8} · ${s.treeAbout} 1703–1781`,
+        children: [{ name: 'Louis', subtitle: '1737–1806' }],
+      } },
+      {
+        fam: {
+        name: 'Adrien Carpentier & Marie Thérèse Lefèbvre',
+        subtitle: `${s.treeGen8} · ${s.treeAbout} 1701–1765 · 1699–1767 · ${s.treeWed} 1723`,
+        children: [{ name: 'Marie Agnès', subtitle: '1733' }],
+      } },
+      {
+        fam: {
+        name: 'Denis Fréville & Marie Catherine Cresson',
+        subtitle: s.treeGen8,
+        children: [{ name: 'Jean Baptiste', subtitle: '1756–1831' }],
+      } },
+      {
+        fam: {
+        name: 'Jean Nicolas Guilluy & Marie Barbe de Rollencourt',
+        subtitle: `${s.treeGen8} · ${s.treeAbout} 1718–1771 · ${s.treeAbout} 1718 – ${s.treeAfter} 1782 · ${s.treeWed} 1743`,
+        children: [{ name: 'Jean Baptiste', subtitle: '1760–1825' }],
+      } },
+      {
+        fam: {
+        name: 'Philippe Albert Laurent & Marie Monique Caillot',
+        subtitle: `${s.treeGen8} · ${s.treeAbout} 1723–1778 · ${s.treeAbout} 1725–1788 · ${s.treeWed} 1745`,
+        children: [{ name: 'Augustine', subtitle: '1758–1832' }],
+      } },
+      {
+        fam: {
+        name: 'Antoine Joseph Viseux & Marie Alexandrine Joseph Duquesnoy',
+        subtitle: `${s.treeGen7} · 1737–1821 · 1738–1825 · ${s.treeWed} 1764`,
+        children: [{ name: 'Léonard', subtitle: '1771–1841' }],
+      } },
+      {
+        fam: {
+        name: 'Louis Decoupigny & Marie Agnès Carpentier',
+        subtitle: `${s.treeGen7} · 1737–1806 · 1733 · ${s.treeWed} 1769`,
+        children: [{ name: 'Agnès Isabelle', subtitle: '1771–1832' }],
+      } },
+      {
+        fam: {
+        name: 'Jean Baptiste Fréville & Eugénie Joseph Coyez',
+        subtitle: `${s.treeGen7} · 1756–1831 · 1759–1837 · ${s.treeWed} 1780`,
+        children: [{ name: 'Martin Louis', subtitle: '1791–1861' }],
+      } },
+      {
+        fam: {
+        name: 'Jean Baptiste Guilluy & Augustine Laurent',
+        subtitle: `${s.treeGen7} · 1760–1825 · 1758–1832 · ${s.treeWed} 1782`,
+        children: [{ name: 'Amandine', subtitle: '1792–1844' }],
+      } },
+      {
+        fam: {
+        name: 'Léonard Viseux & Agnès Isabelle Decoupigny',
+        subtitle: `${s.treeGen6} · 1771–1841 · 1771–1832 · ${s.treeWed} 1800`,
+        children: [{ name: 'Pierre Antoine', subtitle: '1812–1854' }],
+      } },
+      {
+        fam: {
+        name: 'Martin Louis Fréville & Amandine Guilluy',
+        subtitle: `${s.treeGen6} · 1791–1861 · 1792–1844 · ${s.treeWed} 1812`,
+        children: [{ name: 'Rosalie', subtitle: '1817–1904' }],
+      } },
+      {
+        fam: {
+        name: 'Pierre Antoine Viseux & Rosalie Fréville',
+        subtitle: `${s.treeGen5} · 1812–1854 · 1817–1904 · ${s.treeWed} 1843`,
+        children: [{ name: 'Augustin', subtitle: '1853–1899' }],
+      } },
+      {
+        fam: {
+        name: 'Louis Joseph Wasson & Marie Joseph Gernez',
+        subtitle: `${s.treeGen5} · 1814 · 1828`,
+        children: [{ name: 'Flore Marie', subtitle: '1860–1944' }],
+      } },
+      /*
        * La generation d'avant, relevee par Mag sur son arbre en ligne. Elle
        * ouvre le cote Lux d'un cran de plus : les parents de Pierre (1881) et
-       * ceux d'Angelina (1882). On les sait decedes, sans aucune date — c'est
-       * peu, mais un nom sans date vaut mieux qu'une branche coupee, et les
-       * dates sont demandees plus bas.
+       * ceux d'Angelina (1882).
+       *
+       * LES DATES DU COTE VISEUX SONT ARRIVEES, celles du cote Lux non — et
+       * c'est pour ça que la question d'en bas n'a pas disparu, elle a
+       * retreci. Mag a envoye les ascendants d'Angelina Viseux : Augustin
+       * (1853-1899) et Flore Marie Wasson (1860-1944) y sont dates. Henri Lux
+       * et Angelique Bourg, eux, n'y figurent pas — ce releve ne remonte que
+       * la branche d'Angelina. Ils restent donc « on les sait decedes, rien de
+       * plus », et la question ne demande plus qu'eux.
+       *
+       * Le prenom complet de Flore vient du meme releve : « Flore Marie
+       * Wasson ». L'arbre ecrivait « Flore Wasson ».
        */
       {
         fam: {
@@ -335,8 +464,8 @@ const sides: Side[] = [
       } },
       {
         fam: {
-        name: 'Augustin Viseux & Flore Wasson',
-        subtitle: s.treeGreat2,
+        name: 'Augustin Viseux & Flore Marie Wasson',
+        subtitle: `${s.treeGreat2} · 1853–1899 · 1860–1944 · ${s.treeWed} 1880`,
         children: [{ name: 'Angelina', subtitle: '1882–1959' }],
       } },
       {
@@ -613,9 +742,9 @@ const QUESTIONS: { fr: string; it: string; en: string }[] = [
     en: 'The surname of Sophie, Gabi Contrino’s wife.',
   },
   {
-    fr: 'Les dates d’Henri Lux et Angélique Bourg, et celles d’Augustin Viseux et Flore Wasson — les parents de Pierre et d’Angelina. On les sait décédés, rien de plus.',
-    it: 'Le date di Henri Lux e Angélique Bourg, e quelle di Augustin Viseux e Flore Wasson — i genitori di Pierre e di Angelina. Sappiamo che sono morti, nulla di più.',
-    en: 'The dates of Henri Lux and Angélique Bourg, and those of Augustin Viseux and Flore Wasson — Pierre’s and Angelina’s parents. We know they have died, nothing more.',
+    fr: 'Les dates d’Henri Lux et Angélique Bourg, les parents de Pierre. On les sait décédés, rien de plus — celles d’Augustin Viseux et Flore Marie Wasson, elles, nous sont arrivées.',
+    it: 'Le date di Henri Lux e Angélique Bourg, i genitori di Pierre. Sappiamo che sono morti, nulla di più — quelle di Augustin Viseux e Flore Marie Wasson, invece, ci sono arrivate.',
+    en: 'The dates of Henri Lux and Angélique Bourg, Pierre’s parents. We know they have died, nothing more — Augustin Viseux’s and Flore Marie Wasson’s, on the other hand, have reached us.',
   },
   {
     fr: 'La date de décès de Louis Thurot, mort à Saint-Étienne : on a sa naissance, en 1893, mais pas sa fin.',
