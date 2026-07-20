@@ -4,7 +4,6 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode }
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
-import PageHeader from '../PageHeader';
 import BottomSheet from '../BottomSheet';
 import Icon, { type IconName } from '../Icon';
 import GlyphePlein, { type GlypheName } from '../GlyphePlein';
@@ -893,7 +892,19 @@ export default function Italien() {
   return (
     <main>
       <Nav />
-      <PageHeader title={p.title} intro={p.intro} />
+      {/*
+        LE TITRE ET L'INTRO NE S'AFFICHENT PLUS — Mag : « retire le titre et les
+        sous-titres ». `PageHeader` posait un `pt-[22vh]` : sur un ecran de
+        900 px, c'etait 200 px de marge avant meme le titre, puis le titre, puis
+        l'intro. Les cartes commençaient si bas qu'ouvrir une section les faisait
+        toutes passer sous la barre.
+
+        Ils restent en `sr-only`. Une page sans `h1` ne dit plus ce qu'elle est :
+        ni Google ni une liseuse d'ecran ne sauraient l'annoncer, et l'onglet
+        serait le seul indice. Ils disparaissent de l'oeil, pas du document.
+      */}
+      <h1 className="sr-only">{p.title}</h1>
+      <p className="sr-only">{p.intro}</p>
 
       {/*
         LE CHOIX DES SECTIONS — la grille de cartes, et rien d'autre. Une carte
@@ -901,7 +912,7 @@ export default function Italien() {
         du bas. Le titre « Le programme » a ete retire (Mag) : les cartes se
         suffisent, chacune dit deja son niveau.
       */}
-      <section id="cartes" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-16 pt-10 md:px-10 md:pb-0">
+      <section id="cartes" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-16 pt-[8.5rem] md:px-10 md:pb-0">
         {/*
           HUIT VIGNETTES SUR UNE RANGEE — Mag : « par 8 sur la page sur ecran
           c'est bien ». Deux au plus etroit, trois sur un grand telephone,
