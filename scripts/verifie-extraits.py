@@ -55,7 +55,42 @@ SOURCES = {
     'sports': ['sportsPage'],
     # « Les lieux » : un tableau, pas un objet — voir blocs_de().
     'lieux': ['placesIntro', 'regionPlaces'],
+    # « L'arbre » : voir ARBRE plus bas. Sa source n'est pas dans i18n.
+    'arbre': [],
 }
+
+# ─────────────────────────────────────────────────────────────────────────
+# L'ARBRE ETAIT LE SEUL THEME HORS CONTROLE, et je m'en suis apercu en le
+# cassant presque.
+#
+# En renommant « Flore Wasson » en « Flore Marie Wasson » dans l'arbre, j'ai
+# rendu caduque la reponse de deux questions du quiz — et le test a repondu
+# « 0 sans extrait », parce qu'il ne regardait que les pages pratiques. Le
+# controle disait vrai sur ce qu'il couvrait, et rien sur le reste.
+#
+# La difficulte est que la source du theme `arbre` n'est PAS dans i18n.tsx :
+# les prenoms et les noms sont des donnees, ecrites en clair dans
+# FamilyTree.tsx (« Augustin Viseux & Flore Marie Wasson »).
+#
+# ON NE PREND QUE LES `name:` ET LES `subtitle:`, ET LA RAISON EST UNE ERREUR
+# QUE J'AI FAITE ICI MEME. Ma premiere version prenait le fichier ENTIER, en
+# me disant qu'un controle trop large valait mieux que rien. Verification :
+# j'ai fausse la date de mort d'Augustin dans les donnees, de 1899 a 1897 — le
+# test n'a rien vu. Le commentaire que je venais d'ecrire trois lignes plus
+# haut disait « Augustin (1853-1899) », et le test y trouvait son compte. Il
+# se validait sur ma propre prose au lieu de valider la page.
+#
+# Un controle qui ne peut pas echouer ne prouve rien. On ne garde donc que ce
+# qui est REELLEMENT AFFICHE : les libelles des cartes de l'arbre.
+#
+# Il n'est pas traduit non plus : les noms de famille s'ecrivent pareil dans
+# les trois langues. La meme source sert donc aux trois passes.
+# ─────────────────────────────────────────────────────────────────────────
+_ft = io.open('app/FamilyTree.tsx', encoding='utf-8').read()
+ARBRE = nettoie(' '.join(
+    re.findall(r"\b(?:name|subtitle): '((?:[^'\\]|\\.)*)'", _ft)
+    + re.findall(r"\bsubtitle: `([^`]*)`", _ft)
+))
 # Pour chaque cle : [type, fr, it, en] -> on garde les trois derniers.
 TEXTES = {}
 for cles in SOURCES.values():
@@ -78,7 +113,7 @@ for k, langue in enumerate(('fr', 'it', 'en')):
         if ancre not in SOURCES:
             continue
         concernees += 1
-        texte = nettoie(' '.join(TEXTES[c][k] for c in SOURCES[ancre]))
+        texte = ARBRE if ancre == 'arbre' else nettoie(' '.join(TEXTES[c][k] for c in SOURCES[ancre]))
         opts = re.findall(r"'((?:[^'\\]|\\.)*)'", choix)
         rep = opts[int(bonne)].replace("\\'", "'")
         mots = [w for w in re.split(r"[^a-z0-9‘’']+", nettoie(rep)) if w]
@@ -86,7 +121,7 @@ for k, langue in enumerate(('fr', 'it', 'en')):
         if not any(c in texte for c in cles):
             muettes.append((ancre, q[:52], rep[:45]))
     total += len(muettes)
-    print(f'{langue} : {concernees} questions pratiques, {len(muettes)} sans extrait')
+    print(f'{langue} : {concernees} questions couvertes, {len(muettes)} sans extrait')
     for x in muettes:
         print('     -', x[0], '|', x[1], '=>', x[2])
 print('TOTAL muettes :', total)
