@@ -15,17 +15,89 @@ import { useI18n } from './i18n';
 // en novembre demande d'ajouter novembre a la liste, sinon il ne s'affichera
 // nulle part.
 // ─────────────────────────────────────────────────────────────────────────
-type Sejour = { label: string; start: string; end: string; tentative?: boolean };
+/*
+ * LE DEGRE DE PARENTE, COMPTE DEPUIS MAG — Mag : « la famille au premier et
+ * deuxieme degre [en rose], et le reste tu mets en jaune, et quand ce sera pas
+ * la famille, en vert ».
+ *
+ * Le degre se compte comme en droit civil : un cran de generation, un degre.
+ * Les parents et les enfants sont au premier ; les freres et soeurs, les
+ * grands-parents et les petits-enfants au deuxieme (on remonte puis on
+ * redescend). Les nieces sont donc au TROISIEME, et les cousines germaines au
+ * QUATRIEME — ce qui les met en jaune, alors qu'on les dirait volontiers
+ * « proches » dans la conversation. C'est la regle demandee, appliquee telle
+ * quelle ; c'est le genre de chose qui se voit mieux a l'ecran que dans une
+ * phrase.
+ *
+ * LE TABLEAU EST LA SOURCE, ET LE COMPILATEUR LA GARDE. `qui` n'accepte que
+ * des prenoms ecrits ici : nommer quelqu'un d'inconnu ne compile pas. Sans ce
+ * garde-fou, un nom mal orthographie tomberait silencieusement dans « hors
+ * famille » — soit, sur cette page, la maniere la plus discrete possible de
+ * mettre un cousin dehors. Une erreur de build vaut mieux qu'une vexation.
+ *
+ * Les degres viennent de l'arbre de `FamilyTree.tsx`, seule source genealogique
+ * du site : Salvatore & Giuseppina sont les grands-parents de Mag, leurs
+ * enfants ses oncles et tantes, et Angele — fille d'Helene — sa cousine
+ * germaine.
+ */
+const DEHORS = 'dehors';
+const DEGRES = {
+  Mag: 0,
+  // Ses filles, et ses parents : un cran, un degre.
+  Eve: 1,
+  Manon: 1,
+  Régine: 1,
+  Salvatore: 1,
+  // Ses freres : on remonte au pere, on redescend. Deux crans.
+  David: 2,
+  Michaël: 2,
+  // Les filles de Michaël — trois crans depuis Mag.
+  Juliette: 3,
+  Marie: 3,
+  Zoé: 3,
+  // Cousine germaine : Mag → son pere → ses grands-parents → Helene → Angèle.
+  Angèle: 4,
+  // Hors de l'arbre. Katia est dite « sœur de Maria Assunta », et Maria Assunta
+  // ne figure nulle part dans la genealogie relevee par Mag.
+  'Katia Asaro': DEHORS,
+  Alex: DEHORS,
+  Guillaume: DEHORS,
+} as const;
+
+type Personne = keyof typeof DEGRES;
+
+// ─────────────────────────────────────────────────────────────────────────
+// `qui` NE REMPLACE PAS `label` : le libelle reste ce que Mag ecrit et ce qui
+// s'affiche (« Wk juju mamie », « Angèle +++ »), `qui` est ce qui se compte.
+// Les « +++ » disent qu'il y a du monde en plus sans dire qui : ils ne peuvent
+// donc peser sur aucune couleur.
+// ─────────────────────────────────────────────────────────────────────────
+type Sejour = { label: string; qui: Personne[]; start: string; end: string; tentative?: boolean };
 
 const SEJOURS: Sejour[] = [
-  { label: 'Manon, Alex, Régine et Mag', start: '2026-07-04', end: '2026-07-14' },
-  { label: 'Katia Asaro, sœur de Maria Assunta', start: '2026-07-15', end: '2026-07-28' },
-  { label: 'Angèle +++', start: '2026-07-30', end: '2026-08-08' },
-  { label: 'Eve', start: '2026-08-20', end: '2026-09-01' },
-  { label: 'Wk juju mamie', start: '2026-09-17', end: '2026-09-21', tentative: true },
-  { label: 'Mag +++', start: '2026-09-22', end: '2026-10-01' },
-  { label: 'Marie & Guillaume', start: '2026-10-17', end: '2026-11-01' },
+  { label: 'Manon, Alex, Régine et Mag', qui: ['Manon', 'Alex', 'Régine', 'Mag'], start: '2026-07-04', end: '2026-07-14' },
+  { label: 'Katia Asaro, sœur de Maria Assunta', qui: ['Katia Asaro'], start: '2026-07-15', end: '2026-07-28' },
+  { label: 'Angèle +++', qui: ['Angèle'], start: '2026-07-30', end: '2026-08-08' },
+  { label: 'Eve', qui: ['Eve'], start: '2026-08-20', end: '2026-09-01' },
+  { label: 'Wk juju mamie', qui: ['Juliette', 'Régine'], start: '2026-09-17', end: '2026-09-21', tentative: true },
+  { label: 'Mag +++', qui: ['Mag'], start: '2026-09-22', end: '2026-10-01' },
+  { label: 'Marie & Guillaume', qui: ['Marie', 'Guillaume'], start: '2026-10-17', end: '2026-11-01' },
 ];
+
+/*
+ * LE PLUS PROCHE L'EMPORTE. Un sejour n'est pas une personne : « Manon, Alex,
+ * Régine et Mag » melange deux filles, une mere et quelqu'un qui n'est pas de
+ * la famille. La case prend donc le degre le PLUS PETIT du groupe.
+ *
+ * L'inverse — le plus eloigne l'emporte — donnerait un calendrier ou la
+ * presence d'un seul invite exterieur effacerait la famille de la couleur.
+ */
+type Parente = 'proche' | 'famille' | 'dehors';
+const parenteDu = (s: Sejour): Parente => {
+  const degres: number[] = s.qui.map((p) => DEGRES[p]).filter((d) => d !== DEHORS) as number[];
+  if (degres.length === 0) return 'dehors';
+  return Math.min(...degres) <= 2 ? 'proche' : 'famille';
+};
 
 /*
  * LES MOIS NE SE LISTENT PLUS A LA MAIN.
@@ -65,28 +137,53 @@ const LOCALES: Record<string, string> = { it: 'it-IT', fr: 'fr-FR', en: 'en-GB' 
  * Ce n'est pas la barre en travers d'avant, qui portait un nom et masquait les
  * chiffres : le trait reste sous les jours, qui restent lisibles dessus.
  *
- * LE CONTRASTE, refait au calcul apres que Mag l'a trouve trop faible.
+ * LA COULEUR NE DIT PLUS « OCCUPE », ELLE DIT QUI (Mag). Rose la famille au
+ * premier et deuxieme degre, jaune le reste de la famille, vert ceux qui n'en
+ * sont pas, bleu les jours libres.
  *
- * Ma premiere version posait les trois etats a la meme pate — 13, 14 et 22 % —
- * en me disant que la lisibilite du chiffre commandait. C'etait mal poser le
- * probleme. Mesure : entre « occupe » et « libre », le rapport de luminosite
- * valait 1,04. Autrement dit AUCUN ecart de clarte : les deux cases ne se
- * distinguaient QUE par la teinte, rose contre vert — la paire exactement que
- * huit hommes sur cent ne separent pas, et qu'aucune photocopie ne rend.
+ * CE QUE CE CHANGEMENT COUTE, ecrit ici pour que personne n'ait a le
+ * redecouvrir : la couleur ne repond qu'a UNE question a la fois. Elle
+ * repondait a « est-ce libre ? » — la question qu'on se pose vraiment en
+ * ouvrant cette page. Elle repond maintenant a « qui est la ? ». Le libre ne se
+ * lit donc plus a la couleur seule mais au BLEU, une teinte parmi quatre, quand
+ * il etait la seule note verte au milieu du rose.
  *
- * Le rose monte donc a 45 % et le vert descend a 10 % : l'ecart passe a 1,78,
- * et le pris se voit maintenant comme une masse, pas comme une nuance. Le
- * chiffre reste noir dessus, a 6,71 contre les 4,5 demandes — ce qui repond a
- * ma crainte initiale : il y avait de la marge, je ne l'avais pas cherchee.
+ * LES QUATRE TEINTES SONT CALEES SUR LA CLARTE, PAS SUR LA TEINTE, et cette
+ * fois-ci la raison saute aux yeux : la palette demandee met cote a cote du
+ * ROSE et du VERT, exactement la paire que huit hommes sur cent ne separent
+ * pas. La version d'avant s'y etait deja cassee — rose contre vert a 1,04 de
+ * rapport, soit aucun ecart de clarte, un calendrier muet pour eux. Refaire la
+ * meme erreur en la rendant porteuse de sens (« famille » contre « pas la
+ * famille ») aurait ete pire que decoratif.
  *
- * L'ocre du « a confirmer » suit a 42 % : il doit se distinguer du rose (1,31)
- * sans redescendre au rang du libre, puisqu'il dit « probablement pris ».
+ * Mesures sur le fond creme du site, encre #2e2d2d par-dessus :
+ *
+ *   rose  45 %   encre  6,71
+ *   jaune 50 %   encre  9,28
+ *   vert  70 %   encre  4,81
+ *   bleu  14 %   encre 11,24
+ *
+ * et les ecarts de clarte entre teintes, la ou le daltonisme frappe :
+ *
+ *   rose / vert   1,39      jaune / vert  1,93      rose / jaune  1,38
+ *   bleu / vert   2,34      bleu / rose   1,68      bleu / jaune  1,21
+ *
+ * Le seul ecart faible est bleu contre jaune (1,21) — et c'est le seul qu'on
+ * puisse se permettre : bleu et jaune sont precisement la paire que la vision
+ * rouge-vert distingue le MIEUX. Les trois autres, elle ne les tient que par la
+ * clarte, et elles l'ont.
+ *
+ * Le vert est le plus fonce des quatre (encre a 4,81, contre 4,5 demandes) :
+ * c'est la seule maniere de le decoller du jaune sans le confondre avec le
+ * rose. Il n'y avait pas de marge ailleurs.
  */
-const OCCUPE = 'rgba(230, 41, 111, 0.45)';
-const A_CONFIRMER = 'rgba(192, 137, 74, 0.42)';
-const LIBRE = 'rgba(90, 150, 110, 0.10)';
+const PROCHE = 'rgba(230, 41, 111, 0.45)';
+const FAMILLE = 'rgba(232, 168, 0, 0.50)';
+const DEHORS_T = 'rgba(90, 122, 46, 0.70)';
+const LIBRE = 'rgba(74, 127, 196, 0.14)';
+const TEINTES: Record<Parente, string> = { proche: PROCHE, famille: FAMILLE, dehors: DEHORS_T };
 /** Les pastilles de la legende : pleines, elles, pour se voir a 12 px. */
-const PLEIN = { occupe: '#e6296f', confirmer: '#c0894a', libre: '#5a966e' };
+const PLEIN = { proche: '#e6296f', famille: '#e8a800', dehors: '#5a7a2e', libre: '#4a7fc4' };
 
 const ymd = (d: Date) => d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
 const lire = (s: string) => {
@@ -209,18 +306,37 @@ export default function Occupancy() {
 
   return (
     <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
-      <Reveal className="mb-10 flex flex-wrap gap-x-6 gap-y-2 text-[13px]" style={{ color: 'var(--cava-muted)' }}>
+      {/*
+        LA LEGENDE PORTE MAINTENANT DEUX CHOSES DE NATURES DIFFERENTES : quatre
+        pastilles de couleur, qui disent QUI, et une derniere entree qui n'est
+        pas une couleur du tout mais un SOULIGNE POINTILLE. Elles sont separees
+        par un filet vertical, sans quoi « a confirmer » se lirait comme une
+        cinquieme categorie de personnes.
+      */}
+      <Reveal className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]" style={{ color: 'var(--cava-muted)' }}>
         <span className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.occupe }} />
-          {c.legend.occupied}
+          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.proche }} />
+          {c.legend.close}
         </span>
         <span className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.confirmer }} />
-          {c.legend.tentative}
+          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.famille }} />
+          {c.legend.family}
+        </span>
+        <span className="flex items-center gap-2">
+          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.dehors }} />
+          {c.legend.outside}
         </span>
         <span className="flex items-center gap-2">
           <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.libre }} />
           {c.legend.free}
+        </span>
+        <span aria-hidden className="h-4 w-px" style={{ background: 'var(--cava-line)' }} />
+        <span className="flex items-center gap-2">
+          <span
+            className="h-3 w-4"
+            style={{ borderBottom: `2px dashed ${PLEIN.proche}` }}
+          />
+          {c.legend.tentative}
         </span>
       </Reveal>
 
@@ -299,7 +415,8 @@ export default function Occupancy() {
                   const s = si >= 0 ? SEJOURS[si] : null;
                   const passe = aujourdhui !== null && ymd(d) < aujourdhui;
                   const cejour = aujourdhui === ymd(d);
-                  const teinte = passe ? 'transparent' : s ? (s.tentative ? A_CONFIRMER : OCCUPE) : LIBRE;
+                  const parente = s ? parenteDu(s) : null;
+                  const teinte = passe ? 'transparent' : parente ? TEINTES[parente] : LIBRE;
                   /*
                    * LE TRAIT — Mag : « quand les dates sont occupees fait
                    * plutot une ligne, c'est plus clair ».
@@ -343,6 +460,22 @@ export default function Occupancy() {
                         color: passe ? 'var(--cava-line)' : 'var(--cava-ink)',
                         fontWeight: cejour ? 800 : 500,
                         border: cejour ? '1.5px solid var(--cava-ink)' : '1.5px solid transparent',
+                        /*
+                         * « A CONFIRMER » N'EST PLUS UNE COULEUR, C'EST UN
+                         * POINTILLE. Il l'etait — l'ocre — mais la couleur sert
+                         * desormais a dire QUI, et les deux faits sont
+                         * independants : un sejour peut etre incertain quel que
+                         * soit le degre de parente de celui qui vient. Les
+                         * confondre dans une seule teinte obligeait a choisir
+                         * lequel des deux on renonce a dire.
+                         *
+                         * Le pointille se pose SOUS la case, dans la couleur
+                         * pleine de sa parente. Il traverse le trait sans le
+                         * couper, et il survit a une impression en noir et
+                         * blanc — ce qu'une quatrieme teinte n'aurait pas fait.
+                         */
+                        borderBottom:
+                          s?.tentative && !passe ? `2px dashed ${PLEIN[parente!]}` : undefined,
                         // Carre du cote ou le sejour continue, arrondi la ou il
                         // s'ouvre et la ou il se ferme : le trait a donc deux
                         // bouts ronds et rien au milieu.
@@ -375,9 +508,15 @@ export default function Occupancy() {
                 <ul className="flex flex-col gap-1.5 border-t pt-3 text-[12.5px] leading-[1.45]" style={{ borderColor: 'var(--cava-line)' }}>
                   {sejoursDuMois(y, m).map(({ s, i }) => (
                     <li key={i} className="flex items-start gap-2">
+                      {/* La pastille reprend la parente, et le pointille
+                          l'incertitude — les deux memes signaux que la grille,
+                          pour qu'on n'ait pas a apprendre deux codes. */}
                       <span
                         className="mt-[5px] h-2.5 w-2.5 shrink-0 rounded-full"
-                        style={{ background: s.tentative ? PLEIN.confirmer : PLEIN.occupe }}
+                        style={{
+                          background: s.tentative ? 'transparent' : PLEIN[parenteDu(s)],
+                          border: s.tentative ? `2px dashed ${PLEIN[parenteDu(s)]}` : undefined,
+                        }}
                       />
                       <span>
                         <span style={{ fontWeight: 600 }}>{s.label}</span>{' '}
