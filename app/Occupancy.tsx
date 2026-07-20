@@ -58,6 +58,13 @@ const LOCALES: Record<string, string> = { it: 'it-IT', fr: 'fr-FR', en: 'en-GB' 
  * repasser sur les jours sans barre pour s'en assurer. La couleur inverse le
  * geste : le libre se voit d'un coup d'oeil, a l'echelle de cinq mois.
  *
+ * LES JOURS OCCUPES SE REJOIGNENT EN UN TRAIT (Mag : « c'est plus clair »).
+ * La couleur seule ne disait que « ce jour est pris », sept fois de suite ; il
+ * fallait compter les pastilles pour savoir combien de temps. Reliees, elles
+ * disent la DUREE — un sejour se mesure a la longueur du trait, sans compter.
+ * Ce n'est pas la barre en travers d'avant, qui portait un nom et masquait les
+ * chiffres : le trait reste sous les jours, qui restent lisibles dessus.
+ *
  * LE CONTRASTE, refait au calcul apres que Mag l'a trouve trop faible.
  *
  * Ma premiere version posait les trois etats a la meme pate — 13, 14 et 22 % —
@@ -261,6 +268,11 @@ export default function Occupancy() {
       <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {mois.map(([y, m]) => {
           const semaines = semainesDuMois(y, m);
+          // A plat : le trait a besoin de connaitre les VOISINS de chaque case,
+          // ce que la decoupe en semaines cache. L'indice suffit ensuite a dire
+          // la colonne (`di % 7`), donc a savoir si le voisin est bien sur la
+          // meme ligne.
+          const cases = semaines.flat();
           const nomDuMois = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(new Date(y, m, 1));
           return (
             <Reveal
@@ -281,12 +293,37 @@ export default function Occupancy() {
               </div>
 
               <div className="grid grid-cols-7 gap-1">
-                {semaines.flat().map((d, di) => {
+                {cases.map((d, di) => {
                   if (!d) return <div key={di} aria-hidden />;
                   const si = sejourDuJour(d);
                   const s = si >= 0 ? SEJOURS[si] : null;
                   const passe = aujourdhui !== null && ymd(d) < aujourdhui;
                   const cejour = aujourdhui === ymd(d);
+                  const teinte = passe ? 'transparent' : s ? (s.tentative ? A_CONFIRMER : OCCUPE) : LIBRE;
+                  /*
+                   * LE TRAIT — Mag : « quand les dates sont occupees fait
+                   * plutot une ligne, c'est plus clair ».
+                   *
+                   * Il ne se prolonge que vers un jour DU MEME SEJOUR. C'est la
+                   * condition qui fait tout le travail : deux sejours colles
+                   * bout a bout — Manon jusqu'au 14 juillet, Katia des le 15 —
+                   * portent la meme couleur et se lisaient comme une seule
+                   * masse de vingt-cinq jours. Le trait se coupe entre eux, et
+                   * ce blanc de 4 px est maintenant la seule chose qui dit le
+                   * jour de la releve.
+                   *
+                   * Le passe ne se relie pas non plus : sa case est
+                   * transparente, un trait l'y ferait reapparaitre.
+                   */
+                  const suite = (autre: Date | null | undefined) =>
+                    !!s &&
+                    !passe &&
+                    !!autre &&
+                    sejourDuJour(autre) === si &&
+                    !(aujourdhui !== null && ymd(autre) < aujourdhui);
+                  const versGauche = di % 7 > 0 && suite(cases[di - 1]);
+                  const versDroite = di % 7 < 6 && suite(cases[di + 1]);
+                  const rond = (coin: boolean) => (coin ? '0px' : '10px');
                   return (
                     <div
                       key={di}
@@ -297,15 +334,29 @@ export default function Occupancy() {
                        * grille le dit en clair — ceci n'est que le raccourci.
                        */
                       title={s ? `${s.label} — ${jourFormat.format(lire(s.start))} → ${jourFormat.format(lire(s.end))}` : undefined}
-                      className="flex aspect-square items-center justify-center rounded-[10px] text-[13px]"
+                      className="flex aspect-square items-center justify-center text-[13px]"
                       style={{
                         // Le passe ne dit plus rien d'utile : « libre » sur une
                         // date ecoulee est une information morte, et le vert la
                         // ferait lire comme une occasion.
-                        background: passe ? 'transparent' : s ? (s.tentative ? A_CONFIRMER : OCCUPE) : LIBRE,
+                        background: teinte,
                         color: passe ? 'var(--cava-line)' : 'var(--cava-ink)',
                         fontWeight: cejour ? 800 : 500,
                         border: cejour ? '1.5px solid var(--cava-ink)' : '1.5px solid transparent',
+                        // Carre du cote ou le sejour continue, arrondi la ou il
+                        // s'ouvre et la ou il se ferme : le trait a donc deux
+                        // bouts ronds et rien au milieu.
+                        borderRadius: `${rond(versGauche)} ${rond(versDroite)} ${rond(versDroite)} ${rond(versGauche)}`,
+                        /*
+                         * L'ombre COMBLE L'ECART DE LA GRILLE, elle ne decore
+                         * rien. `gap-1` pose 4 px entre deux cases : sans elle,
+                         * le « trait » resterait une file de pastilles collees.
+                         * Elle porte la teinte exacte de la case, et se peint
+                         * dans le vide entre les deux — jamais par-dessus la
+                         * voisine, donc aucun risque de doubler la
+                         * transparence et d'y laisser une barre plus foncee.
+                         */
+                        boxShadow: versDroite ? `4px 0 0 0 ${teinte}` : undefined,
                       }}
                     >
                       {d.getDate()}
