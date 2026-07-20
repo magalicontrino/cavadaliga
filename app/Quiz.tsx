@@ -421,7 +421,19 @@ export default function Quiz() {
               en colonnes melangerait un theme et un niveau dans la meme
               colonne — deux questions differentes posees au meme endroit.
             */}
-            <div className="cava-swipe -mx-6 shrink-0 overflow-x-auto px-6 md:-mx-10 md:px-10">
+            {/*
+              `-my-2 py-2` : de la place VERTICALE pour le survol.
+              Mesure du bug signale par Mag : le ruban faisait exactement
+              38 px, la hauteur d'une pastille, marge zero en haut comme en
+              bas. Or `overflow-x-auto` entraine `overflow-y: auto` — au
+              survol, l'agrandissement de 4 % debordait d'un pixel de chaque
+              cote et se faisait RABOTER par le conteneur, quand il ne
+              declenchait pas une barre de defilement verticale qui faisait
+              sauter la rangee. Huit pixels de marge interieure donnent l'air
+              qu'il faut, et la marge negative les reprend pour que rien ne
+              bouge autour.
+            */}
+            <div className="cava-swipe -mx-6 -my-2 shrink-0 overflow-x-auto px-6 py-2 md:-mx-10 md:px-10">
               <div className="flex w-max gap-2">
                 <Puce on={theme === null} onClick={() => trier(() => setTheme(null))}>{q.allThemes}</Puce>
                 {THEMES.map((x) => (

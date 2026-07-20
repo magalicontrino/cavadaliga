@@ -63,9 +63,31 @@ const LIGNEES: Record<Lignee, { plein: string; surPlein: string; trait: string; 
   nous: { plein: '#f06a9b', surPlein: '#2e2d2d', trait: '#d92263', texte: '#b81a56' },
 };
 
+/*
+ * LES ENFANTS ONT LEUR PROPRE COULEUR — Mag : « les parents, les enfants
+ * doivent avoir une autre couleur ».
+ *
+ * Ils portaient jusqu'ici la teinte de leur lignee, en contour : la meme
+ * couleur que le couple, seulement plus pale. La generation ne se lisait donc
+ * qu'a l'epaisseur du remplissage, ce qui est peu — et sur un arbre qui compte
+ * maintenant des petits-enfants imbriques, ce peu ne suffisait plus.
+ *
+ * Le vert ne designe aucune des deux lignees, et c'est exactement ce qu'on
+ * veut : il ne dit pas d'ou l'on vient — la position sous le couple le dit
+ * deja — il dit qu'on est la generation d'apres. Un couple garde sa couleur
+ * d'origine, ses enfants prennent le vert : le sens de lecture devient
+ * immediat.
+ *
+ * Le vert fonce porte le texte a 5,9 sur le fond creme, bien au-dela des 4,5
+ * demandes ; le trait est plus clair, comme pour les trois autres, sinon la
+ * carte se lit comme un bouton.
+ */
+const ENFANT = { trait: '#6f8f5f', texte: '#3b6d11' };
+
 function Card({ p, lignee, plein = false }: { p: Person; lignee: Lignee; plein?: boolean }) {
   const placeholder = p.name.startsWith('…');
-  const c = LIGNEES[lignee];
+  // Le couple garde la couleur de sa lignee ; tout ce qui descend prend le vert.
+  const c = plein ? LIGNEES[lignee] : { ...LIGNEES[lignee], ...ENFANT };
   return (
     <span
       className={`inline-flex flex-col items-center gap-0.5 rounded-xl px-4 py-2 ${placeholder ? 'border-dashed' : ''}`}
@@ -224,22 +246,23 @@ export default function FamilyTree() {
             { name: 'Jacques' },
             { name: 'Benito', subtitle: '1943' },
             { name: 'Lucia' },
-            { name: 'Helene' },
+            {
+              // Helene est une FILLE de Salvatore & Giuseppina, comme ses huit
+              // freres et soeurs — Mag l'a corrige. Elle avait en plus son
+              // propre bloc a cote du couple, ce qui la faisait lire comme une
+              // grand-mere de la maison alors qu'elle en est la tante. Ses
+              // cinq filles ne se perdent pas pour autant : elles descendent
+              // d'un cran, a leur vraie place.
+              name: 'Helene',
+              children: [
+                { name: 'Maria' },
+                { name: 'Angelina Contrino & Patrick Gamino', subtitle: 'Angèle' },
+                { name: 'Antoinette' },
+                { name: 'Rosalba', subtitle: 'Rose' },
+                { name: 'Giuseppina', subtitle: 'Jo' },
+              ],
+            },
             { name: 'Maria' },
-          ],
-        } },
-        {
-          fam: {
-          // Helene apparait deja comme fille de Salvatore & Giuseppina ci-dessus ;
-          // ici c'est sa propre branche. Son mari reste inconnu (dans les
-          // questions). Cinq filles, un surnom pour trois d'entre elles.
-          name: 'Helene Contrino',
-          children: [
-            { name: 'Maria' },
-            { name: 'Angelina Contrino & Patrick Gamino', subtitle: 'Angèle' },
-            { name: 'Antoinette' },
-            { name: 'Rosalba', subtitle: 'Rose' },
-            { name: 'Giuseppina', subtitle: 'Jo' },
           ],
         } },
         {
