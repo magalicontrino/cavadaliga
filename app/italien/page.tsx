@@ -460,7 +460,7 @@ export default function Italien() {
         surCarte(x.id);
       }}
       aria-current={(section ?? PLAN[0].id) === x.id ? 'true' : undefined}
-      className="group flex min-h-[11rem] flex-col justify-between gap-4 rounded-2xl border p-4 text-left transition-transform duration-200 hover:scale-[1.02] motion-reduce:transition-none min-[560px]:min-h-[13rem] min-[560px]:gap-6 min-[560px]:p-6 lg:aspect-square lg:min-h-0"
+      className="group flex aspect-square flex-col justify-between gap-1.5 rounded-2xl border p-3 text-left transition-transform duration-200 hover:scale-[1.02] motion-reduce:transition-none"
       /* La carte ouverte prend le filet d'encre : sur grand ecran c'est le seul
          indice de ce qu'on lit en dessous. Un fond plein serait trop fort — la
          grille compte huit cartes, elle deviendrait un damier. */
@@ -469,32 +469,31 @@ export default function Italien() {
         background: 'var(--cava-bg)',
       }}
     >
-      {/* Le texte EN HAUT, le glyphe EN BAS — l'ordre du modele de Mag. La
-          description revient : c'est elle qui dit a quoi sert la section, et le
-          titre seul ne le dit pas (« Le passe compose » n'annonce pas qu'on va
-          raconter). */}
-      <div className="flex flex-col gap-2">
-        <span className="text-[clamp(1.05rem,1.3vw,1.25rem)] leading-tight" style={{ fontWeight: 800 }}>{x.titre}</span>
-        <p className="text-[clamp(0.85rem,1vw,0.95rem)] leading-[1.45]" style={{ color: 'var(--cava-muted)' }}>
-          {p.planDesc[x.id]}
-        </p>
-      </div>
       {/*
-        LE GLYPHE PLEIN, en bas a gauche, en grand — le modele de Mag ne laisse
-        aucun doute la-dessus. Il est massif expres : a 44 px, un trait fin
-        parait maigre alors qu'un aplat tient. Le niveau se range a cote, petit,
-        parce qu'il informe sans avoir a se faire voir.
+        LE GLYPHE EN HAUT, le texte dessous.
+        Sur le modele de Mag il etait en bas, a cote du niveau — mais le modele
+        montrait quatre colonnes larges. A huit, la vignette fait 140 px : il n'y
+        a plus la largeur pour poser un glyphe de 40 px ET « Niveau 2 · Se
+        debrouiller » sur la meme ligne. Le glyphe ouvre donc la vignette, ce qui
+        est aussi le sens de lecture naturel — le pictogramme d'abord, le mot
+        ensuite.
       */}
-      <div className="flex items-end justify-between gap-3">
-        <span style={{ color: 'var(--cava-ink)' }}>
-          {/* La taille passe par des classes et non par `size` : elle doit
-              suivre la largeur d'ecran, et un attribut SVG ne sait pas faire ça.
-              36 px sur telephone, 44 des qu'il y a la place. */}
-          <GlyphePlein name={x.glyphe} className="h-9 w-9 min-[560px]:h-11 min-[560px]:w-11" />
-        </span>
+      <span style={{ color: 'var(--cava-ink)' }}>
+        <GlyphePlein name={x.glyphe} className="h-8 w-8 min-[560px]:h-10 min-[560px]:w-10" />
+      </span>
+      <div className="flex flex-col gap-1">
+        <span className="text-[clamp(0.85rem,1.05vw,1rem)] leading-tight" style={{ fontWeight: 800 }}>{x.titre}</span>
         <span className="text-[10px] uppercase leading-tight tracking-[0.08em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
           {x.niveau}
         </span>
+        {/*
+          LA DESCRIPTION NE S'AFFICHE PLUS — Mag : « retire les sous-titres en
+          gris ». Elle n'est pas supprimee pour autant : `sr-only` la garde
+          lisible par les liseuses d'ecran et par les moteurs, et le titre de la
+          section la redit en clair des qu'on ouvre. Elle disparait de l'oeil,
+          pas du site.
+        */}
+        <span className="sr-only">{p.planDesc[x.id]}</span>
       </div>
     </a>
   );
@@ -904,29 +903,28 @@ export default function Italien() {
       */}
       <section id="cartes" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-16 pt-10 md:px-10 md:pb-0">
         {/*
-          QUATRE COLONNES, comme le modele que Mag a montre — « comme ça !!!! ».
+          HUIT VIGNETTES SUR UNE RANGEE — Mag : « par 8 sur la page sur ecran
+          c'est bien ». Deux au plus etroit, trois sur un grand telephone,
+          quatre sur tablette, huit des 1280 px.
 
-          On etait passe par huit vignettes sur une seule rangee. Ça tenait,
-          mais au prix de la description : a 140 px de cote, il n'y a la place
-          que d'un titre. Le modele tranche autrement — la description reste, et
-          c'est elle qui dit a quoi sert la section. Quatre colonnes, donc, et
-          la vignette redevient assez grande pour porter les deux.
+          LE PALIER DES HUIT EST `xl`, UN PALIER NOMME, et ça compte : Tailwind
+          ecrit les paliers sur mesure AVANT les paliers nommes, si bien qu'un
+          `min-[1500px]` se faisait battre par `md:grid-cols-4`, ecrit plus loin
+          dans la feuille. Mesure a 1600 px, quatre colonnes la ou huit etaient
+          demandees, et rien dans le HTML pour le laisser deviner.
 
-          `lg:aspect-square` et pas `aspect-square` tout court : le carre n'est
-          impose QU'A PARTIR DE 1024 px, la ou la colonne depasse 230 px. En
-          dessous, la vignette prend la hauteur qu'il lui faut — mesure a 430 px
-          sur l'ancienne version, une tuile demandee carree sortait a 122 sur
-          141. `aspect-square` donne une proportion, pas une hauteur : des que
-          le texte ne rentre pas, il pousse et le carre se perd. Mieux vaut une
-          vignette franchement rectangulaire qu'un carre qui n'en est pas un.
+          `aspect-square` donne une PROPORTION, pas une hauteur : des que le
+          contenu ne rentre pas dans la largeur, il pousse et le carre se perd.
+          A 1280 px la colonne fait 140 px, et trois vignettes sortaient a
+          140 sur 141 — un pixel, mais un pixel qui se voit sur une rangee
+          alignee. La marge interieure est donc a 12 px et l'ecart a 6 : trois
+          pixels de matelas, mesures, et verifies dans les trois langues (les
+          titres italiens sont les plus longs).
 
-          Deux colonnes sur telephone — Mag les voulait ainsi, et une seule
-          colonne donnait 1776 px de grille, mesures : on faisait defiler huit
-          ecrans avant d'atteindre le cours. A deux, la marge interieure tombe a
-          16 px et le glyphe a 36 : c'est ce qui rend au texte la largeur que la
-          colonne lui prend.
+          Le seuil des trois colonnes reste a 500 px, ou la colonne fait 145 :
+          en dessous, le carre ne tenait plus non plus.
         */}
-        <Reveal className="grid grid-cols-2 gap-3 min-[560px]:gap-4 lg:grid-cols-4">
+        <Reveal className="grid grid-cols-2 gap-3 min-[500px]:grid-cols-3 md:grid-cols-4 xl:grid-cols-8">
           {PLAN.map((x) => carteSommaire(x))}
         </Reveal>
       </section>
