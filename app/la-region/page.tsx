@@ -151,6 +151,8 @@ export default function LaRegion() {
     setCible(null);
   }, [cible, filter]);
   // Incrementé à chaque choix : dit aux Reveal en dessous de se montrer d'un coup.
+  // Le tri deplie ou non — telephone seulement, voir le rendu plus bas.
+  const [deplie, setDeplie] = useState(false);
   const [clicks, setClicks] = useState(0);
   const choose = (k: Key) => {
     setFilter(k);
@@ -279,15 +281,47 @@ export default function LaRegion() {
 
       {/* Le tri : la page est longue, on choisit ce qu'on cherche */}
       <section className="mx-auto max-w-[110rem] px-5 md:px-10">
-        <Reveal className="cava-swipe -mx-5 -my-4 flex gap-2.5 overflow-x-auto px-5 py-4 md:-mx-10 md:px-10">
-          {filters.map((x) => {
-            const on = filter === x.key;
-            return (
-              <FilterChip key={x.key} label={x.label} icon={x.icon} active={on} onClick={() => choose(x.key)} />
-            );
-          })}
-          <FilterChip label={rf.all} icon="map" active={filter === 'tout'} onClick={() => choose('tout')} subtle />
+        {/*
+          LE TRI REVIENT A LA LIGNE, comme celui du quiz — meme raison, en pire :
+          ce ruban compte vingt boutons et en cachait 1755 px sur la droite,
+          mesure faite. Un debordement lateral ne laisse aucune trace ; on ne
+          peut pas choisir « Des livres » ni « L'italien » si rien ne dit qu'ils
+          existent.
 
+          MAIS DEPLIER VINGT BOUTONS SUR UN TELEPHONE NE VAUT PAS MIEUX : mesure
+          a 375 px, onze lignes et 694 px de haut, soit 85 % de l'ecran rien que
+          pour le tri. On aurait remplace un defaut par un autre.
+
+          D'ou le repli : sur telephone, trois rangees au plus, et un bouton
+          « Voir tous les themes » qui ouvre le reste. Ce n'est PAS le meme
+          geste que le defilement lateral — ici, ce qui est cache s'annonce, et
+          s'ouvre d'une seule touche. Sur grand ecran il n'y a rien a replier :
+          les vingt tiennent en trois lignes, et `md:max-h-none` leve la limite.
+        */}
+        <Reveal>
+          <div
+            className={`flex flex-wrap gap-2.5 md:max-h-none md:overflow-visible ${
+              deplie ? '' : 'max-h-[10.5rem] overflow-hidden'
+            }`}
+          >
+            {filters.map((x) => {
+              const on = filter === x.key;
+              return (
+                <FilterChip key={x.key} label={x.label} icon={x.icon} active={on} onClick={() => choose(x.key)} />
+              );
+            })}
+            <FilterChip label={rf.all} icon="map" active={filter === 'tout'} onClick={() => choose('tout')} subtle />
+          </div>
+
+          {/* `md:hidden` : sur grand ecran, rien n'est cache, donc rien a ouvrir. */}
+          <button
+            type="button"
+            onClick={() => setDeplie((d) => !d)}
+            className="mt-3 text-[13px] underline underline-offset-4 md:hidden"
+            style={{ color: 'var(--cava-muted)', fontWeight: 600 }}
+          >
+            {deplie ? t.filtersLess : t.filtersMore}
+          </button>
         </Reveal>
       </section>
 

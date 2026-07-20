@@ -255,6 +255,9 @@ export type Dict = {
   };
   /** Le mot « Sources », devant les liens discrets des sections explicatives. */
   sourcesLabel: string;
+  /** Le repli du tri sur telephone : vingt boutons n'y tiennent pas deplies. */
+  filtersMore: string;
+  filtersLess: string;
   regionFilter: {
     all: string;
     places: string;
@@ -657,7 +660,7 @@ const FR: Dict = {
     'Petite plage entre Donnalucata et Cava d’Aliga, Bruca est un coin tranquille au sable clair, qui s’anime l’été autour de sa communauté : concerts, cinéma en plein air et fêtes du Comitato Bruca.',
     'Ancien village de pêcheurs aux maisons colorées, Sampieri déroule l’une des plus longues plages de la côte. Son charme suranné en a fait un décor récurrent des tournages de Montalbano.',
     'Sur le promontoire se dressent les ruines de la Fornace Penna, une briqueterie du début du XXᵉ siècle ravagée par un incendie en 1924. Sa silhouette face à la mer — « la Mànnara » de Montalbano — est devenue iconique.',
-    'À deux kilomètres de la maison, la côte cesse d’être une plage : une falaise basse, creusée par l’eau, qu’on longe par une piste de terre jusqu’à Sampieri. On y trouve la Grotta dei Contrabbandieri — la grotte des Contrebandiers — où la mer entre par un bras d’eau, et « a spaccazza », une descente naturelle taillée dans une fissure si étroite qu’on n’y passe qu’un par un. À la pointe, une bâtisse abandonnée avec sa guérite au bord du vide : ce n’est pas tout à fait un phare, c’est la casa del finanziere, l’ancien poste des douaniers, où Montalbano a tourné. Autour, des agaves, des figuiers de Barbarie, des câpriers et des palmiers nains.',
+    'À deux kilomètres de la maison, la côte cesse d’être une plage : une falaise basse, creusée par l’eau, qu’on longe par une piste de terre jusqu’à Sampieri. On y trouve la Grotta dei Contrabbandieri — la grotte des Contrebandiers — où la mer entre par un bras d’eau qui s’allume quand la lumière tombe bas, et « a spaccazza », une descente naturelle taillée dans une fissure si étroite qu’on n’y passe qu’un par un. À la pointe, une bâtisse abandonnée avec sa guérite au bord du vide : ce n’est pas tout à fait un phare, c’est la casa del finanziere, l’ancien poste des douaniers, où Montalbano a tourné. Autour, des agaves, des figuiers de Barbarie, des câpriers et des palmiers nains.',
     'Station balnéaire animée de Ragusa, Marina di Ragusa aligne une longue plage de sable (Pavillon Bleu), un port de plaisance et une promenade qui s’animent surtout l’été — baignades, apéritifs et soirées au bord de l’eau.',
     'Ville baroque étagée dans une gorge, Modica est mondialement connue pour son chocolat travaillé à froid selon une recette d’origine aztèque. Son église San Giorgio compte parmi les chefs-d’œuvre du baroque sicilien.',
     'Perchée sur un éperon rocheux, Raguse se partage entre la ville haute et Ibla, son cœur baroque labyrinthique. Le duomo San Giorgio y domine une place en pente bordée de palais.',
@@ -1054,6 +1057,8 @@ const FR: Dict = {
     songs: 'Chansons',
   },
   sourcesLabel: 'Sources :',
+  filtersMore: 'Voir tous les thèmes',
+  filtersLess: 'Réduire',
   regionFilter: {
     all: 'Tout voir',
     places: 'Les lieux',
@@ -1815,7 +1820,7 @@ const IT: Dict = {
     'Piccola spiaggia tra Donnalucata e Cava d’Aliga, Bruca è un angolo tranquillo dalla sabbia chiara, che d’estate si anima attorno alla sua comunità: concerti, cinema all’aperto e feste del Comitato Bruca.',
     'Antico borgo di pescatori dalle case colorate, Sampieri offre una delle spiagge più lunghe della costa. Il suo fascino d’altri tempi ne ha fatto un set ricorrente delle riprese di Montalbano.',
     'Sul promontorio si ergono le rovine della Fornace Penna, una fabbrica di mattoni di inizio Novecento distrutta da un incendio nel 1924. La sua sagoma di fronte al mare — « la Mànnara » di Montalbano — è diventata iconica.',
-    'A due chilometri da casa la costa smette di essere spiaggia: una scogliera bassa, scavata dall’acqua, che si costeggia per una strada sterrata fino a Sampieri. Ci sono la Grotta dei Contrabbandieri, dove il mare entra da un braccio d’acqua, e « a spaccazza », una discesa naturale scavata in una fessura così stretta che ci si passa uno alla volta. Sulla punta, un rudere con la sua garitta sull’orlo del vuoto: non è proprio un faro, è la casa del finanziere, l’antico posto di guardia, dove ha girato Montalbano. Intorno, agavi, fichi d’India, capperi e palme nane.',
+    'A due chilometri da casa la costa smette di essere spiaggia: una scogliera bassa, scavata dall’acqua, che si costeggia per una strada sterrata fino a Sampieri. Ci sono la Grotta dei Contrabbandieri, dove il mare entra da un braccio d’acqua che si accende quando la luce cala, e « a spaccazza », una discesa naturale scavata in una fessura così stretta che ci si passa uno alla volta. Sulla punta, un rudere con la sua garitta sull’orlo del vuoto: non è proprio un faro, è la casa del finanziere, l’antico posto di guardia, dove ha girato Montalbano. Intorno, agavi, fichi d’India, capperi e palme nane.',
     'Vivace località balneare di Ragusa, Marina di Ragusa allinea una lunga spiaggia di sabbia (Bandiera Blu), un porto turistico e un lungomare che si animano soprattutto d’estate — bagni, aperitivi e serate in riva al mare.',
     'Città barocca adagiata in una gola, Modica è celebre nel mondo per il suo cioccolato lavorato a freddo secondo una ricetta di origine azteca. La chiesa di San Giorgio è tra i capolavori del barocco siciliano.',
     'Arroccata su uno sperone roccioso, Ragusa si divide tra la città alta e Ibla, il suo cuore barocco labirintico. Il duomo di San Giorgio domina una piazza in pendenza cinta di palazzi.',
@@ -2212,6 +2217,8 @@ const IT: Dict = {
     songs: 'Canzoni',
   },
   sourcesLabel: 'Fonti:',
+  filtersMore: 'Mostra tutti i temi',
+  filtersLess: 'Mostra meno',
   regionFilter: {
     all: 'Vedi tutto',
     places: 'I luoghi',
@@ -2966,7 +2973,7 @@ const EN: Dict = {
     'A small beach between Donnalucata and Cava d’Aliga, Bruca is a quiet spot with pale sand that comes alive in summer around its community: concerts, open-air cinema and Comitato Bruca festivities.',
     'A former fishing village with colourful houses, Sampieri unrolls one of the longest beaches on the coast. Its old-world charm has made it a recurring filming location for Montalbano.',
     'On the headland stand the ruins of the Fornace Penna, an early-20th-century brickworks destroyed by fire in 1924. Its silhouette against the sea — Montalbano’s « Mànnara » — has become iconic.',
-    'Two kilometres from the house the coast stops being a beach: a low cliff, hollowed by the water, which you follow along a dirt track all the way to Sampieri. Here are the Grotta dei Contrabbandieri — the Smugglers’ Cave — where the sea comes in through an arm of water, and “a spaccazza”, a natural descent cut into a fissure so narrow that only one person passes at a time. Out on the point, an abandoned building with its sentry box on the edge of the drop: not quite a lighthouse, but the casa del finanziere, the old customs post, where Montalbano was filmed. All around: agaves, prickly pears, capers and dwarf palms.',
+    'Two kilometres from the house the coast stops being a beach: a low cliff, hollowed by the water, which you follow along a dirt track all the way to Sampieri. Here are the Grotta dei Contrabbandieri — the Smugglers’ Cave — where the sea comes in through an arm of water that lights up as the sun drops low, and “a spaccazza”, a natural descent cut into a fissure so narrow that only one person passes at a time. Out on the point, an abandoned building with its sentry box on the edge of the drop: not quite a lighthouse, but the casa del finanziere, the old customs post, where Montalbano was filmed. All around: agaves, prickly pears, capers and dwarf palms.',
     'A lively seaside resort of Ragusa, Marina di Ragusa lines up a long sandy beach (Blue Flag), a marina and a promenade that come alive in summer — swimming, aperitivi and evenings by the water.',
     'A Baroque town cascading down a gorge, Modica is world-famous for its cold-worked chocolate, made to an Aztec-origin recipe. Its church of San Giorgio ranks among the masterpieces of Sicilian Baroque.',
     'Perched on a rocky spur, Ragusa is split between the upper town and Ibla, its labyrinthine Baroque heart. The San Giorgio cathedral crowns a sloping square lined with palaces.',
@@ -3363,6 +3370,8 @@ const EN: Dict = {
     songs: 'Songs',
   },
   sourcesLabel: 'Sources:',
+  filtersMore: 'Show all themes',
+  filtersLess: 'Show fewer',
   regionFilter: {
     all: 'See all',
     places: 'The places',
