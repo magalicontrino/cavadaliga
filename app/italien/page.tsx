@@ -291,6 +291,9 @@ export default function Italien() {
    */
   const surCarte = (id: string) => {
     if (typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches) {
+      // Sur grand ecran, la carte CHOISIT la section : c'est elle, et elle
+      // seule, qui s'affiche sous la grille. Voir le commentaire du rendu.
+      setSection(id);
       /*
        * L'ancre est REPOSEE a la main. Le commentaire ci-dessus l'annoncait
        * depuis le debut, mais `preventDefault` — necessaire pour prendre en
@@ -313,6 +316,27 @@ export default function Italien() {
    * elle ne menerait qu'a la ou l'on est deja. Sur telephone, la page se resume
    * aux cartes : la fleche ne s'y declenche jamais.
    */
+  /*
+   * OUVRIR LA SECTION QUE L'ANCRE DEMANDE.
+   *
+   * Depuis qu'une seule section s'affiche a la fois, les sept autres sont
+   * masquees : un lien venu d'ailleurs — « /italien#futuro » partage, ou
+   * « relire le passage » depuis le quiz — atterrirait sur une section
+   * invisible, et on croirait la page cassee. On lit donc l'ancre au
+   * chargement, ET a chaque changement : un « #chansons » tape dans la barre
+   * d'adresse doit ouvrir les chansons, pas laisser la page telle quelle.
+   */
+  useEffect(() => {
+    const viser = () => {
+      const cle = window.location.hash.slice(1);
+      if (cle && PLAN.some((x) => x.id === cle)) setSection(cle);
+    };
+    viser();
+    window.addEventListener('hashchange', viser);
+    return () => window.removeEventListener('hashchange', viser);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [remonter, setRemonter] = useState(false);
   useEffect(() => {
     const voir = () => setRemonter(window.scrollY > window.innerHeight * 0.8);
@@ -403,8 +427,15 @@ export default function Italien() {
         e.preventDefault();
         surCarte(x.id);
       }}
+      aria-current={(section ?? PLAN[0].id) === x.id ? 'true' : undefined}
       className="group flex min-h-[9.5rem] flex-col justify-between gap-5 rounded-2xl border p-6 text-left transition-transform duration-200 hover:scale-[1.01] motion-reduce:transition-none"
-      style={{ borderColor: 'var(--cava-line)', background: 'var(--cava-bg)' }}
+      /* La carte ouverte prend le filet d'encre : sur grand ecran c'est le seul
+         indice de ce qu'on lit en dessous. Un fond plein serait trop fort — la
+         grille compte huit cartes, elle deviendrait un damier. */
+      style={{
+        borderColor: (section ?? PLAN[0].id) === x.id ? 'var(--cava-ink)' : 'var(--cava-line)',
+        background: 'var(--cava-bg)',
+      }}
     >
       <div className="flex flex-col gap-2">
         <span className="text-[17px] leading-tight" style={{ fontWeight: 800 }}>{x.titre}</span>
@@ -825,11 +856,33 @@ export default function Italien() {
         </Reveal>
       </section>
 
-      {/* LE COURS EN CLAIR, sur grand ecran. Sur telephone il reste masque : la
-          feuille du bas le porte, section par section. Ici il est present dans
-          le HTML (donc indexe et cherchable), sous des titres ancres. */}
+      {/*
+        LE COURS, sur grand ecran : UNE SECTION A LA FOIS.
+
+        Il s'affichait entier, les huit sections empilees — cinquante-six
+        phrases, dix-huit conjugaisons, douze chansons. Mag : « sur ecran je
+        voudrais trouver une solution pour qu'il y ait toujours ça visible,
+        sinon la page est trop longue ». Elle a choisi celle qui raccourcit
+        vraiment plutot que celles qui aident seulement a se deplacer.
+
+        La grille reste donc en haut, la carte ouverte s'allume, et son contenu
+        vient juste dessous. Effet secondaire heureux : l'ecran et le telephone
+        se comportent enfin PAREIL — c'est leur difference qui avait cree le
+        probleme.
+
+        Au chargement, la premiere section est ouverte : une page qui
+        n'afficherait que des cartes ferait croire que le cours est vide.
+
+        Les sept autres restent dans le HTML, masquees : elles doivent rester
+        indexables et cherchables, et « relire le passage » du quiz doit
+        pouvoir viser leur ancre.
+      */}
       <div className="hidden md:block">
-        {PLAN.map(sectionInline)}
+        {PLAN.map((x) => (
+          <div key={x.id} className={(section ?? PLAN[0].id) === x.id ? '' : 'sr-only'}>
+            {sectionInline(x)}
+          </div>
+        ))}
       </div>
 
       <Footer />
