@@ -898,6 +898,35 @@ export const CHANSONS: Chanson[] = [
       en: 'The Italian comparative is one word: più. More softly, più piano; further, più lontano; more beautiful, più bello. No exceptions — one of the easiest things in the language.',
     },
   },
+  {
+    id: 'mi-sono-innamorato',
+    titre: 'Mi sono innamorato di te',
+    auteur: 'Luigi Tenco',
+    annee: '1962',
+    genre: 'auteur',
+    lien: 'https://it.wikipedia.org/wiki/Mi_sono_innamorato_di_te',
+    spotify: 'https://open.spotify.com/track/2mk42YyKT2pV4Kbc78lSVU',
+    quoi: {
+      fr: 'Tenco chante l’amour sans emphase, presque à contrecœur — le titre dit « je suis tombé amoureux de toi », et la chanson explique surtout qu’il n’avait rien demandé. Cette pudeur-là a fait école : c’est l’acte de naissance de la chanson d’auteur italienne.',
+      it: 'Tenco canta l’amore senza enfasi, quasi controvoglia. Quel pudore ha fatto scuola: è l’atto di nascita della canzone d’autore italiana.',
+      en: 'Tenco sings about love without emphasis, almost reluctantly — the title says “I have fallen in love with you”, and the song mostly explains that he had not asked for it. That restraint founded the Italian singer-songwriter tradition.',
+    },
+    mots: [
+      { it: 'innamorarsi', pron: 'in·na·mo·RAR·si', sens: { fr: 'tomber amoureux — verbe pronominal, comme en français', it: 'verbo riflessivo', en: 'to fall in love — a reflexive verb, as in French' } },
+      { it: 'mi sono innamorato', pron: 'mi SO·no in·na·mo·RA·to', sens: { fr: 'je suis tombé amoureux — une femme dirait innamorata', it: 'al femminile: innamorata', en: 'I have fallen in love — a woman would say innamorata' } },
+      { it: 'di te', pron: 'di TE', sens: { fr: 'de toi', it: 'della tua persona', en: 'with you' } },
+      { it: 'perché', pron: 'per·CHÉ', sens: { fr: 'parce que — et aussi pourquoi : le même mot pour les deux', it: 'la stessa parola per la domanda e per la risposta', en: 'because — and also why: the same word for both' } },
+      { it: 'la sera', pron: 'la SE·ra', sens: { fr: 'le soir', it: 'la fine del giorno', en: 'the evening' } },
+      { it: 'la noia', pron: 'la NO·ia', sens: { fr: 'l’ennui — un mot très présent chez Tenco', it: 'parola molto presente in Tenco', en: 'boredom — a word that runs through Tenco’s work' } },
+      { it: 'niente', pron: 'NIEN·te', sens: { fr: 'rien', it: 'nessuna cosa', en: 'nothing' } },
+      { it: 'il cuore', pron: 'il CUO·re', sens: { fr: 'le cœur', it: 'l’organo, e il sentimento', en: 'the heart' } },
+    ],
+    langue: {
+      fr: 'Le titre est un passé composé pronominal : mi sono innamorato. Avec un verbe pronominal, l’auxiliaire est toujours essere, et le participe s’accorde — innamorato pour un homme, innamorata pour une femme. C’est la règle qui trahit le plus les débutants.',
+      it: 'Il titolo è un passato prossimo riflessivo: l’ausiliare è sempre essere e il participio si accorda — innamorato, innamorata.',
+      en: 'The title is a reflexive past tense: mi sono innamorato. With reflexive verbs the auxiliary is always essere, and the participle agrees — innamorato for a man, innamorata for a woman. The rule that catches out beginners most.',
+    },
+  },
 ];
 
 export const EXERCICES: Exercice[] = [
