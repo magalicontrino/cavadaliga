@@ -832,19 +832,36 @@ export default function Italien() {
                 </span>
               </div>
 
+              {/* L'italien mene, la traduction suit dessous. C'est un cours
+                  d'italien : on lit d'abord la langue qu'on apprend, et le
+                  francais (ou l'anglais) n'est la que pour verifier. Sur la
+                  page italienne, `lang === 'it'` : la ligne du dessous ferait
+                  doublon, on ne la met pas. */}
               {ch.quoi && (
-                <p className="mt-3 max-w-[72ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{ch.quoi[lang]}</p>
+                <div className="mt-3 max-w-[72ch]">
+                  <p className="text-[15px] leading-[1.7]">{ch.quoi.it}</p>
+                  {lang !== 'it' && (
+                    <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{ch.quoi[lang]}</p>
+                  )}
+                </div>
               )}
 
               {/* Le deroule : ce que la chanson raconte, passage par passage.
                   Il tient la place du texte qu'on ne recopie pas — et il en
-                  dit plus, puisqu'il explique au lieu de citer. */}
+                  dit plus, puisqu'il explique au lieu de citer. Chaque passage
+                  se donne en italien, avec sa traduction juste dessous. */}
               {ch.deroule && (
                 <div className="mt-6 flex flex-col gap-4">
                   {ch.deroule.map((d) => (
                     <div key={d.titre.fr} className="border-l-2 pl-4" style={{ borderColor: 'var(--cava-line)' }}>
-                      <p className="text-[14px]" style={{ fontWeight: 600 }}>{d.titre[lang]}</p>
-                      <p className="mt-1 max-w-[72ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{d.texte[lang]}</p>
+                      <p className="text-[14px]" style={{ fontWeight: 600 }}>{d.titre.it}</p>
+                      {lang !== 'it' && (
+                        <p className="text-[13px]" style={{ fontWeight: 600, color: 'var(--cava-muted)' }}>{d.titre[lang]}</p>
+                      )}
+                      <p className="mt-1 max-w-[72ch] text-[14px] leading-[1.7]">{d.texte.it}</p>
+                      {lang !== 'it' && (
+                        <p className="mt-1 max-w-[72ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{d.texte[lang]}</p>
+                      )}
                     </div>
                   ))}
                 </div>

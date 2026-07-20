@@ -101,8 +101,19 @@ export default function BottomSheet({
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto overscroll-contain px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-5">
-          {children}
+        {/* La zone qui defile. On la coiffe d'un mince degrade blanc : quand le
+            texte remonte sous le titre, il s'efface au lieu d'etre tranche net
+            au ras de l'en-tete. Le degrade est POSE PAR-DESSUS (absolu, inerte),
+            il ne pousse rien et ne prend aucun clic. */}
+        <div className="relative min-h-0 flex-1">
+          <div className="h-full overflow-y-auto overscroll-contain px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-5">
+            {children}
+          </div>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-6"
+            style={{ background: 'linear-gradient(to bottom, #fff, rgba(255,255,255,0))' }}
+          />
         </div>
       </div>
     </div>
