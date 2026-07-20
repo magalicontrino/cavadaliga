@@ -440,6 +440,13 @@ export default function Italien() {
    * ordre ça sert. Prononcer et parler d'abord — sans eux on ne dit rien ; le
    * present ensuite, qui porte l'essentiel ; le passe et le futur en dernier,
    * dont on se passe une semaine sans que personne s'en apercoive.
+   *
+   * LES DEUX DERNIERES SONT PERMUTEES (Mag) : « s'entrainer » ferme la marche,
+   * « continuer ailleurs » passe devant. Cet ordre EST la mise en page — la
+   * grille lit le tableau tel quel, donc la derniere ligne est la vignette du
+   * bas a droite sur telephone, et la huitieme de la rangee sur grand ecran.
+   * Le sens y gagne : « ailleurs » renvoie hors du site, il n'avait rien a
+   * faire avant l'exercice qu'on peut encore faire ici.
    */
   const PLAN: { id: string; titre: string; niveau: string; icon: IconName; glyphe: GlypheName; intro?: string }[] = [
     { id: 'prononcer', titre: p.soundTitle, niveau: p.level1, icon: 'chat', glyphe: 'sons', intro: p.soundIntro },
@@ -448,8 +455,8 @@ export default function Italien() {
     { id: 'passato', titre: CONJUGAISONS[1].temps[lang], niveau: p.level2, icon: 'landmark', glyphe: 'retour' },
     { id: 'futuro', titre: CONJUGAISONS[2].temps[lang], niveau: p.level3, icon: 'compass', glyphe: 'avance' },
     { id: 'chansons', titre: p.songsTitle, niveau: p.levelAll, icon: 'vinyl', glyphe: 'disque', intro: p.songsIntro },
-    { id: 'exercices', titre: p.drillTitle, niveau: p.levelAll, icon: 'target', glyphe: 'cible', intro: p.drillIntro },
     { id: 'ailleurs', titre: p.elsewhereTitle, niveau: p.levelAll, icon: 'map', glyphe: 'depart', intro: p.elsewhereIntro },
+    { id: 'exercices', titre: p.drillTitle, niveau: p.levelAll, icon: 'target', glyphe: 'cible', intro: p.drillIntro },
   ];
   const ouverte = section ? PLAN.find((x) => x.id === section) : null;
 
