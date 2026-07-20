@@ -8,6 +8,7 @@ import Carousel from '../Carousel';
 import PageHeader from '../PageHeader';
 import Photo from '../Photo';
 import Icon, { type IconName } from '../Icon';
+import Sources from '../Sources';
 import FilterChip from '../FilterChip';
 import { useI18n } from '../i18n';
 import { withBase } from '../data';
@@ -732,6 +733,11 @@ export default function LaRegion() {
         <Reveal className="mt-6 max-w-[68ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
           {t.sportsPage.note}
         </Reveal>
+
+        {/* Les sources, en petit, sous la note — voir app/sourcesData.ts. */}
+        <Reveal>
+          <Sources section="sports" />
+        </Reveal>
       </section>
       )}
 
@@ -770,6 +776,11 @@ export default function LaRegion() {
 
         <Reveal className="mt-6 max-w-[68ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
           {t.faunaPage.note}
+        </Reveal>
+
+        {/* Les sources, en petit, sous la note — voir app/sourcesData.ts. */}
+        <Reveal>
+          <Sources section="faune" />
         </Reveal>
       </section>
       )}

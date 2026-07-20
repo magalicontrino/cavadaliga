@@ -253,6 +253,8 @@ export type Dict = {
     hands: string;
     songs: string;
   };
+  /** Le mot « Sources », devant les liens discrets des sections explicatives. */
+  sourcesLabel: string;
   regionFilter: {
     all: string;
     places: string;
@@ -1049,6 +1051,7 @@ const FR: Dict = {
     hands: 'Designer',
     songs: 'Chansons',
   },
+  sourcesLabel: 'Sources :',
   regionFilter: {
     all: 'Tout voir',
     places: 'Les lieux',
@@ -1217,6 +1220,11 @@ const FR: Dict = {
         icon: 'sun',
         title: 'I racchettoni',
         text: 'Deux raquettes en bois, une petite balle en caoutchouc, et le seul but est de ne PAS la faire tomber : on ne marque pas de point, on tient l’échange. C’est le jeu que Mag appelle le tambourin, et elle n’a pas tort — il descend du « tamburello da spiaggia » qu’on jouait déjà sur les plages italiennes au début du XXᵉ siècle. Sous sa forme actuelle, il date des années 1970, sur la riviera de Romagne. Demandez des « racchettoni » : c’est le mot écrit sur les paquets.',
+      },
+      {
+        icon: 'tools',
+        title: 'La balle au tambourin, le vrai sport',
+        text: 'Mag a raison de l’appeler ainsi : le tambourin est un sport codifié, et l’ancêtre de ce qu’on joue sur le sable. Le terrain fait 80 mètres de long sur 18 à 20 de large, coupé par une ligne médiane — pas de filet. Cinq joueurs par équipe dehors, trois en salle : deux fonds, deux cordiers, un tiers. On compte comme au tennis — 15, 30, 45, jeu — et il faut treize jeux pour gagner. Le service change à chaque jeu, on change de camp tous les trois. L’instrument est un cercle de plastique cerclé de cuivre, tendu d’une toile synthétique, avec une poignée de cuir ; le premier a été fabriqué en 1861 par un tonnelier de Mèze, dans l’Hérault. L’Italie a son championnat depuis 1896 — mais dans le Nord, en Lombardie et en Vénétie, pas ici. En Sicile, c’est son cousin de plage qu’on trouve.',
       },
       {
         icon: 'cone',
@@ -1405,6 +1413,16 @@ const FR: Dict = {
       { q: 'Quel autre nom porte la strummula ?', choix: ['U tuppettu', 'U pallino', 'A bocciata'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Quel poète antique décrit déjà la toupie ?', choix: ['Homère, dans l’Iliade', 'Virgile, dans l’Énéide', 'Ovide'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Où trouver raquettes, boules et balles sur place ?', choix: ['Dans n’importe quel bazar de bord de mer ou supermarché', 'Uniquement à Raguse', 'Il faut les apporter de France'], bonne: 0, ancre: 'sports', niveau: 'facile' },
+      // ── La balle au tambourin, le sport codifie. Source envoyee par Mag.
+      { q: 'Quelle longueur fait un terrain de balle au tambourin ?', choix: ['80 mètres', '40 mètres', '120 mètres'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Qu’est-ce qui sépare les deux camps, au tambourin ?', choix: ['Une ligne médiane, pas de filet', 'Un filet comme au tennis', 'Un mur'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Combien de joueurs par équipe, en plein air ?', choix: ['Cinq', 'Trois', 'Sept'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Comment compte-t-on les points au tambourin ?', choix: ['Comme au tennis — 15, 30, 45, jeu', 'De un en un jusqu’à 21', 'En sets de onze'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Combien de jeux faut-il gagner ?', choix: ['Treize', 'Six', 'Vingt'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Comment s’appellent les postes au tambourin ?', choix: ['Fonds, cordiers et tiers', 'Avants, arrières et pivots', 'Meneurs et ailiers'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'En quelle année le premier tambourin a-t-il été fabriqué ?', choix: ['En 1861, par un tonnelier de Mèze', 'En 1896', 'En 1952'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Depuis quand l’Italie a-t-elle un championnat de tamburello ?', choix: ['Depuis 1896', 'Depuis 1861', 'Depuis 1955'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Où joue-t-on au tamburello, en Italie ?', choix: ['Au Nord — Lombardie, Vénétie', 'En Sicile', 'Partout également'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
       { q: 'Où les premières pâtes sèches d’Europe sont-elles documentées ?', choix: ['En Sicile, à Trabia', 'À Naples', 'En Chine, rapportées par Marco Polo'], bonne: 0, ancre: 'arabe', niveau: 'facile' },
       { q: 'Comment s’appelaient ces fils de semoule décrits en 1154 ?', choix: ['Itriyya', 'Maccheroni', 'Tagliatelle'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Qui a écrit la plus ancienne mention des pâtes sèches d’Europe ?', choix: ['Al-Idrisi, dans le Livre de Roger', 'Marco Polo', 'Pline l’Ancien'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
@@ -2170,6 +2188,7 @@ const IT: Dict = {
     hands: 'Designer',
     songs: 'Canzoni',
   },
+  sourcesLabel: 'Fonti:',
   regionFilter: {
     all: 'Vedi tutto',
     places: 'I luoghi',
@@ -2338,6 +2357,11 @@ const IT: Dict = {
         icon: 'sun',
         title: 'I racchettoni',
         text: 'Due racchette di legno, una pallina di gomma, e l’unico scopo è NON farla cadere: non si fanno punti, si tiene lo scambio. È il gioco che Mag chiama tambourin, e non ha torto — discende dal « tamburello da spiaggia » che si giocava sulle spiagge italiane già a inizio Novecento. Nella forma attuale nasce negli anni Settanta, sulla riviera romagnola. Chiedete « racchettoni »: è la parola scritta sulle confezioni.',
+      },
+      {
+        icon: 'tools',
+        title: 'Il tamburello, lo sport vero',
+        text: 'Mag fa bene a chiamarlo così: il tamburello è uno sport codificato, e l’antenato di quello che si gioca sulla sabbia. Il campo è lungo 80 metri e largo dai 18 ai 20, tagliato da una linea mediana — nessuna rete. Cinque giocatori per squadra all’aperto, tre al coperto. Si conta come nel tennis — 15, 30, 45, gioco — e servono tredici giochi per vincere. Il servizio cambia a ogni gioco, si cambia campo ogni tre. Lo strumento è un cerchio di plastica cerchiato di rame, con una tela sintetica tesa e un’impugnatura di cuoio; il primo fu costruito nel 1861 da un bottaio di Mèze, nell’Hérault. L’Italia ha il suo campionato dal 1896 — ma al Nord, in Lombardia e in Veneto, non qui. In Sicilia si trova il cugino da spiaggia.',
       },
       {
         icon: 'cone',
@@ -2526,6 +2550,16 @@ const IT: Dict = {
       { q: 'Quale altro nome ha la strummula?', choix: ['U tuppettu', 'U pallino', 'A bocciata'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Quale poeta antico cita già la trottola?', choix: ['Omero, nell’Iliade', 'Virgilio, nell’Eneide', 'Ovidio'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Dove si trovano racchette, bocce e palline sul posto?', choix: ['In qualsiasi bazar sul mare o supermercato', 'Solo a Ragusa', 'Bisogna portarle da casa'], bonne: 0, ancre: 'sports', niveau: 'facile' },
+      // ── Il tamburello, lo sport codificato. Fonte inviata da Mag.
+      { q: 'Quanto è lungo un campo da tamburello?', choix: ['80 metri', '40 metri', '120 metri'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Che cosa separa i due campi, nel tamburello?', choix: ['Una linea mediana, nessuna rete', 'Una rete come nel tennis', 'Un muro'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Quanti giocatori per squadra, all’aperto?', choix: ['Cinque', 'Tre', 'Sette'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Come si contano i punti nel tamburello?', choix: ['Come nel tennis — 15, 30, 45, gioco', 'Uno alla volta fino a 21', 'In set da undici'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Quanti giochi servono per vincere?', choix: ['Tredici', 'Sei', 'Venti'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'In che anno fu costruito il primo tamburello?', choix: ['Nel 1861, da un bottaio di Mèze', 'Nel 1896', 'Nel 1952'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Da quando l’Italia ha un campionato di tamburello?', choix: ['Dal 1896', 'Dal 1861', 'Dal 1955'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Dove si gioca a tamburello, in Italia?', choix: ['Al Nord — Lombardia, Veneto', 'In Sicilia', 'Ovunque allo stesso modo'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'Di che cosa è fatto lo strumento?', choix: ['Un cerchio di plastica cerchiato di rame, con tela sintetica', 'Legno massiccio', 'Metallo pieno'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Dove è documentata la prima pasta secca d’Europa?', choix: ['In Sicilia, a Trabia', 'A Napoli', 'In Cina, portata da Marco Polo'], bonne: 0, ancre: 'arabe', niveau: 'facile' },
       { q: 'Come si chiamavano quei fili di semola descritti nel 1154?', choix: ['Itriyya', 'Maccheroni', 'Tagliatelle'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Chi ha scritto la più antica testimonianza della pasta secca d’Europa?', choix: ['Al-Idrisi, nel Libro di Ruggero', 'Marco Polo', 'Plinio il Vecchio'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
@@ -3284,6 +3318,7 @@ const EN: Dict = {
     hands: 'Designer',
     songs: 'Songs',
   },
+  sourcesLabel: 'Sources:',
   regionFilter: {
     all: 'See all',
     places: 'The places',
@@ -3452,6 +3487,11 @@ const EN: Dict = {
         icon: 'sun',
         title: 'I racchettoni',
         text: 'Two wooden bats, a small rubber ball, and the only aim is NOT to let it drop: nobody scores, you keep the rally alive. This is the game Mag calls tambourin, and she is not wrong — it descends from the “tamburello da spiaggia” played on Italian beaches back in the early 1900s. In its present form it dates from the 1970s, on the Romagna riviera. Ask for “racchettoni”: that is the word written on the packets.',
+      },
+      {
+        icon: 'tools',
+        title: 'Tambourin ball, the real sport',
+        text: 'Mag is right to call it that: tambourin is a codified sport, and the ancestor of what gets played on the sand. The pitch is 80 metres long by 18 to 20 wide, split by a centre line — no net. Five players a side outdoors, three indoors. Scoring follows tennis — 15, 30, 45, game — and it takes thirteen games to win. Service changes every game, ends change every three. The instrument is a plastic hoop bound with copper wire, stretched with synthetic cloth and fitted with a leather grip; the first was made in 1861 by a cooper from Mèze, in the Hérault. Italy has held a national championship since 1896 — but in the north, in Lombardy and the Veneto, not here. In Sicily you find its beach cousin.',
       },
       {
         icon: 'cone',
@@ -3640,6 +3680,16 @@ const EN: Dict = {
       { q: 'What other name does the strummula go by?', choix: ['U tuppettu', 'U pallino', 'A bocciata'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Which ancient poet already describes the spinning top?', choix: ['Homer, in the Iliad', 'Virgil, in the Aeneid', 'Ovid'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Where do you find bats, boules and balls locally?', choix: ['In any seafront bazaar or supermarket', 'Only in Ragusa', 'You have to bring them from home'], bonne: 0, ancre: 'sports', niveau: 'facile' },
+      // ── Tambourin ball, the codified sport. Source sent by Mag.
+      { q: 'How long is a tambourin pitch?', choix: ['80 metres', '40 metres', '120 metres'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'What separates the two halves, in tambourin?', choix: ['A centre line, no net', 'A net as in tennis', 'A wall'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'How many players a side, outdoors?', choix: ['Five', 'Three', 'Seven'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'How is tambourin scored?', choix: ['As in tennis — 15, 30, 45, game', 'One by one up to 21', 'In sets of eleven'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'How many games does it take to win?', choix: ['Thirteen', 'Six', 'Twenty'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'When was the first tambourin made?', choix: ['In 1861, by a cooper from Mèze', 'In 1896', 'In 1952'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Since when has Italy held a tamburello championship?', choix: ['Since 1896', 'Since 1861', 'Since 1955'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Where is tamburello played, in Italy?', choix: ['In the north — Lombardy, the Veneto', 'In Sicily', 'Everywhere equally'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      { q: 'What is the instrument made of?', choix: ['A plastic hoop bound with copper wire, stretched with synthetic cloth', 'Solid wood', 'Solid metal'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Where is Europe’s first dried pasta documented?', choix: ['In Sicily, at Trabia', 'In Naples', 'In China, brought back by Marco Polo'], bonne: 0, ancre: 'arabe', niveau: 'facile' },
       { q: 'What were those threads of semolina described in 1154 called?', choix: ['Itriyya', 'Maccheroni', 'Tagliatelle'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Who wrote the earliest record of dried pasta in Europe?', choix: ['Al-Idrisi, in the Book of Roger', 'Marco Polo', 'Pliny the Elder'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },

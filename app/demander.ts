@@ -210,8 +210,8 @@ const MOTS_MAISON: Record<string, string> = {
   // mots de Mag, et donc ceux que sa famille tapera — pas « racchettoni », qu'on
   // ne connait qu'une fois sur place.
   sports:
-    'sport sports jeu jeux jouer plage sable raquette raquettes tambourin tambourins racchettoni '
-    + 'petanque boule boules boccia bocce palet cochonnet pallino beach tennis volley planche '
+    'sport sports jeu jeux jouer plage sable raquette raquettes tambourin tambourins tamburello racchettoni '
+    + 'petanque boule boules boccia bocce palet cochonnet pallino beach tennis volley planche regle regles terrain filet '
     + 'windsurf surf vent brise toupie strummula tuppettu passeggiata promenade marcher activite activites enfants '
     + 'sport sports gioco giochi giocare spiaggia sabbia racchetta racchettoni tamburello bocce pallino bocciata '
     + 'beach tennis vento brezza tavola trottola strummula tuppettu passeggiata attivita bambini '
@@ -587,7 +587,7 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     lignes: [t.sportsPage.intro, ...t.sportsPage.facts.map((x) => `${x.title} — ${x.text}`), t.sportsPage.note],
     mots: motsMaison('sports'),
     motsPrecis: motsDe(
-      'racchettoni tambourin petanque bocce boules pallino bocciata strummula tuppettu passeggiata '
+      'racchettoni tambourin tamburello petanque bocce boules pallino bocciata strummula tuppettu passeggiata '
       + 'racchettoni tamburello bocce pallino bocciata strummula tuppettu passeggiata '
       + 'racchettoni boules bocce pallino bocciata strummula tuppettu passeggiata',
     ),
