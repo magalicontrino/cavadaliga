@@ -580,8 +580,25 @@ export default function Quiz({
               « L'italien » : deux boutons pour un seul choix, qui ne trie rien
               et laisse croire qu'il manque quelque chose.
             */}
-            <div className={`cava-swipe -mx-6 -my-2 shrink-0 overflow-x-auto px-6 py-2 md:-mx-10 md:px-10 ${themes.length > 1 ? '' : 'hidden'}`}>
-              <div className="flex w-max gap-2">
+            {/*
+              LES THEMES REVIENNENT A LA LIGNE — Mag : « revient a la ligne
+              quand il y en a trop ».
+
+              C'etait un ruban qui defilait lateralement. A douze themes, les
+              derniers sortaient de l'ecran : on ne pouvait pas choisir ce qu'on
+              ne voyait pas, et rien n'indiquait qu'il y en avait d'autres — un
+              debordement horizontal ne laisse aucune trace, contrairement a une
+              page qui se prolonge vers le bas.
+
+              `flex-wrap` remplace `overflow-x-auto`, et les marges negatives
+              partent avec lui : elles n'etaient la que pour rendre au ruban la
+              place que son debordement lui prenait. Au passage, la vieille gene
+              au survol disparait d'elle-meme — c'est `overflow-y: auto`,
+              implique par `overflow-x-auto`, qui rognait l'agrandissement des
+              pastilles.
+            */}
+            <div className={themes.length > 1 ? '' : 'hidden'}>
+              <div className="flex flex-wrap gap-2">
                 <Puce on={theme === null} onClick={() => trier(() => setTheme(null))}>{q.allThemes}</Puce>
                 {themes.map((x) => (
                   <Puce key={x.ancre} on={theme === x.ancre} onClick={() => trier(() => setTheme(x.ancre))}>
