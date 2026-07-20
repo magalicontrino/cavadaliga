@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
+import Quiz from '../Quiz';
 import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import Shape from '../Shape';
@@ -157,6 +158,18 @@ export default function PreparerLeVoyage() {
           </ul>
         </Reveal>
       </section>
+
+
+      {/*
+        LE QUIZ DE LA PAGE — Mag : « tu peux remettre a chaque fois le meme
+        quizz mais pointe sur le sujet en rapport avec la page ». Le meme
+        composant que sur « La region », la famille et l'italien ; seuls les
+        themes changent, et avec eux les questions.
+
+        La regle ne bouge pas : chaque bonne reponse est ecrite plus haut sur
+        CETTE page, et « relire le passage » y mene par l'ancre de sa section.
+      */}
+      <Quiz only={['voyage']} titre={t.quizPage.tripTitle} intro={t.quizPage.tripIntro} ancreLocale="groupes" />
 
       <Footer />
     </main>

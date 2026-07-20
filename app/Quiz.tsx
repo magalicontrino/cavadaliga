@@ -106,6 +106,24 @@ const THEMES = [
    */
   { ancre: 'recit', cle: 'story', chezElle: true },
   { ancre: 'arbre', cle: 'tree', chezElle: true },
+  /*
+   * LES PAGES PRATIQUES ont leur quiz elles aussi — Mag : « tu peux remettre a
+   * chaque fois le meme quizz mais pointe sur le sujet en rapport avec la
+   * page ».
+   *
+   * L'ancre de chaque theme est l'IDENTIFIANT DE SECTION de sa page : `arrivee`,
+   * `parking`, `argent`, `bestioles`, `depart` existent deja tels quels sur
+   * « Infos pratiques ». « Relire le passage » y mene donc sans qu'on ait rien
+   * a inventer — et le jour ou une section est renommee, le lien casse
+   * visiblement au lieu de mentir.
+   */
+  { ancre: 'arrivee', cle: 'arrival', chezElle: true },
+  { ancre: 'depart', cle: 'leaving', chezElle: true },
+  { ancre: 'parking', cle: 'parking', chezElle: true },
+  { ancre: 'argent', cle: 'money', chezElle: true },
+  { ancre: 'bestioles', cle: 'clean', chezElle: true },
+  { ancre: 'voyage', cle: 'trip', chezElle: true },
+  { ancre: 'dechets', cle: 'waste', chezElle: true },
 ] as const;
 
 /*
@@ -164,6 +182,29 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string, lang: 'fr' |
     // corriger une branche corrige l'extrait du quiz.
     case 'arbre':
       return texteArbre(t.salvaPage);
+    /*
+     * LES PAGES PRATIQUES. Meme principe que partout : on recolle le texte
+     * REELLEMENT affiche par la section, et l'extrait va y chercher la phrase
+     * qui porte la reponse. Corriger la page corrige le quiz.
+     */
+    case 'arrivee':
+      return [
+        t.arrivee.intro,
+        ...t.arrivee.address,
+        ...t.arrivee.operation.flatMap((o) => [o.title, ...(o.items ?? [])]),
+      ].join(' ');
+    case 'depart':
+      return [t.depart.intro, ...t.depart.checklist].join(' ');
+    case 'parking':
+      return [t.parkingPage.intro, ...t.parkingPage.facts.map((f) => `${f.title}. ${f.text}`), t.parkingPage.note].join(' ');
+    case 'argent':
+      return [t.cashPage.intro, ...t.cashPage.spots.map((x) => `${x.title}, ${x.where}. ${x.text}`), t.cashPage.note].join(' ');
+    case 'bestioles':
+      return [t.cleanPage.intro, ...t.cleanPage.rules, t.cleanPage.antsText].join(' ');
+    case 'voyage':
+      return t.prepare.groups.flatMap((g) => [g.title, ...(g.items ?? []), ...(g.links ?? []).map((l) => l.label)]).join(' ');
+    case 'dechets':
+      return [t.wastePage.intro, t.wastePage.eveningNote, t.wastePage.changeNote].join(' ');
     /*
      * L'italien : l'extrait se batit EN DEUX LANGUES, la phrase italienne
      * suivie de son sens. C'est ce que Mag demande — « fais tout en bilingue

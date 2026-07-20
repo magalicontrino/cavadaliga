@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Nav from '../Nav';
 import Footer from '../Footer';
+import Quiz from '../Quiz';
 import Reveal, { RevealNow } from '../Reveal';
 import PageHeader from '../PageHeader';
 import Icon, { type IconName } from '../Icon';
@@ -47,11 +48,26 @@ export default function InformationsPratiques() {
    */
   const [cible, setCible] = useState<Key | null>(null);
   useEffect(() => {
-    const cle = window.location.hash.slice(1) as Key;
-    if (!cle || !SECTIONS.includes(cle)) return;
-    setFilter(cle);
-    setClicks((c) => c + 1);
-    setCible(cle);
+    /*
+     * On lit l'ancre au chargement ET a chaque changement.
+     *
+     * Elle n'etait lue qu'au montage. Tant que les liens venaient d'ailleurs,
+     * ça suffisait — on arrivait sur la page, donc on la montait. Mais le quiz
+     * du bas vit SUR cette page : son « relire le passage » ne fait que poser
+     * un fragment, sans rechargement. Mesure faite, `#arrivee` s'ecrivait dans
+     * l'adresse et rien ne bougeait, la section restant cachee par le filtre.
+     * C'est exactement la panne qu'avait « La region », et pour la meme raison.
+     */
+    const viser = () => {
+      const cle = window.location.hash.slice(1) as Key;
+      if (!cle || !SECTIONS.includes(cle)) return;
+      setFilter(cle);
+      setClicks((c) => c + 1);
+      setCible(cle);
+    };
+    viser();
+    window.addEventListener('hashchange', viser);
+    return () => window.removeEventListener('hashchange', viser);
   }, []);
 
   /*
@@ -403,6 +419,18 @@ export default function InformationsPratiques() {
       </section>
 
       <div className="pb-16" />
+
+      {/*
+        LE QUIZ DE LA PAGE — Mag : « tu peux remettre a chaque fois le meme
+        quizz mais pointe sur le sujet en rapport avec la page ». Le meme
+        composant que sur « La region », la famille et l'italien ; seuls les
+        themes changent, et avec eux les questions.
+
+        La regle ne bouge pas : chaque bonne reponse est ecrite plus haut sur
+        CETTE page, et « relire le passage » y mene par l'ancre de sa section.
+      */}
+      <Quiz only={['arrivee', 'depart', 'parking', 'argent', 'bestioles']} titre={t.quizPage.houseTitle} intro={t.quizPage.houseIntro} />
+
       <Footer />
     </main>
     </RevealNow.Provider>

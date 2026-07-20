@@ -272,6 +272,14 @@ export type Dict = {
     // Les deux themes du quiz de la page famille.
     story: string;
     tree: string;
+    // Les themes des quiz poses sur les pages pratiques.
+    arrival: string;
+    leaving: string;
+    parking: string;
+    money: string;
+    clean: string;
+    trip: string;
+    waste: string;
   };
   infoFilter: {
     all: string;
@@ -491,6 +499,13 @@ export type Dict = {
     /** Et le meme jeu, au bas du cours d'italien. */
     italianTitle: string;
     italianIntro: string;
+    /** Les quiz des pages pratiques. */
+    houseTitle: string;
+    houseIntro: string;
+    tripTitle: string;
+    tripIntro: string;
+    wasteTitle: string;
+    wasteIntro: string;
     start: string;
     next: string;
     /** « Valider » : on choisit d'abord, on verifie ensuite. */
@@ -1029,6 +1044,13 @@ const FR: Dict = {
     italian: 'L’italien',
     story: 'Le récit',
     tree: 'L’arbre',
+    arrival: 'La maison',
+    leaving: 'Le départ',
+    parking: 'Se garer',
+    money: 'L’argent',
+    clean: 'Propreté',
+    trip: 'Le voyage',
+    waste: 'Les poubelles',
     history: 'Luttes & mémoire',
   },
   infoFilter: {
@@ -1235,6 +1257,12 @@ const FR: Dict = {
     familyIntro: 'Le récit de Salva, et l’arbre. Trois réponses possibles à chaque fois, et tout ce qu’il faut savoir est écrit plus haut sur cette page — chaque réponse vous dit où aller relire.',
     italianTitle: 'Vous connaissez l’italien ?',
     italianIntro: 'Cinquante-cinq questions tirées de ce cours — prononciation, conjugaison, phrases utiles, mots des chansons. Trois réponses possibles à chaque fois, et chacune vous dit où aller relire.',
+    houseTitle: 'Vous connaissez la maison ?',
+    houseIntro: 'La maison, le départ, le stationnement, l’argent, la propreté. Tout ce qu’il faut savoir est écrit plus haut sur cette page — chaque réponse vous dit où aller relire.',
+    tripTitle: 'Vous connaissez le trajet ?',
+    tripIntro: 'Aéroports, ferries, routes. Tout ce qu’il faut savoir est écrit plus haut sur cette page — chaque réponse vous dit où aller relire.',
+    wasteTitle: 'Vous connaissez le tri ?',
+    wasteIntro: 'Trois questions sur les bacs et leurs soirs. Tout est écrit plus haut sur cette page.',
     intro: 'Par thème, ou tout mélangé. Trois réponses possibles à chaque fois, et tout ce qu’il faut savoir est écrit plus haut sur cette page — chaque réponse vous dit où aller relire.',
     start: 'Commencer',
     next: 'Question suivante',
@@ -1387,6 +1415,46 @@ const FR: Dict = {
       { q: 'Celui qui part est l’emigrante ; celui qui arrive est…', choix: ['L’immigrato', 'Il partigiano', 'Il forestiero'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
       { q: 'Que veut dire « dolce » ?', choix: ['Doux et sucré à la fois', 'Amer', 'Froid'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
       { q: 'Comment dit-on « mieux » en italien ?', choix: ['Meglio', 'Più bene', 'Molto bene'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      // ── Les pages pratiques. Mag : « remets a chaque fois le meme quizz mais
+      // pointe sur le sujet en rapport avec la page ». Chaque reponse est
+      // ecrite dans la section que `ancre` designe.
+      { q: 'Où se trouve la vanne générale d’eau ?', choix: ['Dans la rue, au coin en descendant à droite', 'Dans la buanderie', 'Sous l’évier de la cuisine'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'La vanne d’eau est fermée quand elle est…', choix: ['Perpendiculaire', 'Parallèle', 'Vers le haut'], bonne: 0, ancre: 'arrivee', niveau: 'difficile' },
+      { q: 'Peut-on boire l’eau du robinet ?', choix: ['Non, et pas de glaçons non plus', 'Oui, sans problème', 'Seulement le matin'], bonne: 0, ancre: 'arrivee', niveau: 'facile' },
+      { q: 'À quoi l’eau du robinet sert-elle sans souci ?', choix: ['La cuisine, les pâtes, le café, la vaisselle', 'Uniquement la vaisselle', 'Rien du tout'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'Où est le chauffe-eau ?', choix: ['Dans la salle de bain, dans la douche', 'Dans la buanderie', 'Sur la terrasse'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'Où est la clé de la buanderie ?', choix: ['Dans le petit meuble à tiroirs du buffet du salon', 'Sous le paillasson', 'Dans la petite chambre'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'Où sont les draps ?', choix: ['Dans le tiroir de l’armoire, dans la petite chambre', 'Dans la buanderie', 'Sous le lit de la grande chambre'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'La maison a-t-elle la climatisation ?', choix: ['Non — volets fermés le jour, ouverts le soir', 'Oui, dans chaque chambre', 'Oui, mais seulement au salon'], bonne: 0, ancre: 'arrivee', niveau: 'facile' },
+      { q: 'À quel rythme arroser les plantes ?', choix: ['Tous les trois ou quatre jours, environ 3 litres par plante', 'Tous les jours, un litre', 'Une fois par semaine'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'Pourquoi se doucher au bord de la plage en rentrant ?', choix: ['Pour que le sable ne finisse pas dans les canalisations', 'Pour économiser l’eau', 'Parce que l’eau y est chaude'], bonne: 0, ancre: 'arrivee', niveau: 'difficile' },
+      { q: 'Que faire du frigo avant de partir ?', choix: ['Le vider, le débrancher et laisser la porte entrouverte', 'Le laisser branché et plein', 'Le débrancher et bien le fermer'], bonne: 0, ancre: 'depart', niveau: 'moyen' },
+      { q: 'Que rentre-t-on avant de partir ?', choix: ['Le tissu du hamac, le petit banc et les tabourets en bois', 'Les pots de fleurs', 'La table de la terrasse'], bonne: 0, ancre: 'depart', niveau: 'difficile' },
+      { q: 'Que fait-on du linge avant de partir ?', choix: ['On le lave et on refait les lits pour les suivants', 'On le laisse dans le panier', 'On l’emporte avec soi'], bonne: 0, ancre: 'depart', niveau: 'moyen' },
+      { q: 'Et si le linge est encore humide au moment de fermer ?', choix: ['On le laisse étendu dans la maison, jamais plié', 'On le plie dans le panier', 'On le met dans un sac'], bonne: 0, ancre: 'depart', niveau: 'difficile' },
+      { q: 'Passage des poubelles manqué la veille du départ ?', choix: ['On les laisse sur la terrasse, jamais dans la rue', 'On les laisse dans la rue', 'On les emporte'], bonne: 0, ancre: 'depart', niveau: 'moyen' },
+      { q: 'Que dit une place de parking bleue ?', choix: ['Payante — ticket derrière le pare-brise', 'Gratuite', 'Réservée aux résidents'], bonne: 0, ancre: 'parking', niveau: 'facile' },
+      { q: 'Une place blanche est gratuite, mais…', choix: ['Elle peut être limitée dans le temps — disque obligatoire', 'Elle est réservée aux livraisons', 'Elle devient payante le soir'], bonne: 0, ancre: 'parking', niveau: 'moyen' },
+      { q: 'À qui sont réservées les places jaunes ?', choix: ['Handicapés avec macaron, livraisons, forces de l’ordre', 'Aux femmes enceintes', 'Aux voitures électriques'], bonne: 0, ancre: 'parking', niveau: 'moyen' },
+      { q: 'Combien coûte un ticket non affiché ou un disque oublié ?', choix: ['41 €', '25 €', '80 €'], bonne: 0, ancre: 'parking', niveau: 'difficile' },
+      { q: 'Où trouver un disque de stationnement si le loueur n’en fournit pas ?', choix: ['Dans n’importe quel bureau de tabac', 'À la poste', 'Au commissariat'], bonne: 0, ancre: 'parking', niveau: 'difficile' },
+      { q: 'Comment appelle-t-on un distributeur en Italie ?', choix: ['Un Bancomat', 'Un Postomat', 'Un Cassa'], bonne: 0, ancre: 'argent', niveau: 'facile' },
+      { q: 'Combien y a-t-il de distributeurs à Donnalucata ?', choix: ['Deux', 'Un seul', 'Quatre'], bonne: 0, ancre: 'argent', niveau: 'moyen' },
+      { q: 'Comment s’appelle le distributeur de la poste italienne ?', choix: ['Le Postamat', 'Le Postabank', 'Le Posteomat'], bonne: 0, ancre: 'argent', niveau: 'difficile' },
+      { q: 'Pourquoi prévoir des espèces d’avance ?', choix: ['Beaucoup de petits commerces, et le marché, n’acceptent que ça', 'Les cartes étrangères sont refusées', 'Les distributeurs ferment l’été'], bonne: 0, ancre: 'argent', niveau: 'moyen' },
+      { q: 'Où les moustiques pondent-ils ?', choix: ['Dans l’eau stagnante — soucoupes, seaux, arrosoir', 'Dans les poubelles', 'Sous les meubles'], bonne: 0, ancre: 'bestioles', niveau: 'moyen' },
+      { q: 'Quelle est la meilleure des boîtes hermétiques ?', choix: ['Le frigo', 'Un bocal en verre', 'Un sac congélation'], bonne: 0, ancre: 'bestioles', niveau: 'difficile' },
+      { q: 'Comment combat-on les fourmis ?', choix: ['On ne les combat pas : on ne leur donne rien', 'Avec un insecticide', 'En bouchant les fissures'], bonne: 0, ancre: 'bestioles', niveau: 'moyen' },
+      { q: 'Quel vieux réflexe du sud avant de remettre ses chaussures ?', choix: ['On les secoue', 'On les retourne', 'On les rentre la nuit'], bonne: 0, ancre: 'bestioles', niveau: 'difficile' },
+      { q: 'Quel aéroport est conseillé pour venir ?', choix: ['Catania (CTA)', 'Palerme (PMO)', 'Comiso (CIY)'], bonne: 0, ancre: 'voyage', niveau: 'facile' },
+      { q: 'Quel aéroport est le plus proche de la maison ?', choix: ['Comiso (CIY), environ 40 min de route', 'Catania (CTA)', 'Palerme (PMO)'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'D’où part le ferry pour Messine ?', choix: ['De Villa San Giovanni', 'De Reggio de Calabre', 'De Naples'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'Combien de temps dure la traversée depuis Gênes ?', choix: ['Une vingtaine d’heures', 'Une vingtaine de minutes', 'Six heures'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'Où débarque-t-on en venant de Gênes ?', choix: ['À Palerme', 'À Messine', 'À Catane'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'Combien de temps dure la traversée du détroit ?', choix: ['Une vingtaine de minutes, sans réservation', 'Deux heures', 'Une nuit entière'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'Quand sort-on les bacs ?', choix: ['La veille au soir — le camion passe tôt', 'Le matin même', 'Quand ils sont pleins'], bonne: 0, ancre: 'dechets', niveau: 'facile' },
+      { q: 'Que se passe-t-il si un bac est sorti le mauvais soir ?', choix: ['Il reste dehors une semaine', 'Il est ramassé quand même', 'La commune met une amende'], bonne: 0, ancre: 'dechets', niveau: 'moyen' },
+      { q: 'Pourquoi les jours de collecte peuvent-ils changer ?', choix: ['La commune les modifie pour les fêtes, l’été, ou quand elle change de prestataire', 'Ils ne changent jamais', 'Ils dépendent de la météo'], bonne: 0, ancre: 'dechets', niveau: 'difficile' },
       // ── La page famille : le recit de Salva, puis l'arbre. Ces questions
       // n'apparaissent QUE sur /famille (themes `chezElle`). Chaque reponse est
       // ecrite dans le recit de Mag ou dans l'arbre lui-meme.
@@ -2042,6 +2110,13 @@ const IT: Dict = {
     italian: 'L’italiano',
     story: 'Il racconto',
     tree: 'L’albero',
+    arrival: 'La casa',
+    leaving: 'La partenza',
+    parking: 'Parcheggiare',
+    money: 'I soldi',
+    clean: 'Pulizia',
+    trip: 'Il viaggio',
+    waste: 'La spazzatura',
     history: 'Lotte & memoria',
   },
   infoFilter: {
@@ -2248,6 +2323,12 @@ const IT: Dict = {
     familyIntro: 'Il racconto di Salva e l’albero genealogico. Tre risposte possibili ogni volta, e tutto quello che serve è scritto più in alto in questa pagina — ogni risposta vi dice dove rileggere.',
     italianTitle: 'Conoscete l’italiano?',
     italianIntro: 'Cinquantacinque domande tratte da questo corso — pronuncia, coniugazione, frasi utili, parole delle canzoni. Tre risposte possibili ogni volta, e ognuna vi dice dove rileggere.',
+    houseTitle: 'Conoscete la casa?',
+    houseIntro: 'La casa, la partenza, il parcheggio, i soldi, la pulizia. Tutto quello che serve è scritto più in alto in questa pagina — ogni risposta vi dice dove rileggere.',
+    tripTitle: 'Conoscete il tragitto?',
+    tripIntro: 'Aeroporti, traghetti, strade. Tutto quello che serve è scritto più in alto in questa pagina — ogni risposta vi dice dove rileggere.',
+    wasteTitle: 'Conoscete la raccolta?',
+    wasteIntro: 'Tre domande sui bidoni e le loro sere. Tutto è scritto più in alto in questa pagina.',
     intro: 'Per tema, o tutto mescolato. Tre risposte possibili ogni volta, e tutto quello che serve sapere è scritto più su in questa pagina — ogni risposta vi dice dove rileggere.',
     start: 'Iniziare',
     next: 'Domanda successiva',
@@ -2397,6 +2478,44 @@ const IT: Dict = {
       { q: 'Chi parte è l’emigrante; chi arriva è…', choix: ['L’immigrato', 'Il partigiano', 'Il forestiero'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
       { q: 'Che cosa vuol dire « dolce »?', choix: ['Dolce e zuccherato insieme', 'Amaro', 'Freddo'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
       { q: 'Come si dice « meglio » in italiano?', choix: ['Meglio', 'Più bene', 'Molto bene'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      // ── Le pagine pratiche. Vedi la nota francese.
+      { q: 'Dov’è la valvola generale dell’acqua?', choix: ['Nella strada, all’angolo scendendo a destra', 'In lavanderia', 'Sotto il lavello della cucina'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'La valvola dell’acqua è chiusa quando è…', choix: ['Perpendicolare', 'Parallela', 'Verso l’alto'], bonne: 0, ancre: 'arrivee', niveau: 'difficile' },
+      { q: 'Si può bere l’acqua del rubinetto?', choix: ['No, e nemmeno per il ghiaccio', 'Sì, senza problemi', 'Solo la mattina'], bonne: 0, ancre: 'arrivee', niveau: 'facile' },
+      { q: 'Per che cosa va benissimo l’acqua del rubinetto?', choix: ['Cucinare, la pasta, il caffè, i piatti', 'Solo i piatti', 'Per niente'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'Dov’è lo scaldabagno?', choix: ['In bagno, dentro la doccia', 'In lavanderia', 'Sulla terrazza'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'Dov’è la chiave della lavanderia?', choix: ['Nel mobiletto a cassetti dentro la credenza del soggiorno', 'Sotto lo zerbino', 'Nella camera piccola'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'Dove sono le lenzuola?', choix: ['Nel cassetto dell’armadio, nella camera piccola', 'In lavanderia', 'Sotto il letto della camera grande'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'La casa ha l’aria condizionata?', choix: ['No — persiane chiuse di giorno, aperte la sera', 'Sì, in ogni camera', 'Sì, ma solo in soggiorno'], bonne: 0, ancre: 'arrivee', niveau: 'facile' },
+      { q: 'Ogni quanto annaffiare le piante?', choix: ['Ogni tre o quattro giorni, circa 3 litri a pianta', 'Ogni giorno, un litro', 'Una volta a settimana'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'Perché farsi la doccia in spiaggia tornando dal mare?', choix: ['Perché la sabbia non finisca nelle tubature', 'Per risparmiare acqua', 'Perché l’acqua è calda'], bonne: 0, ancre: 'arrivee', niveau: 'difficile' },
+      { q: 'Che cosa fare del frigo prima di partire?', choix: ['Svuotarlo, staccarlo e lasciare la porta socchiusa', 'Lasciarlo acceso e pieno', 'Staccarlo e chiuderlo bene'], bonne: 0, ancre: 'depart', niveau: 'moyen' },
+      { q: 'Che cosa si ritira prima di partire?', choix: ['Il telo dell’amaca, la panchetta e gli sgabelli di legno', 'I vasi di fiori', 'Il tavolo della terrazza'], bonne: 0, ancre: 'depart', niveau: 'difficile' },
+      { q: 'Che cosa si fa della biancheria prima di partire?', choix: ['La si lava e si rifanno i letti per i prossimi', 'La si lascia nel cesto', 'La si porta via'], bonne: 0, ancre: 'depart', niveau: 'moyen' },
+      { q: 'E se la biancheria è ancora umida al momento di chiudere?', choix: ['La si lascia stesa in casa, mai piegata', 'La si piega nel cesto', 'La si mette in un sacchetto'], bonne: 0, ancre: 'depart', niveau: 'difficile' },
+      { q: 'Raccolta persa la vigilia della partenza?', choix: ['Si lasciano sulla terrazza, mai in strada', 'Si lasciano in strada', 'Si portano via'], bonne: 0, ancre: 'depart', niveau: 'moyen' },
+      { q: 'Che cosa dice un posto auto blu?', choix: ['A pagamento — biglietto dietro il parabrezza', 'Gratuito', 'Riservato ai residenti'], bonne: 0, ancre: 'parking', niveau: 'facile' },
+      { q: 'Un posto bianco è gratuito, ma…', choix: ['Può essere a tempo — disco orario obbligatorio', 'È riservato alle consegne', 'Diventa a pagamento la sera'], bonne: 0, ancre: 'parking', niveau: 'moyen' },
+      { q: 'A chi sono riservati i posti gialli?', choix: ['Disabili con contrassegno, consegne, forze dell’ordine', 'Alle donne incinte', 'Alle auto elettriche'], bonne: 0, ancre: 'parking', niveau: 'moyen' },
+      { q: 'Quanto costa un biglietto non esposto o un disco dimenticato?', choix: ['41 €', '25 €', '80 €'], bonne: 0, ancre: 'parking', niveau: 'difficile' },
+      { q: 'Dove si trova un disco orario se il noleggio non lo fornisce?', choix: ['In qualsiasi tabaccheria', 'Alla posta', 'In questura'], bonne: 0, ancre: 'parking', niveau: 'difficile' },
+      { q: 'Come si chiama un distributore di contanti in Italia?', choix: ['Un Bancomat', 'Un Postomat', 'Una Cassa'], bonne: 0, ancre: 'argent', niveau: 'facile' },
+      { q: 'Quanti distributori ci sono a Donnalucata?', choix: ['Due', 'Uno solo', 'Quattro'], bonne: 0, ancre: 'argent', niveau: 'moyen' },
+      { q: 'Come si chiama il distributore delle Poste italiane?', choix: ['Il Postamat', 'Il Postabank', 'Il Posteomat'], bonne: 0, ancre: 'argent', niveau: 'difficile' },
+      { q: 'Perché portarsi un po’ di contanti?', choix: ['Molti piccoli negozi, e il mercato, accettano solo quelli', 'Le carte straniere sono rifiutate', 'I distributori chiudono d’estate'], bonne: 0, ancre: 'argent', niveau: 'moyen' },
+      { q: 'Dove depongono le zanzare?', choix: ['Nell’acqua ferma — sottovasi, secchi, annaffiatoio', 'Nella spazzatura', 'Sotto i mobili'], bonne: 0, ancre: 'bestioles', niveau: 'moyen' },
+      { q: 'Qual è il migliore dei contenitori ermetici?', choix: ['Il frigo', 'Un barattolo di vetro', 'Un sacchetto per congelare'], bonne: 0, ancre: 'bestioles', niveau: 'difficile' },
+      { q: 'Come si combattono le formiche?', choix: ['Non si combattono: non si dà loro niente', 'Con un insetticida', 'Chiudendo le fessure'], bonne: 0, ancre: 'bestioles', niveau: 'moyen' },
+      { q: 'Quale vecchia abitudine del sud prima di rimettersi le scarpe?', choix: ['Scuotere le scarpe', 'Rovesciare le scarpe', 'Ritirarle la notte'], bonne: 0, ancre: 'bestioles', niveau: 'difficile' },
+      { q: 'Quale aeroporto è consigliato per venire?', choix: ['Catania (CTA)', 'Palermo (PMO)', 'Comiso (CIY)'], bonne: 0, ancre: 'voyage', niveau: 'facile' },
+      { q: 'Quale aeroporto è il più vicino alla casa?', choix: ['Comiso (CIY), circa 40 minuti di strada', 'Catania (CTA)', 'Palermo (PMO)'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'Da dove parte il traghetto per Messina?', choix: ['Da Villa San Giovanni', 'Da Reggio Calabria', 'Da Napoli'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'Quanto dura la traversata da Genova?', choix: ['Una ventina di ore', 'Una ventina di minuti', 'Sei ore'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'Dove si sbarca venendo da Genova?', choix: ['A Palermo', 'A Messina', 'A Catania'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'Quanto dura la traversata dello stretto?', choix: ['Una ventina di minuti, senza prenotazione', 'Due ore', 'Una notte intera'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'Quando si mettono fuori i bidoni?', choix: ['La sera prima — il camion passa presto', 'La mattina stessa', 'Quando sono pieni'], bonne: 0, ancre: 'dechets', niveau: 'facile' },
+      { q: 'Che cosa succede se un bidone esce la sera sbagliata?', choix: ['Resta fuori una settimana', 'Viene raccolto lo stesso', 'Il comune fa una multa'], bonne: 0, ancre: 'dechets', niveau: 'moyen' },
+      { q: 'Perché i giorni di raccolta possono cambiare?', choix: ['Il comune li cambia per le feste, d’estate, o cambiando gestore', 'Non cambiano mai', 'Dipendono dal tempo'], bonne: 0, ancre: 'dechets', niveau: 'difficile' },
       // ── La pagina famiglia. Vedi la nota francese.
       { q: 'Dove è nato Salvatore Contrino?', choix: ['A Valguarnera, in Sicilia', 'A Scicli', 'A Cava d’Aliga'], bonne: 0, ancre: 'recit', niveau: 'facile' },
       { q: 'In che anno è nato Salvatore?', choix: ['1947', '1937', '1957'], bonne: 0, ancre: 'recit', niveau: 'facile' },
@@ -3050,6 +3169,13 @@ const EN: Dict = {
     italian: 'Italian',
     story: 'The story',
     tree: 'The tree',
+    arrival: 'The house',
+    leaving: 'Leaving',
+    parking: 'Parking',
+    money: 'Money',
+    clean: 'Cleanliness',
+    trip: 'The trip',
+    waste: 'The bins',
     history: 'Struggles & memory',
   },
   infoFilter: {
@@ -3256,6 +3382,12 @@ const EN: Dict = {
     familyIntro: 'Salva’s story, and the family tree. Three possible answers each time, and everything you need is written higher up on this page — each answer tells you where to go and read it again.',
     italianTitle: 'How well do you know Italian?',
     italianIntro: 'Fifty-five questions drawn from this course — pronunciation, conjugation, useful phrases, words from the songs. Three possible answers each time, and each one tells you where to go and read it again.',
+    houseTitle: 'How well do you know the house?',
+    houseIntro: 'The house, leaving, parking, money, cleanliness. Everything you need is written higher up on this page — each answer tells you where to go and read it again.',
+    tripTitle: 'How well do you know the journey?',
+    tripIntro: 'Airports, ferries, roads. Everything you need is written higher up on this page — each answer tells you where to go and read it again.',
+    wasteTitle: 'How well do you know the bins?',
+    wasteIntro: 'Three questions about the bins and their evenings. Everything is written higher up on this page.',
     intro: 'By theme, or all mixed up. Three answers to choose from each time, and everything you need is written further up this page — each answer tells you where to read it again.',
     start: 'Start',
     next: 'Next question',
@@ -3405,6 +3537,44 @@ const EN: Dict = {
       { q: 'The one who leaves is l’emigrante; the one who arrives is…', choix: ['L’immigrato', 'Il partigiano', 'Il forestiero'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
       { q: 'What does “dolce” mean?', choix: ['Soft and sweet at once', 'Bitter', 'Cold'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
       { q: 'How do you say “better” in Italian?', choix: ['Meglio', 'Più bene', 'Molto bene'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      // ── The practical pages. See the French note.
+      { q: 'Where is the main water valve?', choix: ['In the street, at the corner going down to the right', 'In the laundry room', 'Under the kitchen sink'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'The water valve is closed when it is…', choix: ['Perpendicular', 'Parallel', 'Pointing up'], bonne: 0, ancre: 'arrivee', niveau: 'difficile' },
+      { q: 'Can you drink the tap water?', choix: ['No, and no ice cubes either', 'Yes, no problem', 'Only in the morning'], bonne: 0, ancre: 'arrivee', niveau: 'facile' },
+      { q: 'What is tap water perfectly fine for?', choix: ['Cooking, pasta, coffee, washing up', 'Washing up only', 'Nothing at all'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'Where is the water heater?', choix: ['In the bathroom, inside the shower', 'In the laundry room', 'On the terrace'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'Where is the laundry room key?', choix: ['In the small chest of drawers inside the living-room sideboard', 'Under the doormat', 'In the small bedroom'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'Where are the sheets?', choix: ['In the wardrobe drawer, in the small bedroom', 'In the laundry room', 'Under the big bedroom bed'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'Does the house have air conditioning?', choix: ['No — shutters closed by day, open in the evening', 'Yes, in every bedroom', 'Yes, but only in the living room'], bonne: 0, ancre: 'arrivee', niveau: 'facile' },
+      { q: 'How often should the plants be watered?', choix: ['Every three or four days, about 3 litres per plant', 'Every day, one litre', 'Once a week'], bonne: 0, ancre: 'arrivee', niveau: 'moyen' },
+      { q: 'Why shower at the beach on the way back?', choix: ['So the sand does not end up in the pipes', 'To save water', 'Because the water there is warm'], bonne: 0, ancre: 'arrivee', niveau: 'difficile' },
+      { q: 'What should be done with the fridge before leaving?', choix: ['Empty it, unplug it and leave the door ajar', 'Leave it on and full', 'Unplug it and close it tight'], bonne: 0, ancre: 'depart', niveau: 'moyen' },
+      { q: 'What is brought inside before leaving?', choix: ['The hammock fabric, the small bench and the wooden stools', 'The flower pots', 'The terrace table'], bonne: 0, ancre: 'depart', niveau: 'difficile' },
+      { q: 'What do you do with the linen before leaving?', choix: ['Wash it and remake the beds for the next ones', 'Leave it in the basket', 'Take it with you'], bonne: 0, ancre: 'depart', niveau: 'moyen' },
+      { q: 'And if the linen is still damp when you close up?', choix: ['Leave it hanging in the house, never folded', 'Fold it into the basket', 'Put it in a bag'], bonne: 0, ancre: 'depart', niveau: 'difficile' },
+      { q: 'Missed the bin collection the night before leaving?', choix: ['Leave them on the terrace, never in the street', 'Leave them in the street', 'Take them with you'], bonne: 0, ancre: 'depart', niveau: 'moyen' },
+      { q: 'What does a blue parking space mean?', choix: ['Paid — ticket behind the windscreen', 'Free', 'Reserved for residents'], bonne: 0, ancre: 'parking', niveau: 'facile' },
+      { q: 'A white space is free, but…', choix: ['It may be time-limited — parking disc required', 'It is reserved for deliveries', 'It becomes paid in the evening'], bonne: 0, ancre: 'parking', niveau: 'moyen' },
+      { q: 'Who are yellow spaces reserved for?', choix: ['Disabled badge holders, deliveries, the police', 'Pregnant women', 'Electric cars'], bonne: 0, ancre: 'parking', niveau: 'moyen' },
+      { q: 'What does an unshown ticket or a forgotten disc cost?', choix: ['41 €', '25 €', '80 €'], bonne: 0, ancre: 'parking', niveau: 'difficile' },
+      { q: 'Where do you find a parking disc if the rental company gives none?', choix: ['In any tobacconist', 'At the post office', 'At the police station'], bonne: 0, ancre: 'parking', niveau: 'difficile' },
+      { q: 'What is a cash machine called in Italy?', choix: ['A Bancomat', 'A Postomat', 'A Cassa'], bonne: 0, ancre: 'argent', niveau: 'facile' },
+      { q: 'How many cash machines are there in Donnalucata?', choix: ['Two', 'Only one', 'Four'], bonne: 0, ancre: 'argent', niveau: 'moyen' },
+      { q: 'What is the Italian post office cash machine called?', choix: ['The Postamat', 'The Postabank', 'The Posteomat'], bonne: 0, ancre: 'argent', niveau: 'difficile' },
+      { q: 'Why carry some cash in advance?', choix: ['Many small shops, and the market, take nothing else', 'Foreign cards are refused', 'The machines close in summer'], bonne: 0, ancre: 'argent', niveau: 'moyen' },
+      { q: 'Where do mosquitoes lay their eggs?', choix: ['In standing water — saucers, buckets, watering can', 'In the bins', 'Under the furniture'], bonne: 0, ancre: 'bestioles', niveau: 'moyen' },
+      { q: 'What is the best airtight container of all?', choix: ['The fridge', 'A glass jar', 'A freezer bag'], bonne: 0, ancre: 'bestioles', niveau: 'difficile' },
+      { q: 'How do you fight the ants?', choix: ['You do not fight them: you give them nothing', 'With insecticide', 'By sealing the cracks'], bonne: 0, ancre: 'bestioles', niveau: 'moyen' },
+      { q: 'What old southern reflex before putting your shoes back on?', choix: ['Shake them', 'Turn them over', 'Bring them in at night'], bonne: 0, ancre: 'bestioles', niveau: 'difficile' },
+      { q: 'Which airport do we recommend?', choix: ['Catania (CTA)', 'Palermo (PMO)', 'Comiso (CIY)'], bonne: 0, ancre: 'voyage', niveau: 'facile' },
+      { q: 'Which airport is closest to the house?', choix: ['Comiso (CIY), about 40 minutes away', 'Catania (CTA)', 'Palermo (PMO)'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'Where does the ferry to Messina leave from?', choix: ['From Villa San Giovanni', 'From Reggio Calabria', 'From Naples'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'How long is the crossing from Genoa?', choix: ['About twenty hours', 'About twenty minutes', 'Six hours'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'Where do you land coming from Genoa?', choix: ['In Palermo', 'In Messina', 'In Catania'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'How long is the strait crossing?', choix: ['About twenty minutes, no booking needed', 'Two hours', 'A whole night'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'When do you put the bins out?', choix: ['The evening before — the truck comes early', 'The same morning', 'When they are full'], bonne: 0, ancre: 'dechets', niveau: 'facile' },
+      { q: 'What happens if a bin goes out on the wrong evening?', choix: ['It stays outside for a week', 'It gets collected anyway', 'The town issues a fine'], bonne: 0, ancre: 'dechets', niveau: 'moyen' },
+      { q: 'Why can the collection days change?', choix: ['The town changes them for holidays, in summer, or when it changes contractor', 'They never change', 'They depend on the weather'], bonne: 0, ancre: 'dechets', niveau: 'difficile' },
       // ── The family page. See the French note.
       { q: 'Where was Salvatore Contrino born?', choix: ['In Valguarnera, Sicily', 'In Scicli', 'In Cava d’Aliga'], bonne: 0, ancre: 'recit', niveau: 'facile' },
       { q: 'What year was Salvatore born?', choix: ['1947', '1937', '1957'], bonne: 0, ancre: 'recit', niveau: 'facile' },

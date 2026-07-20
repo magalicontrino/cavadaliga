@@ -701,6 +701,50 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   // DANS le cours, au bas de « S'entrainer » : Mag a prefere la copie du jeu au
   // lien qui faisait quitter la page. La fiche pointe donc la, et pas sur le
   // quiz de La region.
+  /*
+   * LES QUIZ DES PAGES PRATIQUES. Chacun vit sur sa page ; le chat doit y mener
+   * quand on demande le jeu ET le sujet. Comme pour les deux fiches ci-dessus,
+   * AUCUN mot propre : rien que des expressions, faute de quoi « quiz » seul
+   * les reveillerait tous et « maison » seul menerait au jeu plutot qu'a la
+   * maison.
+   */
+  ajouter({
+    id: 'quiz-maison',
+    page: '/informations-pratiques#quiz',
+    titre: t.quizPage.houseTitle,
+    lignes: [t.quizPage.houseIntro],
+    mots: [],
+    expressions: [
+      ['quiz', 'maison'], ['quizz', 'maison'], ['jeu', 'maison'],
+      ['quiz', 'pratique'], ['quiz', 'pratiques'], ['questions', 'maison'],
+      ['quiz', 'casa'], ['gioco', 'casa'], ['quiz', 'house'], ['game', 'house'],
+    ],
+  });
+  ajouter({
+    id: 'quiz-voyage',
+    page: '/preparer-le-voyage#quiz',
+    titre: t.quizPage.tripTitle,
+    lignes: [t.quizPage.tripIntro],
+    mots: [],
+    expressions: [
+      ['quiz', 'voyage'], ['quizz', 'voyage'], ['jeu', 'voyage'],
+      ['quiz', 'trajet'], ['questions', 'voyage'],
+      ['quiz', 'viaggio'], ['gioco', 'viaggio'], ['quiz', 'trip'], ['game', 'trip'],
+    ],
+  });
+  ajouter({
+    id: 'quiz-poubelles',
+    page: '/poubelles#quiz',
+    titre: t.quizPage.wasteTitle,
+    lignes: [t.quizPage.wasteIntro],
+    mots: [],
+    expressions: [
+      ['quiz', 'poubelles'], ['quizz', 'poubelles'], ['jeu', 'poubelles'],
+      ['quiz', 'tri'], ['questions', 'poubelles'], ['quiz', 'dechets'],
+      ['quiz', 'spazzatura'], ['quiz', 'bins'], ['game', 'bins'],
+    ],
+  });
+
   ajouter({
     id: 'quiz-italien',
     page: '/italien#exercices',
