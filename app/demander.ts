@@ -707,6 +707,19 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     mots: motsMaison('quiz'),
   });
 
+  // Il y a MAINTENANT DEUX JEUX, et le chat n'en connaissait qu'un : celui de
+  // « La region ». Qui demande « le quiz de la famille » tombait donc sur les
+  // cannoli et l'Etna. Une fiche a part, avec ses propres mots — l'arbre, les
+  // ancetres, le recit de Salva — plutot qu'un mot de plus dans l'autre, qui
+  // aurait renvoye a la mauvaise page une fois sur deux.
+  ajouter({
+    id: 'quiz-famille',
+    page: '/famille#quiz',
+    titre: t.quizPage.familyTitle,
+    lignes: [t.quizPage.familyIntro],
+    mots: [...motsMaison('quiz'), ...motsMaison('famille')],
+  });
+
   // Les evenements et les fetes : une page a elle seule, jamais indexee.
   ajouter({
     id: 'evenements',

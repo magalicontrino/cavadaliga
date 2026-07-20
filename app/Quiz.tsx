@@ -6,6 +6,7 @@ import Icon from './Icon';
 import { useI18n } from './i18n';
 import { withBase } from './data';
 import { PRONONCIATION, LECONS, CHANSONS } from './italienData';
+import { texteArbre } from './FamilyTree';
 
 /**
  * Le quiz de « La region ».
@@ -90,6 +91,21 @@ const THEMES = [
   { ancre: 'histoire', cle: 'history' },
   { ancre: 'livres', cle: 'books' },
   { ancre: 'italien', cle: 'italian', page: '/italien' },
+  /*
+   * LA FAMILLE vit sur sa propre page, et son quiz aussi.
+   *
+   * `chezElle` veut dire : ce theme ne se melange pas au quiz de « La
+   * region ». Ce n'est pas de la coquetterie — les questions sur l'arbre ne
+   * s'adressent pas au meme monde. Un visiteur qui decouvre la Sicile n'a
+   * aucune raison de tomber sur « combien d'enfants avaient Salvatore et
+   * Giuseppina », et un cousin qui vient lire l'arbre ne veut pas trier a
+   * travers soixante questions sur les cannoli.
+   *
+   * Pas de `page` : le quiz est SUR la page famille, l'ancre est donc locale
+   * et la fleche remonte, comme partout ailleurs.
+   */
+  { ancre: 'recit', cle: 'story', chezElle: true },
+  { ancre: 'arbre', cle: 'tree', chezElle: true },
 ] as const;
 
 /*
@@ -140,6 +156,14 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string, lang: 'fr' |
       return [t.historyPage.intro, ...t.historyPage.facts.map((f) => f.text)].join(' ');
     case 'livres':
       return t.booksPage.list.map((b) => `${b.titre}, ${b.auteur}. ${b.text}`).join(' ');
+    // Le recit de Salva, tel que Mag l'a ecrit — rien d'autre. C'est court, et
+    // c'est bien : chaque phrase y porte un fait.
+    case 'recit':
+      return t.salvaPage.storyText.join(' ');
+    // L'arbre lui-meme, aplati en phrases par FamilyTree. Une seule source :
+    // corriger une branche corrige l'extrait du quiz.
+    case 'arbre':
+      return texteArbre(t.salvaPage);
     /*
      * L'italien : l'extrait se batit EN DEUX LANGUES, la phrase italienne
      * suivie de son sens. C'est ce que Mag demande — « fais tout en bilingue
@@ -263,9 +287,27 @@ function Puce({ on, onClick, children }: { on: boolean; onClick: () => void; chi
   );
 }
 
-export default function Quiz() {
+/*
+ * `only` : la liste des themes que CE quiz couvre.
+ *
+ * Sans lui, il n'y a qu'un quiz sur le site et il prend tout. Avec, la page
+ * famille peut avoir le sien sans que « La region » herite de questions sur
+ * l'arbre genealogique. Les themes marques `chezElle` ne sortent jamais
+ * d'eux-memes : il faut les demander.
+ */
+export default function Quiz({ only, famille = false }: { only?: readonly string[]; famille?: boolean } = {}) {
   const { t, lang } = useI18n();
   const q = t.quizPage;
+  // Le meme jeu, mais il ne peut pas s'annoncer « Vous connaissez la region ? »
+  // au bas d'une page qui parle de l'arbre genealogique. Seuls le titre et
+  // l'accroche changent : tout le reste est litteralement le meme quiz.
+  const titre = famille ? q.familyTitle : q.title;
+  const accroche = famille ? q.familyIntro : q.intro;
+
+  const themes = useMemo(
+    () => THEMES.filter((x) => (only ? only.includes(x.ancre) : !('chezElle' in x && x.chezElle))),
+    [only],
+  );
   /*
    * La graine du hasard, tiree A CHAQUE PARTIE.
    *
@@ -317,9 +359,11 @@ export default function Quiz() {
    * previsible des la premiere.
    */
   const paquet = useMemo(() => {
-    const choisies = q.questions.filter((x) => !theme || x.ancre === theme);
+    const choisies = q.questions.filter(
+      (x) => themes.some((th) => th.ancre === x.ancre) && (!theme || x.ancre === theme),
+    );
     return melange(choisies, graine);
-  }, [q.questions, theme, graine]);
+  }, [q.questions, themes, theme, graine]);
 
   const question = paquet[n];
   const bonne = question?.choix[question.bonne];
@@ -400,10 +444,10 @@ export default function Quiz() {
           <Icon name="hourglass" size={16} /> {q.eyebrow}
         </span>
         <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
-          {q.title}
+          {titre}
         </h2>
         <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
-          {q.intro}
+          {accroche}
         </p>
       </Reveal>
 
@@ -443,7 +487,7 @@ export default function Quiz() {
             <div className="cava-swipe -mx-6 -my-2 shrink-0 overflow-x-auto px-6 py-2 md:-mx-10 md:px-10">
               <div className="flex w-max gap-2">
                 <Puce on={theme === null} onClick={() => trier(() => setTheme(null))}>{q.allThemes}</Puce>
-                {THEMES.map((x) => (
+                {themes.map((x) => (
                   <Puce key={x.ancre} on={theme === x.ancre} onClick={() => trier(() => setTheme(x.ancre))}>
                     {t.regionFilter[x.cle]}
                   </Puce>

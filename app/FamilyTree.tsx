@@ -25,6 +25,9 @@ import { useI18n } from './i18n';
 // c'est là qu'on nomme les gens comme les autres couples de l'arbre. Sa case
 // d'enfant, sous Salvatore & Régine, reste « Mag ». N'étendez pas l'exception.
 // ─────────────────────────────────────────────────────────────────────────
+/** Les libelles de l'arbre dans la langue lue — `t.salvaPage`. */
+type Salva = ReturnType<typeof useI18n>['t']['salvaPage'];
+
 type Person = { name: string; subtitle?: string; children?: Person[] };
 type Family = { fam: Person };
 type Side = { label: string; lignee: Lignee; families: Family[] };
@@ -220,6 +223,200 @@ function Famille({
   );
 }
 
+/*
+ * L'ARBRE, en donnees pures — hors du composant expres.
+ *
+ * Le quiz de cette page doit pouvoir le LIRE : sa regle est que chaque bonne
+ * reponse soit ecrite quelque part sur la page, et l'arbre est justement ou
+ * elle est ecrite. Recopier les prenoms et les dates dans le quiz les
+ * condamnerait a diverger le jour ou Mag corrige une branche. Ici, une seule
+ * source : corriger l'arbre corrige le quiz.
+ *
+ * Les libelles de generation viennent de `s`, donc de la langue lue — d'ou la
+ * fonction plutot qu'une constante.
+ */
+export type Arbre = { sides: Side[]; parents: Person; enfants: Person[] };
+
+export function arbre(s: Salva): Arbre {
+
+const sides: Side[] = [
+  {
+    label: s.treePaternal,
+    lignee: 'pere',
+    families: [
+      {
+        fam: {
+        name: 'Salvatore Contrino & Giuseppina Marcino',
+        subtitle: s.treeGreat,
+        children: [
+          { name: 'Angelo' },
+          { name: 'Stefano', subtitle: '1930' },
+          // Joseph n'a pas eu d'enfants — Mag l'a dit expressement. C'est un
+          // FAIT, pas un trou dans nos connaissances : il n'a donc rien sous
+          // lui, et surtout il ne figure pas dans les questions ouvertes.
+          { name: 'Joseph' },
+          // Gabi a deux enfants, dont Mag ne se rappelle que le premier
+          // prenom. Le second est une carte en pointilles : un blanc qu'on
+          // assume vaut mieux qu'un enfant qu'on oublie de compter.
+          { name: 'Gabi', children: [{ name: 'Christian' }, { name: '…' }] },
+          {
+            // Les deux enfants de Jacques, donnes par Mag. Meme construction
+            // que pour Helene : ils descendent d'un cran sous leur parent, a
+            // leur generation, plutot que d'ouvrir un bloc a part.
+            name: 'Jacques',
+            children: [{ name: 'Nathalie' }, { name: 'Olivier' }],
+          },
+          // Benito : on sait qu'une de ses filles s'appelle Ambre, sans
+          // savoir combien ils sont en tout. Une seule carte en pointilles
+          // dit « il y en a d'autres » sans inventer un nombre.
+          { name: 'Benito', subtitle: '1943', children: [{ name: 'Ambre' }, { name: '…' }] },
+          // Lucia a trois enfants de deux mariages : Salvatore et Joseph du
+          // premier, Tino du second. Le nom du second mari, Dolciamore,
+          // s'ecrit sous Tino — c'est le seul endroit ou il se rattache a
+          // quelqu'un. Le premier mari, lui, reste une question ouverte.
+          {
+            name: 'Lucia',
+            children: [{ name: 'Salvatore' }, { name: 'Joseph' }, { name: 'Tino', subtitle: 'Dolciamore' }],
+          },
+          {
+            // Helene est une FILLE de Salvatore & Giuseppina, comme ses huit
+            // freres et soeurs — Mag l'a corrige. Elle avait en plus son
+            // propre bloc a cote du couple, ce qui la faisait lire comme une
+            // grand-mere de la maison alors qu'elle en est la tante. Ses
+            // cinq filles ne se perdent pas pour autant : elles descendent
+            // d'un cran, a leur vraie place.
+            name: 'Helene',
+            children: [
+              { name: 'Maria' },
+              { name: 'Angelina Contrino & Patrick Gamino', subtitle: 'Angèle' },
+              { name: 'Antoinette' },
+              { name: 'Rosalba', subtitle: 'Rose' },
+              { name: 'Giuseppina', subtitle: 'Jo' },
+            ],
+          },
+          // Maria a « plusieurs gosses », dont aucun prenom ne nous est
+          // parvenu. Une carte en pointilles, et la question posee plus bas.
+          { name: 'Maria', children: [{ name: '…' }] },
+        ],
+      } },
+      {
+        fam: {
+        name: 'Angelo Contrino & Conchetta Canolo',
+        subtitle: `${s.treeWife1} · ~1900 – ~1947`,
+        children: [{ name: 'Salvatore', subtitle: '1947' }],
+      } },
+      {
+        fam: {
+        name: 'Angelo Contrino & Conchetta Sberna',
+        subtitle: s.treeWife2,
+        // « Sarro » etait une faute : un seul r. Et « Saro » est le diminutif —
+        // le prenom est Rosario. Meme convention que Rosalba dite Rose ou
+        // Giuseppina dite Jo : le prenom en titre, le surnom dessous.
+        children: [{ name: 'Josephine' }, { name: 'Rosario', subtitle: 'Saro' }, { name: 'Stefano' }],
+      } },
+    ],
+  },
+  {
+    label: s.treeMaternal,
+    lignee: 'mere',
+    families: [
+      /*
+       * La generation d'avant, relevee par Mag sur son arbre en ligne. Elle
+       * ouvre le cote Lux d'un cran de plus : les parents de Pierre (1881) et
+       * ceux d'Angelina (1882). On les sait decedes, sans aucune date — c'est
+       * peu, mais un nom sans date vaut mieux qu'une branche coupee, et les
+       * dates sont demandees plus bas.
+       */
+      {
+        fam: {
+        name: 'Henri Lux & Angélique Bourg',
+        subtitle: s.treeGreat2,
+        children: [{ name: 'Pierre', subtitle: '1881–1975' }],
+      } },
+      {
+        fam: {
+        name: 'Augustin Viseux & Flore Wasson',
+        subtitle: s.treeGreat2,
+        children: [{ name: 'Angelina', subtitle: '1882–1959' }],
+      } },
+      {
+        fam: {
+        name: 'Pierre Lux & Angelina Viseux',
+        subtitle: `${s.treeGreat} · 1881–1975 · 1882–1959`,
+        children: [{ name: 'Pierre', subtitle: '1920–2007' }],
+      } },
+      {
+        fam: {
+        name: 'Louis Thurot & Mélanie Souveton',
+        subtitle: `${s.treeGreat} · 1893 · 1898–1981`,
+        children: [{ name: 'Juliette Emilienne', subtitle: '1923–2015' }],
+      } },
+      {
+        fam: {
+        name: 'Pierre Lux & Juliette Emilienne Thurot',
+        subtitle: s.treeMarriage1,
+        children: [{ name: 'Régine' }],
+      } },
+      // Le second mariage de Juliette. Longtemps « tonton Charles » tout court,
+      // faute de mieux : Mag a donne son nom, et la question qui le demandait
+      // a quitte « Ce qu'il nous manque ».
+      {
+        fam: {
+        name: 'Juliette Emilienne Thurot & Charles Gallois',
+        subtitle: s.treeMarriage2,
+        },
+      },
+    ],
+  },
+];
+
+// Les deux côtés se rejoignent ici — c'est ce que l'arbre attendait depuis le
+// début. Prénoms seuls pour cette génération : ils sont vivants, et le site
+// est ouvert à tous.
+const parents: Person = {
+  name: 'Salvatore Contrino & Régine Lux',
+  children: [{ name: 'David' }, { name: 'Michaël' }, { name: 'Mag' }],
+};
+
+// La generation suivante. Prenoms seuls, sans annees : le releve les porte,
+// mais certaines sont mineures et le site est ouvert a tous. Et « Mag » reste
+// « Mag », meme quand la demande ecrit son nom entier — c'est la regle.
+const enfants: Person[] = [
+  { name: 'Michaël Contrino & Nathalie Gigli', children: [{ name: 'Juliette' }, { name: 'Marie' }, { name: 'Zoé' }] },
+  { name: 'Magali Contrino & Benoît Vanbastelaer', children: [{ name: 'Eve' }, { name: 'Manon' }] },
+];
+
+  return { sides, parents, enfants };
+}
+
+/*
+ * L'arbre APLATI en phrases — la matiere ou le quiz va chercher ses extraits.
+ *
+ * Une phrase par famille : le couple, sa generation, puis ses enfants avec
+ * leurs annees. C'est volontairement telegraphique — ce n'est pas de la prose
+ * a lire, c'est le texte ou `extraitPour` pioche la ligne qui porte la
+ * reponse. Les cartes en pointilles sont sautees : « … » ne repond a rien.
+ */
+export function texteArbre(s: Salva): string {
+  const { sides, parents, enfants } = arbre(s);
+  const dit = (p: Person) => (p.subtitle ? `${p.name} (${p.subtitle})` : p.name);
+  const phrase = (fam: Person, ou: string) => {
+    const kids = (fam.children ?? []).filter((c) => !c.name.startsWith('\u2026'));
+    const suite = kids.length
+      ? ` — ${kids.length} ${kids.length > 1 ? s.treeKids : s.treeKid} : ${kids
+          .map((c) => `${dit(c)}${(c.children ?? []).filter((x) => !x.name.startsWith('\u2026')).length ? ` (${(c.children ?? []).filter((x) => !x.name.startsWith('\u2026')).map(dit).join(', ')})` : ''}`)
+          .join(', ')}`
+      : '';
+    return `${ou} : ${dit(fam)}${suite}.`;
+  };
+  return [
+    ...sides.flatMap((side) => side.families.map((f) => phrase(f.fam, side.label))),
+    phrase(parents, s.treeParents),
+    ...enfants.map((f) => phrase(f, s.treeChildren)),
+  ].join(' ');
+}
+
+
 export default function FamilyTree() {
   const { t, lang } = useI18n();
   const s = t.salvaPage;
@@ -233,152 +430,9 @@ export default function FamilyTree() {
   const bascule = (cle: string) => setOuverts((o) => ({ ...o, [cle]: !o[cle] }));
   const labels = { open: s.treeOpen, close: s.treeClose, kid: s.treeKid, kids: s.treeKids };
 
-  const SIDES: Side[] = [
-    {
-      label: s.treePaternal,
-      lignee: 'pere',
-      families: [
-        {
-          fam: {
-          name: 'Salvatore Contrino & Giuseppina Marcino',
-          subtitle: s.treeGreat,
-          children: [
-            { name: 'Angelo' },
-            { name: 'Stefano', subtitle: '1930' },
-            // Joseph n'a pas eu d'enfants — Mag l'a dit expressement. C'est un
-            // FAIT, pas un trou dans nos connaissances : il n'a donc rien sous
-            // lui, et surtout il ne figure pas dans les questions ouvertes.
-            { name: 'Joseph' },
-            // Gabi a deux enfants, dont Mag ne se rappelle que le premier
-            // prenom. Le second est une carte en pointilles : un blanc qu'on
-            // assume vaut mieux qu'un enfant qu'on oublie de compter.
-            { name: 'Gabi', children: [{ name: 'Christian' }, { name: '…' }] },
-            {
-              // Les deux enfants de Jacques, donnes par Mag. Meme construction
-              // que pour Helene : ils descendent d'un cran sous leur parent, a
-              // leur generation, plutot que d'ouvrir un bloc a part.
-              name: 'Jacques',
-              children: [{ name: 'Nathalie' }, { name: 'Olivier' }],
-            },
-            // Benito : on sait qu'une de ses filles s'appelle Ambre, sans
-            // savoir combien ils sont en tout. Une seule carte en pointilles
-            // dit « il y en a d'autres » sans inventer un nombre.
-            { name: 'Benito', subtitle: '1943', children: [{ name: 'Ambre' }, { name: '…' }] },
-            // Lucia a trois enfants de deux mariages : Salvatore et Joseph du
-            // premier, Tino du second. Le nom du second mari, Dolciamore,
-            // s'ecrit sous Tino — c'est le seul endroit ou il se rattache a
-            // quelqu'un. Le premier mari, lui, reste une question ouverte.
-            {
-              name: 'Lucia',
-              children: [{ name: 'Salvatore' }, { name: 'Joseph' }, { name: 'Tino', subtitle: 'Dolciamore' }],
-            },
-            {
-              // Helene est une FILLE de Salvatore & Giuseppina, comme ses huit
-              // freres et soeurs — Mag l'a corrige. Elle avait en plus son
-              // propre bloc a cote du couple, ce qui la faisait lire comme une
-              // grand-mere de la maison alors qu'elle en est la tante. Ses
-              // cinq filles ne se perdent pas pour autant : elles descendent
-              // d'un cran, a leur vraie place.
-              name: 'Helene',
-              children: [
-                { name: 'Maria' },
-                { name: 'Angelina Contrino & Patrick Gamino', subtitle: 'Angèle' },
-                { name: 'Antoinette' },
-                { name: 'Rosalba', subtitle: 'Rose' },
-                { name: 'Giuseppina', subtitle: 'Jo' },
-              ],
-            },
-            // Maria a « plusieurs gosses », dont aucun prenom ne nous est
-            // parvenu. Une carte en pointilles, et la question posee plus bas.
-            { name: 'Maria', children: [{ name: '…' }] },
-          ],
-        } },
-        {
-          fam: {
-          name: 'Angelo Contrino & Conchetta Canolo',
-          subtitle: `${s.treeWife1} · ~1900 – ~1947`,
-          children: [{ name: 'Salvatore', subtitle: '1947' }],
-        } },
-        {
-          fam: {
-          name: 'Angelo Contrino & Conchetta Sberna',
-          subtitle: s.treeWife2,
-          // « Sarro » etait une faute : un seul r. Et « Saro » est le diminutif —
-          // le prenom est Rosario. Meme convention que Rosalba dite Rose ou
-          // Giuseppina dite Jo : le prenom en titre, le surnom dessous.
-          children: [{ name: 'Josephine' }, { name: 'Rosario', subtitle: 'Saro' }, { name: 'Stefano' }],
-        } },
-      ],
-    },
-    {
-      label: s.treeMaternal,
-      lignee: 'mere',
-      families: [
-        /*
-         * La generation d'avant, relevee par Mag sur son arbre en ligne. Elle
-         * ouvre le cote Lux d'un cran de plus : les parents de Pierre (1881) et
-         * ceux d'Angelina (1882). On les sait decedes, sans aucune date — c'est
-         * peu, mais un nom sans date vaut mieux qu'une branche coupee, et les
-         * dates sont demandees plus bas.
-         */
-        {
-          fam: {
-          name: 'Henri Lux & Angélique Bourg',
-          subtitle: s.treeGreat2,
-          children: [{ name: 'Pierre', subtitle: '1881–1975' }],
-        } },
-        {
-          fam: {
-          name: 'Augustin Viseux & Flore Wasson',
-          subtitle: s.treeGreat2,
-          children: [{ name: 'Angelina', subtitle: '1882–1959' }],
-        } },
-        {
-          fam: {
-          name: 'Pierre Lux & Angelina Viseux',
-          subtitle: `${s.treeGreat} · 1881–1975 · 1882–1959`,
-          children: [{ name: 'Pierre', subtitle: '1920–2007' }],
-        } },
-        {
-          fam: {
-          name: 'Louis Thurot & Mélanie Souveton',
-          subtitle: `${s.treeGreat} · 1893 · 1898–1981`,
-          children: [{ name: 'Juliette Emilienne', subtitle: '1923–2015' }],
-        } },
-        {
-          fam: {
-          name: 'Pierre Lux & Juliette Emilienne Thurot',
-          subtitle: s.treeMarriage1,
-          children: [{ name: 'Régine' }],
-        } },
-        // Le second mariage de Juliette. Longtemps « tonton Charles » tout court,
-        // faute de mieux : Mag a donne son nom, et la question qui le demandait
-        // a quitte « Ce qu'il nous manque ».
-        {
-          fam: {
-          name: 'Juliette Emilienne Thurot & Charles Gallois',
-          subtitle: s.treeMarriage2,
-          },
-        },
-      ],
-    },
-  ];
-
-  // Les deux côtés se rejoignent ici — c'est ce que l'arbre attendait depuis le
-  // début. Prénoms seuls pour cette génération : ils sont vivants, et le site
-  // est ouvert à tous.
-  const PARENTS: Person = {
-    name: 'Salvatore Contrino & Régine Lux',
-    children: [{ name: 'David' }, { name: 'Michaël' }, { name: 'Mag' }],
-  };
-
-  // La generation suivante. Prenoms seuls, sans annees : le releve les porte,
-  // mais certaines sont mineures et le site est ouvert a tous. Et « Mag » reste
-  // « Mag », meme quand la demande ecrit son nom entier — c'est la regle.
-  const ENFANTS: Person[] = [
-    { name: 'Michaël Contrino & Nathalie Gigli', children: [{ name: 'Juliette' }, { name: 'Marie' }, { name: 'Zoé' }] },
-    { name: 'Magali Contrino & Benoît Vanbastelaer', children: [{ name: 'Eve' }, { name: 'Manon' }] },
-  ];
+  // L'arbre vient d'`arbre(s)`, plus d'ici : c'est la meme source que celle ou
+  // le quiz de la page va chercher ses extraits.
+  const { sides: SIDES, parents: PARENTS, enfants: ENFANTS } = arbre(s);
 
   // Toutes les clefs de bloc, pour le « tout deplier » : les deux cotes, les
   // parents, et chaque famille d'enfants.

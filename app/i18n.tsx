@@ -269,6 +269,9 @@ export type Dict = {
     history: string;
     /** Le cours d'italien : un theme de quiz qui vit sur une AUTRE page. */
     italian: string;
+    // Les deux themes du quiz de la page famille.
+    story: string;
+    tree: string;
   };
   infoFilter: {
     all: string;
@@ -480,6 +483,9 @@ export type Dict = {
     eyebrow: string;
     title: string;
     intro: string;
+    /** Le meme jeu, sur la page famille : il ne parle pas de la region. */
+    familyTitle: string;
+    familyIntro: string;
     start: string;
     next: string;
     /** « Valider » : on choisit d'abord, on verifie ensuite. */
@@ -1016,6 +1022,8 @@ const FR: Dict = {
     fauna: 'La faune',
     books: 'Des livres',
     italian: 'L’italien',
+    story: 'Le récit',
+    tree: 'L’arbre',
     history: 'Luttes & mémoire',
   },
   infoFilter: {
@@ -1217,6 +1225,8 @@ const FR: Dict = {
   quizPage: {
     eyebrow: 'Petit jeu',
     title: 'Vous connaissez la région ?',
+    familyTitle: 'Vous connaissez la famille ?',
+    familyIntro: 'Le récit de Salva, et l’arbre. Trois réponses possibles à chaque fois, et tout ce qu’il faut savoir est écrit plus haut sur cette page — chaque réponse vous dit où aller relire.',
     intro: 'Par thème, ou tout mélangé. Trois réponses possibles à chaque fois, et tout ce qu’il faut savoir est écrit plus haut sur cette page — chaque réponse vous dit où aller relire.',
     start: 'Commencer',
     next: 'Question suivante',
@@ -1330,6 +1340,29 @@ const FR: Dict = {
       { q: 'Que veut dire « occupare le terre » ?', choix: ['Occuper les terres', 'Cultiver les terres', 'Vendre les terres'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
       { q: '« La lotta continua » veut dire…', choix: ['La lutte continue', 'La lutte est finie', 'La lutte commence'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
       { q: 'Dans « Sacco e Vanzetti sono stati giustiziati », « sono stati » indique…', choix: ['Le passé composé, avec essere', 'Le futur', 'Le présent'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      // ── La page famille : le recit de Salva, puis l'arbre. Ces questions
+      // n'apparaissent QUE sur /famille (themes `chezElle`). Chaque reponse est
+      // ecrite dans le recit de Mag ou dans l'arbre lui-meme.
+      { q: 'Où est né Salvatore Contrino ?', choix: ['À Valguarnera, en Sicile', 'À Scicli', 'À Cava d’Aliga'], bonne: 0, ancre: 'recit', niveau: 'facile' },
+      { q: 'En quelle année Salvatore est-il né ?', choix: ['1947', '1937', '1957'], bonne: 0, ancre: 'recit', niveau: 'facile' },
+      { q: 'D’où revenait son père Angelo quand il s’est retrouvé veuf ?', choix: ['Des camps russes', 'D’Amérique', 'D’Afrique du Nord'], bonne: 0, ancre: 'recit', niveau: 'moyen' },
+      { q: 'Qui a élevé Salvatore ?', choix: ['Sa grand-mère Giuseppina, mémé Pipine', 'Une tante restée en Sicile', 'Son père Angelo'], bonne: 0, ancre: 'recit', niveau: 'moyen' },
+      { q: 'Où mémé Pipine avait-elle émigré avec ses enfants ?', choix: ['À Saint-Étienne', 'À Bruxelles', 'À Lyon'], bonne: 0, ancre: 'recit', niveau: 'moyen' },
+      { q: 'Elle l’a élevé comme…', choix: ['Le dixième de la fratrie', 'Un petit-fils à part', 'Son fils aîné'], bonne: 0, ancre: 'recit', niveau: 'difficile' },
+      { q: 'À quel âge est-il parti travailler en Belgique ?', choix: ['À dix-neuf ans', 'À quinze ans', 'À vingt-cinq ans'], bonne: 0, ancre: 'recit', niveau: 'moyen' },
+      { q: 'Que rassemble la maison de Cava d’Aliga, de génération en génération ?', choix: ['La famille', 'Les voisins du village', 'Les amis de Belgique'], bonne: 0, ancre: 'recit', niveau: 'facile' },
+      { q: 'Quel est le nom de jeune fille de Giuseppina, la mère de la fratrie Contrino ?', choix: ['Marcino', 'Sberna', 'Canolo'], bonne: 0, ancre: 'arbre', niveau: 'facile' },
+      { q: 'Comment s’appellent les deux enfants de Jacques ?', choix: ['Nathalie et Olivier', 'Christian et Ambre', 'Salvatore et Tino'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'Quelle fille d’Helene a épousé Patrick Gamino ?', choix: ['Angelina, dite Angèle', 'Rosalba, dite Rose', 'Giuseppina, dite Jo'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'Quel est le nom de famille du second mari de Lucia ?', choix: ['Dolciamore', 'Gallois', 'Gamino'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'Qui sont les parents de Pierre Lux, né en 1881 ?', choix: ['Henri Lux et Angélique Bourg', 'Augustin Viseux et Flore Wasson', 'Louis Thurot et Mélanie Souveton'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'Qui sont les parents d’Angelina Viseux, née en 1882 ?', choix: ['Augustin Viseux et Flore Wasson', 'Henri Lux et Angélique Bourg', 'Pierre Lux et Juliette Thurot'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'En quelle année est née Juliette Emilienne Thurot ?', choix: ['1923', '1898', '1920'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'Qui Juliette Emilienne Thurot a-t-elle épousé en secondes noces ?', choix: ['Charles Gallois', 'Patrick Gamino', 'Louis Thurot'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'Quel est le nom de jeune fille de Régine, la mère de Mag ?', choix: ['Lux', 'Thurot', 'Viseux'], bonne: 0, ancre: 'arbre', niveau: 'facile' },
+      { q: 'Comment s’appelle la fille de Benito que l’on connaît ?', choix: ['Ambre', 'Zoé', 'Manon'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'Comment s’appelle le premier enfant de Gabi ?', choix: ['Christian', 'Stefano', 'Rosario'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'Quel est le diminutif de Rosario, fils d’Angelo et Conchetta Sberna ?', choix: ['Saro', 'Jo', 'Rose'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
     ],
   },
   askMag: {
@@ -1960,6 +1993,8 @@ const IT: Dict = {
     fauna: 'La fauna',
     books: 'Libri',
     italian: 'L’italiano',
+    story: 'Il racconto',
+    tree: 'L’albero',
     history: 'Lotte & memoria',
   },
   infoFilter: {
@@ -2161,6 +2196,8 @@ const IT: Dict = {
   quizPage: {
     eyebrow: 'Piccolo gioco',
     title: 'Conoscete la regione?',
+    familyTitle: 'Conoscete la famiglia?',
+    familyIntro: 'Il racconto di Salva e l’albero genealogico. Tre risposte possibili ogni volta, e tutto quello che serve è scritto più in alto in questa pagina — ogni risposta vi dice dove rileggere.',
     intro: 'Per tema, o tutto mescolato. Tre risposte possibili ogni volta, e tutto quello che serve sapere è scritto più su in questa pagina — ogni risposta vi dice dove rileggere.',
     start: 'Iniziare',
     next: 'Domanda successiva',
@@ -2274,6 +2311,27 @@ const IT: Dict = {
       { q: 'Che cosa vuol dire « occupare le terre »?', choix: ['Prendere possesso delle terre', 'Coltivare le terre', 'Vendere le terre'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
       { q: '« La lotta continua » significa…', choix: ['La lotta va avanti', 'La lotta è finita', 'La lotta comincia'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
       { q: 'In « Sacco e Vanzetti sono stati giustiziati », « sono stati » indica…', choix: ['Il passato prossimo, con essere', 'Il futuro', 'Il presente'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      // ── La pagina famiglia. Vedi la nota francese.
+      { q: 'Dove è nato Salvatore Contrino?', choix: ['A Valguarnera, in Sicilia', 'A Scicli', 'A Cava d’Aliga'], bonne: 0, ancre: 'recit', niveau: 'facile' },
+      { q: 'In che anno è nato Salvatore?', choix: ['1947', '1937', '1957'], bonne: 0, ancre: 'recit', niveau: 'facile' },
+      { q: 'Da dove tornava suo padre Angelo quando è rimasto vedovo?', choix: ['Dai campi russi', 'Dall’America', 'Dall’Africa del Nord'], bonne: 0, ancre: 'recit', niveau: 'moyen' },
+      { q: 'Chi ha cresciuto Salvatore?', choix: ['La nonna Giuseppina, nonna Pipine', 'Una zia rimasta in Sicilia', 'Suo padre Angelo'], bonne: 0, ancre: 'recit', niveau: 'moyen' },
+      { q: 'Dove era emigrata nonna Pipine con i suoi figli?', choix: ['A Saint-Étienne', 'A Bruxelles', 'A Lione'], bonne: 0, ancre: 'recit', niveau: 'moyen' },
+      { q: 'Lo ha cresciuto come…', choix: ['Il decimo dei fratelli', 'Un nipote a parte', 'Il suo figlio maggiore'], bonne: 0, ancre: 'recit', niveau: 'difficile' },
+      { q: 'A che età è partito a lavorare in Belgio?', choix: ['A diciannove anni', 'A quindici anni', 'A venticinque anni'], bonne: 0, ancre: 'recit', niveau: 'moyen' },
+      { q: 'Che cosa riunisce la casa di Cava d’Aliga, di generazione in generazione?', choix: ['La famiglia', 'I vicini del paese', 'Gli amici del Belgio'], bonne: 0, ancre: 'recit', niveau: 'facile' },
+      { q: 'Qual è il cognome da nubile di Giuseppina, la madre dei fratelli Contrino?', choix: ['Marcino', 'Sberna', 'Canolo'], bonne: 0, ancre: 'arbre', niveau: 'facile' },
+      { q: 'Come si chiamano i due figli di Jacques?', choix: ['Nathalie e Olivier', 'Christian e Ambre', 'Salvatore e Tino'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'Quale figlia di Helene ha sposato Patrick Gamino?', choix: ['Angelina, detta Angèle', 'Rosalba, detta Rose', 'Giuseppina, detta Jo'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'Qual è il cognome del secondo marito di Lucia?', choix: ['Dolciamore', 'Gallois', 'Gamino'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'Chi sono i genitori di Pierre Lux, nato nel 1881?', choix: ['Henri Lux e Angélique Bourg', 'Augustin Viseux e Flore Wasson', 'Louis Thurot e Mélanie Souveton'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'Chi sono i genitori di Angelina Viseux, nata nel 1882?', choix: ['Augustin Viseux e Flore Wasson', 'Henri Lux e Angélique Bourg', 'Pierre Lux e Juliette Thurot'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'In che anno è nata Juliette Emilienne Thurot?', choix: ['1923', '1898', '1920'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'Chi ha sposato Juliette Emilienne Thurot in seconde nozze?', choix: ['Charles Gallois', 'Patrick Gamino', 'Louis Thurot'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'Qual è il cognome da nubile di Régine, la madre di Mag?', choix: ['Lux', 'Thurot', 'Viseux'], bonne: 0, ancre: 'arbre', niveau: 'facile' },
+      { q: 'Come si chiama la figlia di Benito che conosciamo?', choix: ['Ambre', 'Zoé', 'Manon'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'Come si chiama il primo figlio di Gabi?', choix: ['Christian', 'Stefano', 'Rosario'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'Qual è il diminutivo di Rosario, figlio di Angelo e Conchetta Sberna?', choix: ['Saro', 'Jo', 'Rose'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
     ],
   },
   askMag: {
@@ -2904,6 +2962,8 @@ const EN: Dict = {
     fauna: 'Wildlife',
     books: 'Books',
     italian: 'Italian',
+    story: 'The story',
+    tree: 'The tree',
     history: 'Struggles & memory',
   },
   infoFilter: {
@@ -3105,6 +3165,8 @@ const EN: Dict = {
   quizPage: {
     eyebrow: 'A little game',
     title: 'How well do you know the region?',
+    familyTitle: 'How well do you know the family?',
+    familyIntro: 'Salva’s story, and the family tree. Three possible answers each time, and everything you need is written higher up on this page — each answer tells you where to go and read it again.',
     intro: 'By theme, or all mixed up. Three answers to choose from each time, and everything you need is written further up this page — each answer tells you where to read it again.',
     start: 'Start',
     next: 'Next question',
@@ -3218,6 +3280,27 @@ const EN: Dict = {
       { q: 'What does “occupare le terre” mean?', choix: ['To occupy the land', 'To farm the land', 'To sell the land'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
       { q: '“La lotta continua” means…', choix: ['The struggle continues', 'The struggle is over', 'The struggle begins'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
       { q: 'In “Sacco e Vanzetti sono stati giustiziati”, “sono stati” marks…', choix: ['The past tense, with essere', 'The future', 'The present'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      // ── The family page. See the French note.
+      { q: 'Where was Salvatore Contrino born?', choix: ['In Valguarnera, Sicily', 'In Scicli', 'In Cava d’Aliga'], bonne: 0, ancre: 'recit', niveau: 'facile' },
+      { q: 'What year was Salvatore born?', choix: ['1947', '1937', '1957'], bonne: 0, ancre: 'recit', niveau: 'facile' },
+      { q: 'Where was his father Angelo coming back from when he was widowed?', choix: ['The Russian camps', 'America', 'North Africa'], bonne: 0, ancre: 'recit', niveau: 'moyen' },
+      { q: 'Who raised Salvatore?', choix: ['His grandmother Giuseppina, mémé Pipine', 'An aunt who stayed in Sicily', 'His father Angelo'], bonne: 0, ancre: 'recit', niveau: 'moyen' },
+      { q: 'Where had mémé Pipine emigrated with her children?', choix: ['To Saint-Étienne', 'To Brussels', 'To Lyon'], bonne: 0, ancre: 'recit', niveau: 'moyen' },
+      { q: 'She raised him as…', choix: ['The tenth of the siblings', 'A grandson apart', 'Her eldest son'], bonne: 0, ancre: 'recit', niveau: 'difficile' },
+      { q: 'How old was he when he left to work in Belgium?', choix: ['Nineteen', 'Fifteen', 'Twenty-five'], bonne: 0, ancre: 'recit', niveau: 'moyen' },
+      { q: 'What does the house in Cava d’Aliga gather, generation after generation?', choix: ['The family', 'The village neighbours', 'Friends from Belgium'], bonne: 0, ancre: 'recit', niveau: 'facile' },
+      { q: 'What is the maiden name of Giuseppina, mother of the Contrino siblings?', choix: ['Marcino', 'Sberna', 'Canolo'], bonne: 0, ancre: 'arbre', niveau: 'facile' },
+      { q: 'What are the names of Jacques’ two children?', choix: ['Nathalie and Olivier', 'Christian and Ambre', 'Salvatore and Tino'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'Which of Helene’s daughters married Patrick Gamino?', choix: ['Angelina, known as Angèle', 'Rosalba, known as Rose', 'Giuseppina, known as Jo'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'What is the surname of Lucia’s second husband?', choix: ['Dolciamore', 'Gallois', 'Gamino'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'Who are the parents of Pierre Lux, born in 1881?', choix: ['Henri Lux and Angélique Bourg', 'Augustin Viseux and Flore Wasson', 'Louis Thurot and Mélanie Souveton'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'Who are the parents of Angelina Viseux, born in 1882?', choix: ['Augustin Viseux and Flore Wasson', 'Henri Lux and Angélique Bourg', 'Pierre Lux and Juliette Thurot'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'What year was Juliette Emilienne Thurot born?', choix: ['1923', '1898', '1920'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'Who did Juliette Emilienne Thurot marry the second time?', choix: ['Charles Gallois', 'Patrick Gamino', 'Louis Thurot'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'What is the maiden name of Régine, Mag’s mother?', choix: ['Lux', 'Thurot', 'Viseux'], bonne: 0, ancre: 'arbre', niveau: 'facile' },
+      { q: 'What is the name of Benito’s daughter that we know of?', choix: ['Ambre', 'Zoé', 'Manon'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'What is the name of Gabi’s first child?', choix: ['Christian', 'Stefano', 'Rosario'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
+      { q: 'What is the short form of Rosario, son of Angelo and Conchetta Sberna?', choix: ['Saro', 'Jo', 'Rose'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
     ],
   },
   askMag: {

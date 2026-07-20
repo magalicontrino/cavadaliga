@@ -9,6 +9,7 @@ import Lightbox from '../Lightbox';
 import PageHeader from '../PageHeader';
 import Icon from '../Icon';
 import FamilyTree from '../FamilyTree';
+import Quiz from '../Quiz';
 import { SITE } from '../data';
 import { useI18n } from '../i18n';
 import { useAncre } from '../ancre';
@@ -56,7 +57,9 @@ export default function Salva() {
       {/* Histoire de la famille — une seule colonne : le label coiffe le
           recit au lieu de le regarder d'en face. Le texte n'est plus un
           paragraphe cale a droite d'une etiquette, c'est le sujet. */}
-      <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
+      {/* `id` et marge d'ancre : le quiz du bas renvoie ici quand la reponse
+          vient du recit, comme il renvoie a l'arbre pour les autres. */}
+      <section id="recit" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-16 md:px-10">
         <Reveal className="border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
           <div className="flex flex-col gap-6">
             <span className="text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-muted)' }}>
@@ -171,6 +174,14 @@ export default function Salva() {
           </div>
         </Reveal>
       </section>
+
+      {/*
+        Le quiz de la famille, tout en bas — comme celui de « La region », et
+        pour la meme raison : on joue APRES avoir lu. Il ne connait que ses
+        deux themes, le recit et l'arbre ; les soixante questions sur la
+        Sicile restent chez elles.
+      */}
+      <Quiz only={['recit', 'arbre']} famille />
 
       <Footer />
     </main>
