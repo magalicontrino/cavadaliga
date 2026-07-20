@@ -598,6 +598,15 @@ export type Chanson = {
   mots: { it: string; pron: string; sens: Texte }[];
   /** Le point de langue que la chanson montre mieux qu'un tableau. */
   langue: Texte;
+  /**
+   * Ce que la chanson raconte, passage par passage, ECRIT PAR NOUS.
+   *
+   * C'est la reponse aux chansons dont on ne peut pas donner le texte : on
+   * dit ce qui s'y passe, dans l'ordre, et le vocabulaire d'a cote permet de
+   * suivre a l'ecoute presque mot a mot. C'est meme la meilleure facon
+   * d'apprendre une chanson — on reconnait au vol au lieu de lire en silence.
+   */
+  deroule?: { titre: Texte; texte: Texte }[];
 };
 
 export const CHANSONS: Chanson[] = [
@@ -619,12 +628,33 @@ export const CHANSONS: Chanson[] = [
       { it: 'la montagna', pron: 'la mon·TA·gna', sens: { fr: 'la montagne — là où les partisans se cachaient', it: 'dove si nascondevano i partigiani', en: 'the mountain — where the partisans hid' } },
       { it: 'seppellire', pron: 'sep·pel·LI·re', sens: { fr: 'enterrer', it: 'mettere sotto terra', en: 'to bury' } },
       { it: 'il fiore', pron: 'il FIO·re', sens: { fr: 'la fleur — celle qui pousse sur la tombe, à la fin', it: 'quello che nasce sulla tomba', en: 'the flower — the one that grows on the grave, at the end' } },
+      { it: 'una mattina', pron: 'u·na mat·TI·na', sens: { fr: 'un matin — c’est ainsi que tout commence', it: 'così comincia tutto', en: 'one morning — that is how it all starts' } },
+      { it: 'svegliarsi', pron: 'sve·GLIAR·si', sens: { fr: 'se réveiller', it: 'smettere di dormire', en: 'to wake up' } },
+      { it: 'portare via', pron: 'por·TA·re VI·a', sens: { fr: 'emmener — « portami via » veut dire « emmène-moi »', it: '« portami via »: portami con te', en: 'to take away — “portami via” means “take me with you”' } },
+      { it: 'morire', pron: 'mo·RI·re', sens: { fr: 'mourir', it: 'cessare di vivere', en: 'to die' } },
+      { it: 'la tomba', pron: 'la TOM·ba', sens: { fr: 'la tombe', it: 'dove si seppellisce', en: 'the grave' } },
+      { it: 'l’ombra', pron: 'LOM·bra', sens: { fr: 'l’ombre', it: 'dove non batte il sole', en: 'the shade' } },
+      { it: 'la gente', pron: 'la GEN·te', sens: { fr: 'les gens — singulier en italien, pluriel en français', it: 'le persone; in italiano è singolare', en: 'people — singular in Italian, plural in English' } },
+      { it: 'passare', pron: 'pas·SA·re', sens: { fr: 'passer — « passeranno », ils passeront', it: '« passeranno »: al futuro', en: 'to pass — “passeranno”, they will pass' } },
+      { it: 'la libertà', pron: 'la li·ber·TÀ', sens: { fr: 'la liberté — le dernier mot de la chanson', it: 'l’ultima parola della canzone', en: 'freedom — the last word of the song' } },
     ],
     langue: {
       fr: 'Elle est bâtie sur l’impératif et le futur : « portami via » (emmène-moi), « seppellire » à l’infinitif après un verbe de volonté. Et surtout, elle répète — c’est pour ça qu’on la retient sans l’apprendre.',
       it: 'È costruita sull’imperativo e sul futuro, e soprattutto ripete: per questo si impara senza studiarla.',
       en: 'It is built on the imperative and the future, and above all it repeats — which is why you learn it without studying it.',
     },
+    deroule: [
+      { titre: { fr: '1. Un matin, l’envahisseur', it: '1. Una mattina, l’invasore', en: '1. One morning, the invader' },
+        texte: { fr: 'Le chant s’ouvre sur un réveil : celui qui parle se lève et trouve le pays occupé. Tout part de là — un homme ordinaire, un matin ordinaire, et une décision à prendre.', it: 'Il canto si apre su un risveglio: chi parla si alza e trova il paese occupato. Tutto parte da lì.', en: 'The song opens on a waking: the speaker gets up and finds the country occupied. Everything follows from that.' } },
+      { titre: { fr: '2. L’adieu, en refrain', it: '2. L’addio, nel ritornello', en: '2. The farewell, as refrain' },
+        texte: { fr: 'Entre chaque couplet revient le même adieu, répété jusqu’à devenir une scansion. C’est ce retour qui fait qu’on retient la chanson sans l’avoir apprise — et qui la rend chantable à mille.', it: 'Tra una strofa e l’altra torna lo stesso addio, ripetuto fino a diventare una scansione. È questo che la rende cantabile in mille.', en: 'Between each verse the same farewell returns, repeated until it becomes a beat. That is why you remember it without learning it — and why a thousand people can sing it together.' } },
+      { titre: { fr: '3. Emmène-moi', it: '3. Portami via', en: '3. Take me away' },
+        texte: { fr: 'Il demande au partisan de l’emmener : c’est le moment où il choisit de partir se battre. La formule est un impératif avec le pronom collé au verbe — très italien, impossible en français.', it: 'Chiede al partigiano di portarlo via: è il momento in cui sceglie di partire. È un imperativo con il pronome attaccato al verbo.', en: 'He asks the partisan to take him along: the moment he chooses to go and fight. It is an imperative with the pronoun attached to the verb — very Italian.' } },
+      { titre: { fr: '4. S’il meurt', it: '4. Se muore', en: '4. If he dies' },
+        texte: { fr: 'Il envisage sa mort et laisse ses instructions : qu’on l’enterre à la montagne. Le chant ne promet aucune victoire — il regarde en face ce qu’il peut en coûter, et c’est ce qui le rend grave plutôt que martial.', it: 'Immagina la propria morte e lascia le sue istruzioni: che lo seppelliscano in montagna. Il canto non promette nessuna vittoria.', en: 'He imagines his own death and leaves instructions: bury him up in the mountains. The song promises no victory — it looks the cost in the face.' } },
+      { titre: { fr: '5. La fleur, et ceux qui passeront', it: '5. Il fiore, e chi passerà', en: '5. The flower, and those who will pass' },
+        texte: { fr: 'Sur la tombe pousse une fleur, et les passants la remarqueront. Ces derniers couplets sont au futur : la chanson finit sur ce qui viendra après, pas sur celui qui meurt. Le dernier mot est « liberté ».', it: 'Sulla tomba nasce un fiore, e chi passa lo noterà. Le ultime strofe sono al futuro: finisce su ciò che verrà dopo. L’ultima parola è « libertà ».', en: 'A flower grows on the grave, and passers-by will notice it. These last verses are in the future: the song ends on what comes after. Its last word is “freedom”.' } },
+    ],
   },
   {
     id: 'litaliano',
@@ -644,12 +674,34 @@ export const CHANSONS: Chanson[] = [
       { it: 'orgoglioso', pron: 'or·go·GLIO·so', sens: { fr: 'fier', it: 'che prova orgoglio', en: 'proud' } },
       { it: 'la mano', pron: 'la MA·no', sens: { fr: 'la main — un des rares mots en -o qui soit féminin', it: 'una delle poche parole in -o femminili', en: 'the hand — one of the rare -o words that is feminine' } },
       { it: 'buongiorno Italia', pron: 'buon·GIOR·no i·TA·lia', sens: { fr: 'bonjour l’Italie — la formule qui ouvre la chanson', it: 'la formula che apre la canzone', en: 'good morning Italy — the phrase that opens the song' } },
+      { it: 'il mattino', pron: 'il mat·TI·no', sens: { fr: 'le matin', it: 'la prima parte del giorno', en: 'the morning' } },
+      { it: 'il presidente', pron: 'il pre·si·DEN·te', sens: { fr: 'le président', it: 'chi guida uno Stato', en: 'the president' } },
+      { it: 'partigiano', pron: 'par·ti·GIA·no', sens: { fr: 'partisan — le mot revient d’une chanson à l’autre', it: 'la parola torna da una canzone all’altra', en: 'partisan — the word travels from one song to the next' } },
+      { it: 'il cappellino', pron: 'il cap·pel·LI·no', sens: { fr: 'le petit chapeau — le diminutif en -ino est partout en italien', it: 'il diminutivo in -ino è ovunque in italiano', en: 'the little hat — the -ino diminutive is everywhere in Italian' } },
+      { it: 'la bandiera', pron: 'la ban·DIE·ra', sens: { fr: 'le drapeau', it: 'il vessillo', en: 'the flag' } },
+      { it: 'la televisione', pron: 'la te·le·vi·SIO·ne', sens: { fr: 'la télévision', it: 'la TV', en: 'television' } },
+      { it: 'il canto', pron: 'il CAN·to', sens: { fr: 'le chant', it: 'quello che si canta', en: 'the singing, the song' } },
+      { it: 'l’amore', pron: 'la·MO·re', sens: { fr: 'l’amour — masculin en italien', it: 'in italiano è maschile', en: 'love — masculine in Italian' } },
+      { it: 'il cuore', pron: 'il CUO·re', sens: { fr: 'le cœur', it: 'l’organo, e il sentimento', en: 'the heart' } },
+      { it: 'la mamma', pron: 'la MAM·ma', sens: { fr: 'la maman — mot central de la chanson comme de l’Italie', it: 'parola centrale della canzone', en: 'mum — as central to the song as to Italy' } },
+      { it: 'il caffè', pron: 'il caf·FÈ', sens: { fr: 'le café — celui du bar, serré', it: 'l’espresso del bar', en: 'coffee — the short one, at the bar' } },
+      { it: 'vero', pron: 'VE·ro', sens: { fr: 'vrai — « un vero italiano »', it: '« un vero italiano »', en: 'true, real — “un vero italiano”' } },
+      { it: 'sognare', pron: 'so·GNA·re', sens: { fr: 'rêver', it: 'fare sogni', en: 'to dream' } },
+      { it: 'troppo', pron: 'TROP·po', sens: { fr: 'trop', it: 'più del necessario', en: 'too much' } },
     ],
     langue: {
       fr: 'Elle enseigne l’impératif de politesse au pluriel : lasciatemi, c’est « laissez-moi », avec le pronom collé au verbe. C’est très italien — en français on le mettrait devant.',
       it: 'Insegna l’imperativo con il pronome attaccato al verbo: lasciatemi. Molto italiano.',
       en: 'It teaches the plural imperative with the pronoun stuck onto the verb: lasciatemi. Very Italian — French and English would put it in front.',
     },
+    deroule: [
+      { titre: { fr: '1. Bonjour l’Italie', it: '1. Buongiorno Italia', en: '1. Good morning Italy' },
+        texte: { fr: 'La chanson s’ouvre en saluant le pays, puis enchaîne une série d’images de la vie italienne — ce qu’on mange, ce qu’on boit, ce qu’on regarde. Un inventaire, pas un récit : c’est un portrait par accumulation.', it: 'La canzone si apre salutando il paese, poi allinea immagini della vita italiana. Un inventario più che un racconto: un ritratto per accumulo.', en: 'The song opens by greeting the country, then lines up images of Italian life — what people eat, drink, watch. An inventory rather than a story: a portrait by accumulation.' } },
+      { titre: { fr: '2. Les contradictions', it: '2. Le contraddizioni', en: '2. The contradictions' },
+        texte: { fr: 'Cutugno met côte à côte ce dont on est fier et ce dont on l’est moins. Le personnage n’est pas idéalisé : c’est ce mélange qui fait que tout le monde s’y reconnaît, y compris hors d’Italie.', it: 'Cutugno mette accanto ciò di cui si è fieri e ciò di cui lo si è meno. Il personaggio non è idealizzato: per questo tutti ci si riconoscono.', en: 'Cutugno sets what Italians are proud of beside what they are less proud of. The character is not idealised — which is why everyone recognises themselves in him.' } },
+      { titre: { fr: '3. Le refrain : laissez-moi chanter', it: '3. Il ritornello: lasciatemi cantare', en: '3. The refrain: let me sing' },
+        texte: { fr: 'La demande est modeste — qu’on le laisse chanter, guitare en main, parce qu’il est italien. C’est la phrase que le monde entier connaît, et grammaticalement la plus intéressante de la chanson : « lasciatemi » colle le pronom au verbe.', it: 'La richiesta è modesta: che lo lascino cantare, con la chitarra in mano, perché è italiano. È la frase che tutti conoscono, e la più interessante dal punto di vista grammaticale.', en: 'The request is modest — let him sing, guitar in hand, because he is Italian. It is the line the whole world knows, and grammatically the most interesting: “lasciatemi” attaches the pronoun to the verb.' } },
+    ],
   },
   {
     id: 'via-con-me',
@@ -669,12 +721,33 @@ export const CHANSONS: Chanson[] = [
       { it: 'perdere', pron: 'PER·de·re', sens: { fr: 'perdre', it: 'non trovare più', en: 'to lose' } },
       { it: 'la notte', pron: 'la NOT·te', sens: { fr: 'la nuit', it: 'quando è buio', en: 'the night' } },
       { it: 'meraviglioso', pron: 'me·ra·vi·GLIO·so', sens: { fr: 'merveilleux — ce que « wonderful » dit en italien', it: 'ciò che « wonderful » dice in italiano', en: 'wonderful — what the English word says in Italian' } },
+      { it: 'andare', pron: 'an·DA·re', sens: { fr: 'aller, partir', it: 'muoversi verso', en: 'to go' } },
+      { it: 'il locale', pron: 'il lo·CA·le', sens: { fr: 'le bar, l’endroit où l’on sort le soir', it: 'il posto dove si esce la sera', en: 'the bar, the place you go out to' } },
+      { it: 'l’America', pron: 'la·ME·ri·ca', sens: { fr: 'l’Amérique — l’ailleurs rêvé de toute une génération', it: 'l’altrove sognato di una generazione', en: 'America — the imagined elsewhere of a whole generation' } },
+      { it: 'il tempo', pron: 'il TEM·po', sens: { fr: 'le temps — celui qui passe, et aussi la météo', it: 'quello che passa, e anche il meteo', en: 'time — and also the weather' } },
+      { it: 'la stagione', pron: 'la sta·GIO·ne', sens: { fr: 'la saison', it: 'primavera, estate…', en: 'the season' } },
+      { it: 'ridere', pron: 'RI·de·re', sens: { fr: 'rire', it: 'fare una risata', en: 'to laugh' } },
+      { it: 'guardare', pron: 'guar·DA·re', sens: { fr: 'regarder', it: 'posare lo sguardo', en: 'to look at' } },
+      { it: 'ballare', pron: 'bal·LA·re', sens: { fr: 'danser', it: 'muoversi a ritmo', en: 'to dance' } },
+      { it: 'il mondo', pron: 'il MON·do', sens: { fr: 'le monde', it: 'tutto quanto', en: 'the world' } },
+      { it: 'strano', pron: 'STRA·no', sens: { fr: 'étrange, bizarre', it: 'insolito', en: 'strange' } },
+      { it: 'dolce', pron: 'DOL·ce', sens: { fr: 'doux, sucré — les deux à la fois', it: 'sia di sapore sia di modi', en: 'sweet, gentle — both at once' } },
+      { it: 'insieme', pron: 'in·SIE·me', sens: { fr: 'ensemble', it: 'l’uno con l’altro', en: 'together' } },
+      { it: 'lontano', pron: 'lon·TA·no', sens: { fr: 'loin', it: 'non vicino', en: 'far away' } },
     ],
     langue: {
       fr: 'Elle montre l’impératif de l’invitation, celui qu’on emploie entre amis, et le pluriel irrégulier uomo → uomini. Écoutez-la surtout pour le rythme : Conte avale les syllabes comme on parle vraiment.',
       it: 'Mostra l’imperativo dell’invito e il plurale irregolare uomo → uomini. Ascoltatela per il ritmo: Conte mangia le sillabe come si fa parlando.',
       en: 'It shows the inviting imperative and the irregular plural uomo → uomini. Listen to it above all for the rhythm: Conte swallows syllables the way people really speak.',
     },
+    deroule: [
+      { titre: { fr: '1. L’invitation', it: '1. L’invito', en: '1. The invitation' },
+        texte: { fr: 'Tout tient dans le titre : viens avec moi, partons. Conte ne dit ni où ni pourquoi — l’invitation reste ouverte, et c’est ce qui la rend séduisante plutôt que pressante.', it: 'Tutto sta nel titolo: vieni con me, andiamo. Conte non dice né dove né perché: l’invito resta aperto.', en: 'It is all in the title: come with me, let us go. Conte never says where or why — the invitation stays open, which is what makes it seductive rather than pressing.' } },
+      { titre: { fr: '2. L’anglais au milieu de l’italien', it: '2. L’inglese dentro l’italiano', en: '2. English inside the Italian' },
+        texte: { fr: 'Au milieu du morceau surgit une exclamation en anglais. Elle n’est pas là par hasard : dans l’Italie de 1981, l’anglais c’est le cinéma, l’Amérique, l’ailleurs. Conte s’en sert avec ironie autant qu’avec tendresse.', it: 'A metà brano spunta un’esclamazione in inglese. Non è casuale: nell’Italia del 1981 l’inglese è il cinema, l’America, l’altrove.', en: 'Halfway through, an English exclamation appears. It is not an accident: in the Italy of 1981, English meant cinema, America, elsewhere. Conte uses it with irony and tenderness at once.' } },
+      { titre: { fr: '3. Le rythme plutôt que les mots', it: '3. Il ritmo più delle parole', en: '3. Rhythm over words' },
+        texte: { fr: 'Écoutez-la d’abord pour la voix et la scansion. Conte avale les syllabes comme on le fait en parlant vraiment — c’est un excellent exercice d’oreille, bien plus utile qu’un texte lu lentement.', it: 'Ascoltatela prima per la voce e la scansione. Conte mangia le sillabe come si fa parlando davvero: ottimo esercizio d’orecchio.', en: 'Listen first for the voice and the beat. Conte swallows syllables the way people really do when speaking — a far better ear exercise than a text read slowly.' } },
+    ],
   },
 ];
 

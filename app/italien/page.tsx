@@ -652,6 +652,20 @@ export default function Italien() {
 
               <p className="mt-3 max-w-[72ch] text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{ch.quoi[lang]}</p>
 
+              {/* Le deroule : ce que la chanson raconte, passage par passage.
+                  Il tient la place du texte qu'on ne recopie pas — et il en
+                  dit plus, puisqu'il explique au lieu de citer. */}
+              {ch.deroule && (
+                <div className="mt-6 flex flex-col gap-4">
+                  {ch.deroule.map((d) => (
+                    <div key={d.titre.fr} className="border-l-2 pl-4" style={{ borderColor: 'var(--cava-line)' }}>
+                      <p className="text-[14px]" style={{ fontWeight: 600 }}>{d.titre[lang]}</p>
+                      <p className="mt-1 max-w-[72ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{d.texte[lang]}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <p className="mt-6 text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>{p.songsWords}</p>
               <dl className="mt-3 grid grid-cols-1 gap-x-12 gap-y-3 sm:grid-cols-[repeat(2,minmax(0,max-content))]">
                 {ch.mots.map((m) => (
