@@ -258,6 +258,9 @@ export type Dict = {
   /** Le repli du tri sur telephone : vingt boutons n'y tiennent pas deplies. */
   filtersMore: string;
   filtersLess: string;
+  /** Les fleches du calendrier : elles n'ont pas de texte, il leur faut un nom. */
+  monthsPrev: string;
+  monthsNext: string;
   regionFilter: {
     all: string;
     places: string;
@@ -1059,6 +1062,8 @@ const FR: Dict = {
   sourcesLabel: 'Sources :',
   filtersMore: 'Voir tous les thèmes',
   filtersLess: 'Réduire',
+  monthsPrev: 'Mois précédents',
+  monthsNext: 'Mois suivants',
   regionFilter: {
     all: 'Tout voir',
     places: 'Les lieux',
@@ -2219,6 +2224,8 @@ const IT: Dict = {
   sourcesLabel: 'Fonti:',
   filtersMore: 'Mostra tutti i temi',
   filtersLess: 'Mostra meno',
+  monthsPrev: 'Mesi precedenti',
+  monthsNext: 'Mesi successivi',
   regionFilter: {
     all: 'Vedi tutto',
     places: 'I luoghi',
@@ -3372,6 +3379,8 @@ const EN: Dict = {
   sourcesLabel: 'Sources:',
   filtersMore: 'Show all themes',
   filtersLess: 'Show fewer',
+  monthsPrev: 'Earlier months',
+  monthsNext: 'Later months',
   regionFilter: {
     all: 'See all',
     places: 'The places',

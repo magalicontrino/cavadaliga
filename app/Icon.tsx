@@ -8,6 +8,8 @@
 export type IconName =
   | 'car'
   | 'hourglass'
+  | 'arrowLeft'
+  | 'arrowRight'
   | 'tabac'
   | 'parler'
   | 'robot'
@@ -306,6 +308,11 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
     </>
   ),
   // Vinyle — sons & images
+  // Les chevrons du calendrier. Un simple angle, pas une fleche a hampe : a
+  // 18 px dans un bouton carre, la hampe se lit comme un trait de plus et le
+  // bouton devient sale.
+  arrowLeft: <path d="M15 5l-7 7 7 7" />,
+  arrowRight: <path d="M9 5l7 7-7 7" />,
   vinyl: (
     <>
       <circle cx="12" cy="12" r="8.5" />

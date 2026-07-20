@@ -1,6 +1,8 @@
 'use client';
 
+import { useEffect, useMemo, useState } from 'react';
 import Reveal from './Reveal';
+import Icon from './Icon';
 import { useI18n } from './i18n';
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -25,14 +27,24 @@ const SEJOURS: Sejour[] = [
   { label: 'Marie & Guillaume', start: '2026-10-17', end: '2026-11-01' },
 ];
 
-/** Mois montres : [annee, mois 0-indexe]. Juillet = 6. */
-const MOIS: [number, number][] = [
-  [2026, 6],
-  [2026, 7],
-  [2026, 8],
-  [2026, 9],
-  [2026, 10],
-];
+/*
+ * LES MOIS NE SE LISTENT PLUS A LA MAIN.
+ *
+ * Il y avait ici un tableau `MOIS` a tenir a jour en parallele des sejours,
+ * avec ce commentaire : « ajouter un sejour en novembre demande d'ajouter
+ * novembre a la liste, sinon il ne s'affichera nulle part ». C'etait un piege :
+ * l'oubli ne casse rien, ne previent pas, et fait simplement DISPARAITRE un
+ * sejour du calendrier. Personne ne s'en apercevrait avant que quelqu'un
+ * debarque un jour deja pris.
+ *
+ * La plage se deduit donc des sejours eux-memes : du mois du premier au mois du
+ * dernier, plus un an devant pour qu'on puisse regarder plus loin et constater
+ * que la maison est libre. Ajouter un sejour suffit maintenant a le voir.
+ */
+const FENETRE = 6; // mois affiches d'un coup — le format du modele de Mag
+
+const moisIndex = (annee: number, mois: number) => annee * 12 + mois;
+const deMoisIndex = (n: number): [number, number] => [Math.floor(n / 12), n % 12];
 
 const LOCALES: Record<string, string> = { it: 'it-IT', fr: 'fr-FR', en: 'en-GB' };
 
@@ -105,15 +117,75 @@ export default function Occupancy() {
     new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(new Date(2024, 0, 1 + i)),
   );
   /*
-   * AUJOURD'HUI est calcule au rendu, donc cote serveur a la construction PUIS
-   * cote navigateur. Les deux peuvent tomber de part et d'autre de minuit, et
-   * React refuserait la page pour une pastille. On ne s'en sert donc que pour
-   * comparer des jours entiers, jamais pour un rendu conditionnel avant
-   * l'hydratation : la case existe toujours, seule sa bordure change.
+   * AUJOURD'HUI N'EXISTE QU'APRES LE MONTAGE. C'est la precaution qui compte
+   * ici, et elle n'est pas theorique.
+   *
+   * Le site est EXPORTE EN STATIQUE : le HTML est calcule une fois, le jour du
+   * build, puis servi tel quel pendant des semaines. Tout ce qui depend de la
+   * date se figerait donc a cette date-la — les jours grises, le contour du
+   * jour, la page ouverte — et le navigateur, lui, calculerait autre chose.
+   * React verrait deux rendus differents et refuserait d'hydrater la page.
+   *
+   * Rien ne se voit tant que le build est frais, ce qui est le pire des cas :
+   * la panne serait arrivee toute seule, un mois plus tard, sans qu'on ait
+   * rien touche.
+   *
+   * `null` avant l'hydratation : aucun jour n'est passe, aucun n'est
+   * aujourd'hui. Le serveur et le premier rendu client disent donc exactement
+   * la meme chose, et la date arrive juste apres.
    */
-  const aujourdhui = ymd(new Date());
+  const [aujourdhui, setAujourdhui] = useState<number | null>(null);
 
   const jourFormat = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short' });
+  const moisFormat = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' });
+
+  /*
+   * La plage navigable, deduite des sejours. `useMemo` parce qu'elle ne depend
+   * de rien qui bouge : la recalculer a chaque clic de fleche ne servirait
+   * qu'a refaire le meme tri.
+   */
+  const [premier, dernier] = useMemo(() => {
+    const debuts = SEJOURS.map((x) => lire(x.start));
+    const fins = SEJOURS.map((x) => lire(x.end));
+    const min = debuts.reduce((a, b) => (a < b ? a : b));
+    const max = fins.reduce((a, b) => (a > b ? a : b));
+    return [moisIndex(min.getFullYear(), min.getMonth()), moisIndex(max.getFullYear(), max.getMonth()) + 12];
+  }, []);
+
+  /*
+   * ON OUVRE SUR LE MOIS COURANT, pas sur le premier sejour enregistre : la
+   * question qu'on se pose en arrivant est « et maintenant ? ». Les pages sont
+   * calees sur la plage, si bien qu'avancer puis reculer ramene exactement au
+   * meme endroit — un decoupage flottant donnerait des fenetres qui glissent.
+   */
+  const maintenant = new Date();
+  const page0 = Math.max(
+    0,
+    Math.min(
+      Math.floor((moisIndex(maintenant.getFullYear(), maintenant.getMonth()) - premier) / FENETRE),
+      Math.floor((dernier - premier) / FENETRE),
+    ),
+  );
+  // Meme raison : la page d'ouverture depend d'aujourd'hui, donc elle ne peut
+  // pas etre choisie au build. On part de la premiere, on saute a la bonne des
+  // que le navigateur a la main.
+  const [page, setPage] = useState(0);
+  const pageMax = Math.floor((dernier - premier) / FENETRE);
+
+  useEffect(() => {
+    setAujourdhui(ymd(new Date()));
+    setPage(page0);
+    // Une seule fois, au montage : ensuite c'est aux fleches de decider.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const debutFenetre = premier + page * FENETRE;
+  const mois: [number, number][] = Array.from({ length: FENETRE }, (_, i) => deMoisIndex(debutFenetre + i)).filter(
+    ([, ], i) => debutFenetre + i <= dernier,
+  );
+  const titre = `${moisFormat.format(new Date(...deMoisIndex(debutFenetre), 1))} – ${moisFormat.format(
+    new Date(...deMoisIndex(debutFenetre + mois.length - 1), 1),
+  )}`;
 
   return (
     <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
@@ -132,9 +204,49 @@ export default function Occupancy() {
         </span>
       </Reveal>
 
+      {/*
+        L'ENTETE DE NAVIGATION — le modele de Mag : une fleche, la plage de
+        mois, une fleche.
+
+        Les fleches se DESACTIVENT aux bords plutot que de disparaitre : un
+        bouton qui s'evapore fait douter de ce qu'on vient de cliquer, et
+        deplace ce qui l'entoure. Grisees, elles disent « c'est le bout » sans
+        rien bouger. Et si tout tient sur une seule page, l'entete ne s'affiche
+        pas du tout : deux fleches mortes n'expliquent rien.
+      */}
+      {pageMax > 0 && (
+        <Reveal className="mb-6 flex items-center justify-center gap-4">
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.max(0, p - 1))}
+            disabled={page === 0}
+            aria-label={t.monthsPrev}
+            className="flex h-10 w-10 items-center justify-center rounded-xl border transition-transform duration-200 enabled:hover:scale-[1.06] disabled:opacity-30 motion-reduce:transition-none"
+            style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-ink)' }}
+          >
+            <Icon name="arrowLeft" size={18} />
+          </button>
+
+          <p className="min-w-[16ch] text-center text-[clamp(1rem,1.7vw,1.2rem)] capitalize" style={{ fontWeight: 700 }}>
+            {titre}
+          </p>
+
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.min(pageMax, p + 1))}
+            disabled={page === pageMax}
+            aria-label={t.monthsNext}
+            className="flex h-10 w-10 items-center justify-center rounded-xl border transition-transform duration-200 enabled:hover:scale-[1.06] disabled:opacity-30 motion-reduce:transition-none"
+            style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-ink)' }}
+          >
+            <Icon name="arrowRight" size={18} />
+          </button>
+        </Reveal>
+      )}
+
       {/* Trois mois par rangee sur grand ecran, comme le modele. */}
       <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-        {MOIS.map(([y, m]) => {
+        {mois.map(([y, m]) => {
           const semaines = semainesDuMois(y, m);
           const nomDuMois = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(new Date(y, m, 1));
           return (
@@ -160,8 +272,8 @@ export default function Occupancy() {
                   if (!d) return <div key={di} aria-hidden />;
                   const si = sejourDuJour(d);
                   const s = si >= 0 ? SEJOURS[si] : null;
-                  const passe = ymd(d) < aujourdhui;
-                  const cejour = ymd(d) === aujourdhui;
+                  const passe = aujourdhui !== null && ymd(d) < aujourdhui;
+                  const cejour = aujourdhui === ymd(d);
                   return (
                     <div
                       key={di}
