@@ -467,7 +467,7 @@ export default function Italien() {
         surCarte(x.id);
       }}
       aria-current={(section ?? PLAN[0].id) === x.id ? 'true' : undefined}
-      className="group flex flex-col justify-between gap-1.5 rounded-2xl border p-3 text-left min-[500px]:aspect-square transition-transform duration-200 hover:scale-[1.02] motion-reduce:transition-none"
+      className="group flex aspect-square flex-col justify-between gap-1.5 rounded-2xl border p-3 text-left transition-transform duration-200 hover:scale-[1.02] motion-reduce:transition-none"
       /* La carte ouverte prend le filet d'encre : sur grand ecran c'est le seul
          indice de ce qu'on lit en dessous. Un fond plein serait trop fort — la
          grille compte huit cartes, elle deviendrait un damier. */
@@ -485,12 +485,33 @@ export default function Italien() {
         est aussi le sens de lecture naturel — le pictogramme d'abord, le mot
         ensuite.
       */}
+      {/*
+        LE GLYPHE EST PLUS GROS SUR TELEPHONE QU'A TROIS COLONNES, ce qui a
+        l'air d'un contresens et n'en est pas : a deux colonnes la vignette fait
+        161 px, a trois elle tombe a 145. C'est la seule largeur du site qui
+        DECROIT quand l'ecran grandit — le palier des trois colonnes reprend
+        plus qu'il ne donne. Le glyphe suit la vignette, pas l'ecran.
+
+        LES 40 PX SOUS 360 PX sont le prix des vieux telephones. A 320 px la
+        vignette tombe a 134, et « Le passe compose » (« Il passato prossimo »
+        en italien, aussi long) prend trois lignes : mesure, le carre debordait
+        de 2,5 px et sa rangee se decalait — le defaut meme qu'on corrige ici.
+        Quatre pixels de glyphe rendus, et la marge repasse au positif.
+      */}
       <span style={{ color: 'var(--cava-ink)' }}>
-        <GlyphePlein name={x.glyphe} className="h-8 w-8 min-[560px]:h-10 min-[560px]:w-10" />
+        <GlyphePlein name={x.glyphe} className="h-10 w-10 min-[360px]:h-11 min-[360px]:w-11 min-[500px]:h-8 min-[500px]:w-8 min-[560px]:h-10 min-[560px]:w-10" />
       </span>
       <div className="flex flex-col gap-1">
         <span className="text-[clamp(0.85rem,1.05vw,1rem)] leading-tight" style={{ fontWeight: 800 }}>{x.titre}</span>
-        <span className="text-[10px] uppercase leading-tight tracking-[0.08em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+        {/*
+          9 px sur telephone. Mag : « les "debutant..." doivent etre plus
+          petit ». Le niveau reste sur deux lignes malgre tout — « Niveau 2 · se
+          debrouiller » demande 25 signes pour 137 px de large, aucune taille
+          lisible ne le tient sur une ligne. Ce n'est plus un probleme depuis que
+          le carre est impose : la hauteur ne depend plus du texte, donc une
+          vignette qui replie son niveau ne decale plus toute sa rangee.
+        */}
+        <span className="text-[9px] uppercase leading-tight tracking-[0.08em] min-[500px]:text-[10px]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
           {x.niveau}
         </span>
         {/*
@@ -983,8 +1004,15 @@ export default function Italien() {
           pixels de matelas, mesures, et verifies dans les trois langues (les
           titres italiens sont les plus longs).
 
-          Le seuil des trois colonnes reste a 500 px, ou la colonne fait 145 :
-          en dessous, le carre ne tenait plus non plus.
+          LE CARRE VAUT MAINTENANT PARTOUT, telephone compris. Il s'arretait a
+          500 px, et j'avais ecrit qu'en dessous « le carre ne tenait plus » —
+          c'etait faux, et faux par un raisonnement et non par une mesure :
+          j'avais suppose que plus etroit voulait dire plus serre. En dessous de
+          500 px la grille retombe a DEUX colonnes, et la vignette repasse a
+          161 px, soit 16 de plus qu'a trois. Resultat de l'erreur : sur
+          telephone les vignettes etaient des rectangles couches, 161 sur 97,
+          et surtout de hauteurs inegales d'une rangee a l'autre — 97 la ou le
+          niveau tenait sur une ligne, 110 la ou il se repliait.
         */}
         <Reveal className="grid grid-cols-2 gap-3 min-[500px]:grid-cols-3 md:grid-cols-4 xl:grid-cols-8">
           {PLAN.map((x) => carteSommaire(x))}
