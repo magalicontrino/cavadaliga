@@ -29,6 +29,9 @@ export const SOURCES: Record<string, Source[]> = {
     { label: 'Balle au tambourin — Wikipédia', url: 'https://fr.wikipedia.org/wiki/Balle_au_tambourin' },
     { label: 'Tennis da spiaggia — Wikipedia', url: 'https://it.wikipedia.org/wiki/Tennis_da_spiaggia' },
     { label: 'Beach Bocce — Federazione Italiana Bocce', url: 'https://www.federbocce.it/beach.html' },
+    // Mag : « la petanque ce sont des boules en bois ». Verifie : le bois est
+    // bien l'etat d'origine, et l'acier n'arrive qu'en 1927.
+    { label: 'Boule de pétanque (argile, pierre, bois, puis acier) — Wikipédia', url: 'https://fr.wikipedia.org/wiki/Boule_de_p%C3%A9tanque' },
     { label: 'Les boules sur la plage de Donnalucata — Ragusanews', url: 'https://www.ragusanews.com/attualita-giocare-a-bocce-in-spiaggia-incontro-dove-si-raccontano-gli-anni-184035/' },
     { label: 'A strummula, la toupie sicilienne — ilSicilia', url: 'https://ilsicilia.it/a-strummula-u-tuppettu-un-antico-gioco-da-riscoprire/' },
   ],

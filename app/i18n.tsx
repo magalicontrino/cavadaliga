@@ -1234,7 +1234,7 @@ const FR: Dict = {
       {
         icon: 'pin',
         title: 'Les boules sur le sable',
-        text: 'La pétanque italienne s’appelle les bocce, et le cochonnet le pallino. La règle tient en une phrase : la boule la plus proche du pallino gagne, et on peut chasser celle de l’adversaire en la frappant — ça s’appelle une bocciata. Sur le sable, on aplanit une bande d’une quinzaine de mètres et on joue en douze points. À Donnalucata, ce n’est pas un jeu de vacanciers : les mêmes retraités s’y retrouvent tous les après-midi depuis plus de cinquante ans.',
+        text: 'Ce sont des boules EN BOIS — Mag y tient, et elle a doublement raison. C’est le jeu de plage classique en Italie, vendu en coffret de bois, quand la pétanque française se joue en acier. Et c’est un retour aux origines : la boule a été d’argile, de pierre, puis de bois, et l’acier n’est arrivé qu’en 1927, à Saint-Bonnet-le-Château. Entre les deux, on jouait avec des boules cloutées — du bois recouvert d’une carapace de clous, inventée à Marseille en 1904 par Félix Rofritsch. La pétanque italienne s’appelle les bocce, et le cochonnet le pallino. La règle tient en une phrase : la boule la plus proche du pallino gagne, et on peut chasser celle de l’adversaire en la frappant — ça s’appelle une bocciata. Sur le sable, on aplanit une bande d’une quinzaine de mètres et on joue en douze points. À Donnalucata, ce n’est pas un jeu de vacanciers : les mêmes retraités s’y retrouvent tous les après-midi depuis plus de cinquante ans.',
       },
       {
         icon: 'wave',
@@ -1423,6 +1423,12 @@ const FR: Dict = {
       { q: 'En quelle année le premier tambourin a-t-il été fabriqué ?', choix: ['En 1861, par un tonnelier de Mèze', 'En 1896', 'En 1952'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Depuis quand l’Italie a-t-elle un championnat de tamburello ?', choix: ['Depuis 1896', 'Depuis 1861', 'Depuis 1955'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Où joue-t-on au tamburello, en Italie ?', choix: ['Au Nord — Lombardie, Vénétie', 'En Sicile', 'Partout également'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
+      // ── Les boules en bois. Mag : « la petanque ce sont des boules en bois ».
+      { q: 'En quoi sont les boules du jeu de plage italien ?', choix: ['En bois', 'En acier', 'En verre'], bonne: 0, ancre: 'sports', niveau: 'facile' },
+      { q: 'Quels matériaux la boule a-t-elle traversés, dans l’ordre ?', choix: ['Argile, pierre, bois, puis acier', 'Acier, bois, puis pierre', 'Verre, bois, puis acier'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'En quelle année l’acier arrive-t-il dans la pétanque ?', choix: ['En 1927', 'En 1904', 'En 1861'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Qu’est-ce qu’une boule cloutée ?', choix: ['Du bois recouvert d’une carapace de clous', 'Une boule percée de trous', 'Une boule peinte à la main'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Qui a inventé la boule cloutée, et où ?', choix: ['Félix Rofritsch, à Marseille en 1904', 'Jean Blanc, à Lyon en 1930', 'Un tonnelier de Mèze en 1861'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Où les premières pâtes sèches d’Europe sont-elles documentées ?', choix: ['En Sicile, à Trabia', 'À Naples', 'En Chine, rapportées par Marco Polo'], bonne: 0, ancre: 'arabe', niveau: 'facile' },
       { q: 'Comment s’appelaient ces fils de semoule décrits en 1154 ?', choix: ['Itriyya', 'Maccheroni', 'Tagliatelle'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Qui a écrit la plus ancienne mention des pâtes sèches d’Europe ?', choix: ['Al-Idrisi, dans le Livre de Roger', 'Marco Polo', 'Pline l’Ancien'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
@@ -2371,7 +2377,7 @@ const IT: Dict = {
       {
         icon: 'pin',
         title: 'Le bocce sulla sabbia',
-        text: 'La regola sta in una frase: vince la boccia più vicina al pallino, e si può mandare via quella dell’avversario colpendola — si chiama bocciata. Sulla sabbia si spiana una striscia di una quindicina di metri e si gioca ai dodici punti. A Donnalucata non è un gioco da turisti: gli stessi pensionati si ritrovano ogni pomeriggio da più di cinquant’anni.',
+        text: 'Sono bocce DI LEGNO — Mag ci tiene, e ha ragione due volte. È il gioco da spiaggia classico in Italia, venduto in cofanetto di legno, mentre la pétanque francese si gioca in acciaio. Ed è un ritorno alle origini: la boccia è stata d’argilla, di pietra, poi di legno, e l’acciaio è arrivato solo nel 1927, a Saint-Bonnet-le-Château. Nel mezzo si giocava con le boules cloutées — legno rivestito da una corazza di chiodi, inventata a Marsiglia nel 1904 da Félix Rofritsch. La regola sta in una frase: vince la boccia più vicina al pallino, e si può mandare via quella dell’avversario colpendola — si chiama bocciata. Sulla sabbia si spiana una striscia di una quindicina di metri e si gioca ai dodici punti. A Donnalucata non è un gioco da turisti: gli stessi pensionati si ritrovano ogni pomeriggio da più di cinquant’anni.',
       },
       {
         icon: 'wave',
@@ -2560,6 +2566,12 @@ const IT: Dict = {
       { q: 'Da quando l’Italia ha un campionato di tamburello?', choix: ['Dal 1896', 'Dal 1861', 'Dal 1955'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Dove si gioca a tamburello, in Italia?', choix: ['Al Nord — Lombardia, Veneto', 'In Sicilia', 'Ovunque allo stesso modo'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
       { q: 'Di che cosa è fatto lo strumento?', choix: ['Un cerchio di plastica cerchiato di rame, con tela sintetica', 'Legno massiccio', 'Metallo pieno'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      // ── Le bocce di legno. Mag: « la pétanque sono bocce di legno ».
+      { q: 'Di che cosa sono fatte le bocce del gioco da spiaggia italiano?', choix: ['Di legno', 'Di acciaio', 'Di vetro'], bonne: 0, ancre: 'sports', niveau: 'facile' },
+      { q: 'Quali materiali ha attraversato la boccia, nell’ordine?', choix: ['Argilla, pietra, legno, poi acciaio', 'Acciaio, legno, poi pietra', 'Vetro, legno, poi acciaio'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'In che anno arriva l’acciaio nella pétanque?', choix: ['Nel 1927', 'Nel 1904', 'Nel 1861'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Che cos’è una boule cloutée?', choix: ['Legno rivestito da una corazza di chiodi', 'Una boccia bucata', 'Una boccia dipinta a mano'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Chi ha inventato la boule cloutée, e dove?', choix: ['Félix Rofritsch, a Marsiglia nel 1904', 'Jean Blanc, a Lione nel 1930', 'Un bottaio di Mèze nel 1861'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Dove è documentata la prima pasta secca d’Europa?', choix: ['In Sicilia, a Trabia', 'A Napoli', 'In Cina, portata da Marco Polo'], bonne: 0, ancre: 'arabe', niveau: 'facile' },
       { q: 'Come si chiamavano quei fili di semola descritti nel 1154?', choix: ['Itriyya', 'Maccheroni', 'Tagliatelle'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Chi ha scritto la più antica testimonianza della pasta secca d’Europa?', choix: ['Al-Idrisi, nel Libro di Ruggero', 'Marco Polo', 'Plinio il Vecchio'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
@@ -3501,7 +3513,7 @@ const EN: Dict = {
       {
         icon: 'pin',
         title: 'Boules on the sand',
-        text: 'Italian pétanque is called bocce, and the jack is the pallino. The rule fits in one sentence: the boule closest to the pallino wins, and you may knock your opponent’s away by hitting it — that is a bocciata. On sand you flatten a strip some fifteen metres long and play to twelve points. In Donnalucata this is no holidaymakers’ game: the same retired men have met there every afternoon for over fifty years.',
+        text: 'The boules are WOODEN — Mag insists on it, and she is right twice over. It is the classic Italian beach set, sold in a wooden case, whereas French pétanque is played with steel. And it is a return to the origin: the boule was first clay, then stone, then wood, and steel only arrived in 1927, at Saint-Bonnet-le-Château. In between came the boules cloutées — wood clad in a carapace of nails, invented in Marseille in 1904 by Félix Rofritsch. Italian pétanque is called bocce, and the jack is the pallino. The rule fits in one sentence: the boule closest to the pallino wins, and you may knock your opponent’s away by hitting it — that is a bocciata. On sand you flatten a strip some fifteen metres long and play to twelve points. In Donnalucata this is no holidaymakers’ game: the same retired men have met there every afternoon for over fifty years.',
       },
       {
         icon: 'wave',
@@ -3690,6 +3702,12 @@ const EN: Dict = {
       { q: 'Since when has Italy held a tamburello championship?', choix: ['Since 1896', 'Since 1861', 'Since 1955'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Where is tamburello played, in Italy?', choix: ['In the north — Lombardy, the Veneto', 'In Sicily', 'Everywhere equally'], bonne: 0, ancre: 'sports', niveau: 'moyen' },
       { q: 'What is the instrument made of?', choix: ['A plastic hoop bound with copper wire, stretched with synthetic cloth', 'Solid wood', 'Solid metal'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      // ── The wooden boules. Mag: “pétanque means wooden boules”.
+      { q: 'What are the Italian beach boules made of?', choix: ['Wood', 'Steel', 'Glass'], bonne: 0, ancre: 'sports', niveau: 'facile' },
+      { q: 'Which materials did the boule pass through, in order?', choix: ['Clay, stone, wood, then steel', 'Steel, wood, then stone', 'Glass, wood, then steel'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'What year did steel arrive in pétanque?', choix: ['In 1927', 'In 1904', 'In 1861'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'What is a boule cloutée?', choix: ['Wood clad in a carapace of nails', 'A boule drilled with holes', 'A hand-painted boule'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
+      { q: 'Who invented the boule cloutée, and where?', choix: ['Félix Rofritsch, in Marseille in 1904', 'Jean Blanc, in Lyon in 1930', 'A cooper from Mèze in 1861'], bonne: 0, ancre: 'sports', niveau: 'difficile' },
       { q: 'Where is Europe’s first dried pasta documented?', choix: ['In Sicily, at Trabia', 'In Naples', 'In China, brought back by Marco Polo'], bonne: 0, ancre: 'arabe', niveau: 'facile' },
       { q: 'What were those threads of semolina described in 1154 called?', choix: ['Itriyya', 'Maccheroni', 'Tagliatelle'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Who wrote the earliest record of dried pasta in Europe?', choix: ['Al-Idrisi, in the Book of Roger', 'Marco Polo', 'Pliny the Elder'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
