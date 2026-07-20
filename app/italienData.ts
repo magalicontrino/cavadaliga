@@ -927,6 +927,39 @@ export const CHANSONS: Chanson[] = [
       en: 'The title is a reflexive past tense: mi sono innamorato. With reflexive verbs the auxiliary is always essere, and the participle agrees — innamorato for a man, innamorata for a woman. The rule that catches out beginners most.',
     },
   },
+  {
+    /*
+     * La premiere chanson du site en SICILIEN, et non en italien. Elle merite
+     * d'y etre : c'est la langue qu'on entend vraiment au village, celle des
+     * grands-parents, et le titre est d'abord un dicton — un de ceux que tout
+     * le monde connait dans la region de Messine.
+     */
+    id: 'mamma-cicciu',
+    titre: 'Mamma Cicciu mi tocca',
+    auteur: 'Santina Romeo',
+    annee: 'Traditionnel',
+    genre: 'sicile',
+    lien: 'https://scn.wikipedia.org/wiki/Mamma_Ciccu_mi_tocca_%E2%80%93_T%C3%B2cchimi_Ciccu_ca_a_mamma_non_c%E2%80%99%C3%A8',
+    spotify: 'https://open.spotify.com/track/24XNWvFJHxwAmUQOVxT4UF',
+    quoi: {
+      fr: 'Un dicton de la région de Messine, devenu chanson. Il moque celui qui se plaint tout haut de ce qu’il cherche tout bas : on proteste d’abord, puis on redemande dès que personne ne regarde. Toute la malice sicilienne tient dans ce renversement.',
+      it: 'Un detto della zona di Messina, diventato canzone. Prende in giro chi si lamenta ad alta voce di ciò che in realtà cerca: prima si protesta, poi si richiede appena nessuno guarda.',
+      en: 'A saying from around Messina, turned into a song. It mocks the person who loudly complains about what they quietly want: first you protest, then you ask again the moment nobody is watching.',
+    },
+    mots: [
+      { it: 'la mamma', pron: 'la MAM·ma', sens: { fr: 'la maman — même mot en sicilien et en italien', it: 'stessa parola in siciliano e in italiano', en: 'mum — the same word in Sicilian and Italian' } },
+      { it: 'Cicciu', pron: 'CIC·ciu', sens: { fr: 'Cicciu — le diminutif sicilien de Francesco, comme Ciccio en italien', it: 'diminutivo siciliano di Francesco', en: 'Cicciu — the Sicilian nickname for Francesco' } },
+      { it: 'toccare', pron: 'toc·CA·re', sens: { fr: 'toucher — « mi tocca », il me touche', it: '« mi tocca »: mi sta toccando', en: 'to touch — “mi tocca”, he is touching me' } },
+      { it: 'lamentarsi', pron: 'la·men·TAR·si', sens: { fr: 'se plaindre — verbe pronominal, comme innamorarsi', it: 'verbo riflessivo, come innamorarsi', en: 'to complain — reflexive, like innamorarsi' } },
+      { it: 'il detto', pron: 'il DET·to', sens: { fr: 'le dicton, le proverbe', it: 'il proverbio', en: 'the saying, the proverb' } },
+      { it: 'non c’è', pron: 'non CÈ', sens: { fr: 'il n’y a pas, elle n’est pas là — la tournure la plus utile de la langue', it: 'la formula più utile della lingua', en: 'there is not, she is not here — the most useful little phrase in the language' } },
+    ],
+    langue: {
+      fr: 'Le sicilien n’est pas un accent, c’est une langue à part, avec sa grammaire et son Wikipédia. On l’entend au village bien plus que l’italien de la télévision : ici on dit tocchimi là où l’italien dirait toccami. Repérer ces petits écarts, c’est comprendre ce qui se dit autour de soi.',
+      it: 'Il siciliano non è un accento ma una lingua a sé, con la sua grammatica: qui si dice tocchimi dove l’italiano direbbe toccami.',
+      en: 'Sicilian is not an accent but a language of its own, with its own grammar and its own Wikipedia. You hear it in the village far more than television Italian: here they say tocchimi where Italian would say toccami.',
+    },
+  },
 ];
 
 export const EXERCICES: Exercice[] = [
