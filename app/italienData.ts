@@ -643,9 +643,15 @@ export const CHANSONS: Chanson[] = [
     auteur: 'Traditionnel — anonyme',
     annee: 'XIXᵉ-XXᵉ s.',
     lien: 'https://it.wikipedia.org/wiki/Bella_ciao',
-    // Version des Modena City Ramblers, celle qu'on entend le plus aujourd'hui.
     genre: 'lutte',
-    spotify: 'https://open.spotify.com/track/4oaLb6uUbrOqj9zenc6qUy',
+    /*
+     * Mag : « pour Bella ciao, mets une plus originale, vieille ». C'est
+     * l'enregistrement de GIOVANNA DAFFINI, fait en 1962 pour les musicologues
+     * Bosio et Leydi — une mondina de la plaine du Po qui chantait ce qu'elle
+     * avait appris en travaillant, pas un arrangement de studio. On entend la
+     * voix nue, et la chanson d'avant les reprises.
+     */
+    spotify: 'https://open.spotify.com/track/72I4PYnCQqdPnx1YgpBmUS',
     quoi: {
       fr: 'Le chant des partisans italiens, devenu celui de toutes les résistances. On le chante chaque 25 avril, jour de la Libération.',
       it: 'Il canto dei partigiani italiani, diventato quello di tutte le resistenze. Si canta ogni 25 aprile, giorno della Liberazione.',
@@ -861,6 +867,35 @@ export const CHANSONS: Chanson[] = [
       fr: 'Les onomatopées sont une langue à part, et elles ne se traduisent pas : boh (aucune idée), mah (dubitatif), uffa (ras-le-bol), magari (si seulement !). En apprendre quatre vous fera passer pour quelqu’un qui parle vraiment.',
       it: 'Le onomatopee sono una lingua a parte: boh, mah, uffa, magari. Impararne quattro fa una gran differenza.',
       en: 'Interjections are a language of their own and do not translate: boh (no idea), mah (doubtful), uffa (fed up), magari (if only!). Learn four and you will sound like someone who really speaks.',
+    },
+  },
+  {
+    id: 'parla-piu-piano',
+    titre: 'Parla più piano',
+    auteur: 'Gianni Morandi',
+    annee: '1972',
+    genre: 'auteur',
+    lien: 'https://it.wikipedia.org/wiki/Il_padrino_(film)',
+    spotify: 'https://open.spotify.com/track/4e7rkCd5zwHoSlDD2E3woW',
+    quoi: {
+      fr: 'La mélodie du Parrain, chantée en italien. Nino Rota l’avait écrite pour le film ; Morandi lui a donné des mots — « parle plus bas », dit le titre, et c’est une chanson d’amour murmurée, pas une histoire de mafia.',
+      it: 'La melodia del Padrino, cantata in italiano. Nino Rota l’aveva scritta per il film; Morandi le ha dato le parole. È una canzone d’amore sussurrata, non una storia di mafia.',
+      en: 'The Godfather theme, sung in Italian. Nino Rota wrote it for the film; Morandi gave it words. “Speak more softly”, says the title — a whispered love song, not a mafia story.',
+    },
+    mots: [
+      { it: 'parlare', pron: 'par·LA·re', sens: { fr: 'parler — « parla » à l’impératif : parle', it: '« parla » all’imperativo', en: 'to speak — “parla” is the imperative: speak' } },
+      { it: 'più', pron: 'PIÙ', sens: { fr: 'plus — le comparatif se fait avec ce seul mot', it: 'il comparativo si fa con questa parola', en: 'more — the comparative is made with this one word' } },
+      { it: 'piano', pron: 'PIA·no', sens: { fr: 'doucement, bas — et aussi « lentement », et « l’étage »', it: 'a voce bassa; e anche « lentamente », e il piano di un edificio', en: 'softly, quietly — and also “slowly”, and “floor” of a building' } },
+      { it: 'nessuno', pron: 'nes·SU·no', sens: { fr: 'personne, aucun', it: 'nemmeno uno', en: 'nobody, no one' } },
+      { it: 'sentire', pron: 'sen·TI·re', sens: { fr: 'entendre — et sentir : le même verbe pour les deux', it: 'udire, e anche provare', en: 'to hear — and to feel: the same verb for both' } },
+      { it: 'l’amore', pron: 'la·MO·re', sens: { fr: 'l’amour', it: 'il sentimento', en: 'love' } },
+      { it: 'la notte', pron: 'la NOT·te', sens: { fr: 'la nuit', it: 'quando è buio', en: 'the night' } },
+      { it: 'vicino', pron: 'vi·CI·no', sens: { fr: 'près, proche — le contraire de lontano', it: 'il contrario di lontano', en: 'near, close — the opposite of lontano' } },
+    ],
+    langue: {
+      fr: 'Le comparatif italien tient en un mot : più. Plus doucement, più piano ; plus loin, più lontano ; plus beau, più bello. Aucune exception à retenir — l’une des choses les plus faciles de la langue.',
+      it: 'Il comparativo si fa con « più »: più piano, più lontano, più bello. Nessuna eccezione.',
+      en: 'The Italian comparative is one word: più. More softly, più piano; further, più lontano; more beautiful, più bello. No exceptions — one of the easiest things in the language.',
     },
   },
 ];
