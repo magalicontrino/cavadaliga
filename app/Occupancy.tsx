@@ -35,8 +35,26 @@ const MOIS: [number, number][] = [
 ];
 
 const LOCALES: Record<string, string> = { it: 'it-IT', fr: 'fr-FR', en: 'en-GB' };
-const OCCUPE = '#4a8a6f';
-const A_CONFIRMER = '#c0894a';
+
+/*
+ * LES COULEURS DES JOURS — le dessin que Mag a montre : chaque jour est une
+ * case pleine, et c'est la couleur qui repond, pas une barre posee par-dessus.
+ *
+ * On lit un calendrier d'occupation en CHERCHANT LE VIDE. L'ancienne version
+ * posait le nom des occupants en travers des semaines : elle disait tres bien
+ * qui etait la, et tres mal quand la maison ne l'etait pas — il fallait
+ * repasser sur les jours sans barre pour s'en assurer. La couleur inverse le
+ * geste : le libre se voit d'un coup d'oeil, a l'echelle de cinq mois.
+ *
+ * Les teintes sont TRES pales — 14 % — parce qu'elles portent un chiffre. Un
+ * aplat franc obligerait a passer le texte en blanc, et un chiffre blanc sur
+ * rose pale ne se lit pas. A cette pate, l'encre du site tient son contraste.
+ */
+const OCCUPE = 'rgba(230, 41, 111, 0.13)';
+const A_CONFIRMER = 'rgba(192, 137, 74, 0.22)';
+const LIBRE = 'rgba(90, 150, 110, 0.14)';
+/** Les pastilles de la legende : pleines, elles, pour se voir a 12 px. */
+const PLEIN = { occupe: '#e6296f', confirmer: '#c0894a', libre: '#5a966e' };
 
 const ymd = (d: Date) => d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
 const lire = (s: string) => {
@@ -61,27 +79,13 @@ function semainesDuMois(annee: number, mois: number): (Date | null)[][] {
   return semaines;
 }
 
-/**
- * Les barres d'une semaine : les suites de jours consecutifs d'un MEME sejour.
- * Un sejour a cheval sur deux semaines donne donc deux barres, une par ligne —
- * c'est ce qui permet de les poser en grille sans les couper au milieu d'un
- * jour.
- */
-type Barre = { sejour: number; debut: number; fin: number };
-function barresDeLaSemaine(semaine: (Date | null)[]): Barre[] {
-  const barres: Barre[] = [];
-  let encours: Barre | null = null;
-  semaine.forEach((d, col) => {
-    const si = d ? sejourDuJour(d) : -1;
-    if (si >= 0 && encours && encours.sejour === si) {
-      encours.fin = col;
-    } else {
-      if (encours) barres.push(encours);
-      encours = si >= 0 ? { sejour: si, debut: col, fin: col } : null;
-    }
-  });
-  if (encours) barres.push(encours);
-  return barres;
+/** Les sejours qui touchent ce mois, dans l'ordre ou ils commencent. */
+function sejoursDuMois(annee: number, mois: number) {
+  const premier = ymd(new Date(annee, mois, 1));
+  const dernier = ymd(new Date(annee, mois + 1, 0));
+  return SEJOURS.map((s, i) => ({ s, i })).filter(
+    ({ s }) => ymd(lire(s.end)) >= premier && ymd(lire(s.start)) <= dernier,
+  );
 }
 
 /**
@@ -100,73 +104,115 @@ export default function Occupancy() {
   const jours = Array.from({ length: 7 }, (_, i) =>
     new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(new Date(2024, 0, 1 + i)),
   );
+  /*
+   * AUJOURD'HUI est calcule au rendu, donc cote serveur a la construction PUIS
+   * cote navigateur. Les deux peuvent tomber de part et d'autre de minuit, et
+   * React refuserait la page pour une pastille. On ne s'en sert donc que pour
+   * comparer des jours entiers, jamais pour un rendu conditionnel avant
+   * l'hydratation : la case existe toujours, seule sa bordure change.
+   */
+  const aujourdhui = ymd(new Date());
+
+  const jourFormat = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short' });
 
   return (
     <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
       <Reveal className="mb-10 flex flex-wrap gap-x-6 gap-y-2 text-[13px]" style={{ color: 'var(--cava-muted)' }}>
         <span className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full" style={{ background: OCCUPE }} />
+          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.occupe }} />
           {c.legend.occupied}
         </span>
         <span className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full" style={{ background: A_CONFIRMER }} />
+          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.confirmer }} />
           {c.legend.tentative}
         </span>
         <span className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full border" style={{ borderColor: 'var(--cava-line)' }} />
+          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.libre }} />
           {c.legend.free}
         </span>
       </Reveal>
 
-      <div className="grid gap-x-12 gap-y-14 md:grid-cols-2">
+      {/* Trois mois par rangee sur grand ecran, comme le modele. */}
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {MOIS.map(([y, m]) => {
           const semaines = semainesDuMois(y, m);
           const nomDuMois = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(new Date(y, m, 1));
           return (
-            <Reveal key={`${y}-${m}`} className="flex flex-col gap-3">
-              <h3 className="text-[clamp(1.1rem,2.2vw,1.4rem)] capitalize leading-[1.1]" style={{ fontWeight: 500 }}>
+            <Reveal
+              key={`${y}-${m}`}
+              className="flex flex-col gap-4 rounded-2xl border p-5 md:p-6"
+              style={{ borderColor: 'var(--cava-line)' }}
+            >
+              <h3 className="text-center text-[clamp(1rem,1.6vw,1.15rem)] capitalize leading-[1.1]" style={{ fontWeight: 700 }}>
                 {nomDuMois}
               </h3>
 
-              <div className="grid grid-cols-7 text-center text-[11px] uppercase tracking-[0.06em]" style={{ color: 'var(--cava-muted)' }}>
+              <div className="grid grid-cols-7 text-center text-[11px]" style={{ color: 'var(--cava-muted)' }}>
                 {jours.map((j, i) => (
-                  <div key={i} className="py-1">
+                  <div key={i} className="pb-1 capitalize">
                     {j}
                   </div>
                 ))}
               </div>
 
-              <div className="flex flex-col gap-1.5">
-                {semaines.map((semaine, wi) => (
-                  <div key={wi}>
-                    <div className="grid grid-cols-7 text-center text-[13px]">
-                      {semaine.map((d, di) => (
-                        <div key={di} className="py-0.5" style={{ color: d ? 'var(--cava-ink)' : 'transparent' }}>
-                          {d ? d.getDate() : '.'}
-                        </div>
-                      ))}
+              <div className="grid grid-cols-7 gap-1">
+                {semaines.flat().map((d, di) => {
+                  if (!d) return <div key={di} aria-hidden />;
+                  const si = sejourDuJour(d);
+                  const s = si >= 0 ? SEJOURS[si] : null;
+                  const passe = ymd(d) < aujourdhui;
+                  const cejour = ymd(d) === aujourdhui;
+                  return (
+                    <div
+                      key={di}
+                      /*
+                       * Le titre porte le PRENOM : le dessin de Mag ne montre
+                       * que des couleurs, mais ici savoir QUI est la vaut
+                       * autant que savoir que c'est pris. La liste sous la
+                       * grille le dit en clair — ceci n'est que le raccourci.
+                       */
+                      title={s ? `${s.label} — ${jourFormat.format(lire(s.start))} → ${jourFormat.format(lire(s.end))}` : undefined}
+                      className="flex aspect-square items-center justify-center rounded-[10px] text-[13px]"
+                      style={{
+                        // Le passe ne dit plus rien d'utile : « libre » sur une
+                        // date ecoulee est une information morte, et le vert la
+                        // ferait lire comme une occasion.
+                        background: passe ? 'transparent' : s ? (s.tentative ? A_CONFIRMER : OCCUPE) : LIBRE,
+                        color: passe ? 'var(--cava-line)' : 'var(--cava-ink)',
+                        fontWeight: cejour ? 800 : 500,
+                        border: cejour ? '1.5px solid var(--cava-ink)' : '1.5px solid transparent',
+                      }}
+                    >
+                      {d.getDate()}
                     </div>
-                    <div className="grid min-h-[20px] grid-cols-7 gap-x-1">
-                      {barresDeLaSemaine(semaine).map((b, bi) => {
-                        const s = SEJOURS[b.sejour];
-                        return (
-                          <div
-                            key={bi}
-                            style={{
-                              gridColumn: `${b.debut + 1} / ${b.fin + 2}`,
-                              background: s.tentative ? A_CONFIRMER : OCCUPE,
-                            }}
-                            className="truncate rounded-full px-2 py-0.5 text-center text-[11px] leading-tight text-white"
-                            title={s.label}
-                          >
-                            {s.label}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
+
+              {/*
+                QUI, ET QUAND. C'est ce que la couleur ne peut pas dire, et
+                c'etait tout l'interet de l'ancienne version : on la garde, en
+                liste sous le mois plutot qu'en barres au travers. Un mois sans
+                personne n'affiche rien — mieux qu'un titre suivi du vide.
+              */}
+              {sejoursDuMois(y, m).length > 0 && (
+                <ul className="flex flex-col gap-1.5 border-t pt-3 text-[12.5px] leading-[1.45]" style={{ borderColor: 'var(--cava-line)' }}>
+                  {sejoursDuMois(y, m).map(({ s, i }) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <span
+                        className="mt-[5px] h-2.5 w-2.5 shrink-0 rounded-full"
+                        style={{ background: s.tentative ? PLEIN.confirmer : PLEIN.occupe }}
+                      />
+                      <span>
+                        <span style={{ fontWeight: 600 }}>{s.label}</span>{' '}
+                        <span style={{ color: 'var(--cava-muted)' }}>
+                          {jourFormat.format(lire(s.start))} → {jourFormat.format(lire(s.end))}
+                        </span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </Reveal>
           );
         })}
