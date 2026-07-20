@@ -8,6 +8,7 @@ import BottomSheet from '../BottomSheet';
 import Icon, { type IconName } from '../Icon';
 import GlyphePlein, { type GlypheName } from '../GlyphePlein';
 import { useI18n } from '../i18n';
+import { withBase } from '../data';
 import type { Lang } from '../localData';
 import { PRONONCIATION, LECONS, CONJUGAISONS, PRONOMS, EXERCICES, AILLEURS, CHANSONS } from '../italienData';
 
@@ -370,7 +371,14 @@ export default function Italien() {
 
   const [remonter, setRemonter] = useState(false);
   useEffect(() => {
-    const voir = () => setRemonter(window.scrollY > window.innerHeight * 0.8);
+    /*
+     * Mag : « la petite fleche pour remonter doit arriver plus tot, presque au
+     * debut du scroll ». Elle attendait 80 % d'un ecran ; c'etait pense pour une
+     * page qui deroulait tout le cours. Depuis qu'une seule section s'affiche,
+     * on est deja loin des cartes apres deux cents pixels — et c'est justement
+     * la qu'on veut pouvoir revenir en choisir une autre.
+     */
+    const voir = () => setRemonter(window.scrollY > 200);
     voir();
     window.addEventListener('scroll', voir, { passive: true });
     return () => window.removeEventListener('scroll', voir);
@@ -459,7 +467,7 @@ export default function Italien() {
         surCarte(x.id);
       }}
       aria-current={(section ?? PLAN[0].id) === x.id ? 'true' : undefined}
-      className="group flex aspect-square flex-col justify-between gap-1.5 rounded-2xl border p-3 text-left transition-transform duration-200 hover:scale-[1.02] motion-reduce:transition-none"
+      className="group flex flex-col justify-between gap-1.5 rounded-2xl border p-3 text-left min-[500px]:aspect-square transition-transform duration-200 hover:scale-[1.02] motion-reduce:transition-none"
       /* La carte ouverte prend le filet d'encre : sur grand ecran c'est le seul
          indice de ce qu'on lit en dessous. Un fond plein serait trop fort — la
          grille compte huit cartes, elle deviendrait un damier. */
@@ -672,9 +680,25 @@ export default function Italien() {
       return (
         <div>
           {n === -1 && (
-            <button type="button" onClick={lancer} className="cava-pill px-6 py-3 text-[15px]">
-              {p.start} · {EXERCICES.length} →
-            </button>
+            <div className="flex flex-wrap items-center gap-4">
+              <button type="button" onClick={lancer} className="cava-pill px-6 py-3 text-[15px]">
+                {p.start} · {EXERCICES.length} →
+              </button>
+              {/*
+                LE RENVOI AU QUIZ, a cote des exercices et pas ailleurs : c'est
+                ici qu'on est venu s'entrainer. L'ancre porte le THEME —
+                `#quiz-italien` — et non le seul `#quiz` : un lien qui annonce
+                « les questions d'italien » puis depose devant les
+                quatre-vingt-dix-sept questions de la region ne tient pas sa
+                promesse. Le quiz lit l'ancre et pose le tri tout seul.
+              */}
+              <a href={withBase('/la-region#quiz-italien')} className="cava-navlink cava-ancre cava-ancre-lat inline-flex items-center gap-2.5 text-[15px]" style={{ fontWeight: 500 }}>
+                {p.drillQuiz}{' '}
+                <span className="cava-ancre-fleche" aria-hidden>
+                  →
+                </span>
+              </a>
+            </div>
           )}
 
           {ex && (
@@ -912,7 +936,7 @@ export default function Italien() {
         du bas. Le titre « Le programme » a ete retire (Mag) : les cartes se
         suffisent, chacune dit deja son niveau.
       */}
-      <section id="cartes" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-16 pt-[8.5rem] md:px-10 md:pb-0">
+      <section id="cartes" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-16 pt-28 md:px-10 md:pt-[8.5rem] md:pb-0">
         {/*
           HUIT VIGNETTES SUR UNE RANGEE — Mag : « par 8 sur la page sur ecran
           c'est bien ». Deux au plus etroit, trois sur un grand telephone,

@@ -697,6 +697,36 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     mots: motsMaison('italien'),
   });
 
+  // Les QUESTIONS D'ITALIEN du quiz. Il y en a cinquante-cinq, et jusqu'ici
+  // « quiz italien » ne menait nulle part : la fiche « quiz » renvoyait au
+  // melange de La region, la fiche « italien » au cours. L'ancre porte le
+  // theme — le tri se pose tout seul en arrivant.
+  ajouter({
+    id: 'quiz-italien',
+    page: '/la-region#quiz-italien',
+    titre: t.italianPage.drillQuiz,
+    lignes: [t.italianPage.drillIntro],
+    /*
+     * AUCUN mot a soi, RIEN QUE DES EXPRESSIONS.
+     *
+     * Premiere version : l'union des mots de « quiz » et de ceux d'« italien ».
+     * Resultat mesure — « quiz » tout seul ET « italien » tout seul menaient
+     * tous les deux ICI, en battant le quiz de La region et le cours. Une
+     * fiche qui gagne sur chacun de ses deux themes vole les deux.
+     *
+     * Une expression ne compte QUE SI TOUS SES MOTS SONT LA. « quiz » seul ne
+     * la reveille pas, « italien » seul non plus ; les deux ensemble, oui — et
+     * c'est exactement ce qu'on cherche.
+     */
+    mots: [],
+    expressions: [
+      ['quiz', 'italien'], ['quizz', 'italien'], ['jeu', 'italien'],
+      ['questions', 'italien'], ['question', 'italien'],
+      ['quiz', 'italiano'], ['domande', 'italiano'], ['gioco', 'italiano'],
+      ['quiz', 'italian'], ['questions', 'italian'], ['game', 'italian'],
+    ],
+  });
+
   // Le quiz. Mag a tape « quizz » : rien. Rien du tout — ni pastille, ni aveu.
   // Un jeu qu'on ne trouve pas n'existe pas.
   ajouter({
@@ -717,7 +747,17 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     page: '/famille#quiz',
     titre: t.quizPage.familyTitle,
     lignes: [t.quizPage.familyIntro],
-    mots: [...motsMaison('quiz'), ...motsMaison('famille')],
+    // Meme raison que pour le quiz d'italien : sans ça, « famille » tout seul
+    // menerait au jeu plutot qu'a l'arbre, et « quiz » tout seul a la famille
+    // plutot qu'a La region. Les deux mots, ou rien.
+    mots: [],
+    expressions: [
+      ['quiz', 'famille'], ['quizz', 'famille'], ['jeu', 'famille'],
+      ['quiz', 'arbre'], ['quizz', 'arbre'], ['jeu', 'arbre'],
+      ['questions', 'famille'], ['jeu', 'genealogie'], ['quiz', 'genealogie'],
+      ['quiz', 'famiglia'], ['gioco', 'famiglia'], ['quiz', 'albero'],
+      ['quiz', 'family'], ['game', 'family'], ['quiz', 'tree'],
+    ],
   });
 
   // Les evenements et les fetes : une page a elle seule, jamais indexee.

@@ -1,11 +1,11 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Reveal from './Reveal';
 import Icon from './Icon';
 import { useI18n } from './i18n';
 import { withBase } from './data';
-import { PRONONCIATION, LECONS, CHANSONS } from './italienData';
+import { PRONONCIATION, LECONS, CONJUGAISONS, CHANSONS } from './italienData';
 import { texteArbre } from './FamilyTree';
 
 /**
@@ -176,6 +176,18 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string, lang: 'fr' |
         // Les regles de prononciation aussi : une question sur le son de
         // « sciopero » n'avait aucun texte ou puiser son extrait.
         ...PRONONCIATION.map((r) => r.regle[lang]),
+        /*
+         * ET LES CONJUGAISONS. Elles manquaient : une question sur « ho
+         * parlato » ou sur le futur de essere n'avait aucun passage ou puiser,
+         * donc pas d'extrait — la reponse etait pourtant dans la page, en
+         * toutes lettres, dans les tableaux. Chaque table devient une phrase :
+         * l'infinitif, son sens, puis les six formes.
+         */
+        ...CONJUGAISONS.flatMap((c) => [
+          c.quand[lang],
+          c.regle[lang],
+          ...c.tables.map((t) => `${t.verbe} (${t.sens[lang]}) : ${t.formes.join(', ')}`),
+        ]),
         ...LECONS.flatMap((l) =>
           l.phrases.flatMap((f) => [`${f.it} — ${f.sens[lang]}`, ...(f.note ? [f.note[lang]] : [])]),
         ),
@@ -348,6 +360,27 @@ export default function Quiz({ only, famille = false }: { only?: readonly string
   const [points, setPoints] = useState(0);
   /** null = on ne trie pas. Le tri se fait par theme, et par theme seulement. */
   const [theme, setTheme] = useState<string | null>(null);
+
+  /*
+   * ARRIVER DIRECTEMENT SUR UN THEME — « /la-region#quiz-italien ».
+   *
+   * Le cours d'italien renvoie ici depuis « S'entrainer », et le lien doit
+   * tenir sa promesse : dire « le quiz d'italien » puis deposer quelqu'un
+   * devant quatre-vingt-dix-sept questions dont douze le concernent, c'est le
+   * tromper. L'ancre porte donc le theme, et le tri se pose tout seul.
+   *
+   * On lit AUSSI les changements d'ancre : revenir sur la page par un autre
+   * lien doit retrier, pas laisser le tri precedent.
+   */
+  useEffect(() => {
+    const lire = () => {
+      const cle = window.location.hash.replace(/^#quiz-?/, '');
+      if (cle && THEMES.some((x) => x.ancre === cle)) setTheme(cle);
+    };
+    lire();
+    window.addEventListener('hashchange', lire);
+    return () => window.removeEventListener('hashchange', lire);
+  }, []);
 
   /*
    * Le paquet de la partie en cours.
