@@ -314,6 +314,25 @@ export default function FamilyTree() {
       label: s.treeMaternal,
       lignee: 'mere',
       families: [
+        /*
+         * La generation d'avant, relevee par Mag sur son arbre en ligne. Elle
+         * ouvre le cote Lux d'un cran de plus : les parents de Pierre (1881) et
+         * ceux d'Angelina (1882). On les sait decedes, sans aucune date — c'est
+         * peu, mais un nom sans date vaut mieux qu'une branche coupee, et les
+         * dates sont demandees plus bas.
+         */
+        {
+          fam: {
+          name: 'Henri Lux & Angélique Bourg',
+          subtitle: s.treeGreat2,
+          children: [{ name: 'Pierre', subtitle: '1881–1975' }],
+        } },
+        {
+          fam: {
+          name: 'Augustin Viseux & Flore Wasson',
+          subtitle: s.treeGreat2,
+          children: [{ name: 'Angelina', subtitle: '1882–1959' }],
+        } },
         {
           fam: {
           name: 'Pierre Lux & Angelina Viseux',
@@ -538,6 +557,11 @@ const QUESTIONS: { fr: string; it: string; en: string }[] = [
     fr: 'Le nom de famille de Sophie, l’épouse de Gabi Contrino.',
     it: 'Il cognome di Sophie, la moglie di Gabi Contrino.',
     en: 'The surname of Sophie, Gabi Contrino’s wife.',
+  },
+  {
+    fr: 'Les dates d’Henri Lux et Angélique Bourg, et celles d’Augustin Viseux et Flore Wasson — les parents de Pierre et d’Angelina. On les sait décédés, rien de plus.',
+    it: 'Le date di Henri Lux e Angélique Bourg, e quelle di Augustin Viseux e Flore Wasson — i genitori di Pierre e di Angelina. Sappiamo che sono morti, nulla di più.',
+    en: 'The dates of Henri Lux and Angélique Bourg, and those of Augustin Viseux and Flore Wasson — Pierre’s and Angelina’s parents. We know they have died, nothing more.',
   },
   {
     fr: 'La date de décès de Louis Thurot, mort à Saint-Étienne : on a sa naissance, en 1893, mais pas sa fin.',
