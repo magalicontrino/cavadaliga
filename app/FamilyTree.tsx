@@ -471,7 +471,21 @@ const sides: Side[] = [
       {
         fam: {
         name: 'Pierre Lux & Angelina Viseux',
-        subtitle: `${s.treeGreat} · 1881–1975 · 1882–1959`,
+        /*
+         * LE SEUL LIEU DE SEPULTURE DE L'ARBRE, et il y est parce que Mag l'a
+         * voulu — la photo de leur tombe est ce qui a ouvert toute cette
+         * branche.
+         *
+         * « inhumes a » est ecrit en toutes lettres plutot que colle a la
+         * suite des dates : « 1882–1959 · Saint-Avold » se serait lu comme un
+         * lieu de NAISSANCE, qui est ce qu'un arbre indique d'habitude a cette
+         * place. Trois mots evitent le contresens.
+         *
+         * Aucune source n'est posee dessous, contrairement a l'usage du site :
+         * la photo vient de Geneanet, mais je ne l'y ai pas consultee — Mag
+         * l'a envoyee. On ne cite que ce qu'on a vraiment ouvert.
+         */
+        subtitle: `${s.treeGreat} · 1881–1975 · 1882–1959 · ${s.treeBuried} Saint-Avold`,
         children: [{ name: 'Pierre', subtitle: '1920–2007' }],
       } },
       {
