@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Reveal from '../Reveal';
@@ -306,9 +306,40 @@ export default function Italien() {
        * remonterait le cours a l'envers au lieu de quitter la page.
        */
       window.history.replaceState(null, '', `#${id}`);
-      allerA(id);
+      /*
+       * ON NE DEFILE PAS TOUT DE SUITE — on le NOTE, et l'effet ci-dessous s'en
+       * charge une fois la nouvelle section posee.
+       *
+       * `allerA` etait appele ici meme, juste apres `setSection`. Mais React
+       * n'a pas encore rendu a cet instant : l'ANCIENNE section est toujours
+       * dans la page, et on mesurait la cible a la place qu'elle occupait avant
+       * l'echange. Mag : « quand on clique sur le bouton ça descend en bas et
+       * puis remonte. C'est etrange comme comportement ». Elle a raison, et la
+       * mesure le dit crument — parti de 0, l'ecran filait a 2858 px, puis les
+       * corrections le ramenaient a 595. Deux secondes de yoyo pour un clic.
+       *
+       * En differant, on mesure une page qui a deja sa forme definitive : un
+       * seul mouvement, vers le bon endroit.
+       */
+      aVenir.current = id;
     } else ouvrir(id);
   };
+
+  /*
+   * Le defilement demande par un clic, joue APRES le rendu.
+   *
+   * `useLayoutEffect` et pas `useEffect` : il s'execute avant que le navigateur
+   * ne peigne, donc l'ecran ne montre jamais la page a l'ancienne position.
+   * Le drapeau est une reference et pas un etat — le remettre a zero ne doit
+   * pas provoquer un rendu de plus.
+   */
+  const aVenir = useRef<string | null>(null);
+  useLayoutEffect(() => {
+    if (!aVenir.current) return;
+    const id = aVenir.current;
+    aVenir.current = null;
+    allerA(id);
+  }, [section]);
 
   /*
    * LA FLECHE DE RETOUR, sur grand ecran : la page y est longue (tout le cours
@@ -471,7 +502,14 @@ export default function Italien() {
    * prend le relais.
    */
   const sectionInline = (x: (typeof PLAN)[number]) => (
-    <section key={x.id} id={x.id} className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
+    /*
+     * `pt-6` et pas `pt-16`. L'ancre pose le HAUT DE LA SECTION sous la barre ;
+     * tout ce qui separait ce haut du titre devenait donc du vide a l'arrivee —
+     * 224 px mesures, soit un quart d'ecran de rien avant de savoir ou l'on est.
+     * Mag : « l'ancre doit s'arreter au titre ». Le filet et le niveau restent,
+     * ils disent de quoi il s'agit ; c'est le blanc qui part.
+     */
+    <section key={x.id} id={x.id} className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-6 md:px-10">
       <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
         <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
           <Icon name={x.icon} size={16} /> {x.niveau}
