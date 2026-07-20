@@ -428,7 +428,7 @@ export default function Italien() {
         surCarte(x.id);
       }}
       aria-current={(section ?? PLAN[0].id) === x.id ? 'true' : undefined}
-      className="group flex min-h-[9.5rem] flex-col justify-between gap-5 rounded-2xl border p-6 text-left transition-transform duration-200 hover:scale-[1.01] motion-reduce:transition-none"
+      className="group flex aspect-square flex-col justify-between gap-3 rounded-2xl border p-3.5 text-left transition-transform duration-200 hover:scale-[1.02] motion-reduce:transition-none"
       /* La carte ouverte prend le filet d'encre : sur grand ecran c'est le seul
          indice de ce qu'on lit en dessous. Un fond plein serait trop fort — la
          grille compte huit cartes, elle deviendrait un damier. */
@@ -437,19 +437,28 @@ export default function Italien() {
         background: 'var(--cava-bg)',
       }}
     >
-      <div className="flex flex-col gap-2">
-        <span className="text-[17px] leading-tight" style={{ fontWeight: 800 }}>{x.titre}</span>
-        <p className="text-[13px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>{p.planDesc[x.id]}</p>
-      </div>
-      {/* L'icone en bas, grande et grasse comme sur le modele ; le niveau se
-          range a cote, discret. */}
-      <div className="flex items-end justify-between gap-2">
-        <span style={{ color: 'var(--cava-ink)' }}>
-          <Icon name={x.icon} size={38} strokeWidth={1.9} />
-        </span>
-        <span className="text-[11px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+      {/* L'icone REMONTE EN HAUT. Dans un carre, elle ne peut plus partager sa
+          ligne avec le niveau : il n'y a pas la largeur. Elle ouvre donc la
+          vignette, et le texte se pose dessous — c'est aussi le sens de lecture
+          naturel, le pictogramme d'abord, le mot ensuite. */}
+      <span style={{ color: 'var(--cava-ink)' }}>
+        <Icon name={x.icon} size={30} strokeWidth={1.9} />
+      </span>
+      <div className="flex flex-col gap-1.5">
+        <span className="text-[clamp(0.85rem,1.1vw,1rem)] leading-tight" style={{ fontWeight: 800 }}>{x.titre}</span>
+        <span className="text-[10px] uppercase leading-tight tracking-[0.08em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
           {x.niveau}
         </span>
+        {/*
+          LA DESCRIPTION NE S'AFFICHE PLUS, mais elle n'est pas perdue.
+          Un carre de deux cents pixels ne tient pas « Trois chansons, leurs
+          paroles, et ce qu'elles apprennent » en plus du titre — vouloir les
+          deux, c'est retrouver la carte haute que Mag voulait justement
+          raccourcir. Elle reste donc lisible par les liseuses d'ecran et par
+          les moteurs, et le titre de la section la redit en clair des qu'on
+          ouvre. Rien ne disparait du site, seulement de la vignette.
+        */}
+        <span className="sr-only">{p.planDesc[x.id]}</span>
       </div>
     </a>
   );
@@ -851,7 +860,35 @@ export default function Italien() {
         suffisent, chacune dit deja son niveau.
       */}
       <section id="cartes" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-16 pt-10 md:px-10 md:pb-0">
-        <Reveal className="grid grid-cols-2 gap-3 md:grid-cols-3">
+        {/*
+          HUIT VIGNETTES CARREES, et le nombre de colonnes suit la largeur.
+          Mag : « fais des vignettes carrees pour que ça rentre sur la longueur,
+          ou en rangee de 2 ou de 3 sur le telephone ». Deux au plus etroit,
+          trois des qu'un grand telephone le permet, puis quatre, et huit — la
+          rangee unique — quand l'ecran est assez large.
+
+          LE SEUIL DES TROIS COLONNES EST A 500 PX, pas plus bas, et c'est le
+          carre qui l'impose. `aspect-square` donne une PROPORTION, pas une
+          hauteur : des que le titre ne tient plus dans la largeur, il pousse la
+          tuile et le carre se perd. Mesure a 430 px : 122 de large pour 141 de
+          haut. A 500 px la colonne fait 145 et le carre tient. Mieux vaut deux
+          vraies vignettes carrees que trois qui n'en sont plus.
+
+          LES HUIT ARRIVENT A `xl` (1280 px), ET C'EST UN PALIER NOMME.
+          J'avais ecrit `min-[1500px]`, ce qui semblait plus juste. Deux fautes
+          d'un coup. La premiere : Tailwind ecrit les paliers sur mesure AVANT
+          les paliers nommes, si bien que `md:grid-cols-4`, plus loin dans la
+          feuille, l'emportait — mesure a 1600 px, quatre colonnes la ou huit
+          etaient demandees, et rien dans le HTML pour le laisser deviner. La
+          seconde : entre 1280 et 1500, on retombait a quatre colonnes, donc a
+          des carres de 337 px sur deux rangees — soit une grille PLUS HAUTE que
+          celle qu'on venait de raccourcir, et pile a la taille d'un portable.
+
+          A 1280 px, huit colonnes font 140 px. Le titre le plus long y depassait
+          de deux pixels et cassait le carre ; c'est pour ça que la marge
+          interieure est a 14 px et pas a 16. Deux pixels de matelas, mesures.
+        */}
+        <Reveal className="grid grid-cols-2 gap-3 min-[500px]:grid-cols-3 md:grid-cols-4 xl:grid-cols-8">
           {PLAN.map((x) => carteSommaire(x))}
         </Reveal>
       </section>
