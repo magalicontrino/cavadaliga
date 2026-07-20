@@ -105,8 +105,34 @@ export default function BottomSheet({
             texte remonte sous le titre, il s'efface au lieu d'etre tranche net
             au ras de l'en-tete. Le degrade est POSE PAR-DESSUS (absolu, inerte),
             il ne pousse rien et ne prend aucun clic. */}
-        <div className="relative min-h-0 flex-1">
-          <div className="h-full overflow-y-auto overscroll-contain px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-5">
+        {/*
+          LA ZONE QUI DEFILE RESTE DANS LE FLUX, et les deux facons de l'en
+          sortir ont chacune casse quelque chose de different. Elles valent
+          d'etre ecrites, parce que le degrade donne envie des deux.
+
+          1. `h-full` sur un enfant du bloc positionne — Mag : « c'est bloque,
+             ça ne scroll plus ». `h-full` vaut `height: 100%`, et 100 % de
+             quoi ? Le parent mesurait bien 551 px, mais il les tenait du FLEX :
+             sa propriete `height`, elle, vaut `auto`. Le pourcentage n'avait
+             rien contre quoi se calculer, il retombait sur `auto`, et la boite
+             prenait la hauteur de son contenu — 21 970 px mesures sur « Par les
+             chansons ». `scrollHeight` devenait egal a `clientHeight` : plus
+             rien a faire defiler.
+
+          2. `absolute inset-0`, ma premiere correction. Elle rendait bien le
+             defilement, et cassait la feuille : mesuree a 139 px de haut au
+             lieu de 690. La feuille tire sa hauteur de SON CONTENU, plafonnee a
+             `max-h-[85dvh]` ; une zone hors du flux ne contribue plus a rien,
+             et il ne restait que l'en-tete.
+
+          On garde donc une zone EN FLUX (`flex-1`), qui donne sa hauteur a la
+          feuille, avec `min-h-0` pour qu'elle puisse retrecir sous son contenu
+          — sans quoi un element de flex refuse de passer sous sa taille
+          naturelle, et c'est lui qui deborde. Le degrade se pose par-dessus
+          grace au `relative` du parent, sans jamais entrer dans le calcul.
+        */}
+        <div className="relative flex min-h-0 flex-1 flex-col">
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-5">
             {children}
           </div>
           <div
