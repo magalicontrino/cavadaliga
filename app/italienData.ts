@@ -607,6 +607,16 @@ export type Chanson = {
   /** Le point de langue que la chanson montre mieux qu'un tableau. */
   langue: Texte;
   /**
+   * L'ecoute, sur Spotify.
+   *
+   * Mag voulait les paroles depliables sur la page. Elles ne peuvent pas y
+   * etre — elles appartiennent a ceux qui les ont ecrites. Ce lien-la est la
+   * vraie reponse a sa demande : Spotify affiche le texte SOUS le morceau,
+   * qui defile en meme temps que la voix. C'est mieux qu'un texte pose a
+   * plat, puisqu'on lit au rythme ou l'on entend.
+   */
+  spotify: string;
+  /**
    * Ce que la chanson raconte, passage par passage, ECRIT PAR NOUS.
    *
    * C'est la reponse aux chansons dont on ne peut pas donner le texte : on
@@ -624,6 +634,8 @@ export const CHANSONS: Chanson[] = [
     auteur: 'Traditionnel — anonyme',
     annee: 'XIXᵉ-XXᵉ s.',
     lien: 'https://it.wikipedia.org/wiki/Bella_ciao',
+    // Version des Modena City Ramblers, celle qu'on entend le plus aujourd'hui.
+    spotify: 'https://open.spotify.com/track/4oaLb6uUbrOqj9zenc6qUy',
     quoi: {
       fr: 'Le chant des partisans italiens, devenu celui de toutes les résistances. On le chante chaque 25 avril, jour de la Libération.',
       it: 'Il canto dei partigiani italiani, diventato quello di tutte le resistenze. Si canta ogni 25 aprile, giorno della Liberazione.',
@@ -670,6 +682,7 @@ export const CHANSONS: Chanson[] = [
     auteur: 'Toto Cutugno',
     annee: '1983',
     lien: 'https://it.wikipedia.org/wiki/L%27italiano_(brano_musicale)',
+    spotify: 'https://open.spotify.com/track/2S7RApTsKT0CtYojYq2cKz',
     mots: [
       { it: 'lasciare', pron: 'la·SCIA·re', sens: { fr: 'laisser — « lasciatemi » veut dire « laissez-moi »', it: 'permettere: « lasciatemi » vale « permettetemi »', en: 'to let — “lasciatemi” means “let me”' } },
       { it: 'cantare', pron: 'can·TA·re', sens: { fr: 'chanter', it: 'cantare', en: 'to sing' } },
@@ -712,6 +725,7 @@ export const CHANSONS: Chanson[] = [
     auteur: 'Paolo Conte',
     annee: '1981',
     lien: 'https://it.wikipedia.org/wiki/Via_con_me',
+    spotify: 'https://open.spotify.com/track/751bsmv3KNPrytbCUdzQJN',
     mots: [
       { it: 'via', pron: 'VI·a', sens: { fr: 'au loin, partons — le même mot veut dire « rue »', it: 'lontano, andiamo — e anche « strada »', en: 'away, let’s go — the same word also means “street”' } },
       { it: 'con me', pron: 'con ME', sens: { fr: 'avec moi', it: 'insieme a me', en: 'with me' } },

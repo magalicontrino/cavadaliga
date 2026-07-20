@@ -365,7 +365,7 @@ export type Dict = {
     songsWords: string;
     songsPoint: string;
     songsListen: string;
-    songsWhy: string;
+    songsListenSpotify: string;
     elsewhereTitle: string;
     elsewhereIntro: string;
     assimilNote: string;
@@ -1087,7 +1087,7 @@ const FR: Dict = {
     songsWords: 'Les mots à connaître',
     songsPoint: 'Ce qu’elle apprend',
     songsListen: 'La fiche de la chanson',
-    songsWhy: 'Vous ne trouverez pas les paroles ici, et ce n’est pas un oubli : elles appartiennent à ceux qui les ont écrites. À la place, ce que raconte la chanson passage par passage, et les mots dans l’ordre où ils arrivent. Écoutez avec cette page ouverte — vous les reconnaîtrez au vol, et c’est comme ça qu’une chanson s’apprend vraiment, bien mieux qu’en lisant un texte en silence.',
+    songsListenSpotify: 'Écouter, et lire le texte',
     elsewhereTitle: 'Continuer ailleurs',
     elsewhereIntro: 'Cette page n’a pas de son, et c’est sa limite : on n’apprend pas à prononcer une langue sans l’entendre. Voilà où aller pour ça — et pour les heures d’exercices qu’un site de famille ne fera jamais.',
     assimilNote: 'La méthode dont ce cours s’inspire est celle d’Assimil — leçons courtes, phrases entières, grammaire expliquée après coup. C’est un livre payant, et il vaut son prix si vous voulez aller vraiment loin.',
@@ -2029,7 +2029,7 @@ const IT: Dict = {
     songsWords: 'Le parole da sapere',
     songsPoint: 'Che cosa insegna',
     songsListen: 'La scheda della canzone',
-    songsWhy: 'Qui non troverete i testi, e non è una dimenticanza: appartengono a chi li ha scritti. Al loro posto, che cosa racconta la canzone passaggio per passaggio, e le parole nell’ordine in cui arrivano. Ascoltate con questa pagina aperta: le riconoscerete al volo, ed è così che una canzone si impara davvero.',
+    songsListenSpotify: 'Ascoltare, e leggere il testo',
     elsewhereTitle: 'Continuare altrove',
     elsewhereIntro: 'Questa pagina non ha audio, ed è il suo limite: non si impara a pronunciare una lingua senza sentirla. Ecco dove andare.',
     assimilNote: 'Il metodo a cui questo corso si ispira è quello di Assimil: lezioni brevi, frasi intere, grammatica spiegata dopo. È un libro a pagamento, e li vale.',
@@ -2971,7 +2971,7 @@ const EN: Dict = {
     songsWords: 'Words to know',
     songsPoint: 'What it teaches',
     songsListen: 'About the song',
-    songsWhy: 'You will not find the lyrics here, and that is not an oversight: they belong to the people who wrote them. Instead, what the song tells you passage by passage, and the words in the order they arrive. Listen with this page open — you will catch them as they go by, and that is how a song is really learnt, far better than reading a text in silence.',
+    songsListenSpotify: 'Listen, and read the words',
     elsewhereTitle: 'Carrying on elsewhere',
     elsewhereIntro: 'This page has no sound, and that is its limit: you cannot learn to pronounce a language without hearing it. Here is where to go for that — and for the hours of drilling a family website will never provide.',
     assimilNote: 'The method this course is built on is Assimil’s — short lessons, whole sentences, grammar explained afterwards. It is a paid book, and it is worth it if you want to go a long way.',

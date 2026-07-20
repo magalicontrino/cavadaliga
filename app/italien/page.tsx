@@ -685,15 +685,32 @@ export default function Italien() {
                 <p className="mt-1 max-w-[72ch] text-[14px] leading-[1.7]">{ch.langue[lang]}</p>
               </div>
 
-              <a href={ch.lien} target="_blank" rel="noopener noreferrer" className="cava-navlink mt-5 inline-flex items-center gap-1.5 text-[13px]" style={{ color: 'var(--cava-pink)', fontWeight: 500 }}>
-                {p.songsListen} ↗
-              </a>
+              {/*
+                Deux portes : l'ecoute d'abord, la fiche ensuite.
+
+                Le bouton Spotify est plein, c'est lui qu'on vise — Mag voulait
+                pouvoir lire les textes, et c'est la qu'ils sont : Spotify les
+                affiche sous le morceau, defilant au rythme de la voix. Un
+                texte pose a plat sur une page se lit en silence ; celui-la se
+                lit en ecoutant, ce qui est tout l'interet.
+              */}
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <a
+                  href={ch.spotify}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] transition-transform duration-200 hover:scale-[1.03] motion-reduce:transition-none"
+                  style={{ background: 'var(--cava-ink)', color: 'var(--cava-bg)', fontWeight: 600 }}
+                >
+                  <Icon name="spotify" size={16} /> {p.songsListenSpotify} ↗
+                </a>
+                <a href={ch.lien} target="_blank" rel="noopener noreferrer" className="cava-navlink inline-flex items-center gap-1.5 text-[13px]" style={{ color: 'var(--cava-pink)', fontWeight: 500 }}>
+                  {p.songsListen} ↗
+                </a>
+              </div>
             </div>
           ))}
 
-          <p className="max-w-[72ch] border-l-2 pl-4 text-[14px] leading-[1.7]" style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-muted)' }}>
-            {p.songsWhy}
-          </p>
         </div>
       );
     }
