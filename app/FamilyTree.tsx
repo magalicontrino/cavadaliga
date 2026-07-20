@@ -90,9 +90,13 @@ function Card({ p, lignee, plein = false }: { p: Person; lignee: Lignee; plein?:
   const c = plein ? LIGNEES[lignee] : { ...LIGNEES[lignee], ...ENFANT };
   return (
     <span
-      className={`inline-flex flex-col items-center gap-0.5 rounded-xl px-4 py-2 ${placeholder ? 'border-dashed' : ''}`}
+      className="inline-flex flex-col items-center gap-0.5 rounded-xl px-4 py-2"
       style={{
-        border: `1.5px solid ${placeholder ? 'var(--cava-line)' : plein ? c.plein : c.trait}`,
+        // Le pointille s'ecrit ICI et pas en classe : la regle `border`
+        // ci-dessous est un style EN LIGNE, elle l'emportait sur la classe
+        // `border-dashed` et la rendait inoperante — mesure faite, les cartes
+        // vides s'affichaient en trait plein comme les autres.
+        border: `1.5px ${placeholder ? 'dashed' : 'solid'} ${placeholder ? 'var(--cava-line)' : plein ? c.plein : c.trait}`,
         background: placeholder ? 'var(--cava-bg)' : plein ? c.plein : 'var(--cava-bg)',
         color: placeholder ? 'var(--cava-muted)' : plein ? c.surPlein : c.texte,
       }}
@@ -241,8 +245,14 @@ export default function FamilyTree() {
           children: [
             { name: 'Angelo' },
             { name: 'Stefano', subtitle: '1930' },
+            // Joseph n'a pas eu d'enfants — Mag l'a dit expressement. C'est un
+            // FAIT, pas un trou dans nos connaissances : il n'a donc rien sous
+            // lui, et surtout il ne figure pas dans les questions ouvertes.
             { name: 'Joseph' },
-            { name: 'Gabi' },
+            // Gabi a deux enfants, dont Mag ne se rappelle que le premier
+            // prenom. Le second est une carte en pointilles : un blanc qu'on
+            // assume vaut mieux qu'un enfant qu'on oublie de compter.
+            { name: 'Gabi', children: [{ name: 'Christian' }, { name: '…' }] },
             {
               // Les deux enfants de Jacques, donnes par Mag. Meme construction
               // que pour Helene : ils descendent d'un cran sous leur parent, a
@@ -250,8 +260,18 @@ export default function FamilyTree() {
               name: 'Jacques',
               children: [{ name: 'Nathalie' }, { name: 'Olivier' }],
             },
-            { name: 'Benito', subtitle: '1943' },
-            { name: 'Lucia' },
+            // Benito : on sait qu'une de ses filles s'appelle Ambre, sans
+            // savoir combien ils sont en tout. Une seule carte en pointilles
+            // dit « il y en a d'autres » sans inventer un nombre.
+            { name: 'Benito', subtitle: '1943', children: [{ name: 'Ambre' }, { name: '…' }] },
+            // Lucia a trois enfants de deux mariages : Salvatore et Joseph du
+            // premier, Tino du second. Le nom du second mari, Dolciamore,
+            // s'ecrit sous Tino — c'est le seul endroit ou il se rattache a
+            // quelqu'un. Le premier mari, lui, reste une question ouverte.
+            {
+              name: 'Lucia',
+              children: [{ name: 'Salvatore' }, { name: 'Joseph' }, { name: 'Tino', subtitle: 'Dolciamore' }],
+            },
             {
               // Helene est une FILLE de Salvatore & Giuseppina, comme ses huit
               // freres et soeurs — Mag l'a corrige. Elle avait en plus son
@@ -268,7 +288,9 @@ export default function FamilyTree() {
                 { name: 'Giuseppina', subtitle: 'Jo' },
               ],
             },
-            { name: 'Maria' },
+            // Maria a « plusieurs gosses », dont aucun prenom ne nous est
+            // parvenu. Une carte en pointilles, et la question posee plus bas.
+            { name: 'Maria', children: [{ name: '…' }] },
           ],
         } },
         {
@@ -488,9 +510,24 @@ const QUESTIONS: { fr: string; it: string; en: string }[] = [
     en: 'Helene Contrino’s husband, and those of her daughters Maria, Antoinette, Rose and Jo (Angèle’s we know: Patrick Gamino).',
   },
   {
-    fr: 'Le premier mari de Lucia Contrino, le père de Giuseppe et Salvatore. Le second, on le sait : Dolciamore, le père de Tino.',
-    it: 'Il primo marito di Lucia Contrino, il padre di Giuseppe e Salvatore. Il secondo lo sappiamo: Dolciamore, il padre di Tino.',
-    en: 'Lucia Contrino’s first husband, father of Giuseppe and Salvatore. The second one we know: Dolciamore, Tino’s father.',
+    fr: 'Le premier mari de Lucia Contrino, le père de Joseph et Salvatore. Le second, on le sait : Dolciamore, le père de Tino.',
+    it: 'Il primo marito di Lucia Contrino, il padre di Joseph e Salvatore. Il secondo lo sappiamo: Dolciamore, il padre di Tino.',
+    en: 'Lucia Contrino’s first husband, father of Joseph and Salvatore. The second one we know: Dolciamore, Tino’s father.',
+  },
+  {
+    fr: 'Le prénom du second enfant de Gabi Contrino — le premier, c’est Christian.',
+    it: 'Il nome del secondo figlio di Gabi Contrino — il primo è Christian.',
+    en: 'The name of Gabi Contrino’s second child — the first is Christian.',
+  },
+  {
+    fr: 'Les enfants de Benito Contrino : combien ils sont, et leurs prénoms. On sait qu’une de ses filles s’appelle Ambre.',
+    it: 'I figli di Benito Contrino: quanti sono e come si chiamano. Sappiamo che una delle figlie si chiama Ambre.',
+    en: 'Benito Contrino’s children: how many, and their names. We know one of his daughters is called Ambre.',
+  },
+  {
+    fr: 'Les enfants de Maria Contrino : elle en a plusieurs, mais aucun prénom ne nous est parvenu.',
+    it: 'I figli di Maria Contrino: ne ha diversi, ma nessun nome ci è arrivato.',
+    en: 'Maria Contrino’s children: she has several, but no name has reached us.',
   },
   {
     fr: 'Le mari de Maria Contrino, et celui de Lara Contrino.',
