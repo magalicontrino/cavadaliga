@@ -7,6 +7,7 @@ import Reveal from '../Reveal';
 import PageHeader from '../PageHeader';
 import BottomSheet from '../BottomSheet';
 import Icon, { type IconName } from '../Icon';
+import GlyphePlein, { type GlypheName } from '../GlyphePlein';
 import { useI18n } from '../i18n';
 import type { Lang } from '../localData';
 import { PRONONCIATION, LECONS, CONJUGAISONS, PRONOMS, EXERCICES, AILLEURS, CHANSONS } from '../italienData';
@@ -433,15 +434,15 @@ export default function Italien() {
    * present ensuite, qui porte l'essentiel ; le passe et le futur en dernier,
    * dont on se passe une semaine sans que personne s'en apercoive.
    */
-  const PLAN: { id: string; titre: string; niveau: string; icon: IconName; intro?: string }[] = [
-    { id: 'prononcer', titre: p.soundTitle, niveau: p.level1, icon: 'chat', intro: p.soundIntro },
-    { id: 'parler', titre: p.talkTitle, niveau: p.level1, icon: 'parler', intro: p.talkIntro },
-    { id: 'presente', titre: CONJUGAISONS[0].temps[lang], niveau: p.level2, icon: 'sun' },
-    { id: 'passato', titre: CONJUGAISONS[1].temps[lang], niveau: p.level2, icon: 'landmark' },
-    { id: 'futuro', titre: CONJUGAISONS[2].temps[lang], niveau: p.level3, icon: 'compass' },
-    { id: 'chansons', titre: p.songsTitle, niveau: p.levelAll, icon: 'vinyl', intro: p.songsIntro },
-    { id: 'exercices', titre: p.drillTitle, niveau: p.levelAll, icon: 'target', intro: p.drillIntro },
-    { id: 'ailleurs', titre: p.elsewhereTitle, niveau: p.levelAll, icon: 'map', intro: p.elsewhereIntro },
+  const PLAN: { id: string; titre: string; niveau: string; icon: IconName; glyphe: GlypheName; intro?: string }[] = [
+    { id: 'prononcer', titre: p.soundTitle, niveau: p.level1, icon: 'chat', glyphe: 'sons', intro: p.soundIntro },
+    { id: 'parler', titre: p.talkTitle, niveau: p.level1, icon: 'parler', glyphe: 'bulles', intro: p.talkIntro },
+    { id: 'presente', titre: CONJUGAISONS[0].temps[lang], niveau: p.level2, icon: 'sun', glyphe: 'soleil' },
+    { id: 'passato', titre: CONJUGAISONS[1].temps[lang], niveau: p.level2, icon: 'landmark', glyphe: 'retour' },
+    { id: 'futuro', titre: CONJUGAISONS[2].temps[lang], niveau: p.level3, icon: 'compass', glyphe: 'avance' },
+    { id: 'chansons', titre: p.songsTitle, niveau: p.levelAll, icon: 'vinyl', glyphe: 'disque', intro: p.songsIntro },
+    { id: 'exercices', titre: p.drillTitle, niveau: p.levelAll, icon: 'target', glyphe: 'cible', intro: p.drillIntro },
+    { id: 'ailleurs', titre: p.elsewhereTitle, niveau: p.levelAll, icon: 'map', glyphe: 'depart', intro: p.elsewhereIntro },
   ];
   const ouverte = section ? PLAN.find((x) => x.id === section) : null;
 
@@ -459,7 +460,7 @@ export default function Italien() {
         surCarte(x.id);
       }}
       aria-current={(section ?? PLAN[0].id) === x.id ? 'true' : undefined}
-      className="group flex aspect-square flex-col justify-between gap-3 rounded-2xl border p-3.5 text-left transition-transform duration-200 hover:scale-[1.02] motion-reduce:transition-none"
+      className="group flex min-h-[11rem] flex-col justify-between gap-4 rounded-2xl border p-4 text-left transition-transform duration-200 hover:scale-[1.02] motion-reduce:transition-none min-[560px]:min-h-[13rem] min-[560px]:gap-6 min-[560px]:p-6 lg:aspect-square lg:min-h-0"
       /* La carte ouverte prend le filet d'encre : sur grand ecran c'est le seul
          indice de ce qu'on lit en dessous. Un fond plein serait trop fort — la
          grille compte huit cartes, elle deviendrait un damier. */
@@ -468,28 +469,32 @@ export default function Italien() {
         background: 'var(--cava-bg)',
       }}
     >
-      {/* L'icone REMONTE EN HAUT. Dans un carre, elle ne peut plus partager sa
-          ligne avec le niveau : il n'y a pas la largeur. Elle ouvre donc la
-          vignette, et le texte se pose dessous — c'est aussi le sens de lecture
-          naturel, le pictogramme d'abord, le mot ensuite. */}
-      <span style={{ color: 'var(--cava-ink)' }}>
-        <Icon name={x.icon} size={30} strokeWidth={1.9} />
-      </span>
-      <div className="flex flex-col gap-1.5">
-        <span className="text-[clamp(0.85rem,1.1vw,1rem)] leading-tight" style={{ fontWeight: 800 }}>{x.titre}</span>
+      {/* Le texte EN HAUT, le glyphe EN BAS — l'ordre du modele de Mag. La
+          description revient : c'est elle qui dit a quoi sert la section, et le
+          titre seul ne le dit pas (« Le passe compose » n'annonce pas qu'on va
+          raconter). */}
+      <div className="flex flex-col gap-2">
+        <span className="text-[clamp(1.05rem,1.3vw,1.25rem)] leading-tight" style={{ fontWeight: 800 }}>{x.titre}</span>
+        <p className="text-[clamp(0.85rem,1vw,0.95rem)] leading-[1.45]" style={{ color: 'var(--cava-muted)' }}>
+          {p.planDesc[x.id]}
+        </p>
+      </div>
+      {/*
+        LE GLYPHE PLEIN, en bas a gauche, en grand — le modele de Mag ne laisse
+        aucun doute la-dessus. Il est massif expres : a 44 px, un trait fin
+        parait maigre alors qu'un aplat tient. Le niveau se range a cote, petit,
+        parce qu'il informe sans avoir a se faire voir.
+      */}
+      <div className="flex items-end justify-between gap-3">
+        <span style={{ color: 'var(--cava-ink)' }}>
+          {/* La taille passe par des classes et non par `size` : elle doit
+              suivre la largeur d'ecran, et un attribut SVG ne sait pas faire ça.
+              36 px sur telephone, 44 des qu'il y a la place. */}
+          <GlyphePlein name={x.glyphe} className="h-9 w-9 min-[560px]:h-11 min-[560px]:w-11" />
+        </span>
         <span className="text-[10px] uppercase leading-tight tracking-[0.08em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
           {x.niveau}
         </span>
-        {/*
-          LA DESCRIPTION NE S'AFFICHE PLUS, mais elle n'est pas perdue.
-          Un carre de deux cents pixels ne tient pas « Trois chansons, leurs
-          paroles, et ce qu'elles apprennent » en plus du titre — vouloir les
-          deux, c'est retrouver la carte haute que Mag voulait justement
-          raccourcir. Elle reste donc lisible par les liseuses d'ecran et par
-          les moteurs, et le titre de la section la redit en clair des qu'on
-          ouvre. Rien ne disparait du site, seulement de la vignette.
-        */}
-        <span className="sr-only">{p.planDesc[x.id]}</span>
       </div>
     </a>
   );
@@ -899,34 +904,29 @@ export default function Italien() {
       */}
       <section id="cartes" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-16 pt-10 md:px-10 md:pb-0">
         {/*
-          HUIT VIGNETTES CARREES, et le nombre de colonnes suit la largeur.
-          Mag : « fais des vignettes carrees pour que ça rentre sur la longueur,
-          ou en rangee de 2 ou de 3 sur le telephone ». Deux au plus etroit,
-          trois des qu'un grand telephone le permet, puis quatre, et huit — la
-          rangee unique — quand l'ecran est assez large.
+          QUATRE COLONNES, comme le modele que Mag a montre — « comme ça !!!! ».
 
-          LE SEUIL DES TROIS COLONNES EST A 500 PX, pas plus bas, et c'est le
-          carre qui l'impose. `aspect-square` donne une PROPORTION, pas une
-          hauteur : des que le titre ne tient plus dans la largeur, il pousse la
-          tuile et le carre se perd. Mesure a 430 px : 122 de large pour 141 de
-          haut. A 500 px la colonne fait 145 et le carre tient. Mieux vaut deux
-          vraies vignettes carrees que trois qui n'en sont plus.
+          On etait passe par huit vignettes sur une seule rangee. Ça tenait,
+          mais au prix de la description : a 140 px de cote, il n'y a la place
+          que d'un titre. Le modele tranche autrement — la description reste, et
+          c'est elle qui dit a quoi sert la section. Quatre colonnes, donc, et
+          la vignette redevient assez grande pour porter les deux.
 
-          LES HUIT ARRIVENT A `xl` (1280 px), ET C'EST UN PALIER NOMME.
-          J'avais ecrit `min-[1500px]`, ce qui semblait plus juste. Deux fautes
-          d'un coup. La premiere : Tailwind ecrit les paliers sur mesure AVANT
-          les paliers nommes, si bien que `md:grid-cols-4`, plus loin dans la
-          feuille, l'emportait — mesure a 1600 px, quatre colonnes la ou huit
-          etaient demandees, et rien dans le HTML pour le laisser deviner. La
-          seconde : entre 1280 et 1500, on retombait a quatre colonnes, donc a
-          des carres de 337 px sur deux rangees — soit une grille PLUS HAUTE que
-          celle qu'on venait de raccourcir, et pile a la taille d'un portable.
+          `lg:aspect-square` et pas `aspect-square` tout court : le carre n'est
+          impose QU'A PARTIR DE 1024 px, la ou la colonne depasse 230 px. En
+          dessous, la vignette prend la hauteur qu'il lui faut — mesure a 430 px
+          sur l'ancienne version, une tuile demandee carree sortait a 122 sur
+          141. `aspect-square` donne une proportion, pas une hauteur : des que
+          le texte ne rentre pas, il pousse et le carre se perd. Mieux vaut une
+          vignette franchement rectangulaire qu'un carre qui n'en est pas un.
 
-          A 1280 px, huit colonnes font 140 px. Le titre le plus long y depassait
-          de deux pixels et cassait le carre ; c'est pour ça que la marge
-          interieure est a 14 px et pas a 16. Deux pixels de matelas, mesures.
+          Deux colonnes sur telephone — Mag les voulait ainsi, et une seule
+          colonne donnait 1776 px de grille, mesures : on faisait defiler huit
+          ecrans avant d'atteindre le cours. A deux, la marge interieure tombe a
+          16 px et le glyphe a 36 : c'est ce qui rend au texte la largeur que la
+          colonne lui prend.
         */}
-        <Reveal className="grid grid-cols-2 gap-3 min-[500px]:grid-cols-3 md:grid-cols-4 xl:grid-cols-8">
+        <Reveal className="grid grid-cols-2 gap-3 min-[560px]:gap-4 lg:grid-cols-4">
           {PLAN.map((x) => carteSommaire(x))}
         </Reveal>
       </section>
