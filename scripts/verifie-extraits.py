@@ -53,6 +53,19 @@ SOURCES = {
     'argent': ['cashPage'], 'bestioles': ['cleanPage'], 'voyage': ['prepare'],
     'dechets': ['wastePage'],
     'sports': ['sportsPage'],
+    'coutumes': ['tastePage'],
+    # Le recit de Salva : un tableau de paragraphes, pas un objet.
+    'recit': ['storyText'],
+    # « L'italien » : voir ITALIEN plus bas. Sa source n'est pas dans i18n.
+    'italien': [],
+    'specialites': ['specialtiesPage'],
+    'alcools': ['drinksPage'],
+    'cafe': ['coffeePage'],
+    'etna': ['etnaPage'],
+    'arabe': ['arabPage'],
+    'histoire': ['historyPage'],
+    'faune': ['faunaPage'],
+    'livres': ['booksPage'],
     # « Les lieux » : un tableau, pas un objet — voir blocs_de().
     'lieux': ['placesIntro', 'regionPlaces', 'unescoNote'],
     'pastasciutta': ['pastaPage'],
@@ -92,6 +105,25 @@ SOURCES = {
 # les trois langues. La meme source sert donc aux trois passes.
 # ─────────────────────────────────────────────────────────────────────────
 _ft = io.open('app/FamilyTree.tsx', encoding='utf-8').read()
+# ─────────────────────────────────────────────────────────────────────────
+# LE COURS D'ITALIEN ETAIT LE PLUS GROS TROU DU CONTROLE : 171 questions, soit
+# plus du quart du quiz, sans aucune verification. Comme l'arbre, sa source
+# n'est pas dans i18n — les phrases, les prononciations et les notes vivent
+# dans italienData.ts.
+#
+# LES COMMENTAIRES SONT RETIRES AVANT LECTURE, et c'est la leçon deja payee sur
+# l'arbre : un controle qui lit les commentaires finit par se valider sur la
+# prose du developpeur au lieu de la page. On enleve donc /* */ et // avant
+# d'extraire quoi que ce soit.
+#
+# Le fichier n'est pas traduit par langue au sens de i18n : chaque entree porte
+# ses trois versions cote a cote. La meme source sert donc aux trois passes.
+# ─────────────────────────────────────────────────────────────────────────
+_it_src = io.open('app/italienData.ts', encoding='utf-8').read()
+_it_src = re.sub(r'/\*.*?\*/', ' ', _it_src, flags=re.S)
+_it_src = re.sub(r'^\s*//.*$', ' ', _it_src, flags=re.M)
+ITALIEN = nettoie(' '.join(re.findall(r"'((?:[^'\\]|\\.)*)'", _it_src)))
+
 ARBRE = nettoie(' '.join(
     re.findall(r"\b(?:name|subtitle): '((?:[^'\\]|\\.)*)'", _ft)
     + re.findall(r"\bsubtitle: `([^`]*)`", _ft)
@@ -118,7 +150,12 @@ for k, langue in enumerate(('fr', 'it', 'en')):
         if ancre not in SOURCES:
             continue
         concernees += 1
-        texte = ARBRE if ancre == 'arbre' else nettoie(' '.join(TEXTES[c][k] for c in SOURCES[ancre]))
+        if ancre == 'arbre':
+            texte = ARBRE
+        elif ancre == 'italien':
+            texte = ITALIEN
+        else:
+            texte = nettoie(' '.join(TEXTES[c][k] for c in SOURCES[ancre]))
         opts = re.findall(r"'((?:[^'\\]|\\.)*)'", choix)
         rep = opts[int(bonne)].replace("\\'", "'")
         mots = [w for w in re.split(r"[^a-z0-9‘’']+", nettoie(rep)) if w]

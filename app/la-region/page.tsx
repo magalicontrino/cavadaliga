@@ -638,6 +638,8 @@ export default function LaRegion() {
             </Reveal>
           ))}
         </div>
+
+        <Sources section="coutumes" />
       </section>
       )}
 

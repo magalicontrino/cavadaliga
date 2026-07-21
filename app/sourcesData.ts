@@ -20,6 +20,27 @@ export type Source = { label: string; url: string };
 
 export const SOURCES: Record<string, Source[]> = {
   /*
+   * Les us et coutumes. Mag : « c'est des souvenirs, moi, de vacances, mais
+   * pour les coutumes officielles je prefere que tu fasses l'effort de
+   * rechercher et de croiser des sources ».
+   *
+   * Elle avait raison de le demander, et le croisement a nuance ses deux
+   * phrases. Le monokini n'est pas interdit — la Cassation l'a tranche en
+   * 2000 — mais il ne se fait pas ici : c'est un usage, pas une regle, et
+   * l'ecrire comme une regle aurait ete faux. Et « on vit en maillot » ne vaut
+   * qu'ici : plusieurs communes SICILIENNES verbalisent 25 a 150 € pour un
+   * maillot en centre-ville.
+   *
+   * Aucun arrete de ce genre n'a ete trouve pour Scicli — d'ou le « a notre
+   * connaissance » dans le texte, qui n'est pas une precaution de style.
+   */
+  coutumes: [
+    { label: 'Topless en spiaggia : ce que dit la loi — Supereva', url: 'https://www.supereva.it/topless-spiaggia-legale-cosa-dice-legge-99920' },
+    { label: 'Costume et torse nu interdits en Sicile : Favignana, Marettimo, Levanzo — Sicilia News', url: 'https://www.sicilianews.it/costume-e-torso-nudo-vietato-in-piazza-anche-in-sicilia-ecco-dove/' },
+    { label: 'San Vito Lo Capo interdit le maillot hors des plages — Corriere di Sciacca', url: 'https://www.corrieredisciacca.it/a-san-vito-lo-capo-e-vietato-camminare-in-costume-da-bagno-o-a-torso-nudo/' },
+  ],
+
+  /*
    * La scopa. Le barème de la primiera est verifie a part : c'est le seul
    * point du jeu ou une erreur se verrait en jouant, et l'ecrire de memoire
    * n'etait pas acceptable. Le 7 vaut 21, le roi seulement 10.
