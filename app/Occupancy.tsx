@@ -40,7 +40,9 @@ import { useI18n } from './i18n';
  * enfants ses oncles et tantes, et Angele — fille d'Helene — sa cousine
  * germaine.
  */
-const DEHORS = 'dehors';
+// « Hors famille » s'appelle desormais « les amis » : c'est ce que la tranche
+// a toujours voulu dire, et le mot est plus juste que sa negation.
+const AMIS = 'amis';
 /*
  * QUI EST DANS QUELLE TRANCHE. Le compilateur garde toujours la liste : `qui`
  * n'accepte que des prenoms ecrits ici, donc une faute de frappe ne compile
@@ -75,8 +77,8 @@ const TRANCHES = {
    * Hors de l'arbre, et ça ne coute rien : ils partagent le sejour de
    * quelqu'un de plus proche, et c'est le plus proche qui donne la couleur.
    */
-  Alex: DEHORS,
-  Guillaume: DEHORS,
+  Alex: AMIS,
+  Guillaume: AMIS,
 } as const;
 
 type Personne = keyof typeof TRANCHES;
@@ -114,7 +116,7 @@ const SEJOURS: Sejour[] = [
  * L'inverse — le plus eloigne l'emporte — donnerait un calendrier ou la
  * presence d'un seul invite exterieur effacerait la famille de la couleur.
  */
-type Parente = 'travaux' | 'mag' | 'proche' | 'belle' | 'famille' | 'dehors';
+type Parente = 'travaux' | 'inconnu' | 'mag' | 'proche' | 'belle' | 'famille' | 'amis';
 const parenteDu = (s: Sejour): Parente => {
   /*
    * LES TRANCHES SONT NOMMEES, PLUS CALCULEES — et c'est Mag qui a montre
@@ -134,13 +136,25 @@ const parenteDu = (s: Sejour): Parente => {
    * qu'une comparaison, et c'est le seul moyen d'etre juste.
    */
   if (s.travaux) return 'travaux';
+  /*
+   * `qui: []` VEUT DIRE « JE N'AI PAS ENCORE DEMANDE A MAG », et c'est la
+   * seule chose que ce fichier ne doit surtout pas deviner.
+   *
+   * Mag a demande a cocher elle-meme la tranche de chaque nouvelle entree.
+   * Tant qu'un sejour n'a personne de declare, il ne prend donc AUCUNE
+   * couleur de parente : il sort en ardoise, avec « tranche à préciser » ecrit
+   * a cote de son nom dans la liste. Le repli precedent le rangeait chez les
+   * amis — une tranche par defaut, c'est une reponse inventee qui a l'air
+   * d'une reponse verifiee, et personne ne serait jamais venu la corriger.
+   */
+  if (s.qui.length === 0) return 'inconnu';
   const tranches = s.qui.map((p) => TRANCHES[p]);
   // Le plus proche l'emporte, dans cet ordre : un sejour ou vient une fille de
   // Mag est un sejour « proche », meme s'il y a du monde autour.
   for (const t of ['mag', 'proche', 'belle', 'famille'] as const) {
     if (tranches.includes(t)) return t;
   }
-  return 'dehors';
+  return 'amis';
 };
 
 
@@ -259,10 +273,33 @@ const LOCALES: Record<string, string> = { it: 'it-IT', fr: 'fr-FR', en: 'en-GB' 
  * bloc noir se lit avant meme qu'on ait cherche la legende.
  */
 const TRAVAUX = '#1a1a1a';
+/*
+ * L'ARDOISE DU « ON NE SAIT PAS ENCORE » — et c'est la reponse a une question
+ * de Mag : ses cinq tranches n'entraient pas dans l'echelle, alors a quoi
+ * fallait-il renoncer ?
+ *
+ * A rien, en fait. J'avais annonce l'echelle pleine a six, et elle ne l'etait
+ * que sous une regle que je m'etais donnee sans m'en apercevoir : que TOUS les
+ * chiffres soient noirs. C'est ça qui bloquait le bas a 0,302. Le noir des
+ * travaux avait deja casse cette regle, et il marche tres bien.
+ *
+ * Mesure : sous la zone morte — la bande etroite, 0,183 a 0,221, ou ni l'encre
+ * ni le blanc n'atteignent 4,5 — il reste huit barreaux libres avec du texte
+ * blanc. On n'en utilisait aucun.
+ *
+ * Et « inconnu » n'etait pas une tranche de parente : personne n'est
+ * l'inconnu de quelqu'un. C'est l'ABSENCE d'information, donc elle se range
+ * avec les travaux, du cote sombre reserve a ce qui n'est pas un sejour
+ * ordinaire. Les pastels restent aux gens.
+ *
+ * #4a5263 : blanc a 7,84, et 2,22 d'ecart avec le noir des travaux — les deux
+ * cas sombres ne se confondent pas.
+ */
+const INCONNU = '#4a5263';
 const MAG = 'rgba(230, 41, 111, 0.70)';
 const PROCHE = 'rgba(230, 41, 111, 0.23)';
 const FAMILLE = '#e8a800';
-const DEHORS_T = 'rgba(90, 122, 46, 0.62)';
+const AMIS_T = 'rgba(90, 122, 46, 0.62)';
 /*
  * L'INDIGO DE LA BELLE-FAMILLE, ET SON PRIX. Mag voulait une tranche a part
  * pour Katia. Une CINQUIEME teinte sur ce calendrier est a la limite du
@@ -300,7 +337,7 @@ const DEHORS_T = 'rgba(90, 122, 46, 0.62)';
  */
 const BELLE = 'rgba(147, 160, 230, 0.62)';
 const LIBRE = 'rgba(74, 127, 196, 0.14)';
-const TEINTES: Record<Parente, string> = { travaux: TRAVAUX, mag: MAG, proche: PROCHE, belle: BELLE, famille: FAMILLE, dehors: DEHORS_T };
+const TEINTES: Record<Parente, string> = { travaux: TRAVAUX, inconnu: INCONNU, mag: MAG, proche: PROCHE, belle: BELLE, famille: FAMILLE, amis: AMIS_T };
 /*
  * LES PASTILLES DE LA LEGENDE SONT PLEINES, POUR SE VOIR A 12 PX — sauf celle
  * du libre, et c'est Mag qui a vu le probleme : « le bleu est beaucoup plus
@@ -325,7 +362,7 @@ const TEINTES: Record<Parente, string> = { travaux: TRAVAUX, mag: MAG, proche: P
  * Les pastilles de la LISTE, elles, restent rondes : elles ne montrent pas une
  * case, elles marquent une ligne de texte a cote d'un nom.
  */
-const PLEIN = { travaux: TRAVAUX, mag: '#e6296f', proche: '#f0a0bd', belle: '#93a0e6', famille: '#e8a800', dehors: '#5a7a2e', libre: '#4a7fc4' };
+const PLEIN = { travaux: TRAVAUX, inconnu: INCONNU, mag: '#e6296f', proche: '#f0a0bd', belle: '#93a0e6', famille: '#e8a800', amis: '#5a7a2e', libre: '#4a7fc4' };
 
 const ymd = (d: Date) => d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
 const lire = (s: string) => {
@@ -609,12 +646,13 @@ export default function Occupancy() {
                         /*
                          * Le chiffre garde l'encre des qu'il y a une couleur
                          * dessous, et ne palit que sur un jour libre ecoule.
-                         * Seuls LES TRAVAUX le passent au blanc : c'est le seul
-                         * fond sombre du jeu, l'encre y tombe a 1,00 — soit
-                         * strictement invisible — quand le blanc y monte a 17,4.
+                         * Seuls les DEUX FONDS SOMBRES le passent au blanc — les
+                         * travaux et le « on ne sait pas encore ». L'encre y
+                         * tombe a 1,00 et 1,32, soit invisible ; le blanc y
+                         * monte a 17,4 et 7,8.
                          */
                         color:
-                          parente === 'travaux'
+                          parente === 'travaux' || parente === 'inconnu'
                             ? '#fff'
                             : passe && !parente
                               ? 'var(--cava-line)'
@@ -707,12 +745,32 @@ export default function Occupancy() {
                         <span style={{ color: 'var(--cava-muted)' }}>
                           {jourFormat.format(lire(s.start))} → {jourFormat.format(lire(s.end))}
                         </span>
+                        {/*
+                          DEUX ETIQUETTES, ET ELLES NE DISENT PAS LA MEME
+                          CHOSE. « À confirmer » porte sur les DATES — le
+                          sejour aura peut-etre lieu. « Tranche à préciser »
+                          porte sur MOI : je n'ai pas encore demande a Mag de
+                          quelle tranche relevent ces gens, et tant qu'elle ne
+                          l'a pas dit, la case reste ardoise plutot que de
+                          prendre une couleur inventee.
+
+                          Elles peuvent donc se cumuler, et c'est normal : une
+                          date incertaine pour des gens pas encore ranges.
+                        */}
                         {s.tentative && (
                           <span
                             className="ml-1.5 inline-block whitespace-nowrap rounded-full border-2 px-1.5 align-[1px] text-[10.5px] leading-[1.6]"
                             style={{ borderColor: PLEIN[parenteDu(s)], color: 'var(--cava-muted)' }}
                           >
                             {c.legend.tentative}
+                          </span>
+                        )}
+                        {parenteDu(s) === 'inconnu' && (
+                          <span
+                            className="ml-1.5 inline-block whitespace-nowrap rounded-full border-2 px-1.5 align-[1px] text-[10.5px] leading-[1.6]"
+                            style={{ borderColor: PLEIN.inconnu, color: 'var(--cava-muted)' }}
+                          >
+                            {c.legend.unknown}
                           </span>
                         )}
                       </span>
