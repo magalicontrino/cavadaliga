@@ -161,7 +161,9 @@ const nettoie = (x: string) =>
 function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string, lang: 'fr' | 'it' | 'en'): string {
   switch (ancre) {
     case 'lieux':
-      return [t.placesIntro, ...t.regionPlaces].join(' ');
+      // Le bloc du Val di Noto fait partie de la section « Les lieux » : sans
+      // lui, les questions sur les huit villes n'auraient pas d'extrait.
+      return [t.placesIntro, ...t.regionPlaces, t.unescoNote.quake, t.unescoNote.towns, t.unescoNote.near, t.unescoNote.syracuse].join(' ');
     case 'etna':
       return [t.etnaPage.intro, ...t.etnaPage.facts.map((f) => f.text)].join(' ');
     case 'arabe':

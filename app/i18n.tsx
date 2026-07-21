@@ -311,6 +311,8 @@ export type Dict = {
     primiera: { carte: string; points: string }[];
     note: string;
   };
+  /* Le Val di Noto : huit villes, un seisme, et quatre d'entre elles ici. */
+  unescoNote: { title: string; quake: string; towns: string; near: string; syracuse: string };
   cultureFilter: {
     all: string;
     playlist: string;
@@ -1311,6 +1313,13 @@ const FR: Dict = {
     ],
     note: 'On joue jusqu’à 11 points à deux, 16 à trois, 21 par équipes. Le jeu était déjà répandu dans toute l’Italie au XVIIIᵉ siècle, et viendrait de jeux espagnols passés par Naples.',
   },
+  unescoNote: {
+    title: 'Huit villes, un tremblement de terre',
+    quake: 'Le 11 janvier 1693, un séisme de magnitude 7,4 rase le sud-est de la Sicile. Des dizaines de milliers de morts, et des villes entières à refaire. Des architectes siciliens formés à Rome les reconstruisent d’un seul mouvement, en baroque tardif — et pour la première fois en pensant aux secousses suivantes.',
+    towns: 'L’UNESCO les a inscrites ensemble en 2002, sous le nom de « Villes du baroque tardif du Val di Noto » : Caltagirone, Catane, Militello, Modica, Noto, Palazzolo Acreide, Raguse et Scicli. Huit villes, un seul bien, une seule catastrophe à l’origine.',
+    near: 'Quatre de ces huit villes sont à moins de 55 kilomètres de la maison : Scicli à 8, Modica à 20, Raguse à 28, Noto à 55. On peut donc voir la moitié d’un site du patrimoine mondial en une semaine, sans jamais faire plus d’une heure de route.',
+    syracuse: 'Syracuse ne fait pas partie du Val di Noto : elle relève d’une inscription à part, avec la nécropole rupestre de Pantalica, en 2005. Et Caltagirone, la première de la liste, est la ville d’où viennent les têtes de Maure en céramique.',
+  },
   cultureFilter: {
     all: 'Tout voir',
     playlist: 'La playlist',
@@ -1636,6 +1645,9 @@ const FR: Dict = {
       { q: 'Où se trouve l’Oreille de Denys ?', choix: ['À Syracuse', 'À Raguse', 'À Noto'], bonne: 0, ancre: 'lieux', niveau: 'moyen' },
       { q: 'Sur les dix lieux de cette page, combien sont classés à l’UNESCO ?', choix: ['Cinq', 'Deux', 'Les dix'], bonne: 0, ancre: 'lieux', niveau: 'difficile' },
       { q: 'Où se trouve la Torre Cabrera, tour de guet du XVIᵉ siècle ?', choix: ['À Marina di Ragusa', 'À Sampieri', 'À Donnalucata'], bonne: 0, ancre: 'lieux', niveau: 'difficile' },
+      { q: 'Combien de villes compte le site UNESCO du Val di Noto ?', choix: ['Huit', 'Cinq', 'Trois'], bonne: 0, ancre: 'lieux', niveau: 'moyen' },
+      { q: 'Quel événement a fait naître le baroque du Val di Noto ?', choix: ['Le séisme du 11 janvier 1693', 'Une éruption de l’Etna', 'La conquête normande'], bonne: 0, ancre: 'lieux', niveau: 'facile' },
+      { q: 'Syracuse fait-elle partie du Val di Noto ?', choix: ['Non, elle a une inscription à part avec Pantalica', 'Oui, c’est la première de la liste', 'Non, elle n’est pas classée'], bonne: 0, ancre: 'lieux', niveau: 'difficile' },
       { q: 'Comment les Siciliens appellent-ils l’Etna ?', choix: ['A Muntagna', 'Il Vulcano', 'La Signora'], bonne: 0, ancre: 'etna', niveau: 'facile' },
       { q: 'Peut-on skier sur l’Etna ?', choix: ['Oui, sur deux domaines', 'Non, il y fait trop chaud', 'Oui, mais un seul mois par an'], bonne: 0, ancre: 'etna', niveau: 'facile' },
       { q: 'Que récoltaient les nivaroli sur l’Etna ?', choix: ['La neige', 'Le soufre', 'La lave refroidie'], bonne: 0, ancre: 'etna', niveau: 'moyen' },
@@ -2657,6 +2669,13 @@ const IT: Dict = {
     ],
     note: 'Si gioca a 11 punti in due, 16 in tre, 21 a squadre. Il gioco era già diffuso in tutta Italia nel Settecento, e verrebbe da giochi spagnoli passati per Napoli.',
   },
+  unescoNote: {
+    title: 'Otto città, un terremoto',
+    quake: 'L’11 gennaio 1693 un sisma di magnitudo 7,4 rade al suolo la Sicilia sud-orientale. Decine di migliaia di morti, e città intere da rifare. Architetti siciliani formati a Roma le ricostruiscono in un solo movimento, in tardo barocco — e per la prima volta pensando alle scosse successive.',
+    towns: 'L’UNESCO le ha iscritte insieme nel 2002, come « Città tardo barocche del Val di Noto »: Caltagirone, Catania, Militello, Modica, Noto, Palazzolo Acreide, Ragusa e Scicli. Otto città, un solo bene, una sola catastrofe all’origine.',
+    near: 'Quattro di queste otto città sono a meno di 55 chilometri da casa: Scicli a 8, Modica a 20, Ragusa a 28, Noto a 55. Si può quindi vedere metà di un sito del patrimonio mondiale in una settimana, senza mai fare più di un’ora di strada.',
+    syracuse: 'Siracusa non fa parte del Val di Noto: ha un’iscrizione a sé, con la necropoli rupestre di Pantalica, nel 2005. E Caltagirone, la prima della lista, è la città da cui vengono le teste di moro in ceramica.',
+  },
   cultureFilter: {
     all: 'Vedi tutto',
     playlist: 'La playlist',
@@ -2975,6 +2994,9 @@ const IT: Dict = {
     pick: 'Scegliete un tema, oppure partite su tutto.',
     questions: [
       { q: 'Da dove viene il nome « Cava d’Aliga »?', choix: ['Dalle alghe — « aliga » in siciliano', 'Da un’antica cava di pietra', 'Dal nome di un santo locale'], bonne: 0, ancre: 'lieux', niveau: 'facile' },
+      { q: 'Quante città comprende il sito UNESCO del Val di Noto ?', choix: ['Otto', 'Cinque', 'Tre'], bonne: 0, ancre: 'lieux', niveau: 'moyen' },
+      { q: 'Quale evento ha fatto nascere il barocco del Val di Noto ?', choix: ['Il sisma dell’11 gennaio 1693', 'Un’eruzione dell’Etna', 'La conquista normanna'], bonne: 0, ancre: 'lieux', niveau: 'facile' },
+      { q: 'Siracusa fa parte del Val di Noto ?', choix: ['No, ha un’iscrizione a sé con Pantalica', 'Sì, è la prima della lista', 'No, non è patrimonio'], bonne: 0, ancre: 'lieux', niveau: 'difficile' },
       { q: 'Quale serie televisiva ha scelto Scicli come set?', choix: ['Il commissario Montalbano', 'Il Gattopardo', 'Gomorra'], bonne: 0, ancre: 'lieux', niveau: 'facile' },
       { q: 'Dopo quale terremoto il Val di Noto è stato ricostruito in barocco?', choix: ['Quello del 1693', 'Quello del 1908', 'Quello del 1542'], bonne: 0, ancre: 'lieux', niveau: 'moyen' },
       { q: 'La Fornace Penna, sul promontorio di Sampieri, era…', choix: ['Una fornace di mattoni', 'Un faro', 'Una tonnara'], bonne: 0, ancre: 'lieux', niveau: 'moyen' },
@@ -3990,6 +4012,13 @@ const EN: Dict = {
     ],
     note: 'You play to 11 points with two, 16 with three, 21 in teams. The game was already widespread across Italy in the eighteenth century, and is thought to come from Spanish games by way of Naples.',
   },
+  unescoNote: {
+    title: 'Eight towns, one earthquake',
+    quake: 'On 11 January 1693 an earthquake of magnitude 7.4 levelled south-eastern Sicily. Tens of thousands dead, and whole towns to rebuild. Sicilian architects trained in Rome rebuilt them in a single sweep, in late baroque — and for the first time with the next tremor in mind.',
+    towns: 'UNESCO inscribed them together in 2002 as the «Late Baroque Towns of the Val di Noto»: Caltagirone, Catania, Militello, Modica, Noto, Palazzolo Acreide, Ragusa and Scicli. Eight towns, one property, one catastrophe behind it.',
+    near: 'Four of those eight are within 55 kilometres of the house: Scicli at 8, Modica at 20, Ragusa at 28, Noto at 55. You can see half a World Heritage site in a week without ever driving more than an hour.',
+    syracuse: 'Syracuse is not part of the Val di Noto: it has its own inscription, with the rocky necropolis of Pantalica, from 2005. And Caltagirone, first on the list, is the town the ceramic Moor’s heads come from.',
+  },
   cultureFilter: {
     all: 'See all',
     playlist: 'The playlist',
@@ -4308,6 +4337,9 @@ const EN: Dict = {
     pick: 'Pick a theme, or take on the lot.',
     questions: [
       { q: 'Where does the name “Cava d’Aliga” come from?', choix: ['From seaweed — “aliga” in Sicilian', 'From an old stone quarry', 'From a local saint’s name'], bonne: 0, ancre: 'lieux', niveau: 'facile' },
+      { q: 'How many towns make up the Val di Noto World Heritage site?', choix: ['Eight', 'Five', 'Three'], bonne: 0, ancre: 'lieux', niveau: 'moyen' },
+      { q: 'What event gave birth to the baroque of the Val di Noto?', choix: ['The earthquake of 11 January 1693', 'An eruption of Etna', 'The Norman conquest'], bonne: 0, ancre: 'lieux', niveau: 'facile' },
+      { q: 'Is Syracuse part of the Val di Noto?', choix: ['No — it has its own inscription with Pantalica', 'Yes, it is first on the list', 'No, it is not listed at all'], bonne: 0, ancre: 'lieux', niveau: 'difficile' },
       { q: 'Which TV series uses Scicli as its set?', choix: ['Inspector Montalbano', 'The Leopard', 'Gomorrah'], bonne: 0, ancre: 'lieux', niveau: 'facile' },
       { q: 'After which earthquake was the Val di Noto rebuilt in baroque style?', choix: ['The one of 1693', 'The one of 1908', 'The one of 1542'], bonne: 0, ancre: 'lieux', niveau: 'moyen' },
       { q: 'The Fornace Penna, on the Sampieri headland, was…', choix: ['A brickworks', 'A lighthouse', 'A tuna cannery'], bonne: 0, ancre: 'lieux', niveau: 'moyen' },

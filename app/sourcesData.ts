@@ -113,7 +113,18 @@ export const SOURCES: Record<string, Source[]> = {
    * del finanziere, l'ancien poste de douane, et que « a spaccazza » est cette
    * fissure ou l'on ne passe qu'un par un.
    */
+  /*
+   * Le Val di Noto. LES DEUX LIENS UNESCO SONT CITES SANS QUE J'AIE PU LES
+   * OUVRIR : whc.unesco.org renvoie 403 a toute lecture automatique, dans les
+   * deux langues. Ce sont pourtant LES references officielles, et Mag les
+   * demandait explicitement. Les faits — les huit villes, l'annee, le numero de
+   * bien, la magnitude — viennent donc de Wikipedia, et les liens restent le
+   * bon endroit ou verifier.
+   */
   lieux: [
+    { label: 'Villes du baroque tardif du Val di Noto — UNESCO, bien nº 1024', url: 'https://whc.unesco.org/fr/list/1024/' },
+    { label: 'Syracuse et la nécropole rupestre de Pantalica — UNESCO, bien nº 1200', url: 'https://whc.unesco.org/fr/list/1200/' },
+    { label: 'Val di Noto — Wikipédia', url: 'https://fr.wikipedia.org/wiki/Val_di_Noto' },
     { label: 'Punta Corvo et Costa di Carro — Visit Vigata', url: 'https://www.visitvigata.com/punta-corvo-costa-di-carro/' },
     { label: 'Cava d’Aliga — Visit Vigata', url: 'https://www.visitvigata.com/cava-d-aliga/' },
   ],

@@ -573,6 +573,33 @@ export default function LaRegion() {
       
         {/* Les sources de la section, en petit — voir app/sourcesData.ts. */}
         <Reveal>
+          {/*
+            LE VAL DI NOTO — Mag voulait « un lien de l'UNESCO qui corrobore ».
+            En allant verifier, il s'est avere que l'intro disait vrai mais
+            melangeait deux choses : les cinq villes badgees ne relevent pas du
+            meme classement. Scicli, Modica, Raguse et Noto appartiennent au Val
+            di Noto (huit villes, 2002) ; Syracuse a une inscription a elle,
+            avec Pantalica, en 2005.
+
+            Le bloc dit donc les trois choses dans l'ordre : d'ou vient le
+            baroque d'ici, ce que l'UNESCO a inscrit, et — le seul chiffre qui
+            compte pour qui loge ici — que QUATRE des huit sont a moins de
+            55 km.
+          */}
+          <Reveal className="mt-16 rounded-2xl p-8 md:p-10" style={{ background: 'var(--cava-note)' }}>
+            <h3 className="text-[clamp(1.2rem,2.4vw,1.5rem)] uppercase leading-[1.1]" style={{ fontWeight: 900 }}>
+              {t.unescoNote.title}
+            </h3>
+            <p className="mt-4 max-w-[68ch] text-[15px] leading-[1.8]">{t.unescoNote.quake}</p>
+            <p className="mt-3 max-w-[68ch] text-[15px] leading-[1.8]">{t.unescoNote.towns}</p>
+            <p className="mt-4 max-w-[68ch] text-[clamp(1rem,1.5vw,1.1rem)] leading-[1.75]" style={{ fontWeight: 600 }}>
+              {t.unescoNote.near}
+            </p>
+            <p className="mt-3 max-w-[68ch] text-[15px] leading-[1.8]" style={{ color: 'var(--cava-muted)' }}>
+              {t.unescoNote.syracuse}
+            </p>
+          </Reveal>
+
           <Sources section="lieux" />
         </Reveal>
       </section>

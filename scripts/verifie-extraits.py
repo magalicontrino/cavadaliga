@@ -54,7 +54,7 @@ SOURCES = {
     'dechets': ['wastePage'],
     'sports': ['sportsPage'],
     # « Les lieux » : un tableau, pas un objet — voir blocs_de().
-    'lieux': ['placesIntro', 'regionPlaces'],
+    'lieux': ['placesIntro', 'regionPlaces', 'unescoNote'],
     'pastasciutta': ['pastaPage'],
     'valguarnera': ['valguarneraPage'],
     'symboles': ['symbolsPage'],
