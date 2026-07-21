@@ -94,6 +94,7 @@ const THEMES = [
   { ancre: 'pastasciutta', cle: 'pasta' },
   { ancre: 'symboles', cle: 'symbols' },
   { ancre: 'legendes', cle: 'legends' },
+  { ancre: 'scopa', cle: 'scopa' },
   { ancre: 'italien', cle: 'italian', page: '/italien' },
   /*
    * LA FAMILLE vit sur sa propre page, et son quiz aussi.
@@ -179,6 +180,17 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string, lang: 'fr' |
     // legendes des photos comptent aussi — elles portent « par paire ».
     // Les legendes : le lieu compte autant que le recit, une question peut
     // porter sur « ou ». On recolle donc titre, lieu et texte.
+    // La scopa : les regles, le decompte ET le bareme de la primiera. Une
+    // question sur « combien vaut le 7 » doit retrouver sa ligne.
+    case 'scopa':
+      return [
+        t.scopaPage.intro,
+        ...t.scopaPage.rules.map((r) => `${r.title}. ${r.text}`),
+        ...t.scopaPage.score.map((x) => `${x.label} : ${x.text}`),
+        t.scopaPage.primieraText,
+        ...t.scopaPage.primiera.map((x) => `${x.carte} ${x.points}`),
+        t.scopaPage.note,
+      ].join(' ');
     case 'legendes':
       return [
         t.legendsPage.intro,

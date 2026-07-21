@@ -296,6 +296,21 @@ export type Dict = {
     items: { title: string; place: string; text: string }[];
     note: string;
   };
+  /* LA SCOPA. Le jeu dont une carte sert de logo au site. */
+  scopaPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    suitsAlt: string;
+    suitsCaption: string;
+    rules: { title: string; text: string }[];
+    scoreTitle: string;
+    score: { label: string; text: string }[];
+    primieraTitle: string;
+    primieraText: string;
+    primiera: { carte: string; points: string }[];
+    note: string;
+  };
   cultureFilter: {
     all: string;
     playlist: string;
@@ -324,6 +339,7 @@ export type Dict = {
     pasta: string;
     symbols: string;
     legends: string;
+    scopa: string;
     arab: string;
     /** Rassemble les sept sections venues de « Sons & images » en un seul bouton. */
     sounds: string;
@@ -1245,6 +1261,56 @@ const FR: Dict = {
     ],
     note: 'Les trois colonnes de Cola Pesce sont les trois caps de la Trinacria : Peloro, Passero, Lilibeo. La légende et le symbole racontent la même île, tenue par ses trois pointes.',
   },
+  scopaPage: {
+    eyebrow: 'Le jeu de la maison',
+    title: 'La scopa, et ses règles',
+    intro: 'C’est le jeu de cartes italien par excellence : celui des soirées de famille, des bars de village et des fins de repas qui s’étirent. Il se joue vite, il s’apprend en dix minutes, et il se rejoue toute une vie. Le logo de ce site est d’ailleurs une carte de scopa.',
+    suitsAlt: 'Les quatre enseignes du jeu italien : bâton, denier, coupe et épée',
+    suitsCaption: 'Les quatre enseignes : bastoni, denari, coppe, spade — bâtons, deniers, coupes, épées.',
+    rules: [
+      {
+        title: 'Le jeu',
+        text: 'Quarante cartes, quatre enseignes de dix : bâtons, deniers, coupes et épées. Pas de dame — les figures sont le valet (8), le cavalier (9) et le roi (10). L’as vaut 1. C’est tout ce qu’il faut savoir avant de commencer.',
+      },
+      {
+        title: 'La donne',
+        text: 'Trois cartes à chaque joueur, quatre posées face visible au milieu de la table. Quand tout le monde a joué ses trois cartes, on en redonne trois — et ainsi de suite jusqu’à épuisement du paquet. La table, elle, n’est plus jamais regarnie.',
+      },
+      {
+        title: 'Prendre',
+        text: 'On pose une carte. Si elle a la même valeur qu’une carte de la table, on prend celle-là — et on n’a pas le choix : si la valeur exacte est sur la table, on est obligé de la prendre, plutôt qu’une somme. Sinon, on peut prendre plusieurs cartes dont le total fait la valeur de la nôtre. Un 7 ramasse un 7, ou bien un 4 et un 3. Si rien ne correspond, la carte reste sur la table.',
+      },
+      {
+        title: 'La scopa',
+        text: 'Si votre prise vide entièrement la table, c’est une scopa — un balayage. Un point, immédiatement, et on le marque en posant la carte de travers dans son tas. Une seule exception : la scopa faite avec la toute dernière carte de la partie ne compte pas.',
+      },
+      {
+        title: 'La fin',
+        text: 'Les cartes qui restent sur la table à la fin vont au dernier joueur qui a pris. Ensuite on compte.',
+      },
+    ],
+    scoreTitle: 'Le décompte, à la fin de chaque manche',
+    score: [
+      { label: 'Les scope', text: 'Un point par balayage, tout au long de la manche.' },
+      { label: 'Les cartes', text: 'Un point à qui en a le plus. Il en faut au moins 21 sur 40.' },
+      { label: 'Les deniers', text: 'Un point à qui a le plus de cartes de l’enseigne deniers. Il en faut au moins 6 sur 10.' },
+      { label: 'Le settebello', text: 'Un point pour le 7 de deniers. Une seule carte, un point garanti — c’est la carte la plus disputée du jeu.' },
+      { label: 'La primiera', text: 'Un point, et c’est le calcul le plus déroutant. Voir juste en dessous.' },
+    ],
+    primieraTitle: 'La primiera, expliquée',
+    primieraText: 'On prend sa meilleure carte dans chacune des quatre enseignes, et on additionne — mais avec un barème à part, où le 7 vaut plus que le roi. Le plus haut total gagne le point. Le maximum théorique est 84 : quatre 7, un par enseigne. En cas d’égalité, personne ne marque.',
+    primiera: [
+      { carte: 'Le 7', points: '21 points' },
+      { carte: 'Le 6', points: '18 points' },
+      { carte: 'L’as', points: '16 points' },
+      { carte: 'Le 5', points: '15 points' },
+      { carte: 'Le 4', points: '14 points' },
+      { carte: 'Le 3', points: '13 points' },
+      { carte: 'Le 2', points: '12 points' },
+      { carte: 'Les figures', points: '10 points' },
+    ],
+    note: 'On joue jusqu’à 11 points à deux, 16 à trois, 21 par équipes. Le jeu était déjà répandu dans toute l’Italie au XVIIIᵉ siècle, et viendrait de jeux espagnols passés par Naples.',
+  },
   cultureFilter: {
     all: 'Tout voir',
     playlist: 'La playlist',
@@ -1266,7 +1332,7 @@ const FR: Dict = {
     customs: 'Us et coutumes',
     specialties: 'Spécialités',
     drinks: 'Vins & alcools',
-    coffee: 'Le café', pasta: 'La pastasciutta', symbols: 'Trinacria & teste di moro', legends: 'Les légendes',
+    coffee: 'Le café', pasta: 'La pastasciutta', symbols: 'Trinacria & teste di moro', legends: 'Les légendes', scopa: 'La scopa',
     arab: 'Sicile arabe',
     sounds: 'Sons & images',
     etna: 'L’Etna',
@@ -1626,6 +1692,12 @@ const FR: Dict = {
       { q: 'Qu’est-ce que la Fata Morgana ?', choix: ['Un mirage dans le détroit de Messine', 'Une fête de Palerme', 'Un vent du sud'], bonne: 0, ancre: 'legendes', niveau: 'moyen' },
       { q: 'Que le volcan a-t-il rendu d’Empédocle ?', choix: ['Une sandale', 'Son manteau', 'Rien du tout'], bonne: 0, ancre: 'legendes', niveau: 'difficile' },
       { q: 'Quelle légende sicilienne célèbre le mélange plutôt que le drame ?', choix: ['Mata et Grifone', 'La baronne de Carini', 'La Vieille au vinaigre'], bonne: 0, ancre: 'legendes', niveau: 'difficile' },
+      { q: 'Combien de cartes compte un jeu de scopa ?', choix: ['Quarante', 'Cinquante-deux', 'Trente-deux'], bonne: 0, ancre: 'scopa', niveau: 'facile' },
+      { q: 'Quelles sont les quatre enseignes du jeu italien ?', choix: ['Bâtons, deniers, coupes, épées', 'Cœurs, piques, trèfles, carreaux', 'Soleils, lunes, étoiles, mers'], bonne: 0, ancre: 'scopa', niveau: 'facile' },
+      { q: 'Qu’est-ce qu’une « scopa » ?', choix: ['Une prise qui vide toute la table', 'Le 7 de deniers', 'La dernière carte du paquet'], bonne: 0, ancre: 'scopa', niveau: 'facile' },
+      { q: 'Quelle carte vaut un point à elle seule ?', choix: ['Le settebello, le 7 de deniers', 'Le roi de coupes', 'L’as de bâtons'], bonne: 0, ancre: 'scopa', niveau: 'moyen' },
+      { q: 'Dans la primiera, combien vaut le 7 ?', choix: ['21 points', '10 points', '7 points'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
+      { q: 'Si la valeur exacte de votre carte est sur la table, que devez-vous faire ?', choix: ['La prendre, vous n’avez pas le choix', 'Prendre plutôt une somme', 'Passer votre tour'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
       { q: 'Que mangent les geckos qui traversent le mur le soir ?', choix: ['Des moustiques', 'Des miettes', 'Rien, ils dorment'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Y a-t-il des scorpions en Sicile ?', choix: ['Oui, mais leur piqûre est sans danger', 'Non, aucun', 'Oui, et ils sont mortels'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Où naissent les moustiques ?', choix: ['Dans l’eau immobile, même quelques centimètres', 'Dans les haies sèches', 'Sous les pierres chaudes'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
@@ -2550,6 +2622,41 @@ const IT: Dict = {
     ],
     note: 'Le tre colonne di Cola Pesce sono i tre capi della Trinacria: Peloro, Passero, Lilibeo. La leggenda e il simbolo raccontano la stessa isola, retta dalle sue tre punte.',
   },
+  scopaPage: {
+    eyebrow: 'Il gioco di casa',
+    title: 'La scopa, e le sue regole',
+    intro: 'È il gioco di carte italiano per eccellenza: quello delle serate in famiglia, dei bar di paese e dei pranzi che non finiscono. Si gioca in fretta, si impara in dieci minuti e si rigioca per tutta la vita. Il logo di questo sito è, del resto, una carta da scopa.',
+    suitsAlt: 'I quattro semi delle carte italiane: bastone, denaro, coppa e spada',
+    suitsCaption: 'I quattro semi: bastoni, denari, coppe, spade.',
+    rules: [
+      { title: 'Il mazzo', text: 'Quaranta carte, quattro semi da dieci: bastoni, denari, coppe e spade. Niente donna — le figure sono fante (8), cavallo (9) e re (10). L’asso vale 1. È tutto quello che serve sapere per cominciare.' },
+      { title: 'La distribuzione', text: 'Tre carte a ogni giocatore, quattro scoperte al centro del tavolo. Quando tutti hanno giocato le loro tre carte se ne danno altre tre, e così via fino a esaurire il mazzo. Il tavolo, invece, non si rifornisce più.' },
+      { title: 'Prendere', text: 'Si cala una carta. Se ha lo stesso valore di una carta sul tavolo si prende quella — e non c’è scelta: se il valore esatto è sul tavolo, si è obbligati a prenderlo invece di una somma. Altrimenti si possono prendere più carte la cui somma faccia il valore della propria. Un 7 prende un 7, oppure un 4 e un 3. Se niente corrisponde, la carta resta sul tavolo.' },
+      { title: 'La scopa', text: 'Se la presa svuota completamente il tavolo, è una scopa. Un punto, subito, e lo si segna mettendo la carta di traverso nel proprio mazzetto. Un’unica eccezione: la scopa fatta con l’ultimissima carta della partita non conta.' },
+      { title: 'La fine', text: 'Le carte rimaste sul tavolo alla fine vanno all’ultimo giocatore che ha preso. Poi si conta.' },
+    ],
+    scoreTitle: 'Il conteggio, alla fine di ogni mano',
+    score: [
+      { label: 'Le scope', text: 'Un punto per ogni scopa, lungo tutta la mano.' },
+      { label: 'Le carte', text: 'Un punto a chi ne ha di più. Ne servono almeno 21 su 40.' },
+      { label: 'I denari', text: 'Un punto a chi ha più carte di denari. Ne servono almeno 6 su 10.' },
+      { label: 'Il settebello', text: 'Un punto per il 7 di denari. Una sola carta, un punto garantito — è la carta più contesa del gioco.' },
+      { label: 'La primiera', text: 'Un punto, ed è il calcolo più sconcertante. Vedi qui sotto.' },
+    ],
+    primieraTitle: 'La primiera, spiegata',
+    primieraText: 'Si prende la carta migliore di ciascuno dei quattro semi e si somma — ma con una scala a parte, dove il 7 vale più del re. Vince il punto il totale più alto. Il massimo teorico è 84: quattro sette, uno per seme. In caso di parità non segna nessuno.',
+    primiera: [
+      { carte: 'Il 7', points: '21 punti' },
+      { carte: 'Il 6', points: '18 punti' },
+      { carte: 'L’asso', points: '16 punti' },
+      { carte: 'Il 5', points: '15 punti' },
+      { carte: 'Il 4', points: '14 punti' },
+      { carte: 'Il 3', points: '13 punti' },
+      { carte: 'Il 2', points: '12 punti' },
+      { carte: 'Le figure', points: '10 punti' },
+    ],
+    note: 'Si gioca a 11 punti in due, 16 in tre, 21 a squadre. Il gioco era già diffuso in tutta Italia nel Settecento, e verrebbe da giochi spagnoli passati per Napoli.',
+  },
   cultureFilter: {
     all: 'Vedi tutto',
     playlist: 'La playlist',
@@ -2571,7 +2678,7 @@ const IT: Dict = {
     customs: 'Usi e costumi',
     specialties: 'Specialità',
     drinks: 'Vini & liquori',
-    coffee: 'Il caffè', pasta: 'La pastasciutta', symbols: 'Trinacria e teste di moro', legends: 'Le leggende',
+    coffee: 'Il caffè', pasta: 'La pastasciutta', symbols: 'Trinacria e teste di moro', legends: 'Le leggende', scopa: 'La scopa',
     arab: 'Sicilia araba',
     sounds: 'Suoni & immagini',
     etna: 'L’Etna',
@@ -2931,6 +3038,12 @@ const IT: Dict = {
       { q: 'Che cos’è la Fata Morgana ?', choix: ['Un miraggio nello Stretto di Messina', 'Una festa di Palermo', 'Un vento del sud'], bonne: 0, ancre: 'legendes', niveau: 'moyen' },
       { q: 'Che cosa restituì il vulcano di Empedocle ?', choix: ['Un sandalo', 'Il suo mantello', 'Niente'], bonne: 0, ancre: 'legendes', niveau: 'difficile' },
       { q: 'Quale leggenda siciliana festeggia la mescolanza invece del dramma ?', choix: ['Mata e Grifone', 'La baronessa di Carini', 'La Vecchia dell’Aceto'], bonne: 0, ancre: 'legendes', niveau: 'difficile' },
+      { q: 'Quante carte ha un mazzo da scopa ?', choix: ['Quaranta', 'Cinquantadue', 'Trentadue'], bonne: 0, ancre: 'scopa', niveau: 'facile' },
+      { q: 'Quali sono i quattro semi delle carte italiane ?', choix: ['Bastoni, denari, coppe, spade', 'Cuori, picche, fiori, quadri', 'Soli, lune, stelle, mari'], bonne: 0, ancre: 'scopa', niveau: 'facile' },
+      { q: 'Che cos’è una « scopa » ?', choix: ['Una presa che svuota tutto il tavolo', 'Il 7 di denari', 'L’ultima carta del mazzo'], bonne: 0, ancre: 'scopa', niveau: 'facile' },
+      { q: 'Quale carta vale un punto da sola ?', choix: ['Il settebello, il 7 di denari', 'Il re di coppe', 'L’asso di bastoni'], bonne: 0, ancre: 'scopa', niveau: 'moyen' },
+      { q: 'Nella primiera, quanto vale il 7 ?', choix: ['21 punti', '10 punti', '7 punti'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
+      { q: 'Se il valore esatto della tua carta è sul tavolo, che cosa devi fare ?', choix: ['Prenderlo, non hai scelta', 'Prendere piuttosto una somma', 'Passare il turno'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
       { q: 'Che cosa mangiano i gechi che attraversano il muro la sera?', choix: ['Le zanzare', 'Le briciole', 'Niente, dormono'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Ci sono scorpioni in Sicilia?', choix: ['Sì, ma la loro puntura è innocua', 'No, nessuno', 'Sì, e sono mortali'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Dove nascono le zanzare?', choix: ['Nell’acqua ferma, bastano pochi centimetri', 'Nelle siepi secche', 'Sotto le pietre calde'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
@@ -3842,6 +3955,41 @@ const EN: Dict = {
     ],
     note: 'Cola Pesce’s three columns are the three capes of the Trinacria: Peloro, Passero, Lilibeo. The legend and the symbol tell the same island, held up by its three points.',
   },
+  scopaPage: {
+    eyebrow: 'The house game',
+    title: 'Scopa, and how to play it',
+    intro: 'This is the Italian card game: the one played at family evenings, in village bars and at the end of long meals. It plays fast, it takes ten minutes to learn, and it lasts a lifetime. The logo of this site is, as it happens, a scopa card.',
+    suitsAlt: 'The four Italian suits: club, coin, cup and sword',
+    suitsCaption: 'The four suits: bastoni, denari, coppe, spade — clubs, coins, cups, swords.',
+    rules: [
+      { title: 'The deck', text: 'Forty cards, four suits of ten: clubs, coins, cups and swords. No queen — the face cards are jack (8), knight (9) and king (10). The ace is worth 1. That is all you need before you start.' },
+      { title: 'The deal', text: 'Three cards to each player, four face up in the middle of the table. When everyone has played their three, three more are dealt, and so on until the deck runs out. The table is never restocked.' },
+      { title: 'Capturing', text: 'You play a card. If it matches the value of a card on the table you take that one — and you have no choice: if the exact value is there, you must take it rather than a sum. Otherwise you may take several cards adding up to your card’s value. A 7 takes a 7, or a 4 and a 3. If nothing matches, your card stays on the table.' },
+      { title: 'The scopa', text: 'If your capture clears the table entirely, that is a scopa — a sweep. One point, straight away, marked by laying the card crosswise in your pile. One exception only: a scopa made with the very last card of the game does not count.' },
+      { title: 'The end', text: 'Whatever is left on the table at the end goes to the last player who captured. Then you count.' },
+    ],
+    scoreTitle: 'The count, at the end of each hand',
+    score: [
+      { label: 'The scope', text: 'One point per sweep, throughout the hand.' },
+      { label: 'Cards', text: 'One point to whoever has the most. You need at least 21 out of 40.' },
+      { label: 'Coins', text: 'One point to whoever has the most cards in the coins suit. At least 6 out of 10.' },
+      { label: 'The settebello', text: 'One point for the seven of coins. A single card, a guaranteed point — the most fought-over card in the game.' },
+      { label: 'The primiera', text: 'One point, and the most baffling calculation of the lot. See just below.' },
+    ],
+    primieraTitle: 'The primiera, explained',
+    primieraText: 'You take your best card in each of the four suits and add them up — but on a scale of its own, where the seven beats the king. The highest total takes the point. The theoretical maximum is 84: four sevens, one per suit. If it is a tie, nobody scores.',
+    primiera: [
+      { carte: 'The 7', points: '21 points' },
+      { carte: 'The 6', points: '18 points' },
+      { carte: 'The ace', points: '16 points' },
+      { carte: 'The 5', points: '15 points' },
+      { carte: 'The 4', points: '14 points' },
+      { carte: 'The 3', points: '13 points' },
+      { carte: 'The 2', points: '12 points' },
+      { carte: 'Face cards', points: '10 points' },
+    ],
+    note: 'You play to 11 points with two, 16 with three, 21 in teams. The game was already widespread across Italy in the eighteenth century, and is thought to come from Spanish games by way of Naples.',
+  },
   cultureFilter: {
     all: 'See all',
     playlist: 'The playlist',
@@ -3863,7 +4011,7 @@ const EN: Dict = {
     customs: 'Local customs',
     specialties: 'Specialties',
     drinks: 'Wine & spirits',
-    coffee: 'Coffee', pasta: 'Pastasciutta', symbols: 'Trinacria & Moor’s heads', legends: 'The legends',
+    coffee: 'Coffee', pasta: 'Pastasciutta', symbols: 'Trinacria & Moor’s heads', legends: 'The legends', scopa: 'Scopa',
     arab: 'Arab Sicily',
     sounds: 'Sounds & screens',
     etna: 'Etna',
@@ -4223,6 +4371,12 @@ const EN: Dict = {
       { q: 'What is the Fata Morgana?', choix: ['A mirage in the Strait of Messina', 'A festival in Palermo', 'A southerly wind'], bonne: 0, ancre: 'legendes', niveau: 'moyen' },
       { q: 'What did the volcano give back of Empedocles?', choix: ['A sandal', 'His cloak', 'Nothing at all'], bonne: 0, ancre: 'legendes', niveau: 'difficile' },
       { q: 'Which Sicilian legend celebrates mixing rather than tragedy?', choix: ['Mata and Grifone', 'The baroness of Carini', 'The Old Woman of the Vinegar'], bonne: 0, ancre: 'legendes', niveau: 'difficile' },
+      { q: 'How many cards are there in a scopa deck?', choix: ['Forty', 'Fifty-two', 'Thirty-two'], bonne: 0, ancre: 'scopa', niveau: 'facile' },
+      { q: 'What are the four Italian suits?', choix: ['Clubs, coins, cups, swords', 'Hearts, spades, clubs, diamonds', 'Suns, moons, stars, seas'], bonne: 0, ancre: 'scopa', niveau: 'facile' },
+      { q: 'What is a «scopa»?', choix: ['A capture that clears the whole table', 'The seven of coins', 'The last card of the deck'], bonne: 0, ancre: 'scopa', niveau: 'facile' },
+      { q: 'Which single card is worth a point on its own?', choix: ['The settebello, the seven of coins', 'The king of cups', 'The ace of clubs'], bonne: 0, ancre: 'scopa', niveau: 'moyen' },
+      { q: 'In the primiera, what is the seven worth?', choix: ['21 points', '10 points', '7 points'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
+      { q: 'If your card’s exact value is on the table, what must you do?', choix: ['Take it — you have no choice', 'Take a sum instead', 'Pass your turn'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
       { q: 'What do the geckos crossing the wall at dusk eat?', choix: ['Mosquitoes', 'Crumbs', 'Nothing, they sleep'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Are there scorpions in Sicily?', choix: ['Yes, but their sting is harmless', 'No, none at all', 'Yes, and they are deadly'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Where do mosquitoes breed?', choix: ['In still water — a few centimetres is enough', 'In dry hedges', 'Under warm stones'], bonne: 0, ancre: 'faune', niveau: 'moyen' },

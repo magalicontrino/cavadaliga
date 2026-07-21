@@ -42,7 +42,7 @@ const PLACES = [
 // « Sons & images » n'est plus une page : ses sept sections vivent ici. La
 // region, c'est aussi ce qu'on en a chante, filme, peint et photographie — une
 // page de moins dans le menu, et le meme geste pour tout parcourir.
-type Section = 'lieux' | 'sports' | 'faune' | 'livres' | 'histoire' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'pastasciutta' | 'symboles' | 'legendes' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
+type Section = 'lieux' | 'sports' | 'faune' | 'livres' | 'histoire' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'pastasciutta' | 'symboles' | 'legendes' | 'scopa' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
 type Key = 'tout' | 'sons' | Section;
 
 // « Sons & images » n'est pas une section : c'est un GROUPE. Un bouton pour les
@@ -95,7 +95,7 @@ function allerAuQuiz() {
  * exactement ce qui attendait « pastasciutta » : le quiz et « Demander » y
  * renvoient tous les deux.
  */
-const SECTIONS_ANCREES: Section[] = ['lieux', 'sports', 'faune', 'livres', 'histoire', 'coutumes', 'specialites', 'alcools', 'cafe', 'pastasciutta', 'symboles', 'legendes', 'etna', 'arabe', 'playlist'];
+const SECTIONS_ANCREES: Section[] = ['lieux', 'sports', 'faune', 'livres', 'histoire', 'coutumes', 'specialites', 'alcools', 'cafe', 'pastasciutta', 'symboles', 'legendes', 'scopa', 'etna', 'arabe', 'playlist'];
 
 export default function LaRegion() {
   const { t, lang } = useI18n();
@@ -192,6 +192,7 @@ export default function LaRegion() {
     { key: 'pastasciutta', label: rf.pasta, icon: 'fork' },
     { key: 'symboles', label: rf.symbols, icon: 'brush' },
     { key: 'legendes', label: rf.legends, icon: 'compass' },
+    { key: 'scopa', label: rf.scopa, icon: 'target' },
     { key: 'sports', label: rf.sports, icon: 'wave' },
     { key: 'faune', label: rf.fauna, icon: 'leaf' },
     { key: 'histoire', label: rf.history, icon: 'landmark' },
@@ -952,6 +953,90 @@ export default function LaRegion() {
         </Reveal>
 
         <Sources section="legendes" />
+      </section>
+      )}
+
+      {/*
+        LA SCOPA — Mag l'a demandee deux fois, « avec ses regles ». La section
+        se lit donc comme une regle du jeu et non comme un article : on donne
+        d'abord de quoi jouer ce soir, le decompte ensuite, et la primiera a
+        part parce que c'est le seul point que personne ne retient.
+
+        L'IMAGE DES ENSEIGNES DORMAIT dans `public/deco` depuis le debut, sans
+        etre affichee nulle part. Elle trouve enfin son emploi : les quatre
+        enseignes italiennes ne ressemblent a rien de ce qu'on connait, et les
+        nommer sans les montrer ne sert a rien.
+      */}
+      {show('scopa') && (
+      <section id="scopa" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="target" size={16} /> {t.scopaPage.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {t.scopaPage.title}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {t.scopaPage.intro}
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-start">
+          <Reveal className="flex flex-col gap-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={withBase('/deco/scopa-enseignes.webp')}
+              alt={t.scopaPage.suitsAlt}
+              width={1414}
+              height={2000}
+              loading="lazy"
+              className="w-full rounded-2xl object-contain"
+              style={{ background: 'var(--cava-bg)' }}
+            />
+            <p className="text-[13px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>{t.scopaPage.suitsCaption}</p>
+          </Reveal>
+
+          <Reveal className="flex flex-col gap-6">
+            {t.scopaPage.rules.map((r, i) => (
+              <div key={r.title} className={i > 0 ? 'border-t pt-6' : ''} style={i > 0 ? { borderColor: 'var(--cava-line)' } : undefined}>
+                <h3 className="text-[clamp(1.05rem,2vw,1.25rem)] leading-[1.2]" style={{ fontWeight: 700 }}>{r.title}</h3>
+                <p className="mt-2 max-w-[62ch] text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>{r.text}</p>
+              </div>
+            ))}
+          </Reveal>
+        </div>
+
+        <Reveal className="mt-14">
+          <h3 className="text-[clamp(1.2rem,2.4vw,1.5rem)] uppercase leading-[1.1]" style={{ fontWeight: 900 }}>{t.scopaPage.scoreTitle}</h3>
+          <ul className="mt-6 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
+            {t.scopaPage.score.map((x) => (
+              <li key={x.label} className="flex flex-col gap-1 p-6 md:p-7" style={{ background: 'var(--cava-bg)' }}>
+                <span className="text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>{x.label}</span>
+                <span className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{x.text}</span>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+
+        {/* La primiera a son propre bloc : c'est le seul point du jeu qui a
+            besoin d'un tableau pour se comprendre. */}
+        <Reveal className="mt-10 rounded-2xl p-8 md:p-10" style={{ background: 'rgba(255,212,82,0.22)' }}>
+          <h3 className="text-[clamp(1.05rem,2vw,1.25rem)]" style={{ fontWeight: 700 }}>{t.scopaPage.primieraTitle}</h3>
+          <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.75]">{t.scopaPage.primieraText}</p>
+          <div className="mt-6 flex flex-wrap gap-2.5">
+            {t.scopaPage.primiera.map((x) => (
+              <span key={x.carte} className="rounded-full px-4 py-2 text-[14px]" style={{ background: 'var(--cava-bg)' }}>
+                <strong>{x.carte}</strong> · {x.points}
+              </span>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal className="mt-8 max-w-[68ch] border-l-2 pl-5 text-[15px] leading-[1.75]" style={{ borderColor: 'var(--cava-pink)', color: 'var(--cava-muted)' }}>
+          {t.scopaPage.note}
+        </Reveal>
+
+        <Sources section="scopa" />
       </section>
       )}
 

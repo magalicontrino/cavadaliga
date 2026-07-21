@@ -315,6 +315,16 @@ const MOTS_MAISON: Record<string, string> = {
    * LES LEGENDES. Chaque nom propre est une entree possible — on tape « cola
    * pesce » ou « fata morgana » apres en avoir entendu parler, pas « legende ».
    */
+  /*
+   * LA SCOPA. « regle du jeu », « settebello » et « primiera » sont les trois
+   * entrees reelles : on cherche comment jouer, ou on cherche le point qu'on
+   * n'arrive jamais a compter.
+   */
+  scopa:
+    'scopa jeu cartes regle regles jouer partie italien quarante bastoni denari coppe spade ' +
+    'batons deniers coupes epees settebello sette bello primiera balayage points compter ' +
+    'fante cavallo re valet cavalier roi as figure carte gioco regole punti mazzo semi ' +
+    'game cards rules play suits sweep points count deck',
   legendes:
     'legende legendes mythe conte cola pesce colapesce colonnes tremblement terre seisme ' +
     'arethuse aretusa nymphe source ortygie syracuse alphee artemis papyrus ' +
@@ -750,6 +760,20 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
    * village n'est pas une destination de vacances, c'est d'ou vient la famille
    * — et c'est la que la section vit.
    */
+  ajouter({
+    id: 'region-scopa',
+    page: '/la-region#scopa',
+    titre: t.scopaPage.title,
+    lignes: [
+      t.scopaPage.intro,
+      ...t.scopaPage.rules.map((r) => `${r.title} — ${r.text}`),
+      `${t.scopaPage.scoreTitle} : ` + t.scopaPage.score.map((x) => `${x.label}, ${x.text}`).join(' '),
+      `${t.scopaPage.primieraTitle} — ${t.scopaPage.primieraText} ` + t.scopaPage.primiera.map((x) => `${x.carte} : ${x.points}`).join(', '),
+      t.scopaPage.note,
+    ],
+    mots: motsMaison('scopa'),
+  });
+
   ajouter({
     id: 'region-legendes',
     page: '/la-region#legendes',

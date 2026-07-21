@@ -20,6 +20,16 @@ export type Source = { label: string; url: string };
 
 export const SOURCES: Record<string, Source[]> = {
   /*
+   * La scopa. Le barème de la primiera est verifie a part : c'est le seul
+   * point du jeu ou une erreur se verrait en jouant, et l'ecrire de memoire
+   * n'etait pas acceptable. Le 7 vaut 21, le roi seulement 10.
+   */
+  scopa: [
+    { label: 'Scopa (gioco) — Wikipedia', url: 'https://it.wikipedia.org/wiki/Scopa_(gioco)' },
+    { label: 'Come si calcola la primiera a scopa — ilGiocatoreOnline', url: 'https://www.ilgiocatoreonline.it/come-si-calcola-la-primiera-a-scopa.html' },
+  ],
+
+  /*
    * Les huit legendes. La page de HitSicily les donne toutes ; celle de Cola
    * Pesce a ete verifiee a part, parce que c'est la seule qui porte une date
    * (attestee des le XIIe siecle) et surtout parce que ses trois colonnes sont

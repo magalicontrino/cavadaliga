@@ -59,6 +59,7 @@ SOURCES = {
     'valguarnera': ['valguarneraPage'],
     'symboles': ['symbolsPage'],
     'legendes': ['legendsPage'],
+    'scopa': ['scopaPage'],
     # « L'arbre » : voir ARBRE plus bas. Sa source n'est pas dans i18n.
     'arbre': [],
 }
