@@ -680,9 +680,13 @@ export default function Occupancy() {
                         pas un signal. La taille change ce qu'un motif peut
                         porter, et je l'avais recopie sans y penser.
 
-                        Le contour devient donc PLEIN, et c'est le vide au
-                        milieu qui parle : un sejour confirme est rempli, un
-                        sejour en attente ne l'est pas encore. La meme idee
+                        Le contour devient donc PLEIN ET EPAIS — 3 px sur
+                        un rond de 10, soit un trait plus large que le trou
+                        qu'il entoure. A 2 px il restait poli et se perdait
+                        parmi les pastilles pleines ; ce qui doit signaler une
+                        attente n'a pas a etre discret. C'est le vide au milieu
+                        qui parle : un sejour confirme est rempli, un sejour en
+                        attente ne l'est pas encore. La meme idee
                         porte l'etiquette a cote — un cerne, pas un aplat — si
                         bien que la ligne entiere se lit d'un coup, sans avoir
                         appris quoi que ce soit.
@@ -695,7 +699,7 @@ export default function Occupancy() {
                         className="mt-[5px] h-2.5 w-2.5 shrink-0 rounded-full"
                         style={{
                           background: s.tentative ? 'transparent' : PLEIN[parenteDu(s)],
-                          border: s.tentative ? `2px solid ${PLEIN[parenteDu(s)]}` : undefined,
+                          border: s.tentative ? `3px solid ${PLEIN[parenteDu(s)]}` : undefined,
                         }}
                       />
                       <span>
@@ -705,7 +709,7 @@ export default function Occupancy() {
                         </span>
                         {s.tentative && (
                           <span
-                            className="ml-1.5 inline-block whitespace-nowrap rounded-full border px-1.5 align-[1px] text-[10.5px] leading-[1.6]"
+                            className="ml-1.5 inline-block whitespace-nowrap rounded-full border-2 px-1.5 align-[1px] text-[10.5px] leading-[1.6]"
                             style={{ borderColor: PLEIN[parenteDu(s)], color: 'var(--cava-muted)' }}
                           >
                             {c.legend.tentative}
