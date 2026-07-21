@@ -305,6 +305,19 @@ const MOTS_MAISON: Record<string, string> = {
    * sont eux qu'on cherche quand on tombe sur le nom du village dans un livre
    * d'histoire militaire.
    */
+  /*
+   * LES DEUX SYMBOLES. « Trinacria » et « tete de maure » sont les deux mots
+   * qu'on tape apres en avoir vu un quelque part — sur un mur, un balcon, un
+   * etal. « Triskele » et « teste di moro » entrent aussi : c'est le meme objet
+   * sous deux autres noms, et personne ne sait lequel est le bon.
+   */
+  symboles:
+    'trinacria triskele triscele symbole drapeau sicile trois jambes trois pointes tete femme hybla ' +
+    'meduse gorgone serpents epis ble ceres syracuse monnaie grec romain 2000 ' +
+    'tete de maure tetes de maures teste di moro moro ceramique caltagirone pot fleurs basilic ' +
+    'kalsa palerme legende amants decapite paire couple balcon majolique ' +
+    'bandiera simbolo teste moro ceramica vaso basilico leggenda amanti coppia ' +
+    'flag symbol moor head heads ceramic pot basil legend lovers pair pottery',
   valguarnera:
     'valguarnera caropepe enna centre sicile village pere ne naissance salvatore angelo pepe ' +
     'guerre 1943 juillet bataille canadiens canadien allemands honneur regiment carleton york ' +
@@ -725,6 +738,19 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
    * village n'est pas une destination de vacances, c'est d'ou vient la famille
    * — et c'est la que la section vit.
    */
+  ajouter({
+    id: 'region-symboles',
+    page: '/la-region#symboles',
+    titre: t.symbolsPage.title,
+    lignes: [
+      t.symbolsPage.intro,
+      `${t.symbolsPage.trinacria.title} — ${t.symbolsPage.trinacria.text}`,
+      `${t.symbolsPage.teste.title} — ${t.symbolsPage.teste.text}`,
+      t.symbolsPage.note,
+    ],
+    mots: motsMaison('symboles'),
+  });
+
   ajouter({
     id: 'valguarnera',
     page: '/famille#valguarnera',

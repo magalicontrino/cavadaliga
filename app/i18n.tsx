@@ -276,6 +276,18 @@ export type Dict = {
     family: string;
     note: string;
   };
+  /*
+   * LES DEUX SYMBOLES qu'on voit partout en Sicile, et dont personne
+   * n'explique jamais l'histoire. Les photos viennent de Mag.
+   */
+  symbolsPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    trinacria: { title: string; text: string; alt: string; caption: string };
+    teste: { title: string; text: string; alt: string; caption: string };
+    note: string;
+  };
   cultureFilter: {
     all: string;
     playlist: string;
@@ -302,6 +314,7 @@ export type Dict = {
     drinks: string;
     coffee: string;
     pasta: string;
+    symbols: string;
     arab: string;
     /** Rassemble les sept sections venues de « Sons & images » en un seul bouton. */
     sounds: string;
@@ -1157,6 +1170,24 @@ const FR: Dict = {
     family: 'Trois ans et demi plus tard, Salvatore naît dans ce village. Son père Angelo est rentré des camps russes ; il se retrouve veuf avec un bébé de six mois. Plus tard, quand la famille reviendra de Belgique pour l’été, on ne filera pas droit à la mer : on passait d’abord par Valguarnera, voir la famille et pépé Angelo. La maison de Cava d’Aliga, elle, n’est entrée dans la famille qu’il y a une cinquantaine d’années.',
     note: 'L’armée canadienne porte « Valguarnera » comme honneur de bataille, rattaché à « Sicile, 1943 ».',
   },
+  symbolsPage: {
+    eyebrow: 'Ce qu’on voit partout',
+    title: 'La Trinacria et les têtes de Maure',
+    intro: 'Deux objets qu’on croise sur tous les balcons, tous les murs et tous les étals de l’île — et dont presque personne ne raconte l’histoire. L’une est vieille de vingt-trois siècles. L’autre est un meurtre.',
+    trinacria: {
+      title: 'La Trinacria, ou triskèle',
+      text: 'Le nom vient du grec : « trois pointes ». Ce sont les trois caps de la Sicile — Lilibeo à l’ouest, Peloro au nord-est, Passero au sud-est. Au centre, une tête de femme : Hybla, déesse de la fertilité. Les trois jambes pliées tournent autour d’elle, et l’île entière tient dans ce mouvement. Les serpents viennent de la tradition grecque ; les épis de blé ont été ajoutés par les Romains, pour qui la Sicile était le grenier de l’Empire — la mythologie en attribue le don à Cérès, qui aurait appris l’agriculture aux Siciliens. Le symbole apparaît sur les monnaies de Syracuse au IIIᵉ siècle avant notre ère. Il a fallu attendre l’an 2000 pour que l’Assemblée régionale en fasse officiellement le drapeau de la Sicile.',
+      alt: 'Une Trinacria en fonte noire accrochée sur un mur de carreaux de ciment siciliens',
+      caption: 'Trois jambes, une tête de femme, des épis : vingt-trois siècles tiennent là-dedans.',
+    },
+    teste: {
+      title: 'Les têtes de Maure',
+      text: 'La légende se passe à la Kalsa, le quartier arabe de Palerme, du temps de la domination musulmane. Une jeune fille très belle cultivait des plantes sur son balcon. Un Maure la vit, en tomba amoureux, et fut aimé en retour — jusqu’à ce qu’elle découvre qu’il avait une femme et des enfants en Orient. Elle le tua dans son sommeil, lui coupa la tête, et s’en servit comme pot de fleurs. Elle y planta du basilic. Le parfum était si beau que les voisins commandèrent des vases de céramique à l’imitation. Une seconde version raconte deux amants, elle sicilienne et noble, lui arabe, découverts par la famille et décapités tous les deux — leurs têtes exposées sur un balcon en avertissement. C’est pour ça qu’on les vend par paire.',
+      alt: 'Une paire de têtes de Maure en céramique de Caltagirone, vert et blanc, un homme et une femme couronnés',
+      caption: 'On les achète par deux, en souvenir des amants. Celles-ci sont de Caltagirone.',
+    },
+    note: 'Caltagirone est la capitale de la céramique sicilienne : la ville s’y est mise après la conquête normande de 1090, le tremblement de terre de 1693 l’a rasée, et elle s’est reconstruite en baroque — l’escalier de Santa Maria del Monte y monte encore, marche après marche, en majolique peinte.',
+  },
   cultureFilter: {
     all: 'Tout voir',
     playlist: 'La playlist',
@@ -1178,7 +1209,7 @@ const FR: Dict = {
     customs: 'Us et coutumes',
     specialties: 'Spécialités',
     drinks: 'Vins & alcools',
-    coffee: 'Le café', pasta: 'La pastasciutta',
+    coffee: 'Le café', pasta: 'La pastasciutta', symbols: 'Trinacria & teste di moro',
     arab: 'Sicile arabe',
     sounds: 'Sons & images',
     etna: 'L’Etna',
@@ -1526,6 +1557,12 @@ const FR: Dict = {
       { q: 'Avec quoi les Cervi ont-ils assaisonné les pâtes ce jour-là ?', choix: ['Du beurre et du parmesan', 'De la tomate et du basilic', 'Un ragù de viande'], bonne: 0, ancre: 'pastasciutta', niveau: 'moyen' },
       { q: 'Dans quel village les pâtes ont-elles été distribuées ?', choix: ['Campegine', 'Gattatico', 'Reggio d’Émilie'], bonne: 0, ancre: 'pastasciutta', niveau: 'difficile' },
       { q: 'Qu’a répondu Alcide Cervi quand on lui a demandé comment il avait tenu ?', choix: ['Après une récolte il en vient une autre', 'Le temps efface tout', 'Il ne faut jamais oublier'], bonne: 0, ancre: 'pastasciutta', niveau: 'difficile' },
+      { q: 'Que veut dire « Trinacria » ?', choix: ['Trois pointes, en grec', 'Terre du soleil', 'Île du milieu'], bonne: 0, ancre: 'symboles', niveau: 'facile' },
+      { q: 'Qui est la tête au centre de la Trinacria ?', choix: ['Hybla, déesse de la fertilité', 'Méduse la Gorgone', 'Cérès'], bonne: 0, ancre: 'symboles', niveau: 'difficile' },
+      { q: 'Qui a ajouté les épis de blé au symbole ?', choix: ['Les Romains', 'Les Grecs', 'Les Arabes'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
+      { q: 'En quelle année la Trinacria est-elle devenue le drapeau officiel de la Sicile ?', choix: ['En 2000', 'En 1946', 'Au IIIᵉ siècle avant notre ère'], bonne: 0, ancre: 'symboles', niveau: 'difficile' },
+      { q: 'Dans la légende, que plante la jeune fille dans la tête coupée ?', choix: ['Du basilic', 'Du jasmin', 'Un citronnier'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
+      { q: 'Pourquoi vend-on les têtes de Maure par paire ?', choix: ['En souvenir des deux amants', 'Pour encadrer une porte', 'Parce qu’elles se font au tour par deux'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
       { q: 'Que mangent les geckos qui traversent le mur le soir ?', choix: ['Des moustiques', 'Des miettes', 'Rien, ils dorment'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Y a-t-il des scorpions en Sicile ?', choix: ['Oui, mais leur piqûre est sans danger', 'Non, aucun', 'Oui, et ils sont mortels'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Où naissent les moustiques ?', choix: ['Dans l’eau immobile, même quelques centimètres', 'Dans les haies sèches', 'Sous les pierres chaudes'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
@@ -2416,6 +2453,24 @@ const IT: Dict = {
     family: 'Tre anni e mezzo dopo, Salvatore nasce in questo paese. Suo padre Angelo è tornato dai campi russi ; si ritrova vedovo con un bambino di sei mesi. Più tardi, quando la famiglia tornerà dal Belgio per l’estate, non si andrà dritti al mare : si passava prima da Valguarnera, a trovare la famiglia e nonno Angelo. La casa di Cava d’Aliga è entrata in famiglia solo una cinquantina d’anni fa.',
     note: 'L’esercito canadese porta « Valguarnera » come onore di battaglia, legato a « Sicilia, 1943 ».',
   },
+  symbolsPage: {
+    eyebrow: 'Quello che si vede ovunque',
+    title: 'La Trinacria e le teste di moro',
+    intro: 'Due oggetti che si incontrano su tutti i balconi, tutti i muri e tutte le bancarelle dell’isola — e di cui quasi nessuno racconta la storia. Uno ha ventitré secoli. L’altro è un omicidio.',
+    trinacria: {
+      title: 'La Trinacria, o triscele',
+      text: 'Il nome viene dal greco: « tre punte ». Sono i tre capi della Sicilia — Lilibeo a ovest, Peloro a nord-est, Passero a sud-est. Al centro una testa di donna: Hybla, dea della fertilità. Le tre gambe piegate le girano intorno, e l’isola intera sta in quel movimento. I serpenti vengono dalla tradizione greca ; le spighe di grano furono aggiunte dai Romani, per i quali la Sicilia era il granaio dell’Impero — il mito ne attribuisce il dono a Cerere, che avrebbe insegnato l’agricoltura ai Siciliani. Il simbolo compare sulle monete di Siracusa nel III secolo avanti Cristo. Bisognerà aspettare il 2000 perché l’Assemblea regionale ne faccia ufficialmente la bandiera della Sicilia.',
+      alt: 'Una Trinacria in ghisa nera appesa a un muro di cementine siciliane',
+      caption: 'Tre gambe, una testa di donna, delle spighe: ventitré secoli stanno lì dentro.',
+    },
+    teste: {
+      title: 'Le teste di moro',
+      text: 'La leggenda si svolge alla Kalsa, il quartiere arabo di Palermo, ai tempi della dominazione musulmana. Una fanciulla bellissima coltivava piante sul balcone. Un moro la vide, se ne innamorò e fu riamato — finché lei non scoprì che aveva moglie e figli in Oriente. Lo uccise nel sonno, gli tagliò la testa e la usò come vaso. Ci piantò del basilico. Il profumo era così bello che i vicini ordinarono vasi di ceramica a imitazione. Una seconda versione racconta di due amanti, lei siciliana e nobile, lui arabo, scoperti dalla famiglia e decapitati entrambi — le loro teste esposte su un balcone come monito. Per questo si vendono in coppia.',
+      alt: 'Una coppia di teste di moro in ceramica di Caltagirone, verde e bianco, un uomo e una donna coronati',
+      caption: 'Si comprano a due, in ricordo degli amanti. Queste sono di Caltagirone.',
+    },
+    note: 'Caltagirone è la capitale della ceramica siciliana: la città vi si dedicò dopo la conquista normanna del 1090, il terremoto del 1693 la rase al suolo, e si ricostruì in barocco — la scalinata di Santa Maria del Monte sale ancora, gradino dopo gradino, in maiolica dipinta.',
+  },
   cultureFilter: {
     all: 'Vedi tutto',
     playlist: 'La playlist',
@@ -2437,7 +2492,7 @@ const IT: Dict = {
     customs: 'Usi e costumi',
     specialties: 'Specialità',
     drinks: 'Vini & liquori',
-    coffee: 'Il caffè', pasta: 'La pastasciutta',
+    coffee: 'Il caffè', pasta: 'La pastasciutta', symbols: 'Trinacria e teste di moro',
     arab: 'Sicilia araba',
     sounds: 'Suoni & immagini',
     etna: 'L’Etna',
@@ -2785,6 +2840,12 @@ const IT: Dict = {
       { q: 'Con che cosa i Cervi condirono la pasta quel giorno ?', choix: ['Burro e parmigiano', 'Pomodoro e basilico', 'Un ragù di carne'], bonne: 0, ancre: 'pastasciutta', niveau: 'moyen' },
       { q: 'In quale paese fu distribuita la pasta ?', choix: ['Campegine', 'Gattatico', 'Reggio Emilia'], bonne: 0, ancre: 'pastasciutta', niveau: 'difficile' },
       { q: 'Che cosa rispose Alcide Cervi a chi gli chiedeva come avesse resistito ?', choix: ['Dopo un raccolto ne viene un altro', 'Il tempo cancella tutto', 'Non bisogna mai dimenticare'], bonne: 0, ancre: 'pastasciutta', niveau: 'difficile' },
+      { q: 'Che cosa vuol dire « Trinacria » ?', choix: ['Tre punte, in greco', 'Terra del sole', 'Isola di mezzo'], bonne: 0, ancre: 'symboles', niveau: 'facile' },
+      { q: 'Chi è la testa al centro della Trinacria ?', choix: ['Hybla, dea della fertilità', 'Medusa la Gorgone', 'Cerere'], bonne: 0, ancre: 'symboles', niveau: 'difficile' },
+      { q: 'Chi ha aggiunto le spighe di grano al simbolo ?', choix: ['I Romani', 'I Greci', 'Gli Arabi'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
+      { q: 'In che anno la Trinacria è diventata la bandiera ufficiale della Sicilia ?', choix: ['Nel 2000', 'Nel 1946', 'Nel III secolo avanti Cristo'], bonne: 0, ancre: 'symboles', niveau: 'difficile' },
+      { q: 'Nella leggenda, che cosa pianta la fanciulla nella testa tagliata ?', choix: ['Del basilico', 'Del gelsomino', 'Un limone'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
+      { q: 'Perché le teste di moro si vendono in coppia ?', choix: ['In ricordo dei due amanti', 'Per incorniciare una porta', 'Perché si tornano a due a due'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
       { q: 'Che cosa mangiano i gechi che attraversano il muro la sera?', choix: ['Le zanzare', 'Le briciole', 'Niente, dormono'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Ci sono scorpioni in Sicilia?', choix: ['Sì, ma la loro puntura è innocua', 'No, nessuno', 'Sì, e sono mortali'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Dove nascono le zanzare?', choix: ['Nell’acqua ferma, bastano pochi centimetri', 'Nelle siepi secche', 'Sotto le pietre calde'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
@@ -3662,6 +3723,24 @@ const EN: Dict = {
     family: 'Three and a half years later Salvatore was born in this village. His father Angelo had come back from the Russian camps; he found himself a widower with a six-month-old baby. Later, when the family came down from Belgium for the summer, they did not go straight to the sea: they went through Valguarnera first, to see the family and grandpa Angelo. The Cava d’Aliga house only came into the family some fifty years ago.',
     note: 'The Canadian Army carries «Valguarnera» as a battle honour, attached to «Sicily, 1943».',
   },
+  symbolsPage: {
+    eyebrow: 'What you see everywhere',
+    title: 'The Trinacria and the Moor’s heads',
+    intro: 'Two objects you meet on every balcony, every wall and every market stall on the island — and whose story almost nobody tells. One is twenty-three centuries old. The other is a murder.',
+    trinacria: {
+      title: 'The Trinacria, or triskelion',
+      text: 'The name is Greek for «three points». They are Sicily’s three capes — Lilibeo in the west, Peloro in the north-east, Passero in the south-east. At the centre, a woman’s head: Hybla, goddess of fertility. Three bent legs turn around her, and the whole island is held in that movement. The snakes come from the Greek tradition; the ears of wheat were added by the Romans, for whom Sicily was the granary of the Empire — myth credits the gift to Ceres, who is said to have taught the Sicilians farming. The symbol appears on the coins of Syracuse in the third century BC. It took until the year 2000 for the Regional Assembly to make it officially the flag of Sicily.',
+      alt: 'A black cast-iron Trinacria hanging on a wall of Sicilian cement tiles',
+      caption: 'Three legs, a woman’s head, ears of wheat: twenty-three centuries fit in there.',
+    },
+    teste: {
+      title: 'The Moor’s heads',
+      text: 'The legend is set in the Kalsa, the Arab quarter of Palermo, in the time of Muslim rule. A very beautiful girl grew plants on her balcony. A Moor saw her, fell in love, and was loved back — until she found out he had a wife and children in the East. She killed him in his sleep, cut off his head, and used it as a flowerpot. She planted basil in it. The scent was so fine that the neighbours ordered ceramic copies. A second version tells of two lovers, she Sicilian and noble, he Arab, discovered by her family and both beheaded — their heads set on a balcony as a warning. That is why they are sold in pairs.',
+      alt: 'A pair of Moor’s heads in Caltagirone ceramic, green and white, a crowned man and woman',
+      caption: 'You buy them two at a time, in memory of the lovers. These are from Caltagirone.',
+    },
+    note: 'Caltagirone is the capital of Sicilian ceramics: the town took it up after the Norman conquest of 1090, the earthquake of 1693 levelled it, and it rebuilt itself in baroque — the Santa Maria del Monte staircase still climbs, step after step, in painted majolica.',
+  },
   cultureFilter: {
     all: 'See all',
     playlist: 'The playlist',
@@ -3683,7 +3762,7 @@ const EN: Dict = {
     customs: 'Local customs',
     specialties: 'Specialties',
     drinks: 'Wine & spirits',
-    coffee: 'Coffee', pasta: 'Pastasciutta',
+    coffee: 'Coffee', pasta: 'Pastasciutta', symbols: 'Trinacria & Moor’s heads',
     arab: 'Arab Sicily',
     sounds: 'Sounds & screens',
     etna: 'Etna',
@@ -4031,6 +4110,12 @@ const EN: Dict = {
       { q: 'What did the Cervis dress the pasta with that day?', choix: ['Butter and Parmesan', 'Tomato and basil', 'A meat ragù'], bonne: 0, ancre: 'pastasciutta', niveau: 'moyen' },
       { q: 'In which village was the pasta handed out?', choix: ['Campegine', 'Gattatico', 'Reggio Emilia'], bonne: 0, ancre: 'pastasciutta', niveau: 'difficile' },
       { q: 'What did Alcide Cervi answer when asked how he had borne it?', choix: ['After one harvest comes another', 'Time erases everything', 'One must never forget'], bonne: 0, ancre: 'pastasciutta', niveau: 'difficile' },
+      { q: 'What does «Trinacria» mean?', choix: ['Three points, in Greek', 'Land of the sun', 'Middle island'], bonne: 0, ancre: 'symboles', niveau: 'facile' },
+      { q: 'Who is the head at the centre of the Trinacria?', choix: ['Hybla, goddess of fertility', 'Medusa the Gorgon', 'Ceres'], bonne: 0, ancre: 'symboles', niveau: 'difficile' },
+      { q: 'Who added the ears of wheat to the symbol?', choix: ['The Romans', 'The Greeks', 'The Arabs'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
+      { q: 'In which year did the Trinacria become the official flag of Sicily?', choix: ['In 2000', 'In 1946', 'In the third century BC'], bonne: 0, ancre: 'symboles', niveau: 'difficile' },
+      { q: 'In the legend, what does the girl plant in the severed head?', choix: ['Basil', 'Jasmine', 'A lemon tree'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
+      { q: 'Why are Moor’s heads sold in pairs?', choix: ['In memory of the two lovers', 'To frame a doorway', 'Because they are thrown two at a time'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
       { q: 'What do the geckos crossing the wall at dusk eat?', choix: ['Mosquitoes', 'Crumbs', 'Nothing, they sleep'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Are there scorpions in Sicily?', choix: ['Yes, but their sting is harmless', 'No, none at all', 'Yes, and they are deadly'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Where do mosquitoes breed?', choix: ['In still water — a few centimetres is enough', 'In dry hedges', 'Under warm stones'], bonne: 0, ancre: 'faune', niveau: 'moyen' },

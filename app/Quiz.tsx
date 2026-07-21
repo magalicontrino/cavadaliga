@@ -92,6 +92,7 @@ const THEMES = [
   { ancre: 'histoire', cle: 'history' },
   { ancre: 'livres', cle: 'books' },
   { ancre: 'pastasciutta', cle: 'pasta' },
+  { ancre: 'symboles', cle: 'symbols' },
   { ancre: 'italien', cle: 'italian', page: '/italien' },
   /*
    * LA FAMILLE vit sur sa propre page, et son quiz aussi.
@@ -173,6 +174,15 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string, lang: 'fr' |
       return t.coffeePage.facts.map((f) => f.text).join(' ');
     // La pastasciutta : tout ce que la section affiche, y compris la recette.
     // Une question sur les 100 g de beurre doit pouvoir retrouver sa phrase.
+    // Les deux symboles : les deux textes, plus la note sur Caltagirone. Les
+    // legendes des photos comptent aussi — elles portent « par paire ».
+    case 'symboles':
+      return [
+        t.symbolsPage.intro,
+        `${t.symbolsPage.trinacria.title}. ${t.symbolsPage.trinacria.text} ${t.symbolsPage.trinacria.caption}`,
+        `${t.symbolsPage.teste.title}. ${t.symbolsPage.teste.text} ${t.symbolsPage.teste.caption}`,
+        t.symbolsPage.note,
+      ].join(' ');
     case 'pastasciutta':
       return [
         t.pastaPage.intro,

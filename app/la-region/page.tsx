@@ -42,7 +42,7 @@ const PLACES = [
 // « Sons & images » n'est plus une page : ses sept sections vivent ici. La
 // region, c'est aussi ce qu'on en a chante, filme, peint et photographie — une
 // page de moins dans le menu, et le meme geste pour tout parcourir.
-type Section = 'lieux' | 'sports' | 'faune' | 'livres' | 'histoire' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'pastasciutta' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
+type Section = 'lieux' | 'sports' | 'faune' | 'livres' | 'histoire' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'pastasciutta' | 'symboles' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
 type Key = 'tout' | 'sons' | Section;
 
 // « Sons & images » n'est pas une section : c'est un GROUPE. Un bouton pour les
@@ -95,7 +95,7 @@ function allerAuQuiz() {
  * exactement ce qui attendait « pastasciutta » : le quiz et « Demander » y
  * renvoient tous les deux.
  */
-const SECTIONS_ANCREES: Section[] = ['lieux', 'sports', 'faune', 'livres', 'histoire', 'coutumes', 'specialites', 'alcools', 'cafe', 'pastasciutta', 'etna', 'arabe', 'playlist'];
+const SECTIONS_ANCREES: Section[] = ['lieux', 'sports', 'faune', 'livres', 'histoire', 'coutumes', 'specialites', 'alcools', 'cafe', 'pastasciutta', 'symboles', 'etna', 'arabe', 'playlist'];
 
 export default function LaRegion() {
   const { t, lang } = useI18n();
@@ -190,6 +190,7 @@ export default function LaRegion() {
     { key: 'alcools', label: rf.drinks, icon: 'glass' },
     { key: 'cafe', label: rf.coffee, icon: 'droplet' },
     { key: 'pastasciutta', label: rf.pasta, icon: 'fork' },
+    { key: 'symboles', label: rf.symbols, icon: 'brush' },
     { key: 'sports', label: rf.sports, icon: 'wave' },
     { key: 'faune', label: rf.fauna, icon: 'leaf' },
     { key: 'histoire', label: rf.history, icon: 'landmark' },
@@ -848,6 +849,64 @@ export default function LaRegion() {
         </Reveal>
 
         <Sources section="pastasciutta" />
+      </section>
+      )}
+
+      {/*
+        LES DEUX SYMBOLES — Mag a envoye les deux photos. Ils tiennent dans UNE
+        SEULE section : ce sont deux objets, pas deux sujets, et deux puces de
+        tri pour ça auraient encombre la rangee sans rien clarifier.
+
+        CHAQUE TEXTE PORTE SA PHOTO A COTE, pas au-dessus : la Trinacria ne se
+        comprend qu'en la voyant — trois jambes autour d'une tete, ça ne se
+        raconte pas. Sur telephone la photo passe au-dessus du texte, l'objet
+        avant l'explication.
+      */}
+      {show('symboles') && (
+      <section id="symboles" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="brush" size={16} /> {t.symbolsPage.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {t.symbolsPage.title}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {t.symbolsPage.intro}
+          </p>
+        </Reveal>
+
+        {[
+          { d: t.symbolsPage.trinacria, src: '/deco/trinacria.jpeg', w: 447, h: 447 },
+          { d: t.symbolsPage.teste, src: '/deco/teste-di-moro-caltagirone.webp', w: 800, h: 800 },
+        ].map((b, i) => (
+          <Reveal key={b.src} className="mt-12 grid gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-start">
+            <figure className={`flex flex-col gap-2 ${i % 2 ? 'md:order-2' : ''}`}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={withBase(b.src)}
+                alt={b.d.alt}
+                width={b.w}
+                height={b.h}
+                loading="lazy"
+                className="w-full rounded-2xl object-cover"
+              />
+              <figcaption className="text-[13px] leading-[1.5]" style={{ color: 'var(--cava-muted)' }}>
+                {b.d.caption}
+              </figcaption>
+            </figure>
+            <div className={i % 2 ? 'md:order-1' : ''}>
+              <h3 className="text-[clamp(1.2rem,2.4vw,1.5rem)] leading-[1.2]" style={{ fontWeight: 700 }}>{b.d.title}</h3>
+              <p className="mt-3 max-w-[68ch] text-[15px] leading-[1.8]" style={{ color: 'var(--cava-muted)' }}>{b.d.text}</p>
+            </div>
+          </Reveal>
+        ))}
+
+        <Reveal className="mt-10 max-w-[68ch] border-l-2 pl-5 text-[15px] leading-[1.75]" style={{ borderColor: 'var(--cava-pink)', color: 'var(--cava-muted)' }}>
+          {t.symbolsPage.note}
+        </Reveal>
+
+        <Sources section="symboles" />
       </section>
       )}
 

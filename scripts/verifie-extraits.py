@@ -57,6 +57,7 @@ SOURCES = {
     'lieux': ['placesIntro', 'regionPlaces'],
     'pastasciutta': ['pastaPage'],
     'valguarnera': ['valguarneraPage'],
+    'symboles': ['symbolsPage'],
     # « L'arbre » : voir ARBRE plus bas. Sa source n'est pas dans i18n.
     'arbre': [],
 }

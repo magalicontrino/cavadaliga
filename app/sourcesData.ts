@@ -20,6 +20,18 @@ export type Source = { label: string; url: string };
 
 export const SOURCES: Record<string, Source[]> = {
   /*
+   * Les deux symboles. La legende des teste di moro et l'histoire de la
+   * Trinacria ont ete lues avant d'ecrire ; la page italienne de Wikipedia sur
+   * les teste di moro N'EXISTE PAS a l'adresse attendue (404), d'ou la source
+   * de VisitSicily, qui est l'office de tourisme regional.
+   */
+  symboles: [
+    { label: 'Trinacria — Wikipédia', url: 'https://fr.wikipedia.org/wiki/Trinacria' },
+    { label: 'L’histoire des têtes des Maures — VisitSicily', url: 'https://www.visitsicily.info/fr/lhistoire-des-tetes-des-maures/' },
+    { label: 'Caltagirone et sa céramique — Wikipédia', url: 'https://fr.wikipedia.org/wiki/Caltagirone' },
+  ],
+
+  /*
    * Valguarnera, juillet 1943. LA SOURCE EST CITEE BIEN QUE JE N'AIE PAS PU
    * L'OUVRIR : le serveur du ministere canadien renvoie 403 a toute lecture
    * automatique. C'est Mag qui a ouvert la page et m'en a recopie le texte
