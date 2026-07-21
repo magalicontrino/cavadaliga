@@ -426,36 +426,22 @@ export default function Occupancy() {
   return (
     <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
       {/*
-        LA LEGENDE NE PORTE QUE DES PASTILLES, depuis que Mag a demande d'en
-        retirer « A confirmer » — les six tranches qu'elle coche a chaque
-        nouvelle entree, plus le libre.
+        LA LEGENDE NE GARDE QUE CE QU'ELLE SEULE PEUT DIRE. Mag : « mets juste
+        les travaux et quand c'est libre ».
 
-        Le pointille n'a pas disparu du calendrier pour autant : il reste sur
-        les cases et sur la pastille de la liste. C'est la LISTE qui l'explique
-        maintenant, et en toutes lettres plutot qu'en symbole — la ou on lit
-        deja qui vient et quand.
+        Les cinq tranches de parente en sont sorties, et elles ne manquent pas :
+        chaque sejour est nomme EN TOUTES LETTRES dans la liste sous son mois,
+        avec sa pastille a cote. « Mag +++ », « Katia Asaro » — la legende ne
+        faisait que repeter, en moins precis, ce que la liste dit deja. Elle
+        prenait deux lignes pour ça.
+
+        Restent les deux etats que la liste ne peut pas porter, faute de sejour
+        a nommer : le noir des travaux et le bleu du libre.
+
+        Le pointille des sejours a confirmer avait quitte la legende avant eux,
+        pour la meme raison — c'est la liste qui l'ecrit, a cote des dates.
       */}
       <Reveal className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]" style={{ color: 'var(--cava-muted)' }}>
-        <span className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.mag }} />
-          {c.legend.mag}
-        </span>
-        <span className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.proche }} />
-          {c.legend.close}
-        </span>
-        <span className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.belle }} />
-          {c.legend.inlaw}
-        </span>
-        <span className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.famille }} />
-          {c.legend.family}
-        </span>
-        <span className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.dehors }} />
-          {c.legend.outside}
-        </span>
         <span className="flex items-center gap-2">
           <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.travaux }} />
           {c.legend.works}
