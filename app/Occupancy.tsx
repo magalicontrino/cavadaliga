@@ -311,10 +311,19 @@ const TEINTES: Record<Parente, string> = { travaux: TRAVAUX, mag: MAG, proche: P
  * pastilles, l'ecart se noyait dans la ligne ; a deux entrees, on compare le
  * rond a la case et ça ne colle pas.
  *
- * La pastille du libre prend donc la VRAIE couleur de la case. Comme un disque
+ * La pastille du libre prend donc la VRAIE couleur de la case. Comme un aplat
  * a 0,811 de clarte serait invisible sur un fond a 0,95, elle reçoit un cerne
  * du meme bleu : le contour la fait exister, l'interieur dit la verite. Le noir
  * des travaux n'a pas ce souci, sa case est deja la couleur pleine.
+ *
+ * ET CE SONT DES CARRES, PLUS DES RONDS. Mag : « mets le petit carré bleu
+ * alors pour la légende, ce sera plus simple ». C'est plus simple parce que
+ * c'est plus DIRECT : la legende ne represente plus la case, elle en est une,
+ * en miniature. Meme forme, meme coin arrondi au quart du cote, meme couleur —
+ * il n'y a plus rien a traduire entre le repere et ce qu'il designe.
+ *
+ * Les pastilles de la LISTE, elles, restent rondes : elles ne montrent pas une
+ * case, elles marquent une ligne de texte a cote d'un nom.
  */
 const PLEIN = { travaux: TRAVAUX, mag: '#e6296f', proche: '#f0a0bd', belle: '#93a0e6', famille: '#e8a800', dehors: '#5a7a2e', libre: '#4a7fc4' };
 
@@ -457,12 +466,12 @@ export default function Occupancy() {
       */}
       <Reveal className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]" style={{ color: 'var(--cava-muted)' }}>
         <span className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.travaux }} />
+          <span className="h-3.5 w-3.5 rounded-[3px]" style={{ background: PLEIN.travaux }} />
           {c.legend.works}
         </span>
         <span className="flex items-center gap-2">
           <span
-            className="h-3 w-3 rounded-full"
+            className="h-3.5 w-3.5 rounded-[3px]"
             style={{ background: LIBRE, border: `1.5px solid ${PLEIN.libre}` }}
           />
           {c.legend.free}
