@@ -85,17 +85,36 @@ export default function Footer() {
           Ils ne rejoignent pas la grande liste juste au-dessus : celle-la ne
           contient que des PAGES, et ni le quiz ni les poubelles n'en sont.
         */}
-        <div className="mt-8 flex flex-wrap items-center justify-end gap-3">
+        {/*
+          UNE SEULE LIGNE — Mag : « non laisse en 1 seule ligne ».
+
+          Le calcul, sur un telephone de 375 px : six pictos de 48 px avec 12 px
+          d'ecart demandent 348 px pour 335 disponibles. Il manquait treize
+          pixels, et le sixieme tombait tout seul a la ligne.
+
+          Les pictos passent donc a 44 px et l'ecart a 10 sur telephone : 314 px
+          demandes, vingt et un de marge. 44 PX EST UN PLANCHER, PAS UN CHOIX —
+          c'est la taille minimale recommandee pour une cible tactile, et
+          descendre en dessous rendrait les liens durs a viser pour gagner un
+          alignement. Des 640 px, on revient a 48 et 12 : la place est la.
+
+          CE QUE ÇA NE REGLE PAS : a 320 px (les vieux iPhone SE), il ne reste
+          que 280 px utiles. Six pictos de 44 en demandent 314. Sur ces
+          telephones-la, le sixieme passera toujours a la ligne — sauf a
+          descendre les cibles a 40 px, ce qui echangerait un defaut visible
+          contre un defaut d'usage.
+        */}
+        <div className="mt-8 flex flex-wrap items-center justify-end gap-2.5 sm:gap-3">
           {RACCOURCIS.map((r) => (
             <a
               key={r.href}
               href={r.href}
               aria-label={r.label}
               title={r.label}
-              className="cava-vinyllink flex h-12 w-12 items-center justify-center rounded-full"
+              className="cava-vinyllink flex h-11 w-11 items-center justify-center rounded-full sm:h-12 sm:w-12"
               style={{ background: 'rgba(230,41,111,0.12)', color: 'var(--cava-pink)' }}
             >
-              <Icon name={r.icon} size={24} strokeWidth={r.trait} />
+              <Icon name={r.icon} size={22} strokeWidth={r.trait} />
             </a>
           ))}
         </div>
