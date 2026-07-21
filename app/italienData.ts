@@ -1063,6 +1063,94 @@ export const CHANSONS: Chanson[] = [
       en: 'Every -tà word is feminine, invariable in the plural, and stressed on the last syllable: la libertà, la città, l’immensità. Spot the ending and you know gender and stress in advance.',
     },
   },
+  /* ── Vitti 'na crozza ────────────────────────────────────────────────
+   * L'histoire de cette chanson vaut la chanson : le texte est d'un
+   * ZOLFATARO, un mineur de soufre de Favara nomme Giuseppe Cibardo
+   * Bisaccia, qui l'a recite a Pietro Germi venu tourner « Il cammino
+   * della speranza » en 1950. Franco Li Causi a mis la melodie dessus.
+   *
+   * Et Li Causi n'a rien touche pendant vingt-neuf ans : au generique du
+   * film, toute la musique etait creditee a Carlo Rustichelli. La SIAE ne
+   * lui a reconnu la paternite qu'en 1979. Ce detail-la est verifie sur
+   * deux sources et il change la chanson : le plus grand air sicilien du
+   * siecle a ete signe par quelqu'un d'autre, comme le texte l'avait ete
+   * avant lui.
+   *
+   * ON NE RECOPIE PAS LES PAROLES : la melodie de Li Causi (1950) n'est pas
+   * tombee dans le domaine public. On enseigne les mots et on renvoie a
+   * l'ecoute — meme regle que « L'italiano » et « Via con me ».
+   */
+  {
+    id: 'vitti-na-crozza',
+    titre: 'Vitti ’na crozza',
+    auteur: 'Franco Li Causi — texte populaire',
+    annee: '1950',
+    genre: 'sicile',
+    lien: 'https://it.wikipedia.org/wiki/Vitti_%27na_crozza',
+    spotify: 'https://open.spotify.com/track/6sfG5mdAmu76PKm3XSQMZw',
+    quoi: {
+      fr: 'On la croit gaie parce qu’on la chante partout. Elle commence sur un crâne posé sur un muret — crozza, en sicilien, c’est le crâne — qui demande à celui qui passe de lui donner une sépulture. Le texte vient d’un mineur de soufre de Favara, Giuseppe Cibardo Bisaccia, qui l’a récité au cinéaste Pietro Germi sur le tournage du Cammino della speranza, en 1950. Franco Li Causi a mis la mélodie dessus — et n’a été reconnu comme auteur qu’en 1979, vingt-neuf ans plus tard.',
+      it: 'La si crede allegra perché la cantano tutti. Comincia su una crozza — un teschio — posata su un muretto, che chiede a chi passa di dargli sepoltura. Il testo viene da uno zolfataro di Favara, Giuseppe Cibardo Bisaccia, che lo recitò a Pietro Germi sul set del Cammino della speranza, nel 1950. Franco Li Causi ci mise la melodia, e fu riconosciuto autore solo nel 1979.',
+      en: 'People think it is cheerful because everyone sings it. It opens on a skull set on a low wall — crozza is Sicilian for skull — asking a passer-by to give it a burial. The words come from a sulphur miner of Favara, Giuseppe Cibardo Bisaccia, who recited them to the director Pietro Germi on the set of Il cammino della speranza, in 1950. Franco Li Causi set them to music, and was credited as its author only in 1979.',
+    },
+    mots: [
+      { it: 'la crozza', pron: 'la CROZ·za', sens: { fr: 'le crâne — mot sicilien, pas italien ; en italien on dit il teschio', it: 'parola siciliana; in italiano il teschio', en: 'the skull — a Sicilian word, not Italian; in Italian, il teschio' } },
+      { it: 'il teschio', pron: 'il TE·schio', sens: { fr: 'le crâne, en italien — sch se dit « sk »', it: 'sch si legge « sk »', en: 'the skull, in Italian — sch is said “sk”' } },
+      { it: 'lo zolfataro', pron: 'lo zol·fa·TA·ro', sens: { fr: 'le mineur de soufre — le métier de celui qui a dit ces mots', it: 'chi lavorava nelle zolfare', en: 'the sulphur miner — the trade of the man who spoke these words' } },
+      { it: 'la sepoltura', pron: 'la se·pol·TU·ra', sens: { fr: 'la sépulture — ce que le crâne réclame', it: 'quello che il teschio chiede', en: 'burial — what the skull asks for' } },
+      { it: 'il muretto', pron: 'il mu·RET·to', sens: { fr: 'le petit mur — muro + le suffixe -etto, qui rapetisse tout', it: 'muro + il suffisso -etto', en: 'the low wall — muro plus the -etto suffix, which shrinks everything' } },
+      { it: 'la speranza', pron: 'la spe·RAN·za', sens: { fr: 'l’espoir — le titre du film où la chanson est née', it: 'il titolo del film dove è nata', en: 'hope — the title of the film where the song was born' } },
+      { it: 'il cammino', pron: 'il cam·MI·no', sens: { fr: 'le chemin, la marche', it: 'la strada che si fa a piedi', en: 'the way, the walk' } },
+    ],
+    langue: {
+      fr: 'Le suffixe -etto rapetisse et attendrit : muro → muretto, un petit mur. Il marche sur presque tout — casa → casetta, pane → panetto. C’est le premier outil pour parler comme quelqu’un d’ici plutôt que comme un manuel.',
+      it: 'Il suffisso -etto rimpicciolisce e addolcisce: muro → muretto, casa → casetta, pane → panetto.',
+      en: 'The -etto suffix shrinks and softens: muro → muretto, a low wall. It works on almost anything — casa → casetta, pane → panetto. It is the first tool for sounding local rather than like a textbook.',
+    },
+  },
+  /* ── Ciuri ciuri ─────────────────────────────────────────────────────
+   * ATTENTION A CE QU'ON ECRIT ICI, et j'ai failli me tromper. Partout on
+   * lit « musique de Francesco Paolo Frontini, 1883 ». C'est inexact, et
+   * la page de Frontini lui-meme le montre : « Ciuri, ciuri » y figure
+   * comme RITORNELLO POPOLARE dans « Eco della Sicilia » (Ricordi, 1883),
+   * le premier recueil de chants populaires siciliens. Il ne l'a pas
+   * composee, il l'a RECUEILLIE et harmonisee.
+   *
+   * La difference n'est pas un detail : elle rend au chant son age vrai —
+   * il circulait avant qu'on l'ecrive — et elle explique pourquoi le texte
+   * change d'un village a l'autre. Un auteur n'aurait pas fait ca.
+   *
+   * On peut citer le refrain, lui : texte populaire anonyme, publie en
+   * 1883. Meme raison que pour « Bella ciao ».
+   */
+  {
+    id: 'ciuri-ciuri',
+    titre: 'Ciuri ciuri',
+    auteur: 'Populaire — recueilli par F. P. Frontini',
+    annee: '1883',
+    genre: 'sicile',
+    lien: 'https://it.wikipedia.org/wiki/Francesco_Paolo_Frontini',
+    spotify: 'https://open.spotify.com/track/1WIcwUvVqNL72NEmYRacTD',
+    quoi: {
+      fr: 'C’est l’air qu’on entend dès qu’il y a une fête, et personne ne le trouve triste. Ciuri, ce sont les fleurs — et ce sont aussi des stornelli, ces petits couplets moqueurs qu’on s’envoie sur l’amour et sur les défauts de l’autre. Le refrain dit : Ciuri, ciuri, ciuri di tuttu l’annu — l’amuri ca mi dasti ti lu tornu. « Des fleurs toute l’année : l’amour que tu m’as donné, je te le rends. » On peut l’entendre comme une promesse ou comme un congé, et c’est très bien ainsi. Le texte change d’un village à l’autre, parce qu’il a circulé de bouche en bouche avant qu’on l’écrive.',
+      it: 'È l’aria che si sente a ogni festa, e nessuno la trova triste. Ciuri sono i fiori — e sono stornelli, quei versetti ironici che ci si scambia sull’amore e sui difetti dell’altro. Il ritornello dice: Ciuri, ciuri, ciuri di tuttu l’annu — l’amuri ca mi dasti ti lu tornu. Si può sentire come una promessa o come un congedo. Il testo cambia da un paese all’altro, perché è passato di bocca in bocca prima di essere scritto.',
+      en: 'This is the tune you hear the moment there is a party, and nobody finds it sad. Ciuri means flowers — and they are stornelli, the teasing little verses people trade about love and each other’s faults. The refrain runs: Ciuri, ciuri, ciuri di tuttu l’annu — l’amuri ca mi dasti ti lu tornu. “Flowers all year round: the love you gave me, I give it back.” You can hear it as a promise or as a dismissal, and that is exactly right. The words change from one village to the next, because they travelled by mouth long before anyone wrote them down.',
+    },
+    mots: [
+      { it: 'il fiore', pron: 'il FIO·re', sens: { fr: 'la fleur — ciuri en sicilien, fiore en italien', it: 'ciuri in siciliano, fiore in italiano', en: 'the flower — ciuri in Sicilian, fiore in Italian' } },
+      { it: 'l’amore', pron: 'la·MO·re', sens: { fr: 'l’amour — amuri en sicilien : le -e final devient -i', it: 'amuri in siciliano: la -e finale diventa -i', en: 'love — amuri in Sicilian: the final -e becomes -i' } },
+      { it: 'tutto l’anno', pron: 'TUT·to LAN·no', sens: { fr: 'toute l’année', it: 'per dodici mesi', en: 'all year round' } },
+      { it: 'dare', pron: 'DA·re', sens: { fr: 'donner — mi dasti, tu m’as donné', it: 'mi dasti, mi hai dato', en: 'to give — mi dasti, you gave me' } },
+      { it: 'tornare', pron: 'tor·NA·re', sens: { fr: 'rendre, retourner — ti lu tornu, je te le rends', it: 'ti lu tornu, te lo restituisco', en: 'to give back — ti lu tornu, I give it back to you' } },
+      { it: 'lo stornello', pron: 'lo stor·NEL·lo', sens: { fr: 'le stornello — court couplet improvisé, souvent moqueur', it: 'breve strofa improvvisata, spesso ironica', en: 'the stornello — a short improvised verse, often mocking' } },
+      { it: 'la festa', pron: 'la FE·sta', sens: { fr: 'la fête — l’endroit où on l’entend', it: 'dove la si sente', en: 'the feast — where you hear it' } },
+    ],
+    langue: {
+      fr: 'Le sicilien n’est pas de l’italien mal prononcé, c’est une autre langue, et cette chanson en donne la règle la plus visible : les -e et les -o finaux de l’italien deviennent des -i et des -u. Fiore → ciuri, amore → amuri, tornò → tornu. Une fois qu’on l’entend, on comprend la moitié de ce que disent les vieux du village.',
+      it: 'Il siciliano non è italiano pronunciato male, è un’altra lingua: le -e e le -o finali dell’italiano diventano -i e -u. Fiore → ciuri, amore → amuri.',
+      en: 'Sicilian is not badly pronounced Italian, it is another language, and this song shows its most visible rule: Italian’s final -e and -o become -i and -u. Fiore → ciuri, amore → amuri. Once you hear it, you understand half of what the older villagers say.',
+    },
+  },
 ];
 
 export const EXERCICES: Exercice[] = [

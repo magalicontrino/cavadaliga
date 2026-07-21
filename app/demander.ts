@@ -388,7 +388,12 @@ const MOTS_MAISON: Record<string, string> = {
   'voyage-🚗':
     'voiture louer location loueur auto taxi uber vtc train navette transfert conduire permis autoroute peage '
     + 'macchina noleggio noleggiare treno trasferimento guidare patente autostrada pedaggio '
-    + 'car rent rental hire drive licence motorway toll transfer shuttle',
+    + 'car rent rental hire drive licence motorway toll transfer shuttle '
+    // La moto. Sans ces mots, « faut-il un casque ? » ne rendait rien : le
+    // groupe s'appelle « Sur place » et aucun de ses liens ne dit « moto ».
+    + 'moto motard scooter deux roues casque amende feux phares allumes code de la route '
+    + 'motocicletta scooter casco multa anabbaglianti fari accesi codice della strada '
+    + 'motorbike motorcycle scooter helmet fine headlights lights on highway code',
   // Les transports. Sans ces mots, « le bus pour Modica » repondait la
   // chocolaterie de Modica : « modica » etait son mot, et « bus » n'etait celui
   // de personne.
@@ -433,6 +438,9 @@ const MOTS_MAISON: Record<string, string> = {
   'region-specialites':
     'sarde sardines fenouil pignons raisins safran caponata vinaigre aigre doux martorana amande pate '
     + 'cassata qasah scaccia teste turco mpanatigghi caciocavallo cubbaita torrone sesame miel '
+    + 'cavati cavateddi causunedda ravioli semoule ble dur strattu saucisse ragusa ricotta sucree salee origan '
+    + 'cavati ravioli semola grano duro strattu salsiccia ricotta zuccherata origano '
+    + 'cavati ravioli semolina durum wheat pork sausage ricotta sweetened oregano handmade pasta '
     + 'finocchietto pinoli uvetta zafferano aceto agrodolce mandorla sesamo miele '
     + 'sardines fennel pine nuts raisins saffron vinegar sweet sour almond sesame honey nougat '
     + 'specialite specialites cuisine plat plats manger typique arancina cannolo cassata caponata pasta '
@@ -461,6 +469,8 @@ const MOTS_MAISON: Record<string, string> = {
     + 'italiano lingua parlare imparare corso lezione vocabolario grammatica coniugazione pronuncia tradurre frase esercizio '
     + 'italian language speak learn course lesson vocabulary grammar conjugation pronunciation translate phrase exercise how do you say '
     + 'chanson chansons chanter musique paroles refrain bella ciao italiano cutugno conte via con me partisan '
+    + 'vitti na crozza crozza crane teschio zolfataro mineur soufre favara li causi germi cammino speranza modugno '
+    + 'ciuri ciuri fleur fleurs stornello stornelli frontini eco della sicilia profazio sicilien dialecte '
     + 'canzone canzoni cantare musica testo ritornello '
     + 'song songs sing music lyrics chorus',
   'region-livres':

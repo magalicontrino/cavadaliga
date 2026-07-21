@@ -1049,8 +1049,8 @@ export default function Italien() {
       {/*
         LE COURS, sur grand ecran : UNE SECTION A LA FOIS.
 
-        Il s'affichait entier, les huit sections empilees — cinquante-six
-        phrases, dix-huit conjugaisons, douze chansons. Mag : « sur ecran je
+        Il s'affichait entier, les huit sections empilees — des dizaines de
+        phrases, de conjugaisons et de chansons. Mag : « sur ecran je
         voudrais trouver une solution pour qu'il y ait toujours ça visible,
         sinon la page est trop longue ». Elle a choisi celle qui raccourcit
         vraiment plutot que celles qui aident seulement a se deplacer.
