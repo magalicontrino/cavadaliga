@@ -56,6 +56,7 @@ SOURCES = {
     # « Les lieux » : un tableau, pas un objet — voir blocs_de().
     'lieux': ['placesIntro', 'regionPlaces'],
     'pastasciutta': ['pastaPage'],
+    'valguarnera': ['valguarneraPage'],
     # « L'arbre » : voir ARBRE plus bas. Sa source n'est pas dans i18n.
     'arbre': [],
 }

@@ -20,6 +20,23 @@ export type Source = { label: string; url: string };
 
 export const SOURCES: Record<string, Source[]> = {
   /*
+   * Valguarnera, juillet 1943. LA SOURCE EST CITEE BIEN QUE JE N'AIE PAS PU
+   * L'OUVRIR : le serveur du ministere canadien renvoie 403 a toute lecture
+   * automatique. C'est Mag qui a ouvert la page et m'en a recopie le texte
+   * integral — noms de regiments, dates, deroule heure par heure. La section
+   * en vient mot pour mot.
+   *
+   * On l'inscrit donc, mais en sachant ce qu'on fait : la regle est de ne citer
+   * que ce qu'on a lu, et ici c'est Mag qui l'a lu. Le lien reste le bon endroit
+   * ou verifier, et l'histoire officielle de Nicholson est la source de la
+   * source.
+   */
+  valguarnera: [
+    { label: 'Valguarnera, honneur de bataille — Défense nationale (Canada)', url: 'https://www.canada.ca/fr/ministere-defense-nationale/services/histoire-militaire/histoire-patrimoine/honneurs-bataille-distinctions-honorifiques/valguarnera.html' },
+    { label: 'G.W.L. Nicholson, « Les Canadiens en Italie », histoire officielle, vol. II, 1960, p. 104', url: 'https://www.canada.ca/fr/ministere-defense-nationale/services/histoire-militaire/histoire-patrimoine/publications-officielles.html' },
+  ],
+
+  /*
    * La pastasciutta antifasciste. Mag a envoye la page du spectacle de Floriane
    * Facchini — elle raconte le projet, PAS la recette ni l'histoire, et elle est
    * citee pour ce qu'elle est. Les faits (les sept prenoms, les dates, la

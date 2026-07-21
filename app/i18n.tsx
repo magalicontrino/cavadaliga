@@ -264,6 +264,18 @@ export type Dict = {
     recipe: { title: string; intro: string; ingredients: string[]; steps: string[]; note: string };
     shelf: string;
   };
+  /*
+   * VALGUARNERA CAROPEPE. Le village de Salvatore, et un champ de bataille de
+   * juillet 1943 — quatre ans avant sa naissance.
+   */
+  valguarneraPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    facts: { title: string; text: string }[];
+    family: string;
+    note: string;
+  };
   cultureFilter: {
     all: string;
     playlist: string;
@@ -304,6 +316,7 @@ export type Dict = {
     // Les deux themes du quiz de la page famille.
     story: string;
     tree: string;
+    valguarnera: string;
     // Les themes des quiz poses sur les pages pratiques.
     arrival: string;
     leaving: string;
@@ -1119,6 +1132,31 @@ const FR: Dict = {
     },
     shelf: 'Trois livres racontent cette famille — le témoignage du père, une bande dessinée et un roman à thèse. Ils sont sur l’étagère, dans « Des livres ».',
   },
+  valguarneraPage: {
+    eyebrow: 'Valguarnera Caropepe',
+    title: 'Le village d’où l’on vient',
+    intro: 'À 590 mètres d’altitude, dans la province d’Enna, au centre exact de la Sicile — le point le plus loin de la mer qu’on puisse trouver sur cette île. C’est là qu’est né Salvatore, le 26 janvier 1947. Et c’est là que la guerre est passée, trois ans et demi plus tôt.',
+    facts: [
+      {
+        title: 'Un carrefour à tenir',
+        text: 'À partir du 17 juillet 1943, les commandants allemands en Sicile commencent à craindre que leur route d’évacuation vers l’Italie continentale soit coupée. Ils laissent des arrière-gardes dans les villages perchés qui commandent les grands carrefours. Valguarnera est l’un d’eux.',
+      },
+      {
+        title: 'Le 17 juillet, sur la route 117',
+        text: 'Piazza Armerina prise, la 3e Brigade d’infanterie canadienne monte vers le nord. Le Carleton and York Regiment est en tête quand il essuie les tirs des avant-postes. Les chars du Three Rivers Regiment forcent les Allemands à se replier dans les collines ; le Royal 22e Régiment repart, puis bute sur un énorme cratère de mines et sur un autre groupe allemand. Ils passent la nuit retranchés là.',
+      },
+      {
+        title: 'Le 18 juillet, le Monte della Forma',
+        text: 'Le Royal 22e Régiment et le Carleton and York montent vers le carrefour au sommet du Monte della Forma, pendant que le West Nova Scotia Regiment contourne par l’ouest pour couper la route 117 et interdire la retraite. À l’est, les compagnies du Hastings and Prince Edward Regiment ont traversé les champs toute la nuit ; au matin, elles barrent la route qui sort du village. Le Royal Canadian Regiment tente la ville et se heurte au terrain, aux tirs allemands, et à la crainte d’une contre-attaque.',
+      },
+      {
+        title: 'Le soir, plus personne',
+        text: 'À la nuit tombée, la 3e Brigade tient le carrefour et les Allemands décrochent vers le nord. La 1re Brigade, à court d’appui feu, attend l’obscurité pour envoyer sa réserve — le 48th Highlanders of Canada — dans Valguarnera. Ils n’y trouvent aucun Allemand. Le village est pris sans un coup de feu de plus.',
+      },
+    ],
+    family: 'Trois ans et demi plus tard, Salvatore naît dans ce village. Son père Angelo est rentré des camps russes ; il se retrouve veuf avec un bébé de six mois. Plus tard, quand la famille reviendra de Belgique pour l’été, on ne filera pas droit à la mer : on passait d’abord par Valguarnera, voir la famille et pépé Angelo. La maison de Cava d’Aliga, elle, n’est entrée dans la famille qu’il y a une cinquantaine d’années.',
+    note: 'L’armée canadienne porte « Valguarnera » comme honneur de bataille, rattaché à « Sicile, 1943 ».',
+  },
   cultureFilter: {
     all: 'Tout voir',
     playlist: 'La playlist',
@@ -1149,7 +1187,7 @@ const FR: Dict = {
     books: 'Des livres',
     italian: 'L’italien',
     story: 'Le récit',
-    tree: 'L’arbre',
+    tree: 'L’arbre', valguarnera: 'Valguarnera',
     arrival: 'La maison',
     leaving: 'Le départ',
     parking: 'Se garer',
@@ -1692,6 +1730,10 @@ const FR: Dict = {
       { q: 'Comment s’appelle la fille de Benito que l’on connaît ?', choix: ['Ambre', 'Zoé', 'Manon'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
       { q: 'Comment s’appelle le premier enfant de Gabi ?', choix: ['Christian', 'Stefano', 'Rosario'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
       { q: 'Quel est le diminutif de Rosario, fils d’Angelo et Conchetta Sberna ?', choix: ['Saro', 'Jo', 'Rose'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'Dans quelle province se trouve Valguarnera Caropepe ?', choix: ['Enna, au centre de la Sicile', 'Raguse, au sud-est', 'Palerme, au nord'], bonne: 0, ancre: 'valguarnera', niveau: 'moyen' },
+      { q: 'Quel régiment canadien menait l’avance sur la route 117, le 17 juillet 1943 ?', choix: ['The Carleton and York Regiment', 'Le Royal 22e Régiment', 'Le West Nova Scotia Regiment'], bonne: 0, ancre: 'valguarnera', niveau: 'difficile' },
+      { q: 'Qu’ont trouvé les 48th Highlanders en entrant dans Valguarnera ?', choix: ['Aucun Allemand : le village était vide', 'Une contre-attaque', 'Un pont détruit'], bonne: 0, ancre: 'valguarnera', niveau: 'difficile' },
+      { q: 'Que faisait la famille avant d’aller à la mer, l’été ?', choix: ['Elle passait par Valguarnera voir la famille et pépé Angelo', 'Elle allait d’abord à Palerme', 'Elle dormait à Raguse'], bonne: 0, ancre: 'valguarnera', niveau: 'facile' },
     ],
   },
   askMag: {
@@ -2349,6 +2391,31 @@ const IT: Dict = {
     },
     shelf: 'Tre libri raccontano questa famiglia — la testimonianza del padre, un fumetto e un romanzo a tesi. Sono sullo scaffale, in « Dei libri ».',
   },
+  valguarneraPage: {
+    eyebrow: 'Valguarnera Caropepe',
+    title: 'Il paese da cui veniamo',
+    intro: 'A 590 metri di altitudine, in provincia di Enna, nel centro esatto della Sicilia — il punto più lontano dal mare che si possa trovare sull’isola. Lì è nato Salvatore, il 26 gennaio 1947. E lì era passata la guerra, tre anni e mezzo prima.',
+    facts: [
+      {
+        title: 'Un bivio da tenere',
+        text: 'Dal 17 luglio 1943 i comandanti tedeschi in Sicilia cominciano a temere che la loro via di fuga verso l’Italia continentale venga tagliata. Lasciano retroguardie nei paesi arroccati che dominano i grandi bivi. Valguarnera è uno di questi.',
+      },
+      {
+        title: 'Il 17 luglio, sulla strada 117',
+        text: 'Presa Piazza Armerina, la 3ª Brigata di fanteria canadese sale verso nord. Il Carleton and York Regiment è in testa quando incassa il fuoco degli avamposti. I carri del Three Rivers Regiment costringono i tedeschi a ripiegare sulle colline ; il Royal 22e Régiment riparte, poi si ferma davanti a un enorme cratere di mine e a un altro gruppo tedesco. Passano la notte trincerati lì.',
+      },
+      {
+        title: 'Il 18 luglio, il Monte della Forma',
+        text: 'Il Royal 22e Régiment e il Carleton and York salgono verso il bivio in cima al Monte della Forma, mentre il West Nova Scotia Regiment aggira da ovest per tagliare la strada 117 e impedire la ritirata. A est, le compagnie dell’Hastings and Prince Edward Regiment hanno attraversato i campi tutta la notte ; al mattino sbarrano la strada che esce dal paese. Il Royal Canadian Regiment tenta il paese e si scontra col terreno, col fuoco tedesco e col timore di un contrattacco.',
+      },
+      {
+        title: 'La sera, più nessuno',
+        text: 'Al calare della notte la 3ª Brigata tiene il bivio e i tedeschi si sganciano verso nord. La 1ª Brigata, a corto di appoggio di fuoco, aspetta il buio per mandare la sua riserva — i 48th Highlanders of Canada — dentro Valguarnera. Non vi trovano nessun tedesco. Il paese è preso senza un altro colpo.',
+      },
+    ],
+    family: 'Tre anni e mezzo dopo, Salvatore nasce in questo paese. Suo padre Angelo è tornato dai campi russi ; si ritrova vedovo con un bambino di sei mesi. Più tardi, quando la famiglia tornerà dal Belgio per l’estate, non si andrà dritti al mare : si passava prima da Valguarnera, a trovare la famiglia e nonno Angelo. La casa di Cava d’Aliga è entrata in famiglia solo una cinquantina d’anni fa.',
+    note: 'L’esercito canadese porta « Valguarnera » come onore di battaglia, legato a « Sicilia, 1943 ».',
+  },
   cultureFilter: {
     all: 'Vedi tutto',
     playlist: 'La playlist',
@@ -2379,7 +2446,7 @@ const IT: Dict = {
     books: 'Libri',
     italian: 'L’italiano',
     story: 'Il racconto',
-    tree: 'L’albero',
+    tree: 'L’albero', valguarnera: 'Valguarnera',
     arrival: 'La casa',
     leaving: 'La partenza',
     parking: 'Parcheggiare',
@@ -2909,6 +2976,10 @@ const IT: Dict = {
       { q: 'Come si chiama la figlia di Benito che conosciamo?', choix: ['Ambre', 'Zoé', 'Manon'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
       { q: 'Come si chiama il primo figlio di Gabi?', choix: ['Christian', 'Stefano', 'Rosario'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
       { q: 'Qual è il diminutivo di Rosario, figlio di Angelo e Conchetta Sberna?', choix: ['Saro', 'Jo', 'Rose'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'In quale provincia si trova Valguarnera Caropepe ?', choix: ['Enna, nel centro della Sicilia', 'Ragusa, a sud-est', 'Palermo, a nord'], bonne: 0, ancre: 'valguarnera', niveau: 'moyen' },
+      { q: 'Quale reggimento canadese guidava l’avanzata sulla strada 117, il 17 luglio 1943 ?', choix: ['Il Carleton and York Regiment', 'Il Royal 22e Régiment', 'Il West Nova Scotia Regiment'], bonne: 0, ancre: 'valguarnera', niveau: 'difficile' },
+      { q: 'Che cosa trovarono i 48th Highlanders entrando a Valguarnera ?', choix: ['Nessun tedesco : il paese era vuoto', 'Un contrattacco', 'Un ponte distrutto'], bonne: 0, ancre: 'valguarnera', niveau: 'difficile' },
+      { q: 'Che cosa faceva la famiglia prima di andare al mare, d’estate ?', choix: ['Passava da Valguarnera a trovare la famiglia e nonno Angelo', 'Andava prima a Palermo', 'Dormiva a Ragusa'], bonne: 0, ancre: 'valguarnera', niveau: 'facile' },
     ],
   },
   askMag: {
@@ -3566,6 +3637,31 @@ const EN: Dict = {
     },
     shelf: 'Three books tell this family — the father’s testimony, a graphic novel and a novel with a thesis. They are on the shelf, under «Books».',
   },
+  valguarneraPage: {
+    eyebrow: 'Valguarnera Caropepe',
+    title: 'The village we come from',
+    intro: 'At 590 metres, in the province of Enna, at the exact centre of Sicily — the furthest point from the sea you can find on the island. Salvatore was born there on 26 January 1947. And the war had come through three and a half years earlier.',
+    facts: [
+      {
+        title: 'A crossroads to hold',
+        text: 'From 17 July 1943 the German commanders in Sicily began to fear their escape route to mainland Italy would be cut. They left rearguards in the hilltop towns commanding the main crossroads. Valguarnera was one of them.',
+      },
+      {
+        title: '17 July, on Highway 117',
+        text: 'Piazza Armerina taken, the 3rd Canadian Infantry Brigade pushed north. The Carleton and York Regiment was leading when it came under fire from the outposts. Tanks of the Three Rivers Regiment forced the Germans back into the hills; the Royal 22e Régiment moved on, then ran into a huge mine crater and another German party. They dug in there for the night.',
+      },
+      {
+        title: '18 July, Monte della Forma',
+        text: 'The Royal 22e Régiment and the Carleton and York climbed towards the crossroads on top of Monte della Forma, while the West Nova Scotia Regiment swung west to cut Highway 117 and deny the withdrawal. To the east, companies of the Hastings and Prince Edward Regiment had crossed the fields all night; by morning they had blocked the road out of the town. The Royal Canadian Regiment tried the town itself and ran into the ground, German fire, and the fear of a counter-attack.',
+      },
+      {
+        title: 'By evening, nobody',
+        text: 'By nightfall the 3rd Brigade held the crossroads and the Germans were pulling out to the north. The 1st Brigade, short of fire support, waited for dark to send in its reserve — the 48th Highlanders of Canada — into Valguarnera. They found no Germans. The town was taken without another shot.',
+      },
+    ],
+    family: 'Three and a half years later Salvatore was born in this village. His father Angelo had come back from the Russian camps; he found himself a widower with a six-month-old baby. Later, when the family came down from Belgium for the summer, they did not go straight to the sea: they went through Valguarnera first, to see the family and grandpa Angelo. The Cava d’Aliga house only came into the family some fifty years ago.',
+    note: 'The Canadian Army carries «Valguarnera» as a battle honour, attached to «Sicily, 1943».',
+  },
   cultureFilter: {
     all: 'See all',
     playlist: 'The playlist',
@@ -3596,7 +3692,7 @@ const EN: Dict = {
     books: 'Books',
     italian: 'Italian',
     story: 'The story',
-    tree: 'The tree',
+    tree: 'The tree', valguarnera: 'Valguarnera',
     arrival: 'The house',
     leaving: 'Leaving',
     parking: 'Parking',
@@ -4126,6 +4222,10 @@ const EN: Dict = {
       { q: 'What is the name of Benito’s daughter that we know of?', choix: ['Ambre', 'Zoé', 'Manon'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
       { q: 'What is the name of Gabi’s first child?', choix: ['Christian', 'Stefano', 'Rosario'], bonne: 0, ancre: 'arbre', niveau: 'moyen' },
       { q: 'What is the short form of Rosario, son of Angelo and Conchetta Sberna?', choix: ['Saro', 'Jo', 'Rose'], bonne: 0, ancre: 'arbre', niveau: 'difficile' },
+      { q: 'In which province is Valguarnera Caropepe?', choix: ['Enna, at the centre of Sicily', 'Ragusa, in the south-east', 'Palermo, in the north'], bonne: 0, ancre: 'valguarnera', niveau: 'moyen' },
+      { q: 'Which Canadian regiment was leading the advance on Highway 117 on 17 July 1943?', choix: ['The Carleton and York Regiment', 'The Royal 22e Régiment', 'The West Nova Scotia Regiment'], bonne: 0, ancre: 'valguarnera', niveau: 'difficile' },
+      { q: 'What did the 48th Highlanders find when they entered Valguarnera?', choix: ['No Germans: the town was empty', 'A counter-attack', 'A destroyed bridge'], bonne: 0, ancre: 'valguarnera', niveau: 'difficile' },
+      { q: 'What did the family do before going to the sea in summer?', choix: ['They went through Valguarnera to see the family and grandpa Angelo', 'They went to Palermo first', 'They slept in Ragusa'], bonne: 0, ancre: 'valguarnera', niveau: 'facile' },
     ],
   },
   askMag: {

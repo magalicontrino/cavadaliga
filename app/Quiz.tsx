@@ -108,6 +108,7 @@ const THEMES = [
    */
   { ancre: 'recit', cle: 'story', chezElle: true },
   { ancre: 'arbre', cle: 'tree', chezElle: true },
+  { ancre: 'valguarnera', cle: 'valguarnera', chezElle: true },
   /*
    * LES PAGES PRATIQUES ont leur quiz elles aussi — Mag : « tu peux remettre a
    * chaque fois le meme quizz mais pointe sur le sujet en rapport avec la
@@ -199,6 +200,16 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string, lang: 'fr' |
     // corriger une branche corrige l'extrait du quiz.
     case 'arbre':
       return texteArbre(t.salvaPage);
+    // Valguarnera : le village et la bataille de juillet 1943. `chezElle`, comme
+    // le recit et l'arbre — un visiteur venu pour la Sicile n'a rien a faire
+    // avec les regiments canadiens de 1943.
+    case 'valguarnera':
+      return [
+        t.valguarneraPage.intro,
+        ...t.valguarneraPage.facts.map((f) => `${f.title}. ${f.text}`),
+        t.valguarneraPage.family,
+        t.valguarneraPage.note,
+      ].join(' ');
     /*
      * LES PAGES PRATIQUES. Meme principe que partout : on recolle le texte
      * REELLEMENT affiche par la section, et l'extrait va y chercher la phrase

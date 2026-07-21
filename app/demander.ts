@@ -299,6 +299,19 @@ const MOTS_MAISON: Record<string, string> = {
    * « 25 juillet », « antifasciste », « resistance »), et la recette. « Cervi »
    * seul doit suffire — c'est le mot qu'on tape quand on a vu le nom quelque part.
    */
+  /*
+   * VALGUARNERA. Le nom du village est l'entree principale — quelqu'un de la
+   * famille le tape tel quel. Les regiments canadiens sont indexes aussi : ce
+   * sont eux qu'on cherche quand on tombe sur le nom du village dans un livre
+   * d'histoire militaire.
+   */
+  valguarnera:
+    'valguarnera caropepe enna centre sicile village pere ne naissance salvatore angelo pepe ' +
+    'guerre 1943 juillet bataille canadiens canadien allemands honneur regiment carleton york ' +
+    'three rivers royal 22e west nova scotia hastings prince edward highlanders monte della forma ' +
+    'route 117 piazza armerina husky debarquement resistance retraite ' +
+    'guerra luglio battaglia canadesi tedeschi reggimento paese nonno nascita ' +
+    'war july battle canadians germans regiment village birth grandfather crossroads',
   pastasciutta:
     'pastasciutta pasta asciutta pates beurre parmesan recette cervi alcide sept freres fratelli ' +
     'antifasciste antifascisme resistance partisan mussolini fascisme 25 juillet campegine gattatico ' +
@@ -707,6 +720,24 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
    * simple de l'ecrire ici, avec la recette dedans — quelqu'un qui demande
    * « les pates au beurre » veut les proportions, pas seulement l'histoire.
    */
+  /*
+   * Valguarnera : sa fiche renvoie a la page FAMILLE, pas a « La region ». Le
+   * village n'est pas une destination de vacances, c'est d'ou vient la famille
+   * — et c'est la que la section vit.
+   */
+  ajouter({
+    id: 'valguarnera',
+    page: '/famille#valguarnera',
+    titre: t.valguarneraPage.title,
+    lignes: [
+      t.valguarneraPage.intro,
+      ...t.valguarneraPage.facts.map((f) => `${f.title} — ${f.text}`),
+      t.valguarneraPage.family,
+      t.valguarneraPage.note,
+    ],
+    mots: motsMaison('valguarnera'),
+  });
+
   ajouter({
     id: 'region-pastasciutta',
     page: '/la-region#pastasciutta',

@@ -10,6 +10,7 @@ import PageHeader from '../PageHeader';
 import Icon from '../Icon';
 import FamilyTree from '../FamilyTree';
 import Quiz from '../Quiz';
+import Sources from '../Sources';
 import { SITE } from '../data';
 import { useI18n } from '../i18n';
 import { useAncre } from '../ancre';
@@ -33,6 +34,7 @@ export default function Salva() {
   useAncre();
   const { t } = useI18n();
   const s = t.salvaPage;
+  const s2 = t.valguarneraPage;
   const [open, setOpen] = useState<number | null>(null);
 
   return (
@@ -137,6 +139,55 @@ export default function Salva() {
       </section>
 
       {/* Arbre généalogique — cible du renvoi place sous le titre de la page. */}
+      {/*
+        VALGUARNERA — Mag : « ca c'est dans la ville de notre famille au centre
+        de la sicile. Note ça dans la page famille donc ».
+
+        ELLE EST POSEE ENTRE LE RECIT ET L'ARBRE, et l'ordre fait le sens : le
+        recit dit que Salvatore est ne la, la section dit ce qui s'y etait passe
+        trois ans et demi plus tot, l'arbre dit de qui il descend. Mise avant le
+        recit, elle aurait ouvert la page famille sur une bataille ; mise apres
+        l'arbre, plus personne ne l'aurait lue.
+
+        LE RECIT MILITAIRE EST TENU COURT ET FACTUEL. Ce n'est pas une page
+        d'histoire militaire : c'est la reponse a « qu'est-ce qui s'est passe
+        dans le village de mon pere ». Les noms de regiments sont gardes parce
+        qu'ils sont verifiables et qu'ils ont des descendants qui lisent.
+      */}
+      <section id="valguarnera" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-16 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="landmark" size={16} /> {s2.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {s2.title}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {s2.intro}
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
+          {s2.facts.map((f, i) => (
+            <Reveal key={f.title} delay={(i % 2) * 80} className="flex flex-col gap-3 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
+              <h3 className="text-[clamp(1.1rem,2.2vw,1.35rem)] leading-[1.2]" style={{ fontWeight: 600 }}>{f.title}</h3>
+              <p className="text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>{f.text}</p>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Le retour a la famille : c'est pour ça que la section existe. */}
+        <Reveal className="mt-8 max-w-[68ch] border-l-2 pl-5 text-[clamp(1rem,1.5vw,1.1rem)] leading-[1.75]" style={{ borderColor: 'var(--cava-pink)' }}>
+          {s2.family}
+        </Reveal>
+
+        <Reveal className="mt-6 text-[13px] leading-[1.6]" style={{ color: 'var(--cava-muted)' }}>
+          {s2.note}
+        </Reveal>
+
+        <Sources section="valguarnera" />
+      </section>
+
       <section id="arbre" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-24 md:px-10">
         <Reveal>
           {/* Le meme habit que le titre de la page : capitales, gras, et le
