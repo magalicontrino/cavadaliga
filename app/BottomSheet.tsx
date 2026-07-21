@@ -79,7 +79,27 @@ export default function BottomSheet({
           <span aria-hidden className="h-1.5 w-10 rounded-full" style={{ background: 'var(--cava-line)' }} />
         </div>
 
-        <div className="flex shrink-0 items-start justify-between gap-4 px-6 pt-2">
+        {/*
+          `pb-4` SOUS L'EN-TETE — Mag : « il n'y a pas assez d'espace en dessous
+          de ce paragraphe ».
+
+          L'en-tete n'avait aucun retrait en bas : mesure faite, le bas de
+          l'intro tombait EXACTEMENT sur le haut de la zone qui defile, ecart
+          zero. Le seul espace venait du `pt-5` de cette zone, soit 20 px — et
+          le degrade blanc en fait 24. Il couvrait donc la totalite de l'ecart
+          et mordait 4 px sur la premiere ligne : le texte naissait deja
+          efface, ce qui se lit comme un manque d'air.
+
+          ATTENTION AU PIEGE, J'Y SUIS TOMBE : ajouter du retrait ICI ne suffit
+          pas. Le degrade est pose en haut de la zone qui defile, donc il
+          DESCEND AVEC ELLE — l'ecart total passait bien de 20 a 36 px, et le
+          voile mordait toujours exactement 4 px sur la premiere ligne. Ce qu'il
+          faut augmenter, c'est le retrait INTERIEUR de la zone (`pt-7` = 28 px,
+          quatre de plus que les 24 du voile) : lui seul separe le texte du
+          degrade. Les deux ensemble donnent 44 px d'air, et une premiere ligne
+          nette.
+        */}
+        <div className="flex shrink-0 items-start justify-between gap-4 px-6 pb-4 pt-2">
           <div className="flex flex-col gap-1">
             <h2 className="text-[19px] leading-tight" style={{ fontWeight: 800 }}>
               {titre}
@@ -132,7 +152,7 @@ export default function BottomSheet({
           grace au `relative` du parent, sans jamais entrer dans le calcul.
         */}
         <div className="relative flex min-h-0 flex-1 flex-col">
-          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-5">
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-7">
             {children}
           </div>
           <div
