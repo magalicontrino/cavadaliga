@@ -301,7 +301,21 @@ const DEHORS_T = 'rgba(90, 122, 46, 0.62)';
 const BELLE = 'rgba(147, 160, 230, 0.62)';
 const LIBRE = 'rgba(74, 127, 196, 0.14)';
 const TEINTES: Record<Parente, string> = { travaux: TRAVAUX, mag: MAG, proche: PROCHE, belle: BELLE, famille: FAMILLE, dehors: DEHORS_T };
-/** Les pastilles de la legende : pleines, elles, pour se voir a 12 px. */
+/*
+ * LES PASTILLES DE LA LEGENDE SONT PLEINES, POUR SE VOIR A 12 PX — sauf celle
+ * du libre, et c'est Mag qui a vu le probleme : « le bleu est beaucoup plus
+ * clair pour libre ».
+ *
+ * Elle a raison, et la legende mentait. Elle portait #4a7fc4 plein quand la
+ * case, elle, est ce meme bleu a 14 % — presque blanc. Tant qu'il y avait sept
+ * pastilles, l'ecart se noyait dans la ligne ; a deux entrees, on compare le
+ * rond a la case et ça ne colle pas.
+ *
+ * La pastille du libre prend donc la VRAIE couleur de la case. Comme un disque
+ * a 0,811 de clarte serait invisible sur un fond a 0,95, elle reçoit un cerne
+ * du meme bleu : le contour la fait exister, l'interieur dit la verite. Le noir
+ * des travaux n'a pas ce souci, sa case est deja la couleur pleine.
+ */
 const PLEIN = { travaux: TRAVAUX, mag: '#e6296f', proche: '#f0a0bd', belle: '#93a0e6', famille: '#e8a800', dehors: '#5a7a2e', libre: '#4a7fc4' };
 
 const ymd = (d: Date) => d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
@@ -447,7 +461,10 @@ export default function Occupancy() {
           {c.legend.works}
         </span>
         <span className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.libre }} />
+          <span
+            className="h-3 w-3 rounded-full"
+            style={{ background: LIBRE, border: `1.5px solid ${PLEIN.libre}` }}
+          />
           {c.legend.free}
         </span>
       </Reveal>
