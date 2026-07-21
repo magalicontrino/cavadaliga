@@ -93,6 +93,7 @@ const THEMES = [
   { ancre: 'livres', cle: 'books' },
   { ancre: 'pastasciutta', cle: 'pasta' },
   { ancre: 'symboles', cle: 'symbols' },
+  { ancre: 'legendes', cle: 'legends' },
   { ancre: 'italien', cle: 'italian', page: '/italien' },
   /*
    * LA FAMILLE vit sur sa propre page, et son quiz aussi.
@@ -176,6 +177,14 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string, lang: 'fr' |
     // Une question sur les 100 g de beurre doit pouvoir retrouver sa phrase.
     // Les deux symboles : les deux textes, plus la note sur Caltagirone. Les
     // legendes des photos comptent aussi — elles portent « par paire ».
+    // Les legendes : le lieu compte autant que le recit, une question peut
+    // porter sur « ou ». On recolle donc titre, lieu et texte.
+    case 'legendes':
+      return [
+        t.legendsPage.intro,
+        ...t.legendsPage.items.map((l) => `${l.title}, ${l.place}. ${l.text}`),
+        t.legendsPage.note,
+      ].join(' ');
     case 'symboles':
       return [
         t.symbolsPage.intro,

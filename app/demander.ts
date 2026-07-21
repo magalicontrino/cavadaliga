@@ -311,6 +311,18 @@ const MOTS_MAISON: Record<string, string> = {
    * etal. « Triskele » et « teste di moro » entrent aussi : c'est le meme objet
    * sous deux autres noms, et personne ne sait lequel est le bon.
    */
+  /*
+   * LES LEGENDES. Chaque nom propre est une entree possible — on tape « cola
+   * pesce » ou « fata morgana » apres en avoir entendu parler, pas « legende ».
+   */
+  legendes:
+    'legende legendes mythe conte cola pesce colapesce colonnes tremblement terre seisme ' +
+    'arethuse aretusa nymphe source ortygie syracuse alphee artemis papyrus ' +
+    'fata morgana mirage detroit messine calabre charybde scylla cariddi scilla tourbillon monstre ' +
+    'mata grifone geants procession carini laura lanza baronne fantome chateau ' +
+    'empedocle etna sandale philosophe vieille vinaigre palerme sorciere poison ' +
+    'leggenda leggende mito ninfa fonte gigante strega aceto ' +
+    'legend legends myth nymph spring giants ghost castle mirage whirlpool witch vinegar',
   symboles:
     'trinacria triskele triscele symbole drapeau sicile trois jambes trois pointes tete femme hybla ' +
     'meduse gorgone serpents epis ble ceres syracuse monnaie grec romain 2000 ' +
@@ -738,6 +750,14 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
    * village n'est pas une destination de vacances, c'est d'ou vient la famille
    * — et c'est la que la section vit.
    */
+  ajouter({
+    id: 'region-legendes',
+    page: '/la-region#legendes',
+    titre: t.legendsPage.title,
+    lignes: [t.legendsPage.intro, ...t.legendsPage.items.map((l) => `${l.title}, ${l.place} — ${l.text}`), t.legendsPage.note],
+    mots: motsMaison('legendes'),
+  });
+
   ajouter({
     id: 'region-symboles',
     page: '/la-region#symboles',

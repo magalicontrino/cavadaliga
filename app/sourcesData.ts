@@ -20,6 +20,18 @@ export type Source = { label: string; url: string };
 
 export const SOURCES: Record<string, Source[]> = {
   /*
+   * Les huit legendes. La page de HitSicily les donne toutes ; celle de Cola
+   * Pesce a ete verifiee a part, parce que c'est la seule qui porte une date
+   * (attestee des le XIIe siecle) et surtout parce que ses trois colonnes sont
+   * les trois caps de la Trinacria — un rapprochement qu'il fallait verifier
+   * avant de l'ecrire.
+   */
+  legendes: [
+    { label: 'Les légendes les plus fascinantes de la Sicile — HitSicily', url: 'https://www.hitsicily.com/fr/redaction/a-la-decouverte-des-legendes-les-plus-fascinantes-de-la-sicile-un-voyage-entre-le-mythe-et-le-mystere-de-palerme-a-syracuse/' },
+    { label: 'Cola Pesce — Wikipedia', url: 'https://it.wikipedia.org/wiki/Cola_Pesce' },
+  ],
+
+  /*
    * Les deux symboles. La legende des teste di moro et l'histoire de la
    * Trinacria ont ete lues avant d'ecrire ; la page italienne de Wikipedia sur
    * les teste di moro N'EXISTE PAS a l'adresse attendue (404), d'ou la source

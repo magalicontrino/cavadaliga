@@ -58,6 +58,7 @@ SOURCES = {
     'pastasciutta': ['pastaPage'],
     'valguarnera': ['valguarneraPage'],
     'symboles': ['symbolsPage'],
+    'legendes': ['legendsPage'],
     # « L'arbre » : voir ARBRE plus bas. Sa source n'est pas dans i18n.
     'arbre': [],
 }

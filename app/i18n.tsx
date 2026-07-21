@@ -288,6 +288,14 @@ export type Dict = {
     teste: { title: string; text: string; alt: string; caption: string };
     note: string;
   };
+  /* LES LEGENDES SICILIENNES. Huit recits, du detroit de Messine a l'Etna. */
+  legendsPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    items: { title: string; place: string; text: string }[];
+    note: string;
+  };
   cultureFilter: {
     all: string;
     playlist: string;
@@ -315,6 +323,7 @@ export type Dict = {
     coffee: string;
     pasta: string;
     symbols: string;
+    legends: string;
     arab: string;
     /** Rassemble les sept sections venues de « Sons & images » en un seul bouton. */
     sounds: string;
@@ -1188,6 +1197,54 @@ const FR: Dict = {
     },
     note: 'Caltagirone est la capitale de la céramique sicilienne : la ville s’y est mise après la conquête normande de 1090, le tremblement de terre de 1693 l’a rasée, et elle s’est reconstruite en baroque — l’escalier de Santa Maria del Monte y monte encore, marche après marche, en majolique peinte.',
   },
+  legendsPage: {
+    eyebrow: 'Ce qu’on se raconte',
+    title: 'Huit légendes siciliennes',
+    intro: 'Une île qui a été grecque, arabe, normande et espagnole ne manque pas d’histoires. En voici huit, du détroit de Messine au cratère de l’Etna. Certaines expliquent un phénomène réel, d’autres une pierre qu’on peut encore toucher.',
+    items: [
+      {
+        title: 'Cola Pesce',
+        place: 'Messine',
+        text: 'Fils de pêcheur, il nageait mieux que les poissons. Frédéric II le mit à l’épreuve : il jeta une coupe à la mer, Cola la rapporta ; puis sa couronne, il la rapporta encore ; puis un anneau, plus profond. Il n’est jamais remonté. Au fond, il avait découvert que la Sicile repose sur trois colonnes — au cap Peloro, au cap Passero et au cap Lilibeo — et que l’une d’elles, rongée par le feu de l’Etna, se fendait. Il est resté dessous pour la soutenir. Quand la terre tremble, c’est qu’il change d’épaule. La légende est attestée dès le XIIᵉ siècle.',
+      },
+      {
+        title: 'Aréthuse',
+        place: 'Syracuse',
+        text: 'La nymphe Aréthuse fuyait le dieu-fleuve Alphée, qui la poursuivait. Elle supplia Artémis, qui la changea en source. Alphée se fit fleuve pour la rejoindre, et traversa la mer depuis la Grèce. La source porte son nom, à Ortygie, à quelques mètres du port — une eau douce qui sourd au bord de l’eau salée. On y voit encore pousser du papyrus.',
+      },
+      {
+        title: 'La Fata Morgana',
+        place: 'Le détroit de Messine',
+        text: 'Par certaines conditions de température, la Calabre semble si proche qu’on la croirait accessible à pied — des villes flottent au-dessus de l’eau, à l’envers. La fée Morgane montrait ces terres enchantées aux marins pour les perdre. C’est un vrai mirage, qui porte encore son nom dans les livres d’optique, et qu’on peut voir aujourd’hui.',
+      },
+      {
+        title: 'Charybde et Scylla',
+        place: 'Le détroit de Messine',
+        text: 'Sur une rive, Scylla, le monstre à six têtes qui attrapait les marins au passage. Sur l’autre, Charybde, le tourbillon qui engloutissait les navires entiers. Entre les deux, le passage le plus redouté de l’Antiquité — et l’expression qu’on emploie encore quand on n’a le choix qu’entre deux malheurs.',
+      },
+      {
+        title: 'Mata et Grifone',
+        place: 'Messine',
+        text: 'Elle est sicilienne, il est un guerrier sarrasin ; il s’éprend d’elle, elle refuse, il se convertit pour l’épouser. De ce couple de géants, la ville a fait deux statues immenses qu’elle promène en procession chaque mois d’août. C’est la seule légende de la liste qui célèbre le mélange plutôt que le drame.',
+      },
+      {
+        title: 'La baronne de Carini',
+        place: 'Le château de Carini, près de Palerme',
+        text: 'Laura Lanza, baronne de Carini, fut tuée par son propre père en 1563 pour adultère. On dit que son fantôme erre encore entre les murs, et qu’on l’entend les nuits de pleine lune. Un trésor y serait enterré, gardé par des esprits inquiets ; personne ne l’a trouvé. Le château, lui, existe et se visite.',
+      },
+      {
+        title: 'Empédocle',
+        place: 'L’Etna',
+        text: 'Le philosophe d’Agrigente, fasciné par le feu, se serait jeté dans le cratère — pour prouver qu’il était un dieu, ou pour disparaître sans laisser de corps. Le volcan lui a rendu une seule chose : une sandale. C’est la fin la plus littéraire qu’un philosophe se soit inventée.',
+      },
+      {
+        title: 'La Vieille au vinaigre',
+        place: 'Palerme',
+        text: 'Au XVIIᵉ siècle, une vieille femme du centre historique préparait des potions. On venait la voir en secret, surtout les jeunes femmes. Beaucoup disparaissaient. On retrouva des corps traités au vinaigre, pour en masquer l’odeur. Elle fut arrêtée et jugée. On dit que son esprit rôde dans les vieilles rues, et qu’on y sent parfois passer une odeur âcre.',
+      },
+    ],
+    note: 'Les trois colonnes de Cola Pesce sont les trois caps de la Trinacria : Peloro, Passero, Lilibeo. La légende et le symbole racontent la même île, tenue par ses trois pointes.',
+  },
   cultureFilter: {
     all: 'Tout voir',
     playlist: 'La playlist',
@@ -1209,7 +1266,7 @@ const FR: Dict = {
     customs: 'Us et coutumes',
     specialties: 'Spécialités',
     drinks: 'Vins & alcools',
-    coffee: 'Le café', pasta: 'La pastasciutta', symbols: 'Trinacria & teste di moro',
+    coffee: 'Le café', pasta: 'La pastasciutta', symbols: 'Trinacria & teste di moro', legends: 'Les légendes',
     arab: 'Sicile arabe',
     sounds: 'Sons & images',
     etna: 'L’Etna',
@@ -1563,6 +1620,12 @@ const FR: Dict = {
       { q: 'En quelle année la Trinacria est-elle devenue le drapeau officiel de la Sicile ?', choix: ['En 2000', 'En 1946', 'Au IIIᵉ siècle avant notre ère'], bonne: 0, ancre: 'symboles', niveau: 'difficile' },
       { q: 'Dans la légende, que plante la jeune fille dans la tête coupée ?', choix: ['Du basilic', 'Du jasmin', 'Un citronnier'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
       { q: 'Pourquoi vend-on les têtes de Maure par paire ?', choix: ['En souvenir des deux amants', 'Pour encadrer une porte', 'Parce qu’elles se font au tour par deux'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
+      { q: 'Que soutient Cola Pesce au fond de la mer ?', choix: ['Une des trois colonnes qui portent la Sicile', 'Un trésor englouti', 'Le tombeau de Frédéric II'], bonne: 0, ancre: 'legendes', niveau: 'moyen' },
+      { q: 'Selon la légende, pourquoi la terre tremble-t-elle en Sicile ?', choix: ['Cola Pesce change d’épaule', 'L’Etna se réveille', 'Charybde tourne plus vite'], bonne: 0, ancre: 'legendes', niveau: 'facile' },
+      { q: 'En quoi la nymphe Aréthuse a-t-elle été transformée ?', choix: ['En source', 'En laurier', 'En oiseau'], bonne: 0, ancre: 'legendes', niveau: 'moyen' },
+      { q: 'Qu’est-ce que la Fata Morgana ?', choix: ['Un mirage dans le détroit de Messine', 'Une fête de Palerme', 'Un vent du sud'], bonne: 0, ancre: 'legendes', niveau: 'moyen' },
+      { q: 'Que le volcan a-t-il rendu d’Empédocle ?', choix: ['Une sandale', 'Son manteau', 'Rien du tout'], bonne: 0, ancre: 'legendes', niveau: 'difficile' },
+      { q: 'Quelle légende sicilienne célèbre le mélange plutôt que le drame ?', choix: ['Mata et Grifone', 'La baronne de Carini', 'La Vieille au vinaigre'], bonne: 0, ancre: 'legendes', niveau: 'difficile' },
       { q: 'Que mangent les geckos qui traversent le mur le soir ?', choix: ['Des moustiques', 'Des miettes', 'Rien, ils dorment'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Y a-t-il des scorpions en Sicile ?', choix: ['Oui, mais leur piqûre est sans danger', 'Non, aucun', 'Oui, et ils sont mortels'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Où naissent les moustiques ?', choix: ['Dans l’eau immobile, même quelques centimètres', 'Dans les haies sèches', 'Sous les pierres chaudes'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
@@ -2471,6 +2534,22 @@ const IT: Dict = {
     },
     note: 'Caltagirone è la capitale della ceramica siciliana: la città vi si dedicò dopo la conquista normanna del 1090, il terremoto del 1693 la rase al suolo, e si ricostruì in barocco — la scalinata di Santa Maria del Monte sale ancora, gradino dopo gradino, in maiolica dipinta.',
   },
+  legendsPage: {
+    eyebrow: 'Quello che si racconta',
+    title: 'Otto leggende siciliane',
+    intro: 'Un’isola che è stata greca, araba, normanna e spagnola non manca di storie. Eccone otto, dallo Stretto di Messina al cratere dell’Etna. Alcune spiegano un fenomeno reale, altre una pietra che si può ancora toccare.',
+    items: [
+      { title: 'Cola Pesce', place: 'Messina', text: 'Figlio di pescatore, nuotava meglio dei pesci. Federico II lo mise alla prova: gettò in mare una coppa, Cola la riportò ; poi la corona, la riportò ancora ; poi un anello, più a fondo. Non è mai risalito. Là sotto aveva scoperto che la Sicilia poggia su tre colonne — a Capo Peloro, Capo Passero e Capo Lilibeo — e che una, corrosa dal fuoco dell’Etna, si stava spezzando. È rimasto lì a sostenerla. Quando la terra trema, sta cambiando spalla. La leggenda è attestata già dal XII secolo.' },
+      { title: 'Aretusa', place: 'Siracusa', text: 'La ninfa Aretusa fuggiva il dio-fiume Alfeo che la inseguiva. Supplicò Artemide, che la trasformò in fonte. Alfeo si fece fiume per raggiungerla e attraversò il mare dalla Grecia. La fonte porta il suo nome, a Ortigia, a pochi metri dal porto — acqua dolce che sgorga sul bordo del mare salato. Vi cresce ancora il papiro.' },
+      { title: 'La Fata Morgana', place: 'Lo Stretto di Messina', text: 'In certe condizioni di temperatura la Calabria sembra così vicina da poterci arrivare a piedi — città che galleggiano sull’acqua, capovolte. La fata Morgana mostrava ai marinai queste terre incantate per perderli. È un vero miraggio, che porta ancora il suo nome nei libri di ottica, e che si può vedere oggi.' },
+      { title: 'Cariddi e Scilla', place: 'Lo Stretto di Messina', text: 'Su una riva Scilla, il mostro dalle sei teste che afferrava i marinai al passaggio. Sull’altra Cariddi, il vortice che inghiottiva navi intere. In mezzo, il passaggio più temuto dell’antichità — e l’espressione che si usa ancora quando si può scegliere solo fra due disgrazie.' },
+      { title: 'Mata e Grifone', place: 'Messina', text: 'Lei è siciliana, lui un guerriero saraceno ; se ne innamora, lei rifiuta, lui si converte per sposarla. Di questa coppia di giganti la città ha fatto due statue enormi che porta in processione ogni agosto. È l’unica leggenda dell’elenco che festeggia la mescolanza invece del dramma.' },
+      { title: 'La baronessa di Carini', place: 'Il castello di Carini, presso Palermo', text: 'Laura Lanza, baronessa di Carini, fu uccisa dal proprio padre nel 1563 per adulterio. Si dice che il suo fantasma vaghi ancora fra le mura, e che lo si senta nelle notti di luna piena. Vi sarebbe sepolto un tesoro, custodito da spiriti inquieti ; nessuno l’ha trovato. Il castello, quello, esiste e si visita.' },
+      { title: 'Empedocle', place: 'L’Etna', text: 'Il filosofo di Agrigento, affascinato dal fuoco, si sarebbe gettato nel cratere — per dimostrare di essere un dio, o per sparire senza lasciare corpo. Il vulcano gli ha restituito una cosa sola: un sandalo. È la fine più letteraria che un filosofo si sia inventato.' },
+      { title: 'La Vecchia dell’Aceto', place: 'Palermo', text: 'Nel Seicento una vecchia del centro storico preparava pozioni. Si andava da lei di nascosto, soprattutto giovani donne. Molte sparivano. Furono trovati corpi trattati con l’aceto, per coprirne l’odore. Fu arrestata e processata. Si dice che il suo spirito si aggiri per i vicoli, e che a volte vi passi un odore pungente.' },
+    ],
+    note: 'Le tre colonne di Cola Pesce sono i tre capi della Trinacria: Peloro, Passero, Lilibeo. La leggenda e il simbolo raccontano la stessa isola, retta dalle sue tre punte.',
+  },
   cultureFilter: {
     all: 'Vedi tutto',
     playlist: 'La playlist',
@@ -2492,7 +2571,7 @@ const IT: Dict = {
     customs: 'Usi e costumi',
     specialties: 'Specialità',
     drinks: 'Vini & liquori',
-    coffee: 'Il caffè', pasta: 'La pastasciutta', symbols: 'Trinacria e teste di moro',
+    coffee: 'Il caffè', pasta: 'La pastasciutta', symbols: 'Trinacria e teste di moro', legends: 'Le leggende',
     arab: 'Sicilia araba',
     sounds: 'Suoni & immagini',
     etna: 'L’Etna',
@@ -2846,6 +2925,12 @@ const IT: Dict = {
       { q: 'In che anno la Trinacria è diventata la bandiera ufficiale della Sicilia ?', choix: ['Nel 2000', 'Nel 1946', 'Nel III secolo avanti Cristo'], bonne: 0, ancre: 'symboles', niveau: 'difficile' },
       { q: 'Nella leggenda, che cosa pianta la fanciulla nella testa tagliata ?', choix: ['Del basilico', 'Del gelsomino', 'Un limone'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
       { q: 'Perché le teste di moro si vendono in coppia ?', choix: ['In ricordo dei due amanti', 'Per incorniciare una porta', 'Perché si tornano a due a due'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
+      { q: 'Che cosa sostiene Cola Pesce in fondo al mare ?', choix: ['Una delle tre colonne che reggono la Sicilia', 'Un tesoro sommerso', 'La tomba di Federico II'], bonne: 0, ancre: 'legendes', niveau: 'moyen' },
+      { q: 'Secondo la leggenda, perché trema la terra in Sicilia ?', choix: ['Cola Pesce cambia spalla', 'L’Etna si risveglia', 'Cariddi gira più forte'], bonne: 0, ancre: 'legendes', niveau: 'facile' },
+      { q: 'In che cosa fu trasformata la ninfa Aretusa ?', choix: ['In fonte', 'In alloro', 'In uccello'], bonne: 0, ancre: 'legendes', niveau: 'moyen' },
+      { q: 'Che cos’è la Fata Morgana ?', choix: ['Un miraggio nello Stretto di Messina', 'Una festa di Palermo', 'Un vento del sud'], bonne: 0, ancre: 'legendes', niveau: 'moyen' },
+      { q: 'Che cosa restituì il vulcano di Empedocle ?', choix: ['Un sandalo', 'Il suo mantello', 'Niente'], bonne: 0, ancre: 'legendes', niveau: 'difficile' },
+      { q: 'Quale leggenda siciliana festeggia la mescolanza invece del dramma ?', choix: ['Mata e Grifone', 'La baronessa di Carini', 'La Vecchia dell’Aceto'], bonne: 0, ancre: 'legendes', niveau: 'difficile' },
       { q: 'Che cosa mangiano i gechi che attraversano il muro la sera?', choix: ['Le zanzare', 'Le briciole', 'Niente, dormono'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Ci sono scorpioni in Sicilia?', choix: ['Sì, ma la loro puntura è innocua', 'No, nessuno', 'Sì, e sono mortali'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Dove nascono le zanzare?', choix: ['Nell’acqua ferma, bastano pochi centimetri', 'Nelle siepi secche', 'Sotto le pietre calde'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
@@ -3741,6 +3826,22 @@ const EN: Dict = {
     },
     note: 'Caltagirone is the capital of Sicilian ceramics: the town took it up after the Norman conquest of 1090, the earthquake of 1693 levelled it, and it rebuilt itself in baroque — the Santa Maria del Monte staircase still climbs, step after step, in painted majolica.',
   },
+  legendsPage: {
+    eyebrow: 'What people tell',
+    title: 'Eight Sicilian legends',
+    intro: 'An island that has been Greek, Arab, Norman and Spanish does not run short of stories. Here are eight, from the Strait of Messina to the crater of Etna. Some explain a real phenomenon, others a stone you can still touch.',
+    items: [
+      { title: 'Cola Pesce', place: 'Messina', text: 'A fisherman’s son who swam better than the fish. Frederick II put him to the test: he threw a cup into the sea, Cola brought it back; then his crown, he brought that back too; then a ring, deeper still. He never came up. Down there he had found that Sicily rests on three columns — at Cape Peloro, Cape Passero and Cape Lilibeo — and that one of them, eaten away by Etna’s fire, was splitting. He stayed under to hold it. When the earth shakes, he is shifting shoulders. The legend is attested from the twelfth century.' },
+      { title: 'Arethusa', place: 'Syracuse', text: 'The nymph Arethusa fled the river-god Alpheus, who pursued her. She begged Artemis, who turned her into a spring. Alpheus made himself a river to reach her, and crossed the sea from Greece. The spring bears her name, on Ortygia, a few metres from the harbour — fresh water welling up at the edge of the salt. Papyrus still grows there.' },
+      { title: 'The Fata Morgana', place: 'The Strait of Messina', text: 'In certain temperature conditions Calabria looks so close you would think you could walk to it — cities floating above the water, upside down. The fairy Morgan showed sailors these enchanted lands to lead them astray. It is a real mirage, which still carries her name in optics textbooks, and which can be seen today.' },
+      { title: 'Charybdis and Scylla', place: 'The Strait of Messina', text: 'On one shore Scylla, the six-headed monster that snatched sailors as they passed. On the other Charybdis, the whirlpool that swallowed whole ships. Between them, the most feared passage in antiquity — and the phrase we still use when the only choice is between two disasters.' },
+      { title: 'Mata and Grifone', place: 'Messina', text: 'She is Sicilian, he a Saracen warrior; he falls for her, she refuses, he converts to marry her. From this pair of giants the city made two vast statues that it parades every August. It is the only legend on this list that celebrates mixing rather than tragedy.' },
+      { title: 'The baroness of Carini', place: 'Carini castle, near Palermo', text: 'Laura Lanza, baroness of Carini, was killed by her own father in 1563 for adultery. Her ghost is said to wander the walls still, and to be heard on full-moon nights. A treasure is said to be buried there, guarded by uneasy spirits; nobody has found it. The castle itself exists and can be visited.' },
+      { title: 'Empedocles', place: 'Etna', text: 'The philosopher of Agrigento, fascinated by fire, is said to have thrown himself into the crater — to prove he was a god, or to vanish leaving no body. The volcano gave back one thing only: a sandal. It is the most literary end a philosopher ever invented for himself.' },
+      { title: 'The Old Woman of the Vinegar', place: 'Palermo', text: 'In the seventeenth century an old woman in the old town brewed potions. People came to her in secret, young women above all. Many disappeared. Bodies were found treated with vinegar, to mask the smell. She was arrested and tried. Her spirit is said to haunt the oldest streets, where a sharp smell sometimes passes.' },
+    ],
+    note: 'Cola Pesce’s three columns are the three capes of the Trinacria: Peloro, Passero, Lilibeo. The legend and the symbol tell the same island, held up by its three points.',
+  },
   cultureFilter: {
     all: 'See all',
     playlist: 'The playlist',
@@ -3762,7 +3863,7 @@ const EN: Dict = {
     customs: 'Local customs',
     specialties: 'Specialties',
     drinks: 'Wine & spirits',
-    coffee: 'Coffee', pasta: 'Pastasciutta', symbols: 'Trinacria & Moor’s heads',
+    coffee: 'Coffee', pasta: 'Pastasciutta', symbols: 'Trinacria & Moor’s heads', legends: 'The legends',
     arab: 'Arab Sicily',
     sounds: 'Sounds & screens',
     etna: 'Etna',
@@ -4116,6 +4217,12 @@ const EN: Dict = {
       { q: 'In which year did the Trinacria become the official flag of Sicily?', choix: ['In 2000', 'In 1946', 'In the third century BC'], bonne: 0, ancre: 'symboles', niveau: 'difficile' },
       { q: 'In the legend, what does the girl plant in the severed head?', choix: ['Basil', 'Jasmine', 'A lemon tree'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
       { q: 'Why are Moor’s heads sold in pairs?', choix: ['In memory of the two lovers', 'To frame a doorway', 'Because they are thrown two at a time'], bonne: 0, ancre: 'symboles', niveau: 'moyen' },
+      { q: 'What does Cola Pesce hold up at the bottom of the sea?', choix: ['One of the three columns that carry Sicily', 'A sunken treasure', 'Frederick II’s tomb'], bonne: 0, ancre: 'legendes', niveau: 'moyen' },
+      { q: 'According to the legend, why does the earth shake in Sicily?', choix: ['Cola Pesce is shifting shoulders', 'Etna is waking up', 'Charybdis spins faster'], bonne: 0, ancre: 'legendes', niveau: 'facile' },
+      { q: 'What was the nymph Arethusa turned into?', choix: ['A spring', 'A laurel', 'A bird'], bonne: 0, ancre: 'legendes', niveau: 'moyen' },
+      { q: 'What is the Fata Morgana?', choix: ['A mirage in the Strait of Messina', 'A festival in Palermo', 'A southerly wind'], bonne: 0, ancre: 'legendes', niveau: 'moyen' },
+      { q: 'What did the volcano give back of Empedocles?', choix: ['A sandal', 'His cloak', 'Nothing at all'], bonne: 0, ancre: 'legendes', niveau: 'difficile' },
+      { q: 'Which Sicilian legend celebrates mixing rather than tragedy?', choix: ['Mata and Grifone', 'The baroness of Carini', 'The Old Woman of the Vinegar'], bonne: 0, ancre: 'legendes', niveau: 'difficile' },
       { q: 'What do the geckos crossing the wall at dusk eat?', choix: ['Mosquitoes', 'Crumbs', 'Nothing, they sleep'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Are there scorpions in Sicily?', choix: ['Yes, but their sting is harmless', 'No, none at all', 'Yes, and they are deadly'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Where do mosquitoes breed?', choix: ['In still water — a few centimetres is enough', 'In dry hedges', 'Under warm stones'], bonne: 0, ancre: 'faune', niveau: 'moyen' },

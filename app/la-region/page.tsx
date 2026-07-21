@@ -42,7 +42,7 @@ const PLACES = [
 // « Sons & images » n'est plus une page : ses sept sections vivent ici. La
 // region, c'est aussi ce qu'on en a chante, filme, peint et photographie — une
 // page de moins dans le menu, et le meme geste pour tout parcourir.
-type Section = 'lieux' | 'sports' | 'faune' | 'livres' | 'histoire' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'pastasciutta' | 'symboles' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
+type Section = 'lieux' | 'sports' | 'faune' | 'livres' | 'histoire' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'pastasciutta' | 'symboles' | 'legendes' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
 type Key = 'tout' | 'sons' | Section;
 
 // « Sons & images » n'est pas une section : c'est un GROUPE. Un bouton pour les
@@ -95,7 +95,7 @@ function allerAuQuiz() {
  * exactement ce qui attendait « pastasciutta » : le quiz et « Demander » y
  * renvoient tous les deux.
  */
-const SECTIONS_ANCREES: Section[] = ['lieux', 'sports', 'faune', 'livres', 'histoire', 'coutumes', 'specialites', 'alcools', 'cafe', 'pastasciutta', 'symboles', 'etna', 'arabe', 'playlist'];
+const SECTIONS_ANCREES: Section[] = ['lieux', 'sports', 'faune', 'livres', 'histoire', 'coutumes', 'specialites', 'alcools', 'cafe', 'pastasciutta', 'symboles', 'legendes', 'etna', 'arabe', 'playlist'];
 
 export default function LaRegion() {
   const { t, lang } = useI18n();
@@ -191,6 +191,7 @@ export default function LaRegion() {
     { key: 'cafe', label: rf.coffee, icon: 'droplet' },
     { key: 'pastasciutta', label: rf.pasta, icon: 'fork' },
     { key: 'symboles', label: rf.symbols, icon: 'brush' },
+    { key: 'legendes', label: rf.legends, icon: 'compass' },
     { key: 'sports', label: rf.sports, icon: 'wave' },
     { key: 'faune', label: rf.fauna, icon: 'leaf' },
     { key: 'histoire', label: rf.history, icon: 'landmark' },
@@ -907,6 +908,50 @@ export default function LaRegion() {
         </Reveal>
 
         <Sources section="symboles" />
+      </section>
+      )}
+
+      {/*
+        LES HUIT LEGENDES. Une grille de cartes, comme les autres sections
+        explicatives — mais avec le LIEU sous le titre, parce qu'une legende
+        sicilienne est toujours attachee a un endroit precis qu'on peut aller
+        voir. Sans le lieu, ce ne sont que des contes ; avec, ce sont des
+        adresses.
+
+        La note du bas relie Cola Pesce a la Trinacria : ses trois colonnes sont
+        les trois caps du symbole. Les deux sections de cette page racontent la
+        meme ile sans le savoir, et le dire vaut mieux que de compter sur le
+        lecteur pour le remarquer.
+      */}
+      {show('legendes') && (
+      <section id="legendes" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="compass" size={16} /> {t.legendsPage.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {t.legendsPage.title}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {t.legendsPage.intro}
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
+          {t.legendsPage.items.map((l, i) => (
+            <Reveal key={l.title} delay={(i % 2) * 80} className="flex flex-col gap-2 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
+              <h3 className="text-[clamp(1.1rem,2.2vw,1.35rem)] leading-[1.2]" style={{ fontWeight: 600 }}>{l.title}</h3>
+              <p className="text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>{l.place}</p>
+              <p className="mt-1 text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>{l.text}</p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="mt-8 max-w-[68ch] border-l-2 pl-5 text-[15px] leading-[1.75]" style={{ borderColor: 'var(--cava-pink)' }}>
+          {t.legendsPage.note}
+        </Reveal>
+
+        <Sources section="legendes" />
       </section>
       )}
 
