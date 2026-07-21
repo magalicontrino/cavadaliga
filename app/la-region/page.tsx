@@ -635,6 +635,20 @@ export default function LaRegion() {
               <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
                 {f.text}
               </p>
+              {/* Le lien de carte, quand la fiche en porte un. `mt-auto` le colle
+                  en bas : les cartes de la rangee gardent leurs liens alignes
+                  meme quand les textes n'ont pas la meme longueur. */}
+              {f.lien && (
+                <a
+                  href={f.lien}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cava-navlink mt-auto inline-flex items-center gap-1.5 pt-1 text-[13px]"
+                  style={{ color: 'var(--cava-pink)', fontWeight: 500 }}
+                >
+                  {f.lienLabel} ↗
+                </a>
+              )}
             </Reveal>
           ))}
         </div>

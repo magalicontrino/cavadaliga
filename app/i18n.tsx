@@ -230,7 +230,13 @@ export type Dict = {
     eyebrow: string;
     title: string;
     intro: string;
-    facts: { icon: string; title: string; text: string }[];
+    /*
+     * `lien` est FACULTATIF : la plupart de ces fiches n'ont rien a montrer sur
+     * une carte. Celle du bazar, si — Mag : « mets le lien vers le google map ».
+     * Une adresse qu'on ne peut pas ouvrir d'un doigt ne sert a rien quand on
+     * cherche un maillot oublie un dimanche.
+     */
+    facts: { icon: string; title: string; text: string; lien?: string; lienLabel?: string }[];
   };
   specialtiesPage: {
     eyebrow: string;
@@ -994,7 +1000,7 @@ const FR: Dict = {
   tastePage: {
     eyebrow: 'Us et coutumes',
     title: 'Les habitudes d’ici',
-    intro: 'Trois choses à savoir pour ne pas passer pour un touriste — et surtout pour ne pas les rater.',
+    intro: 'Ce qui se fait, et ce qui ne se fait pas.',
     facts: [
       {
         icon: 'cone',
@@ -1014,7 +1020,7 @@ const FR: Dict = {
       {
         icon: 'wave',
         title: 'Le maillot toute la journée — mais pas partout',
-        text: 'Ici, on vit en maillot : la plage est à deux mètres, il fait chaud, et personne ne se change pour aller chercher le pain. Attention en revanche dès qu’on prend la voiture. Plusieurs communes siciliennes interdisent par arrêté de circuler en maillot ou torse nu dans leur centre — à Favignana, Marettimo et Levanzo, l’amende va de 25 à 150 €, et San Vito Lo Capo a le même règlement. Scicli n’en a pas, à notre connaissance. Un tee-shirt dans le sac, et la question ne se pose plus.',
+        text: 'À Cava d’Aliga, la journée s’habille de peu : un maillot, un paréo, et c’est réglé. La plage est à deux mètres, il fait chaud, et personne ne se change pour aller chercher le pain. Les vrais vêtements ne servent qu’à sortir du village — et là, attention. Plusieurs communes siciliennes interdisent par arrêté de circuler en maillot ou torse nu dans leur centre — à Favignana, Marettimo et Levanzo, l’amende va de 25 à 150 €, et San Vito Lo Capo a le même règlement. Scicli n’en a pas, à notre connaissance. Un tee-shirt dans le sac, et la question ne se pose plus.',
       },
       {
         icon: 'sun',
@@ -1024,7 +1030,9 @@ const FR: Dict = {
       {
         icon: 'bag',
         title: 'Voyagez léger, vraiment',
-        text: 'Il fait chaud, la mer est à deux mètres, et la maison a déjà tout. On n’a besoin de presque rien : un maillot, de quoi se couvrir le soir, et des chaussures fermées si vous marchez dans la campagne. Le reste s’achète ici — et le premier repas se fait en dix minutes avec des tomates, de la mozzarella et un filet d’huile.',
+        text: 'Il fait chaud, la mer est à deux mètres, et la maison a déjà tout. On n’a besoin de presque rien : un maillot, de quoi se couvrir le soir, et des chaussures fermées si vous marchez dans la campagne. Le premier repas se fait en dix minutes avec des tomates, de la mozzarella et un filet d’huile. Pour les vêtements en revanche, rien à Cava d’Aliga : le village n’en vend pas. Le bazar du centre commercial Max, à deux kilomètres et demi — cinq minutes de voiture — dépanne très bien en premier prix d’été : un maillot oublié, des tongs, un tee-shirt.',
+        lien: 'https://maps.app.goo.gl/QERUZZMUWQHtRFrA6',
+        lienLabel: 'Le centre commercial sur la carte',
       },
     ],
   },
@@ -2410,7 +2418,7 @@ const IT: Dict = {
   tastePage: {
     eyebrow: 'Usi e costumi',
     title: 'Le abitudini del posto',
-    intro: 'Tre cose da sapere per non sembrare turisti — e soprattutto per non perderle.',
+    intro: 'Quello che si fa, e quello che non si fa.',
     facts: [
       {
         icon: 'cone',
@@ -2430,7 +2438,7 @@ const IT: Dict = {
       {
         icon: 'wave',
         title: 'In costume tutto il giorno — ma non ovunque',
-        text: 'Qui si vive in costume: la spiaggia è a due metri, fa caldo, e nessuno si cambia per andare a prendere il pane. Attenzione però appena si prende la macchina. Diversi comuni siciliani vietano per ordinanza di circolare in costume o a torso nudo nel centro — a Favignana, Marettimo e Levanzo la multa va da 25 a 150 €, e San Vito Lo Capo ha lo stesso regolamento. Scicli non ne ha, per quanto ne sappiamo. Una maglietta in borsa, e il problema non si pone.',
+        text: 'A Cava d’Aliga la giornata si veste di poco: un costume, un pareo, e la questione è chiusa. La spiaggia è a due metri, fa caldo, e nessuno si cambia per andare a prendere il pane. I vestiti veri servono solo per uscire dal paese — e lì, attenzione. Diversi comuni siciliani vietano per ordinanza di circolare in costume o a torso nudo nel centro — a Favignana, Marettimo e Levanzo la multa va da 25 a 150 €, e San Vito Lo Capo ha lo stesso regolamento. Scicli non ne ha, per quanto ne sappiamo. Una maglietta in borsa, e il problema non si pone.',
       },
       {
         icon: 'sun',
@@ -2440,7 +2448,9 @@ const IT: Dict = {
       {
         icon: 'bag',
         title: 'Viaggiate leggeri, davvero',
-        text: 'Fa caldo, il mare è a due metri, e la casa ha già tutto. Non serve quasi niente: un costume, qualcosa per la sera, e scarpe chiuse se camminate in campagna. Il resto si compra qui — e il primo pasto si fa in dieci minuti con pomodori, mozzarella e un filo d’olio.',
+        text: 'Fa caldo, il mare è a due metri, e la casa ha già tutto. Non serve quasi niente: un costume, qualcosa per la sera, e scarpe chiuse se camminate in campagna. Il primo pasto si fa in dieci minuti con pomodori, mozzarella e un filo d’olio. Per i vestiti invece, a Cava d’Aliga niente: il paese non ne vende. Il bazar del centro commerciale Max, a due chilometri e mezzo — cinque minuti di macchina — risolve benissimo con il primo prezzo estivo: un costume dimenticato, infradito, una maglietta.',
+        lien: 'https://maps.app.goo.gl/QERUZZMUWQHtRFrA6',
+        lienLabel: 'Il centro commerciale sulla mappa',
       },
     ],
   },
@@ -3772,7 +3782,7 @@ const EN: Dict = {
   tastePage: {
     eyebrow: 'Local customs',
     title: 'How things are done here',
-    intro: 'Three things to know so you do not look like a tourist — and above all, so you do not miss them.',
+    intro: 'What is done, and what is not.',
     facts: [
       {
         icon: 'cone',
@@ -3792,7 +3802,7 @@ const EN: Dict = {
       {
         icon: 'wave',
         title: 'In a swimsuit all day — but not everywhere',
-        text: 'Here you live in a swimsuit: the beach is two metres away, it is hot, and nobody changes to go and buy bread. Be careful once you take the car, though. Several Sicilian towns ban walking through their centre in swimwear or bare-chested by municipal order — in Favignana, Marettimo and Levanzo the fine runs from 25 to 150 €, and San Vito Lo Capo has the same rule. Scicli has none, as far as we know. A T-shirt in the bag settles it.',
+        text: 'At Cava d’Aliga the day dresses on very little: a swimsuit, a pareo, and that is that. The beach is two metres away, it is hot, and nobody changes to go and buy bread. Real clothes are only for leaving the village — and there, be careful. Several Sicilian towns ban walking through their centre in swimwear or bare-chested by municipal order — in Favignana, Marettimo and Levanzo the fine runs from 25 to 150 €, and San Vito Lo Capo has the same rule. Scicli has none, as far as we know. A T-shirt in the bag settles it.',
       },
       {
         icon: 'sun',
@@ -3802,7 +3812,9 @@ const EN: Dict = {
       {
         icon: 'bag',
         title: 'Travel light, really',
-        text: 'It is hot, the sea is two metres away, and the house already has everything. You need almost nothing: a swimsuit, something for the evening, and closed shoes if you walk in the countryside. The rest you buy here — and the first meal takes ten minutes: tomatoes, mozzarella and a thread of olive oil.',
+        text: 'It is hot, the sea is two metres away, and the house already has everything. You need almost nothing: a swimsuit, something for the evening, and closed shoes if you walk in the countryside. The first meal takes ten minutes: tomatoes, mozzarella and a thread of olive oil. For clothes, though, nothing in Cava d’Aliga — the village sells none. The bazaar at the Max shopping centre, two and a half kilometres away, five minutes by car, does the job with cheap summer basics: a forgotten swimsuit, flip-flops, a T-shirt.',
+        lien: 'https://maps.app.goo.gl/QERUZZMUWQHtRFrA6',
+        lienLabel: 'The shopping centre on the map',
       },
     ],
   },
