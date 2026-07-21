@@ -232,7 +232,7 @@ const LOCALES: Record<string, string> = { it: 'it-IT', fr: 'fr-FR', en: 'en-GB' 
  * exactement le cas qu'il faut tenir, le rouge et le vert etant la paire que
  * la vision daltonienne confond.
  *
- * Les six fonds sont donc etales a pas EGAL entre le fuchsia (le plus sombre
+ * Les six fonds sont etales a pas EGAL entre le fuchsia (le plus sombre
  * que l'encre supporte) et le bleu du libre (le plus clair qu'on distingue du
  * papier) : un facteur 1,20 entre chaque voisin, ce qui est le maximum
  * mathematique pour six paliers dans cet intervalle. Une septieme tranche
@@ -260,8 +260,8 @@ const LOCALES: Record<string, string> = { it: 'it-IT', fr: 'fr-FR', en: 'en-GB' 
  */
 const TRAVAUX = '#1a1a1a';
 const MAG = 'rgba(230, 41, 111, 0.70)';
-const PROCHE = 'rgba(230, 41, 111, 0.35)';
-const FAMILLE = 'rgba(232, 168, 0, 0.48)';
+const PROCHE = 'rgba(230, 41, 111, 0.23)';
+const FAMILLE = '#e8a800';
 const DEHORS_T = 'rgba(90, 122, 46, 0.62)';
 /*
  * L'INDIGO DE LA BELLE-FAMILLE, ET SON PRIX. Mag voulait une tranche a part
@@ -277,21 +277,32 @@ const DEHORS_T = 'rgba(90, 122, 46, 0.62)';
  * celle des filles se ressembleraient.
  */
 /*
- * LE MAUVE A ETE ECLAIRCI SANS BOUGER DE L'ECHELLE. Mag, devant la legende :
- * « ce mauve est un peu trop foncé ». Ce qu'elle voyait est la PASTILLE, qui
- * porte la couleur pleine — un indigo a 0,136 de clarte, de loin le point le
- * plus lourd de la ligne. Les cases, elles, sont dans une position mesuree de
- * l'echelle et ne peuvent pas en sortir sans rapprocher deux tranches.
+ * LE MAUVE A CHANGE DE BARREAU, ET C'EST LA SEULE FAÇON DE L'ECLAIRCIR. Mag :
+ * « plus clair ce mauve, ou en vert sinon ».
  *
- * La base passe donc de #4a5fc4 a #7382d8 (clarte 0,136 -> 0,246, la pastille
- * s'allege de moitie) et l'opacite monte de 47 a 61 % pour compenser : la case
- * retombe a 0,455, exactement ou elle etait.
+ * Le vert etait exclu : il est deja au « hors famille ». Deux verts sur une
+ * grille ou la couleur porte SEULE le sens, c'est exactement le cas qu'il faut
+ * eviter — celui que la vision daltonienne ne peut pas demeler.
+ *
+ * Et l'echelle ne s'etire pas. Ses deux bouts sont bloques : le fuchsia est le
+ * plus sombre que l'encre supporte, le bleu du libre le plus clair qui se
+ * distingue encore du papier. Entre les deux, six barreaux a 1,20 — le maximum.
+ * Eclaircir le mauve sur place l'aurait colle au rose voisin.
+ *
+ * On ECHANGE donc les places au lieu d'etirer. Le mauve monte du 3e au 4e
+ * barreau (0,455 -> 0,553), l'or descend prendre le sien, et le rose de la
+ * famille proche monte au 5e — ou il est d'ailleurs mieux : un rose pale a
+ * 0,672 ne risque plus du tout d'etre confondu avec le fuchsia de Mag a 0,302,
+ * alors qu'ils partagent la meme teinte. Les ecarts sont intacts, 1,19 mini.
+ *
+ * La pastille suit : #4a5fc4 -> #93a0e6, sa clarte passe de 0,136 a 0,371. Elle
+ * n'est plus le point lourd de la legende, c'etait la plainte d'origine.
  */
-const BELLE = 'rgba(115, 130, 216, 0.61)';
+const BELLE = 'rgba(147, 160, 230, 0.62)';
 const LIBRE = 'rgba(74, 127, 196, 0.14)';
 const TEINTES: Record<Parente, string> = { travaux: TRAVAUX, mag: MAG, proche: PROCHE, belle: BELLE, famille: FAMILLE, dehors: DEHORS_T };
 /** Les pastilles de la legende : pleines, elles, pour se voir a 12 px. */
-const PLEIN = { travaux: TRAVAUX, mag: '#e6296f', proche: '#f0a0bd', belle: '#7382d8', famille: '#e8a800', dehors: '#5a7a2e', libre: '#4a7fc4' };
+const PLEIN = { travaux: TRAVAUX, mag: '#e6296f', proche: '#f0a0bd', belle: '#93a0e6', famille: '#e8a800', dehors: '#5a7a2e', libre: '#4a7fc4' };
 
 const ymd = (d: Date) => d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
 const lire = (s: string) => {
