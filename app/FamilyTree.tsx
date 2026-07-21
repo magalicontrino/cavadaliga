@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Icon from './Icon';
 import { useI18n } from './i18n';
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -20,16 +21,42 @@ import { useI18n } from './i18n';
 // Ce qui manque est en bas de page, et c'est voulu : une case vide n'est pas un
 // oubli, c'est une question posée à ceux qui savent.
 //
-// Le nom de Mag : « Mag » PARTOUT sur le site — sauf ici, dans le couple
-// « Magali Contrino & Benoît Vanbastelaer », qu'elle a explicitement autorisé :
-// c'est là qu'on nomme les gens comme les autres couples de l'arbre. Sa case
-// d'enfant, sous Salvatore & Régine, reste « Mag ». N'étendez pas l'exception.
+// Le nom de Mag : « Mag » PARTOUT sur le site — sauf sur SES DEUX CARTES DE
+// COUPLE, « Magali Contrino & Benoît Vanbastelaer » et « Magali Contrino &
+// Stéphane Gandibleux ». La première, elle l'a explicitement autorisée : c'est
+// là qu'on nomme les gens comme les autres couples de l'arbre. La seconde est
+// le même cas et non un cas de plus — deux cartes de la même personne ne
+// peuvent pas porter deux noms différents.
+// Sa case d'enfant, sous Salvatore & Régine, reste « Mag ». N'étendez pas
+// l'exception au-delà de ces deux cartes.
 // ─────────────────────────────────────────────────────────────────────────
 /** Les libelles de l'arbre dans la langue lue — `t.salvaPage`. */
 type Salva = ReturnType<typeof useI18n>['t']['salvaPage'];
 
 type Person = { name: string; subtitle?: string; children?: Person[] };
-type Family = { fam: Person };
+/*
+ * `profond` : une famille qui vit DERRIERE UN REPLI, et non dans la colonne.
+ *
+ * Mag, sur les grands-parents maternels : « fais un pliage qu'on peut deployer
+ * au besoin parce que la c'est trop long ». Les quinze couples remontes jusqu'a
+ * 1702 avaient triple la hauteur du cote maternel, et enterre sous eux les
+ * cartes qu'on vient vraiment consulter.
+ *
+ * PUIS, EN VOYANT LE RESULTAT : « eux aussi replie. On doit deployer nous meme
+ * au besoin » — en montrant les arriere-grands-parents et les
+ * arriere-arriere-grands-parents, que j'avais laisses dehors. Elle a raison, et
+ * la regle est plus simple que ce que j'avais fait : la colonne « Grands-parents
+ * maternels » ne montre QUE les grands-parents, et tout ce qui est au-dessus
+ * d'eux attend derriere le pli. J'avais garde quatre cartes en pensant qu'elles
+ * seraient utiles ; le titre de la section disait deja qu'elles n'y etaient pas
+ * a leur place.
+ *
+ * C'est un DRAPEAU PAR FAMILLE et pas un nombre de lignes a replier. Un compte
+ * (« les 15 premieres ») aurait l'air plus simple et se decalerait en silence le
+ * jour ou quelqu'un insere un couple en tete — sans erreur, sans alerte, avec
+ * juste une generation qui passe du mauvais cote du pli.
+ */
+type Family = { fam: Person; profond?: boolean };
 type Side = { label: string; lignee: Lignee; families: Family[] };
 
 /**
@@ -107,8 +134,31 @@ function Card({ p, lignee, plein = false }: { p: Person; lignee: Lignee; plein?:
       <span className="whitespace-nowrap text-[14px]" style={{ fontWeight: placeholder ? 400 : 600 }}>
         {p.name}
       </span>
+      {/*
+        LE SOUS-TITRE SUIT LE FOND, il n'a plus sa couleur a lui — Mag :
+        « aujourd'hui pas lisible ».
+
+        Il etait en gris `--cava-muted` quel que soit le support. Sur le fond
+        creme d'une carte fine, ce gris va tres bien. Pose sur un APLAT DE
+        COULEUR, il s'effondre : mesure sur le rose, 1,75 pour 4,5 demandes —
+        c'est-a-dire illisible, pas « un peu pale ». Sur le turquoise il ne
+        valait pas mieux, 3,14.
+
+        Le defaut ne datait pas de la carte de Mag : « 2e mariage », sous
+        Juliette Emilienne Thurot & Charles Gallois, en souffrait depuis
+        toujours. Il fallait un aplat SANS enfants pour le voir — les cartes
+        depliables, elles, ecrivent leur sous-titre ailleurs et en encre.
+
+        Sur un aplat, le sous-titre prend donc l'encre de la carte, comme le nom
+        au-dessus : 4,73 sur le rose, 8,49 sur le turquoise. Il reste plus
+        discret que le nom par sa taille et son interlettrage, ce qui suffit —
+        la hierarchie n'a pas besoin d'illisibilite pour se faire entendre.
+      */}
       {p.subtitle && (
-        <span className="whitespace-nowrap text-[11px] uppercase tracking-[0.1em]" style={{ color: 'var(--cava-muted)' }}>
+        <span
+          className="whitespace-nowrap text-[11px] uppercase tracking-[0.1em]"
+          style={{ color: plein ? c.surPlein : 'var(--cava-muted)' }}
+        >
           {p.subtitle}
         </span>
       )}
@@ -202,10 +252,10 @@ function Famille({
             </span>
             <span
               aria-hidden
-              className="shrink-0 text-[13px] transition-transform duration-300"
+              className="shrink-0 transition-transform duration-300"
               style={{ transform: ouvert ? 'rotate(180deg)' : 'none' }}
             >
-              ▾
+              <Icon name="chevronDown" size={18} />
             </span>
             <span className="sr-only">{ouvert ? labels.close : labels.open}</span>
           </button>
@@ -368,90 +418,105 @@ const sides: Side[] = [
        * Guilluy. C'est une homonymie, pas un lien — ne les rapprochez pas.
        */
       {
+        profond: true,
         fam: {
         name: 'Jean Baptiste Viseux & Marie Anne Joseph Laurent',
         subtitle: `${s.treeGen8} · ${s.treeAbout} 1702 – ${s.treeBefore} 1764 · ${s.treeAbout} 1705 – ${s.treeBefore} 1764 · ${s.treeWedAbout} 1729`,
         children: [{ name: 'Antoine Joseph', subtitle: '1737–1821' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Pierre Timothée Joseph Duquesnoy & Marie Anne Démaré',
         subtitle: `${s.treeGen8} · ${s.treeBefore} 1764`,
         children: [{ name: 'Marie Alexandrine Joseph', subtitle: '1738–1825' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Raimond Decoupigny & Marie Guislaine Fressin',
         subtitle: `${s.treeGen8} · ${s.treeAbout} 1703–1781`,
         children: [{ name: 'Louis', subtitle: '1737–1806' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Adrien Carpentier & Marie Thérèse Lefèbvre',
         subtitle: `${s.treeGen8} · ${s.treeAbout} 1701–1765 · 1699–1767 · ${s.treeWed} 1723`,
         children: [{ name: 'Marie Agnès', subtitle: '1733' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Denis Fréville & Marie Catherine Cresson',
         subtitle: s.treeGen8,
         children: [{ name: 'Jean Baptiste', subtitle: '1756–1831' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Jean Nicolas Guilluy & Marie Barbe de Rollencourt',
         subtitle: `${s.treeGen8} · ${s.treeAbout} 1718–1771 · ${s.treeAbout} 1718 – ${s.treeAfter} 1782 · ${s.treeWed} 1743`,
         children: [{ name: 'Jean Baptiste', subtitle: '1760–1825' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Philippe Albert Laurent & Marie Monique Caillot',
         subtitle: `${s.treeGen8} · ${s.treeAbout} 1723–1778 · ${s.treeAbout} 1725–1788 · ${s.treeWed} 1745`,
         children: [{ name: 'Augustine', subtitle: '1758–1832' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Antoine Joseph Viseux & Marie Alexandrine Joseph Duquesnoy',
         subtitle: `${s.treeGen7} · 1737–1821 · 1738–1825 · ${s.treeWed} 1764`,
         children: [{ name: 'Léonard', subtitle: '1771–1841' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Louis Decoupigny & Marie Agnès Carpentier',
         subtitle: `${s.treeGen7} · 1737–1806 · 1733 · ${s.treeWed} 1769`,
         children: [{ name: 'Agnès Isabelle', subtitle: '1771–1832' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Jean Baptiste Fréville & Eugénie Joseph Coyez',
         subtitle: `${s.treeGen7} · 1756–1831 · 1759–1837 · ${s.treeWed} 1780`,
         children: [{ name: 'Martin Louis', subtitle: '1791–1861' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Jean Baptiste Guilluy & Augustine Laurent',
         subtitle: `${s.treeGen7} · 1760–1825 · 1758–1832 · ${s.treeWed} 1782`,
         children: [{ name: 'Amandine', subtitle: '1792–1844' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Léonard Viseux & Agnès Isabelle Decoupigny',
         subtitle: `${s.treeGen6} · 1771–1841 · 1771–1832 · ${s.treeWed} 1800`,
         children: [{ name: 'Pierre Antoine', subtitle: '1812–1854' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Martin Louis Fréville & Amandine Guilluy',
         subtitle: `${s.treeGen6} · 1791–1861 · 1792–1844 · ${s.treeWed} 1812`,
         children: [{ name: 'Rosalie', subtitle: '1817–1904' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Pierre Antoine Viseux & Rosalie Fréville',
         subtitle: `${s.treeGen5} · 1812–1854 · 1817–1904 · ${s.treeWed} 1843`,
         children: [{ name: 'Augustin', subtitle: '1853–1899' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Louis Joseph Wasson & Marie Joseph Gernez',
         subtitle: `${s.treeGen5} · 1814 · 1828`,
@@ -474,18 +539,21 @@ const sides: Side[] = [
        * Wasson ». L'arbre ecrivait « Flore Wasson ».
        */
       {
+        profond: true,
         fam: {
         name: 'Henri Lux & Angélique Bourg',
         subtitle: s.treeGreat2,
         children: [{ name: 'Pierre', subtitle: '1881–1975' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Augustin Viseux & Flore Marie Wasson',
         subtitle: `${s.treeGreat2} · 1853–1899 · 1860–1944 · ${s.treeWed} 1880`,
         children: [{ name: 'Angelina', subtitle: '1882–1959' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Pierre Lux & Angelina Viseux',
         /*
@@ -506,6 +574,7 @@ const sides: Side[] = [
         children: [{ name: 'Pierre', subtitle: '1920–2007' }],
       } },
       {
+        profond: true,
         fam: {
         name: 'Louis Thurot & Mélanie Souveton',
         subtitle: `${s.treeGreat} · 1893 · 1898–1981`,
@@ -543,7 +612,32 @@ const parents: Person = {
 // « Mag », meme quand la demande ecrit son nom entier — c'est la regle.
 const enfants: Person[] = [
   { name: 'Michaël Contrino & Nathalie Gigli', children: [{ name: 'Juliette' }, { name: 'Marie' }, { name: 'Zoé' }] },
+  /*
+   * DEUX CARTES POUR MAG, ET LA PREMIERE NE S'EFFACE PAS.
+   *
+   * Mag : « j'ai eu 2 enfants avec Benoît Vanbastelaer [...] mais maintenant je
+   * suis avec Stephane gandibleux ». Il aurait ete plus court de remplacer un
+   * nom par l'autre. Ce serait faux : Benoît est le pere d'Eve et de Manon, et
+   * un arbre genealogique dit la filiation avant de dire qui vit avec qui.
+   * L'effacer aurait coupe les deux filles de leur pere sur la seule page du
+   * site qui sert a ça.
+   *
+   * L'arbre sait deja faire : Angelo a ses deux epouses, Juliette Emilienne ses
+   * deux mariages. Une union par carte, chacune avec ce qui en est ne. La carte
+   * d'aujourd'hui ne porte donc aucun enfant — pas un oubli, un fait.
+   *
+   * `treeToday` et pas `treeMarriage2` : le site ne sait pas s'ils sont maries,
+   * et n'a pas a le supposer.
+   *
+   * LE NOM ENTIER : la regle du site est « Mag » partout, avec une exception
+   * ecrite en tete de ce fichier pour le couple « Magali Contrino & Benoît
+   * Vanbastelaer », ou l'on nomme les gens comme les autres couples de l'arbre.
+   * La seconde carte est le MEME cas, pas un cas de plus — deux cartes de la
+   * meme personne ne peuvent pas porter deux noms differents. L'exception ne
+   * sort toujours pas de ces deux cartes.
+   */
   { name: 'Magali Contrino & Benoît Vanbastelaer', children: [{ name: 'Eve' }, { name: 'Manon' }] },
+  { name: 'Magali Contrino & Stéphane Gandibleux', subtitle: s.treeToday },
 ];
 
   return { sides, parents, enfants };
@@ -598,6 +692,14 @@ export default function FamilyTree() {
   // parents, et chaque famille d'enfants.
   const TOUTES = [
     ...SIDES.flatMap((side) => side.families.map(({ fam }, i) => `${side.label}-${fam.name}-${i}`)),
+    // Les replis de generations comptent parmi ce que « tout deplier » ouvre :
+    // sans eux, le bouton laissait quinze couples caches tout en pretendant
+    // avoir tout ouvert, et se serait relibelle « Tout replier » par-dessus le
+    // marche.
+    ...SIDES.filter((side) => side.families.some((f) => f.profond)).map((side) => `profond-${side.label}`),
+    // « Ce qu'il nous manque » se replie aussi, et compte donc parmi ce que
+    // « tout deplier » ouvre — meme raison que les replis de generations.
+    'questions',
     'parents',
     ...ENFANTS.map((f) => f.name),
   ];
@@ -632,28 +734,77 @@ export default function FamilyTree() {
       </div>
 
       <div className="flex flex-col gap-14">
-        {SIDES.map((side) => (
-          <div key={side.label}>
-            <p className="mb-5 text-center text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)' }}>
-              {side.label}
-            </p>
-            <div className="flex flex-col gap-8">
-              {side.families.map(({ fam }, i) => {
-                const cle = `${side.label}-${fam.name}-${i}`;
-                return (
-                  <Famille
-                    key={cle}
-                    fam={fam}
-                    lignee={side.lignee}
-                    ouvert={!!ouverts[cle]}
-                    onBascule={() => bascule(cle)}
-                    labels={labels}
-                  />
-                );
-              })}
+        {SIDES.map((side) => {
+          /*
+           * LA CLEF SE CALCULE AVANT DE TRIER, sur l'index d'ORIGINE. Elle sert
+           * aussi au « tout deplier », qui construit sa liste depuis
+           * `side.families` non trie : la recalculer apres separation aurait
+           * donne deux numerotations differentes pour les memes cartes, et le
+           * bouton n'en aurait ouvert qu'une partie.
+           */
+          const avecClef = side.families.map((f, i) => ({ ...f, clef: `${side.label}-${f.fam.name}-${i}` }));
+          const profondes = avecClef.filter((f) => f.profond);
+          const proches = avecClef.filter((f) => !f.profond);
+          const clefRepli = `profond-${side.label}`;
+          const deplie = !!ouverts[clefRepli];
+
+          const rendre = (liste: typeof avecClef) =>
+            liste.map(({ fam, clef }) => (
+              <Famille
+                key={clef}
+                fam={fam}
+                lignee={side.lignee}
+                ouvert={!!ouverts[clef]}
+                onBascule={() => bascule(clef)}
+                labels={labels}
+              />
+            ));
+
+          return (
+            <div key={side.label}>
+              <p className="mb-5 text-center text-[12px] uppercase tracking-[0.12em]" style={{ color: 'var(--cava-muted)' }}>
+                {side.label}
+              </p>
+
+              {/*
+                LE REPLI EST EN HAUT DE LA COLONNE, PAS EN BAS, parce que les
+                couples sont ranges du plus ancien au plus recent : chaque carte
+                montre son enfant, donc descendre la page, c'est descendre le
+                temps. Mettre le pli en bas aurait casse ce sens de lecture — on
+                serait remonte a 1702 APRES avoir lu 1975.
+
+                Il ne s'affiche que sur un cote qui en a besoin : le cote
+                paternel n'a aucune famille « profonde », il n'a donc pas de
+                bouton du tout plutot qu'un bouton qui n'ouvrirait sur rien.
+              */}
+              {profondes.length > 0 && (
+                <div className="mb-8 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => bascule(clefRepli)}
+                    aria-expanded={deplie}
+                    className="inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13px] transition-transform duration-200 hover:scale-[1.03] motion-reduce:transition-none"
+                    style={{ borderColor: 'var(--cava-line)', color: 'var(--cava-ink)', fontWeight: 600 }}
+                  >
+                    <span
+                      aria-hidden
+                      className="inline-flex transition-transform duration-200 motion-reduce:transition-none"
+                      style={{ transform: deplie ? 'rotate(180deg)' : 'none' }}
+                    >
+                      <Icon name="chevronDown" size={16} />
+                    </span>
+                    {deplie ? s.treeClose : `${s.treeDeeper} (${profondes.length})`}
+                  </button>
+                </div>
+              )}
+
+              <div className="flex flex-col gap-8">
+                {deplie && rendre(profondes)}
+                {rendre(proches)}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* La jonction des deux côtés */}
@@ -695,20 +846,79 @@ export default function FamilyTree() {
       {/* Ce qui manque — en bas, et nommé. Une case vide ne dit rien ; une
           question posée peut trouver sa réponse. */}
       <div className="rounded-3xl border-2 px-6 py-14 md:px-14 md:py-20" style={{ borderColor: 'var(--cava-ink)' }}>
+        {/*
+          LE TITRE EST LE BOUTON — Mag : « juste une belle fleche comme un
+          faq ». La pastille « Deplier (11) » posee dessous faisait deux choses
+          a lire la ou une suffit ; une FAQ n'a pas de bouton sous son titre,
+          elle a un titre qui s'ouvre.
+
+          LE BOUTON EST DANS LE `h3`, ET PAS L'INVERSE. Un `h3` est du contenu
+          de flux, un `button` n'accepte que du contenu de phrase : mettre le
+          titre dans le bouton fabriquait du HTML invalide. Cet ordre-la est
+          celui des FAQ accessibles — le titre reste un titre pour qui navigue
+          de titre en titre, et le bouton porte l'etat.
+
+          Le compte disparait de l'ecran mais pas du document : il part dans le
+          libelle lu par les liseuses d'ecran, avec « deplier » ou « replier ».
+          Une fleche seule ne dit rien a qui ne la voit pas.
+        */}
         <h3
           className="max-w-[16ch] text-[clamp(1.8rem,4.4vw,3.2rem)] uppercase leading-[0.95] tracking-[-0.02em]"
           style={{ fontWeight: 900 }}
         >
-          {s.treeQuestionsTitle.split(' ').slice(0, -1).join(' ')}{' '}
-          <span
-            className="inline-block whitespace-nowrap rounded-full border-2 px-4 pb-1 pt-0.5 leading-none"
-            style={{ borderColor: 'var(--cava-pink)', color: 'var(--cava-pink)' }}
+          <button
+            type="button"
+            onClick={() => bascule('questions')}
+            aria-expanded={!!ouverts.questions}
+            /*
+             * `uppercase` EST REPETE ICI, et ce n'est pas une redite. Le `h3`
+             * le porte deja, mais un BOUTON N'HERITE PAS de `text-transform` —
+             * la remise a zero des controles de formulaire le remet a `none`.
+             * En glissant le titre dans le bouton, j'ai donc casse ses
+             * capitales sans y toucher : « CE QU'IL NOUS MANQUE » etait devenu
+             * « Ce qu'il nous manque ». Vu a l'ecran, pas au code.
+             */
+            className="group flex w-full items-center justify-between gap-6 uppercase text-left"
           >
-            {s.treeQuestionsTitle.split(' ').at(-1)}
-          </span>
+            <span>
+              {s.treeQuestionsTitle.split(' ').slice(0, -1).join(' ')}{' '}
+              <span
+                className="inline-block whitespace-nowrap rounded-full border-2 px-4 pb-1 pt-0.5 leading-none"
+                style={{ borderColor: 'var(--cava-pink)', color: 'var(--cava-pink)' }}
+              >
+                {s.treeQuestionsTitle.split(' ').at(-1)}
+              </span>
+            </span>
+            <span
+              aria-hidden
+              className="shrink-0 transition-transform duration-300 group-hover:scale-110 motion-reduce:transition-none"
+              style={{ transform: ouverts.questions ? 'rotate(180deg)' : 'none', color: 'var(--cava-pink)' }}
+            >
+              <Icon name="chevronDown" size={34} strokeWidth={2} />
+            </span>
+            <span className="sr-only">
+              {ouverts.questions ? s.treeClose : `${s.treeOpen} (${QUESTIONS.length})`}
+            </span>
+          </button>
         </h3>
+        {/*
+          LA LISTE SE REPLIE AUSSI — Mag : « la aussi fais un deployement au
+          besoin ». Onze questions en toutes lettres fermaient la page sur un
+          inventaire de manques, alors que le titre suffit a dire qu'il en
+          reste.
+
+          LE TITRE, LUI, NE SE REPLIE PAS, et c'est tout l'equilibre : « Ce
+          qu'il nous manque » doit rester visible pour que quelqu'un qui sait
+          quelque chose ait envie d'ouvrir. Replier le titre avec la liste
+          reviendrait a cacher la demande — l'inverse du but.
+
+          C'est le TITRE qui ouvre, plus haut : il n'y a donc plus de pastille
+          ici. Deux commandes pour un seul geste, c'en etait une de trop.
+        */}
+
         {/* Numerotees, et grandes : ce sont des questions posees a quelqu'un,
             pas des notes de bas de page. */}
+        {ouverts.questions && (
         <ol className="mt-10 grid gap-x-10 gap-y-7 md:grid-cols-2">
           {QUESTIONS.map((q, i) => (
             <li key={q.fr} className="flex items-baseline gap-4 border-t pt-5" style={{ borderColor: 'var(--cava-line)' }}>
@@ -719,6 +929,7 @@ export default function FamilyTree() {
             </li>
           ))}
         </ol>
+        )}
       </div>
     </div>
   );

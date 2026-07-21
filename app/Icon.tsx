@@ -10,6 +10,7 @@ export type IconName =
   | 'hourglass'
   | 'arrowLeft'
   | 'arrowRight'
+  | 'chevronDown'
   | 'tabac'
   | 'parler'
   | 'robot'
@@ -313,6 +314,16 @@ export const ICON_PATHS: Record<IconName, React.ReactNode> = {
   // bouton devient sale.
   arrowLeft: <path d="M15 5l-7 7 7 7" />,
   arrowRight: <path d="M9 5l7 7-7 7" />,
+  /*
+   * Le chevron des replis — Mag : « juste une belle fleche comme un faq ».
+   *
+   * Il remplace le caractere « ▾ », qui etait une GLYPHE DE POLICE et non un
+   * dessin : sa taille, son epaisseur et son centrage dependaient du caractere
+   * choisi par le navigateur, sans rapport avec les traits du reste du site.
+   * Celui-ci est un angle, comme `arrowLeft` et `arrowRight` — meme famille,
+   * meme epaisseur, il tourne proprement d'un demi-tour.
+   */
+  chevronDown: <path d="M5 9l7 7 7-7" />,
   vinyl: (
     <>
       <circle cx="12" cy="12" r="8.5" />
