@@ -59,7 +59,7 @@ export default function WasteSchedule({ nu = false }: { nu?: boolean } = {}) {
             <span
               aria-hidden
               className="flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl md:h-28 md:w-28"
-              style={{ background: tonight ? tonight.color : 'var(--cava-line)', color: '#fff' }}
+              style={{ background: tonight ? tonight.color : 'var(--cava-line)', color: 'var(--cava-ink)' }}
             >
               <Icon name={tonight ? tonight.icon : 'trash'} size={56} />
             </span>
@@ -126,7 +126,7 @@ export default function WasteSchedule({ nu = false }: { nu?: boolean } = {}) {
                 <span
                   aria-hidden
                   className="flex h-20 w-20 items-center justify-center rounded-3xl lg:h-[5.5rem] lg:w-[5.5rem]"
-                  style={{ background: k.color, color: '#fff' }}
+                  style={{ background: k.color, color: 'var(--cava-ink)' }}
                 >
                   <Icon name={k.icon} size={46} />
                 </span>
