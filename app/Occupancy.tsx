@@ -41,59 +41,45 @@ import { useI18n } from './i18n';
  * germaine.
  */
 const DEHORS = 'dehors';
-const DEGRES = {
-  Mag: 0,
-  // Ses filles, et ses parents : un cran, un degre.
-  Eve: 1,
-  Manon: 1,
-  Régine: 1,
-  Salvatore: 1,
-  // Ses freres : on remonte au pere, on redescend. Deux crans.
-  David: 2,
-  Michaël: 2,
+/*
+ * QUI EST DANS QUELLE TRANCHE. Le compilateur garde toujours la liste : `qui`
+ * n'accepte que des prenoms ecrits ici, donc une faute de frappe ne compile
+ * pas — sans ce garde-fou, un nom mal ecrit tomberait en silence dans « hors
+ * famille », la maniere la plus discrete de mettre un cousin dehors.
+ */
+const TRANCHES = {
+  // LE PREMIER CERCLE : Mag, ses filles, ses parents, ses freres, ses nieces.
+  // Mag a SA couleur : « quand c'est moi qui part je veux un rose fushia,
+  // il faut qu'on le voit bien ».
+  Mag: 'mag',
+  Eve: 'proche',
+  Manon: 'proche',
+  Régine: 'proche',
+  Salvatore: 'proche',
+  David: 'proche',
+  Michaël: 'proche',
+  // Les filles de Michaël. Mag : « c'est Marie ma niece donc c'est la famille ».
+  Juliette: 'proche',
+  Marie: 'proche',
+  Zoé: 'proche',
   /*
-   * Les filles de Michaël — trois crans depuis Mag, ses nieces.
-   *
-   * « Marie » vaut confirmation de Mag : « c'est Marie Contrino, la fille de
-   * Michaël ». Le prenom en avait besoin — l'arbre compte maintenant une Maria
-   * (sœur d'Angelo) et une Maria Assunta, et le sejour ne dit que « Marie &
-   * Guillaume ». C'est bien la niece.
+   * LA BELLE-FAMILLE. Katia est la sœur de Maria Assunta, elle-meme demi-sœur
+   * du pere de Mag — donc la sœur de sa tante. Elle est de la famille, et pas
+   * du meme cercle que ses nieces : c'est exactement ce que Mag a corrige.
    */
-  Juliette: 3,
-  Marie: 3,
-  Zoé: 3,
-  // Cousine germaine : Mag → son pere → ses grands-parents → Helene → Angèle.
-  Angèle: 4,
+  'Katia Asaro': 'belle',
+  // LES COUSINS. Angèle est cousine germaine : fille d'Helene, sœur du
+  // grand-pere de Mag.
+  Angèle: 'famille',
   /*
-   * KATIA N'EST PLUS « HORS FAMILLE », ET C'ETAIT UNE ERREUR A REPARER VITE.
-   * Elle etait rangee dehors faute de pouvoir la rattacher a quiconque : le
-   * sejour dit « sœur de Maria Assunta », et Maria Assunta ne figurait nulle
-   * part dans l'arbre. Le site l'annonçait donc publiquement comme etrangere a
-   * la famille — sur la foi d'un trou dans nos donnees, pas d'un fait.
-   *
-   * Mag a comble le trou : « Maria Assunta est la sœur de Stephane Contrino,
-   * demi-frere de Salvatore Contrino 1947 ». Le compte se fait alors tout
-   * seul — Mag, son pere (1), la demi-sœur de son pere (2 de plus) : Maria
-   * Assunta est a TROIS degres, c'est une tante. Sa sœur Katia aussi.
-   *
-   * CE QU'ON NE SAIT TOUJOURS PAS, et qui ne change rien ici : « Asaro » est
-   * vraisemblablement un nom d'epouse — deux sœurs mariees ne portent plus le
-   * meme nom. Si c'etait au contraire par alliance qu'elle est « sœur », elle
-   * serait belle-famille. Les deux lectures tombent au-dela du deuxieme degre,
-   * donc dans la meme couleur : l'affichage ne depend pas de l'incertitude, et
-   * il n'y a pas lieu d'attendre de la lever pour cesser de la mettre dehors.
-   */
-  'Katia Asaro': 3,
-  /*
-   * Alex et Guillaume restent dehors faute de les trouver dans l'arbre, et ça
-   * ne coute rien : ils partagent le sejour de quelqu'un de plus proche, et
-   * c'est le plus proche qui donne la couleur.
+   * Hors de l'arbre, et ça ne coute rien : ils partagent le sejour de
+   * quelqu'un de plus proche, et c'est le plus proche qui donne la couleur.
    */
   Alex: DEHORS,
   Guillaume: DEHORS,
 } as const;
 
-type Personne = keyof typeof DEGRES;
+type Personne = keyof typeof TRANCHES;
 
 // ─────────────────────────────────────────────────────────────────────────
 // `qui` NE REMPLACE PAS `label` : le libelle reste ce que Mag ecrit et ce qui
@@ -121,12 +107,34 @@ const SEJOURS: Sejour[] = [
  * L'inverse — le plus eloigne l'emporte — donnerait un calendrier ou la
  * presence d'un seul invite exterieur effacerait la famille de la couleur.
  */
-type Parente = 'proche' | 'famille' | 'dehors';
+type Parente = 'mag' | 'proche' | 'belle' | 'famille' | 'dehors';
 const parenteDu = (s: Sejour): Parente => {
-  const degres: number[] = s.qui.map((p) => DEGRES[p]).filter((d) => d !== DEHORS) as number[];
-  if (degres.length === 0) return 'dehors';
-  return Math.min(...degres) <= 2 ? 'proche' : 'famille';
+  /*
+   * LES TRANCHES SONT NOMMEES, PLUS CALCULEES — et c'est Mag qui a montre
+   * pourquoi le calcul ne pouvait pas suffire.
+   *
+   * Le seuil de degres marchait tant qu'on ne lui demandait qu'une chose. Puis
+   * elle a voulu ses nieces en rose (« c'est Marie ma niece donc c'est la
+   * famille »), ce qui portait le seuil au troisieme degre — et emportait Katia
+   * avec elles. Sa reponse : « non, Katia est la sœur de ma tante ».
+   *
+   * ELLE A RAISON, ET AUCUN COMPTE NE PEUT LES SEPARER : une niece et la sœur
+   * d'une tante valent TOUTES DEUX trois degres. Ce que Mag distingue n'est pas
+   * une distance, c'est une APPARTENANCE — le sang direct d'un cote, l'alliance
+   * de l'autre. Un nombre ne saura jamais dire ça.
+   *
+   * Chaque personne porte donc sa tranche, ecrite a la main. C'est plus verbeux
+   * qu'une comparaison, et c'est le seul moyen d'etre juste.
+   */
+  const tranches = s.qui.map((p) => TRANCHES[p]);
+  // Le plus proche l'emporte, dans cet ordre : un sejour ou vient une fille de
+  // Mag est un sejour « proche », meme s'il y a du monde autour.
+  for (const t of ['mag', 'proche', 'belle', 'famille'] as const) {
+    if (tranches.includes(t)) return t;
+  }
+  return 'dehors';
 };
+
 
 /*
  * LES MOIS NE SE LISTENT PLUS A LA MAIN.
@@ -206,13 +214,58 @@ const LOCALES: Record<string, string> = { it: 'it-IT', fr: 'fr-FR', en: 'en-GB' 
  * c'est la seule maniere de le decoller du jaune sans le confondre avec le
  * rose. Il n'y avait pas de marge ailleurs.
  */
-const PROCHE = 'rgba(230, 41, 111, 0.45)';
-const FAMILLE = 'rgba(232, 168, 0, 0.50)';
-const DEHORS_T = 'rgba(90, 122, 46, 0.70)';
+/*
+ * L'ECHELLE EST RECALEE A PAS CONSTANT DEPUIS QUE MAG A SA COULEUR, et c'est
+ * une mesure qui l'a exigee, pas un gout.
+ *
+ * En posant le fuchsia a 70 % je l'ai mis a une clarte de 0,302 — et l'olive
+ * du « hors famille » etait a 0,317. Un ecart de 1,04 : deux cases voisines
+ * strictement indiscernables des qu'on ne voit plus la teinte. Or c'est
+ * exactement le cas qu'il faut tenir, le rouge et le vert etant la paire que
+ * la vision daltonienne confond.
+ *
+ * Les six fonds sont donc etales a pas EGAL entre le fuchsia (le plus sombre
+ * que l'encre supporte) et le bleu du libre (le plus clair qu'on distingue du
+ * papier) : un facteur 1,20 entre chaque voisin, ce qui est le maximum
+ * mathematique pour six paliers dans cet intervalle. Une septieme tranche
+ * descendrait tout le monde sous 1,17 — c'est la limite de structure, et elle
+ * est atteinte.
+ *
+ * LE FUCHSIA DE MAG — « quand c'est moi qui part je veux un rose fushia, il
+ * faut qu'on le voit bien ».
+ *
+ * A 70 % et pas plus : le rose de la marque, pose plein, tombe dans sa ZONE
+ * MORTE — mesure, l'encre n'y passe qu'a 3,21 et le blanc a 4,28, quand il en
+ * faut 4,5. Aucun texte n'y tient. A 70 % il reste franchement fuchsia et
+ * l'encre remonte a 4,59.
+ *
+ * Le rose de la famille proche descend a 35 % pour lui laisser la place : deux
+ * roses de la meme teinte, l'un dense et l'autre pale, se distinguent par la
+ * CLARTE — ce qui survit au noir et blanc, contrairement a deux teintes
+ * differentes de meme intensite.
+ */
+const MAG = 'rgba(230, 41, 111, 0.70)';
+const PROCHE = 'rgba(230, 41, 111, 0.35)';
+const FAMILLE = 'rgba(232, 168, 0, 0.48)';
+const DEHORS_T = 'rgba(90, 122, 46, 0.62)';
+/*
+ * L'INDIGO DE LA BELLE-FAMILLE, ET SON PRIX. Mag voulait une tranche a part
+ * pour Katia. Une CINQUIEME teinte sur ce calendrier est a la limite du
+ * possible : les quatre autres occupent deja toute la plage de clarte (encre a
+ * 4,81 / 6,71 / 9,28 / 11,24), et le meilleur candidat trouve n'obtient que
+ * 1,17 d'ecart avec le rose, la ou les quatre premieres tiennent 1,38 au pire.
+ *
+ * L'indigo passe parce que sa TEINTE est franchement ailleurs — un bleu-violet
+ * ne se confond avec rien d'autre ici, et le bleu du « libre » est quatre fois
+ * plus pale. Mais l'ecart de clarte reste le plus faible du jeu, et c'est
+ * signale a Mag : sur une impression en noir et blanc, la case de Katia et
+ * celle des filles se ressembleraient.
+ */
+const BELLE = 'rgba(74, 95, 196, 0.47)';
 const LIBRE = 'rgba(74, 127, 196, 0.14)';
-const TEINTES: Record<Parente, string> = { proche: PROCHE, famille: FAMILLE, dehors: DEHORS_T };
+const TEINTES: Record<Parente, string> = { mag: MAG, proche: PROCHE, belle: BELLE, famille: FAMILLE, dehors: DEHORS_T };
 /** Les pastilles de la legende : pleines, elles, pour se voir a 12 px. */
-const PLEIN = { proche: '#e6296f', famille: '#e8a800', dehors: '#5a7a2e', libre: '#4a7fc4' };
+const PLEIN = { mag: '#e6296f', proche: '#f0a0bd', belle: '#4a5fc4', famille: '#e8a800', dehors: '#5a7a2e', libre: '#4a7fc4' };
 
 const ymd = (d: Date) => d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
 const lire = (s: string) => {
@@ -336,7 +389,7 @@ export default function Occupancy() {
   return (
     <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
       {/*
-        LA LEGENDE PORTE MAINTENANT DEUX CHOSES DE NATURES DIFFERENTES : quatre
+        LA LEGENDE PORTE MAINTENANT DEUX CHOSES DE NATURES DIFFERENTES : cinq
         pastilles de couleur, qui disent QUI, et une derniere entree qui n'est
         pas une couleur du tout mais un SOULIGNE POINTILLE. Elles sont separees
         par un filet vertical, sans quoi « a confirmer » se lirait comme une
@@ -344,8 +397,16 @@ export default function Occupancy() {
       */}
       <Reveal className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]" style={{ color: 'var(--cava-muted)' }}>
         <span className="flex items-center gap-2">
+          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.mag }} />
+          {c.legend.mag}
+        </span>
+        <span className="flex items-center gap-2">
           <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.proche }} />
           {c.legend.close}
+        </span>
+        <span className="flex items-center gap-2">
+          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.belle }} />
+          {c.legend.inlaw}
         </span>
         <span className="flex items-center gap-2">
           <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.famille }} />
@@ -363,7 +424,7 @@ export default function Occupancy() {
         <span className="flex items-center gap-2">
           <span
             className="h-3 w-4"
-            style={{ borderBottom: `2px dashed ${PLEIN.proche}` }}
+            style={{ borderBottom: `2px dashed ${PLEIN.mag}` }}
           />
           {c.legend.tentative}
         </span>
@@ -445,7 +506,23 @@ export default function Occupancy() {
                   const passe = aujourdhui !== null && ymd(d) < aujourdhui;
                   const cejour = aujourdhui === ymd(d);
                   const parente = s ? parenteDu(s) : null;
-                  const teinte = passe ? 'transparent' : parente ? TEINTES[parente] : LIBRE;
+                  /*
+                   * LE PASSE RESTE VISIBLE — Mag : « laisse les passages qu'on
+                   * puisse voir !!! on doit pouvoir voir quelles dates ont ete
+                   * les precedents, et ce toujours ».
+                   *
+                   * Je l'avais efface, en ecrivant que « libre sur une date
+                   * ecoulee est une information morte ». C'etait juger a sa
+                   * place : ce calendrier n'est pas seulement un outil de
+                   * reservation, c'est la MEMOIRE des sejours. Savoir qui est
+                   * venu en juillet dernier vaut autant que savoir qui vient en
+                   * octobre — et ça ne se retrouve nulle part ailleurs.
+                   *
+                   * Seul le LIBRE passe s'efface encore : un jour ecoule sans
+                   * personne n'a rien a raconter, et le colorier ferait du
+                   * bruit autour des sejours qu'on cherche.
+                   */
+                  const teinte = parente ? TEINTES[parente] : passe ? 'transparent' : LIBRE;
                   /*
                    * LE TRAIT — Mag : « quand les dates sont occupees fait
                    * plutot une ligne, c'est plus clair ».
@@ -458,15 +535,13 @@ export default function Occupancy() {
                    * ce blanc de 4 px est maintenant la seule chose qui dit le
                    * jour de la releve.
                    *
-                   * Le passe ne se relie pas non plus : sa case est
-                   * transparente, un trait l'y ferait reapparaitre.
+                   * LE PASSE SE RELIE COMME LE RESTE depuis qu'il garde sa
+                   * couleur : le couper a aujourd'hui casserait un sejour en
+                   * cours en plein milieu, sur un jour qui n'a rien de
+                   * particulier pour lui.
                    */
                   const suite = (autre: Date | null | undefined) =>
-                    !!s &&
-                    !passe &&
-                    !!autre &&
-                    sejourDuJour(autre) === si &&
-                    !(aujourdhui !== null && ymd(autre) < aujourdhui);
+                    !!s && !!autre && sejourDuJour(autre) === si;
                   const versGauche = di % 7 > 0 && suite(cases[di - 1]);
                   const versDroite = di % 7 < 6 && suite(cases[di + 1]);
                   const rond = (coin: boolean) => (coin ? '0px' : '10px');
@@ -482,11 +557,10 @@ export default function Occupancy() {
                       title={s ? `${s.label} — ${jourFormat.format(lire(s.start))} → ${jourFormat.format(lire(s.end))}` : undefined}
                       className="flex aspect-square items-center justify-center text-[13px]"
                       style={{
-                        // Le passe ne dit plus rien d'utile : « libre » sur une
-                        // date ecoulee est une information morte, et le vert la
-                        // ferait lire comme une occasion.
                         background: teinte,
-                        color: passe ? 'var(--cava-line)' : 'var(--cava-ink)',
+                        // Le chiffre garde l'encre des qu'il y a une couleur dessous ;
+                        // il ne palit que sur un jour libre ecoule, qui n'est rien.
+                        color: passe && !parente ? 'var(--cava-line)' : 'var(--cava-ink)',
                         fontWeight: cejour ? 800 : 500,
                         border: cejour ? '1.5px solid var(--cava-ink)' : '1.5px solid transparent',
                         /*
@@ -504,7 +578,7 @@ export default function Occupancy() {
                          * blanc — ce qu'une quatrieme teinte n'aurait pas fait.
                          */
                         borderBottom:
-                          s?.tentative && !passe ? `2px dashed ${PLEIN[parente!]}` : undefined,
+                          s?.tentative ? `2px dashed ${PLEIN[parente!]}` : undefined,
                         // Carre du cote ou le sejour continue, arrondi la ou il
                         // s'ouvre et la ou il se ferme : le trait a donc deux
                         // bouts ronds et rien au milieu.
