@@ -42,7 +42,7 @@ const PLACES = [
 // « Sons & images » n'est plus une page : ses sept sections vivent ici. La
 // region, c'est aussi ce qu'on en a chante, filme, peint et photographie — une
 // page de moins dans le menu, et le meme geste pour tout parcourir.
-type Section = 'lieux' | 'sports' | 'faune' | 'livres' | 'histoire' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
+type Section = 'lieux' | 'sports' | 'faune' | 'livres' | 'histoire' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'pastasciutta' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
 type Key = 'tout' | 'sons' | Section;
 
 // « Sons & images » n'est pas une section : c'est un GROUPE. Un bouton pour les
@@ -87,7 +87,15 @@ function allerAuQuiz() {
   viser();
 }
 
-const SECTIONS_ANCREES: Section[] = ['lieux', 'sports', 'faune', 'livres', 'histoire', 'coutumes', 'specialites', 'alcools', 'cafe', 'etna', 'arabe', 'playlist'];
+/*
+ * LES SECTIONS QU'UNE ANCRE PEUT OUVRIR. Une section absente d'ici garde son
+ * `id`, donc son ancre a l'air de marcher — et ne fait rien : le tri reste sur
+ * « Les lieux », la section visee n'est pas rendue, et on atterrit en haut de
+ * la page. C'est un piege silencieux, sans erreur ni avertissement, et c'est
+ * exactement ce qui attendait « pastasciutta » : le quiz et « Demander » y
+ * renvoient tous les deux.
+ */
+const SECTIONS_ANCREES: Section[] = ['lieux', 'sports', 'faune', 'livres', 'histoire', 'coutumes', 'specialites', 'alcools', 'cafe', 'pastasciutta', 'etna', 'arabe', 'playlist'];
 
 export default function LaRegion() {
   const { t, lang } = useI18n();
@@ -181,6 +189,7 @@ export default function LaRegion() {
     { key: 'specialites', label: rf.specialties, icon: 'fork' },
     { key: 'alcools', label: rf.drinks, icon: 'glass' },
     { key: 'cafe', label: rf.coffee, icon: 'droplet' },
+    { key: 'pastasciutta', label: rf.pasta, icon: 'fork' },
     { key: 'sports', label: rf.sports, icon: 'wave' },
     { key: 'faune', label: rf.fauna, icon: 'leaf' },
     { key: 'histoire', label: rf.history, icon: 'landmark' },
@@ -297,11 +306,26 @@ export default function LaRegion() {
           geste que le defilement lateral — ici, ce qui est cache s'annonce, et
           s'ouvre d'une seule touche. Sur grand ecran il n'y a rien a replier :
           les vingt tiennent en trois lignes, et `md:max-h-none` leve la limite.
+
+          LE PLAFOND EST MESURE, PLUS DEVINE — Mag : « c'est coupe ». Il valait
+          `10.5rem`, soit 168 px, et il n'a JAMAIS laisse voir trois rangees :
+          une puce fait 54 px de haut, l'ecart 10, donc trois rangees demandent
+          3 × 54 + 2 × 10 = 182 px. Il en tranchait la troisieme de 14 px depuis
+          le debut. Le defaut ne s'etait pas vu tant que la rangee coupee ne
+          portait rien qu'on cherchait ; ajouter une puce a suffi a le rendre
+          criant.
+
+          182 px cache aussi la QUATRIEME rangee en entier — elle commence a
+          192 — ce qui compte autant : une rangee a moitie visible se lit comme
+          un bug, pas comme une promesse de « voir plus ».
+
+          A remesurer si la taille des puces bouge : hauteur d'une puce, ecart
+          entre rangees, et on refait le calcul.
         */}
         <Reveal>
           <div
             className={`flex flex-wrap gap-2.5 md:max-h-none md:overflow-visible ${
-              deplie ? '' : 'max-h-[10.5rem] overflow-hidden'
+              deplie ? '' : 'max-h-[182px] overflow-hidden'
             }`}
           >
             {filters.map((x) => {
@@ -729,6 +753,101 @@ export default function LaRegion() {
             </Reveal>
           ))}
         </div>
+      </section>
+      )}
+
+      {/*
+        LA PASTASCIUTTA ANTIFASCISTE — Mag a envoye le sujet. Elle est POSEE
+        ENTRE LE CAFE ET L'ETNA, c'est-a-dire au milieu des sections qui se
+        mangent : ce n'est pas une section d'histoire, c'est une recette qui se
+        trouve avoir une date. Rangee avec l'histoire, elle serait devenue une
+        lecon ; rangee ici, elle reste ce qu'elle est — un plat qu'on refait.
+
+        Le recit tient en quatre temps parce que la chute est le sujet : la
+        famille, la fete, la fusillade, la fete refaite. Sauter le troisieme
+        rendrait le quatrieme incomprehensible, et sauter le quatrieme ferait
+        de cette page un memorial.
+      */}
+      {show('pastasciutta') && (
+      <section id="pastasciutta" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="fork" size={16} /> {t.pastaPage.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {t.pastaPage.title}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {t.pastaPage.intro}
+          </p>
+        </Reveal>
+
+        {/* Le mot d'abord : sans lui, « pastasciutta » n'est qu'un mot long. */}
+        <Reveal className="mt-10 max-w-[68ch] border-l-2 pl-5" style={{ borderColor: 'var(--cava-pink)' }}>
+          <h3 className="text-[15px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+            {t.pastaPage.word.title}
+          </h3>
+          <p className="mt-2 text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>{t.pastaPage.word.text}</p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
+          {t.pastaPage.story.map((b, i) => (
+            <Reveal key={b.title} delay={(i % 2) * 80} className="flex flex-col gap-3 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
+              <h3 className="text-[clamp(1.1rem,2.2vw,1.35rem)] leading-[1.2]" style={{ fontWeight: 600 }}>{b.title}</h3>
+              <p className="text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>{b.text}</p>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Les sept prenoms, en clair. Une liste de morts se lit mal en pave. */}
+        <Reveal className="mt-8 rounded-2xl px-6 py-5 text-[15px] leading-[1.7]" style={{ background: 'rgba(230,41,111,0.08)' }}>
+          {t.pastaPage.brothers}
+        </Reveal>
+
+        {/*
+          LA RECETTE PREND TOUTE LA LARGEUR depuis que les livres ont rejoint
+          l'etagere de « Des livres » (Mag : « ajoute les livres dans des
+          livres »). Les garder ici EN PLUS les aurait ecrits deux fois sur la
+          meme page : deux endroits a corriger le jour ou une reference change,
+          et un lecteur qui se demande laquelle fait foi.
+        */}
+        <Reveal className="mt-12 rounded-2xl border p-8 md:p-10" style={{ borderColor: 'var(--cava-line)' }}>
+          <h3 className="text-[clamp(1.3rem,2.6vw,1.7rem)] uppercase leading-[1.1]" style={{ fontWeight: 900 }}>
+            {t.pastaPage.recipe.title}
+          </h3>
+          <p className="mt-3 max-w-[68ch] text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>{t.pastaPage.recipe.intro}</p>
+          <div className="mt-6 grid gap-8 md:grid-cols-[0.8fr_1.2fr]">
+            <ul className="flex flex-col gap-2 text-[15px]">
+              {t.pastaPage.recipe.ingredients.map((x) => (
+                <li key={x} className="flex items-baseline gap-3">
+                  <span aria-hidden style={{ color: 'var(--cava-pink)' }}>·</span>
+                  {x}
+                </li>
+              ))}
+            </ul>
+            <ol className="flex flex-col gap-3 text-[15px] leading-[1.7]">
+              {t.pastaPage.recipe.steps.map((x, i) => (
+                <li key={x} className="flex items-baseline gap-3">
+                  <span className="shrink-0 font-mono text-[13px]" style={{ color: 'var(--cava-pink)', fontWeight: 700 }}>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  {x}
+                </li>
+              ))}
+            </ol>
+          </div>
+          <p className="mt-7 max-w-[68ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)', fontStyle: 'italic' }}>
+            {t.pastaPage.recipe.note}
+          </p>
+        </Reveal>
+
+        {/* Le renvoi vers l'etagere : une phrase, et l'ancre fait le reste. */}
+        <Reveal className="mt-6 text-[15px] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+          {t.pastaPage.shelf}{' '}
+          <a href="#livres" className="cava-navlink" style={{ color: 'var(--cava-pink)', fontWeight: 600 }}>↗</a>
+        </Reveal>
+
+        <Sources section="pastasciutta" />
       </section>
       )}
 

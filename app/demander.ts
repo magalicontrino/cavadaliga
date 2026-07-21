@@ -293,6 +293,19 @@ const MOTS_MAISON: Record<string, string> = {
     'venir monde qui vient planning ' +
     'calendario libero disponibile occupato date soggiorno quando venire chi viene ' +
     'calendar free available booked dates stay when coming who reserver reservation planning agenda semaine mois sejourner rester dormir dates libres prenotare prenotazione settimana mese dormire date libere book booking week month sleep stay free dates dort dorment couche loge heberge occupe qui vient',
+  /*
+   * LA PASTASCIUTTA ANTIFASCISTE. Les mots couvrent les trois entrees possibles :
+   * le plat (« pastasciutta », « pates au beurre »), l'histoire (« Cervi »,
+   * « 25 juillet », « antifasciste », « resistance »), et la recette. « Cervi »
+   * seul doit suffire — c'est le mot qu'on tape quand on a vu le nom quelque part.
+   */
+  pastasciutta:
+    'pastasciutta pasta asciutta pates beurre parmesan recette cervi alcide sept freres fratelli ' +
+    'antifasciste antifascisme resistance partisan mussolini fascisme 25 juillet campegine gattatico ' +
+    'reggio emilia fusilles raccolto genoeffa attardo fertilio einaudi beccogiallo ' +
+    'burro parmigiano ricetta sette fratelli antifascista resistenza partigiani luglio caduta fucilati ' +
+    'butter parmesan recipe seven brothers antifascist resistance partisan july shot farm harvest ' +
+    'quintaux quintali hundredweights biblioteca itinerante bibliotheque itinerante tracteur trattore',
   famille:
     'famille arbre genealogie genealogique ancetre ancetres grand grands parents cousin cousins ' +
     'origine nom histoire salva contrino ' +
@@ -687,6 +700,28 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
     { id: 'alcools', ancre: 'alcools', bloc: t.drinksPage },
     { id: 'cafe', ancre: 'cafe', bloc: t.coffeePage },
   ];
+  /*
+   * LA PASTASCIUTTA A SA PROPRE FICHE, hors de la boucle ci-dessus : sa section
+   * n'a pas la forme des autres (`story` au lieu de `facts`, plus une recette).
+   * La forcer dans le moule aurait demande de tordre la donnee ; il etait plus
+   * simple de l'ecrire ici, avec la recette dedans — quelqu'un qui demande
+   * « les pates au beurre » veut les proportions, pas seulement l'histoire.
+   */
+  ajouter({
+    id: 'region-pastasciutta',
+    page: '/la-region#pastasciutta',
+    titre: t.pastaPage.title,
+    lignes: [
+      t.pastaPage.intro,
+      `${t.pastaPage.word.title} — ${t.pastaPage.word.text}`,
+      ...t.pastaPage.story.map((x) => `${x.title} — ${x.text}`),
+      t.pastaPage.brothers,
+      `${t.pastaPage.recipe.title} — ${t.pastaPage.recipe.ingredients.join(', ')}.`,
+      ...t.pastaPage.recipe.steps,
+    ],
+    mots: motsMaison('pastasciutta'),
+  });
+
   sections.forEach(({ id, ancre, bloc }) => {
     ajouter({
       id: `region-${id}`,

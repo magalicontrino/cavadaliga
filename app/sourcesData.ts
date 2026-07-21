@@ -20,6 +20,26 @@ export type Source = { label: string; url: string };
 
 export const SOURCES: Record<string, Source[]> = {
   /*
+   * La pastasciutta antifasciste. Mag a envoye la page du spectacle de Floriane
+   * Facchini — elle raconte le projet, PAS la recette ni l'histoire, et elle est
+   * citee pour ce qu'elle est. Les faits (les sept prenoms, les dates, la
+   * journee du 25 juillet, la phrase d'Alcide) viennent des deux pages
+   * verifiees ; la reference du livre vient de son editeur, pas du vendeur.
+   *
+   * Deux sources ont ete ECARTEES faute de pouvoir les ouvrir : le site de
+   * l'Istituto Cervi et la page du ministere canadien refusent la lecture
+   * automatique (erreur 403). On ne les inscrit pas : la regle est de ne citer
+   * que ce qu'on a vraiment lu.
+   */
+  pastasciutta: [
+    { label: 'Fratelli Cervi — Wikipedia', url: 'https://it.wikipedia.org/wiki/Fratelli_Cervi' },
+    { label: 'Pastasciutta antifascista — Wikipedia', url: 'https://it.wikipedia.org/wiki/Pastasciutta_antifascista' },
+    { label: 'Federico Attardo, « I sette fratelli Cervi » — BeccoGiallo', url: 'https://www.beccogiallo.it/negozio/biografie/i-sette-fratelli-cervi/' },
+    { label: 'Alcide Cervi, « I miei sette figli » — Einaudi', url: 'https://www.einaudi.it/catalogo-libri/storia/storia-contemporanea/i-miei-sette-figli-alcide-cervi-9788806221157/' },
+    { label: 'La pastasciutta antifasciste de Casa Cervi — Floriane Facchini', url: 'https://www.florianefacchini.com/creations/la-pastasciutta-antifascista-de-casa-cervi' },
+  ],
+
+  /*
    * Les jeux de plage. Mag a envoye elle-meme l'article sur la balle au
    * tambourin ; les quatre autres viennent de la verification faite avant
    * d'ecrire la section — le nom italien du jeu, le reglement des bocce sur

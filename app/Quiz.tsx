@@ -91,6 +91,7 @@ const THEMES = [
   { ancre: 'faune', cle: 'fauna' },
   { ancre: 'histoire', cle: 'history' },
   { ancre: 'livres', cle: 'books' },
+  { ancre: 'pastasciutta', cle: 'pasta' },
   { ancre: 'italien', cle: 'italian', page: '/italien' },
   /*
    * LA FAMILLE vit sur sa propre page, et son quiz aussi.
@@ -169,6 +170,19 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string, lang: 'fr' |
       return t.drinksPage.facts.map((f) => f.text).join(' ');
     case 'cafe':
       return t.coffeePage.facts.map((f) => f.text).join(' ');
+    // La pastasciutta : tout ce que la section affiche, y compris la recette.
+    // Une question sur les 100 g de beurre doit pouvoir retrouver sa phrase.
+    case 'pastasciutta':
+      return [
+        t.pastaPage.intro,
+        t.pastaPage.word.text,
+        ...t.pastaPage.story.map((x) => `${x.title}. ${x.text}`),
+        t.pastaPage.brothers,
+        t.pastaPage.recipe.intro,
+        ...t.pastaPage.recipe.ingredients,
+        ...t.pastaPage.recipe.steps,
+        t.pastaPage.recipe.note,
+      ].join(' ');
     case 'faune':
       return [t.faunaPage.intro, ...t.faunaPage.facts.map((f) => f.text), t.faunaPage.note].join(' ');
     case 'sports':

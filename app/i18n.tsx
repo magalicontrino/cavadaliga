@@ -250,6 +250,20 @@ export type Dict = {
     intro: string;
     facts: { icon: string; title: string; text: string }[];
   };
+  /*
+   * LA PASTASCIUTTA ANTIFASCISTE. Mag a envoye le sujet ; le recit, la recette
+   * et le livre sont verifies aux sources listees dans `sourcesData.ts`.
+   */
+  pastaPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    word: { title: string; text: string };
+    story: { title: string; text: string }[];
+    brothers: string;
+    recipe: { title: string; intro: string; ingredients: string[]; steps: string[]; note: string };
+    shelf: string;
+  };
   cultureFilter: {
     all: string;
     playlist: string;
@@ -275,6 +289,7 @@ export type Dict = {
     specialties: string;
     drinks: string;
     coffee: string;
+    pasta: string;
     arab: string;
     /** Rassemble les sept sections venues de « Sons & images » en un seul bouton. */
     sounds: string;
@@ -1056,6 +1071,54 @@ const FR: Dict = {
       },
     ],
   },
+  pastaPage: {
+    eyebrow: '25 juillet 1943',
+    title: 'La pastasciutta antifasciste',
+    intro: 'Le jour où Mussolini est tombé, une famille de paysans a fait cuire des quintaux de pâtes et les a distribuées à tout son village. Cinq mois plus tard, les sept frères étaient fusillés. C’est la fête la plus tendre et la plus terrible de la cuisine italienne, et on la refait chaque 25 juillet.',
+    word: {
+      title: 'D’abord, le mot',
+      text: 'Pastasciutta, c’est « pâte sèche » : la pâte qu’on égoutte et qu’on assaisonne, par opposition à la pâte en bouillon. Le mot est familier, régional, et il dit le plat du dimanche — celui du ragù, du pomodoro e basilico, de la cacio e pepe. C’est le premier plat des repas de famille, pas celui des jours ordinaires.',
+    },
+    story: [
+      {
+        title: 'Une famille, sept frères',
+        text: 'Les Cervi sont des métayers des Campi Rossi, à Gattatico, dans la province de Reggio d’Émilie. Alcide, le père, né en 1875 ; Genoeffa Cocconi, la mère, née en 1876 ; et sept fils. Catholiques, paysans, et têtus : ils achètent le premier tracteur du coin, ils montent une bibliothèque itinérante pour que le village lise, et ils cachent chez eux des prisonniers évadés et des antifascistes en fuite.',
+      },
+      {
+        title: 'Le jour où le fascisme tombe',
+        text: 'Le 25 juillet 1943, Mussolini est destitué. Les Cervi ne font pas un discours : ils font à manger. Ils prennent le fromage à crédit à la laiterie, Alcide s’engage à fournir le beurre gratuitement pendant un temps, les voisins donnent la farine. Des quintaux de pastasciutta cuisent et sont distribués sur la place de Campegine, à qui veut. Alcide dira que l’eau qui bouillait « sonnait comme une symphonie », et que ce fut « le plus beau discours sur la fin du fascisme ».',
+      },
+      {
+        title: 'Cinq mois plus tard',
+        text: 'Le 25 novembre 1943, une rafle fasciste emporte les sept frères et leur père. Le 28 décembre, les sept sont fusillés au champ de tir de Reggio d’Émilie. Genoeffa mourra de chagrin en 1944. Alcide, lui, sort de prison et vit jusqu’en 1970 — il a quatre-vingt-quinze ans. On lui demande comment il a fait. Il répond : « Dopo un raccolto ne viene un altro » — après une récolte il en vient une autre.',
+      },
+      {
+        title: 'Et depuis, chaque 25 juillet',
+        text: 'On refait la pastasciutta. À Gattatico, dans la maison devenue le Musée Cervi, et partout en Italie où des gens s’organisent pour ça. C’est une fête qui se mange : on ne commémore pas des morts, on refait le repas des vivants.',
+      },
+    ],
+    brothers: 'Gelindo (1901), Antenore (1904), Aldo (1909), Ferdinando (1911), Agostino (1916), Ovidio (1918), Ettore (1921).',
+    recipe: {
+      title: 'La recette',
+      intro: 'Elle est d’une simplicité désarmante, et c’est le sujet : en 1943, le beurre et le parmesan étaient une fête. Rien à ajouter, surtout pas de crème.',
+      ingredients: [
+        '500 g de pâtes courtes ou de tagliatelles',
+        '100 g de beurre, à température ambiante',
+        '150 g de parmesan fraîchement râpé',
+        'Du gros sel pour l’eau',
+        'Une louche d’eau de cuisson',
+      ],
+      steps: [
+        'Faites bouillir une grande quantité d’eau et salez-la franchement.',
+        'Cuisez les pâtes al dente, et gardez une louche d’eau de cuisson avant d’égoutter.',
+        'Égouttez, remettez dans la casserole hors du feu, ajoutez le beurre coupé en morceaux et mélangez jusqu’à ce qu’il disparaisse.',
+        'Ajoutez le parmesan en pluie, et un peu d’eau de cuisson : c’est elle qui lie et rend crémeux.',
+        'Servez tout de suite, et pour beaucoup de monde — c’est le seul point non négociable.',
+      ],
+      note: 'Ce jour-là, il n’y avait ni tomate ni viande. Le beurre et le fromage suffisaient à faire un festin, et c’est précisément ce que la fête raconte.',
+    },
+    shelf: 'Trois livres racontent cette famille — le témoignage du père, une bande dessinée et un roman à thèse. Ils sont sur l’étagère, dans « Des livres ».',
+  },
   cultureFilter: {
     all: 'Tout voir',
     playlist: 'La playlist',
@@ -1077,7 +1140,7 @@ const FR: Dict = {
     customs: 'Us et coutumes',
     specialties: 'Spécialités',
     drinks: 'Vins & alcools',
-    coffee: 'Le café',
+    coffee: 'Le café', pasta: 'La pastasciutta',
     arab: 'Sicile arabe',
     sounds: 'Sons & images',
     etna: 'L’Etna',
@@ -1203,7 +1266,7 @@ const FR: Dict = {
   booksPage: {
     eyebrow: 'Des livres',
     title: 'À lire avant, pendant, après',
-    intro: 'Sept livres qui parlent de la Sicile ou s’y passent — et deux qui racontent ce que les familles d’ici ont traversé. Rien d’obligatoire : c’est une étagère, pas un programme.',
+    intro: 'Six livres qui parlent de la Sicile ou s’y passent — et quatre qui racontent ce que des familles ont traversé ailleurs en Italie, de la retraite de Russie à la ferme des Cervi. Rien d’obligatoire : c’est une étagère, pas un programme.',
     linkLabel: 'La fiche du livre',
     list: [
       { titre: 'Una donna di Ragusa', auteur: 'Maria Occhipinti', annee: '1957', lien: 'https://it.wikipedia.org/wiki/Una_donna_di_Ragusa', text: 'Le livre d’ici. Maria Occhipinti avait vingt-trois ans et cinq mois de grossesse quand elle s’est couchée devant le camion militaire qui emportait les garçons de son quartier, à Ragusa, le 4 janvier 1945. Elle l’a payé de la déportation à Ustica, où elle a accouché, puis de la prison. Son autobiographie est passée inaperçue en 1957 et a fait l’effet d’une bombe à sa réédition en 1976.' },
@@ -1213,6 +1276,9 @@ const FR: Dict = {
       { titre: 'Il giorno della civetta', auteur: 'Leonardo Sciascia', annee: '1961', lien: 'https://it.wikipedia.org/wiki/Il_giorno_della_civetta', text: 'Le livre qui a nommé ce dont on ne parlait pas. Un capitaine venu du Nord enquête sur un meurtre dans un village sicilien, et se heurte à un mur de silence. Sciascia écrivait à une époque où l’existence même de la mafia était officiellement discutée.' },
       { titre: 'Conversazione in Sicilia', auteur: 'Elio Vittorini', annee: '1941', lien: 'https://it.wikipedia.org/wiki/Conversazione_in_Sicilia', text: 'Un homme rentre voir sa mère en Sicile après quinze ans. Publié sous le fascisme, le livre dit tout sans jamais rien nommer — c’est pour cela qu’il a passé la censure, et c’est pour cela qu’il a compté.' },
       { titre: 'I Malavoglia', auteur: 'Giovanni Verga', annee: '1881', lien: 'https://it.wikipedia.org/wiki/I_Malavoglia', text: 'Une famille de pêcheurs, une barque, une dette, et la mer qui reprend tout. Verga écrit les pauvres sans les plaindre ni les embellir : c’est la Sicile d’avant les photos, celle des villages de la côte.' },
+      { titre: 'I miei sette figli', auteur: 'Alcide Cervi', annee: '1955', lien: 'https://www.einaudi.it/catalogo-libri/storia/storia-contemporanea/i-miei-sette-figli-alcide-cervi-9788806221157/', text: 'Le père raconte lui-même. Sept fils fusillés le même jour, le 28 décembre 1943, et un paysan de soixante-huit ans qui sort de prison et retourne faire la terre avec les femmes et les petits-enfants restés là. Recueilli par Renato Nicolai, traduit dans de nombreuses langues : c’est la source la plus directe sur la famille dont on refait les pâtes chaque 25 juillet.' },
+      { titre: 'I sette fratelli Cervi. Una famiglia antifascista', auteur: 'Federico Attardo', annee: '2024', lien: 'https://www.beccogiallo.it/negozio/biografie/i-sette-fratelli-cervi/', text: 'La même histoire en bande dessinée, faite avec l’Institut Cervi, prix Andersen 2025. Elle prend le temps de raconter la famille AVANT la Résistance : les paysans qui achètent le premier tracteur du coin, la bibliothèque itinérante, la maison ouverte aux fugitifs. On comprend mieux la suite quand on a vu d’où ils partaient.' },
+      { titre: 'L’ultima notte dei fratelli Cervi', auteur: 'Dario Fertilio', annee: '2012', lien: 'https://www.marsilioeditori.it/libri/scheda-libro/3171306/l-ultima-notte-dei-fratelli-cervi', text: 'À lire en sachant ce que c’est : un ROMAN POLICIER, pas un livre d’histoire, avec un personnage inventé. Il défend une thèse contestée — que les Cervi auraient été isolés par la direction communiste de la Résistance, puis trahis par un infiltré. Ce que personne ne discute, c’est le reste : arrêtés le 25 novembre 1943, fusillés le 28 décembre par les fascistes.' },
     ],
   },
   historyPage: {
@@ -1416,6 +1482,12 @@ const FR: Dict = {
       { q: 'Que veut dire « ristretto » ?', choix: ['Encore plus serré', 'Allongé', 'Avec une goutte de lait'], bonne: 0, ancre: 'cafe', niveau: 'moyen' },
       { q: 'Le caffè freddo sicilien est souvent adouci…', choix: ['Au lait d’amande', 'Au sirop de sucre de canne', 'Au miel'], bonne: 0, ancre: 'cafe', niveau: 'moyen' },
       { q: 'Que désigne l’« ammazzacaffè » ?', choix: ['Le corretto qui clôt le repas', 'Un gâteau au café', 'Une très grande tasse'], bonne: 0, ancre: 'cafe', niveau: 'difficile' },
+      { q: 'Que veut dire « pastasciutta » ?', choix: ['La pâte qu’on égoutte et qu’on assaisonne', 'Une pâte servie en bouillon', 'Une pâte cuite au four'], bonne: 0, ancre: 'pastasciutta', niveau: 'facile' },
+      { q: 'Que fêtait la pastasciutta du 25 juillet 1943 ?', choix: ['La chute de Mussolini', 'La fin de la guerre', 'La fête du village'], bonne: 0, ancre: 'pastasciutta', niveau: 'facile' },
+      { q: 'Combien de frères Cervi ont été fusillés le 28 décembre 1943 ?', choix: ['Sept', 'Trois', 'Neuf'], bonne: 0, ancre: 'pastasciutta', niveau: 'facile' },
+      { q: 'Avec quoi les Cervi ont-ils assaisonné les pâtes ce jour-là ?', choix: ['Du beurre et du parmesan', 'De la tomate et du basilic', 'Un ragù de viande'], bonne: 0, ancre: 'pastasciutta', niveau: 'moyen' },
+      { q: 'Dans quel village les pâtes ont-elles été distribuées ?', choix: ['Campegine', 'Gattatico', 'Reggio d’Émilie'], bonne: 0, ancre: 'pastasciutta', niveau: 'difficile' },
+      { q: 'Qu’a répondu Alcide Cervi quand on lui a demandé comment il avait tenu ?', choix: ['Après une récolte il en vient une autre', 'Le temps efface tout', 'Il ne faut jamais oublier'], bonne: 0, ancre: 'pastasciutta', niveau: 'difficile' },
       { q: 'Que mangent les geckos qui traversent le mur le soir ?', choix: ['Des moustiques', 'Des miettes', 'Rien, ils dorment'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Y a-t-il des scorpions en Sicile ?', choix: ['Oui, mais leur piqûre est sans danger', 'Non, aucun', 'Oui, et ils sont mortels'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Où naissent les moustiques ?', choix: ['Dans l’eau immobile, même quelques centimètres', 'Dans les haies sèches', 'Sous les pierres chaudes'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
@@ -1488,8 +1560,14 @@ const FR: Dict = {
       { q: 'Sur les prisonniers italiens des camps soviétiques, combien sont revenus ?', choix: ['Environ dix mille', 'Presque tous', 'Aucun'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
       { q: 'Quand les derniers prisonniers italiens de Russie ont-ils été libérés ?', choix: ['En 1954, après la mort de Staline', 'En 1945, à la fin de la guerre', 'En 1948'], bonne: 0, ancre: 'histoire', niveau: 'difficile' },
       { q: '« Odio gli indifferenti », écrit Gramsci en 1917. Que veut-il dire ?', choix: ['Je hais les indifférents', 'J’aime les différences', 'J’écoute les autres'], bonne: 0, ancre: 'italien', niveau: 'facile' },
+      { q: 'Comment dit-on « fusiller » en italien ?', choix: ['Fucilare', 'Festeggiare', 'Scolare'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      { q: 'Dans « pastasciutta », le groupe SCI se prononce…', choix: ['« chi », comme dans « chou »', '« ski »', '« si »'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
       { q: '« Sciopero » veut dire…', choix: ['La grève', 'Le travail', 'La fête'], bonne: 0, ancre: 'italien', niveau: 'facile' },
+      { q: 'Come si dice « fucilare » ?', choix: ['Fucilare', 'Festeggiare', 'Scolare'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      { q: 'In « pastasciutta », il gruppo SCI si pronuncia…', choix: ['Come in « sciarpa »', 'Come « ski »', 'Come « si »'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
       { q: 'Comment se prononce le début de « sciopero » ?', choix: ['Cho, comme dans « chocolat »', 'Sko', 'Tcho'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
+      { q: 'How do you say «to shoot by firing squad» in Italian?', choix: ['Fucilare', 'Festeggiare', 'Scolare'], bonne: 0, ancre: 'italien', niveau: 'difficile' },
+      { q: 'In «pastasciutta», the SCI group is pronounced…', choix: ['Like «sh»', 'Like «ski»', 'Like «see»'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
       { q: '« Né dio né padrone » — que signifie « padrone » ?', choix: ['Le patron, le propriétaire, le maître', 'Le prêtre', 'Le père'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
       { q: '« Non si parte ! » était le cri de janvier 1945. Il voulait dire…', choix: ['On ne part pas — refus d’aller à la guerre', 'La fête commence', 'On s’en va tous'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
       { q: 'Dans « lasciatemi cantare », que veut dire « lasciatemi » ?', choix: ['Laissez-moi', 'Chantez-moi', 'Écoutez-moi'], bonne: 0, ancre: 'italien', niveau: 'moyen' },
@@ -2223,6 +2301,54 @@ const IT: Dict = {
       },
     ],
   },
+  pastaPage: {
+    eyebrow: '25 luglio 1943',
+    title: 'La pastasciutta antifascista',
+    intro: 'Il giorno in cui cadde Mussolini, una famiglia di contadini cucinò quintali di pasta e la distribuì a tutto il paese. Cinque mesi dopo i sette fratelli furono fucilati. È la festa più tenera e più terribile della cucina italiana, e si rifà ogni 25 luglio.',
+    word: {
+      title: 'Prima di tutto, la parola',
+      text: 'Pastasciutta vuol dire pasta scolata e condita con un sugo, in contrapposizione alla pasta in brodo. È un termine familiare e regionale, e dice il piatto della domenica — il ragù alla bolognese, il pomodoro e basilico, la cacio e pepe. È il primo piatto dei pranzi in famiglia, non quello dei giorni qualunque.',
+    },
+    story: [
+      {
+        title: 'Una famiglia, sette fratelli',
+        text: 'I Cervi erano affittuari dei Campi Rossi, a Gattatico, in provincia di Reggio Emilia. Alcide, il padre, nato nel 1875 ; Genoeffa Cocconi, la madre, nata nel 1876 ; e sette figli. Cattolici, contadini e testardi : comprarono il primo trattore della zona, misero in piedi una biblioteca itinerante perché il paese leggesse, e nascosero in casa prigionieri evasi e antifascisti in fuga.',
+      },
+      {
+        title: 'Il giorno in cui cade il fascismo',
+        text: 'Il 25 luglio 1943 Mussolini viene destituito. I Cervi non fanno un discorso : cuciniamo. Presero il formaggio a credito dal caseificio, Alcide si impegnò a fornire il burro gratuitamente per un periodo, i vicini diedero la farina. Quintali di pastasciutta furono cotti e distribuiti nella piazza di Campegine, a chiunque ne volesse. Alcide disse che l’acqua che bolliva « sembrava una sinfonia », e che fu « il più bel discorso sulla fine del fascismo ».',
+      },
+      {
+        title: 'Cinque mesi dopo',
+        text: 'Il 25 novembre 1943 un rastrellamento fascista porta via i sette fratelli e il padre. Il 28 dicembre i sette vengono fucilati al poligono di tiro di Reggio Emilia. Genoeffa morirà di dolore nel 1944. Alcide esce di prigione e vive fino al 1970 — novantacinque anni. Gli chiesero come avesse fatto. Rispose : « Dopo un raccolto ne viene un altro ».',
+      },
+      {
+        title: 'E da allora, ogni 25 luglio',
+        text: 'Si rifà la pastasciutta. A Gattatico, nella casa diventata Museo Cervi, e in tutta Italia dove qualcuno si organizza. È una festa che si mangia : non si commemorano dei morti, si rifà il pasto dei vivi.',
+      },
+    ],
+    brothers: 'Gelindo (1901), Antenore (1904), Aldo (1909), Ferdinando (1911), Agostino (1916), Ovidio (1918), Ettore (1921).',
+    recipe: {
+      title: 'La ricetta',
+      intro: 'È di una semplicità disarmante, ed è proprio il punto : nel 1943 il burro e il parmigiano erano una festa. Niente da aggiungere, e soprattutto niente panna.',
+      ingredients: [
+        '500 g di pasta corta o tagliatelle',
+        '100 g di burro, a temperatura ambiente',
+        '150 g di parmigiano grattugiato al momento',
+        'Sale grosso per l’acqua',
+        'Un mestolo di acqua di cottura',
+      ],
+      steps: [
+        'Portate a bollore molta acqua e salatela bene.',
+        'Cuocete la pasta al dente, e tenete un mestolo di acqua di cottura prima di scolare.',
+        'Scolate, rimettete nella pentola fuori dal fuoco, unite il burro a pezzetti e mescolate finché sparisce.',
+        'Aggiungete il parmigiano a pioggia e un po’ di acqua di cottura : è lei che lega e rende cremoso.',
+        'Servite subito, e per molte persone — è l’unico punto non negoziabile.',
+      ],
+      note: 'Quel giorno non c’era né pomodoro né carne. Il burro e il formaggio bastavano a fare un banchetto, ed è esattamente quello che la festa racconta.',
+    },
+    shelf: 'Tre libri raccontano questa famiglia — la testimonianza del padre, un fumetto e un romanzo a tesi. Sono sullo scaffale, in « Dei libri ».',
+  },
   cultureFilter: {
     all: 'Vedi tutto',
     playlist: 'La playlist',
@@ -2244,7 +2370,7 @@ const IT: Dict = {
     customs: 'Usi e costumi',
     specialties: 'Specialità',
     drinks: 'Vini & liquori',
-    coffee: 'Il caffè',
+    coffee: 'Il caffè', pasta: 'La pastasciutta',
     arab: 'Sicilia araba',
     sounds: 'Suoni & immagini',
     etna: 'L’Etna',
@@ -2370,7 +2496,7 @@ const IT: Dict = {
   booksPage: {
     eyebrow: 'Libri',
     title: 'Da leggere prima, durante, dopo',
-    intro: 'Sette libri che parlano della Sicilia o che ci si svolgono — e due che raccontano quello che le famiglie di qui hanno attraversato. Niente di obbligatorio: è uno scaffale, non un programma.',
+    intro: 'Sei libri che parlano della Sicilia o che ci si svolgono — e quattro che raccontano quello che alcune famiglie hanno attraversato altrove in Italia, dalla ritirata di Russia al podere dei Cervi. Niente di obbligatorio: è uno scaffale, non un programma.',
     linkLabel: 'La scheda del libro',
     list: [
       { titre: 'Una donna di Ragusa', auteur: 'Maria Occhipinti', annee: '1957', lien: 'https://it.wikipedia.org/wiki/Una_donna_di_Ragusa', text: 'Il libro di qui. Maria Occhipinti aveva ventitré anni ed era incinta di cinque mesi quando si sdraiò davanti al camion militare che portava via i ragazzi del suo quartiere, a Ragusa, il 4 gennaio 1945. Lo pagò con il confino a Ustica, dove partorì, e poi con il carcere. La sua autobiografia passò inosservata nel 1957 e fece l’effetto di una bomba alla riedizione del 1976.' },
@@ -2380,6 +2506,9 @@ const IT: Dict = {
       { titre: 'Il giorno della civetta', auteur: 'Leonardo Sciascia', annee: '1961', lien: 'https://it.wikipedia.org/wiki/Il_giorno_della_civetta', text: 'Il libro che ha dato un nome a ciò di cui non si parlava. Un capitano venuto dal Nord indaga su un omicidio in un paese siciliano e sbatte contro un muro di silenzio. Sciascia scriveva quando l’esistenza stessa della mafia era ufficialmente in discussione.' },
       { titre: 'Conversazione in Sicilia', auteur: 'Elio Vittorini', annee: '1941', lien: 'https://it.wikipedia.org/wiki/Conversazione_in_Sicilia', text: 'Un uomo torna a trovare sua madre in Sicilia dopo quindici anni. Pubblicato sotto il fascismo, il libro dice tutto senza nominare mai nulla — per questo passò la censura, e per questo contò.' },
       { titre: 'I Malavoglia', auteur: 'Giovanni Verga', annee: '1881', lien: 'https://it.wikipedia.org/wiki/I_Malavoglia', text: 'Una famiglia di pescatori, una barca, un debito, e il mare che si riprende tutto. Verga scrive i poveri senza compatirli né abbellirli: è la Sicilia di prima delle fotografie, quella dei paesi di costa.' },
+      { titre: 'I miei sette figli', auteur: 'Alcide Cervi', annee: '1955', lien: 'https://www.einaudi.it/catalogo-libri/storia/storia-contemporanea/i-miei-sette-figli-alcide-cervi-9788806221157/', text: 'È il padre a raccontare. Sette figli fucilati lo stesso giorno, il 28 dicembre 1943, e un contadino di sessantotto anni che esce di prigione e torna a lavorare la terra con le donne e i nipoti rimasti. Raccolto da Renato Nicolai, tradotto in molte lingue: è la fonte più diretta sulla famiglia di cui si rifà la pasta ogni 25 luglio.' },
+      { titre: 'I sette fratelli Cervi. Una famiglia antifascista', auteur: 'Federico Attardo', annee: '2024', lien: 'https://www.beccogiallo.it/negozio/biografie/i-sette-fratelli-cervi/', text: 'La stessa storia a fumetti, realizzata con l’Istituto Cervi, Premio Andersen 2025. Si prende il tempo di raccontare la famiglia PRIMA della Resistenza: i contadini che comprano il primo trattore della zona, la biblioteca itinerante, la casa aperta ai fuggiaschi. Si capisce meglio il seguito quando si è visto da dove partivano.' },
+      { titre: 'L’ultima notte dei fratelli Cervi', auteur: 'Dario Fertilio', annee: '2012', lien: 'https://www.marsilioeditori.it/libri/scheda-libro/3171306/l-ultima-notte-dei-fratelli-cervi', text: 'Da leggere sapendo che cos’è: un ROMANZO GIALLO, non un libro di storia, con un personaggio inventato. Sostiene una tesi contestata — che i Cervi sarebbero stati isolati dalla direzione comunista della Resistenza e poi traditi da un infiltrato. Quello che nessuno discute è il resto: arrestati il 25 novembre 1943, fucilati il 28 dicembre dai fascisti.' },
     ],
   },
   historyPage: {
@@ -2583,6 +2712,12 @@ const IT: Dict = {
       { q: 'Che cosa vuol dire « ristretto »?', choix: ['Ancora più concentrato', 'Allungato', 'Con una goccia di latte'], bonne: 0, ancre: 'cafe', niveau: 'moyen' },
       { q: 'Il caffè freddo siciliano è spesso addolcito…', choix: ['Con il latte di mandorla', 'Con lo sciroppo di canna', 'Con il miele'], bonne: 0, ancre: 'cafe', niveau: 'moyen' },
       { q: 'Che cos’è l’« ammazzacaffè »?', choix: ['Il corretto che chiude il pasto', 'Un dolce al caffè', 'Una tazza molto grande'], bonne: 0, ancre: 'cafe', niveau: 'difficile' },
+      { q: 'Che cosa vuol dire « pastasciutta » ?', choix: ['La pasta scolata e condita', 'La pasta servita in brodo', 'La pasta cotta al forno'], bonne: 0, ancre: 'pastasciutta', niveau: 'facile' },
+      { q: 'Che cosa festeggiava la pastasciutta del 25 luglio 1943 ?', choix: ['La caduta di Mussolini', 'La fine della guerra', 'La festa del paese'], bonne: 0, ancre: 'pastasciutta', niveau: 'facile' },
+      { q: 'Quanti fratelli Cervi furono fucilati il 28 dicembre 1943 ?', choix: ['Sette', 'Tre', 'Nove'], bonne: 0, ancre: 'pastasciutta', niveau: 'facile' },
+      { q: 'Con che cosa i Cervi condirono la pasta quel giorno ?', choix: ['Burro e parmigiano', 'Pomodoro e basilico', 'Un ragù di carne'], bonne: 0, ancre: 'pastasciutta', niveau: 'moyen' },
+      { q: 'In quale paese fu distribuita la pasta ?', choix: ['Campegine', 'Gattatico', 'Reggio Emilia'], bonne: 0, ancre: 'pastasciutta', niveau: 'difficile' },
+      { q: 'Che cosa rispose Alcide Cervi a chi gli chiedeva come avesse resistito ?', choix: ['Dopo un raccolto ne viene un altro', 'Il tempo cancella tutto', 'Non bisogna mai dimenticare'], bonne: 0, ancre: 'pastasciutta', niveau: 'difficile' },
       { q: 'Che cosa mangiano i gechi che attraversano il muro la sera?', choix: ['Le zanzare', 'Le briciole', 'Niente, dormono'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Ci sono scorpioni in Sicilia?', choix: ['Sì, ma la loro puntura è innocua', 'No, nessuno', 'Sì, e sono mortali'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Dove nascono le zanzare?', choix: ['Nell’acqua ferma, bastano pochi centimetri', 'Nelle siepi secche', 'Sotto le pietre calde'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
@@ -3383,6 +3518,54 @@ const EN: Dict = {
       },
     ],
   },
+  pastaPage: {
+    eyebrow: '25 July 1943',
+    title: 'The antifascist pastasciutta',
+    intro: 'On the day Mussolini fell, a family of farmers cooked hundredweights of pasta and handed it out to their whole village. Five months later the seven brothers were shot. It is the tenderest and most terrible feast in Italian cooking, and it is cooked again every 25 July.',
+    word: {
+      title: 'First, the word',
+      text: 'Pastasciutta means «dry pasta»: pasta drained and dressed with a sauce, as opposed to pasta in broth. The word is homely and regional, and it means the Sunday dish — ragù, tomato and basil, cacio e pepe. It is the first course of family lunches, not of ordinary days.',
+    },
+    story: [
+      {
+        title: 'One family, seven brothers',
+        text: 'The Cervis were tenant farmers at Campi Rossi, in Gattatico, in the province of Reggio Emilia. Alcide, the father, born 1875; Genoeffa Cocconi, the mother, born 1876; and seven sons. Catholic, peasant and stubborn: they bought the first tractor in the area, they set up a travelling library so the village would read, and they hid escaped prisoners and antifascists on the run.',
+      },
+      {
+        title: 'The day fascism fell',
+        text: 'On 25 July 1943 Mussolini was deposed. The Cervis did not make a speech: they cooked. They took the cheese on credit from the dairy, Alcide undertook to supply the butter free for a time, the neighbours gave the flour. Hundredweights of pastasciutta were cooked and handed out in the square at Campegine, to anyone who wanted some. Alcide said the boiling water «sounded like a symphony», and that it was «the finest speech on the end of fascism».',
+      },
+      {
+        title: 'Five months later',
+        text: 'On 25 November 1943 a fascist raid took the seven brothers and their father. On 28 December all seven were shot at the Reggio Emilia firing range. Genoeffa died of grief in 1944. Alcide came out of prison and lived until 1970 — ninety-five years old. He was asked how he had managed. He answered: «Dopo un raccolto ne viene un altro» — after one harvest comes another.',
+      },
+      {
+        title: 'And ever since, every 25 July',
+        text: 'The pastasciutta is cooked again. At Gattatico, in the house that became the Cervi Museum, and all over Italy wherever people organise it. It is a feast you eat: it does not commemorate the dead, it cooks the meal of the living again.',
+      },
+    ],
+    brothers: 'Gelindo (1901), Antenore (1904), Aldo (1909), Ferdinando (1911), Agostino (1916), Ovidio (1918), Ettore (1921).',
+    recipe: {
+      title: 'The recipe',
+      intro: 'It is disarmingly simple, and that is the point: in 1943 butter and Parmesan were a feast. Nothing to add, and above all no cream.',
+      ingredients: [
+        '500 g short pasta or tagliatelle',
+        '100 g butter, at room temperature',
+        '150 g freshly grated Parmesan',
+        'Coarse salt for the water',
+        'A ladle of pasta water',
+      ],
+      steps: [
+        'Bring a large pot of water to the boil and salt it well.',
+        'Cook the pasta al dente, and save a ladle of the cooking water before draining.',
+        'Drain, return to the pan off the heat, add the butter in pieces and stir until it disappears.',
+        'Scatter in the Parmesan with a little pasta water: that is what binds it and makes it creamy.',
+        'Serve at once, and for a crowd — the one non-negotiable point.',
+      ],
+      note: 'That day there was neither tomato nor meat. Butter and cheese were enough to make a banquet, and that is exactly what the feast is about.',
+    },
+    shelf: 'Three books tell this family — the father’s testimony, a graphic novel and a novel with a thesis. They are on the shelf, under «Books».',
+  },
   cultureFilter: {
     all: 'See all',
     playlist: 'The playlist',
@@ -3404,7 +3587,7 @@ const EN: Dict = {
     customs: 'Local customs',
     specialties: 'Specialties',
     drinks: 'Wine & spirits',
-    coffee: 'Coffee',
+    coffee: 'Coffee', pasta: 'Pastasciutta',
     arab: 'Arab Sicily',
     sounds: 'Sounds & screens',
     etna: 'Etna',
@@ -3530,7 +3713,7 @@ const EN: Dict = {
   booksPage: {
     eyebrow: 'Books',
     title: 'To read before, during, after',
-    intro: 'Seven books about Sicily or set in Sicily — and two that tell what the families here lived through. Nothing compulsory: this is a shelf, not a syllabus.',
+    intro: 'Six books about Sicily or set in Sicily — and four about what families lived through elsewhere in Italy, from the retreat from Russia to the Cervi farm. Nothing compulsory: this is a shelf, not a syllabus.',
     linkLabel: 'About the book',
     list: [
       { titre: 'Una donna di Ragusa', auteur: 'Maria Occhipinti', annee: '1957', lien: 'https://it.wikipedia.org/wiki/Una_donna_di_Ragusa', text: 'The book from here. Maria Occhipinti was twenty-three and five months pregnant when she lay down in front of the army truck taking away the young men of her neighbourhood, in Ragusa, on 4 January 1945. She paid for it with internal exile on Ustica, where she gave birth, and then prison. Her autobiography went unnoticed in 1957 and landed like a bomb when it was reissued in 1976.' },
@@ -3540,6 +3723,9 @@ const EN: Dict = {
       { titre: 'Il giorno della civetta', auteur: 'Leonardo Sciascia', annee: '1961', lien: 'https://it.wikipedia.org/wiki/Il_giorno_della_civetta', text: 'The book that named what nobody named. A carabinieri captain from the north investigates a killing in a Sicilian village and runs into a wall of silence. Sciascia was writing at a time when the very existence of the mafia was officially up for debate.' },
       { titre: 'Conversazione in Sicilia', auteur: 'Elio Vittorini', annee: '1941', lien: 'https://it.wikipedia.org/wiki/Conversazione_in_Sicilia', text: 'A man goes back to see his mother in Sicily after fifteen years. Published under fascism, the book says everything while naming nothing — which is how it got past the censors, and why it mattered.' },
       { titre: 'I Malavoglia', auteur: 'Giovanni Verga', annee: '1881', lien: 'https://it.wikipedia.org/wiki/I_Malavoglia', text: 'A family of fishermen, a boat, a debt, and the sea taking it all back. Verga writes the poor without pity and without prettifying: this is the Sicily from before photographs, the Sicily of the coastal villages.' },
+      { titre: 'I miei sette figli', auteur: 'Alcide Cervi', annee: '1955', lien: 'https://www.einaudi.it/catalogo-libri/storia/storia-contemporanea/i-miei-sette-figli-alcide-cervi-9788806221157/', text: 'The father tells it himself. Seven sons shot on the same day, 28 December 1943, and a farmer of sixty-eight who comes out of prison and goes back to working the land with the women and grandchildren who remained. Set down by Renato Nicolai, translated into many languages: the most direct source on the family whose pasta is cooked again every 25 July.' },
+      { titre: 'I sette fratelli Cervi. Una famiglia antifascista', auteur: 'Federico Attardo', annee: '2024', lien: 'https://www.beccogiallo.it/negozio/biografie/i-sette-fratelli-cervi/', text: 'The same story as a graphic novel, made with the Cervi Institute, Andersen Prize 2025. It takes the time to tell the family BEFORE the Resistance: the farmers who buy the first tractor in the area, the travelling library, the house open to fugitives. The rest makes more sense once you have seen where they started.' },
+      { titre: 'L’ultima notte dei fratelli Cervi', auteur: 'Dario Fertilio', annee: '2012', lien: 'https://www.marsilioeditori.it/libri/scheda-libro/3171306/l-ultima-notte-dei-fratelli-cervi', text: 'Read it knowing what it is: a CRIME NOVEL, not a history book, with an invented character. It argues a contested thesis — that the Cervis were isolated by the communist leadership of the Resistance, then betrayed by an infiltrator. What nobody disputes is the rest: arrested on 25 November 1943, shot on 28 December by the fascists.' },
     ],
   },
   historyPage: {
@@ -3743,6 +3929,12 @@ const EN: Dict = {
       { q: 'What does “ristretto” mean?', choix: ['Even shorter and stronger', 'Lengthened with water', 'With a drop of milk'], bonne: 0, ancre: 'cafe', niveau: 'moyen' },
       { q: 'Sicilian caffè freddo is often sweetened…', choix: ['With almond milk', 'With cane syrup', 'With honey'], bonne: 0, ancre: 'cafe', niveau: 'moyen' },
       { q: 'What is the “ammazzacaffè”?', choix: ['The corretto that ends the meal', 'A coffee cake', 'A very large cup'], bonne: 0, ancre: 'cafe', niveau: 'difficile' },
+      { q: 'What does «pastasciutta» mean?', choix: ['Pasta drained and dressed with a sauce', 'Pasta served in broth', 'Pasta baked in the oven'], bonne: 0, ancre: 'pastasciutta', niveau: 'facile' },
+      { q: 'What was the pastasciutta of 25 July 1943 celebrating?', choix: ['The fall of Mussolini', 'The end of the war', 'The village feast'], bonne: 0, ancre: 'pastasciutta', niveau: 'facile' },
+      { q: 'How many Cervi brothers were shot on 28 December 1943?', choix: ['Seven', 'Three', 'Nine'], bonne: 0, ancre: 'pastasciutta', niveau: 'facile' },
+      { q: 'What did the Cervis dress the pasta with that day?', choix: ['Butter and Parmesan', 'Tomato and basil', 'A meat ragù'], bonne: 0, ancre: 'pastasciutta', niveau: 'moyen' },
+      { q: 'In which village was the pasta handed out?', choix: ['Campegine', 'Gattatico', 'Reggio Emilia'], bonne: 0, ancre: 'pastasciutta', niveau: 'difficile' },
+      { q: 'What did Alcide Cervi answer when asked how he had borne it?', choix: ['After one harvest comes another', 'Time erases everything', 'One must never forget'], bonne: 0, ancre: 'pastasciutta', niveau: 'difficile' },
       { q: 'What do the geckos crossing the wall at dusk eat?', choix: ['Mosquitoes', 'Crumbs', 'Nothing, they sleep'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Are there scorpions in Sicily?', choix: ['Yes, but their sting is harmless', 'No, none at all', 'Yes, and they are deadly'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Where do mosquitoes breed?', choix: ['In still water — a few centimetres is enough', 'In dry hedges', 'Under warm stones'], bonne: 0, ancre: 'faune', niveau: 'moyen' },

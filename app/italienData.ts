@@ -328,6 +328,25 @@ export const LECONS: Lecon[] = [
       { it: 'L’unione fa la forza', pron: 'lu·NIO·ne fa la FOR·za', sens: { fr: 'L’union fait la force', it: 'Proverbio, e slogan', en: 'Unity is strength' } },
       { it: 'Ora e sempre Resistenza', pron: 'O·ra e SEM·pre re·si·STEN·za', sens: { fr: '« Maintenant et toujours, Résistance » — la formule de Piero Calamandrei', it: 'La formula di Piero Calamandrei', en: '“Now and always, Resistance” — Piero Calamandrei’s phrase' },
         note: { fr: 'Gravée sur les monuments aux partisans dans toute l’Italie. On la lit encore sur les murs le 25 avril, jour de la Libération.', it: 'Incisa sui monumenti ai partigiani. Si legge ancora sui muri il 25 aprile.', en: 'Carved on partisan memorials across Italy. Still written on walls every 25 April, Liberation Day.' } },
+      /*
+       * LES MOTS DES CERVI. Ils entrent dans « les mots des luttes » plutot que
+       * dans une lecon a eux : c'est le meme vocabulaire, et une lecon de plus
+       * pour six mots aurait fait un cours de plus a ouvrir.
+       *
+       * Ils sont choisis pour SERVIR DEUX FOIS — « pastasciutta » et « al
+       * dente » se disent au restaurant, « raccolto » se dit au marche. Le
+       * reste tient l'histoire.
+       */
+      { it: 'Pastasciutta', pron: 'pa·sta·SCIUT·ta', sens: { fr: 'La pâte égouttée et assaisonnée — par opposition à la pâte en bouillon', it: 'Pasta scolata e condita, non in brodo', en: 'Pasta drained and dressed — as opposed to pasta in broth' },
+        note: { fr: 'SCI se dit « chi » : pa-sta-CHOU-ta. C’est le plat du dimanche, et le nom d’une fête antifasciste — voir « La pastasciutta » sur la page La région.', it: 'SCI si legge come in « sciarpa ». È il piatto della domenica, e il nome di una festa antifascista.', en: 'SCI sounds like “sh”. It is the Sunday dish, and the name of an antifascist feast.' } },
+      { it: 'Il 25 luglio 1943 cadde il fascismo', pron: 'ven·ti·CIN·que LU·glio', sens: { fr: 'Le 25 juillet 1943, le fascisme est tombé', it: 'Data della caduta del fascismo', en: 'On 25 July 1943 fascism fell' },
+        note: { fr: 'Ce jour-là, la famille Cervi a distribué des quintaux de pâtes à tout son village. On refait le geste chaque 25 juillet.', it: 'Quel giorno la famiglia Cervi distribuì quintali di pasta a tutto il paese.', en: 'That day the Cervi family handed out hundredweights of pasta to their whole village.' } },
+      { it: 'Burro e formaggio', pron: 'BUR·ro e for·MAG·gio', sens: { fr: 'Beurre et fromage — l’assaisonnement de la fête', it: 'Il condimento di quella pastasciutta', en: 'Butter and cheese — the dressing of that feast' },
+        note: { fr: 'En 1943, c’était un festin. Ni tomate ni viande : c’est précisément ce que la fête raconte.', it: 'Nel 1943 era un banchetto. Né pomodoro né carne.', en: 'In 1943 that was a banquet. No tomato, no meat.' } },
+      { it: 'Fucilare', pron: 'fu·ci·LA·re', sens: { fr: 'Fusiller', it: 'Uccidere con armi da fuoco, per esecuzione', en: 'To shoot, to execute by firing squad' },
+        note: { fr: 'Les sept frères Cervi ont été fusillés le 28 décembre 1943, cinq mois après la fête.', it: 'I sette fratelli Cervi furono fucilati il 28 dicembre 1943.', en: 'The seven Cervi brothers were shot on 28 December 1943, five months after the feast.' } },
+      { it: 'Dopo un raccolto ne viene un altro', pron: 'DO·po un rac·COL·to', sens: { fr: '« Après une récolte il en vient une autre » — la phrase d’Alcide Cervi', it: 'La frase di Alcide Cervi', en: '“After one harvest comes another” — Alcide Cervi’s phrase' },
+        note: { fr: 'Ce qu’a répondu le père, qui avait perdu ses sept fils le même jour. Raccolto, c’est la récolte — le mot sert aussi au marché.', it: 'La risposta del padre che aveva perso sette figli lo stesso giorno.', en: 'The answer of the father who lost seven sons on the same day.' } },
       { it: 'Odio gli indifferenti', pron: 'O·dio gli in·dif·fe·REN·ti', sens: { fr: '« Je hais les indifférents » — Antonio Gramsci, 1917', it: '« Odio gli indifferenti » — Antonio Gramsci, 1917', en: '“I hate the indifferent” — Antonio Gramsci, 1917' },
         note: { fr: 'La phrase la plus citée de Gramsci, écrite à vingt-six ans dans La Città Futura. Elle vise ceux qui ne prennent pas parti.', it: 'La frase più citata di Gramsci, scritta a ventisei anni su La Città Futura.', en: 'Gramsci’s most quoted line, written at twenty-six in La Città Futura. It is aimed at those who take no side.' } },
       { it: 'Pessimismo dell’intelligenza, ottimismo della volontà', pron: 'pes·si·MI·smo · ot·ti·MI·smo', sens: { fr: '« Pessimisme de l’intelligence, optimisme de la volonté » — Gramsci', it: 'La formula che Gramsci riprende da Romain Rolland', en: '“Pessimism of the intellect, optimism of the will” — Gramsci' },
