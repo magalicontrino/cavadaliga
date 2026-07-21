@@ -87,7 +87,14 @@ type Personne = keyof typeof TRANCHES;
 // Les « +++ » disent qu'il y a du monde en plus sans dire qui : ils ne peuvent
 // donc peser sur aucune couleur.
 // ─────────────────────────────────────────────────────────────────────────
-type Sejour = { label: string; qui: Personne[]; start: string; end: string; tentative?: boolean };
+/*
+ * `travaux` N'EST PAS UNE TRANCHE DE PARENTE, et c'est pour ça qu'il ne vit pas
+ * dans TRANCHES : personne n'« est » en travaux. C'est un etat de la MAISON, pas
+ * une propriete des gens — un chantier n'a pas d'invites. Il se pose donc sur le
+ * sejour, et il l'emporte sur tout le reste : quand la maison est fermee, savoir
+ * qui aurait pu venir n'interesse plus personne.
+ */
+type Sejour = { label: string; qui: Personne[]; start: string; end: string; tentative?: boolean; travaux?: boolean };
 
 const SEJOURS: Sejour[] = [
   { label: 'Manon, Alex, Régine et Mag', qui: ['Manon', 'Alex', 'Régine', 'Mag'], start: '2026-07-04', end: '2026-07-14' },
@@ -107,7 +114,7 @@ const SEJOURS: Sejour[] = [
  * L'inverse — le plus eloigne l'emporte — donnerait un calendrier ou la
  * presence d'un seul invite exterieur effacerait la famille de la couleur.
  */
-type Parente = 'mag' | 'proche' | 'belle' | 'famille' | 'dehors';
+type Parente = 'travaux' | 'mag' | 'proche' | 'belle' | 'famille' | 'dehors';
 const parenteDu = (s: Sejour): Parente => {
   /*
    * LES TRANCHES SONT NOMMEES, PLUS CALCULEES — et c'est Mag qui a montre
@@ -126,6 +133,7 @@ const parenteDu = (s: Sejour): Parente => {
    * Chaque personne porte donc sa tranche, ecrite a la main. C'est plus verbeux
    * qu'une comparaison, et c'est le seul moyen d'etre juste.
    */
+  if (s.travaux) return 'travaux';
   const tranches = s.qui.map((p) => TRANCHES[p]);
   // Le plus proche l'emporte, dans cet ordre : un sejour ou vient une fille de
   // Mag est un sejour « proche », meme s'il y a du monde autour.
@@ -244,6 +252,13 @@ const LOCALES: Record<string, string> = { it: 'it-IT', fr: 'fr-FR', en: 'en-GB' 
  * CLARTE — ce qui survit au noir et blanc, contrairement a deux teintes
  * differentes de meme intensite.
  */
+/*
+ * LES TRAVAUX SONT LE SEUL FOND SOMBRE, et le seul qui porte du blanc. Mag :
+ * « et en noir quand c'est en travaux ». Il sort volontairement de l'echelle
+ * pastel : une maison fermee n'est pas une variante de maison occupee, et le
+ * bloc noir se lit avant meme qu'on ait cherche la legende.
+ */
+const TRAVAUX = '#1a1a1a';
 const MAG = 'rgba(230, 41, 111, 0.70)';
 const PROCHE = 'rgba(230, 41, 111, 0.35)';
 const FAMILLE = 'rgba(232, 168, 0, 0.48)';
@@ -261,11 +276,22 @@ const DEHORS_T = 'rgba(90, 122, 46, 0.62)';
  * signale a Mag : sur une impression en noir et blanc, la case de Katia et
  * celle des filles se ressembleraient.
  */
-const BELLE = 'rgba(74, 95, 196, 0.47)';
+/*
+ * LE MAUVE A ETE ECLAIRCI SANS BOUGER DE L'ECHELLE. Mag, devant la legende :
+ * « ce mauve est un peu trop foncé ». Ce qu'elle voyait est la PASTILLE, qui
+ * porte la couleur pleine — un indigo a 0,136 de clarte, de loin le point le
+ * plus lourd de la ligne. Les cases, elles, sont dans une position mesuree de
+ * l'echelle et ne peuvent pas en sortir sans rapprocher deux tranches.
+ *
+ * La base passe donc de #4a5fc4 a #7382d8 (clarte 0,136 -> 0,246, la pastille
+ * s'allege de moitie) et l'opacite monte de 47 a 61 % pour compenser : la case
+ * retombe a 0,455, exactement ou elle etait.
+ */
+const BELLE = 'rgba(115, 130, 216, 0.61)';
 const LIBRE = 'rgba(74, 127, 196, 0.14)';
-const TEINTES: Record<Parente, string> = { mag: MAG, proche: PROCHE, belle: BELLE, famille: FAMILLE, dehors: DEHORS_T };
+const TEINTES: Record<Parente, string> = { travaux: TRAVAUX, mag: MAG, proche: PROCHE, belle: BELLE, famille: FAMILLE, dehors: DEHORS_T };
 /** Les pastilles de la legende : pleines, elles, pour se voir a 12 px. */
-const PLEIN = { mag: '#e6296f', proche: '#f0a0bd', belle: '#4a5fc4', famille: '#e8a800', dehors: '#5a7a2e', libre: '#4a7fc4' };
+const PLEIN = { travaux: TRAVAUX, mag: '#e6296f', proche: '#f0a0bd', belle: '#7382d8', famille: '#e8a800', dehors: '#5a7a2e', libre: '#4a7fc4' };
 
 const ymd = (d: Date) => d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
 const lire = (s: string) => {
@@ -389,11 +415,14 @@ export default function Occupancy() {
   return (
     <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
       {/*
-        LA LEGENDE PORTE MAINTENANT DEUX CHOSES DE NATURES DIFFERENTES : cinq
-        pastilles de couleur, qui disent QUI, et une derniere entree qui n'est
-        pas une couleur du tout mais un SOULIGNE POINTILLE. Elles sont separees
-        par un filet vertical, sans quoi « a confirmer » se lirait comme une
-        cinquieme categorie de personnes.
+        LA LEGENDE NE PORTE QUE DES PASTILLES, depuis que Mag a demande d'en
+        retirer « A confirmer » — les six tranches qu'elle coche a chaque
+        nouvelle entree, plus le libre.
+
+        Le pointille n'a pas disparu du calendrier pour autant : il reste sur
+        les cases et sur la pastille de la liste. C'est la LISTE qui l'explique
+        maintenant, et en toutes lettres plutot qu'en symbole — la ou on lit
+        deja qui vient et quand.
       */}
       <Reveal className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]" style={{ color: 'var(--cava-muted)' }}>
         <span className="flex items-center gap-2">
@@ -417,16 +446,12 @@ export default function Occupancy() {
           {c.legend.outside}
         </span>
         <span className="flex items-center gap-2">
+          <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.travaux }} />
+          {c.legend.works}
+        </span>
+        <span className="flex items-center gap-2">
           <span className="h-3 w-3 rounded-full" style={{ background: PLEIN.libre }} />
           {c.legend.free}
-        </span>
-        <span aria-hidden className="h-4 w-px" style={{ background: 'var(--cava-line)' }} />
-        <span className="flex items-center gap-2">
-          <span
-            className="h-3 w-4"
-            style={{ borderBottom: `2px dashed ${PLEIN.mag}` }}
-          />
-          {c.legend.tentative}
         </span>
       </Reveal>
 
@@ -558,9 +583,19 @@ export default function Occupancy() {
                       className="flex aspect-square items-center justify-center text-[13px]"
                       style={{
                         background: teinte,
-                        // Le chiffre garde l'encre des qu'il y a une couleur dessous ;
-                        // il ne palit que sur un jour libre ecoule, qui n'est rien.
-                        color: passe && !parente ? 'var(--cava-line)' : 'var(--cava-ink)',
+                        /*
+                         * Le chiffre garde l'encre des qu'il y a une couleur
+                         * dessous, et ne palit que sur un jour libre ecoule.
+                         * Seuls LES TRAVAUX le passent au blanc : c'est le seul
+                         * fond sombre du jeu, l'encre y tombe a 1,00 — soit
+                         * strictement invisible — quand le blanc y monte a 17,4.
+                         */
+                        color:
+                          parente === 'travaux'
+                            ? '#fff'
+                            : passe && !parente
+                              ? 'var(--cava-line)'
+                              : 'var(--cava-ink)',
                         fontWeight: cejour ? 800 : 500,
                         border: cejour ? '1.5px solid var(--cava-ink)' : '1.5px solid transparent',
                         /*
@@ -625,6 +660,7 @@ export default function Occupancy() {
                         <span style={{ fontWeight: 600 }}>{s.label}</span>{' '}
                         <span style={{ color: 'var(--cava-muted)' }}>
                           {jourFormat.format(lire(s.start))} → {jourFormat.format(lire(s.end))}
+                          {s.tentative && ` — ${c.legend.tentative.toLowerCase()}`}
                         </span>
                       </span>
                     </li>
