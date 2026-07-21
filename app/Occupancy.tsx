@@ -669,22 +669,48 @@ export default function Occupancy() {
                 <ul className="flex flex-col gap-1.5 border-t pt-3 text-[12.5px] leading-[1.45]" style={{ borderColor: 'var(--cava-line)' }}>
                   {sejoursDuMois(y, m).map(({ s, i }) => (
                     <li key={i} className="flex items-start gap-2">
-                      {/* La pastille reprend la parente, et le pointille
-                          l'incertitude — les deux memes signaux que la grille,
-                          pour qu'on n'ait pas a apprendre deux codes. */}
+                      {/*
+                        CE QUI N'EST PAS CONFIRME EST CREUX, ET C'EST TOUT.
+                        Mag : « il faut trouver un autre design pour ceux qui
+                        n'ont pas encore confirmé ».
+
+                        Le pointille venait de la grille, ou il tient tres bien
+                        sur une case de 40 px. Reduit a un rond de 10, il ne
+                        reste que trois tirets qui se touchent — une bouillie,
+                        pas un signal. La taille change ce qu'un motif peut
+                        porter, et je l'avais recopie sans y penser.
+
+                        Le contour devient donc PLEIN, et c'est le vide au
+                        milieu qui parle : un sejour confirme est rempli, un
+                        sejour en attente ne l'est pas encore. La meme idee
+                        porte l'etiquette a cote — un cerne, pas un aplat — si
+                        bien que la ligne entiere se lit d'un coup, sans avoir
+                        appris quoi que ce soit.
+
+                        La grille, elle, garde son pointille : elle a la place
+                        de le rendre, et un contour plein y entrerait en
+                        concurrence avec celui d'aujourd'hui.
+                      */}
                       <span
                         className="mt-[5px] h-2.5 w-2.5 shrink-0 rounded-full"
                         style={{
                           background: s.tentative ? 'transparent' : PLEIN[parenteDu(s)],
-                          border: s.tentative ? `2px dashed ${PLEIN[parenteDu(s)]}` : undefined,
+                          border: s.tentative ? `2px solid ${PLEIN[parenteDu(s)]}` : undefined,
                         }}
                       />
                       <span>
                         <span style={{ fontWeight: 600 }}>{s.label}</span>{' '}
                         <span style={{ color: 'var(--cava-muted)' }}>
                           {jourFormat.format(lire(s.start))} → {jourFormat.format(lire(s.end))}
-                          {s.tentative && ` — ${c.legend.tentative.toLowerCase()}`}
                         </span>
+                        {s.tentative && (
+                          <span
+                            className="ml-1.5 inline-block whitespace-nowrap rounded-full border px-1.5 align-[1px] text-[10.5px] leading-[1.6]"
+                            style={{ borderColor: PLEIN[parenteDu(s)], color: 'var(--cava-muted)' }}
+                          >
+                            {c.legend.tentative}
+                          </span>
+                        )}
                       </span>
                     </li>
                   ))}
