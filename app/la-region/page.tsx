@@ -1020,7 +1020,7 @@ export default function LaRegion() {
 
         {/* La primiera a son propre bloc : c'est le seul point du jeu qui a
             besoin d'un tableau pour se comprendre. */}
-        <Reveal className="mt-10 rounded-2xl p-8 md:p-10" style={{ background: 'rgba(255,212,82,0.22)' }}>
+        <Reveal className="mt-10 rounded-2xl p-8 md:p-10" style={{ background: 'var(--cava-note)' }}>
           <h3 className="text-[clamp(1.05rem,2vw,1.25rem)]" style={{ fontWeight: 700 }}>{t.scopaPage.primieraTitle}</h3>
           <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.75]">{t.scopaPage.primieraText}</p>
           <div className="mt-6 flex flex-wrap gap-2.5">

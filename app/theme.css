@@ -41,6 +41,25 @@ html {
   --cava-muted: #6f6e6e;
   --cava-line: #d9d9d9;
   --cava-card: #2e2d2d;
+  /* LE FOND DES ENCADRES — Mag, en deux temps. D'abord « je prefere un jaune
+     un peu plus soleil », puis « plutot qu'le jaune, un leger fond rose, tres
+     leger, pour rester dans le theme du site ». La seconde demande annule la
+     premiere, et elle a raison sur le fond : le jaune etait emprunte a l'ARBRE
+     (la lignee sicilienne), pas a la charte du site. Un encadre de note n'a
+     aucune raison de porter la couleur d'une branche genealogique.
+
+     Le rose du site a 8 %, soit (250, 233, 240) sur le creme. « Tres leger »
+     etait la consigne : mesure, il ne se detache du fond que de 1,12 — assez
+     pour qu'on voie un bloc, pas assez pour qu'il crie. En dessous de 1,05 il
+     aurait disparu ; a 15 % il devenait une zone rose franche.
+
+     L'encre y passe a 11,8 pour 4,5 demandes, et les pastilles creme a
+     l'interieur gardent 1,12 d'ecart : elles se lisent encore comme posees
+     dessus.
+
+     DECLARE ICI ET PAS DANS LES PAGES : il sert a trois endroits, dans deux
+     fichiers. Le changer deux fois de suite, comme aujourd'hui, l'a prouve. */
+  --cava-note: rgba(230, 41, 111, 0.08);
 
   background: var(--cava-bg);
   color: var(--cava-ink);

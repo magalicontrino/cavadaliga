@@ -695,7 +695,7 @@ export default function Italien() {
             ))}
           </div>
 
-          <div className="mt-6 rounded-xl p-4" style={{ background: 'rgba(255,212,82,0.22)' }}>
+          <div className="mt-6 rounded-xl p-4" style={{ background: 'var(--cava-note)' }}>
             <p className="text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-ink)', fontWeight: 700 }}>{p.trapLabel}</p>
             <p className="mt-1 max-w-[72ch] text-[14px] leading-[1.7]">{conj.pieges[lang]}</p>
           </div>
@@ -879,7 +879,7 @@ export default function Italien() {
                 ))}
               </dl>
 
-              <div className="mt-6 rounded-xl p-4" style={{ background: 'rgba(255,212,82,0.22)' }}>
+              <div className="mt-6 rounded-xl p-4" style={{ background: 'var(--cava-note)' }}>
                 <p className="text-[12px] uppercase tracking-[0.14em]" style={{ color: 'var(--cava-ink)', fontWeight: 700 }}>{p.songsPoint}</p>
                 {lang !== 'it' && (
                   <p className="mt-1 max-w-[72ch] text-[14px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{ch.langue.it}</p>
