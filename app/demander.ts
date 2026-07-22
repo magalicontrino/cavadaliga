@@ -422,6 +422,13 @@ const MOTS_MAISON: Record<string, string> = {
     // Le train depuis l'aeroport : « comment prendre le train » ne rendait
     // rien, alors que c'est une des facons de venir sans voiture.
     + 'train gare navette fontanarossa station billet supplement guichet ensemble '
+    // Venir EN TRAIN depuis le continent : rien ne repondait a « le train
+    // depuis Milan », qui est pourtant une des quatre facons d'arriver.
+    + 'intercity notte train de nuit couchette wagon lit milan rome messine ferry traverse '
+    + 'grimaldi lines livourne civitavecchia salerne naples port bateau ferry sicile '
+    + 'intercity notte cuccetta vagone letto milano roma messina traghetto '
+    + 'livorno civitavecchia salerno napoli porto nave '
+    + 'night train sleeper couchette milan rome messina ferry ports naples livorno '
     + 'treno stazione navetta biglietto supplemento sportello insieme '
     + 'train station shuttle ticket supplement counter together railway '
     + 'sinistra destra lato uscita aerostazione arrivi dove sono i bus fermata '
