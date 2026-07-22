@@ -20,7 +20,10 @@ export type PageKey =
 type PrepareGroup = {
   icon: string;
   title: string;
+  // Ancre facultative, pour qu'un lien #id (dans un item) mène a ce groupe.
+  id?: string;
   links?: { label: string; url: string }[];
+  // Un item peut porter un lien via le marqueur [[label>>#ancre]] (voir Surligne).
   items?: string[];
 };
 type PrepareContent = {
@@ -2029,12 +2032,13 @@ const FR: Dict = {
       },
       {
         icon: '🛬',
+        id: 'aeroport',
         title: 'Choisir son aéroport d’arrivée',
         links: [
           { label: 'Catane → la maison, sur Google Maps', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
         ],
         items: [
-          'Catania (CTA) — notre aéroport conseillé : le plus de vols et le bus direct pour la région. Comptez près de deux heures de route jusqu’à la maison, 130 km.',
+          'Catania (CTA) — notre aéroport conseillé : le plus de vols et le bus direct pour la région. Comptez [[près de deux heures de route jusqu’à la maison>>#rejoindre]], 130 km.',
           'Comiso (CIY) — le plus proche, environ 40 min de route.',
           'Palerme (PMO) — le plus loin, environ 3 h, à réserver aux bons plans.',
         ],
@@ -2057,6 +2061,7 @@ const FR: Dict = {
       },
       {
         icon: '🚗',
+        id: 'rejoindre',
         title: 'Rejoindre Casa Cava d’Aliga',
         links: [
           { label: 'AST — horaires', url: 'http://www.aziendasicilianatrasporti.it:8080/' },
@@ -2066,7 +2071,7 @@ const FR: Dict = {
           { label: 'Code de la route italien — art. 152, les feux', url: 'https://www.brocardi.it/codice-della-strada/titolo-v/art152.html' },
         ],
         items: [
-          'Bus AST — depuis l’aéroport de Catane vers Modica, Scicli, Donnalucata et Pozzallo.',
+          'Bus AST — depuis [[l’aéroport de Catane>>#aeroport]] vers Modica, Scicli, Donnalucata et Pozzallo.',
           'Train — la ligne régionale relie Modica, Scicli, Pozzallo et Raguse (horaires et billets sur trenitalia.com).',
           'Location de voiture — pratique pour explorer la région ; nous conseillons Goldcar, à l’aéroport de Catane. À la sortie de l’aéroport, prenez à droite : tous les loueurs sont regroupés au même endroit.',
           'Important : la carte de crédit doit être [[au nom de la personne qui a réservé]]. Goldcar bloque une caution (environ 950 € à ce jour) si vous ne prenez pas l’assurance, qui reste facultative.',
@@ -3418,12 +3423,13 @@ const IT: Dict = {
       },
       {
         icon: '🛬',
+        id: 'aeroport',
         title: 'Scegliere l’aeroporto d’arrivo',
         links: [
           { label: 'Catania → casa, su Google Maps', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
         ],
         items: [
-          'Catania (CTA) — il nostro aeroporto consigliato: più voli e il bus diretto per la zona. Contate quasi due ore di strada fino a casa, 130 km.',
+          'Catania (CTA) — il nostro aeroporto consigliato: più voli e il bus diretto per la zona. Contate [[quasi due ore di strada fino a casa>>#rejoindre]], 130 km.',
           'Comiso (CIY) — il più vicino, circa 40 min di strada.',
           'Palermo (PMO) — il più lontano, circa 3 h, solo per le buone offerte.',
         ],
@@ -3446,6 +3452,7 @@ const IT: Dict = {
       },
       {
         icon: '🚗',
+        id: 'rejoindre',
         title: 'Raggiungere Casa Cava d’Aliga',
         links: [
           { label: 'AST — orari', url: 'http://www.aziendasicilianatrasporti.it:8080/' },
@@ -3455,7 +3462,7 @@ const IT: Dict = {
           { label: 'Codice della strada — art. 152, le luci', url: 'https://www.brocardi.it/codice-della-strada/titolo-v/art152.html' },
         ],
         items: [
-          'Bus AST — dall’aeroporto di Catania verso Modica, Scicli, Donnalucata e Pozzallo.',
+          'Bus AST — [[dall’aeroporto di Catania>>#aeroport]] verso Modica, Scicli, Donnalucata e Pozzallo.',
           'Treno — la linea regionale collega Modica, Scicli, Pozzallo e Ragusa (orari e biglietti su trenitalia.com).',
           'Noleggio auto — comodo per esplorare la regione; consigliamo Goldcar, all’aeroporto di Catania. All’uscita dell’aeroporto, girate a destra: tutti gli autonoleggi sono riuniti nello stesso punto.',
           'Importante: la carta di credito deve essere [[intestata alla persona che ha prenotato]]. Goldcar blocca una cauzione (circa 950 € a oggi) se non si prende l’assicurazione, che resta facoltativa.',
@@ -4807,12 +4814,13 @@ const EN: Dict = {
       },
       {
         icon: '🛬',
+        id: 'aeroport',
         title: 'Choose your arrival airport',
         links: [
           { label: 'Catania → the house, on Google Maps', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
         ],
         items: [
-          'Catania (CTA) — our recommended airport: the most flights and a direct bus to the area. Allow close to two hours on the road to the house, 130 km.',
+          'Catania (CTA) — our recommended airport: the most flights and a direct bus to the area. Allow [[close to two hours on the road to the house>>#rejoindre]], 130 km.',
           'Comiso (CIY) — the closest, about 40 min away.',
           'Palermo (PMO) — the furthest, about 3 h, only for great deals.',
         ],
@@ -4835,6 +4843,7 @@ const EN: Dict = {
       },
       {
         icon: '🚗',
+        id: 'rejoindre',
         title: 'Reach Casa Cava d’Aliga',
         links: [
           { label: 'AST — timetables', url: 'http://www.aziendasicilianatrasporti.it:8080/' },
@@ -4844,7 +4853,7 @@ const EN: Dict = {
           { label: 'Italian highway code — art. 152, lights', url: 'https://www.brocardi.it/codice-della-strada/titolo-v/art152.html' },
         ],
         items: [
-          'AST bus — from Catania airport to Modica, Scicli, Donnalucata and Pozzallo.',
+          'AST bus — from [[Catania airport>>#aeroport]] to Modica, Scicli, Donnalucata and Pozzallo.',
           'Train — the regional line links Modica, Scicli, Pozzallo and Ragusa (timetables and tickets on trenitalia.com).',
           'Car rental — handy for exploring the region; we recommend Goldcar, at Catania airport. As you leave the airport, turn right: all the rental companies are grouped in the same spot.',
           'Important: the credit card must be [[in the name of the person who booked]]. Goldcar holds a deposit (around €950 as of today) if you decline the insurance, which is optional.',

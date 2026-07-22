@@ -48,11 +48,33 @@ export function surligne(texte: string): React.ReactNode {
   MARQUEUR.lastIndex = 0;
   while ((m = MARQUEUR.exec(texte)) !== null) {
     if (m.index > curseur) bouts.push(texte.slice(curseur, m.index));
-    bouts.push(
-      <mark key={`${m.index}`} className="cava-cle">
-        {m[1]}
-      </mark>,
-    );
+    // `[[label>>cible]]` devient un LIEN, `[[texte]]` reste un surlignage. On
+    // reste dans le meme marqueur : celui qui ecrit la phrase decide, dedans,
+    // ce qui compte — un mot clef ou un renvoi vers une autre section (#ancre)
+    // ou un lien externe (http).
+    const sep = m[1].indexOf('>>');
+    if (sep !== -1) {
+      const label = m[1].slice(0, sep);
+      const cible = m[1].slice(sep + 2);
+      const interne = cible.startsWith('#');
+      bouts.push(
+        <a
+          key={`${m.index}`}
+          href={cible}
+          {...(interne ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+          className="cava-navlink"
+          style={{ color: 'var(--cava-pink)', fontWeight: 600 }}
+        >
+          {label}
+        </a>,
+      );
+    } else {
+      bouts.push(
+        <mark key={`${m.index}`} className="cava-cle">
+          {m[1]}
+        </mark>,
+      );
+    }
     curseur = m.index + m[0].length;
   }
   if (curseur < texte.length) bouts.push(texte.slice(curseur));
@@ -72,7 +94,13 @@ export function surligne(texte: string): React.ReactNode {
  * rien : ça compile, ça s'affiche, c'est juste faux. Le marqueur se retire donc
  * a la source, la ou le texte quitte sa page.
  */
-export const sansMarques = (texte: string) => texte.replace(/\[\[(.+?)\]\]/g, '$1');
+export const sansMarques = (texte: string) =>
+  texte.replace(/\[\[(.+?)\]\]/g, (_, inner: string) => {
+    // Un lien `[[label>>cible]]` ne laisse que son label : le chat et le quiz
+    // reprennent le texte, pas la destination.
+    const sep = inner.indexOf('>>');
+    return sep !== -1 ? inner.slice(0, sep) : inner;
+  });
 
 /**
  * La meme chose en composant, pour les endroits ou l'on rend une liste.

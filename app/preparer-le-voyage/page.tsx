@@ -68,8 +68,9 @@ export default function PreparerLeVoyage() {
           return (
             <Reveal
               key={g.title}
+              id={g.id}
               delay={(gi % 2) * 80}
-              className="border-t py-12 md:py-16"
+              className="scroll-mt-24 border-t py-12 md:py-16"
               style={{ borderColor: 'var(--cava-ink)' }}
             >
               <h2

@@ -28,6 +28,7 @@ export default function Reveal({
   delay = 0,
   once = true,
   style,
+  id,
 }: {
   children: ReactNode;
   as?: ElementType;
@@ -36,6 +37,8 @@ export default function Reveal({
   delay?: number;
   once?: boolean;
   style?: React.CSSProperties;
+  // Permet d'ancrer un bloc (cible d'un lien #ancre) sans wrapper en plus.
+  id?: string;
 }) {
   const Tag = (as ?? 'div') as ElementType;
   const ref = useRef<HTMLElement | null>(null);
@@ -106,6 +109,7 @@ export default function Reveal({
   return (
     <Tag
       ref={ref}
+      id={id}
       className={`cava-reveal ${inView ? 'is-in' : ''} ${instant ? 'cava-reveal-now' : ''} ${className}`}
       style={{ ['--cava-reveal-y' as string]: y, ['--cava-reveal-delay' as string]: `${delay}ms`, ...style }}
     >
