@@ -6,6 +6,7 @@ import Icon from './Icon';
 import { useI18n } from './i18n';
 import { withBase } from './data';
 import { PRONONCIATION, LECONS, CONJUGAISONS, CHANSONS } from './italienData';
+import { sansMarques } from './Surligne';
 import { texteArbre } from './FamilyTree';
 
 /**
@@ -263,7 +264,8 @@ function texteDe(t: ReturnType<typeof useI18n>['t'], ancre: string, lang: 'fr' |
     case 'bestioles':
       return [t.cleanPage.intro, ...t.cleanPage.rules, t.cleanPage.antsText].join(' ');
     case 'voyage':
-      return t.prepare.groups.flatMap((g) => [g.title, ...(g.items ?? []), ...(g.links ?? []).map((l) => l.label)]).join(' ');
+      // Nu, comme pour le chat : l'extrait du quiz est du texte affiche tel quel.
+      return sansMarques(t.prepare.groups.flatMap((g) => [g.title, ...(g.items ?? []), ...(g.links ?? []).map((l) => l.label)]).join(' '));
     case 'dechets':
       return [t.wastePage.intro, t.wastePage.eveningNote, t.wastePage.changeNote].join(' ');
     /*

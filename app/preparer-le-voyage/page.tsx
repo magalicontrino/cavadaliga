@@ -10,6 +10,7 @@ import Shape from '../Shape';
 import Icon from '../Icon';
 import { useI18n } from '../i18n';
 import { withBase } from '../data';
+import { surligne } from '../Surligne';
 import { useAncre } from '../ancre';
 
 export default function PreparerLeVoyage() {
@@ -38,7 +39,13 @@ export default function PreparerLeVoyage() {
       {/* Le cours d'italien, en raccourci : preparer le voyage, c'est aussi
           apprendre a se debrouiller dans la langue avant de partir. Meme picto
           rond que partout ailleurs. */}
-      <section className="mx-auto max-w-[110rem] px-5 pt-2 md:px-10">
+      {/* pb-10 COMME AILLEURS, et son absence etait le defaut : le picto avait
+          8 px au-dessus et ZERO en dessous, colle au filet de la section
+          suivante. Mag : « mal centre en hauteur le picto ». Ce n'etait pas le
+          dessin — mesure, son encre tombe a 0,25 px du centre de son rond —
+          c'etait la bande autour. La page de la region porte la meme rangee
+          avec pb-10 ; celle-ci l'avait perdu en cours de route. */}
+      <section className="mx-auto max-w-[110rem] px-5 pb-10 pt-2 md:px-10">
         <Reveal>
           <a
             href={withBase('/italien')}
@@ -103,7 +110,7 @@ export default function PreparerLeVoyage() {
                       style={{ color: 'var(--cava-muted)' }}
                     >
                       <span className="mt-2.5 h-[6px] w-[6px] shrink-0 rounded-full" style={{ background: 'var(--cava-pink)' }} />
-                      {it}
+                      <span>{surligne(it)}</span>
                     </li>
                   ))}
                 </ul>

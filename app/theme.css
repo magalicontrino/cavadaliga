@@ -68,6 +68,33 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+/*
+ * LE SURLIGNEUR DES MOTS CLEFS — voir Surligne.tsx pour le pourquoi du
+ * marqueur. Ici, seulement le trait de couleur.
+ *
+ * 22 % de rose : l'encre y passe a 9,56, la ou le rose PLEIN (celui de la
+ * selection, juste dessous) ne la porte qu'a 3,21. Un surlignage permanent doit
+ * rendre son mot plus lisible, pas moins.
+ *
+ * Le mot passe aussi a l'encre pleine : dans une liste ecrite en gris, c'est ce
+ * changement-la qui se voit en premier, avant meme la couleur — et il survit au
+ * noir et blanc, contrairement au fond rose.
+ *
+ * `box-decoration-break` pour qu'un mot clef coupe en fin de ligne garde son
+ * fond des DEUX cotes de la coupure. Sans lui, la moitie de droite ressort sans
+ * surlignage, et on croit a un bug d'affichage.
+ */
+.cava-root mark.cava-cle {
+  background: rgba(230, 41, 111, 0.22);
+  color: var(--cava-ink);
+  font-weight: 600;
+  border-radius: 3px;
+  padding: 0.06em 0.22em;
+  margin: 0 -0.04em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
 .cava-root ::selection {
   background: var(--cava-pink);
   color: #fff;

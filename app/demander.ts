@@ -1,6 +1,7 @@
 import { LOCAL_PLACES, CATS, SEARCH_WORDS, norm, type Lang, type CatKey } from './localData';
 import { WASTE, WEEK, mondayIndex } from './wasteData';
 import { PHARMACY, GAS, EMERGENCIES, TRANSPORTS } from './practicalData';
+import { sansMarques } from './Surligne';
 import type { Dict } from './i18n';
 
 // ────────────────────────────────────────────────────────────────────────
@@ -524,8 +525,27 @@ const motsMaison = (id: string): string[] => motsDe(MOTS_MAISON[id] ?? '');
  */
 export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date()): Fiche[] {
   const fiches: Fiche[] = [];
+  /*
+   * LE TEXTE NU SE FAIT ICI, ET NULLE PART AILLEURS.
+   *
+   * Les phrases de `i18n` peuvent porter des marqueurs de surlignage
+   * (`[[mot clef]]`, voir Surligne.tsx). Le chat les rendrait EN CLAIR, et sa
+   * coupure — qui compte les signes, marqueurs compris — pourrait trancher un
+   * `[[` en deux.
+   *
+   * Je l'avais d'abord retire aux deux endroits qui portent aujourd'hui des
+   * marques. C'etait se preparer un piege : la trentaine d'autres appels a
+   * `ajouter` marchent parce que leurs phrases n'en ont pas ENCORE, et la
+   * premiere marque posee ailleurs ressortirait avec ses crochets, sans que
+   * rien ne le signale. Le nettoyage est donc au SEUL passage oblige.
+   */
   const ajouter = (f: Omit<Fiche, 'mots'> & { mots?: string[] }) =>
-    fiches.push({ ...f, mots: [...new Set(f.mots ?? [])] });
+    fiches.push({
+      ...f,
+      titre: sansMarques(f.titre),
+      lignes: f.lignes.map(sansMarques),
+      mots: [...new Set(f.mots ?? [])],
+    });
 
   // ── La maison : electricite, eau, gaz, wifi ──────────────────────────
   t.arrivee.operation.forEach((g) => {
