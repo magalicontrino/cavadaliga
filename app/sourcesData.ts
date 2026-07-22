@@ -43,6 +43,25 @@ export const SOURCES: Record<string, Source[]> = {
    * la region Sicile » et n'en liste qu'une — c'est au lecteur de le constater,
    * ce qui vaut mieux que ma parole.
    */
+  /*
+   * LA GENETIQUE — cinq articles, et ils ne s'accordent pas entre eux. C'est
+   * voulu : Mag a demande d'aller chercher « d'autres sources qui impliquent
+   * d'autres origines », et elles ont contredit la premiere version du texte.
+   *
+   * L'ORDRE EST CELUI DE LA LECTURE, PAS DE LA DATE. La mise en garde de 2016
+   * vient en tete parce qu'elle conditionne tout le reste : sans elle, le
+   * chiffre de 2009 se lit comme une part d'ancetres, ce qu'il n'est pas. Les
+   * deux etudes recentes suivent, ce sont elles qui ont fait retirer la
+   * premiere version — la Sicile n'a aucune structure maternelle regionale, et
+   * l'Afrique y est bien avant les Arabes.
+   */
+  genes: [
+    { label: 'Tofanelli et al., 2016 — European Journal of Human Genetics (compter les lignées peut tromper)', url: 'https://pubmed.ncbi.nlm.nih.gov/26173964/' },
+    { label: 'Di Gaetano et al., 2009 — European Journal of Human Genetics (les 37 %, lignées paternelles)', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC2985948/' },
+    { label: 'Quinze millénaires de mitogénomes siciliens, 2025 — Science Advances (aucune structure régionale)', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC12617465/' },
+    { label: 'La Sicile médiévale multiconfessionnelle, 2026 — PLOS One (l’Afrique avant les Arabes, pas de remplacement)', url: 'https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0350298' },
+    { label: 'Ringbauer et al., 2025 — Nature (les Puniques, presque aucun ancêtre levantin)', url: 'https://www.nature.com/articles/s41586-025-08913-3' },
+  ],
   alcools: [
     { label: 'Le disciplinare du Cerasuolo di Vittoria — le Consorzio (cépages, DOCG 2005)', url: 'https://www.cerasuolovittoria.it/il-disciplinare/?lang=en' },
     { label: 'Les DOCG de la région Sicile — Quattrocalici', url: 'https://www.quattrocalici.it/denominazioni/cerasuolo-di-vittoria-docg/' },

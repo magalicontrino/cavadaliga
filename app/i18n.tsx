@@ -151,6 +151,25 @@ export type Dict = {
     moreTitle: string;
     moreDesc: string;
   };
+  /*
+   * LA GENETIQUE, DEUXIEME VERSION — la premiere est sortie du site avant
+   * d'avoir vecu un jour. Mag : « retire ça pour l'instant, et trouve d'autres
+   * sources qui impliquent d'autres origines ».
+   *
+   * Elle avait raison de douter. En elargissant la recherche, deux etudes
+   * recentes contredisent ce que j'avais publie : cote MATERNEL, la Sicile n'a
+   * aucune structure regionale, et la part nord-africaine existe AVANT les
+   * Arabes. Le texte ne raconte donc plus « combien de grec reste-t-il », qui
+   * pousse vers un chiffre unique et trompeur, mais ce que ces etudes mesurent
+   * vraiment — et il se ferme sur la phrase de Mag : un Sicilien reste un
+   * Sicilien.
+   */
+  genesPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    facts: { icon: string; title: string; text: string }[];
+  };
   localPage: {
     title: string;
     intro: string;
@@ -385,6 +404,7 @@ export type Dict = {
     legends: string;
     scopa: string;
     arab: string;
+    genes: string;
     /** Rassemble les sept sections venues de « Sons & images » en un seul bouton. */
     sounds: string;
     etna: string;
@@ -899,6 +919,19 @@ const FR: Dict = {
     moreTitle: 'Si le sujet vous attrape',
     moreDesc: 'Libero Reina raconte cette Sicile arabe sur Instagram — et il la raconte en musique, ce qui est la meilleure façon de l’entendre.',
   },
+  genesPage: {
+    eyebrow: 'Génétique',
+    title: 'Un Grec et un Sicilien, c’est pareil ?',
+    intro: 'La Sicile a été grecque avant d’être romaine : dès le VIIIᵉ siècle avant notre ère, les colons fondent des cités sur toute la côte est et sud. Vingt-huit siècles plus tard, qu’en reste-t-il dans l’ADN ? Quelques études le mesurent — et la première chose qu’elles apprennent, c’est à se méfier des chiffres ronds. Toutes sont en lien au bas de cette section.',
+    facts: [
+      { icon: 'info', title: 'D’abord : ce que ces études mesurent', text: 'Aucune ne lit « l’ADN d’un Sicilien » en entier. Les unes suivent le [[chromosome Y]], transmis de père en fils ; les autres l’[[ADN mitochondrial]], transmis par les mères. Deux fils tirés d’un tissu qui en compte des milliers. Un pourcentage sur l’un ne dit rien de la part réelle d’ancêtres — c’est la précaution que pose l’European Journal of Human Genetics lui-même, en 2016, en prévenant que compter les lignées survivantes peut être trompeur.' },
+      { icon: 'landmark', title: 'Le chiffre qu’on cite partout, et sa fragilité', text: '37 % : c’est l’estimation de la contribution grecque publiée en 2009 dans l’European Journal of Human Genetics, avec un ancêtre commun daté autour de 2 380 ans — ce qui tombe sur la colonisation classique. Mais c’est [[une seule étude, sur les seules lignées paternelles]], et c’est celle que la même revue invite sept ans plus tard à ne pas prendre pour une part d’ascendance.' },
+      { icon: 'map', title: 'Les pères et les mères ne racontent pas la même chose', text: 'Côté paternel, l’est et l’ouest de l’île diffèrent — davantage de marqueurs grecs autour de Syracuse. Côté maternel, rien de tel : une étude parue en 2025 dans Science Advances, sur 116 génomes anciens et 236 modernes couvrant toute la Sicile, [[ne trouve aucune différenciation entre les neuf secteurs de l’île]]. Une seule exception, Palerme-ville, et pour des migrations récentes. L’image d’une Sicile en morceaux ne tient que d’un côté.' },
+      { icon: 'compass', title: 'L’Afrique est là depuis plus longtemps qu’on ne le dit', text: 'On attribue volontiers la part nord-africaine aux deux siècles arabes. Une étude parue en 2026 dans PLOS One, sur 111 individus de dix-huit sites entre le Vᵉ et le XVᵉ siècle, la trouve déjà présente [[avant la conquête islamique]]. La même étude relève quatre individus d’ascendance ouest-africaine, et les lignées maternelles actuelles comptent environ 9 % d’Afrique du Nord et 6 % d’Afrique subsaharienne.' },
+      { icon: 'wave', title: 'Personne n’a remplacé personne', text: 'C’est ce que disent les deux études les plus récentes. Les Phéniciens n’ont presque rien légué génétiquement aux colonies puniques (Nature, 2025) : [[la culture a voyagé sans les gens]]. Et sous les Normands, la Sicile médiévale garde sa diversité pendant des siècles, sans homogénéisation ni remplacement. Les conquérants ont changé les lois, les langues et les toits ; ils n’ont pas vidé l’île.' },
+      { icon: 'home', title: 'Et un Sicilien reste un Sicilien', text: 'Tout cela mesure des lignées, pas des gens. Aucune de ces études ne dit qui l’on est : elles décrivent des chemins parcourus par des ancêtres, pas une identité. Ce qui fait un Sicilien, c’est une langue, une table, une île et une manière d’y vivre — et [[là-dessus, aucun pourcentage n’a jamais rien eu à dire]].' },
+    ],
+  },
   localPage: {
     title: 'Local & responsable',
     intro: 'Nos adresses pour consommer local et responsable : de petits producteurs et artisans du sud-est de la Sicile, choisis pour la qualité de leurs produits et pour faire vivre l’agriculture de la région.',
@@ -1408,6 +1441,7 @@ const FR: Dict = {
     drinks: 'Vins & alcools',
     coffee: 'Le café', pasta: 'La pastasciutta', symbols: 'Trinacria & teste di moro', legends: 'Les légendes', scopa: 'La scopa',
     arab: 'Sicile arabe',
+    genes: 'D’où viennent les Siciliens',
     sounds: 'Sons & images',
     etna: 'L’Etna',
     fauna: 'La faune',
@@ -1836,6 +1870,9 @@ const FR: Dict = {
       { q: 'Qu’est-ce qui caractérise la caponata ?', choix: ['L’aigre-doux : vinaigre et sucre', 'Le piment fort', 'La cuisson au feu de bois'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'La frutta martorana est faite de…', choix: ['Pâte d’amande', 'Pâte à sucre', 'Chocolat de Modica'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'La cassata tiendrait son nom de qas‘ah, qui désigne…', choix: ['Le bol dans lequel on la moulait', 'La ricotta', 'Une fête religieuse'], bonne: 0, ancre: 'arabe', niveau: 'difficile' },
+      { q: 'Les études sur l’ADN sicilien lisent-elles le génome entier ?', choix: ['Non : le chromosome Y ou l’ADN mitochondrial, deux lignées seulement', 'Oui, entièrement', 'Elles lisent le groupe sanguin'], bonne: 0, ancre: 'genes', niveau: 'difficile' },
+      { q: 'Côté maternel, l’étude de 2025 trouve entre les régions de Sicile…', choix: ['Aucune différenciation, sauf Palerme-ville', 'Un est grec et un ouest arabe très nets', 'Trois groupes séparés'], bonne: 0, ancre: 'genes', niveau: 'difficile' },
+      { q: 'La part nord-africaine en Sicile date…', choix: ['D’avant la conquête islamique', 'Uniquement des deux siècles arabes', 'Du XXᵉ siècle'], bonne: 0, ancre: 'genes', niveau: 'moyen' },
       { q: 'En janvier 1945, où la révolte « Non si parte ! » a-t-elle éclaté le plus fort ?', choix: ['Dans la province de Raguse', 'À Palerme', 'En Calabre'], bonne: 0, ancre: 'histoire', niveau: 'facile' },
       { q: 'Contre quoi les Siciliens se soulèvent-ils en janvier 1945 ?', choix: ['Contre l’appel des jeunes sous les drapeaux', 'Contre le prix du pain', 'Contre la fermeture des mines'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
       { q: 'Qu’a fait Maria Occhipinti, enceinte de cinq mois, le 4 janvier 1945 ?', choix: ['Elle s’est couchée devant le camion militaire', 'Elle a caché les garçons dans sa cave', 'Elle a écrit au préfet'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
@@ -2372,6 +2409,19 @@ const IT: Dict = {
     moreTitle: 'Se l’argomento vi prende',
     moreDesc: 'Libero Reina racconta questa Sicilia araba su Instagram — e la racconta in musica, che è il modo migliore per sentirla.',
   },
+  genesPage: {
+    eyebrow: 'Genetica',
+    title: 'Un greco e un siciliano sono la stessa cosa?',
+    intro: 'La Sicilia è stata greca prima che romana: dall’VIII secolo a.C. i coloni fondano città su tutta la costa orientale e meridionale. Ventotto secoli dopo, che cosa ne resta nel DNA? Alcuni studi lo misurano — e la prima cosa che insegnano è a diffidare delle cifre tonde. Sono tutti in fondo a questa sezione.',
+    facts: [
+      { icon: 'info', title: 'Prima: che cosa misurano questi studi', text: 'Nessuno legge « il DNA di un siciliano » per intero. Alcuni seguono il [[cromosoma Y]], trasmesso di padre in figlio; altri il [[DNA mitocondriale]], trasmesso dalle madri. Due fili tirati da un tessuto che ne conta migliaia. Una percentuale su uno solo non dice nulla della quota reale di antenati — è la cautela che pone lo stesso European Journal of Human Genetics, nel 2016, avvertendo che contare le linee sopravvissute può essere fuorviante.' },
+      { icon: 'landmark', title: 'La cifra che si cita ovunque, e la sua fragilità', text: '37 %: è la stima del contributo greco pubblicata nel 2009 sull’European Journal of Human Genetics, con un antenato comune datato intorno ai 2.380 anni — proprio l’epoca della colonizzazione classica. Ma è [[un solo studio, sulle sole linee paterne]], ed è quello che la stessa rivista invita sette anni dopo a non scambiare per una quota di ascendenza.' },
+      { icon: 'map', title: 'Padri e madri non raccontano la stessa storia', text: 'Sul versante paterno, est e ovest dell’isola differiscono — più marcatori greci intorno a Siracusa. Sul versante materno, niente di simile: uno studio uscito nel 2025 su Science Advances, su 116 genomi antichi e 236 moderni che coprono tutta la Sicilia, [[non trova alcuna differenziazione tra i nove settori dell’isola]]. Una sola eccezione, Palermo città, e per migrazioni recenti. L’immagine di una Sicilia a pezzi regge solo da un lato.' },
+      { icon: 'compass', title: 'L’Africa è lì da più tempo di quanto si dica', text: 'Si attribuisce volentieri la parte nordafricana ai due secoli arabi. Uno studio uscito nel 2026 su PLOS One, su 111 individui di diciotto siti tra il V e il XV secolo, la trova già presente [[prima della conquista islamica]]. Lo stesso studio rileva quattro individui di ascendenza ovest-africana, e le linee materne attuali contano circa il 9 % di Nord Africa e il 6 % di Africa subsahariana.' },
+      { icon: 'wave', title: 'Nessuno ha sostituito nessuno', text: 'È quanto dicono i due studi più recenti. I Fenici non hanno lasciato quasi nulla geneticamente alle colonie puniche (Nature, 2025): [[la cultura ha viaggiato senza le persone]]. E sotto i Normanni la Sicilia medievale conserva la sua diversità per secoli, senza omogeneizzazione né sostituzione. I conquistatori hanno cambiato leggi, lingue e tetti; non hanno svuotato l’isola.' },
+      { icon: 'home', title: 'E un siciliano resta un siciliano', text: 'Tutto questo misura linee, non persone. Nessuno di questi studi dice chi si è: descrivono cammini percorsi da antenati, non un’identità. Ciò che fa un siciliano è una lingua, una tavola, un’isola e un modo di viverci — e [[su questo nessuna percentuale ha mai avuto nulla da dire]].' },
+    ],
+  },
   localPage: {
     title: 'Locale & responsabile',
     intro: 'I nostri indirizzi per un consumo locale e responsabile: piccoli produttori e artigiani del sud-est della Sicilia, scelti per la qualità dei loro prodotti e per sostenere l’agricoltura della regione.',
@@ -2834,6 +2884,7 @@ const IT: Dict = {
     drinks: 'Vini & liquori',
     coffee: 'Il caffè', pasta: 'La pastasciutta', symbols: 'Trinacria e teste di moro', legends: 'Le leggende', scopa: 'La scopa',
     arab: 'Sicilia araba',
+    genes: 'Da dove vengono i siciliani',
     sounds: 'Suoni & immagini',
     etna: 'L’Etna',
     fauna: 'La fauna',
@@ -3262,6 +3313,9 @@ const IT: Dict = {
       { q: 'Che cosa caratterizza la caponata?', choix: ['L’agrodolce: aceto e zucchero', 'Il peperoncino forte', 'La cottura a legna'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'La frutta martorana è fatta di…', choix: ['Pasta di mandorle', 'Pasta di zucchero', 'Cioccolato di Modica'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'La cassata prenderebbe il nome da qas‘ah, che indica…', choix: ['La scodella in cui la si modellava', 'La ricotta', 'Una festa religiosa'], bonne: 0, ancre: 'arabe', niveau: 'difficile' },
+      { q: 'Gli studi sul DNA siciliano leggono il genoma intero?', choix: ['No: il cromosoma Y o il DNA mitocondriale, due sole linee', 'Sì, per intero', 'Leggono il gruppo sanguigno'], bonne: 0, ancre: 'genes', niveau: 'difficile' },
+      { q: 'Sul versante materno, lo studio del 2025 trova tra le regioni siciliane…', choix: ['Nessuna differenziazione, tranne Palermo città', 'Un est greco e un ovest arabo nettissimi', 'Tre gruppi separati'], bonne: 0, ancre: 'genes', niveau: 'difficile' },
+      { q: 'La componente nordafricana in Sicilia risale…', choix: ['A prima della conquista islamica', 'Solo ai due secoli arabi', 'Al XX secolo'], bonne: 0, ancre: 'genes', niveau: 'moyen' },
       { q: 'Nel gennaio 1945, dove è esplosa più forte la rivolta del « Non si parte! »?', choix: ['Nella provincia di Ragusa', 'A Palermo', 'In Calabria'], bonne: 0, ancre: 'histoire', niveau: 'facile' },
       { q: 'Contro che cosa insorgono i siciliani nel gennaio 1945?', choix: ['Contro la chiamata alle armi dei giovani', 'Contro il prezzo del pane', 'Contro la chiusura delle miniere'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
       { q: 'Che cosa ha fatto Maria Occhipinti, incinta di cinque mesi, il 4 gennaio 1945?', choix: ['Si è sdraiata davanti al camion militare', 'Ha nascosto i ragazzi in cantina', 'Ha scritto al prefetto'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
@@ -3791,6 +3845,19 @@ const EN: Dict = {
     moreTitle: 'If the subject grabs you',
     moreDesc: 'Libero Reina tells this Arab Sicily on Instagram — and he tells it through music, which is the best way to hear it.',
   },
+  genesPage: {
+    eyebrow: 'Genetics',
+    title: 'A Greek and a Sicilian — the same thing?',
+    intro: 'Sicily was Greek before it was Roman: from the 8th century BC, colonists founded cities all along the eastern and southern coasts. Twenty-eight centuries later, what is left of it in the DNA? A few studies measure it — and the first thing they teach is to distrust round numbers. All of them are linked at the foot of this section.',
+    facts: [
+      { icon: 'info', title: 'First: what these studies actually measure', text: 'None of them reads “a Sicilian’s DNA” in full. Some follow the [[Y chromosome]], passed from father to son; others [[mitochondrial DNA]], passed on by mothers. Two threads pulled from a cloth that has thousands. A percentage on one says nothing about the real share of ancestors — that is the caution the European Journal of Human Genetics itself set out in 2016, warning that counting surviving lineages can be misleading.' },
+      { icon: 'landmark', title: 'The figure everyone quotes, and how fragile it is', text: '37%: that is the estimated Greek contribution published in 2009 in the European Journal of Human Genetics, with a common ancestor dated around 2,380 years ago — right on the classical colonisation. But it is [[a single study, on paternal lines only]], and it is the one the same journal urges, seven years later, not to read as a share of ancestry.' },
+      { icon: 'map', title: 'Fathers and mothers do not tell the same story', text: 'On the paternal side, east and west of the island differ — more Greek markers around Syracuse. On the maternal side, nothing of the sort: a 2025 study in Science Advances, on 116 ancient and 236 modern genomes covering the whole of Sicily, [[finds no differentiation between the island’s nine sectors]]. One exception only, the city of Palermo, and for recent migrations. The picture of a Sicily in pieces holds on one side only.' },
+      { icon: 'compass', title: 'Africa has been there longer than people say', text: 'The North African share is readily credited to the two Arab centuries. A 2026 study in PLOS One, on 111 individuals from eighteen sites between the 5th and 15th centuries, finds it already present [[before the Islamic conquest]]. The same study records four individuals of West African ancestry, and today’s maternal lines run at about 9% North African and 6% sub-Saharan African.' },
+      { icon: 'wave', title: 'Nobody replaced anybody', text: 'That is what the two most recent studies say. The Phoenicians left almost nothing genetically to the Punic colonies (Nature, 2025): [[the culture travelled without the people]]. And under the Normans, medieval Sicily kept its diversity for centuries, with no homogenisation and no replacement. The conquerors changed the laws, the languages and the roofs; they did not empty the island.' },
+      { icon: 'home', title: 'And a Sicilian is still a Sicilian', text: 'All of this measures lineages, not people. None of these studies says who anyone is: they describe paths walked by ancestors, not an identity. What makes a Sicilian is a language, a table, an island and a way of living on it — and [[on that, no percentage has ever had anything to say]].' },
+    ],
+  },
   localPage: {
     title: 'Local & responsible',
     intro: 'Our addresses for local, responsible shopping: small producers and artisans of south-east Sicily, chosen for the quality of their products and to support the region’s farming.',
@@ -4253,6 +4320,7 @@ const EN: Dict = {
     drinks: 'Wine & spirits',
     coffee: 'Coffee', pasta: 'Pastasciutta', symbols: 'Trinacria & Moor’s heads', legends: 'The legends', scopa: 'Scopa',
     arab: 'Arab Sicily',
+    genes: 'Where Sicilians come from',
     sounds: 'Sounds & screens',
     etna: 'Etna',
     fauna: 'Wildlife',
@@ -4681,6 +4749,9 @@ const EN: Dict = {
       { q: 'What defines caponata?', choix: ['Sweet and sour: vinegar and sugar', 'Fierce chilli heat', 'Cooking over a wood fire'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Frutta martorana is made of…', choix: ['Almond paste', 'Sugar paste', 'Modica chocolate'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Cassata may be named after qas‘ah, which means…', choix: ['The bowl it was shaped in', 'Ricotta', 'A religious feast'], bonne: 0, ancre: 'arabe', niveau: 'difficile' },
+      { q: 'Do the studies on Sicilian DNA read the whole genome?', choix: ['No: the Y chromosome or mitochondrial DNA, two lineages only', 'Yes, in full', 'They read blood groups'], bonne: 0, ancre: 'genes', niveau: 'difficile' },
+      { q: 'On the maternal side, the 2025 study finds between Sicilian regions…', choix: ['No differentiation, apart from the city of Palermo', 'A sharply Greek east and Arab west', 'Three separate groups'], bonne: 0, ancre: 'genes', niveau: 'difficile' },
+      { q: 'The North African share in Sicily dates from…', choix: ['Before the Islamic conquest', 'The two Arab centuries only', 'The 20th century'], bonne: 0, ancre: 'genes', niveau: 'moyen' },
       { q: 'In January 1945, where did the “Non si parte!” revolt burn hottest?', choix: ['In the province of Ragusa', 'In Palermo', 'In Calabria'], bonne: 0, ancre: 'histoire', niveau: 'facile' },
       { q: 'What did Sicilians rise up against in January 1945?', choix: ['The call-up of their young men', 'The price of bread', 'The closing of the mines'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
       { q: 'What did Maria Occhipinti, five months pregnant, do on 4 January 1945?', choix: ['She lay down in front of the army truck', 'She hid the boys in her cellar', 'She wrote to the prefect'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },

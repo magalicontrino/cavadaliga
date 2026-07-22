@@ -443,6 +443,11 @@ const MOTS_MAISON: Record<string, string> = {
     'etna volcan volcanique eruption lave cratere neige ski skier montagne granita nivaroli excursion '
     + 'vulcano eruzione lava cratere neve sciare montagna gita '
     + 'volcano eruption crater snow skiing mountain hike altitude sommet randonner telepherique guide sortie coulee cendres fumee sud nord refuge altitudine cima funivia guida colata cenere fumo rifugio altitude summit cable car guide lava ash smoke refuge',
+  'region-genes':
+    'genetique adn genes grec grecs sicilien siciliens origine origines ancetres ancetre identite '
+    + 'chromosome y lignee paternelle maternelle mitochondrial etude phenicien punique normand afrique 37 '
+    + 'genetica dna geni greci siciliani origine antenati cromosoma linea paterna materna fenici punici normanni '
+    + 'genetics dna genes greek sicilian origin ancestors chromosome paternal maternal lineage phoenician punic norman ',
   'region-arabe':
     // L'heritage arabe s'est etoffe : les pates seches de Trabia, le riz et le
     // safran, l'agrodolce, la patisserie d'amande, le rais des tonnare. Ces
@@ -805,6 +810,9 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   const sections: { id: string; ancre: string; bloc: { eyebrow: string; title: string; intro: string; facts: { title: string; text: string }[] } }[] = [
     { id: 'etna', ancre: 'etna', bloc: t.etnaPage },
     { id: 'arabe', ancre: 'arabe', bloc: t.arabPage },
+    // La fiche ET les mots-clefs : l'un sans l'autre ne repond a rien,
+    // comme on l'a appris en oubliant celle-ci la premiere fois.
+    { id: 'genes', ancre: 'genes', bloc: t.genesPage },
     { id: 'coutumes', ancre: 'coutumes', bloc: t.tastePage },
     { id: 'specialites', ancre: 'specialites', bloc: t.specialtiesPage },
     { id: 'alcools', ancre: 'alcools', bloc: t.drinksPage },
