@@ -1131,6 +1131,28 @@ export default function LaRegion() {
           {t.scopaPage.note}
         </Reveal>
 
+        {/*
+          L'HISTOIRE VIENT APRES LES REGLES, ET C'EST L'ARGUMENT DE SA PLACE.
+          Mag : « trouve l'histoire de la scopa et explique-la ou c'est
+          necessaire ». Le necessaire etait ici : la section apprenait a jouer
+          sans jamais dire d'ou vient le jeu, et elle posait « pas de dame »
+          comme une bizarrerie sans l'expliquer. On joue d'abord, et l'histoire
+          repond ensuite aux questions que les regles ont fait naitre.
+        */}
+        <Reveal className="mt-16 border-t pt-10" style={{ borderColor: 'var(--cava-ink)' }}>
+          <h3 className="text-[clamp(1.2rem,2.4vw,1.5rem)] uppercase leading-[1.1]" style={{ fontWeight: 900 }}>
+            {t.scopaPage.histoireTitle}
+          </h3>
+          <div className="mt-8 grid gap-px overflow-hidden rounded-2xl md:grid-cols-3" style={{ background: 'var(--cava-line)' }}>
+            {t.scopaPage.histoire.map((h, i) => (
+              <Reveal key={h.title} delay={i * 70} className="flex flex-col gap-3 p-7 md:p-8" style={{ background: 'var(--cava-bg)' }}>
+                <h4 className="text-[clamp(1rem,1.9vw,1.15rem)] leading-[1.25]" style={{ fontWeight: 600 }}>{h.title}</h4>
+                <p className="text-[14.5px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>{surligne(h.text)}</p>
+              </Reveal>
+            ))}
+          </div>
+        </Reveal>
+
         <Sources section="scopa" />
       </section>
       )}

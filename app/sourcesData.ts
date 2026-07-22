@@ -129,7 +129,22 @@ export const SOURCES: Record<string, Source[]> = {
    * point du jeu ou une erreur se verrait en jouant, et l'ecrire de memoire
    * n'etait pas acceptable. Le 7 vaut 21, le roi seulement 10.
    */
+  /*
+   * LA SCOPA. Les deux premieres sources couvraient les REGLES ; l'histoire
+   * demandee par Mag en a demande d'autres.
+   *
+   * Le World of Playing Cards est ici la meilleure : c'est un fonds specialise,
+   * et c'est le seul a donner une DATE verifiable — 1376, un jeu nomme
+   * « naibbe » interdit par decret — la ou Wikipedia se contente du XVIIIe
+   * siecle. C'est aussi lui qui documente les paquets mamelouks de Topkapi.
+   *
+   * Wikipedia reste pour ce qu'il couvre seul : la diffusion de la scopa au
+   * XVIIIe et sa parente supposee avec les jeux espagnols. Sa legende des
+   * pirates du XVe, elle, n'est reprise nulle part — le texte le dit.
+   */
   scopa: [
+    { label: 'Les cartes en Italie depuis 1376 — The World of Playing Cards', url: 'https://www.wopc.co.uk/italy/index' },
+    { label: 'Les enseignes latines et les cartes mameloukes — Wikipedia (EN)', url: 'https://en.wikipedia.org/wiki/Italian_playing_cards' },
     { label: 'Scopa (gioco) — Wikipedia', url: 'https://it.wikipedia.org/wiki/Scopa_(gioco)' },
     { label: 'Come si calcola la primiera a scopa — ilGiocatoreOnline', url: 'https://www.ilgiocatoreonline.it/come-si-calcola-la-primiera-a-scopa.html' },
   ],

@@ -325,8 +325,11 @@ const MOTS_MAISON: Record<string, string> = {
     'scopa jeu cartes regle regles jouer partie italien quarante bastoni denari coppe spade ' +
     'batons deniers coupes epees settebello sette bello primiera balayage points compter ' +
     'fante cavallo re valet cavalier roi as figure carte gioco regole punti mazzo semi ' +
-    'game cards rules play suits sweep points count deck',
-  legendes:
+    'game cards rules play suits sweep points count deck ' +
+    // L'histoire du jeu : « d'ou vient la scopa » ne rendait rien.
+    'histoire origine ancien vieux naibbe 1376 mamelouk egypte topkapi sarrasin arabe polo baton ' +
+    'dame reine figures espagne espagnol primiera naples napoli storia origine antico donna regina ' +
+    'history origin old queen court cards spain naples mamluk saracen polo sticks',  legendes:
     'legende legendes mythe conte cola pesce colapesce colonnes tremblement terre seisme ' +
     'arethuse aretusa nymphe source ortygie syracuse alphee artemis papyrus ' +
     'fata morgana mirage detroit messine calabre charybde scylla cariddi scilla tourbillon monstre ' +

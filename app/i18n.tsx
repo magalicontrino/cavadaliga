@@ -369,6 +369,15 @@ export type Dict = {
     primieraTitle: string;
     primieraText: string;
     primiera: { carte: string; points: string }[];
+    /*
+     * L'HISTOIRE, DEMANDEE PAR MAG — et posee APRES les regles, pas avant.
+     * La section repondait a « comment on joue » sans jamais dire d'ou ça
+     * vient ; et elle laissait tomber « pas de dame » comme une bizarrerie,
+     * sans l'expliquer. On apprend donc a jouer d'abord, et l'histoire
+     * repond ensuite aux questions que les regles ont fait naitre.
+     */
+    histoireTitle: string;
+    histoire: { title: string; text: string }[];
     note: string;
   };
   /* Le Val di Noto : huit villes, un seisme, et quatre d'entre elles ici. */
@@ -1408,6 +1417,12 @@ const FR: Dict = {
       { carte: 'Le 2', points: '12 points' },
       { carte: 'Les figures', points: '10 points' },
     ],
+    histoireTitle: 'D’où vient ce jeu',
+    histoire: [
+      { title: 'Le jeu est plus jeune qu’il n’en a l’air', text: 'On le croit immémorial ; il ne l’est pas. La scopa est attestée dans toute l’Italie au XVIIIᵉ siècle, en vogue à Naples — et avant ça, [[rien]] : aucune trace, aucun document. Elle descendrait de jeux espagnols, dont un nommé primiera, et c’est pourquoi la combinaison qu’on compte à la fin porte encore ce nom-là. Tout ce qu’on raconte de plus ancien — les pirates du port de Naples au XVᵉ siècle — est une jolie histoire sans source.' },
+      { title: 'Les cartes, elles, sont bien plus vieilles', text: 'La première preuve solide de cartes à jouer en Italie date de [[1376]] : un jeu appelé « naibbe » y est interdit par décret. Trois ans plus tard, une chronique note qu’un jeu nommé « nayb » aurait été introduit par un Sarrasin. Elles arrivent d’Égypte mamelouke — le musée de Topkapi conserve les paquets qui le montrent — et passent en Europe par les péninsules ibérique et italienne. Autrement dit, le jeu qui traîne sur la table est arrivé par [[le même monde arabe>>#arabe]] que le couscous de Trapani.' },
+      { title: 'Pourquoi des bâtons, et pourquoi pas de dame', text: 'Les enseignes mameloukes étaient les coupes, les deniers, les épées et les [[bâtons de polo]]. Le polo étant inconnu en Europe, les Italiens en ont fait de simples bâtons, et les Espagnols des gourdins. Quant aux figures, elles sont restées trois : valet, cavalier, roi. La dame n’apparaît que dans les jeux de tarot, glissée entre le cavalier et le roi. Ce n’est donc pas une carte qu’on aurait perdue — elle n’a jamais été là.' },
+    ],
     note: 'On joue jusqu’à 11 points à deux, 16 à trois, 21 par équipes. Le jeu était déjà répandu dans toute l’Italie au XVIIIᵉ siècle, et viendrait de jeux espagnols passés par Naples.',
   },
   unescoNote: {
@@ -1813,6 +1828,9 @@ const FR: Dict = {
       { q: 'Quelle carte vaut un point à elle seule ?', choix: ['Le settebello, le 7 de deniers', 'Le roi de coupes', 'L’as de bâtons'], bonne: 0, ancre: 'scopa', niveau: 'moyen' },
       { q: 'Dans la primiera, combien vaut le 7 ?', choix: ['21 points', '10 points', '7 points'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
       { q: 'Si la valeur exacte de votre carte est sur la table, que devez-vous faire ?', choix: ['La prendre, vous n’avez pas le choix', 'Prendre plutôt une somme', 'Passer votre tour'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
+      { q: 'D’où viennent les cartes à jouer arrivées en Italie ?', choix: ['D’Égypte mamelouke, par le monde arabe', 'De Chine, par la route de la soie', 'Elles ont été inventées à Naples'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
+      { q: 'Pourquoi n’y a-t-il pas de dame dans le jeu italien ?', choix: ['Il n’y en a jamais eu : les figures sont valet, cavalier, roi', 'Elle a été retirée au XIXᵉ siècle', 'Elle est remplacée par le sept de deniers'], bonne: 0, ancre: 'scopa', niveau: 'moyen' },
+      { q: 'Les bâtons du jeu italien étaient à l’origine…', choix: ['Des bâtons de polo, sport inconnu en Europe', 'Des rames de pêcheur', 'Des cannes à sucre'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
       { q: 'Que mangent les geckos qui traversent le mur le soir ?', choix: ['Des moustiques', 'Des miettes', 'Rien, ils dorment'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Y a-t-il des scorpions en Sicile ?', choix: ['Oui, mais leur piqûre est sans danger', 'Non, aucun', 'Oui, et ils sont mortels'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Où naissent les moustiques ?', choix: ['Dans l’eau immobile, même quelques centimètres', 'Dans les haies sèches', 'Sous les pierres chaudes'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
@@ -2851,6 +2869,12 @@ const IT: Dict = {
       { carte: 'Il 2', points: '12 punti' },
       { carte: 'Le figure', points: '10 punti' },
     ],
+    histoireTitle: 'Da dove viene questo gioco',
+    histoire: [
+      { title: 'Il gioco è più giovane di quel che sembra', text: 'Lo si crede immemorabile; non lo è. La scopa è attestata in tutta Italia nel Settecento, di moda a Napoli — e prima, [[niente]]: nessuna traccia, nessun documento. Deriverebbe da giochi spagnoli, tra cui uno chiamato primiera, ed è per questo che la combinazione che si conta alla fine porta ancora quel nome. Tutto ciò che si racconta di più antico — i pirati del porto di Napoli nel Quattrocento — è una bella storia senza fonte.' },
+      { title: 'Le carte, invece, sono molto più antiche', text: 'La prima prova solida di carte da gioco in Italia risale al [[1376]]: un gioco chiamato « naibbe » vi è vietato per decreto. Tre anni dopo una cronaca annota che un gioco detto « nayb » sarebbe stato introdotto da un Saraceno. Arrivano dall’Egitto mamelucco — il museo di Topkapi conserva i mazzi che lo mostrano — e passano in Europa attraverso le penisole iberica e italiana. In altre parole, il gioco che sta sul tavolo è arrivato dallo [[stesso mondo arabo>>#arabe]] del cuscus di Trapani.' },
+      { title: 'Perché bastoni, e perché nessuna donna', text: 'Le insegne mamelucche erano coppe, denari, spade e [[bastoni da polo]]. Essendo il polo sconosciuto in Europa, gli italiani ne fecero semplici bastoni e gli spagnoli randelli. Quanto alle figure, sono rimaste tre: fante, cavallo, re. La donna compare solo nei tarocchi, infilata tra il cavallo e il re. Non è dunque una carta che si sia persa — non c’è mai stata.' },
+    ],
     note: 'Si gioca a 11 punti in due, 16 in tre, 21 a squadre. Il gioco era già diffuso in tutta Italia nel Settecento, e verrebbe da giochi spagnoli passati per Napoli.',
   },
   unescoNote: {
@@ -3256,6 +3280,9 @@ const IT: Dict = {
       { q: 'Quale carta vale un punto da sola ?', choix: ['Il settebello, il 7 di denari', 'Il re di coppe', 'L’asso di bastoni'], bonne: 0, ancre: 'scopa', niveau: 'moyen' },
       { q: 'Nella primiera, quanto vale il 7 ?', choix: ['21 punti', '10 punti', '7 punti'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
       { q: 'Se il valore esatto della tua carta è sul tavolo, che cosa devi fare ?', choix: ['Prenderlo, non hai scelta', 'Prendere piuttosto una somma', 'Passare il turno'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
+      { q: 'Da dove vengono le carte da gioco arrivate in Italia?', choix: ['Dall’Egitto mamelucco, attraverso il mondo arabo', 'Dalla Cina, per la via della seta', 'Sono state inventate a Napoli'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
+      { q: 'Perché non c’è la donna nelle carte italiane?', choix: ['Non c’è mai stata: le figure sono fante, cavallo, re', 'È stata tolta nell’Ottocento', 'È sostituita dal sette di denari'], bonne: 0, ancre: 'scopa', niveau: 'moyen' },
+      { q: 'I bastoni delle carte italiane erano in origine…', choix: ['Bastoni da polo, sport sconosciuto in Europa', 'Remi da pescatore', 'Canne da zucchero'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
       { q: 'Che cosa mangiano i gechi che attraversano il muro la sera?', choix: ['Le zanzare', 'Le briciole', 'Niente, dormono'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Ci sono scorpioni in Sicilia?', choix: ['Sì, ma la loro puntura è innocua', 'No, nessuno', 'Sì, e sono mortali'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Dove nascono le zanzare?', choix: ['Nell’acqua ferma, bastano pochi centimetri', 'Nelle siepi secche', 'Sotto le pietre calde'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
@@ -4287,6 +4314,12 @@ const EN: Dict = {
       { carte: 'The 2', points: '12 points' },
       { carte: 'Face cards', points: '10 points' },
     ],
+    histoireTitle: 'Where this game comes from',
+    histoire: [
+      { title: 'The game is younger than it looks', text: 'People take it for immemorial; it is not. Scopa is attested across Italy in the 18th century, fashionable in Naples — and before that, [[nothing]]: no trace, no document. It is thought to descend from Spanish games, one of them called primiera, which is why the combination counted at the end still carries that name. Everything older that gets told — pirates in the port of Naples in the 15th century — is a fine story with no source.' },
+      { title: 'The cards, though, are far older', text: 'The first solid evidence of playing cards in Italy dates from [[1376]]: a game called “naibbe” is banned there by decree. Three years later a chronicle notes that a game named “nayb” was introduced by a Saracen. They come from Mamluk Egypt — the Topkapi museum holds the packs that show it — and reach Europe through the Iberian and Italian peninsulas. In other words, the game lying on the table arrived by [[the same Arab world>>#arabe]] as the couscous of Trapani.' },
+      { title: 'Why batons, and why no queen', text: 'The Mamluk suits were cups, coins, swords and [[polo sticks]]. Polo being unknown in Europe, the Italians turned them into plain batons, and the Spanish into cudgels. As for the court cards, they stayed three: knave, knight, king. The queen appears only in tarot decks, slipped between the knight and the king. So it is not a card that got lost — it was never there.' },
+    ],
     note: 'You play to 11 points with two, 16 with three, 21 in teams. The game was already widespread across Italy in the eighteenth century, and is thought to come from Spanish games by way of Naples.',
   },
   unescoNote: {
@@ -4692,6 +4725,9 @@ const EN: Dict = {
       { q: 'Which single card is worth a point on its own?', choix: ['The settebello, the seven of coins', 'The king of cups', 'The ace of clubs'], bonne: 0, ancre: 'scopa', niveau: 'moyen' },
       { q: 'In the primiera, what is the seven worth?', choix: ['21 points', '10 points', '7 points'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
       { q: 'If your card’s exact value is on the table, what must you do?', choix: ['Take it — you have no choice', 'Take a sum instead', 'Pass your turn'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
+      { q: 'Where did the playing cards that reached Italy come from?', choix: ['Mamluk Egypt, by way of the Arab world', 'China, along the silk road', 'They were invented in Naples'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
+      { q: 'Why is there no queen in the Italian deck?', choix: ['There never was one: the courts are knave, knight, king', 'She was removed in the 19th century', 'She is replaced by the seven of coins'], bonne: 0, ancre: 'scopa', niveau: 'moyen' },
+      { q: 'The batons in the Italian deck were originally…', choix: ['Polo sticks, a sport unknown in Europe', 'Fishermen’s oars', 'Sugar canes'], bonne: 0, ancre: 'scopa', niveau: 'difficile' },
       { q: 'What do the geckos crossing the wall at dusk eat?', choix: ['Mosquitoes', 'Crumbs', 'Nothing, they sleep'], bonne: 0, ancre: 'faune', niveau: 'facile' },
       { q: 'Are there scorpions in Sicily?', choix: ['Yes, but their sting is harmless', 'No, none at all', 'Yes, and they are deadly'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
       { q: 'Where do mosquitoes breed?', choix: ['In still water — a few centimetres is enough', 'In dry hedges', 'Under warm stones'], bonne: 0, ancre: 'faune', niveau: 'moyen' },
