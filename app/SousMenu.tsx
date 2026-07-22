@@ -66,10 +66,27 @@ export default function SousMenu({ etapes }: { etapes: Etape[] }) {
   useEffect(() => {
     let image = 0;
     let jusqua = 0;
+    /*
+     * ON MESURE LA BARRE, PAS LE <header> — et c'est la deuxieme fois que cet
+     * espace revient, parce que ma correction precedente visait le mauvais
+     * element.
+     *
+     * `<header>` est `fixed top-0` et ne bouge JAMAIS : ce qui glisse quand on
+     * descend, c'est son enfant, a qui l'on ajoute `-translate-y-full`. Or une
+     * transformation CSS ne change pas la boite de mise en page — le
+     * `getBoundingClientRect()` du header rend donc 88 px meme quand la barre
+     * a disparu de l'ecran. Le sous-menu restait plante a 88, et les 88 px
+     * au-dessus laissaient defiler la page : le trait qui depasse sur l'image
+     * de Mag, c'etait le filet d'une section qui passait dans ce vide.
+     *
+     * L'enfant, lui, tombe bien a 0 quand il est translate. Il faut donc lire
+     * CELUI-LA — et le `Math.max` garde la valeur saine pendant la transition.
+     */
     const suivre = () => {
       const entete = document.querySelector('header');
-      if (entete && collant.current) {
-        const bas = Math.max(0, Math.round(entete.getBoundingClientRect().bottom));
+      const barreHaute = entete?.firstElementChild ?? entete;
+      if (barreHaute && collant.current) {
+        const bas = Math.max(0, Math.round(barreHaute.getBoundingClientRect().bottom));
         collant.current.style.top = `${bas}px`;
       }
     };
