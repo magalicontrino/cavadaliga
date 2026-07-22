@@ -17,16 +17,48 @@ export type PageKey =
   | 'contact';
 
 // « Préparer le voyage » — page riche (groupes avec liens + check-list)
+/*
+ * LA PAGE SE LIT EN DEUX TEMPS, et c'est Mag qui a vu qu'elle n'en avait qu'un.
+ *
+ * Elle repondait a DEUX questions sans jamais le dire : « comment j'arrive en
+ * Sicile ? » et « comment je vais de mon point d'arrivee jusqu'a la maison ? ».
+ * Les deux etaient melangees — le groupe « Venir en voiture » parlait du bateau
+ * depuis la France ET de la location a Catane, qui ne concernent pas les memes
+ * gens. Chaque groupe porte donc son ACTE, et la page les separe.
+ *
+ * Les groupes restent une LISTE PLATE malgre les deux actes : « Demander » et
+ * le quiz parcourent `prepare.groups` pour construire leur index, et les
+ * imbriquer aurait casse les deux sans que rien ne le signale. Le regroupement
+ * se fait a l'affichage, la ou il se voit.
+ */
 type PrepareGroup = {
   icon: string;
   title: string;
-  // Ancre facultative, pour qu'un lien #id (dans un item) mène a ce groupe.
-  id?: string;
+  /** L'acte auquel il appartient — voir `actes`. */
+  acte: string;
+  /** L'ancre : elle sert au sous-menu ET aux renvois [[label>>#id]]. */
+  id: string;
   links?: { label: string; url: string }[];
   // Un item peut porter un lien via le marqueur [[label>>#ancre]] (voir Surligne).
   items?: string[];
 };
+/*
+ * LE FONCTIONNEMENT DE LA MAISON A SON PROPRE TYPE, depuis que les groupes du
+ * voyage portent un acte et une ancre.
+ *
+ * `arrivee.operation` — l'electricite, l'eau, le gaz, le wifi — reutilisait
+ * `PrepareGroup` parce que la FORME se trouvait etre la meme : un picto, un
+ * titre, des lignes. Ce n'etait pas une parente, c'etait une coincidence, et
+ * le compilateur l'a montre des que le voyage a eu besoin d'un champ de plus :
+ * il a reclame un « acte » a la vanne d'eau. Deux choses qui se ressemblent ne
+ * sont pas la meme chose.
+ */
+type BlocPratique = { icon: string; title: string; items?: string[] };
+
+/** Les deux temps du voyage, dans l'ordre ou on les vit. */
+type PrepareActe = { id: string; title: string };
 type PrepareContent = {
+  actes: PrepareActe[];
   eyebrow: string;
   title: string;
   intro: string;
@@ -44,7 +76,7 @@ type ArriveeContent = {
   mapsLabel: string;
   mapsUrl: string;
   operationTitle: string;
-  operation: PrepareGroup[];
+  operation: BlocPratique[];
 };
 type DepartContent = {
   eyebrow: string;
@@ -1924,6 +1956,8 @@ const FR: Dict = {
       { q: 'De l’aéroport de Catane à la maison, comptez…', choix: ['Près de deux heures, 130 km', 'Une demi-heure', 'Quatre heures'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'Au comptoir du loueur, la carte de crédit doit être…', choix: ['Au nom de la personne qui a réservé', 'À n’importe quel nom', 'Une carte de débit'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
       { q: 'En sortant de l’aérogare de Catane, les bus sont…', choix: ['À gauche — les loueurs de voitures sont à droite', 'À droite, avec les loueurs', 'Au sous-sol'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'Le billet de la navette vers la gare de l’aéroport de Catane…', choix: ['Ne se vend pas seul : il s’achète avec celui du train', 'S’achète dans la navette', 'Est gratuit'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'À quelle distance de l’aérogare de Catane se trouve la gare ?', choix: ['700 m, avec une navette toutes les dix minutes', 'Dans l’aérogare même', 'À douze kilomètres'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'Quand sort-on les bacs ?', choix: ['La veille au soir — le camion passe tôt', 'Le matin même', 'Quand ils sont pleins'], bonne: 0, ancre: 'dechets', niveau: 'facile' },
       { q: 'Que se passe-t-il si un bac est sorti le mauvais soir ?', choix: ['Il reste dehors une semaine', 'Il est ramassé quand même', 'La commune met une amende'], bonne: 0, ancre: 'dechets', niveau: 'moyen' },
       { q: 'Pourquoi les jours de collecte peuvent-ils changer ?', choix: ['La commune les modifie pour les fêtes, l’été, ou quand elle change de prestataire', 'Ils ne changent jamais', 'Ils dépendent de la météo'], bonne: 0, ancre: 'dechets', niveau: 'difficile' },
@@ -2022,9 +2056,15 @@ const FR: Dict = {
     eyebrow: 'Préparer le voyage',
     title: 'Tout ce qui se passe avant le départ',
     intro: 'Vols, aéroport d’arrivée, comment rejoindre la maison… et une check-list pour ne rien oublier avant de fermer la valise.',
+    actes: [
+      { id: 'sicile', title: 'Venir en Sicile' },
+      { id: 'maison', title: 'De là jusqu’à la maison' },
+    ],
     groups: [
       {
         icon: '✈️',
+        acte: 'sicile',
+        id: 'vol',
         title: 'Trouver un vol',
         links: [
           { label: 'Skyscanner', url: 'https://www.skyscanner.fr' },
@@ -2033,52 +2073,64 @@ const FR: Dict = {
       },
       {
         icon: '🛬',
+        acte: 'sicile',
         id: 'aeroport',
-        title: 'Choisir son aéroport d’arrivée',
+        title: 'Choisir son aéroport',
         links: [
           { label: 'Catane → la maison, sur Google Maps', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
         ],
         items: [
-          'Catania (CTA) — notre aéroport conseillé : le plus de vols et le bus direct pour la région. Comptez [[près de deux heures de route jusqu’à la maison>>#rejoindre]], 130 km.',
+          'Catania (CTA) — notre aéroport conseillé : le plus de vols et le bus direct pour la région. Comptez [[près de deux heures de route jusqu’à la maison>>#avec-voiture]], 130 km.',
           'Comiso (CIY) — le plus proche, environ 40 min de route.',
           'Palerme (PMO) — le plus loin, environ 3 h, à réserver aux bons plans.',
         ],
       },
       {
         icon: '⛴️',
-        title: 'Venir en voiture',
+        acte: 'sicile',
+        id: 'depuis-la-france',
+        title: 'Depuis la France, en voiture',
         links: [
           { label: 'GNV — Gênes ↔ Palerme', url: 'https://www.gnv.it/fr/destinations-des-ferries/sicile/g%C3%AAnes-palerme' },
           { label: 'Caronte & Tourist — la traversée du détroit', url: 'https://www.carontetourist.it/' },
-          { label: 'L’itinéraire depuis l’aéroport de Catane', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
-          { label: 'Goldcar', url: 'https://www.goldcar.es/' },
         ],
         items: [
           'Le bateau depuis Gênes — de loin le plus reposant. GNV part le soir, la traversée dure une vingtaine d’heures et on débarque à Palerme le lendemain, la voiture chargée et la route de France déjà derrière soi. Il reste environ 3 h jusqu’à la maison.',
           'La descente de la Botte — on roule jusqu’en Calabre et on embarque pour Messine. Attention : le ferry ne part pas de Reggio de Calabre même mais de [[Villa San Giovanni]], quelques kilomètres avant, là où l’autoroute s’arrête. La traversée fait une vingtaine de minutes, sans réservation, et il reste ensuite environ 3 h de route.',
           'Entre les deux, c’est une question de fatigue : Gênes coûte une nuit en cabine et vous épargne toute l’Italie du Sud au volant.',
-          'Et si vous louez une voiture à Catane — le cas le plus fréquent : à la sortie de l’aéroport [[prenez à droite]], tous les loueurs sont regroupés là, et nous conseillons Goldcar. Les deux choses qui coincent au comptoir : la carte de crédit doit être [[au nom de la personne qui a réservé]], et une caution est bloquée si vous refusez l’assurance, qui reste facultative.',
+        ],
+      },
+      {
+        icon: '🚌',
+        acte: 'maison',
+        id: 'sans-voiture',
+        title: 'Sans voiture',
+        links: [
+          { label: 'AST — horaires', url: 'http://www.aziendasicilianatrasporti.it:8080/' },
+          { label: 'Trenitalia', url: 'https://www.trenitalia.com/' },
+        ],
+        items: [
+          'Bus AST — depuis [[l’aéroport de Catane>>#aeroport]] vers Modica, Scicli, Donnalucata et Pozzallo. En sortant de l’aérogare, c’est [[à gauche]] : les loueurs de voitures sont à droite, les bus à gauche.',
+          'Train — il y a une gare à l’aéroport, Catania Aeroporto Fontanarossa, à 700 m de l’aérogare : une navette AMT y mène toutes les dix minutes, de 4 h 30 à 22 h 40. Mais [[le billet de la navette ne se vend pas seul]] : il s’achète avec celui du train, 1,40 € de supplément — au guichet, demandez les deux ensemble. De là on rejoint le réseau régional, qui dessert Modica, Scicli, Pozzallo et Raguse.',
+          'Chauffeur privé — Giovanni, notre perle : 10 € de Donnalucata à l’appartement, 20 € de Pozzallo, 150 € depuis l’aéroport de Catane. Jusqu’à 5-6 personnes. Demandez son numéro à Mag, et prévenez-le à l’avance selon ses disponibilités (prévoyez un plan B).',
+          'Ne comptez pas trouver de Uber : l’application ne couvre pas cette région rurale (en Italie, Uber ne fonctionne qu’à Rome et Milan, et seulement avec des taxis/chauffeurs licenciés). Ici, on compte sur Giovanni, un taxi local ou le bus.',
         ],
       },
       {
         icon: '🚗',
-        id: 'rejoindre',
-        title: 'Rejoindre Casa Cava d’Aliga',
+        acte: 'maison',
+        id: 'avec-voiture',
+        title: 'Avec une voiture',
         links: [
-          { label: 'AST — horaires', url: 'http://www.aziendasicilianatrasporti.it:8080/' },
-          { label: 'Trenitalia', url: 'https://www.trenitalia.com/' },
           { label: 'Goldcar', url: 'https://www.goldcar.es/' },
+          { label: 'L’itinéraire depuis l’aéroport de Catane', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
           { label: 'Code de la route italien — art. 171, le casque', url: 'https://www.brocardi.it/codice-della-strada/titolo-v/art171.html' },
           { label: 'Code de la route italien — art. 152, les feux', url: 'https://www.brocardi.it/codice-della-strada/titolo-v/art152.html' },
         ],
         items: [
-          'Bus AST — depuis [[l’aéroport de Catane>>#aeroport]] vers Modica, Scicli, Donnalucata et Pozzallo. En sortant de l’aérogare, c’est [[à gauche]] : les loueurs de voitures sont à droite, les bus à gauche.',
-          'Train — la ligne régionale relie Modica, Scicli, Pozzallo et Raguse (horaires et billets sur trenitalia.com).',
-          'Location de voiture — pratique pour explorer la région ; nous conseillons Goldcar, à l’aéroport de Catane. À la sortie de l’aéroport, prenez à droite : tous les loueurs sont regroupés au même endroit.',
+          'Location de voiture — le cas le plus fréquent, et le plus pratique pour explorer la région : nous conseillons Goldcar, à l’aéroport de Catane. En sortant de l’aérogare, [[prenez à droite]] : tous les loueurs sont regroupés au même endroit.',
           'Important : la carte de crédit doit être [[au nom de la personne qui a réservé]]. Goldcar bloque une caution (environ 950 € à ce jour) si vous ne prenez pas l’assurance, qui reste facultative.',
-          'Chauffeur privé — Giovanni, notre perle : 10 € de Donnalucata à l’appartement, 20 € de Pozzallo, 150 € depuis l’aéroport de Catane. Jusqu’à 5-6 personnes. Demandez son numéro à Mag, et prévenez-le à l’avance selon ses disponibilités (prévoyez un plan B).',
           'À moto ou en scooter — c’est la meilleure façon de voir la côte : les routes entre Cava d’Aliga, Donnalucata et Sampieri longent la mer, elles sont courtes et rarement chargées. Deux règles italiennes valent d’être sues avant de démarrer. Le casque est obligatoire [[pour le conducteur comme pour le passager]], à tout âge : 83 à 332 € d’amende, et le véhicule immobilisé 60 jours (90 en cas de récidive dans les deux ans) — c’est le conducteur qui répond aussi du passager. Et les feux de croisement restent [[allumés en permanence]], de jour comme de nuit, y compris en agglomération.',
-          'Ne comptez pas trouver de Uber : l’application ne couvre pas cette région rurale (en Italie, Uber ne fonctionne qu’à Rome et Milan, et seulement avec des taxis/chauffeurs licenciés). Ici, on compte sur Giovanni, un taxi local ou le bus.',
         ],
       },
     ],
@@ -3318,6 +3370,8 @@ const IT: Dict = {
       { q: 'Dall’aeroporto di Catania a casa, contate…', choix: ['Quasi due ore, 130 km', 'Mezz’ora', 'Quattro ore'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'Al banco del noleggio, la carta di credito dev’essere…', choix: ['Intestata a chi ha prenotato', 'A qualsiasi nome', 'Una carta di debito'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
       { q: 'Uscendo dall’aerostazione di Catania, i bus sono…', choix: ['A sinistra — gli autonoleggi sono a destra', 'A destra, con gli autonoleggi', 'Al piano interrato'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'Il biglietto della navetta per la stazione dell’aeroporto di Catania…', choix: ['Non si vende da solo: si compra con quello del treno', 'Si compra sulla navetta', 'È gratuito'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'A che distanza dall’aerostazione di Catania si trova la stazione?', choix: ['700 m, con una navetta ogni dieci minuti', 'Dentro l’aerostazione', 'A dodici chilometri'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'Quando si mettono fuori i bidoni?', choix: ['La sera prima — il camion passa presto', 'La mattina stessa', 'Quando sono pieni'], bonne: 0, ancre: 'dechets', niveau: 'facile' },
       { q: 'Che cosa succede se un bidone esce la sera sbagliata?', choix: ['Resta fuori una settimana', 'Viene raccolto lo stesso', 'Il comune fa una multa'], bonne: 0, ancre: 'dechets', niveau: 'moyen' },
       { q: 'Perché i giorni di raccolta possono cambiare?', choix: ['Il comune li cambia per le feste, d’estate, o cambiando gestore', 'Non cambiano mai', 'Dipendono dal tempo'], bonne: 0, ancre: 'dechets', niveau: 'difficile' },
@@ -3414,63 +3468,81 @@ const IT: Dict = {
     eyebrow: 'Preparare il viaggio',
     title: 'Tutto quello che viene prima della partenza',
     intro: 'Voli, aeroporto d’arrivo, come raggiungere la casa… e una check-list per non dimenticare nulla prima di chiudere la valigia.',
+    actes: [
+      { id: 'sicile', title: 'Arrivare in Sicilia' },
+      { id: 'maison', title: 'Da lì fino a casa' },
+    ],
     groups: [
       {
         icon: '✈️',
+        acte: 'sicile',
+        id: 'vol',
         title: 'Trovare un volo',
         links: [
           { label: 'Skyscanner', url: 'https://www.skyscanner.it' },
         ],
-        items: ['Il nostro consiglio: cercate su Skyscanner e scegliete un volo che arriva presto a Catania — potrete prendere il bus in giornata.', 'Controllate la politica sui bagagli (spesso a pagamento sulle compagnie low-cost).'],
+        items: ['Il nostro consiglio: cercate su Skyscanner e preferite un volo che arrivi presto a Catania — potrete prendere il bus lo stesso giorno.', 'Controllate la politica bagagli (spesso a pagamento sulle compagnie low-cost).'],
       },
       {
         icon: '🛬',
+        acte: 'sicile',
         id: 'aeroport',
-        title: 'Scegliere l’aeroporto d’arrivo',
+        title: 'Scegliere l’aeroporto',
         links: [
           { label: 'Catania → casa, su Google Maps', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
         ],
         items: [
-          'Catania (CTA) — il nostro aeroporto consigliato: più voli e il bus diretto per la zona. Contate [[quasi due ore di strada fino a casa>>#rejoindre]], 130 km.',
+          'Catania (CTA) — il nostro aeroporto consigliato: più voli e il bus diretto per la zona. Contate [[quasi due ore di strada fino a casa>>#avec-voiture]], 130 km.',
           'Comiso (CIY) — il più vicino, circa 40 min di strada.',
           'Palermo (PMO) — il più lontano, circa 3 h, solo per le buone offerte.',
         ],
       },
       {
         icon: '⛴️',
-        title: 'Venire in auto',
+        acte: 'sicile',
+        id: 'depuis-la-france',
+        title: 'Dalla Francia, in auto',
         links: [
           { label: 'GNV — Genova ↔ Palermo', url: 'https://www.gnv.it/it/destinazioni-traghetti/sicilia/genova-palermo' },
           { label: 'Caronte & Tourist — la traversata dello Stretto', url: 'https://www.carontetourist.it/' },
-          { label: 'L’itinerario dall’aeroporto di Catania', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
-          { label: 'Goldcar', url: 'https://www.goldcar.es/' },
         ],
         items: [
-          'La nave da Genova — di gran lunga la più riposante. GNV parte la sera, la traversata dura una ventina d’ore e si sbarca a Palermo l’indomani, con l’auto carica e tutta la strada già alle spalle. Restano circa 3 h fino a casa.',
-          'Scendere lungo lo Stivale — si guida fino in Calabria e ci si imbarca per Messina. Attenzione: il traghetto non parte da Reggio Calabria ma da [[Villa San Giovanni]], qualche chilometro prima, dove finisce l’autostrada. La traversata dura una ventina di minuti, senza prenotazione, e poi restano circa 3 h di strada.',
+          'La nave da Genova — di gran lunga la più riposante. GNV parte la sera, la traversata dura una ventina d’ore e si sbarca a Palermo l’indomani, con l’auto carica e la strada di Francia già alle spalle. Restano circa 3 h fino a casa.',
+          'La discesa dello Stivale — si guida fino in Calabria e ci si imbarca per Messina. Attenzione: il traghetto non parte da Reggio Calabria ma da [[Villa San Giovanni]], qualche chilometro prima, dove finisce l’autostrada. La traversata dura una ventina di minuti, senza prenotazione, e restano poi circa 3 h di strada.',
           'Tra le due è una questione di stanchezza: Genova costa una notte in cabina e vi risparmia tutto il Sud Italia al volante.',
-          'E se noleggiate un’auto a Catania — il caso più frequente: all’uscita dell’aeroporto [[girate a destra]], i noleggi sono tutti lì, e consigliamo Goldcar. Le due cose che bloccano al banco: la carta di credito dev’essere [[intestata a chi ha prenotato]], e viene bloccata una cauzione se si rifiuta l’assicurazione, che resta facoltativa.',
+        ],
+      },
+      {
+        icon: '🚌',
+        acte: 'maison',
+        id: 'sans-voiture',
+        title: 'Senza auto',
+        links: [
+          { label: 'AST — orari', url: 'http://www.aziendasicilianatrasporti.it:8080/' },
+          { label: 'Trenitalia', url: 'https://www.trenitalia.com/' },
+        ],
+        items: [
+          'Bus AST — [[dall’aeroporto di Catania>>#aeroport]] verso Modica, Scicli, Donnalucata e Pozzallo. Uscendo dall’aerostazione è [[a sinistra]]: gli autonoleggi a destra, i bus a sinistra.',
+          'Treno — c’è una stazione all’aeroporto, Catania Aeroporto Fontanarossa, a 700 m dall’aerostazione: una navetta AMT ci porta ogni dieci minuti, dalle 4:30 alle 22:40. Ma [[il biglietto della navetta non si vende da solo]]: si compra insieme a quello del treno, 1,40 € di supplemento — allo sportello chiedeteli insieme. Da lì si raggiunge la rete regionale, che serve Modica, Scicli, Pozzallo e Ragusa.',
+          'Autista privato — Giovanni, la nostra perla: 10 € da Donnalucata all’appartamento, 20 € da Pozzallo, 150 € dall’aeroporto di Catania. Fino a 5-6 persone. Chiedete il suo numero a Mag e avvisatelo in anticipo secondo le sue disponibilità (prevedete un piano B).',
+          'Non contate di trovare Uber: l’app non copre questa zona rurale (in Italia Uber funziona solo a Roma e Milano, e soltanto con taxi/autisti con licenza). Qui si conta su Giovanni, un taxi locale o il bus.',
         ],
       },
       {
         icon: '🚗',
-        id: 'rejoindre',
-        title: 'Raggiungere Casa Cava d’Aliga',
+        acte: 'maison',
+        id: 'avec-voiture',
+        title: 'Con un’auto',
         links: [
-          { label: 'AST — orari', url: 'http://www.aziendasicilianatrasporti.it:8080/' },
-          { label: 'Trenitalia', url: 'https://www.trenitalia.com/' },
           { label: 'Goldcar', url: 'https://www.goldcar.es/' },
+          { label: 'L’itinerario dall’aeroporto di Catania', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
           { label: 'Codice della strada — art. 171, il casco', url: 'https://www.brocardi.it/codice-della-strada/titolo-v/art171.html' },
           { label: 'Codice della strada — art. 152, le luci', url: 'https://www.brocardi.it/codice-della-strada/titolo-v/art152.html' },
         ],
         items: [
-          'Bus AST — [[dall’aeroporto di Catania>>#aeroport]] verso Modica, Scicli, Donnalucata e Pozzallo. Uscendo dall’aerostazione è [[a sinistra]]: gli autonoleggi a destra, i bus a sinistra.',
-          'Treno — la linea regionale collega Modica, Scicli, Pozzallo e Ragusa (orari e biglietti su trenitalia.com).',
-          'Noleggio auto — comodo per esplorare la regione; consigliamo Goldcar, all’aeroporto di Catania. All’uscita dell’aeroporto, girate a destra: tutti gli autonoleggi sono riuniti nello stesso punto.',
+          'Noleggio auto — il caso più frequente, e il più comodo per esplorare la regione: consigliamo Goldcar, all’aeroporto di Catania. Uscendo dall’aerostazione, [[girate a destra]]: tutti gli autonoleggi sono riuniti nello stesso punto.',
           'Importante: la carta di credito deve essere [[intestata alla persona che ha prenotato]]. Goldcar blocca una cauzione (circa 950 € a oggi) se non si prende l’assicurazione, che resta facoltativa.',
-          'Autista privato — Giovanni, la nostra perla: 10 € da Donnalucata all’appartamento, 20 € da Pozzallo, 150 € dall’aeroporto di Catania. Fino a 5-6 persone. Chiedete il suo numero a Mag e avvisatelo in anticipo in base alla disponibilità (tenete un piano B).',
           'In moto o in scooter — è il modo migliore per vedere la costa: le strade tra Cava d’Aliga, Donnalucata e Sampieri corrono lungo il mare, sono brevi e raramente trafficate. Due regole vanno sapute prima di partire. Il casco è obbligatorio [[per il conducente e per il passeggero]], a qualsiasi età: da 83 a 332 € di multa e fermo del veicolo per 60 giorni (90 in caso di recidiva nel biennio) — della violazione risponde anche il conducente. E gli anabbaglianti restano [[accesi sempre]], di giorno come di notte, anche nei centri abitati.',
-          'Non contate di trovare Uber: l’app non copre questa zona rurale (in Italia Uber funziona solo a Roma e Milano, e soltanto con taxi/autisti con licenza). Qui si conta su Giovanni, un taxi locale o il bus.',
         ],
       },
     ],
@@ -4710,6 +4782,8 @@ const EN: Dict = {
       { q: 'From Catania airport to the house, allow…', choix: ['Close to two hours, 130 km', 'Half an hour', 'Four hours'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'At the rental desk, the credit card must be…', choix: ['In the name of whoever booked', 'In any name', 'A debit card'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
       { q: 'As you leave the Catania terminal, the buses are…', choix: ['On the left — car rentals are to the right', 'On the right, with the rentals', 'In the basement'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'The shuttle ticket to the Catania airport station…', choix: ['Is not sold on its own: you buy it with the train ticket', 'Is bought on the shuttle', 'Is free'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'How far from the Catania terminal is the railway station?', choix: ['700 m, with a shuttle every ten minutes', 'Inside the terminal itself', 'Twelve kilometres away'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'When do you put the bins out?', choix: ['The evening before — the truck comes early', 'The same morning', 'When they are full'], bonne: 0, ancre: 'dechets', niveau: 'facile' },
       { q: 'What happens if a bin goes out on the wrong evening?', choix: ['It stays outside for a week', 'It gets collected anyway', 'The town issues a fine'], bonne: 0, ancre: 'dechets', niveau: 'moyen' },
       { q: 'Why can the collection days change?', choix: ['The town changes them for holidays, in summer, or when it changes contractor', 'They never change', 'They depend on the weather'], bonne: 0, ancre: 'dechets', niveau: 'difficile' },
@@ -4806,9 +4880,15 @@ const EN: Dict = {
     eyebrow: 'Plan your trip',
     title: 'Everything that happens before you leave',
     intro: 'Flights, arrival airport, how to reach the house… and a checklist so you forget nothing before closing the suitcase.',
+    actes: [
+      { id: 'sicile', title: 'Getting to Sicily' },
+      { id: 'maison', title: 'From there to the house' },
+    ],
     groups: [
       {
         icon: '✈️',
+        acte: 'sicile',
+        id: 'vol',
         title: 'Find a flight',
         links: [
           { label: 'Skyscanner', url: 'https://www.skyscanner.com' },
@@ -4817,52 +4897,64 @@ const EN: Dict = {
       },
       {
         icon: '🛬',
+        acte: 'sicile',
         id: 'aeroport',
-        title: 'Choose your arrival airport',
+        title: 'Choose your airport',
         links: [
           { label: 'Catania → the house, on Google Maps', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
         ],
         items: [
-          'Catania (CTA) — our recommended airport: the most flights and a direct bus to the area. Allow [[close to two hours on the road to the house>>#rejoindre]], 130 km.',
+          'Catania (CTA) — our recommended airport: the most flights and a direct bus to the area. Allow [[close to two hours on the road to the house>>#avec-voiture]], 130 km.',
           'Comiso (CIY) — the closest, about 40 min away.',
           'Palermo (PMO) — the furthest, about 3 h, only for great deals.',
         ],
       },
       {
         icon: '⛴️',
-        title: 'Coming by car',
+        acte: 'sicile',
+        id: 'depuis-la-france',
+        title: 'From France, by car',
         links: [
-          { label: 'GNV — Genoa ↔ Palermo', url: 'https://www.gnv.it/en/ferries-destinations/sicily/genoa-palermo' },
+          { label: 'GNV — Genoa ↔ Palermo', url: 'https://www.gnv.it/en/ferry-destinations/sicily/genoa-palermo' },
           { label: 'Caronte & Tourist — crossing the strait', url: 'https://www.carontetourist.it/' },
-          { label: 'The route from Catania airport', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
-          { label: 'Goldcar', url: 'https://www.goldcar.es/' },
         ],
         items: [
-          'The boat from Genoa — by far the restful one. GNV sails in the evening, the crossing takes about twenty hours, and you land in Palermo the next day with the car loaded and the whole drive through France behind you. About 3 h left to the house.',
-          'Driving down the boot — you drive to Calabria and board for Messina. Careful: the ferry does not leave from Reggio Calabria itself but from [[Villa San Giovanni]], a few kilometres earlier, where the motorway ends. The crossing takes about twenty minutes, no booking needed, and roughly 3 h of road remain.',
+          'The boat from Genoa — by far the most restful. GNV leaves in the evening, the crossing takes about twenty hours and you land in Palermo the next day, car loaded and the French roads already behind you. About 3 h left to the house.',
+          'Down the boot — you drive to Calabria and board for Messina. Careful: the ferry does not leave from Reggio Calabria itself but from [[Villa San Giovanni]], a few kilometres earlier, where the motorway ends. The crossing takes about twenty minutes, no booking needed, and about 3 h of road follow.',
           'Between the two it is a question of tiredness: Genoa costs you a night in a cabin and spares you the whole of southern Italy at the wheel.',
-          'And if you rent a car at Catania — the usual case: [[turn right]] as you leave the airport, all the rental desks are grouped there, and we recommend Goldcar. The two things that catch people out at the desk: the credit card must be [[in the name of whoever booked]], and a deposit is held if you decline the insurance, which remains optional.',
+        ],
+      },
+      {
+        icon: '🚌',
+        acte: 'maison',
+        id: 'sans-voiture',
+        title: 'Without a car',
+        links: [
+          { label: 'AST — timetables', url: 'http://www.aziendasicilianatrasporti.it:8080/' },
+          { label: 'Trenitalia', url: 'https://www.trenitalia.com/' },
+        ],
+        items: [
+          'AST bus — from [[Catania airport>>#aeroport]] to Modica, Scicli, Donnalucata and Pozzallo. As you leave the terminal it is [[on the left]]: car rentals to the right, buses to the left.',
+          'Train — there is a station at the airport, Catania Aeroporto Fontanarossa, 700 m from the terminal: an AMT shuttle runs there every ten minutes, from 4.30 am to 10.40 pm. But [[the shuttle ticket is not sold on its own]]: you buy it together with the train ticket, €1.40 extra — ask for both at the counter. From there you join the regional network, which serves Modica, Scicli, Pozzallo and Ragusa.',
+          'Private driver — Giovanni, our gem: €10 from Donnalucata to the flat, €20 from Pozzallo, €150 from Catania airport. Up to 5-6 people. Ask Mag for his number, and let him know in advance depending on his availability (have a plan B).',
+          'Don’t count on finding an Uber: the app doesn’t cover this rural area (in Italy, Uber only runs in Rome and Milan, and only with licensed taxis/drivers). Here you rely on Giovanni, a local taxi or the bus.',
         ],
       },
       {
         icon: '🚗',
-        id: 'rejoindre',
-        title: 'Reach Casa Cava d’Aliga',
+        acte: 'maison',
+        id: 'avec-voiture',
+        title: 'With a car',
         links: [
-          { label: 'AST — timetables', url: 'http://www.aziendasicilianatrasporti.it:8080/' },
-          { label: 'Trenitalia', url: 'https://www.trenitalia.com/' },
           { label: 'Goldcar', url: 'https://www.goldcar.es/' },
+          { label: 'The route from Catania airport', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
           { label: 'Italian highway code — art. 171, helmets', url: 'https://www.brocardi.it/codice-della-strada/titolo-v/art171.html' },
           { label: 'Italian highway code — art. 152, lights', url: 'https://www.brocardi.it/codice-della-strada/titolo-v/art152.html' },
         ],
         items: [
-          'AST bus — from [[Catania airport>>#aeroport]] to Modica, Scicli, Donnalucata and Pozzallo. As you leave the terminal it is [[on the left]]: car rentals to the right, buses to the left.',
-          'Train — the regional line links Modica, Scicli, Pozzallo and Ragusa (timetables and tickets on trenitalia.com).',
-          'Car rental — handy for exploring the region; we recommend Goldcar, at Catania airport. As you leave the airport, turn right: all the rental companies are grouped in the same spot.',
+          'Car rental — the usual case, and the handiest way to explore the region: we recommend Goldcar, at Catania airport. As you leave the terminal, [[turn right]]: all the rental desks are grouped in the same spot.',
           'Important: the credit card must be [[in the name of the person who booked]]. Goldcar holds a deposit (around €950 as of today) if you decline the insurance, which is optional.',
-          'Private driver — Giovanni, our gem: €10 from Donnalucata to the apartment, €20 from Pozzallo, €150 from Catania airport. Up to 5-6 people. Ask Mag for his number, and book ahead subject to availability (keep a plan B).',
           'By motorbike or scooter — the best way to see the coast: the roads between Cava d’Aliga, Donnalucata and Sampieri run along the sea, they are short and rarely busy. Two Italian rules are worth knowing before you set off. Helmets are compulsory [[for rider and passenger]], at any age: a fine of 83 to 332 €, and the machine impounded for 60 days (90 if you reoffend within two years) — the rider answers for the passenger too. And dipped headlights [[stay on at all times]], day and night, including in built-up areas.',
-          'Don’t count on finding an Uber: the app doesn’t cover this rural area (in Italy, Uber only runs in Rome and Milan, and only with licensed taxis/drivers). Here you rely on Giovanni, a local taxi or the bus.',
         ],
       },
     ],

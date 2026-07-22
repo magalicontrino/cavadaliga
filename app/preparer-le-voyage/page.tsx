@@ -12,6 +12,7 @@ import { useI18n } from '../i18n';
 import { withBase } from '../data';
 import { surligne } from '../Surligne';
 import { useAncre } from '../ancre';
+import SousMenu from '../SousMenu';
 
 export default function PreparerLeVoyage() {
   // Arriver par « #valise » ou « #arbre » depuis « Demander » doit ouvrir
@@ -36,16 +37,15 @@ export default function PreparerLeVoyage() {
 
       <PageHeader title={p.title} intro={p.intro} />
 
-      {/* Le cours d'italien, en raccourci : preparer le voyage, c'est aussi
-          apprendre a se debrouiller dans la langue avant de partir. Meme picto
-          rond que partout ailleurs. */}
-      {/* pb-10 COMME AILLEURS, et son absence etait le defaut : le picto avait
-          8 px au-dessus et ZERO en dessous, colle au filet de la section
-          suivante. Mag : « mal centre en hauteur le picto ». Ce n'etait pas le
-          dessin — mesure, son encre tombe a 0,25 px du centre de son rond —
-          c'etait la bande autour. La page de la region porte la meme rangee
-          avec pb-10 ; celle-ci l'avait perdu en cours de route. */}
-      <section className="mx-auto max-w-[110rem] px-5 pb-10 pt-2 md:px-10">
+      {/*
+        LE PICTO ET LE PLAN SUR LA MEME LIGNE.
+
+        Le raccourci vers le cours d'italien etait seul sur sa rangee ; le
+        sous-menu demande par Mag prend la place a cote plutot qu'une bande de
+        plus. Sur telephone le picto reste a gauche et les pastilles defilent a
+        sa droite — c'est l'ordre de lecture, et le picto ne bouge jamais.
+      */}
+      <section className="mx-auto max-w-[110rem] px-5 pb-2 pt-2 md:px-10">
         <Reveal>
           <a
             href={withBase('/italien')}
@@ -59,10 +59,32 @@ export default function PreparerLeVoyage() {
         </Reveal>
       </section>
 
+      <SousMenu
+        etapes={[
+          ...p.groups.map((g) => ({ id: g.id, label: g.title })),
+          { id: 'valise', label: p.checklistTitle },
+        ]}
+      />
+
       {/* Rubriques — empilées les unes sous les autres, style éditorial façon
           CTA de l'accueil (grand titre en capitales, filet, sans cadre). */}
-      <section id="groupes" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 md:px-10">
-        {p.groups.map((g, gi) => {
+      <section id="groupes" className="mx-auto max-w-[110rem] scroll-mt-[9.25rem] px-5 md:px-10">
+        {p.actes.map((acte) => (
+        <div key={acte.id}>
+          {/*
+            LE TITRE DE L'ACTE EST PLUS PETIT QUE CELUI DES GROUPES, et c'est
+            voulu : il ne se lit pas, il se REMARQUE. Un intertitre aussi gros
+            que les sections qu'il coiffe aurait fait croire a une section de
+            plus, alors qu'il ne fait que dire « ici commence l'autre moitie du
+            voyage ».
+          */}
+          <Reveal
+            className="pt-14 text-[13px] uppercase tracking-[0.2em] md:pt-20"
+            style={{ color: 'var(--cava-pink)', fontWeight: 700 }}
+          >
+            {acte.title}
+          </Reveal>
+        {p.groups.filter((g) => g.acte === acte.id).map((g, gi) => {
           const words = g.title.split(' ');
           const last = words.pop();
           return (
@@ -70,7 +92,14 @@ export default function PreparerLeVoyage() {
               key={g.title}
               id={g.id}
               delay={(gi % 2) * 80}
-              className="scroll-mt-24 border-t py-12 md:py-16"
+              /*
+                LA MARGE D'ANCRE PASSE A 148 px, ET C'EST LE SOUS-MENU QUI
+                L'IMPOSE. Il colle a 72 px et mesure 59 : le bas de la barre
+                tombe donc a 131. Avec les 96 px de `scroll-mt-24`, le titre de
+                la section visee atterrissait DERRIERE la barre — mesure, son
+                haut arrivait a 51 px. On degage 131 + un peu d'air.
+              */
+              className="scroll-mt-[9.25rem] border-t py-12 md:py-16"
               style={{ borderColor: 'var(--cava-ink)' }}
             >
               <h2
@@ -119,10 +148,12 @@ export default function PreparerLeVoyage() {
             </Reveal>
           );
         })}
+        </div>
+        ))}
       </section>
 
       {/* Check-list cochable */}
-      <section id="valise" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pb-24 pt-16 md:px-10">
+      <section id="valise" className="mx-auto max-w-[110rem] scroll-mt-[9.25rem] px-5 pb-24 pt-16 md:px-10">
         <Reveal className="rounded-2xl p-8 text-white md:p-12" style={{ background: 'var(--cava-ink)' }}>
           <div className="mb-2 flex items-center gap-3">
             <span aria-hidden style={{ color: 'var(--cava-pink)' }}>

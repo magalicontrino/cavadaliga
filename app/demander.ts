@@ -419,6 +419,11 @@ const MOTS_MAISON: Record<string, string> = {
   'transport-ast':
     'bus autobus car interurbain horaire horaires modica ragusa raguse noto siracusa syracuse pozzallo ispica '
     + 'gauche droite cote sortie aerogare terminal arrivees ou sont les bus arret '
+    // Le train depuis l'aeroport : « comment prendre le train » ne rendait
+    // rien, alors que c'est une des facons de venir sans voiture.
+    + 'train gare navette fontanarossa station billet supplement guichet ensemble '
+    + 'treno stazione navetta biglietto supplemento sportello insieme '
+    + 'train station shuttle ticket supplement counter together railway '
     + 'sinistra destra lato uscita aerostazione arrivi dove sono i bus fermata '
     + 'left right side exit terminal arrivals where are the buses stop '
     + 'corriera pullman orario orari '
