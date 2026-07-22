@@ -493,6 +493,7 @@ export default function LaRegion() {
             </a>
           ))}
         </Reveal>
+        <Sources section="etna" />
       </section>
       )}
 
@@ -750,6 +751,7 @@ export default function LaRegion() {
             </Reveal>
           ))}
         </div>
+        <Sources section="alcools" />
       </section>
       )}
 

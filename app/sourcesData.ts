@@ -33,6 +33,29 @@ export const SOURCES: Record<string, Source[]> = {
    * les articles du code de la route sont deja des pastilles dans leur section.
    * Une source n'est pas un raccourci, c'est ce qui prouve une affirmation.
    */
+  /*
+   * LE VIN. Le consorzio est l'autorite : c'est lui qui publie le disciplinare,
+   * et c'est de la que viennent les 50-70 % de nero d'avola, les 30-50 % de
+   * frappato et la date de la DOCG — septembre 2005, apres une DOC de 1973.
+   *
+   * Pour « l'unique DOCG de Sicile », le consorzio ne le dit pas : il ne parle
+   * que de la sienne. Le lien de Quattrocalici s'appelle « toutes les DOCG de
+   * la region Sicile » et n'en liste qu'une — c'est au lecteur de le constater,
+   * ce qui vaut mieux que ma parole.
+   */
+  alcools: [
+    { label: 'Le disciplinare du Cerasuolo di Vittoria — le Consorzio (cépages, DOCG 2005)', url: 'https://www.cerasuolovittoria.it/il-disciplinare/?lang=en' },
+    { label: 'Les DOCG de la région Sicile — Quattrocalici', url: 'https://www.quattrocalici.it/denominazioni/cerasuolo-di-vittoria-docg/' },
+  ],
+  /*
+   * L'ETNA. L'INGV surveille le volcan jour et nuit : c'est la source. Le
+   * libelle dit ce qu'elle couvre — la taille, l'activite, l'altitude — et pas
+   * l'histoire des neviere, qui attend encore la sienne. Un lien pose sous une
+   * section n'a pas le droit de laisser croire qu'il la couvre entiere.
+   */
+  etna: [
+    { label: 'L’Etna — INGV, Osservatorio Etneo (taille, activité, altitude)', url: 'https://www.ct.ingv.it/etna/' },
+  ],
   avion: [
     { label: 'Rejoindre Scicli — I Love Scicli (temps de route depuis Catane)', url: 'https://www.ilovescicli.it/raggiungere-scicli/' },
   ],
