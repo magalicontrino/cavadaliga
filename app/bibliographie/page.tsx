@@ -46,7 +46,6 @@ export default function Bibliographie() {
     scopa: rf.scopa,
     etna: rf.etna,
     arabe: rf.arab,
-    genes: rf.genes,
     valguarnera: t.valguarneraPage.title,
     avion: t.prepare.groups[0]?.title ?? 'avion',
     voiture: t.prepare.groups[1]?.title ?? 'voiture',

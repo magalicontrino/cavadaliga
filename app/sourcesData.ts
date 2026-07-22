@@ -43,20 +43,6 @@ export const SOURCES: Record<string, Source[]> = {
    * la region Sicile » et n'en liste qu'une — c'est au lecteur de le constater,
    * ce qui vaut mieux que ma parole.
    */
-  /*
-   * LA GENETIQUE — le seul endroit du site ou les sources sont des ARTICLES
-   * SCIENTIFIQUES, et ou elles ne se contentent pas d'appuyer le texte : elles
-   * se contredisent. Di Gaetano donne les 37 %, Tofanelli previent sept ans
-   * plus tard, dans la meme revue, que compter comme ça peut tromper. Les deux
-   * sont cites, dans cet ordre, parce que c'est l'ordre dans lequel il faut les
-   * lire — et parce qu'une source qui nuance la precedente vaut mieux qu'une
-   * source qui la confirme.
-   */
-  genes: [
-    { label: 'Di Gaetano et al., 2009 — European Journal of Human Genetics (les 37 %, les 6 %, l’ancêtre à 2 380 ans)', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC2985948/' },
-    { label: 'Tofanelli et al., 2016 — European Journal of Human Genetics (la mise en garde sur ce calcul)', url: 'https://pubmed.ncbi.nlm.nih.gov/26173964/' },
-    { label: 'Ringbauer et al., 2025 — Nature (les Puniques, presque aucun ancêtre levantin)', url: 'https://www.nature.com/articles/s41586-025-08913-3' },
-  ],
   alcools: [
     { label: 'Le disciplinare du Cerasuolo di Vittoria — le Consorzio (cépages, DOCG 2005)', url: 'https://www.cerasuolovittoria.it/il-disciplinare/?lang=en' },
     { label: 'Les DOCG de la région Sicile — Quattrocalici', url: 'https://www.quattrocalici.it/denominazioni/cerasuolo-di-vittoria-docg/' },
