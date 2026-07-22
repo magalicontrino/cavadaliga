@@ -426,6 +426,9 @@ const MOTS_MAISON: Record<string, string> = {
     // depuis Milan », qui est pourtant une des quatre facons d'arriver.
     + 'intercity notte train de nuit couchette wagon lit milan rome messine ferry traverse '
     + 'grimaldi lines livourne civitavecchia salerne naples port bateau ferry sicile '
+    + 'cabine fauteuil pont duvet tapis camper dormir a bord nuit couchage sans cabine '
+    + 'cabina poltrona ponte sacco a pelo materassino dormire a bordo senza cabina '
+    + 'cabin seat deck sleeping bag mat sleep on board without a cabin '
     + 'intercity notte cuccetta vagone letto milano roma messina traghetto '
     + 'livorno civitavecchia salerno napoli porto nave '
     + 'night train sleeper couchette milan rome messina ferry ports naples livorno '
