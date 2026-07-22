@@ -2110,7 +2110,7 @@ const FR: Dict = {
         ],
         items: [
           'On peut venir en train de très loin, et c’est plus simple qu’il n’y paraît : l’Intercity Notte descend de Milan ou de Rome jusqu’en Sicile, en couchette ou en voiture-lit. On s’endort en Lombardie, on se réveille en vue de l’Etna.',
-          'Le moment qu’on n’oublie pas : à [[Villa San Giovanni]], le train ENTIER monte sur un ferry pour traverser le détroit — wagons compris, une vingtaine de minutes. C’est le dernier train d’Europe à faire ça, et ça vaut le coup de rester réveillé.',
+          'Le moment qu’on n’oublie pas : à [[Villa San Giovanni]], le train ENTIER monte sur un ferry pour traverser le détroit — wagons compris, une vingtaine de minutes. Ça vaut le coup de rester réveillé.',
           'À Messine le convoi se coupe en deux : une moitié file vers Palerme par la côte nord, l’autre descend sur Taormine, Catane et Syracuse. C’est celle-là qu’il vous faut — [[on descend à Syracuse]], d’où part la ligne régionale qui dessert Modica, Scicli et Pozzallo.',
           'Les couchettes partent tôt en été : réservez sur trenitalia.com dès que vos dates sont sûres.',
         ],
@@ -3528,7 +3528,7 @@ const IT: Dict = {
         ],
         items: [
           'Si può arrivare in treno da molto lontano, ed è più semplice di quanto sembri: l’Intercity Notte scende da Milano o da Roma fino in Sicilia, in cuccetta o in vagone letto. Ci si addormenta in Lombardia e ci si sveglia in vista dell’Etna.',
-          'Il momento che non si dimentica: a [[Villa San Giovanni]] il treno INTERO sale su un traghetto per attraversare lo Stretto — vagoni compresi, una ventina di minuti. È l’ultimo treno d’Europa a farlo, e vale la pena restare svegli.',
+          'Il momento che non si dimentica: a [[Villa San Giovanni]] il treno INTERO sale su un traghetto per attraversare lo Stretto — vagoni compresi, una ventina di minuti. Vale la pena restare svegli.',
           'A Messina il convoglio si divide in due: una metà va verso Palermo lungo la costa nord, l’altra scende su Taormina, Catania e Siracusa. È quest’ultima che vi serve — [[si scende a Siracusa]], da dove parte la linea regionale che serve Modica, Scicli e Pozzallo.',
           'Le cuccette si esauriscono presto d’estate: prenotate su trenitalia.com appena avete le date.',
         ],
@@ -4946,7 +4946,7 @@ const EN: Dict = {
         ],
         items: [
           'You can come by train from a very long way, and it is simpler than it sounds: the Intercity Notte runs down from Milan or Rome all the way into Sicily, in couchettes or sleeper cars. You fall asleep in Lombardy and wake up within sight of Etna.',
-          'The moment nobody forgets: at [[Villa San Giovanni]] the WHOLE train is driven onto a ferry to cross the strait — carriages and all, about twenty minutes. It is the last train in Europe to do this, and it is worth staying awake for.',
+          'The moment nobody forgets: at [[Villa San Giovanni]] the WHOLE train is driven onto a ferry to cross the strait — carriages and all, about twenty minutes. It is worth staying awake for.',
           'At Messina the train splits in two: one half runs to Palermo along the north coast, the other goes down through Taormina, Catania and Syracuse. That is the one you want — [[get off at Syracuse]], where the regional line starts that serves Modica, Scicli and Pozzallo.',
           'Couchettes sell out early in summer: book on trenitalia.com as soon as your dates are certain.',
         ],

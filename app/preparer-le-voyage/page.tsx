@@ -12,6 +12,7 @@ import { useI18n } from '../i18n';
 import { withBase } from '../data';
 import { surligne } from '../Surligne';
 import { useAncre } from '../ancre';
+import Sources from '../Sources';
 import SousMenu from '../SousMenu';
 
 export default function PreparerLeVoyage() {
@@ -145,6 +146,9 @@ export default function PreparerLeVoyage() {
                   ))}
                 </ul>
               )}
+
+              {/* Les sources de la section, en petit, sous ses points. */}
+              <Sources section={g.id} />
             </Reveal>
           );
         })}

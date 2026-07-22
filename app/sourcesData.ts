@@ -20,6 +20,37 @@ export type Source = { label: string; url: string };
 
 export const SOURCES: Record<string, Source[]> = {
   /*
+   * PREPARER LE VOYAGE. Mag : « mets les sources ou tu as vu les infos ».
+   *
+   * ON NE CITE QUE CE QU'ON A OUVERT, et ça a coute une phrase. J'avais ecrit
+   * que l'Intercity Notte est « le dernier train d'Europe » a monter sur un
+   * ferry : en cherchant la source, je n'ai trouve que des blogs de voyage —
+   * ni Wikipedia, ni Interrail, ni ferrovie.it ne le disent. La phrase est
+   * partie. Le reste est verifie page par page, et ferrovie.it est le seul a
+   * decrire le convoi coupe en sections a Messine.
+   *
+   * Les liens de SERVICE ne sont pas repetes ici : Trenitalia, GNV, Goldcar,
+   * les articles du code de la route sont deja des pastilles dans leur section.
+   * Une source n'est pas un raccourci, c'est ce qui prouve une affirmation.
+   */
+  avion: [
+    { label: 'Rejoindre Scicli — I Love Scicli (temps de route depuis Catane)', url: 'https://www.ilovescicli.it/raggiungere-scicli/' },
+  ],
+  voiture: [
+    { label: 'Dormir à bord d’un ferry : pont, fauteuils, cabines — Traghetti.com', url: 'https://www.traghetti.com/blog/come-dormire-a-bordo-di-un-traghetto/' },
+  ],
+  train: [
+    { label: 'Intercity Notte — Wikipedia (les relations vers la Sicile)', url: 'https://it.wikipedia.org/wiki/Intercity_Notte' },
+    { label: 'Le train traverse le détroit sur le ferry — Interrail', url: 'https://www.interrail.com/it/plan-your-trip/tips-and-tricks/trains-europe/night-trains/intercity-notte' },
+    { label: 'L’embarquement à Villa San Giovanni et les sections — Ferrovie.it', url: 'https://www.ferrovie.it/portale/articoli/11926' },
+    { label: 'Traghettamento dans le détroit de Messine — Wikipedia', url: 'https://it.wikipedia.org/wiki/Traghettamento_nello_stretto_di_Messina' },
+  ],
+  'depuis-laeroport': [
+    { label: 'Fontanarossa Airlink — Trenitalia (le billet navette + train)', url: 'https://www.trenitalia.com/it/regionale/collegamenti-regionale/fontanarossa-airlink.html' },
+    { label: 'Gare de Catania Aeroporto Fontanarossa — Wikipedia (700 m, navette AMT)', url: 'https://it.wikipedia.org/wiki/Stazione_di_Catania_Aeroporto_Fontanarossa' },
+  ],
+
+  /*
    * Les us et coutumes. Mag : « c'est des souvenirs, moi, de vacances, mais
    * pour les coutumes officielles je prefere que tu fasses l'effort de
    * rechercher et de croiser des sources ».
