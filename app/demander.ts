@@ -414,8 +414,13 @@ const MOTS_MAISON: Record<string, string> = {
     'bus autobus car navette arret arrets ligne horaire horaires heure heures passe passage village '
     + 'fermata fermate orario orari corriera pullman '
     + 'stop stops timetable schedule coach arret navette ticket billet monter descendre ligne direction plage village voisin fermata biglietto salire scendere linea paese vicino stop ticket board get off line neighbouring village',
+  // « De quel cote sont les bus ? » ne rendait rien : la reponse est dans le
+  // groupe « Rejoindre la maison », dont aucun mot ne dit gauche ni droite.
   'transport-ast':
     'bus autobus car interurbain horaire horaires modica ragusa raguse noto siracusa syracuse pozzallo ispica '
+    + 'gauche droite cote sortie aerogare terminal arrivees ou sont les bus arret '
+    + 'sinistra destra lato uscita aerostazione arrivi dove sono i bus fermata '
+    + 'left right side exit terminal arrivals where are the buses stop '
     + 'corriera pullman orario orari '
     + 'coach intercity timetable car autocar liaison interurbain gare routiere correspondance pullman collegamento autostazione coincidenza coach connection bus station transfer',
   'transport-catania': 'aeroport aeroporto airport avion aereo plane vol volo flight catane catania arrivee partenza retard ritardo delay porte gate bagage atterrissage decollage terminal enregistrement navette location voiture parking longue duree atterraggio decollo check in navetta noleggio landing takeoff terminal check in shuttle rental long stay',
