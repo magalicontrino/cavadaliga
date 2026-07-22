@@ -443,12 +443,6 @@ const MOTS_MAISON: Record<string, string> = {
     'etna volcan volcanique eruption lave cratere neige ski skier montagne granita nivaroli excursion '
     + 'vulcano eruzione lava cratere neve sciare montagna gita '
     + 'volcano eruption crater snow skiing mountain hike altitude sommet randonner telepherique guide sortie coulee cendres fumee sud nord refuge altitudine cima funivia guida colata cenere fumo rifugio altitude summit cable car guide lava ash smoke refuge',
-  // La genetique : « les Siciliens sont-ils grecs » ne rendait rien.
-  'region-genes':
-    'genetique adn genes grec grecs sicilien siciliens origine origines ancetres ancetre '
-    + 'chromosome y lignee paternelle etude adn ancien phenicien punique normand arabe pourcentage 37 '
-    + 'genetica dna geni greci siciliani origine antenati cromosoma linea paterna fenici punici normanni '
-    + 'genetics dna genes greek sicilian origin ancestors chromosome paternal lineage phoenician punic norman ',
   'region-arabe':
     // L'heritage arabe s'est etoffe : les pates seches de Trabia, le riz et le
     // safran, l'agrodolce, la patisserie d'amande, le rais des tonnare. Ces
@@ -811,12 +805,6 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   const sections: { id: string; ancre: string; bloc: { eyebrow: string; title: string; intro: string; facts: { title: string; text: string }[] } }[] = [
     { id: 'etna', ancre: 'etna', bloc: t.etnaPage },
     { id: 'arabe', ancre: 'arabe', bloc: t.arabPage },
-    // MANQUAIT ICI, ET LES MOTS-CLEFS NE SUFFISAIENT PAS. J'avais ajoute
-    // « adn », « genetique », « grec » a MOTS_MAISON en croyant l'affaire
-    // faite : un mot-clef ne sert a rien tant qu'aucune FICHE ne porte son
-    // identifiant. Le chat ne trouvait donc rien sur l'ADN — et c'est Mag
-    // qui l'a remarque, en cherchant sa propre section.
-    { id: 'genes', ancre: 'genes', bloc: t.genesPage },
     { id: 'coutumes', ancre: 'coutumes', bloc: t.tastePage },
     { id: 'specialites', ancre: 'specialites', bloc: t.specialtiesPage },
     { id: 'alcools', ancre: 'alcools', bloc: t.drinksPage },
