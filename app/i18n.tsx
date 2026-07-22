@@ -1918,6 +1918,8 @@ const FR: Dict = {
       { q: 'Combien de temps dure la traversée du détroit ?', choix: ['Une vingtaine de minutes, sans réservation', 'Deux heures', 'Une nuit entière'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'À moto en Italie, les feux de croisement…', choix: ['Restent allumés en permanence, même en agglomération', 'S’allument seulement la nuit', 'Sont interdits le jour'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'Sans casque à moto en Italie, le véhicule est immobilisé…', choix: ['60 jours', '3 jours', 'Jamais'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'Pour Cava d’Aliga, à quelle sortie quitte-t-on l’autoroute ?', choix: ['Ispica-Pozzallo, puis la route de la côte', 'Modica', 'Rosolini'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'De l’aéroport de Catane à la maison, comptez…', choix: ['Près de deux heures, 130 km', 'Une demi-heure', 'Quatre heures'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'Quand sort-on les bacs ?', choix: ['La veille au soir — le camion passe tôt', 'Le matin même', 'Quand ils sont pleins'], bonne: 0, ancre: 'dechets', niveau: 'facile' },
       { q: 'Que se passe-t-il si un bac est sorti le mauvais soir ?', choix: ['Il reste dehors une semaine', 'Il est ramassé quand même', 'La commune met une amende'], bonne: 0, ancre: 'dechets', niveau: 'moyen' },
       { q: 'Pourquoi les jours de collecte peuvent-ils changer ?', choix: ['La commune les modifie pour les fêtes, l’été, ou quand elle change de prestataire', 'Ils ne changent jamais', 'Ils dépendent de la météo'], bonne: 0, ancre: 'dechets', niveau: 'difficile' },
@@ -2028,8 +2030,11 @@ const FR: Dict = {
       {
         icon: '🛬',
         title: 'Choisir son aéroport d’arrivée',
+        links: [
+          { label: 'Catane → la maison, sur Google Maps', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
+        ],
         items: [
-          'Catania (CTA) — notre aéroport conseillé : le plus de vols et le bus direct pour la région (environ 1 h 30 en voiture).',
+          'Catania (CTA) — notre aéroport conseillé : le plus de vols et le bus direct pour la région. Comptez près de deux heures de route jusqu’à la maison, 130 km.',
           'Comiso (CIY) — le plus proche, environ 40 min de route.',
           'Palerme (PMO) — le plus loin, environ 3 h, à réserver aux bons plans.',
         ],
@@ -2040,11 +2045,13 @@ const FR: Dict = {
         links: [
           { label: 'GNV — Gênes ↔ Palerme', url: 'https://www.gnv.it/fr/destinations-des-ferries/sicile/g%C3%AAnes-palerme' },
           { label: 'Caronte & Tourist — la traversée du détroit', url: 'https://www.carontetourist.it/' },
+          { label: 'L’itinéraire depuis l’aéroport de Catane', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
         ],
         items: [
           'Le bateau depuis Gênes — de loin le plus reposant. GNV part le soir, la traversée dure une vingtaine d’heures et on débarque à Palerme le lendemain, la voiture chargée et la route de France déjà derrière soi. Il reste environ 3 h jusqu’à la maison.',
           'La descente de la Botte — on roule jusqu’en Calabre et on embarque pour Messine. Attention : le ferry ne part pas de Reggio de Calabre même mais de Villa San Giovanni, quelques kilomètres avant, là où l’autoroute s’arrête. La traversée fait une vingtaine de minutes, sans réservation, et il reste ensuite environ 3 h de route.',
           'Entre les deux, c’est une question de fatigue : Gênes coûte une nuit en cabine et vous épargne toute l’Italie du Sud au volant.',
+          'Et si vous louez une voiture à Catane — le cas le plus fréquent : à la sortie de l’aéroport prenez à droite, tous les loueurs sont regroupés là. Ensuite la route ne se discute pas : la rocade, l’autoroute vers Syracuse, puis la Siracusa-Gela, gratuite à ce jour. Pour Cava d’Aliga on ne va pas jusqu’à Modica : on sort à Ispica-Pozzallo et on finit par la route de la côte, en passant par Sampieri. Environ 130 km, et près de deux heures plutôt qu’une heure et demie.',
         ],
       },
       {
@@ -3301,6 +3308,8 @@ const IT: Dict = {
       { q: 'Quanto dura la traversata dello stretto?', choix: ['Una ventina di minuti, senza prenotazione', 'Due ore', 'Una notte intera'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'In moto in Italia, gli anabbaglianti…', choix: ['Restano accesi sempre, anche nei centri abitati', 'Si accendono solo di notte', 'Sono vietati di giorno'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'Senza casco in moto in Italia, il veicolo è fermato per…', choix: ['60 giorni', '3 giorni', 'Mai'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'Per Cava d’Aliga, a quale uscita si lascia l’autostrada?', choix: ['Ispica-Pozzallo, poi la litoranea', 'Modica', 'Rosolini'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'Dall’aeroporto di Catania a casa, contate…', choix: ['Quasi due ore, 130 km', 'Mezz’ora', 'Quattro ore'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'Quando si mettono fuori i bidoni?', choix: ['La sera prima — il camion passa presto', 'La mattina stessa', 'Quando sono pieni'], bonne: 0, ancre: 'dechets', niveau: 'facile' },
       { q: 'Che cosa succede se un bidone esce la sera sbagliata?', choix: ['Resta fuori una settimana', 'Viene raccolto lo stesso', 'Il comune fa una multa'], bonne: 0, ancre: 'dechets', niveau: 'moyen' },
       { q: 'Perché i giorni di raccolta possono cambiare?', choix: ['Il comune li cambia per le feste, d’estate, o cambiando gestore', 'Non cambiano mai', 'Dipendono dal tempo'], bonne: 0, ancre: 'dechets', niveau: 'difficile' },
@@ -3409,8 +3418,11 @@ const IT: Dict = {
       {
         icon: '🛬',
         title: 'Scegliere l’aeroporto d’arrivo',
+        links: [
+          { label: 'Catania → casa, su Google Maps', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
+        ],
         items: [
-          'Catania (CTA) — il nostro aeroporto consigliato: più voli e il bus diretto per la zona (circa 1 h 30 in auto).',
+          'Catania (CTA) — il nostro aeroporto consigliato: più voli e il bus diretto per la zona. Contate quasi due ore di strada fino a casa, 130 km.',
           'Comiso (CIY) — il più vicino, circa 40 min di strada.',
           'Palermo (PMO) — il più lontano, circa 3 h, solo per le buone offerte.',
         ],
@@ -3421,11 +3433,13 @@ const IT: Dict = {
         links: [
           { label: 'GNV — Genova ↔ Palermo', url: 'https://www.gnv.it/it/destinazioni-traghetti/sicilia/genova-palermo' },
           { label: 'Caronte & Tourist — la traversata dello Stretto', url: 'https://www.carontetourist.it/' },
+          { label: 'L’itinerario dall’aeroporto di Catania', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
         ],
         items: [
           'La nave da Genova — di gran lunga la più riposante. GNV parte la sera, la traversata dura una ventina d’ore e si sbarca a Palermo l’indomani, con l’auto carica e tutta la strada già alle spalle. Restano circa 3 h fino a casa.',
           'Scendere lungo lo Stivale — si guida fino in Calabria e ci si imbarca per Messina. Attenzione: il traghetto non parte da Reggio Calabria ma da Villa San Giovanni, qualche chilometro prima, dove finisce l’autostrada. La traversata dura una ventina di minuti, senza prenotazione, e poi restano circa 3 h di strada.',
           'Tra le due è una questione di stanchezza: Genova costa una notte in cabina e vi risparmia tutto il Sud Italia al volante.',
+          'E se noleggiate un’auto a Catania — il caso più frequente: all’uscita dell’aeroporto girate a destra, i noleggi sono tutti lì. Poi la strada è una sola: la tangenziale, l’autostrada per Siracusa, quindi la Siracusa-Gela, a oggi gratuita. Per Cava d’Aliga non si arriva fino a Modica: si esce a Ispica-Pozzallo e si finisce sulla litoranea, passando da Sampieri. Circa 130 km, e quasi due ore più che un’ora e mezza.',
         ],
       },
       {
@@ -4682,6 +4696,8 @@ const EN: Dict = {
       { q: 'How long is the strait crossing?', choix: ['About twenty minutes, no booking needed', 'Two hours', 'A whole night'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'On a motorbike in Italy, dipped headlights…', choix: ['Stay on at all times, even in built-up areas', 'Come on only at night', 'Are banned in daytime'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'Riding without a helmet in Italy, the machine is impounded for…', choix: ['60 days', '3 days', 'Never'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'For Cava d’Aliga, at which exit do you leave the motorway?', choix: ['Ispica-Pozzallo, then the coast road', 'Modica', 'Rosolini'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
+      { q: 'From Catania airport to the house, allow…', choix: ['Close to two hours, 130 km', 'Half an hour', 'Four hours'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'When do you put the bins out?', choix: ['The evening before — the truck comes early', 'The same morning', 'When they are full'], bonne: 0, ancre: 'dechets', niveau: 'facile' },
       { q: 'What happens if a bin goes out on the wrong evening?', choix: ['It stays outside for a week', 'It gets collected anyway', 'The town issues a fine'], bonne: 0, ancre: 'dechets', niveau: 'moyen' },
       { q: 'Why can the collection days change?', choix: ['The town changes them for holidays, in summer, or when it changes contractor', 'They never change', 'They depend on the weather'], bonne: 0, ancre: 'dechets', niveau: 'difficile' },
@@ -4790,8 +4806,11 @@ const EN: Dict = {
       {
         icon: '🛬',
         title: 'Choose your arrival airport',
+        links: [
+          { label: 'Catania → the house, on Google Maps', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
+        ],
         items: [
-          'Catania (CTA) — our recommended airport: the most flights and a direct bus to the area (about 1 h 30 by car).',
+          'Catania (CTA) — our recommended airport: the most flights and a direct bus to the area. Allow close to two hours on the road to the house, 130 km.',
           'Comiso (CIY) — the closest, about 40 min away.',
           'Palermo (PMO) — the furthest, about 3 h, only for great deals.',
         ],
@@ -4802,11 +4821,13 @@ const EN: Dict = {
         links: [
           { label: 'GNV — Genoa ↔ Palermo', url: 'https://www.gnv.it/en/ferries-destinations/sicily/genoa-palermo' },
           { label: 'Caronte & Tourist — crossing the strait', url: 'https://www.carontetourist.it/' },
+          { label: 'The route from Catania airport', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
         ],
         items: [
           'The boat from Genoa — by far the restful one. GNV sails in the evening, the crossing takes about twenty hours, and you land in Palermo the next day with the car loaded and the whole drive through France behind you. About 3 h left to the house.',
           'Driving down the boot — you drive to Calabria and board for Messina. Careful: the ferry does not leave from Reggio Calabria itself but from Villa San Giovanni, a few kilometres earlier, where the motorway ends. The crossing takes about twenty minutes, no booking needed, and roughly 3 h of road remain.',
           'Between the two it is a question of tiredness: Genoa costs you a night in a cabin and spares you the whole of southern Italy at the wheel.',
+          'And if you rent a car at Catania — the usual case: turn right as you leave the airport, all the rental desks are grouped there. The road is then straightforward: the ring road, the motorway towards Syracuse, then the Siracusa-Gela, free of charge as things stand. For Cava d’Aliga you do not go as far as Modica: you leave at Ispica-Pozzallo and finish along the coast road, through Sampieri. About 130 km, and closer to two hours than to an hour and a half.',
         ],
       },
       {

@@ -392,6 +392,12 @@ const MOTS_MAISON: Record<string, string> = {
     // La moto. Sans ces mots, « faut-il un casque ? » ne rendait rien : le
     // groupe s'appelle « Sur place » et aucun de ses liens ne dit « moto ».
     + 'moto motard scooter deux roues casque amende feux phares allumes code de la route '
+    // Le trajet depuis l'aeroport : « combien de temps de Catane a la maison »
+    // ne rendait rien, alors que c'est la question qu'on se pose en reservant.
+    + 'itineraire trajet route depuis aeroport catane combien de temps duree km kilometres '
+    + 'autoroute siracusa gela gratuite sortie ispica pozzallo sampieri litorale cote modica '
+    + 'itinerario tragitto quanto tempo durata chilometri autostrada uscita litoranea '
+    + 'route directions how long drive from airport catania motorway free exit coast road '
     + 'motocicletta scooter casco multa anabbaglianti fari accesi codice della strada '
     + 'motorbike motorcycle scooter helmet fine headlights lights on highway code',
   // Les transports. Sans ces mots, « le bus pour Modica » repondait la
