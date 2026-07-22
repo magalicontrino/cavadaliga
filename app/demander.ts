@@ -395,6 +395,9 @@ const MOTS_MAISON: Record<string, string> = {
     // Le trajet depuis l'aeroport : « combien de temps de Catane a la maison »
     // ne rendait rien, alors que c'est la question qu'on se pose en reservant.
     + 'itineraire trajet route depuis aeroport catane combien de temps duree km kilometres '
+    + 'peage gratuit gratuite payant caution assurance carte de credit nom reservation comptoir goldcar '
+    + 'pedaggio gratuito cauzione assicurazione carta di credito intestata banco noleggio '
+    + 'toll free deposit insurance credit card name booking desk rental '
     + 'autoroute siracusa gela gratuite sortie ispica pozzallo sampieri litorale cote modica '
     + 'itinerario tragitto quanto tempo durata chilometri autostrada uscita litoranea '
     + 'route directions how long drive from airport catania motorway free exit coast road '
