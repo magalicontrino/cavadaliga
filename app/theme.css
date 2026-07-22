@@ -60,12 +60,78 @@ html {
      DECLARE ICI ET PAS DANS LES PAGES : il sert a trois endroits, dans deux
      fichiers. Le changer deux fois de suite, comme aujourd'hui, l'a prouve. */
   --cava-note: rgba(230, 41, 111, 0.08);
+  /* Le rose des liens DANS le texte : le rose clair n'y tient qu'a 4,11,
+     sous les 4,5 requis, et ne se distingue du gris du paragraphe qu'a 1,19. */
+  --cava-lien: var(--cava-pink-fonce);
 
   background: var(--cava-bg);
   color: var(--cava-ink);
   font-family: 'Satoshi', Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/*
+ * UN LIEN DANS LE TEXTE — Mag : « on doit mieux voir que ce sont des liens, et
+ * fais un effet encre au deplacement ».
+ *
+ * POURQUOI PAS `.cava-navlink`, qui existe deja : son trait ne se trace QU'AU
+ * SURVOL. Dans un menu c'est elegant — on sait deja qu'un menu est cliquable.
+ * Perdu au milieu d'un paragraphe gris, un lien sans trait au repos n'est plus
+ * qu'un mot d'une autre couleur, et rien ne dit qu'on peut cliquer dessus. Et
+ * `.cava-navlink` sert au menu : le changer changerait le menu.
+ *
+ * LA COULEUR CHANGE AUSSI, et c'est une mesure qui l'impose. Le rose de la
+ * marque ne se detache du gris du paragraphe qu'a 1,19 — autant dire qu'en
+ * noir et blanc, ou pour un œil qui distingue mal les rouges, le lien
+ * disparait dans sa phrase. Le rose fonce du theme monte a 1,60 contre le gris
+ * et a 7,81 contre le fond, la ou le rose clair plafonnait a 4,11 : sous les
+ * 4,5 demandes pour du texte.
+ *
+ * L'ENCRE MONTE AU SURVOL. Deux nappes empilees : le trait de plume, fixe sous
+ * le mot, et la nappe rose qui monte du bas jusqu'a le recouvrir — comme de
+ * l'encre qui remonte dans le papier. Elle s'arrete exactement sur la teinte du
+ * surligneur, si bien qu'un lien SURVOLE a l'air d'un mot clef surligne : c'est
+ * le meme vocabulaire, et ça evite d'en apprendre deux.
+ *
+ * Sur la nappe, le mot passe a l'encre pleine — 9,56, contre 5,65 s'il gardait
+ * son rose.
+ */
+.cava-root a.cava-lien-encre {
+  color: var(--cava-lien);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.04em 0.18em;
+  margin: 0 -0.1em;
+  border-radius: 3px;
+  background-image:
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(rgba(230, 41, 111, 0.22), rgba(230, 41, 111, 0.22));
+  background-repeat: no-repeat;
+  background-position:
+    0.18em 100%,
+    0 100%;
+  background-size:
+    calc(100% - 0.36em) 0.09em,
+    100% 0;
+  transition:
+    background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.35s ease;
+  /* Un lien coupe en fin de ligne garde son trait des DEUX cotes. */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.cava-root a.cava-lien-encre:hover,
+.cava-root a.cava-lien-encre:focus-visible {
+  background-size:
+    calc(100% - 0.36em) 0.09em,
+    100% 100%;
+  color: var(--cava-ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cava-root a.cava-lien-encre {
+    transition: none;
+  }
 }
 
 /*

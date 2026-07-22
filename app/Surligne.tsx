@@ -62,8 +62,7 @@ export function surligne(texte: string): React.ReactNode {
           key={`${m.index}`}
           href={cible}
           {...(interne ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
-          className="cava-navlink"
-          style={{ color: 'var(--cava-pink)', fontWeight: 600 }}
+          className="cava-lien-encre"
         >
           {label}
         </a>,
