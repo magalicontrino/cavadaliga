@@ -60,6 +60,17 @@ export default function PreparerLeVoyage() {
         </Reveal>
       </section>
 
+      {/*
+        LE COLLANT S'ARRETE AVEC LES SECTIONS, et c'est ce conteneur qui le dit.
+        Mag : « le sous-menu sticky doit s'arreter apres le bandeau » — il
+        flottait encore au-dessus du bandeau defilant du pied de page, un plan
+        de lecture pose sur quelque chose qui n'est plus la page.
+        Un element `sticky` ne sort jamais de son parent : en enveloppant le
+        sous-menu AVEC ce qu'il indexe, il se decroche tout seul a la fin du
+        quiz, juste avant le pied de page. C'est le meme mecanisme qui m'avait
+        pris a l'envers l'autre jour, quand le parent etait trop court.
+      */}
+      <div>
       <SousMenu
         etapes={[
           ...p.groups.map((g) => ({ id: g.id, label: g.title })),
@@ -213,6 +224,7 @@ export default function PreparerLeVoyage() {
         CETTE page, et « relire le passage » y mene par l'ancre de sa section.
       */}
       <Quiz only={['voyage']} titre={t.quizPage.tripTitle} intro={t.quizPage.tripIntro} ancreLocale="groupes" />
+      </div>
 
       <Footer />
     </main>

@@ -39,15 +39,26 @@ export const SOURCES: Record<string, Source[]> = {
   voiture: [
     { label: 'Dormir à bord d’un ferry : pont, fauteuils, cabines — Traghetti.com', url: 'https://www.traghetti.com/blog/come-dormire-a-bordo-di-un-traghetto/' },
   ],
+  /*
+   * L'EXPLOITANT AVANT L'ENCYCLOPEDIE — Mag : « Wikipedia c'est bien, mais pour
+   * les transports mieux vaut la ligne officielle ». Elle a raison : un horaire
+   * ou une regle de billetterie change, et seul l'exploitant met sa page a jour
+   * le jour ou ça change.
+   *
+   * Trenitalia passe donc en tete partout ou il couvre le fait. Wikipedia ne
+   * reste QUE la ou aucune page officielle ne dit la chose : verifie, la page
+   * Intercity de Trenitalia ne parle pas du tout de la traversee en ferry, et
+   * ni l'aeroport de Catane ni l'AMT ne publient les 700 m ni la cadence de la
+   * navette. Les retirer pour la forme laisserait ces chiffres sans rien.
+   */
   train: [
-    { label: 'Intercity Notte — Wikipedia (les relations vers la Sicile)', url: 'https://it.wikipedia.org/wiki/Intercity_Notte' },
-    { label: 'Le train traverse le détroit sur le ferry — Interrail', url: 'https://www.interrail.com/it/plan-your-trip/tips-and-tricks/trains-europe/night-trains/intercity-notte' },
+    { label: 'Intercity Notte — Trenitalia (liaisons Sicile, couchettes et voitures-lits)', url: 'https://www.trenitalia.com/it/intercity-notte.html' },
     { label: 'L’embarquement à Villa San Giovanni et les sections — Ferrovie.it', url: 'https://www.ferrovie.it/portale/articoli/11926' },
     { label: 'Traghettamento dans le détroit de Messine — Wikipedia', url: 'https://it.wikipedia.org/wiki/Traghettamento_nello_stretto_di_Messina' },
   ],
   'depuis-laeroport': [
     { label: 'Fontanarossa Airlink — Trenitalia (le billet navette + train)', url: 'https://www.trenitalia.com/it/regionale/collegamenti-regionale/fontanarossa-airlink.html' },
-    { label: 'Gare de Catania Aeroporto Fontanarossa — Wikipedia (700 m, navette AMT)', url: 'https://it.wikipedia.org/wiki/Stazione_di_Catania_Aeroporto_Fontanarossa' },
+    { label: 'Gare de l’aéroport — Wikipedia (700 m, navette AMT, faute de page officielle)', url: 'https://it.wikipedia.org/wiki/Stazione_di_Catania_Aeroporto_Fontanarossa' },
   ],
 
   /*
