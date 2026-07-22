@@ -70,6 +70,26 @@ export default function Footer() {
             point de chute commun, celui qu'on trouve sans chercher. */}
         <div className="mt-12 flex flex-col gap-6 text-[12px] sm:flex-row sm:items-center sm:justify-between" style={{ color: 'var(--cava-muted)' }}>
           <PersoLink />
+          {/*
+            LA BIBLIOGRAPHIE, ET POURQUOI ELLE N'EST PAS DANS LA RANGEE DE
+            PICTOS. Mag voulait le lien au pied de page avec l'asterisque —
+            c'est fait, mais pas la-bas : cette rangee tient sur UNE ligne a
+            375 px, elle l'a demande, et le calcul est ecrit plus bas. Six
+            pictos y prennent 314 px pour 335 disponibles ; un septieme en
+            demanderait 368 et le ferait tomber a la ligne.
+
+            Sa place est ici, au milieu du bas de page, et c'est plus juste :
+            l'asterisque renvoie a la note depuis les manuscrits, et une note
+            se met en bas. Avec son mot a cote, il se comprend sans survol.
+          */}
+          <a
+            href={withBase('/bibliographie')}
+            className="cava-navlink inline-flex items-center gap-2 self-start"
+            style={{ color: 'var(--cava-muted)' }}
+          >
+            <Icon name="asterisque" size={13} />
+            {t.biblio.label}
+          </a>
           <LangSwitcher />
         </div>
 

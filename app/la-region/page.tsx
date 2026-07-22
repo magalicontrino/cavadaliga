@@ -8,6 +8,7 @@ import Carousel from '../Carousel';
 import PageHeader from '../PageHeader';
 import Photo from '../Photo';
 import Icon, { type IconName } from '../Icon';
+import { surligne } from '../Surligne';
 import Sources from '../Sources';
 import FilterChip from '../FilterChip';
 import { useI18n } from '../i18n';
@@ -42,7 +43,7 @@ const PLACES = [
 // « Sons & images » n'est plus une page : ses sept sections vivent ici. La
 // region, c'est aussi ce qu'on en a chante, filme, peint et photographie — une
 // page de moins dans le menu, et le meme geste pour tout parcourir.
-type Section = 'lieux' | 'sports' | 'faune' | 'livres' | 'histoire' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'pastasciutta' | 'symboles' | 'legendes' | 'scopa' | 'etna' | 'arabe' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
+type Section = 'lieux' | 'sports' | 'faune' | 'livres' | 'histoire' | 'coutumes' | 'specialites' | 'alcools' | 'cafe' | 'pastasciutta' | 'symboles' | 'legendes' | 'scopa' | 'etna' | 'arabe' | 'genes' | 'playlist' | 'ecrans' | 'peinture' | 'sculpture' | 'photo' | 'mains' | 'chansons';
 type Key = 'tout' | 'sons' | Section;
 
 // « Sons & images » n'est pas une section : c'est un GROUPE. Un bouton pour les
@@ -95,7 +96,7 @@ function allerAuQuiz() {
  * exactement ce qui attendait « pastasciutta » : le quiz et « Demander » y
  * renvoient tous les deux.
  */
-const SECTIONS_ANCREES: Section[] = ['lieux', 'sports', 'faune', 'livres', 'histoire', 'coutumes', 'specialites', 'alcools', 'cafe', 'pastasciutta', 'symboles', 'legendes', 'scopa', 'etna', 'arabe', 'playlist'];
+const SECTIONS_ANCREES: Section[] = ['lieux', 'sports', 'faune', 'livres', 'histoire', 'coutumes', 'specialites', 'alcools', 'cafe', 'pastasciutta', 'symboles', 'legendes', 'scopa', 'etna', 'arabe', 'genes', 'playlist'];
 
 export default function LaRegion() {
   const { t, lang } = useI18n();
@@ -183,6 +184,7 @@ export default function LaRegion() {
   // commande (tout enchaîner), pas une catégorie de plus.
   const filters: { key: Key; label: string; icon: IconName }[] = [
     { key: 'arabe', label: rf.arab, icon: 'landmark' },
+    { key: 'genes', label: rf.genes, icon: 'target' },
     { key: 'etna', label: rf.etna, icon: 'volcano' },
     { key: 'lieux', label: rf.places, icon: 'pin' },
     { key: 'coutumes', label: rf.customs, icon: 'cone' },
@@ -353,6 +355,51 @@ export default function LaRegion() {
       </section>
 
       {/* La Sicile arabe — l'histoire qui explique ce qu'on a sous les yeux */}
+      {/*
+        LA GENETIQUE — un texte apporte par Mag, publie APRES verification.
+        Elle a demande qu'on croise les sources avant : ça a change le contenu.
+        Le chiffre de 37 % est exact et bien cite, mais une etude posterieure de
+        la meme revue previent que cette façon de compter peut tromper. Les deux
+        sont donc cote a cote, et la carte qui doute vient juste apres celle qui
+        affirme — c'est l'ordre dans lequel on doit les lire.
+      */}
+      {show('genes') && (
+      <section id="genes" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
+        <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>
+          <span className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em]" style={{ color: 'var(--cava-pink)' }}>
+            <Icon name="target" size={16} /> {t.genesPage.eyebrow}
+          </span>
+          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] uppercase leading-[1.02] tracking-[-0.02em]" style={{ fontWeight: 900 }}>
+            {t.genesPage.title}
+          </h2>
+          <p className="mt-3 max-w-[68ch] text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75]" style={{ color: 'var(--cava-muted)' }}>
+            {t.genesPage.intro}
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2" style={{ background: 'var(--cava-line)' }}>
+          {t.genesPage.facts.map((f, i) => (
+            <Reveal key={f.title} delay={(i % 2) * 80} className="flex flex-col gap-4 p-8 md:p-10" style={{ background: 'var(--cava-bg)' }}>
+              <span
+                className="inline-flex h-12 w-12 items-center justify-center rounded-2xl"
+                style={{ border: '1px solid var(--cava-line)', color: 'var(--cava-pink)' }}
+              >
+                <Icon name={f.icon as IconName} size={24} />
+              </span>
+              <h3 className="text-[clamp(1.1rem,2.2vw,1.4rem)] leading-[1.2]" style={{ fontWeight: 600 }}>
+                {f.title}
+              </h3>
+              <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--cava-muted)' }}>
+                {surligne(f.text)}
+              </p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Sources section="genes" />
+      </section>
+      )}
+
       {show('arabe') && (
       <section id="arabe" className="mx-auto max-w-[110rem] scroll-mt-24 px-5 pt-16 md:px-10">
         <Reveal className="flex flex-col gap-3 border-t pt-8" style={{ borderColor: 'var(--cava-ink)' }}>

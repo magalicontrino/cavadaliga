@@ -443,6 +443,12 @@ const MOTS_MAISON: Record<string, string> = {
     'etna volcan volcanique eruption lave cratere neige ski skier montagne granita nivaroli excursion '
     + 'vulcano eruzione lava cratere neve sciare montagna gita '
     + 'volcano eruption crater snow skiing mountain hike altitude sommet randonner telepherique guide sortie coulee cendres fumee sud nord refuge altitudine cima funivia guida colata cenere fumo rifugio altitude summit cable car guide lava ash smoke refuge',
+  // La genetique : « les Siciliens sont-ils grecs » ne rendait rien.
+  'region-genes':
+    'genetique adn genes grec grecs sicilien siciliens origine origines ancetres ancetre '
+    + 'chromosome y lignee paternelle etude adn ancien phenicien punique normand arabe pourcentage 37 '
+    + 'genetica dna geni greci siciliani origine antenati cromosoma linea paterna fenici punici normanni '
+    + 'genetics dna genes greek sicilian origin ancestors chromosome paternal lineage phoenician punic norman ',
   'region-arabe':
     // L'heritage arabe s'est etoffe : les pates seches de Trabia, le riz et le
     // safran, l'agrodolce, la patisserie d'amande, le rais des tonnare. Ces

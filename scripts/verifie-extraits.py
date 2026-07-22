@@ -63,6 +63,7 @@ SOURCES = {
     'cafe': ['coffeePage'],
     'etna': ['etnaPage'],
     'arabe': ['arabPage'],
+    'genes': ['genesPage'],
     'histoire': ['historyPage'],
     'faune': ['faunaPage'],
     'livres': ['booksPage'],

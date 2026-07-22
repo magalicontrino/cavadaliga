@@ -50,11 +50,29 @@ export type IconName =
   | 'box'
   | 'bottle'
   | 'trash'
-  | 'glass';
+  | 'glass'
+  | 'asterisque';
 
 // Tracés bruts (viewBox 24×24) — réutilisables hors du composant, par exemple
 // dans un <svg> imbriqué (voir LocalMap).
 export const ICON_PATHS: Record<IconName, React.ReactNode> = {
+  /*
+   * L'ASTERISQUE — le picto de la bibliographie, choisi par Mag : « le
+   * picto : * ». C'est le bon signe : depuis les manuscrits, l'asterisque
+   * renvoie a la note en bas de page, c'est-a-dire a ce qui prouve.
+   *
+   * TROIS BARRES A 60 DEGRES, pas six branches dessinees une a une : c'est
+   * ainsi qu'est construit l'asterisque typographique, et trois traits qui se
+   * croisent au centre restent lisibles a 16 px la ou six branches separees
+   * deviennent une tache.
+   */
+  asterisque: (
+    <>
+      <path d="M12 4.5v15" />
+      <path d="M5.5 8.25l13 7.5" />
+      <path d="M18.5 8.25l-13 7.5" />
+    </>
+  ),
   // Calendrier — les periodes ou la maison est occupee. Deux anneaux en haut,
   // une reglure, et un jour marque : de loin on lit « calendrier » avant de
   // distinguer quoi que ce soit.

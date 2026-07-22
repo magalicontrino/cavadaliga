@@ -151,6 +151,18 @@ export type Dict = {
     moreTitle: string;
     moreDesc: string;
   };
+  /*
+   * LA GENETIQUE. Mag a apporte un texte sur ce que la colonisation grecque a
+   * laisse dans l'ADN sicilien, en demandant de verifier avant de publier. La
+   * verification a change ce qu'on en ecrit — voir la carte « pourquoi il faut
+   * s'en mefier » et les sources de la section `genes`.
+   */
+  genesPage: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    facts: { icon: string; title: string; text: string }[];
+  };
   localPage: {
     title: string;
     intro: string;
@@ -366,6 +378,7 @@ export type Dict = {
   };
   /** Le mot « Sources », devant les liens discrets des sections explicatives. */
   sourcesLabel: string;
+  biblio: { title: string; intro: string; note: string; label: string; count: string };
   /** Le repli du tri sur telephone : vingt boutons n'y tiennent pas deplies. */
   filtersMore: string;
   filtersLess: string;
@@ -384,6 +397,7 @@ export type Dict = {
     legends: string;
     scopa: string;
     arab: string;
+    genes: string;
     /** Rassemble les sept sections venues de « Sons & images » en un seul bouton. */
     sounds: string;
     etna: string;
@@ -898,6 +912,18 @@ const FR: Dict = {
     moreTitle: 'Si le sujet vous attrape',
     moreDesc: 'Libero Reina raconte cette Sicile arabe sur Instagram — et il la raconte en musique, ce qui est la meilleure façon de l’entendre.',
   },
+  genesPage: {
+    eyebrow: 'Génétique',
+    title: 'Un Grec et un Sicilien, c’est pareil ?',
+    intro: 'La Sicile a été grecque avant d’être romaine : dès le VIIIᵉ siècle avant notre ère, les colons fondent des cités sur toute la côte est et sud — la Grande Grèce. Vingt-huit siècles plus tard, qu’en reste-t-il dans l’ADN ? La réponse est plus prudente que les chiffres qui circulent.',
+    facts: [
+      { icon: 'landmark', title: 'Le chiffre qu’on cite partout : 37 %', text: 'Une étude de 2009 dans l’European Journal of Human Genetics a analysé les lignées [[paternelles]] de Siciliens de plusieurs régions. Elle estime la contribution grecque au patrimoine sicilien à environ 37 %, et l’ancêtre commun le plus récent de ces lignées à quelque 2 380 ans — ce qui tombe pile sur la colonisation classique.' },
+      { icon: 'info', title: 'Et pourquoi il faut s’en méfier', text: 'Sept ans plus tard, dans la même revue, une autre équipe prévient que [[quantifier le flux grec par la proportion de lignées survivantes peut être trompeur]]. Elle retrouve bien une signature grecque nette dans l’est de l’île, compatible avec une colonisation venue d’Eubée — mais la chiffre autrement : quelques milliers d’hommes et quelques centaines de femmes. Un pourcentage de chromosomes Y n’est pas une part d’ancêtres.' },
+      { icon: 'compass', title: 'Les Phéniciens, la surprise', text: 'On les croyait venus du Levant en nombre. Une étude d’ADN ancien parue dans Nature en 2025, sur 210 individus de quatorze sites, montre l’inverse : entre le VIᵉ et le IIᵉ siècle avant notre ère, les Phéniciens du Levant n’ont presque rien légué génétiquement aux colonies puniques. Celles-ci tiennent l’essentiel de leur ascendance d’un profil proche de la Sicile et de l’Égée, le reste d’Afrique du Nord. [[La culture a voyagé sans que les gens suivent]].' },
+      { icon: 'map', title: 'L’île n’est pas d’un seul bloc', text: 'L’est et l’ouest diffèrent nettement. Autour de Syracuse, les marqueurs grecs dominent. La composante nord-africaine paternelle tourne autour de [[6 %]] en moyenne, avec des pics à l’ouest — la trace des deux siècles arabes. Quant aux Normands du XIᵉ siècle, leur apport reste très difficile à isoler : trop récent, et trop proche génétiquement du reste de l’Europe.' },
+      { icon: 'wave', title: 'Ce qui les rapproche plus que ce qui les sépare', text: 'Grecs et Siciliens partagent le même socle : des chasseurs-cueilleurs du paléolithique, puis les agriculteurs venus d’Anatolie au néolithique, puis un apport des steppes à l’âge du bronze — l’histoire de presque toute l’Europe. Sur ce fond commun, la Grèce a évolué de façon plutôt continue, tandis que la Sicile, verrou de la Méditerranée, a été retouchée par tout le monde. [[La différence n’est pas d’origine : elle est de parcours]].' },
+    ],
+  },
   localPage: {
     title: 'Local & responsable',
     intro: 'Nos adresses pour consommer local et responsable : de petits producteurs et artisans du sud-est de la Sicile, choisis pour la qualité de leurs produits et pour faire vivre l’agriculture de la région.',
@@ -1394,6 +1420,7 @@ const FR: Dict = {
     songs: 'Chansons',
   },
   sourcesLabel: 'Sources :',
+  biblio: { title: 'Où j’ai vérifié', intro: 'Tout ce que ce site affirme et qui ne vient pas de Mag est allé se faire vérifier quelque part. Voici où, section par section — les pages ont été ouvertes et lues, pas seulement trouvées.', note: 'Une section sans source ici, c’est une section écrite de mémoire ou de souvenir : mieux vaut un blanc qu’un lien qui donnerait l’air d’avoir vérifié.', label: 'Sources', count: '{n} sources, {s} sections' },
   filtersMore: 'Voir tous les thèmes',
   filtersLess: 'Réduire',
   monthsPrev: 'Mois précédents',
@@ -1406,6 +1433,7 @@ const FR: Dict = {
     drinks: 'Vins & alcools',
     coffee: 'Le café', pasta: 'La pastasciutta', symbols: 'Trinacria & teste di moro', legends: 'Les légendes', scopa: 'La scopa',
     arab: 'Sicile arabe',
+    genes: 'D’où viennent les Siciliens',
     sounds: 'Sons & images',
     etna: 'L’Etna',
     fauna: 'La faune',
@@ -1834,6 +1862,8 @@ const FR: Dict = {
       { q: 'Qu’est-ce qui caractérise la caponata ?', choix: ['L’aigre-doux : vinaigre et sucre', 'Le piment fort', 'La cuisson au feu de bois'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'La frutta martorana est faite de…', choix: ['Pâte d’amande', 'Pâte à sucre', 'Chocolat de Modica'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'La cassata tiendrait son nom de qas‘ah, qui désigne…', choix: ['Le bol dans lequel on la moulait', 'La ricotta', 'Une fête religieuse'], bonne: 0, ancre: 'arabe', niveau: 'difficile' },
+      { q: 'L’étude de 2009 sur les Siciliens portait sur…', choix: ['Les lignées paternelles seulement, pas le génome entier', 'Le génome entier', 'L’ADN mitochondrial seulement'], bonne: 0, ancre: 'genes', niveau: 'difficile' },
+      { q: 'Que montre l’étude Nature de 2025 sur les Puniques ?', choix: ['Presque aucun ancêtre levantin : la culture a voyagé sans les gens', 'Une migration massive venue du Levant', 'Qu’ils venaient de Grèce continentale'], bonne: 0, ancre: 'genes', niveau: 'difficile' },
       { q: 'En janvier 1945, où la révolte « Non si parte ! » a-t-elle éclaté le plus fort ?', choix: ['Dans la province de Raguse', 'À Palerme', 'En Calabre'], bonne: 0, ancre: 'histoire', niveau: 'facile' },
       { q: 'Contre quoi les Siciliens se soulèvent-ils en janvier 1945 ?', choix: ['Contre l’appel des jeunes sous les drapeaux', 'Contre le prix du pain', 'Contre la fermeture des mines'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
       { q: 'Qu’a fait Maria Occhipinti, enceinte de cinq mois, le 4 janvier 1945 ?', choix: ['Elle s’est couchée devant le camion militaire', 'Elle a caché les garçons dans sa cave', 'Elle a écrit au préfet'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
@@ -2370,6 +2400,18 @@ const IT: Dict = {
     moreTitle: 'Se l’argomento vi prende',
     moreDesc: 'Libero Reina racconta questa Sicilia araba su Instagram — e la racconta in musica, che è il modo migliore per sentirla.',
   },
+  genesPage: {
+    eyebrow: 'Genetica',
+    title: 'Un greco e un siciliano sono la stessa cosa?',
+    intro: 'La Sicilia è stata greca prima che romana: dall’VIII secolo a.C. i coloni fondano città su tutta la costa orientale e meridionale — la Magna Grecia. Ventotto secoli dopo, che cosa ne resta nel DNA? La risposta è più prudente delle cifre che circolano.',
+    facts: [
+      { icon: 'landmark', title: 'La cifra che si cita ovunque: 37 %', text: 'Uno studio del 2009 sull’European Journal of Human Genetics ha analizzato le linee [[paterne]] di siciliani di più regioni. Stima il contributo greco al patrimonio siciliano intorno al 37 %, e l’antenato comune più recente di queste linee a circa 2.380 anni — proprio l’epoca della colonizzazione classica.' },
+      { icon: 'info', title: 'E perché diffidarne', text: 'Sette anni dopo, sulla stessa rivista, un’altra équipe avverte che [[quantificare il flusso greco con la proporzione di linee sopravvissute può essere fuorviante]]. Ritrova sì una netta firma greca nell’est dell’isola, compatibile con una colonizzazione dall’Eubea — ma la misura diversamente: qualche migliaio di uomini e qualche centinaio di donne. Una percentuale di cromosomi Y non è una quota di antenati.' },
+      { icon: 'compass', title: 'I Fenici, la sorpresa', text: 'Li si credeva arrivati dal Levante in gran numero. Uno studio di DNA antico uscito su Nature nel 2025, su 210 individui di quattordici siti, mostra il contrario: tra il VI e il II secolo a.C. i Fenici del Levante non hanno lasciato quasi nulla geneticamente alle colonie puniche. Queste traggono gran parte della loro ascendenza da un profilo vicino a Sicilia ed Egeo, il resto dal Nord Africa. [[La cultura ha viaggiato senza che le persone la seguissero]].' },
+      { icon: 'map', title: 'L’isola non è un blocco solo', text: 'Est e ovest differiscono nettamente. Intorno a Siracusa dominano i marcatori greci. La componente nordafricana paterna si aggira sul [[6 %]] in media, con picchi a ovest — la traccia dei due secoli arabi. Quanto ai Normanni dell’XI secolo, il loro apporto resta molto difficile da isolare: troppo recente, e troppo vicino geneticamente al resto d’Europa.' },
+      { icon: 'wave', title: 'Ciò che li unisce più di ciò che li separa', text: 'Greci e siciliani condividono lo stesso zoccolo: cacciatori-raccoglitori del paleolitico, poi gli agricoltori venuti dall’Anatolia nel neolitico, poi un apporto delle steppe nell’età del bronzo — la storia di quasi tutta l’Europa. Su questo fondo comune la Grecia è evoluta in modo piuttosto continuo, mentre la Sicilia, chiave del Mediterraneo, è stata ritoccata da tutti. [[La differenza non è d’origine: è di percorso]].' },
+    ],
+  },
   localPage: {
     title: 'Locale & responsabile',
     intro: 'I nostri indirizzi per un consumo locale e responsabile: piccoli produttori e artigiani del sud-est della Sicilia, scelti per la qualità dei loro prodotti e per sostenere l’agricoltura della regione.',
@@ -2819,6 +2861,7 @@ const IT: Dict = {
     songs: 'Canzoni',
   },
   sourcesLabel: 'Fonti:',
+  biblio: { title: 'Dove ho verificato', intro: 'Tutto ciò che questo sito afferma e che non viene da Mag è stato verificato da qualche parte. Ecco dove, sezione per sezione — le pagine sono state aperte e lette, non solo trovate.', note: 'Una sezione senza fonte è una sezione scritta a memoria: meglio un vuoto che un link che darebbe l’aria di aver verificato.', label: 'Fonti', count: '{n} fonti, {s} sezioni' },
   filtersMore: 'Mostra tutti i temi',
   filtersLess: 'Mostra meno',
   monthsPrev: 'Mesi precedenti',
@@ -2831,6 +2874,7 @@ const IT: Dict = {
     drinks: 'Vini & liquori',
     coffee: 'Il caffè', pasta: 'La pastasciutta', symbols: 'Trinacria e teste di moro', legends: 'Le leggende', scopa: 'La scopa',
     arab: 'Sicilia araba',
+    genes: 'Da dove vengono i siciliani',
     sounds: 'Suoni & immagini',
     etna: 'L’Etna',
     fauna: 'La fauna',
@@ -3259,6 +3303,8 @@ const IT: Dict = {
       { q: 'Che cosa caratterizza la caponata?', choix: ['L’agrodolce: aceto e zucchero', 'Il peperoncino forte', 'La cottura a legna'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'La frutta martorana è fatta di…', choix: ['Pasta di mandorle', 'Pasta di zucchero', 'Cioccolato di Modica'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'La cassata prenderebbe il nome da qas‘ah, che indica…', choix: ['La scodella in cui la si modellava', 'La ricotta', 'Una festa religiosa'], bonne: 0, ancre: 'arabe', niveau: 'difficile' },
+      { q: 'Lo studio del 2009 sui siciliani riguardava…', choix: ['Solo le linee paterne, non il genoma intero', 'Il genoma intero', 'Solo il DNA mitocondriale'], bonne: 0, ancre: 'genes', niveau: 'difficile' },
+      { q: 'Che cosa mostra lo studio Nature del 2025 sui punici?', choix: ['Quasi nessun antenato levantino: la cultura ha viaggiato senza le persone', 'Una migrazione massiccia dal Levante', 'Che venivano dalla Grecia continentale'], bonne: 0, ancre: 'genes', niveau: 'difficile' },
       { q: 'Nel gennaio 1945, dove è esplosa più forte la rivolta del « Non si parte! »?', choix: ['Nella provincia di Ragusa', 'A Palermo', 'In Calabria'], bonne: 0, ancre: 'histoire', niveau: 'facile' },
       { q: 'Contro che cosa insorgono i siciliani nel gennaio 1945?', choix: ['Contro la chiamata alle armi dei giovani', 'Contro il prezzo del pane', 'Contro la chiusura delle miniere'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
       { q: 'Che cosa ha fatto Maria Occhipinti, incinta di cinque mesi, il 4 gennaio 1945?', choix: ['Si è sdraiata davanti al camion militare', 'Ha nascosto i ragazzi in cantina', 'Ha scritto al prefetto'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
@@ -3788,6 +3834,18 @@ const EN: Dict = {
     moreTitle: 'If the subject grabs you',
     moreDesc: 'Libero Reina tells this Arab Sicily on Instagram — and he tells it through music, which is the best way to hear it.',
   },
+  genesPage: {
+    eyebrow: 'Genetics',
+    title: 'A Greek and a Sicilian — the same thing?',
+    intro: 'Sicily was Greek before it was Roman: from the 8th century BC, colonists founded cities all along the eastern and southern coasts — Magna Graecia. Twenty-eight centuries later, what is left of it in the DNA? The answer is more cautious than the figures that circulate.',
+    facts: [
+      { icon: 'landmark', title: 'The figure everyone quotes: 37%', text: 'A 2009 study in the European Journal of Human Genetics analysed the [[paternal]] lines of Sicilians from several regions. It puts the Greek contribution to the Sicilian gene pool at about 37%, and the most recent common ancestor of those lines at some 2,380 years — right on the classical colonisation.' },
+      { icon: 'info', title: 'And why to be wary of it', text: 'Seven years later, in the same journal, another team warns that [[quantifying Greek gene flow by the proportion of surviving lineages can be misleading]]. It does find a clear Greek signature in the east of the island, consistent with colonisation from Euboea — but measures it differently: a few thousand men and a few hundred women. A percentage of Y chromosomes is not a share of ancestors.' },
+      { icon: 'compass', title: 'The Phoenicians, the surprise', text: 'They were thought to have come from the Levant in numbers. An ancient-DNA study published in Nature in 2025, on 210 individuals from fourteen sites, shows the opposite: between the 6th and 2nd centuries BC, Levantine Phoenicians left almost nothing genetically to the Punic colonies. Those drew most of their ancestry from a profile close to Sicily and the Aegean, the rest from North Africa. [[The culture travelled without the people following]].' },
+      { icon: 'map', title: 'The island is not one block', text: 'East and west differ markedly. Around Syracuse, Greek markers dominate. The paternal North African component runs at about [[6%]] on average, with peaks in the west — the trace of the two Arab centuries. As for the 11th-century Normans, their contribution remains very hard to isolate: too recent, and too close genetically to the rest of Europe.' },
+      { icon: 'wave', title: 'What brings them together more than what separates them', text: 'Greeks and Sicilians share the same foundation: Palaeolithic hunter-gatherers, then the farmers who came from Anatolia in the Neolithic, then a steppe input in the Bronze Age — the story of nearly all of Europe. On that common ground Greece evolved fairly continuously, while Sicily, the lock of the Mediterranean, was retouched by everyone. [[The difference is not one of origin: it is one of path]].' },
+    ],
+  },
   localPage: {
     title: 'Local & responsible',
     intro: 'Our addresses for local, responsible shopping: small producers and artisans of south-east Sicily, chosen for the quality of their products and to support the region’s farming.',
@@ -4237,6 +4295,7 @@ const EN: Dict = {
     songs: 'Songs',
   },
   sourcesLabel: 'Sources:',
+  biblio: { title: 'Where I checked', intro: 'Everything this site states that does not come from Mag was checked somewhere. Here is where, section by section — the pages were opened and read, not merely found.', note: 'A section with no source here is a section written from memory: better a blank than a link that would look like proof.', label: 'Sources', count: '{n} sources, {s} sections' },
   filtersMore: 'Show all themes',
   filtersLess: 'Show fewer',
   monthsPrev: 'Earlier months',
@@ -4249,6 +4308,7 @@ const EN: Dict = {
     drinks: 'Wine & spirits',
     coffee: 'Coffee', pasta: 'Pastasciutta', symbols: 'Trinacria & Moor’s heads', legends: 'The legends', scopa: 'Scopa',
     arab: 'Arab Sicily',
+    genes: 'Where Sicilians come from',
     sounds: 'Sounds & screens',
     etna: 'Etna',
     fauna: 'Wildlife',
@@ -4677,6 +4737,8 @@ const EN: Dict = {
       { q: 'What defines caponata?', choix: ['Sweet and sour: vinegar and sugar', 'Fierce chilli heat', 'Cooking over a wood fire'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Frutta martorana is made of…', choix: ['Almond paste', 'Sugar paste', 'Modica chocolate'], bonne: 0, ancre: 'arabe', niveau: 'moyen' },
       { q: 'Cassata may be named after qas‘ah, which means…', choix: ['The bowl it was shaped in', 'Ricotta', 'A religious feast'], bonne: 0, ancre: 'arabe', niveau: 'difficile' },
+      { q: 'The 2009 study on Sicilians looked at…', choix: ['Paternal lines only, not the whole genome', 'The whole genome', 'Mitochondrial DNA only'], bonne: 0, ancre: 'genes', niveau: 'difficile' },
+      { q: 'What does the 2025 Nature study on the Punic world show?', choix: ['Almost no Levantine ancestors: the culture travelled without the people', 'A mass migration from the Levant', 'That they came from mainland Greece'], bonne: 0, ancre: 'genes', niveau: 'difficile' },
       { q: 'In January 1945, where did the “Non si parte!” revolt burn hottest?', choix: ['In the province of Ragusa', 'In Palermo', 'In Calabria'], bonne: 0, ancre: 'histoire', niveau: 'facile' },
       { q: 'What did Sicilians rise up against in January 1945?', choix: ['The call-up of their young men', 'The price of bread', 'The closing of the mines'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
       { q: 'What did Maria Occhipinti, five months pregnant, do on 4 January 1945?', choix: ['She lay down in front of the army truck', 'She hid the boys in her cellar', 'She wrote to the prefect'], bonne: 0, ancre: 'histoire', niveau: 'moyen' },
