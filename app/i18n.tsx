@@ -2094,8 +2094,7 @@ const FR: Dict = {
           { label: 'Caronte & Tourist — la traversée du détroit', url: 'https://www.carontetourist.it/' },
         ],
         items: [
-          'Le bateau, de loin le plus reposant : on embarque la voiture chargée et on se réveille en Sicile. Depuis Gênes, GNV part le soir, la traversée dure une vingtaine d’heures et on débarque à Palerme le lendemain — la route déjà derrière soi.',
-          'D’ailleurs on n’est pas obligé de partir de Gênes. GNV et Grimaldi Lines relient aussi Palerme depuis Naples (8 à 12 h), Livourne, Civitavecchia et Salerne : prenez le port qui vous arrange le mieux. Depuis Palerme, il reste environ 3 h jusqu’à la maison.',
+          'Le bateau, de loin le plus reposant : on embarque la voiture chargée et on se réveille en Sicile. Et on n’est pas obligé de partir de Gênes — GNV et Grimaldi Lines desservent tous les deux Palerme, depuis [[Gênes]] (départ le soir, une vingtaine d’heures de traversée, on débarque le lendemain), depuis [[Naples]] (8 à 12 h), depuis [[Livourne]], depuis [[Civitavecchia]] et depuis [[Salerne]]. Prenez le port qui vous arrange : de Palerme, il reste environ 3 h de route jusqu’à la maison.',
           'La descente de la Botte — on roule jusqu’en Calabre et on embarque pour Messine. Attention : le ferry ne part pas de Reggio de Calabre même mais de [[Villa San Giovanni]], quelques kilomètres avant, là où l’autoroute s’arrête. La traversée fait une vingtaine de minutes, sans réservation, et il reste ensuite environ 3 h de route.',
           'Entre les deux, c’est une question de fatigue : le bateau vous épargne toute l’Italie du Sud au volant. Et [[la cabine n’est pas obligatoire]] — il y a des fauteuils inclinables, réservés à l’avance comme une place de train, et le passage sur le pont pour qui emporte de quoi camper un minimum : un duvet et un tapis suffisent.',
         ],
@@ -3513,8 +3512,7 @@ const IT: Dict = {
           { label: 'Caronte & Tourist — la traversata dello Stretto', url: 'https://www.carontetourist.it/' },
         ],
         items: [
-          'La nave, di gran lunga la più riposante: si imbarca l’auto carica e ci si sveglia in Sicilia. Da Genova, GNV parte la sera, la traversata dura una ventina d’ore e si sbarca a Palermo l’indomani — con la strada già alle spalle.',
-          'E non si è obbligati a partire da Genova. GNV e Grimaldi Lines collegano Palermo anche da Napoli (8-12 h), Livorno, Civitavecchia e Salerno: scegliete il porto che vi conviene. Da Palermo restano circa 3 h fino a casa.',
+          'La nave, di gran lunga la più riposante: si imbarca l’auto carica e ci si sveglia in Sicilia. E non si è obbligati a partire da Genova — GNV e Grimaldi Lines servono entrambe Palermo, da [[Genova]] (partenza la sera, una ventina d’ore di traversata, si sbarca l’indomani), da [[Napoli]] (8-12 h), da [[Livorno]], da [[Civitavecchia]] e da [[Salerno]]. Scegliete il porto che vi conviene: da Palermo restano circa 3 h di strada fino a casa.',
           'La discesa dello Stivale — si guida fino in Calabria e ci si imbarca per Messina. Attenzione: il traghetto non parte da Reggio Calabria ma da [[Villa San Giovanni]], qualche chilometro prima, dove finisce l’autostrada. La traversata dura una ventina di minuti, senza prenotazione, e restano poi circa 3 h di strada.',
           'Tra le due è una questione di stanchezza: la nave vi risparmia tutto il Sud Italia al volante. E [[la cabina non è obbligatoria]] — ci sono poltrone reclinabili, prenotate in anticipo come un posto in treno, e il passaggio ponte per chi si porta il minimo per accamparsi: un sacco a pelo e un materassino bastano.',
         ],
@@ -4932,8 +4930,7 @@ const EN: Dict = {
           { label: 'Caronte & Tourist — crossing the strait', url: 'https://www.carontetourist.it/' },
         ],
         items: [
-          'The boat, by far the most restful: you drive the loaded car on board and wake up in Sicily. From Genoa, GNV leaves in the evening, the crossing takes about twenty hours and you land in Palermo the next day — the road already behind you.',
-          'And you do not have to start from Genoa. GNV and Grimaldi Lines also link Palermo from Naples (8-12 h), Livorno, Civitavecchia and Salerno: take whichever port suits you. From Palermo, about 3 h remain to the house.',
+          'The boat, by far the most restful: you drive the loaded car on board and wake up in Sicily. And you do not have to start from Genoa — GNV and Grimaldi Lines both serve Palermo, from [[Genoa]] (leaving in the evening, about twenty hours at sea, landing the next day), from [[Naples]] (8-12 h), from [[Livorno]], from [[Civitavecchia]] and from [[Salerno]]. Take whichever port suits you: from Palermo, about 3 h of road remain to the house.',
           'Down the boot — you drive to Calabria and board for Messina. Careful: the ferry does not leave from Reggio Calabria itself but from [[Villa San Giovanni]], a few kilometres earlier, where the motorway ends. The crossing takes about twenty minutes, no booking needed, and about 3 h of road follow.',
           'Between the two it is a question of tiredness: the boat spares you the whole of southern Italy at the wheel. And [[a cabin is not compulsory]] — there are reclining seats, booked ahead like a train seat, and deck passage for anyone who brings the bare minimum to camp with: a sleeping bag and a mat will do.',
         ],
