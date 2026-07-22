@@ -811,6 +811,12 @@ export function construireIndex(t: Dict, lang: Lang, aujourdhui: Date = new Date
   const sections: { id: string; ancre: string; bloc: { eyebrow: string; title: string; intro: string; facts: { title: string; text: string }[] } }[] = [
     { id: 'etna', ancre: 'etna', bloc: t.etnaPage },
     { id: 'arabe', ancre: 'arabe', bloc: t.arabPage },
+    // MANQUAIT ICI, ET LES MOTS-CLEFS NE SUFFISAIENT PAS. J'avais ajoute
+    // « adn », « genetique », « grec » a MOTS_MAISON en croyant l'affaire
+    // faite : un mot-clef ne sert a rien tant qu'aucune FICHE ne porte son
+    // identifiant. Le chat ne trouvait donc rien sur l'ADN — et c'est Mag
+    // qui l'a remarque, en cherchant sa propre section.
+    { id: 'genes', ancre: 'genes', bloc: t.genesPage },
     { id: 'coutumes', ancre: 'coutumes', bloc: t.tastePage },
     { id: 'specialites', ancre: 'specialites', bloc: t.specialtiesPage },
     { id: 'alcools', ancre: 'alcools', bloc: t.drinksPage },
