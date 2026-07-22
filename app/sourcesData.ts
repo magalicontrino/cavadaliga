@@ -146,6 +146,8 @@ export const SOURCES: Record<string, Source[]> = {
     { label: 'Les cartes en Italie depuis 1376 — The World of Playing Cards', url: 'https://www.wopc.co.uk/italy/index' },
     { label: 'Les enseignes latines et les cartes mameloukes — Wikipedia (EN)', url: 'https://en.wikipedia.org/wiki/Italian_playing_cards' },
     { label: 'Scopa (gioco) — Wikipedia', url: 'https://it.wikipedia.org/wiki/Scopa_(gioco)' },
+    { label: 'Qui étaient les Mamelouks — Wikipedia', url: 'https://fr.wikipedia.org/wiki/Mamelouks' },
+    { label: 'Ce que voulait dire « Sarrasin » — Wikipedia', url: 'https://fr.wikipedia.org/wiki/Sarrasins' },
     { label: 'Come si calcola la primiera a scopa — ilGiocatoreOnline', url: 'https://www.ilgiocatoreonline.it/come-si-calcola-la-primiera-a-scopa.html' },
   ],
 

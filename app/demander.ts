@@ -329,7 +329,8 @@ const MOTS_MAISON: Record<string, string> = {
     // L'histoire du jeu : « d'ou vient la scopa » ne rendait rien.
     'histoire origine ancien vieux naibbe 1376 mamelouk egypte topkapi sarrasin arabe polo baton ' +
     'dame reine figures espagne espagnol primiera naples napoli storia origine antico donna regina ' +
-    'history origin old queen court cards spain naples mamluk saracen polo sticks',  legendes:
+    'history origin old queen court cards spain naples mamluk saracen polo sticks ' +
+    'qui sont les mamelouks esclaves affranchis 1250 1517 egypte syrie sarrasin musulman mot ',  legendes:
     'legende legendes mythe conte cola pesce colapesce colonnes tremblement terre seisme ' +
     'arethuse aretusa nymphe source ortygie syracuse alphee artemis papyrus ' +
     'fata morgana mirage detroit messine calabre charybde scylla cariddi scilla tourbillon monstre ' +
