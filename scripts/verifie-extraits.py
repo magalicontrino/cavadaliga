@@ -141,10 +141,11 @@ for cles in SOURCES.values():
         TEXTES[c] = b[-3:] if len(b) >= 3 else b
 
 total = 0
+total_faibles = 0
 for k, langue in enumerate(('fr', 'it', 'en')):
     zone = '\n'.join(lignes[bornes[k]:bornes[k + 1]])
     qs = re.findall(r"\{ q: '((?:[^'\\]|\\.)*)', choix: \[([^\]]+)\], bonne: (\d+), ancre: '([a-z]+)'", zone)
-    muettes = []
+    muettes, faibles = [], []
     concernees = 0
     for q, choix, bonne, ancre in qs:
         if ancre not in SOURCES:
@@ -162,8 +163,75 @@ for k, langue in enumerate(('fr', 'it', 'en')):
         cles = [w for w in mots if len(w) >= 4 or w.isdigit()] or [w for w in mots if len(w) >= 2]
         if not any(c in texte for c in cles):
             muettes.append((ancre, q[:52], rep[:45]))
+        else:
+            # ─────────────────────────────────────────────────────────────
+            # LA CLE PRINCIPALE — un second controle, plus severe, et il est
+            # ne d'un faux positif que j'ai failli expedier.
+            #
+            # En retirant du site le paragraphe qui nommait la sortie
+            # « Ispica-Pozzallo », j'ai laisse la question du quiz qui la
+            # demande. Le controle a repondu « 0 sans extrait » : la reponse
+            # etait « Ispica-Pozzallo, puis la route de la côte », et « route »
+            # comme « cote » se trouvent encore vingt fois dans la page. Il
+            # validait sur les mots creux de la reponse.
+            #
+            # Un extrait tire de « la route de la cote » pour une question sur
+            # la SORTIE d'autoroute n'est pas un extrait, c'est une phrase prise
+            # au hasard qui contient le meme mot.
+            #
+            # ON NE CONTROLE QUE LES NOMS PROPRES ET LES NOMBRES, et le
+            # premier essai explique pourquoi. J'avais exige le mot LE PLUS
+            # LONG de la reponse : 46 alertes, presque toutes legitimes —
+            # « refrigerant » quand la page dit « refroidir », « grandmother »
+            # quand elle dit « nonna ». Une reponse est une reformulation, pas
+            # une citation. Un controle qui crie 46 fois pour rien, on apprend
+            # a l'ignorer, et il devient pire qu'absent.
+            #
+            # Un NOM PROPRE et un NOMBRE, eux, ne se reformulent pas. Si la
+            # reponse dit « Ispica-Pozzallo » ou « 130 km », la page doit
+            # l'ecrire tel quel — sinon la reponse ne s'y trouve plus.
+            # ─────────────────────────────────────────────────────────────
+            # ─────────────────────────────────────────────────────────
+            # QUEL MOT DOIT SE TROUVER MOT POUR MOT
+            #
+            # Deux essais rates avant celui-ci, et ils valent d'etre dits.
+            #
+            # 1) « le mot le plus long de la reponse » : 46 alertes, presque
+            #    toutes legitimes — « refrigerant » quand la page dit
+            #    « refroidir », « grandmother » quand elle dit « nonna ». Une
+            #    reponse est une reformulation, pas une citation.
+            # 2) « toute majuscule sauf en debut de reponse » : zero alerte,
+            #    mais elle ne voyait PAS le cas qui l'avait fait naitre —
+            #    « Ispica-Pozzallo » ouvre sa reponse. Verifie en remettant la
+            #    question morte : le controle repondait 0.
+            #
+            # Ce qui marche : une majuscule EN COURS DE PHRASE est un nom propre
+            # (rien d'autre ne se capitalise la), et le PREMIER mot n'en est un
+            # que si sa forme le trahit — un trait d'union ou une majuscule
+            # interne. « Ispica-Pozzallo » passe, « Environ » et « Circa » non.
+            #
+            # Un nom propre et un nombre ne se reformulent pas : si la reponse
+            # les nomme, la page doit les ecrire tels quels.
+            # ─────────────────────────────────────────────────────────────
+            mots_rep = re.findall(r"[\w\u00C0-\u00ff-]+", rep)
+            propres = []
+            for rang, mot in enumerate(mots_rep):
+                if not re.match(r'^[A-ZÉÈÀ]', mot) or len(mot) < 4:
+                    continue
+                forme_de_nom = '-' in mot or re.search(r'[a-zà-ÿ][A-ZÉÈÀ]', mot)
+                if rang == 0 and not forme_de_nom:
+                    continue
+                propres.append(mot)
+            nombres = re.findall(r'\b(\d{2,})', rep)
+            for mot in propres + nombres:
+                if nettoie(mot) not in texte:
+                    faibles.append((ancre, q[:52], mot))
     total += len(muettes)
-    print(f'{langue} : {concernees} questions couvertes, {len(muettes)} sans extrait')
+    print(f'{langue} : {concernees} questions couvertes, {len(muettes)} sans extrait'
+          + (f', {len(faibles)} a cle principale absente' if faibles else ''))
     for x in muettes:
         print('     -', x[0], '|', x[1], '=>', x[2])
-print('TOTAL muettes :', total)
+    for x in faibles:
+        print('     ? cle absente :', x[0], '|', x[1], '=> mot attendu :', x[2])
+    total_faibles += len(faibles)
+print('TOTAL muettes :', total, '| a cle principale absente :', total_faibles)
