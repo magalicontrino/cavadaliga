@@ -151,18 +151,6 @@ export type Dict = {
     moreTitle: string;
     moreDesc: string;
   };
-  /*
-   * LA GENETIQUE. Mag a apporte un texte sur ce que la colonisation grecque a
-   * laisse dans l'ADN sicilien, en demandant de verifier avant de publier. La
-   * verification a change ce qu'on en ecrit — voir la carte « pourquoi il faut
-   * s'en mefier » et les sources de la section `genes`.
-   */
-  genesPage: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    facts: { icon: string; title: string; text: string }[];
-  };
   localPage: {
     title: string;
     intro: string;
@@ -397,7 +385,6 @@ export type Dict = {
     legends: string;
     scopa: string;
     arab: string;
-    genes: string;
     /** Rassemble les sept sections venues de « Sons & images » en un seul bouton. */
     sounds: string;
     etna: string;
@@ -912,18 +899,6 @@ const FR: Dict = {
     moreTitle: 'Si le sujet vous attrape',
     moreDesc: 'Libero Reina raconte cette Sicile arabe sur Instagram — et il la raconte en musique, ce qui est la meilleure façon de l’entendre.',
   },
-  genesPage: {
-    eyebrow: 'Génétique',
-    title: 'Un Grec et un Sicilien, c’est pareil ?',
-    intro: 'La Sicile a été grecque avant d’être romaine : dès le VIIIᵉ siècle avant notre ère, les colons fondent des cités sur toute la côte est et sud — la Grande Grèce. Vingt-huit siècles plus tard, qu’en reste-t-il dans l’ADN ? La réponse est plus prudente que les chiffres qui circulent.',
-    facts: [
-      { icon: 'landmark', title: 'Le chiffre qu’on cite partout : 37 %', text: 'Une étude de 2009 dans l’European Journal of Human Genetics a analysé les lignées [[paternelles]] de Siciliens de plusieurs régions. Elle estime la contribution grecque au patrimoine sicilien à environ 37 %, et l’ancêtre commun le plus récent de ces lignées à quelque 2 380 ans — ce qui tombe pile sur la colonisation classique.' },
-      { icon: 'info', title: 'Et pourquoi il faut s’en méfier', text: 'Sept ans plus tard, dans la même revue, une autre équipe prévient que [[quantifier le flux grec par la proportion de lignées survivantes peut être trompeur]]. Elle retrouve bien une signature grecque nette dans l’est de l’île, compatible avec une colonisation venue d’Eubée — mais la chiffre autrement : quelques milliers d’hommes et quelques centaines de femmes. Un pourcentage de chromosomes Y n’est pas une part d’ancêtres.' },
-      { icon: 'compass', title: 'Les Phéniciens, la surprise', text: 'On les croyait venus du Levant en nombre. Une étude d’ADN ancien parue dans Nature en 2025, sur 210 individus de quatorze sites, montre l’inverse : entre le VIᵉ et le IIᵉ siècle avant notre ère, les Phéniciens du Levant n’ont presque rien légué génétiquement aux colonies puniques. Celles-ci tiennent l’essentiel de leur ascendance d’un profil proche de la Sicile et de l’Égée, le reste d’Afrique du Nord. [[La culture a voyagé sans que les gens suivent]].' },
-      { icon: 'map', title: 'L’île n’est pas d’un seul bloc', text: 'L’est et l’ouest diffèrent nettement. Autour de Syracuse, les marqueurs grecs dominent. La composante nord-africaine paternelle tourne autour de [[6 %]] en moyenne, avec des pics à l’ouest — la trace des deux siècles arabes. Quant aux Normands du XIᵉ siècle, leur apport reste très difficile à isoler : trop récent, et trop proche génétiquement du reste de l’Europe.' },
-      { icon: 'wave', title: 'Ce qui les rapproche plus que ce qui les sépare', text: 'Grecs et Siciliens partagent le même socle : des chasseurs-cueilleurs du paléolithique, puis les agriculteurs venus d’Anatolie au néolithique, puis un apport des steppes à l’âge du bronze — l’histoire de presque toute l’Europe. Sur ce fond commun, la Grèce a évolué de façon plutôt continue, tandis que la Sicile, verrou de la Méditerranée, a été retouchée par tout le monde. [[La différence n’est pas d’origine : elle est de parcours]].' },
-    ],
-  },
   localPage: {
     title: 'Local & responsable',
     intro: 'Nos adresses pour consommer local et responsable : de petits producteurs et artisans du sud-est de la Sicile, choisis pour la qualité de leurs produits et pour faire vivre l’agriculture de la région.',
@@ -1433,7 +1408,6 @@ const FR: Dict = {
     drinks: 'Vins & alcools',
     coffee: 'Le café', pasta: 'La pastasciutta', symbols: 'Trinacria & teste di moro', legends: 'Les légendes', scopa: 'La scopa',
     arab: 'Sicile arabe',
-    genes: 'D’où viennent les Siciliens',
     sounds: 'Sons & images',
     etna: 'L’Etna',
     fauna: 'La faune',
@@ -2398,18 +2372,6 @@ const IT: Dict = {
     moreTitle: 'Se l’argomento vi prende',
     moreDesc: 'Libero Reina racconta questa Sicilia araba su Instagram — e la racconta in musica, che è il modo migliore per sentirla.',
   },
-  genesPage: {
-    eyebrow: 'Genetica',
-    title: 'Un greco e un siciliano sono la stessa cosa?',
-    intro: 'La Sicilia è stata greca prima che romana: dall’VIII secolo a.C. i coloni fondano città su tutta la costa orientale e meridionale — la Magna Grecia. Ventotto secoli dopo, che cosa ne resta nel DNA? La risposta è più prudente delle cifre che circolano.',
-    facts: [
-      { icon: 'landmark', title: 'La cifra che si cita ovunque: 37 %', text: 'Uno studio del 2009 sull’European Journal of Human Genetics ha analizzato le linee [[paterne]] di siciliani di più regioni. Stima il contributo greco al patrimonio siciliano intorno al 37 %, e l’antenato comune più recente di queste linee a circa 2.380 anni — proprio l’epoca della colonizzazione classica.' },
-      { icon: 'info', title: 'E perché diffidarne', text: 'Sette anni dopo, sulla stessa rivista, un’altra équipe avverte che [[quantificare il flusso greco con la proporzione di linee sopravvissute può essere fuorviante]]. Ritrova sì una netta firma greca nell’est dell’isola, compatibile con una colonizzazione dall’Eubea — ma la misura diversamente: qualche migliaio di uomini e qualche centinaio di donne. Una percentuale di cromosomi Y non è una quota di antenati.' },
-      { icon: 'compass', title: 'I Fenici, la sorpresa', text: 'Li si credeva arrivati dal Levante in gran numero. Uno studio di DNA antico uscito su Nature nel 2025, su 210 individui di quattordici siti, mostra il contrario: tra il VI e il II secolo a.C. i Fenici del Levante non hanno lasciato quasi nulla geneticamente alle colonie puniche. Queste traggono gran parte della loro ascendenza da un profilo vicino a Sicilia ed Egeo, il resto dal Nord Africa. [[La cultura ha viaggiato senza che le persone la seguissero]].' },
-      { icon: 'map', title: 'L’isola non è un blocco solo', text: 'Est e ovest differiscono nettamente. Intorno a Siracusa dominano i marcatori greci. La componente nordafricana paterna si aggira sul [[6 %]] in media, con picchi a ovest — la traccia dei due secoli arabi. Quanto ai Normanni dell’XI secolo, il loro apporto resta molto difficile da isolare: troppo recente, e troppo vicino geneticamente al resto d’Europa.' },
-      { icon: 'wave', title: 'Ciò che li unisce più di ciò che li separa', text: 'Greci e siciliani condividono lo stesso zoccolo: cacciatori-raccoglitori del paleolitico, poi gli agricoltori venuti dall’Anatolia nel neolitico, poi un apporto delle steppe nell’età del bronzo — la storia di quasi tutta l’Europa. Su questo fondo comune la Grecia è evoluta in modo piuttosto continuo, mentre la Sicilia, chiave del Mediterraneo, è stata ritoccata da tutti. [[La differenza non è d’origine: è di percorso]].' },
-    ],
-  },
   localPage: {
     title: 'Locale & responsabile',
     intro: 'I nostri indirizzi per un consumo locale e responsabile: piccoli produttori e artigiani del sud-est della Sicilia, scelti per la qualità dei loro prodotti e per sostenere l’agricoltura della regione.',
@@ -2872,7 +2834,6 @@ const IT: Dict = {
     drinks: 'Vini & liquori',
     coffee: 'Il caffè', pasta: 'La pastasciutta', symbols: 'Trinacria e teste di moro', legends: 'Le leggende', scopa: 'La scopa',
     arab: 'Sicilia araba',
-    genes: 'Da dove vengono i siciliani',
     sounds: 'Suoni & immagini',
     etna: 'L’Etna',
     fauna: 'La fauna',
@@ -3830,18 +3791,6 @@ const EN: Dict = {
     moreTitle: 'If the subject grabs you',
     moreDesc: 'Libero Reina tells this Arab Sicily on Instagram — and he tells it through music, which is the best way to hear it.',
   },
-  genesPage: {
-    eyebrow: 'Genetics',
-    title: 'A Greek and a Sicilian — the same thing?',
-    intro: 'Sicily was Greek before it was Roman: from the 8th century BC, colonists founded cities all along the eastern and southern coasts — Magna Graecia. Twenty-eight centuries later, what is left of it in the DNA? The answer is more cautious than the figures that circulate.',
-    facts: [
-      { icon: 'landmark', title: 'The figure everyone quotes: 37%', text: 'A 2009 study in the European Journal of Human Genetics analysed the [[paternal]] lines of Sicilians from several regions. It puts the Greek contribution to the Sicilian gene pool at about 37%, and the most recent common ancestor of those lines at some 2,380 years — right on the classical colonisation.' },
-      { icon: 'info', title: 'And why to be wary of it', text: 'Seven years later, in the same journal, another team warns that [[quantifying Greek gene flow by the proportion of surviving lineages can be misleading]]. It does find a clear Greek signature in the east of the island, consistent with colonisation from Euboea — but measures it differently: a few thousand men and a few hundred women. A percentage of Y chromosomes is not a share of ancestors.' },
-      { icon: 'compass', title: 'The Phoenicians, the surprise', text: 'They were thought to have come from the Levant in numbers. An ancient-DNA study published in Nature in 2025, on 210 individuals from fourteen sites, shows the opposite: between the 6th and 2nd centuries BC, Levantine Phoenicians left almost nothing genetically to the Punic colonies. Those drew most of their ancestry from a profile close to Sicily and the Aegean, the rest from North Africa. [[The culture travelled without the people following]].' },
-      { icon: 'map', title: 'The island is not one block', text: 'East and west differ markedly. Around Syracuse, Greek markers dominate. The paternal North African component runs at about [[6%]] on average, with peaks in the west — the trace of the two Arab centuries. As for the 11th-century Normans, their contribution remains very hard to isolate: too recent, and too close genetically to the rest of Europe.' },
-      { icon: 'wave', title: 'What brings them together more than what separates them', text: 'Greeks and Sicilians share the same foundation: Palaeolithic hunter-gatherers, then the farmers who came from Anatolia in the Neolithic, then a steppe input in the Bronze Age — the story of nearly all of Europe. On that common ground Greece evolved fairly continuously, while Sicily, the lock of the Mediterranean, was retouched by everyone. [[The difference is not one of origin: it is one of path]].' },
-    ],
-  },
   localPage: {
     title: 'Local & responsible',
     intro: 'Our addresses for local, responsible shopping: small producers and artisans of south-east Sicily, chosen for the quality of their products and to support the region’s farming.',
@@ -4304,7 +4253,6 @@ const EN: Dict = {
     drinks: 'Wine & spirits',
     coffee: 'Coffee', pasta: 'Pastasciutta', symbols: 'Trinacria & Moor’s heads', legends: 'The legends', scopa: 'Scopa',
     arab: 'Arab Sicily',
-    genes: 'Where Sicilians come from',
     sounds: 'Sounds & screens',
     etna: 'Etna',
     fauna: 'Wildlife',
