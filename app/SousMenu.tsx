@@ -37,6 +37,60 @@ export type Etape = { id: string; label: string };
 export default function SousMenu({ etapes }: { etapes: Etape[] }) {
   const [actif, setActif] = useState<string | null>(null);
   const barre = useRef<HTMLDivElement | null>(null);
+  const collant = useRef<HTMLDivElement | null>(null);
+
+  /*
+   * ────────────────────────────────────────────────────────────────────
+   * LA BARRE SE COLLE SOUS L'ENTETE REELLE, PAS SOUS UNE VALEUR ECRITE A LA
+   * MAIN — et c'est un defaut que Mag a vu avant moi : « c'est quoi ce
+   * design ? ». Les pastilles de liens defilaient au-dessus du sous-menu,
+   * coupees en deux.
+   *
+   * Deux choses se cumulaient. L'entete fait 88 px et j'avais colle la barre a
+   * 72 : elle demarrait DANS l'entete. Et le fond de l'entete est translucide
+   * avec un flou — le contenu qui passe derriere reste visible. Entre les deux,
+   * une bande ou les pastilles de la page apparaissaient a moitie, juste
+   * au-dessus d'une barre qui n'etait pas la leur.
+   *
+   * AUCUN NOMBRE FIXE NE MARCHE ICI, parce que l'entete SE MASQUE en descendant
+   * (elle glisse en -translate-y-full) et revient en remontant. A 88 px, la
+   * barre laisserait un trou beant des que l'entete disparait ; a 0, l'entete
+   * la recouvrirait des qu'elle revient.
+   *
+   * On lit donc la position REELLE du bas de l'entete a chaque image, et la
+   * barre s'y colle. Pendant que l'entete glisse, ce bas est anime : la chasse
+   * continue 500 ms apres le dernier defilement, le temps que la transition de
+   * 300 ms se termine — sans ça, la barre sauterait a la fin du glissement.
+   * ────────────────────────────────────────────────────────────────────
+   */
+  useEffect(() => {
+    let image = 0;
+    let jusqua = 0;
+    const suivre = () => {
+      const entete = document.querySelector('header');
+      if (entete && collant.current) {
+        const bas = Math.max(0, Math.round(entete.getBoundingClientRect().bottom));
+        collant.current.style.top = `${bas}px`;
+      }
+    };
+    const chasser = () => {
+      suivre();
+      if (Date.now() < jusqua) image = requestAnimationFrame(chasser);
+      else image = 0;
+    };
+    const relancer = () => {
+      jusqua = Date.now() + 500;
+      if (!image) image = requestAnimationFrame(chasser);
+    };
+    suivre();
+    window.addEventListener('scroll', relancer, { passive: true });
+    window.addEventListener('resize', relancer);
+    return () => {
+      window.removeEventListener('scroll', relancer);
+      window.removeEventListener('resize', relancer);
+      if (image) cancelAnimationFrame(image);
+    };
+  }, []);
 
   useEffect(() => {
     let brut = 0;
@@ -110,8 +164,13 @@ export default function SousMenu({ etapes }: { etapes: Etape[] }) {
    */
   return (
     <div
-      className="sticky top-[4.5rem] z-30 py-3 md:top-[5.25rem]"
+      ref={collant}
+      className="sticky z-30 py-3"
       style={{
+        // Valeur de depart, le temps que le script lise l'entete : sa hauteur
+        // pleine. Mieux vaut une barre un cran trop bas qu'un chevauchement
+        // visible a la premiere image.
+        top: '5.5rem',
         // Le fond n'est pas decoratif : sans lui, le texte de la page defile
         // DERRIERE les pastilles et les rend illisibles.
         background: 'var(--cava-bg)',
