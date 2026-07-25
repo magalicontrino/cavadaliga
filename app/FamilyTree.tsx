@@ -619,10 +619,10 @@ const enfants: Person[] = [
   // « marie avec » — le site ne le sait pas, et ne le suppose pas. Meme choix
   // que pour Mag & Stephane, deux cartes plus bas.
   //
-  // « Chan » est ecrit tel que Mag l'a donne : juste ce prenom. Les autres
+  // « Chantana » est ecrit tel que Mag l'a donne : juste ce prenom. Les autres
   // couples de la generation portent nom + prenom (Nathalie Gigli, Benoit
   // Vanbastelaer) ; ici on n'a que « Chan », et on n'invente pas le reste.
-  { name: 'David Contrino & Chan', subtitle: s.treeToday },
+  { name: 'David Contrino & Chantana', subtitle: s.treeToday },
   { name: 'Michaël Contrino & Nathalie Gigli', children: [{ name: 'Juliette' }, { name: 'Marie' }, { name: 'Zoé' }] },
   /*
    * DEUX CARTES POUR MAG, ET LA PREMIERE NE S'EFFACE PAS.
