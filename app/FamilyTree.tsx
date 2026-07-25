@@ -611,6 +611,18 @@ const parents: Person = {
 // mais certaines sont mineures et le site est ouvert a tous. Et « Mag » reste
 // « Mag », meme quand la demande ecrit son nom entier — c'est la regle.
 const enfants: Person[] = [
+  // David est l'aine des trois : sa carte vient donc en tete, avant celle de
+  // Michael. Il figurait deja comme prenom dans les enfants de Salvatore &
+  // Regine ; il a maintenant sa carte de couple, comme ses cadets.
+  //
+  // « Aujourd'hui » et pas « marie » : Mag a dit « en couple avec Chan », pas
+  // « marie avec » — le site ne le sait pas, et ne le suppose pas. Meme choix
+  // que pour Mag & Stephane, deux cartes plus bas.
+  //
+  // « Chan » est ecrit tel que Mag l'a donne : juste ce prenom. Les autres
+  // couples de la generation portent nom + prenom (Nathalie Gigli, Benoit
+  // Vanbastelaer) ; ici on n'a que « Chan », et on n'invente pas le reste.
+  { name: 'David Contrino & Chan', subtitle: s.treeToday },
   { name: 'Michaël Contrino & Nathalie Gigli', children: [{ name: 'Juliette' }, { name: 'Marie' }, { name: 'Zoé' }] },
   /*
    * DEUX CARTES POUR MAG, ET LA PREMIERE NE S'EFFACE PAS.
