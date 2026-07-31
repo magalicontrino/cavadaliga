@@ -51,7 +51,7 @@ export const metadata: Metadata = {
  * La mesure ne voit que les visites POSTERIEURES a son activation : elle ne
  * peut rien dire des visites passees, qui n'ont jamais ete enregistrees.
  */
-const GOATCOUNTER_CODE = '';
+const GOATCOUNTER_CODE = 'cavadaliga';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
