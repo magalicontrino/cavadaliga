@@ -615,17 +615,4 @@ export const LOCAL_PLACES: LocalPlace[] = [
       it: 'Il market di Sampieri, Via Cipro. Utile per una dimenticanza sulla strada per la spiaggia.',
       en: 'Sampieri’s grocery, Via Cipro. Handy for whatever you forgot on the way to the beach.' },
   },
-  {
-    id: 'deco-scicli',
-    name: 'Decò',
-    cat: 'supermarche',
-    town: 'Scicli',
-    url: 'https://www.google.com/maps/search/?api=1&query=Dec%C3%B2+Scicli',
-    km: 8,
-    responsible: false,
-    blurb: {
-      fr: 'Supermarché dans Scicli même, à faire en même temps qu’une balade dans le centre baroque.',
-      it: 'Supermercato dentro Scicli, da fare insieme a una passeggiata nel centro barocco.',
-      en: 'Supermarket in Scicli itself — pair it with a wander through the baroque centre.' },
-  },
 ];

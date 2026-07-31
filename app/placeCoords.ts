@@ -99,7 +99,6 @@ export const COORDS: Record<string, PlaceCoord> = {
   eurospin: { lat: 36.7504564, lon: 14.6812486, src: 'nominatim' },
   'conad-donnalucata': { lat: 36.7637133, lon: 14.6521295, src: 'nominatim' },
   'despar-sampieri': { lat: 36.7205079, lon: 14.7373003, src: 'nominatim' },
-  'deco-scicli': { lat: 36.7871465, lon: 14.6966338, src: 'nominatim' },
 
   // Producteurs & plantes
   bonajuto: { lat: 36.8602541, lon: 14.7599117, src: 'nominatim' },
