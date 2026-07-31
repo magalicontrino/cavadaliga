@@ -22,7 +22,7 @@ export default function PlaceCard({
 }: {
   place: LocalPlace;
   lang: Lang;
-  labels: { map: string; badge: string; close: string; site: string; walk: string };
+  labels: { map: string; route: string; badge: string; close: string; site: string; walk: string };
   /**
    * La distance, DEJA calculee par la page — pas recalculee ici.
    *
@@ -94,6 +94,32 @@ export default function PlaceCard({
             className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[12.5px]"
           >
             <Icon name="pin" size={14} /> {labels.map} <span aria-hidden>↗</span>
+          </a>
+          {/*
+            L'ITINERAIRE DEPUIS LA MAISON — Mag : « depuis la maison, tu cliques
+            et tu peux te mettre en route ». Le premier bouton MONTRE ou c'est
+            (une recherche) ; celui-ci TRACE la route depuis Via Basilicata, prete
+            a suivre. Deux gestes differents, deux boutons — l'epingle pour voir,
+            la boussole pour aller.
+
+            L'origine est l'adresse ecrite, pas la position du telephone : le
+            lien marche pour tout le monde, meme sans geolocalisation, et Google
+            remplace « depuis la maison » par « depuis ma position » si l'invite
+            le prefere. La destination reprend la meme requete que le premier
+            bouton — le `query=` de son lien de recherche — donc les deux
+            pointent exactement le meme endroit.
+          */}
+          <a
+            href={`https://www.google.com/maps/dir/?api=1&origin=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&destination=${
+              place.url.match(/[?&]query=([^&]+)/)?.[1] ??
+              encodeURIComponent(`${place.name} ${place.town}`)
+            }`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[12.5px]"
+          >
+            <Icon name="compass" size={14} /> {labels.route} <span aria-hidden>↗</span>
           </a>
           {place.site && (
             <a

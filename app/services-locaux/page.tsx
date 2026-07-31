@@ -51,12 +51,43 @@ export default function NosAdresses() {
    * pointent donc le RAYON, et il faut que le rayon s'ouvre a l'arrivee.
    */
   useEffect(() => {
-    const cle = window.location.hash.slice(1) as CatKey;
-    if (cle && cle in CATS) {
-      setFilter(cle);
+    const cle = window.location.hash.slice(1);
+    // « responsable » n'est pas une categorie de CATS mais c'est un onglet : on
+    // le restaure aussi, sinon un lien partage depuis ce rayon retomberait sur
+    // « Tout voir ». « tout » n'a pas de hash — c'est deja l'etat par defaut.
+    if (cle === 'responsable' || (cle && cle in CATS)) {
+      setFilter(cle as 'responsable' | CatKey);
       setClicks((c) => c + 1);
     }
   }, []);
+
+  /*
+   * ET L'INVERSE : L'ONGLET COURANT S'ECRIT DANS L'URL. Mag : « quand je suis
+   * sur Supermarche et que je partage, ça doit envoyer sur Supermarche ». La
+   * page savait deja LIRE le hash a l'arrivee ; il manquait de l'ECRIRE quand
+   * on change d'onglet, sans quoi le lien partage n'en portait aucun.
+   *
+   * `replaceState` et pas `location.hash` : ce dernier ferait sauter la page
+   * vers un ancrage qui n'existe pas, et ajouterait une entree d'historique a
+   * chaque clic de filtre — trois filtres et le bouton « precedent » ne
+   * ramenerait plus a la page d'avant.
+   *
+   * Le tout premier rendu appartient a l'effet de LECTURE ci-dessus : on ne
+   * reecrit pas par-dessus lui, sinon on effacerait le #supermarche d'un lien
+   * partage avant meme de l'avoir lu.
+   */
+  const hashPose = useRef(false);
+  useEffect(() => {
+    if (!hashPose.current) {
+      hashPose.current = true;
+      return;
+    }
+    const url =
+      filter === 'tout'
+        ? window.location.pathname + window.location.search
+        : `#${filter}`;
+    window.history.replaceState(null, '', url);
+  }, [filter]);
 
   const [active, setActive] = useState<string | null>(null);
   // Carte ou liste : les deux disent la même chose autrement. La liste répond à
@@ -552,7 +583,7 @@ export default function NosAdresses() {
           <PlaceMap
             places={shown}
             lang={lang}
-            labels={{ map: p.mapLabel, badge: p.badge, close: p.closeLabel, site: p.siteLabel, walk: p.walkLabel, mapFailed: p.mapFailed, mapFailedHint: p.mapFailedHint, house: p.houseHere, departReset: p.departReset }}
+            labels={{ map: p.mapLabel, route: p.routeLabel, badge: p.badge, close: p.closeLabel, site: p.siteLabel, walk: p.walkLabel, mapFailed: p.mapFailed, mapFailedHint: p.mapFailedHint, house: p.houseHere, departReset: p.departReset }}
             choisi={shown.find((l) => l.id === active) ?? null}
             onChoisir={(l) => setActive(l?.id ?? null)}
             me={me}
@@ -683,6 +714,27 @@ export default function NosAdresses() {
                       className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]"
                     >
                       <Icon name="pin" size={15} /> {p.mapLabel} <span aria-hidden>↗</span>
+                    </a>
+                    {/*
+                      ITINERAIRE DEPUIS LA MAISON. Meme bouton que sur la fiche
+                      de la carte (PlaceCard) — depuis la maison, on clique et on
+                      se met en route. La liste et la carte doivent proposer la
+                      meme chose, sans quoi le geste dependrait de la vue ou l'on
+                      se trouve. Origine = l'adresse ecrite (marche sans
+                      geoloc) ; destination = la meme requete que le bouton
+                      « voir ».
+                    */}
+                    <a
+                      href={`https://www.google.com/maps/dir/?api=1&origin=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&destination=${
+                        pl.url.match(/[?&]query=([^&]+)/)?.[1] ??
+                        encodeURIComponent(`${pl.name} ${pl.town}`)
+                      }`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="cava-pill inline-flex items-center gap-2 px-4 py-2 text-[13px]"
+                    >
+                      <Icon name="compass" size={15} /> {p.routeLabel} <span aria-hidden>↗</span>
                     </a>
                     {pl.site && (
                       <a

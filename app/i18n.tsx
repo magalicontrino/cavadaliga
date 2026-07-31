@@ -175,6 +175,7 @@ export type Dict = {
     intro: string;
     note: string;
     mapLabel: string;
+    routeLabel: string;
     /** Bouton du site officiel, quand la fiche en a un. */
     siteLabel: string;
     /** Le picto marcheur, quand l'adresse est a moins d'un kilometre. */
@@ -946,6 +947,7 @@ const FR: Dict = {
     intro: 'Nos adresses pour consommer local et responsable : de petits producteurs et artisans du sud-est de la Sicile, choisis pour la qualité de leurs produits et pour faire vivre l’agriculture de la région.',
     note: 'Nous complétons cette page au fil de nos trouvailles — adresses et contacts à venir.',
     mapLabel: 'Ouvrir dans Google Maps',
+    routeLabel: 'Itinéraire depuis la maison',
     siteLabel: 'Site officiel',
     walkLabel: 'On peut y aller à pied',
     closeLabel: 'Fermer',
@@ -2447,6 +2449,7 @@ const IT: Dict = {
     intro: 'I nostri indirizzi per un consumo locale e responsabile: piccoli produttori e artigiani del sud-est della Sicilia, scelti per la qualità dei loro prodotti e per sostenere l’agricoltura della regione.',
     note: 'Completiamo questa pagina man mano che scopriamo — indirizzi e contatti in arrivo.',
     mapLabel: 'Apri in Google Maps',
+    routeLabel: 'Itinerario da casa',
     siteLabel: 'Sito ufficiale',
     walkLabel: 'Ci si può andare a piedi',
     closeLabel: 'Chiudi',
@@ -3894,6 +3897,7 @@ const EN: Dict = {
     intro: 'Our addresses for local, responsible shopping: small producers and artisans of south-east Sicily, chosen for the quality of their products and to support the region’s farming.',
     note: 'We complete this page as we make new finds — addresses and contacts coming soon.',
     mapLabel: 'Open in Google Maps',
+    routeLabel: 'Directions from the house',
     siteLabel: 'Official site',
     walkLabel: 'Walkable from here',
     closeLabel: 'Close',
