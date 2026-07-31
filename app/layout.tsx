@@ -36,6 +36,23 @@ export const metadata: Metadata = {
     "La maison de famille à Cava d'Aliga, hameau marin de Scicli, province de Raguse. Infos pratiques, nos adresses, la région et le voyage — pour ceux qu'on y accueille.",
 };
 
+/*
+ * MESURE D'AUDIENCE — GoatCounter, anonyme et SANS COOKIES (donc sans bandeau
+ * de consentement, RGPD-compatible). Elle compte les visites, leur date/heure,
+ * le pays approximatif et les pages vues — jamais l'identite de quelqu'un :
+ * un site public ne peut pas savoir QUI vient, seulement COMBIEN et QUAND.
+ *
+ * Elle ne s'active QUE si un code est renseigne ci-dessous. Vide = rien n'est
+ * charge, rien n'est envoye. Pour l'activer : creer un compte gratuit sur
+ * goatcounter.com en choisissant un code (par ex. « cavadaliga »), puis
+ * ecrire ce meme code ici. Les stats se lisent ensuite sur
+ * https://<code>.goatcounter.com.
+ *
+ * La mesure ne voit que les visites POSTERIEURES a son activation : elle ne
+ * peut rien dire des visites passees, qui n'ont jamais ete enregistrees.
+ */
+const GOATCOUNTER_CODE = '';
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr">
@@ -49,6 +66,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Assistant />
           </div>
         </LanguageProvider>
+        {GOATCOUNTER_CODE ? (
+          <script
+            data-goatcounter={`https://${GOATCOUNTER_CODE}.goatcounter.com/count`}
+            async
+            src="//gc.zgo.at/count.js"
+          />
+        ) : null}
       </body>
     </html>
   );
