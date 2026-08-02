@@ -102,8 +102,16 @@ const SEJOURS: Sejour[] = [
   { label: 'Manon, Alex, Régine et Mag', qui: ['Manon', 'Alex', 'Régine', 'Mag'], start: '2026-07-04', end: '2026-07-14' },
   { label: 'Angèle +++', qui: ['Angèle'], start: '2026-07-30', end: '2026-08-08' },
   { label: 'Eve', qui: ['Eve'], start: '2026-08-20', end: '2026-09-01' },
-  { label: 'Katia Asaro, sœur de Maria Assunta', qui: ['Katia Asaro'], start: '2026-09-08', end: '2026-09-16' },
-  { label: 'Ju', qui: ['Juliette', 'Régine'], start: '2026-09-17', end: '2026-09-21', tentative: true },
+  /*
+   * « Katia » tout court : Mag a raccourci le libelle, qui disait avant « Katia
+   * Asaro, sœur de Maria Assunta ». Le nom complet et le lien de parente ne sont
+   * pas perdus pour autant — ils vivent dans `qui` juste a cote, dans TRANCHES
+   * plus haut, et dans le commentaire de `FamilyTree.tsx` qui explique d'ou
+   * Maria Assunta est arrivee dans l'arbre. Un libelle est ce qu'on affiche, pas
+   * ce qu'on sait.
+   */
+  { label: 'Katia', qui: ['Katia Asaro'], start: '2026-09-08', end: '2026-09-16' },
+  { label: 'Juliette', qui: ['Juliette', 'Régine'], start: '2026-09-17', end: '2026-09-21', tentative: true },
   { label: 'Mag +++', qui: ['Mag'], start: '2026-09-22', end: '2026-10-01' },
   { label: 'Marie & Guillaume', qui: ['Marie', 'Guillaume'], start: '2026-10-17', end: '2026-11-01' },
 ];
@@ -491,7 +499,7 @@ export default function Occupancy() {
 
         Les cinq tranches de parente en sont sorties, et elles ne manquent pas :
         chaque sejour est nomme EN TOUTES LETTRES dans la liste sous son mois,
-        avec sa pastille a cote. « Mag +++ », « Katia Asaro » — la legende ne
+        avec sa pastille a cote. « Mag +++ », « Katia » — la legende ne
         faisait que repeter, en moins precis, ce que la liste dit deja. Elle
         prenait deux lignes pour ça.
 
