@@ -101,6 +101,7 @@ type Sejour = { label: string; qui: Personne[]; start: string; end: string; tent
 const SEJOURS: Sejour[] = [
   { label: 'Manon, Alex, Régine et Mag', qui: ['Manon', 'Alex', 'Régine', 'Mag'], start: '2026-07-04', end: '2026-07-14' },
   { label: 'Angèle +++', qui: ['Angèle'], start: '2026-07-30', end: '2026-08-08' },
+  { label: 'Eve', qui: ['Eve'], start: '2026-08-20', end: '2026-09-01' },
   { label: 'Katia Asaro, sœur de Maria Assunta', qui: ['Katia Asaro'], start: '2026-09-08', end: '2026-09-16' },
   { label: 'Ju', qui: ['Juliette', 'Régine'], start: '2026-09-17', end: '2026-09-21', tentative: true },
   { label: 'Mag +++', qui: ['Mag'], start: '2026-09-22', end: '2026-10-01' },
