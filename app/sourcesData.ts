@@ -75,8 +75,20 @@ export const SOURCES: Record<string, Source[]> = {
   etna: [
     { label: 'L’Etna — INGV, Osservatorio Etneo (taille, activité, altitude)', url: 'https://www.ct.ingv.it/etna/' },
   ],
+  /*
+   * LES CENDRES ET LES VOLS. Trois sources, et chacune couvre exactement une
+   * chose. L'INGV est la source vivante — ses VONA (« Volcano Observatory
+   * Notice for Aviation ») sont les avis destines aux avions, en anglais, avec
+   * un code couleur. Les deux articles de presse ne sont la que pour les
+   * CHIFFRES de juillet 2026 — 188 vols annules, 60 derouites, Comiso ouvert —
+   * que l'INGV ne publie pas : lui dit ce que fait le volcan, pas ce que fait
+   * l'aeroport.
+   */
   avion: [
     { label: 'Rejoindre Scicli — I Love Scicli (temps de route depuis Catane)', url: 'https://www.ilovescicli.it/raggiungere-scicli/' },
+    { label: 'INGV, Osservatorio Etneo — communiqués et avis aux avions (VONA), en continu', url: 'https://www.ct.ingv.it/sezioniesterne/UltimiAggiornamenti.php' },
+    { label: 'Juillet 2026, 188 vols annulés et Comiso resté ouvert — AGI', url: 'https://www.agi.it/cronaca/news/2026-07-06/etna-quali-voli-bloccati-catania-37886268/' },
+    { label: 'L’aéroport demande d’appeler sa compagnie avant de venir — La Sicilia', url: 'https://www.lasicilia.it/news/cronaca/3055422/cenere-dell-etna-e-blocco-totale-all-aeroporto-di-catania-voli-fermi-fino-alle-10-di-domani-tende-da-campo-e-acqua-per-i-passeggeri.html' },
   ],
   voiture: [
     { label: 'Dormir à bord d’un ferry : pont, fauteuils, cabines — Traghetti.com', url: 'https://www.traghetti.com/blog/come-dormire-a-bordo-di-un-traghetto/' },

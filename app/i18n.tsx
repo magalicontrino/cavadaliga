@@ -2008,6 +2008,7 @@ const FR: Dict = {
       { q: 'Quel vieux réflexe du sud avant de remettre ses chaussures ?', choix: ['On les secoue', 'On les retourne', 'On les rentre la nuit'], bonne: 0, ancre: 'bestioles', niveau: 'difficile' },
       { q: 'Quel aéroport est conseillé pour venir ?', choix: ['Catania (CTA)', 'Palerme (PMO)', 'Comiso (CIY)'], bonne: 0, ancre: 'voyage', niveau: 'facile' },
       { q: 'Quel aéroport est le plus proche de la maison ?', choix: ['Comiso (CIY), environ 40 min de route', 'Catania (CTA)', 'Palerme (PMO)'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'Les cendres de l’Etna ferment Catane. Qui appelez-vous en premier ?', choix: ['Sa compagnie aérienne — c’est elle qui sait pour votre vol', 'L’INGV, qui surveille le volcan', 'L’aéroport de Comiso'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'D’où part le ferry pour Messine ?', choix: ['De Villa San Giovanni', 'De Reggio de Calabre', 'De Naples'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
       { q: 'Combien de temps dure la traversée depuis Gênes ?', choix: ['Une vingtaine d’heures', 'Une vingtaine de minutes', 'Six heures'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
       { q: 'Où débarque-t-on en venant de Gênes ?', choix: ['À Palerme', 'À Messine', 'À Catane'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
@@ -2134,6 +2135,7 @@ const FR: Dict = {
         links: [
           { label: 'Skyscanner — chercher un vol', url: 'https://www.skyscanner.fr' },
           { label: 'Aéroport de Catane — le site officiel', url: 'https://www.aeroporto.catania.it/' },
+          { label: 'L’Etna en direct — INGV, communiqués et avis aux avions', url: 'https://www.ct.ingv.it/sezioniesterne/UltimiAggiornamenti.php' },
           { label: 'Catane → la maison, sur Google Maps', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
         ],
         items: [
@@ -2142,6 +2144,9 @@ const FR: Dict = {
           'Palerme (PMO) — le plus loin, environ 3 h, à réserver aux bons plans.',
           'Privilégiez un vol qui arrive tôt à Catane : vous pourrez enchaîner avec le bus ou le train le jour même, et arriver de jour.',
           'Vérifiez la politique bagages, souvent en supplément sur les compagnies low-cost.',
+          'Les cendres de l’Etna ferment parfois Catane, de quelques heures à une journée — en juillet 2026, 188 vols annulés et 60 déroutés. Le premier réflexe n’est pas le volcan mais votre compagnie : c’est elle qui sait ce que devient votre vol, et l’aéroport lui-même demande qu’on l’appelle avant de venir.',
+          'Comiso est resté ouvert à chaque fois : il est au sud de la Montagne, quand les cendres partent vers Catane. C’est le repli, et il est à 40 min d’ici. Palerme et Trapani récupèrent les vols déroutés.',
+          'Pour savoir ce que fait le volcan, l’INGV publie ses communiqués en continu, avis aux avions compris — en italien et assez technique, c’est le lien ci-dessus.',
         ],
       },
       {
@@ -2242,6 +2247,7 @@ const FR: Dict = {
     checklistTitle: 'Avant de fermer la porte',
     checklistNote: 'Cochez au fur et à mesure — rien n’est enregistré, c’est juste pour ne rien oublier.',
     checklist: [
+      'La veille, vérifiez votre vol auprès de votre compagnie : les cendres de l’Etna ferment parfois Catane, au départ comme à l’arrivée. Comiso, lui, est toujours resté ouvert — et prévenez Mag si vous êtes bloqués.',
       'Couper l’eau : la vanne de la rue, au coin, en descendant à droite — perpendiculaire = fermé.',
       'Couper l’électricité : les interrupteurs dehors, sur la terrasse de devant, à droite de la porte.',
       'Fermer la bouteille de gaz.',
@@ -3458,6 +3464,7 @@ const IT: Dict = {
       { q: 'Quale vecchia abitudine del sud prima di rimettersi le scarpe?', choix: ['Scuotere le scarpe', 'Rovesciare le scarpe', 'Ritirarle la notte'], bonne: 0, ancre: 'bestioles', niveau: 'difficile' },
       { q: 'Quale aeroporto è consigliato per venire?', choix: ['Catania (CTA)', 'Palermo (PMO)', 'Comiso (CIY)'], bonne: 0, ancre: 'voyage', niveau: 'facile' },
       { q: 'Quale aeroporto è il più vicino alla casa?', choix: ['Comiso (CIY), circa 40 minuti di strada', 'Catania (CTA)', 'Palermo (PMO)'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'La cenere dell’Etna chiude Catania. Chi chiamate per primo?', choix: ['La vostra compagnia aerea — è lei che sa del vostro volo', 'L’INGV, che sorveglia il vulcano', 'L’aeroporto di Comiso'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'Da dove parte il traghetto per Messina?', choix: ['Da Villa San Giovanni', 'Da Reggio Calabria', 'Da Napoli'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
       { q: 'Quanto dura la traversata da Genova?', choix: ['Una ventina di ore', 'Una ventina di minuti', 'Sei ore'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
       { q: 'Dove si sbarca venendo da Genova?', choix: ['A Palermo', 'A Messina', 'A Catania'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
@@ -3582,6 +3589,7 @@ const IT: Dict = {
         links: [
           { label: 'Skyscanner — cercare un volo', url: 'https://www.skyscanner.it' },
           { label: 'Aeroporto di Catania — il sito ufficiale', url: 'https://www.aeroporto.catania.it/' },
+          { label: 'L’Etna in diretta — INGV, comunicati e avvisi per l’aviazione', url: 'https://www.ct.ingv.it/sezioniesterne/UltimiAggiornamenti.php' },
           { label: 'Catania → casa, su Google Maps', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
         ],
         items: [
@@ -3590,6 +3598,9 @@ const IT: Dict = {
           'Palermo (PMO) — il più lontano, circa 3 h, solo per le buone offerte.',
           'Preferite un volo che arrivi presto a Catania: potrete prendere il bus o il treno lo stesso giorno, e arrivare con la luce.',
           'Controllate la politica bagagli, spesso a pagamento sulle compagnie low-cost.',
+          'La cenere dell’Etna chiude a volte Catania, da qualche ora a una giornata intera — nel luglio 2026, 188 voli cancellati e 60 dirottati. Il primo riflesso non è il vulcano ma la vostra compagnia: è lei che sa che fine fa il vostro volo, e lo scalo stesso chiede di chiamare prima di mettersi in viaggio.',
+          'Comiso è rimasto aperto ogni volta: sta a sud della Montagna, mentre la cenere va verso Catania. È il ripiego, ed è a 40 min da qui. Palermo e Trapani accolgono i voli dirottati.',
+          'Per sapere cosa fa il vulcano, l’INGV pubblica i suoi comunicati in continuo, avvisi per l’aviazione compresi — in italiano e piuttosto tecnici: è il link qui sopra.',
         ],
       },
       {
@@ -3690,6 +3701,7 @@ const IT: Dict = {
     checklistTitle: 'Prima di chiudere la porta',
     checklistNote: 'Spuntate man mano — non viene salvato nulla, serve solo a non dimenticare niente.',
     checklist: [
+      'Il giorno prima, controllate il volo con la vostra compagnia: la cenere dell’Etna chiude a volte Catania, in partenza come in arrivo. Comiso invece è sempre rimasto aperto — e avvisate Mag se restate bloccati.',
       'Chiudere l’acqua: la valvola in strada, all’angolo scendendo a destra — perpendicolare = chiusa.',
       'Staccare l’elettricità: gli interruttori fuori, sulla terrazza davanti, a destra della porta.',
       'Chiudere la bombola del gas.',
@@ -4906,6 +4918,7 @@ const EN: Dict = {
       { q: 'What old southern reflex before putting your shoes back on?', choix: ['Shake them', 'Turn them over', 'Bring them in at night'], bonne: 0, ancre: 'bestioles', niveau: 'difficile' },
       { q: 'Which airport do we recommend?', choix: ['Catania (CTA)', 'Palermo (PMO)', 'Comiso (CIY)'], bonne: 0, ancre: 'voyage', niveau: 'facile' },
       { q: 'Which airport is closest to the house?', choix: ['Comiso (CIY), about 40 minutes away', 'Catania (CTA)', 'Palermo (PMO)'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
+      { q: 'Etna ash closes Catania. Who do you call first?', choix: ['Your airline — it is the one that knows about your flight', 'INGV, which monitors the volcano', 'Comiso airport'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
       { q: 'Where does the ferry to Messina leave from?', choix: ['From Villa San Giovanni', 'From Reggio Calabria', 'From Naples'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
       { q: 'How long is the crossing from Genoa?', choix: ['About twenty hours', 'About twenty minutes', 'Six hours'], bonne: 0, ancre: 'voyage', niveau: 'difficile' },
       { q: 'Where do you land coming from Genoa?', choix: ['In Palermo', 'In Messina', 'In Catania'], bonne: 0, ancre: 'voyage', niveau: 'moyen' },
@@ -5030,6 +5043,7 @@ const EN: Dict = {
         links: [
           { label: 'Skyscanner — find a flight', url: 'https://www.skyscanner.com' },
           { label: 'Catania airport — the official site', url: 'https://www.aeroporto.catania.it/' },
+          { label: 'Etna live — INGV bulletins and aviation notices', url: 'https://www.ct.ingv.it/sezioniesterne/UltimiAggiornamenti.php' },
           { label: 'Catania → the house, on Google Maps', url: 'https://www.google.com/maps/dir/?api=1&origin=Aeroporto+di+Catania+Fontanarossa&destination=Via+Basilicata+6%2C+97018+Cava+d%27Aliga+RG&travelmode=driving' },
         ],
         items: [
@@ -5038,6 +5052,9 @@ const EN: Dict = {
           'Palermo (PMO) — the furthest, about 3 h, only for great deals.',
           'Pick a flight that lands early in Catania: you can catch the bus or the train the same day, and arrive in daylight.',
           'Check the baggage policy, often an extra on low-cost airlines.',
+          'Etna ash sometimes closes Catania, from a few hours to a full day — in July 2026, 188 flights cancelled and 60 diverted. Your first move is not the volcano but your airline: it is the one that knows what became of your flight, and the airport itself asks you to call before setting off.',
+          'Comiso stayed open every time: it sits south of the Mountain, while the ash drifts towards Catania. That is the fallback, and it is 40 min from here. Palermo and Trapani take the diverted flights.',
+          'To see what the volcano is doing, INGV posts its bulletins continuously, aviation notices included — in Italian and fairly technical: that is the link above.',
         ],
       },
       {
@@ -5138,6 +5155,7 @@ const EN: Dict = {
     checklistTitle: 'Before you close the door',
     checklistNote: 'Tick as you go — nothing is saved, it is just so you forget nothing.',
     checklist: [
+      'The day before, check your flight with your airline: Etna ash sometimes closes Catania, departures as well as arrivals. Comiso has always stayed open — and let Mag know if you are stuck.',
       'Turn off the water: the street valve, at the corner, down to the right — perpendicular = closed.',
       'Turn off the electricity: the switches outside, on the front terrace, to the right of the door.',
       'Close the gas bottle.',

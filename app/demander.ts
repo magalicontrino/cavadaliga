@@ -172,7 +172,10 @@ const MOTS_MAISON: Record<string, string> = {
     'partir depart quitter fermer cle cles rendre laisser derniere check liste verifier avant ' +
     'partire partenza chiudere chiave chiavi lasciare ultima controllare prima ' +
     'linge lessive laver machine lave lit lits draps refaire couvertures serviettes buanderie biancheria bucato lavare lavatrice letto letti lenzuola rifare asciugamani laundry wash washing machine bed beds sheets make towels ' +
-    'leave leaving departure lock key keys checklist last check before menage nettoyer ranger vaisselle poubelle derniere minute rendre restituer volets fenetres pulire riordinare stoviglie ultimo minuto restituire persiane finestre clean tidy dishes last minute return shutters windows checkout',
+    'leave leaving departure lock key keys checklist last check before menage nettoyer ranger vaisselle poubelle derniere minute rendre restituer volets fenetres pulire riordinare stoviglie ultimo minuto restituire persiane finestre clean tidy dishes last minute return shutters windows checkout ' +
+    // Le vol du RETOUR se joue ici, pas dans la section « En avion » : la
+    // check-list est la derniere page qu'on lit avant de fermer la porte.
+    'vol retour rentrer repartir veille verifier son vol volo di ritorno tornare ripartire vigilia return flight going home fly back day before',
   valise:
     'valise bagage emporter prendre apporter preparer papiers passeport permis carte identite ' +
     'assurance adaptateur prise ' +
@@ -382,7 +385,19 @@ const MOTS_MAISON: Record<string, string> = {
   // rendait rien. Leurs titres non plus (« Rejoindre Casa Cava d'Aliga »).
   // L'emoji, lui, ne change ni avec la langue ni avec le rang du groupe, ce
   // qu'un index ne garantissait pas.
-  'voyage-✈️': 'vol vols avion billet compagnie escale bagage skyscanner volo aereo biglietto flight plane ticket luggage',
+  /*
+   * LE VOL ANNULE SE CHERCHE AVEC DES MOTS D'ANGOISSE, pas avec « avion ».
+   * Quelqu'un dont le vol vient de sauter tape « annule », « bloque »,
+   * « cendres », « eruption » — et rien de tout ça n'etait indexe. La section
+   * dit maintenant quoi faire (appeler sa compagnie, se rabattre sur Comiso) :
+   * encore faut-il que ces mots-la y menent.
+   */
+  'voyage-✈️':
+    'vol vols avion billet compagnie escale bagage skyscanner volo aereo biglietto flight plane ticket luggage '
+    + 'annule annulation cendre cendres eruption volcan etna ferme fermeture bloque bloques deroute deroutement '
+    + 'aeroport ferme mon vol est annule que faire comiso repli ingv vona nuage panache '
+    + 'cancellato annullato cenere eruzione vulcano chiuso chiusura bloccato dirottato dirottamento nube volo cancellato che fare '
+    + 'cancelled cancellation ash eruption volcano closed closure grounded diverted diversion my flight is cancelled what to do fallback plume',
   'voyage-🛬': 'aeroport aeroporto airport catane catania palerme palermo comiso atterrir arrivee arrivo landing',
   'voyage-⛴️':
     'voiture auto route conduire rouler venir descendre traverser trajet autoroute peage '
