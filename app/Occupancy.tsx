@@ -111,7 +111,7 @@ const SEJOURS: Sejour[] = [
    * ce qu'on sait.
    */
   { label: 'Katia', qui: ['Katia Asaro'], start: '2026-09-08', end: '2026-09-16' },
-  { label: 'Juliette', qui: ['Juliette', 'Régine'], start: '2026-09-17', end: '2026-09-21', tentative: true },
+  { label: 'Juliette', qui: ['Juliette', 'Régine'], start: '2026-09-17', end: '2026-09-21' },
   { label: 'Mag +++', qui: ['Mag'], start: '2026-09-22', end: '2026-10-01' },
   { label: 'Marie & Guillaume', qui: ['Marie', 'Guillaume'], start: '2026-10-17', end: '2026-11-01' },
 ];
