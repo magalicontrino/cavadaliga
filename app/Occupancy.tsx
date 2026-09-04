@@ -96,7 +96,17 @@ type Personne = keyof typeof TRANCHES;
  * sejour, et il l'emporte sur tout le reste : quand la maison est fermee, savoir
  * qui aurait pu venir n'interesse plus personne.
  */
-type Sejour = { label: string; qui: Personne[]; start: string; end: string; tentative?: boolean; travaux?: boolean };
+/*
+ * `note` DIT CE QUE LES DATES NE PEUVENT PAS DIRE. « Zoe, 15 aout → 15 sept. »
+ * se lit comme un mois entier occupe, alors que Zoe vient QUINZE JOURS quelque
+ * part la-dedans, sans savoir encore lesquels. Sans cette mention, la famille
+ * lirait la maison prise tout le mois et n'oserait pas demander.
+ *
+ * C'est une etiquette TRADUITE, pas un bout de libelle : les libelles sont des
+ * noms que Mag ecrit (« Angele +++ »), une phrase se traduit.
+ */
+type Note = 'quinzaine';
+type Sejour = { label: string; qui: Personne[]; start: string; end: string; tentative?: boolean; travaux?: boolean; note?: Note };
 
 const SEJOURS: Sejour[] = [
   { label: 'Manon, Alex, Régine et Mag', qui: ['Manon', 'Alex', 'Régine', 'Mag'], start: '2026-07-04', end: '2026-07-14' },
@@ -114,6 +124,22 @@ const SEJOURS: Sejour[] = [
   { label: 'Juliette', qui: ['Juliette', 'Régine'], start: '2026-09-17', end: '2026-09-21' },
   { label: 'Mag +++', qui: ['Mag'], start: '2026-09-22', end: '2026-10-01' },
   { label: 'Marie & Guillaume', qui: ['Marie', 'Guillaume'], start: '2026-10-17', end: '2026-11-01' },
+  /*
+   * 2027 ENTRE DANS LE CALENDRIER, et c'est la premiere entree qui saute
+   * d'annee : la plage navigable se deduit des sejours eux-memes, elle s'etend
+   * donc toute seule jusqu'a l'automne 2027. Rien a declarer ailleurs.
+   *
+   * LA FENETRE QUE MAG VA ESSAYER D'OUVRIR — « je vais essayer de permettre du
+   * quinze aout au quinze septembre ». C'est donc un mois entier tenu a
+   * disposition, pas un sejour arrete : Zoe veut venir « vers fin aout debut
+   * septembre », et Mag lui degage la plage autour.
+   *
+   * D'ou le `tentative`, qui l'affiche en pointille avec « a confirmer » :
+   * c'est la seule façon honnete de poser une intention sur un calendrier que
+   * la famille lit pour savoir si la maison est libre. Un trait plein aurait
+   * reserve un mois au nom de quelqu'un qui n'a encore rien fixe.
+   */
+  { label: 'Zoé', qui: ['Zoé'], start: '2027-08-15', end: '2027-09-15', tentative: true, note: 'quinzaine' },
 ];
 
 /*
@@ -181,6 +207,14 @@ const parenteDu = (s: Sejour): Parente => {
  * que la maison est libre. Ajouter un sejour suffit maintenant a le voir.
  */
 const FENETRE = 6; // mois affiches d'un coup — le format du modele de Mag
+/*
+ * SUR TELEPHONE, UN SEUL MOIS. Mag : « sur ecran c'est bien parce qu'on a une
+ * vue d'ensemble, mais sur le telephone il faut qu'on voie le mois en cours ».
+ * Six grilles empilees sur un ecran de telephone ne sont pas une vue
+ * d'ensemble : c'est six ecrans de defilement, et le mois qu'on cherche est
+ * quelque part au milieu.
+ */
+const FENETRE_TEL = 1;
 
 const moisIndex = (annee: number, mois: number) => annee * 12 + mois;
 const deMoisIndex = (n: number): [number, number] => [Math.floor(n / 12), n % 12];
@@ -457,39 +491,96 @@ export default function Occupancy() {
   }, []);
 
   /*
-   * ON OUVRE SUR LE MOIS COURANT, pas sur le premier sejour enregistre : la
-   * question qu'on se pose en arrivant est « et maintenant ? ». Les pages sont
-   * calees sur la plage, si bien qu'avancer puis reculer ramene exactement au
-   * meme endroit — un decoupage flottant donnerait des fenetres qui glissent.
+   * LA LARGEUR DE LA FENETRE SE DECIDE AU MONTAGE, PAS AU BUILD. Le site est
+   * exporte en statique : le HTML est le meme pour tout le monde, et il ne peut
+   * donc pas savoir sur quoi il sera lu. On part du grand ecran — le format du
+   * modele de Mag — et on retombe sur un seul mois des que le navigateur a la
+   * main et dit que l'ecran est etroit.
+   */
+  const [fenetre, setFenetre] = useState(FENETRE);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const applique = () => setFenetre(mq.matches ? FENETRE_TEL : FENETRE);
+    applique();
+    // La rotation du telephone change la reponse : on ecoute, on ne devine pas.
+    mq.addEventListener('change', applique);
+    return () => mq.removeEventListener('change', applique);
+  }, []);
+
+  /*
+   * ON RETIENT UN MOIS, PAS UN NUMERO DE PAGE — et c'est le telephone qui l'a
+   * impose. Un numero de page ne veut rien dire tant qu'on ne sait pas combien
+   * de mois tient une page : passer de six a un en tournant l'appareil aurait
+   * projete le lecteur six fois plus loin dans le temps, sans qu'il ait rien
+   * demande. Une ancre de MOIS, elle, dit la meme chose dans les deux formats.
+   *
+   * `null` tant que le navigateur n'a pas la main : le HTML statique ne connait
+   * pas la date du jour, il ouvre donc sur le debut de la plage, et le mois
+   * courant prend sa place des le montage.
    */
   const maintenant = new Date();
-  const page0 = Math.max(
-    0,
-    Math.min(
-      Math.floor((moisIndex(maintenant.getFullYear(), maintenant.getMonth()) - premier) / FENETRE),
-      Math.floor((dernier - premier) / FENETRE),
-    ),
-  );
-  // Meme raison : la page d'ouverture depend d'aujourd'hui, donc elle ne peut
-  // pas etre choisie au build. On part de la premiere, on saute a la bonne des
-  // que le navigateur a la main.
-  const [page, setPage] = useState(0);
-  const pageMax = Math.floor((dernier - premier) / FENETRE);
+  const [ancre, setAncre] = useState<number | null>(null);
 
   useEffect(() => {
     setAujourdhui(ymd(new Date()));
-    setPage(page0);
+    const n = new Date();
+    setAncre(moisIndex(n.getFullYear(), n.getMonth()));
     // Une seule fois, au montage : ensuite c'est aux fleches de decider.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const debutFenetre = premier + page * FENETRE;
-  const mois: [number, number][] = Array.from({ length: FENETRE }, (_, i) => deMoisIndex(debutFenetre + i)).filter(
+  /*
+   * L'ancre est un mois quelconque ; la fenetre, elle, est calee sur la plage.
+   * On arrondit donc vers le bas jusqu'au debut de la page qui CONTIENT ce
+   * mois — ainsi avancer puis reculer ramene exactement au meme endroit, au
+   * lieu de faire glisser une fenetre flottante d'un cran a chaque aller-retour.
+   */
+  const pageMax = Math.floor((dernier - premier) / fenetre);
+  const ancreUtile = Math.min(Math.max(ancre ?? premier, premier), dernier);
+  const page = Math.min(pageMax, Math.max(0, Math.floor((ancreUtile - premier) / fenetre)));
+
+  const debutFenetre = premier + page * fenetre;
+  const mois: [number, number][] = Array.from({ length: fenetre }, (_, i) => deMoisIndex(debutFenetre + i)).filter(
     ([, ], i) => debutFenetre + i <= dernier,
   );
-  const titre = `${moisFormat.format(new Date(...deMoisIndex(debutFenetre), 1))} – ${moisFormat.format(
-    new Date(...deMoisIndex(debutFenetre + mois.length - 1), 1),
-  )}`;
+
+  // Les fleches deplacent l'ancre d'une fenetre entiere, en restant dans la plage.
+  const vaVers = (p: number) => setAncre(premier + Math.min(pageMax, Math.max(0, p)) * fenetre);
+
+  /*
+   * LES ANNEES OU IL SE PASSE QUELQUE CHOSE, et elles seules. La plage court
+   * douze mois au-dela du dernier sejour : proposer 2028 enverrait dans un
+   * desert de mois vides. On ne pastille donc que les annees qui portent un
+   * sejour, plus l'annee courante si elle est dans la plage — c'est la seule
+   * qu'on peut vouloir consulter en la sachant vide.
+   */
+  const annees = useMemo(() => {
+    const a = new Set<number>();
+    for (const s of SEJOURS) {
+      a.add(lire(s.start).getFullYear());
+      a.add(lire(s.end).getFullYear());
+    }
+    const courante = new Date().getFullYear();
+    if (moisIndex(courante, 0) <= dernier && moisIndex(courante, 11) >= premier) a.add(courante);
+    return [...a].sort((x, y) => x - y);
+  }, [premier, dernier]);
+
+  // Aller a une annee, c'est aller a son PREMIER MOIS UTILE : le mois de son
+  // premier sejour, ou janvier si l'annee n'en porte aucun.
+  const versAnnee = (an: number) => {
+    const debuts = SEJOURS.map((s) => lire(s.start)).filter((d) => d.getFullYear() === an);
+    const m = debuts.length ? Math.min(...debuts.map((d) => d.getMonth())) : 0;
+    setAncre(Math.min(Math.max(moisIndex(an, m), premier), dernier));
+  };
+  /*
+   * « Septembre 2026 – Septembre 2026 » n'est pas une plage, c'est un begaiement.
+   * Quand la fenetre ne tient qu'un mois — le cas du telephone — le titre le
+   * nomme une seule fois.
+   */
+  const premierMois = moisFormat.format(new Date(...deMoisIndex(debutFenetre), 1));
+  const dernierMois = moisFormat.format(new Date(...deMoisIndex(debutFenetre + mois.length - 1), 1));
+  const titre = premierMois === dernierMois ? premierMois : `${premierMois} – ${dernierMois}`;
 
   return (
     <section className="mx-auto max-w-[110rem] px-5 pb-16 md:px-10">
@@ -537,7 +628,7 @@ export default function Occupancy() {
         <Reveal className="mb-6 flex items-center justify-center gap-4">
           <button
             type="button"
-            onClick={() => setPage((p) => Math.max(0, p - 1))}
+            onClick={() => vaVers(page - 1)}
             disabled={page === 0}
             aria-label={t.monthsPrev}
             className="flex h-10 w-10 items-center justify-center rounded-xl border transition-transform duration-200 enabled:hover:scale-[1.06] disabled:opacity-30 motion-reduce:transition-none"
@@ -552,7 +643,7 @@ export default function Occupancy() {
 
           <button
             type="button"
-            onClick={() => setPage((p) => Math.min(pageMax, p + 1))}
+            onClick={() => vaVers(page + 1)}
             disabled={page === pageMax}
             aria-label={t.monthsNext}
             className="flex h-10 w-10 items-center justify-center rounded-xl border transition-transform duration-200 enabled:hover:scale-[1.06] disabled:opacity-30 motion-reduce:transition-none"
@@ -560,6 +651,43 @@ export default function Occupancy() {
           >
             <Icon name="arrowRight" size={18} />
           </button>
+        </Reveal>
+      )}
+
+      {/*
+        SAUTER UNE ANNEE D'UN GESTE — et c'est le telephone qui rend la chose
+        necessaire. Avec un seul mois par page, atteindre aout 2027 depuis
+        septembre 2026 demandait ONZE appuis sur la fleche ; sur grand ecran,
+        deux. Une rangee d'annees ramene les deux formats au meme geste.
+
+        Elle ne s'affiche qu'a partir de DEUX annees : une seule pastille
+        n'offre aucun choix, elle ne ferait que repeter ce que le titre dit
+        deja.
+
+        L'annee en cours de lecture est marquee `aria-current`, pas seulement
+        coloree : la couleur seule ne dit rien a qui ne la voit pas.
+      */}
+      {annees.length > 1 && (
+        <Reveal className="mb-8 flex flex-wrap items-center justify-center gap-2">
+          {annees.map((an) => {
+            const ici = deMoisIndex(debutFenetre)[0] === an
+              || deMoisIndex(debutFenetre + mois.length - 1)[0] === an;
+            return (
+              <button
+                key={an}
+                type="button"
+                onClick={() => versAnnee(an)}
+                aria-label={`${t.monthsYear} ${an}`}
+                aria-current={ici ? 'true' : undefined}
+                className="cava-pill px-3.5 py-1 text-[13px] tracking-[0.02em] transition-transform duration-200 hover:scale-[1.04] motion-reduce:transition-none"
+                style={ici
+                  ? { background: 'var(--cava-ink)', color: 'var(--cava-bg)', borderColor: 'var(--cava-ink)', fontWeight: 700 }
+                  : undefined}
+              >
+                {an}
+              </button>
+            );
+          })}
         </Reveal>
       )}
 
@@ -765,12 +893,18 @@ export default function Occupancy() {
                           Elles peuvent donc se cumuler, et c'est normal : une
                           date incertaine pour des gens pas encore ranges.
                         */}
-                        {s.tentative && (
+                        {(s.tentative || s.note) && (
                           <span
                             className="ml-1.5 inline-block whitespace-nowrap rounded-full border-2 px-1.5 align-[1px] text-[10.5px] leading-[1.6]"
                             style={{ borderColor: PLEIN[parenteDu(s)], color: 'var(--cava-muted)' }}
                           >
-                            {c.legend.tentative}
+                            {/*
+                              La mention precise REMPLACE le « a confirmer »
+                              generique, elle ne s'ajoute pas : « quinze jours a
+                              caler » dit deja que rien n'est fixe, et le dire
+                              deux fois de suite ferait bavard.
+                            */}
+                            {s.note === 'quinzaine' ? c.legend.fortnight : c.legend.tentative}
                           </span>
                         )}
                         {parenteDu(s) === 'inconnu' && (
