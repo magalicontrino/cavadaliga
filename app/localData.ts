@@ -71,7 +71,17 @@ export const SEARCH_WORDS: WordHint[] = [
   { words: ['poisson', 'pesce', 'fish', 'fruits de mer', 'frutti di mare', 'seafood', 'peche', 'port', 'porto'], ids: ['poisson-donnalucata', 'rabbuso'] },
   { words: ['chocolat', 'cioccolato', 'chocolate', 'cacao', 'modica', 'douceur', 'dolci', 'sweets', 'dessert'], ids: ['bonajuto'] },
   { words: ['huile', 'olio', 'oil', 'olive', 'frantoio', 'frantoi', 'dop'], cat: 'huile' },
+  // LE VERRE DU SOIR AU VILLAGE — on sort de chez soi a pied, c'est tout ce
+  // qu'on demande. Ces deux-la restent en tete pour « apero » et « bar ».
   { words: ['vin', 'vino', 'wine', 'apero', 'aperitivo', 'aperitif', 'drink', 'bar', 'cocktail', 'biere', 'birra', 'beer', 'verre', 'soir', 'sera'], ids: ['maracaibo', 'blazer'] },
+  /*
+   * LE VIN QU'ON VIENT CHERCHER POUR LUI-MEME, et pas le verre de passage.
+   * Ces mots-la meritaient leur ligne : melanges a « apero », ils renvoyaient
+   * au bar du village, ce qui est une bonne reponse a « boire un verre » et
+   * une mauvaise a « vin naturel ». Ummara d'abord — sa carte est faite
+   * presque entierement de ça.
+   */
+  { words: ['vin naturel', 'vins naturels', 'vino naturale', 'vini naturali', 'natural wine', 'naturel', 'bio', 'biologique', 'vigneron', 'vignaiolo', 'winemaker', 'vineria', 'enoteca', 'wine bar', 'cave a manger', 'carte des vins', 'carta dei vini', 'wine list', 'degustation', 'degustazione', 'tasting'], ids: ['ummara', 'prosit', 'tannino'] },
   { words: ['boucherie', 'macelleria', 'butcher', 'viande', 'carne', 'meat', 'boucher', 'salumi', 'charcuterie'], cat: 'boucherie' },
   { words: ['essence', 'carburant', 'station', 'station essence', 'pompe', 'gasoil', 'gazole', 'diesel', 'sans plomb', 'benzina', 'distributore', 'carburante', 'gasolio', 'pompa', 'petrol', 'fuel', 'gas station', 'petrol station', 'unleaded', 'faire le plein', 'plein', 'fare il pieno', 'fill up'], cat: 'essence' },
   // Le tabacchi : on y va rarement pour le tabac. Timbres, tickets de bus,
@@ -336,6 +346,52 @@ export const LOCAL_PLACES: LocalPlace[] = [
       fr: 'Un ancien dammuso devenu bistrot, du petit déjeuner au dîner. Produits de saison, recettes d’ici et vins naturels — c’est la maison qui va les chercher.',
       it: 'Un antico dammuso diventato bistrot, dalla colazione alla cena. Prodotti di stagione, ricette di qui e vini naturali — cercati uno per uno.',
       en: 'An old dammuso turned bistro, from breakfast through dinner. Seasonal produce, local recipes and natural wines, each sought out by hand.' },
+  },
+  /*
+   * DEUX ADRESSES SUR LE MEME TORRENT, a quelques pas l'une de l'autre : le
+   * long de la via Aleardi, dans le Scicli baroque. Elles se ressemblent assez
+   * pour qu'on les confonde, et differe assez pour qu'on choisisse — l'une est
+   * un aperitif qui devient diner, l'autre une cave qui s'est mise a cuisiner.
+   * Les fiches le disent plutot que de les laisser se doubler.
+   *
+   * UN JOUR DE FERMETURE NE S'ECRIT QUE SI LA MAISON LE DIT ELLE-MEME. Ummara
+   * publie ses horaires sur son site : on peut donc ecrire « ferme le
+   * mercredi ». Pour Tannino, seuls des agregateurs annoncaient le mardi, et
+   * un agregateur se trompe sans jamais se corriger — la fiche renvoie donc au
+   * site plutot que d'envoyer quelqu'un devant une porte close un soir de
+   * vacances.
+   */
+  {
+    id: 'tannino',
+    name: 'My Name is Tannino',
+    cat: 'resto',
+    town: 'Scicli',
+    url: 'https://www.google.com/maps/search/?api=1&query=My+Name+is+Tannino%2C+Via+Aleardi%2C+Scicli',
+    site: 'https://www.mynameistannino.it/',
+    km: 8,
+    responsible: false,
+    blurb: {
+      fr: 'Un angle discret du Scicli baroque, au bord du torrent Aleardi, sous l’église du Carmine. On y vient pour l’apéritif autant que pour dîner : cuisine sicilienne, petites fritures, involtini d’aubergine, et une carte des vins qui va d’ici à l’étranger. On y sert le soir ; le jour de fermeture change, un coup d’œil au site avant d’y monter.',
+      it: 'Un angolo discreto della Scicli barocca, sul torrente Aleardi, sotto la chiesa del Carmine. Ci si viene per l’aperitivo quanto per cena: cucina siciliana, frittini, involtini di melanzane, e una carta dei vini che va da qui all’estero. Si cena la sera; il giorno di chiusura cambia, meglio un’occhiata al sito prima di salire.',
+      en: 'A quiet corner of baroque Scicli, on the Aleardi stream below the Carmine church. As much a place for an aperitivo as for dinner: Sicilian cooking, little fried things, aubergine involtini, and a wine list that travels from here to abroad. Dinner is served in the evening; the closing day moves, so check the site before heading up.' },
+  },
+  {
+    id: 'ummara',
+    name: 'Ùmmara — vineria con cucina',
+    cat: 'resto',
+    town: 'Scicli',
+    url: 'https://www.google.com/maps/search/?api=1&query=%C3%99mmara%2C+Via+Aleardi+9%2C+Scicli',
+    site: 'https://ummara.it/',
+    instagram: 'https://www.instagram.com/ummara_vineriaconcucina/',
+    km: 8,
+    // Les vins naturels ne sont pas un argument de carte ici, c'est la carte
+    // entiere : petits producteurs, fermentations spontanees. C'est ce que
+    // `responsible` veut dire.
+    responsible: true,
+    blurb: {
+      fr: 'Une cave à manger ouverte en 2016 par Giuseppe Fiorilla, sur le même torrent, quelques pas plus bas. « Ùmmara », c’est l’ombre en dialecte de Raguse. La carte est faite presque entièrement de vins naturels — petits producteurs, fermentations spontanées — et la cuisine de Roberta Padua mêle la tradition de l’île à des détours méditerranéens et japonais. Le soir seulement, fermé le mercredi.',
+      it: 'Una vineria aperta nel 2016 da Giuseppe Fiorilla, sullo stesso torrente, qualche passo più giù. «Ùmmara» è l’ombra in dialetto ragusano. La carta è fatta quasi solo di vini naturali — piccoli produttori, fermentazioni spontanee — e la cucina di Roberta Padua intreccia la tradizione dell’Isola con deviazioni mediterranee e giapponesi. Solo la sera, chiuso il mercoledì.',
+      en: 'A wine bar with a kitchen, opened in 2016 by Giuseppe Fiorilla, on the same stream a few steps further down. “Ùmmara” means shade in the Ragusa dialect. The list is almost entirely natural wines — small growers, spontaneous fermentations — and Roberta Padua’s cooking weaves the island’s tradition through Mediterranean and Japanese detours. Evenings only, closed on Wednesdays.' },
   },
   {
     id: 'le-gioie',

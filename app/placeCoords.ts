@@ -77,6 +77,12 @@ export const COORDS: Record<string, PlaceCoord> = {
   'la-grotta': { lat: 36.79404, lon: 14.71195, src: 'nominatim' },
   prosit: { lat: 36.79397, lon: 14.70927, src: 'nominatim' },
   'le-gioie': { lat: 36.79412, lon: 14.70535, src: 'nominatim' },
+  // Les deux du torrent Aleardi. Tous deux sont dans OpenStreetMap en tant
+  // qu'etablissements — pas seulement leur rue — et la position vient donc du
+  // point du restaurant lui-meme. Geocodes par Photon, qui sert la meme donnee
+  // OSM que Nominatim sans en avoir les limites d'usage.
+  tannino: { lat: 36.794632, lon: 14.706382, src: 'nominatim' },
+  ummara: { lat: 36.793798, lon: 14.704906, src: 'nominatim' },
   'osteria-del-ponte': { lat: 36.79417, lon: 14.70513, src: 'nominatim' },
 
   rabbuso: { lat: 36.7209608, lon: 14.7407246, src: 'google' },
