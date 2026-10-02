@@ -65,11 +65,11 @@ export const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u
 
 export const SEARCH_WORDS: WordHint[] = [
   { words: ['pain', 'pane', 'bread', 'boulangerie', 'panificio', 'bakery', 'baguette', 'brioche', 'pignolata', 'epicerie', 'alimentari', 'grocery', 'miche', 'pagnotta', 'loaf'], cat: 'supermarche', ids: ['ssg-market', 'giannone'] },
-  { words: ['glace', 'gelato', 'gelateria', 'ice cream', 'granita', 'granite', 'cornet', 'sorbet'], ids: ['gelateria-smile'] },
-  { words: ['pizza', 'pizzeria', 'pizze'], ids: ['be-happy'] },
-  { words: ['arancina', 'arancine', 'arancini', 'friture', 'fritto', 'street food', 'rosticceria'], ids: ['giannone'] },
+  { words: ['glace', 'gelato', 'gelateria', 'ice cream', 'granita', 'granite', 'cornet', 'sorbet'], ids: ['gelateria-smile', 'bar-del-duomo', 'chiosco-funtana'] },
+  { words: ['pizza', 'pizzeria', 'pizze', 'a emporter', 'emporter', 'asporto', 'takeaway', 'take away', 'a piedi le soir'], ids: ['be-happy', 'lancora', 'osteria-del-ponte'] },
+  { words: ['arancina', 'arancine', 'arancini', 'friture', 'fritto', 'street food', 'rosticceria'], ids: ['ssg-market', 'giannone'] },
   { words: ['poisson', 'pesce', 'fish', 'fruits de mer', 'frutti di mare', 'seafood', 'peche', 'port', 'porto'], ids: ['poisson-donnalucata', 'rabbuso'] },
-  { words: ['chocolat', 'cioccolato', 'chocolate', 'cacao', 'modica', 'douceur', 'dolci', 'sweets', 'dessert'], ids: ['bonajuto'] },
+  { words: ['chocolat', 'cioccolato', 'chocolate', 'cacao', 'modica', 'douceur', 'dolci', 'sweets', 'dessert'], ids: ['bonajuto', 'bar-del-duomo'] },
   { words: ['huile', 'olio', 'oil', 'olive', 'frantoio', 'frantoi', 'dop'], cat: 'huile' },
   // LE VERRE DU SOIR AU VILLAGE — on sort de chez soi a pied, c'est tout ce
   // qu'on demande. Ces deux-la restent en tete pour « apero » et « bar ».
@@ -88,7 +88,10 @@ export const SEARCH_WORDS: WordHint[] = [
   // disque de stationnement (cite dans « Se garer »), loto, journaux.
   { words: ['tabac', 'tabacchi', 'tabaccheria', 'tabaccaio', 'tobacconist', 'cigarette', 'cigarettes', 'sigarette', 'clope', 'briquet', 'accendino', 'lighter', 'timbre', 'timbres', 'francobollo', 'francobolli', 'stamp', 'stamps', 'carte postale', 'cartolina', 'postcard', 'poste', 'ticket', 'tickets', 'biglietto', 'biglietti', 'bus', 'autobus', 'disque', 'disque de stationnement', 'disco orario', 'parking disc', 'loto', 'lotto', 'gratter', 'gratta e vinci', 'lottery', 'journal', 'journaux', 'giornale', 'giornali', 'newspaper', 'presse', 'edicola', 'recharge', 'ricarica', 'top up'], cat: 'tabac' },
   { words: ['bricolage', 'brico', 'ferramenta', 'quincaillerie', 'outil', 'outils', 'utensili', 'attrezzi', 'tools', 'hardware', 'diy', 'fai da te', 'scie', 'sega', 'seghetto', 'saw', 'perceuse', 'trapano', 'drill', 'visserie', 'vis', 'viti', 'screws', 'clou', 'chiodi', 'nails', 'peinture', 'vernice', 'paint', 'cheville', 'ampoule', 'lampadina', 'bulb', 'cle', 'chiave'], cat: 'bricolage' },
-  { words: ['randonnee', 'randonnée', 'rando', 'marcher', 'sentier', 'sentiero', 'trail', 'hike', 'hiking', 'balade', 'passeggiata', 'trekking', 'canyon', 'gorge', 'crique', 'cala', 'nature'], cat: 'randonnee' },
+  // « Randonnee pres de Syracuse » ne rendait rien : Cavagrande est a Avola, et
+  // personne ne le sait avant d'y etre alle. On cherche par la grande ville
+  // d'a cote, pas par le hameau — d'ou Syracuse, Avola et la reserve nommee.
+  { words: ['randonnee', 'randonnée', 'rando', 'marcher', 'sentier', 'sentiero', 'trail', 'hike', 'hiking', 'balade', 'passeggiata', 'trekking', 'canyon', 'gorge', 'crique', 'cala', 'nature', 'syracuse', 'siracusa', 'avola', 'cassibile', 'cavagrande', 'riserva', 'reserve naturelle', 'riserva naturale', 'nature reserve', 'vasque', 'vasques', 'laghetti', 'pools', 'baignade en riviere'], cat: 'randonnee' },
   { words: ['voir', 'vedere', 'see', 'monument', 'statue', 'statua', 'panorama', 'belvedere', 'belvédère', 'point de vue', 'viewpoint', 'visite', 'visita', 'curiosite'], cat: 'avoir' },
   { words: ['plage', 'spiaggia', 'beach', 'mer', 'mare', 'sea', 'baignade', 'nager', 'swim', 'sable', 'sabbia', 'sand', 'lido', 'transat'], cat: 'plage' },
   { words: ['courses', 'spesa', 'groceries', 'shopping', 'supermarche', 'supermarket', 'supermercato', 'caddie', 'carrello', 'lessive', 'papier'], cat: 'supermarche' },
@@ -123,6 +126,9 @@ export const SEARCH_WORDS: WordHint[] = [
     'milk', 'eggs', 'butter', 'yoghurt', 'flour', 'sugar', 'salt', 'pepper', 'pasta', 'rice', 'jam', 'juice', 'nappies', 'soap', 'toothpaste', 'batteries',
     'brosse a dents', 'brosse', 'dents', 'hygiene', 'gel douche', 'papier toilette', 'essuie tout', 'eponge', 'liquide vaisselle', 'spazzolino', 'igiene', 'carta igienica', 'spugna', 'toothbrush', 'shower gel', 'toilet paper', 'sponge', 'washing up'], cat: 'supermarche' },
   { words: ['fleur', 'fiori', 'flower', 'plante', 'pianta', 'plant', 'jardin', 'giardino', 'garden', 'vivaio', 'pepiniere', 'terrasse'], cat: 'plantes' },
+  // Ragusa Ibla se cherche par « Raguse », par « baroque », ou par « que voir » —
+  // jamais par son identifiant.
+  { words: ['ibla', 'ragusa ibla', 'raguse', 'ragusa', 'baroque', 'barocco', 'baroque town', 'san giorgio', 'unesco', 'que voir', 'a voir', 'da vedere', 'what to see', 'visite', 'visita', 'ville basse'], ids: ['ragusa-ibla'] },
   { words: ['restaurant', 'ristorante', 'trattoria', 'manger', 'mangiare', 'eat', 'diner', 'cena', 'dinner', 'midi', 'pranzo', 'lunch', 'table', 'tavola', 'food'], cat: 'resto' },
   { words: ['cafe', 'caffe', 'coffee', 'petit dejeuner', 'colazione', 'breakfast', 'matin', 'mattina', 'morning', 'expresso', 'cappuccino'], ids: ['gelateria-smile', 'maracaibo'] },
   { words: ['viande', 'carne', 'meat', 'boucherie', 'macelleria', 'butcher', 'charcuterie', 'salumi'], ids: ['giannone'] },
@@ -196,9 +202,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     km: 70,
     responsible: false,
     blurb: {
-      fr: 'Le canyon aux vasques naturelles, côté Avola — une journée entière. La descente se fait par la Scala Cruci, depuis le belvédère d’Avola Antica : raide, longue, et à remonter. La réserve régule ses sentiers et peut les fermer : vérifiez avant de partir.',
-      it: 'Il canyon con i laghetti naturali, verso Avola — una giornata intera. Si scende dalla Scala Cruci, dal belvedere di Avola Antica: ripida, lunga, e da risalire. La riserva regola i sentieri e può chiuderli: verificate prima di partire.',
-      en: 'The canyon with its natural pools, over towards Avola — a full day out. The descent is by the Scala Cruci from the Avola Antica viewpoint: steep, long, and to be climbed back up. The reserve regulates its paths and may close them: check before setting off.',
+      fr: 'Le canyon aux vasques naturelles, côté Avola, sur la route de Syracuse — une journée entière. La descente se fait par la Scala Cruci, depuis le belvédère d’Avola Antica : raide, longue, et à remonter. La réserve régule ses sentiers et peut les fermer : vérifiez avant de partir.',
+      it: 'Il canyon con i laghetti naturali, verso Avola, sulla strada per Siracusa — una giornata intera. Si scende dalla Scala Cruci, dal belvedere di Avola Antica: ripida, lunga, e da risalire. La riserva regola i sentieri e può chiuderli: verificate prima di partire.',
+      en: 'The canyon with its natural pools, over towards Avola on the Syracuse road — a full day out. The descent is by the Scala Cruci from the Avola Antica viewpoint: steep, long, and to be climbed back up. The reserve regulates its paths and may close them: check before setting off.',
     },
   },
   {
@@ -393,6 +399,137 @@ export const LOCAL_PLACES: LocalPlace[] = [
       it: 'Una vineria aperta nel 2016 da Giuseppe Fiorilla, sullo stesso torrente, qualche passo più giù. «Ùmmara» è l’ombra in dialetto ragusano. La carta è fatta quasi solo di vini naturali — piccoli produttori, fermentazioni spontanee — e la cucina di Roberta Padua intreccia la tradizione dell’Isola con deviazioni mediterranee e giapponesi. Solo la sera, chiuso il mercoledì.',
       en: 'A wine bar with a kitchen, opened in 2016 by Giuseppe Fiorilla, on the same stream a few steps further down. “Ùmmara” means shade in the Ragusa dialect. The list is almost entirely natural wines — small growers, spontaneous fermentations — and Roberta Padua’s cooking weaves the island’s tradition through Mediterranean and Japanese detours. Evenings only, closed on Wednesdays.' },
   },
+  /*
+   * LES DEUX BARS DE SCICLI, recommandes par Juliette : « Chiosco a funtana »
+   * pour la journee comme pour le soir, « Spritz Point » pour le soir.
+   */
+  {
+    id: 'chiosco-funtana',
+    name: 'Chiosco ’A Funtana',
+    cat: 'resto',
+    town: 'Scicli',
+    url: 'https://www.google.com/maps/search/?api=1&query=Chiosco+a+Funtana%2C+Via+Aleardi%2C+Scicli',
+    km: 8,
+    responsible: false,
+    blurb: {
+      fr: 'Un kiosque posé dans le jardin public qui longe le torrent, à l’ombre, avec des tables dehors. On y prend le café et la brioche le matin, la granita l’après-midi, un verre le soir — le même endroit tient les trois moments de la journée.',
+      it: 'Un chiosco nel giardino pubblico lungo il torrente, all’ombra, con i tavoli fuori. Caffè e brioche la mattina, granita il pomeriggio, un bicchiere la sera — lo stesso posto regge i tre momenti della giornata.',
+      en: 'A kiosk set in the public garden along the stream, in the shade, with tables outside. Coffee and brioche in the morning, granita in the afternoon, a drink in the evening — one place that holds all three parts of the day.' },
+  },
+  {
+    id: 'spritz-point',
+    name: 'Spritz Point',
+    cat: 'resto',
+    town: 'Scicli',
+    url: 'https://www.google.com/maps/search/?api=1&query=Spritz+Point%2C+Scicli',
+    km: 8,
+    responsible: false,
+    blurb: {
+      fr: 'Un bar à cocktails de Scicli, pour le soir. Le nom dit l’essentiel.',
+      it: 'Un cocktail bar di Scicli, per la sera. Il nome dice l’essenziale.',
+      en: 'A cocktail bar in Scicli, for the evening. The name says the rest.' },
+  },
+  /*
+   * DONNALUCATA, LA TABLE QU'ON GARDE POUR UN SOIR. Juliette : « resto super
+   * bon un peu plus cher ». Le prix est dit dans la fiche plutot que decouvert
+   * sur place — c'est la moindre des choses quand on envoie quelqu'un chez un
+   * chef.
+   */
+  {
+    id: 'caro-melo',
+    name: 'Caro Melo',
+    cat: 'resto',
+    town: 'Donnalucata',
+    url: 'https://www.google.com/maps/search/?api=1&query=Caro+Melo%2C+Via+San+Remo+7%2C+Donnalucata',
+    site: 'https://www.caromelo.it/',
+    km: 7,
+    responsible: false,
+    blurb: {
+      fr: 'L’osteria de Carmelo Chiaramonte, qui a longtemps cuisiné partout avant de s’arrêter dans ce village de pêcheurs. Une petite salle, puis une terrasse qui tient du jardin. Cuisine sicilienne revisitée, et une addition plus élevée qu’ailleurs ici — c’est une table pour un soir, pas pour tous les soirs.',
+      it: 'L’osteria di Carmelo Chiaramonte, che ha cucinato a lungo ovunque prima di fermarsi in questo paese di pescatori. Una saletta, poi una terrazza che sa di giardino. Cucina siciliana rivisitata, e un conto più alto che altrove da queste parti — è una tavola per una sera, non per tutte le sere.',
+      en: 'Carmelo Chiaramonte’s osteria — he cooked his way around for years before settling in this fishing village. A small room, then a terrace more like a garden. Sicilian cooking reimagined, and a bill higher than most around here: a table for one evening, not every evening.' },
+  },
+  /*
+   * MODICA — trois adresses de Juliette, et elles ne se concurrencent pas :
+   * deux osterie dans le meme corso, l'une copieuse, l'autre en plus petites
+   * portions, et un bar sur la place du Duomo pour la glace ou le spritz.
+   */
+  {
+    id: 'sapori-perduti',
+    name: 'Osteria dei Sapori Perduti',
+    cat: 'resto',
+    town: 'Modica',
+    url: 'https://www.google.com/maps/search/?api=1&query=Osteria+dei+Sapori+Perduti%2C+Corso+Umberto+I+230%2C+Modica',
+    km: 20,
+    responsible: false,
+    blurb: {
+      fr: 'Dans un vieux palais du corso Umberto, la cuisine modicaine des recettes de maison. Les parts sont généreuses, surtout les pâtes : prévoyez de partager plutôt que de commander chacun son plat.',
+      it: 'In un vecchio palazzo del corso Umberto, la cucina modicana delle ricette di casa. Le porzioni sono generose, soprattutto i primi: meglio condividere che ordinare un piatto a testa.',
+      en: 'In an old palazzo on corso Umberto, Modica home cooking. Portions are generous, the pasta especially: plan on sharing rather than a dish each.' },
+  },
+  {
+    id: 'ricotta-co',
+    name: 'Osteria Ricotta & Co',
+    cat: 'resto',
+    town: 'Modica',
+    url: 'https://www.google.com/maps/search/?api=1&query=Osteria+Ricotta+%26+Co%2C+Corso+Umberto+I+261%2C+Modica',
+    km: 20,
+    responsible: false,
+    blurb: {
+      fr: 'Quelques portes plus loin sur le même corso, la même cuisine de maison en plus petites assiettes — ricotta chaude, ravioli, scaccia. L’adresse quand on veut goûter à plusieurs choses sans s’attabler pour deux heures.',
+      it: 'Qualche porta più in là sullo stesso corso, la stessa cucina di casa in piatti più piccoli — ricotta calda, ravioli, scaccia. L’indirizzo per assaggiare più cose senza mettersi a tavola per due ore.',
+      en: 'A few doors along the same corso, the same home cooking in smaller plates — warm ricotta, ravioli, scaccia. The place to taste several things without settling in for two hours.' },
+  },
+  {
+    id: 'bar-del-duomo',
+    name: 'Bar del Duomo',
+    cat: 'resto',
+    town: 'Modica',
+    url: 'https://www.google.com/maps/search/?api=1&query=Bar+del+Duomo%2C+Via+San+Michele%2C+Modica',
+    km: 20,
+    responsible: false,
+    blurb: {
+      fr: 'La terrasse qui donne sur San Giorgio, en haut de Modica : une glace, une granita au chocolat ou un spritz au pied de l’escalier. On y achète aussi le chocolat de Modica, joliment emballé — avec un marque-page.',
+      it: 'La terrazza che dà su San Giorgio, a Modica Alta: un gelato, una granita al cioccolato o uno spritz ai piedi della scalinata. Ci si compra anche il cioccolato di Modica, confezionato con cura — e un segnalibro.',
+      en: 'The terrace looking onto San Giorgio, up in Modica Alta: an ice cream, a chocolate granita or a spritz at the foot of the staircase. They also sell Modica chocolate, prettily boxed — with a bookmark.' },
+  },
+  /*
+   * LA PIZZA A EMPORTER DU VILLAGE. Juliette : « les pizzas a emporter pour le
+   * soir, celles de l'Ancora en haut de la maison sont tres bonnes ». Be Happy
+   * etait seule dans ce role ; elles ne se genent pas, on n'a jamais trop d'une
+   * pizza qu'on rapporte a pied.
+   */
+  {
+    id: 'lancora',
+    name: 'Ristorante Pizzeria L’Ancora',
+    cat: 'resto',
+    town: 'Cava d’Aliga',
+    url: 'https://www.google.com/maps/search/?api=1&query=Ristorante+Pizzeria+L%27Ancora%2C+Cava+d%27Aliga',
+    km: 0.5,
+    responsible: false,
+    blurb: {
+      fr: 'Restaurant-pizzeria du village, en haut de la maison. On s’y attable, mais c’est surtout la pizza à emporter qu’on vient chercher le soir, à pied.',
+      it: 'Ristorante-pizzeria del paese, sopra casa. Ci si siede anche, ma soprattutto si passa a ritirare la pizza da asporto la sera, a piedi.',
+      en: 'The village restaurant-pizzeria, just up from the house. You can sit down, but it is the takeaway pizza you mostly walk up for in the evening.' },
+  },
+  /*
+   * RAGUSA IBLA N'EST PAS UN LIEU OU L'ON ENTRE, c'est une ville basse entiere
+   * qu'on descend a pied. L'epingle vise donc le quartier, pas une porte — et
+   * la fiche le dit, pour que personne ne cherche un guichet.
+   */
+  {
+    id: 'ragusa-ibla',
+    name: 'Ragusa Ibla',
+    cat: 'avoir',
+    town: 'Ragusa',
+    url: 'https://www.google.com/maps/search/?api=1&query=Ragusa+Ibla',
+    km: 35,
+    responsible: false,
+    blurb: {
+      fr: 'La ville basse de Raguse, reconstruite après le tremblement de terre de 1693 et classée par l’UNESCO avec les autres villes du Val di Noto. On ne la visite pas, on la descend : des ruelles, des escaliers, le dôme de San Giorgio au bout, et le jardin ibléen tout en bas. Prévoyez des chaussures, ça monte autant que ça descend.',
+      it: 'La città bassa di Ragusa, ricostruita dopo il terremoto del 1693 e iscritta dall’UNESCO con le altre città del Val di Noto. Non si visita, si scende: vicoli, scalinate, la cupola di San Giorgio in fondo, e il giardino ibleo in basso. Scarpe comode: si sale quanto si scende.',
+      en: 'Ragusa’s lower town, rebuilt after the 1693 earthquake and listed by UNESCO with the other Val di Noto towns. You do not tour it, you walk down it: alleys, stairways, the dome of San Giorgio at the end, and the Iblean garden at the bottom. Wear shoes — there is as much climbing as descending.' },
+  },
   {
     id: 'le-gioie',
     name: 'Le Gioie — Posto Siciliano',
@@ -519,9 +656,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
     km: 7,
     responsible: false,
     blurb: {
-      fr: 'Gastronomia et boucherie du côté de Donnalucata. Les arancine y sont excellentes : passez le matin pour les commander.',
-      it: 'Gastronomia e macelleria dalle parti di Donnalucata. Le arancine sono ottime: passate la mattina per ordinarle.',
-      en: 'Deli and butcher over towards Donnalucata. The arancine are excellent — drop by in the morning to order them.' },
+      fr: 'Gastronomia et boucherie du côté de Donnalucata. Les arancine y sont excellentes, y compris à la seiche et aux fruits de mer, et la maison les fait à la minute : passez vers 9 h 30, c’est l’heure.',
+      it: 'Gastronomia e macelleria dalle parti di Donnalucata. Le arancine sono ottime, anche al nero di seppia e ai frutti di mare, e le fanno al momento: passate verso le 9.30, è l’ora giusta.',
+      en: 'Deli and butcher over towards Donnalucata. The arancine are excellent — cuttlefish and seafood among them — and made to order: come by around 9.30 am, that is the hour.' },
   },
   {
     id: 'spiaggia-cava-daliga',
@@ -615,12 +752,12 @@ export const LOCAL_PLACES: LocalPlace[] = [
     km: 0.3,
     responsible: false,
     blurb: {
-      fr: 'L’épicerie du village, viale della Pace, à 280 m de la maison. La plus proche de tous : celle qu’on fait à pied quand il manque quelque chose. Et on y trouve du pain — pas la peine d’aller plus loin pour ça.',
-      it: 'Il market del paese, viale della Pace, a 280 m da casa. Il più vicino di tutti: quello che si fa a piedi quando manca qualcosa. E c’è il pane — non serve andare più lontano per quello.',
+      fr: 'L’épicerie du village, viale della Pace, à 280 m de la maison. La plus proche de tous : celle qu’on fait à pied quand il manque quelque chose. Et on y trouve du pain — pas la peine d’aller plus loin pour ça. Et le tuyau de Juliette : ses arancine sont les meilleures du coin, « il n’y a pas de compétition ».',
+      it: 'Il market del paese, viale della Pace, a 280 m da casa. Il più vicino di tutti: quello che si fa a piedi quando manca qualcosa. E c’è il pane — non serve andare più lontano per quello. E la dritta di Juliette: le sue arancine sono le migliori della zona, «non c’è partita».',
       en: 'The village grocery, viale della Pace, 280 m from the house. The closest of them all — the one you walk to when something is missing. And it has bread, so there is no need to go further for that.' },
   },
   {
-    id: 'coop-superstore',
+    id: 'coop-superstore And Juliette’s tip: their arancine are the best around — “no competition”.',
     name: 'Coop Superstore',
     cat: 'supermarche',
     town: 'Scicli',

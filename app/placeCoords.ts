@@ -84,6 +84,19 @@ export const COORDS: Record<string, PlaceCoord> = {
   tannino: { lat: 36.794632, lon: 14.706382, src: 'nominatim' },
   ummara: { lat: 36.793798, lon: 14.704906, src: 'nominatim' },
   'osteria-del-ponte': { lat: 36.79417, lon: 14.70513, src: 'nominatim' },
+  // Les adresses de Juliette. Toutes sont dans OpenStreetMap comme
+  // etablissements, geocodees par Photon — sauf Spritz Point, introuvable
+  // partout : son epingle vise le centre de Scicli et rien de plus. Le bouton
+  // « Ouvrir dans Google Maps » cherche le nom, lui, et tombera juste.
+  'chiosco-funtana': { lat: 36.793881, lon: 14.704096, src: 'nominatim' },
+  'spritz-point': { lat: 36.7940, lon: 14.7070, src: 'approx' },
+  'caro-melo': { lat: 36.762287, lon: 14.637489, src: 'nominatim' },
+  'sapori-perduti': { lat: 36.86323, lon: 14.759925, src: 'nominatim' },
+  'ricotta-co': { lat: 36.863883, lon: 14.759206, src: 'nominatim' },
+  'bar-del-duomo': { lat: 36.863748, lon: 14.761738, src: 'nominatim' },
+  lancora: { lat: 36.727401, lon: 14.68672, src: 'nominatim' },
+  // Ibla est un quartier, pas une porte : l'epingle vise son centre.
+  'ragusa-ibla': { lat: 36.926243, lon: 14.742741, src: 'nominatim' },
 
   rabbuso: { lat: 36.7209608, lon: 14.7407246, src: 'google' },
   giannone: { lat: 36.7626725, lon: 14.6366871, src: 'google' },
