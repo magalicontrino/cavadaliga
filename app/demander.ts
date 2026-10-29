@@ -145,10 +145,20 @@ const MOTS_MAISON: Record<string, string> = {
     + 'gaz bouteille cuisiniere gaziniere plaque feu bonbonne cuisson recharge ' +
     'bombola cucina fornello fuoco ricarica ' +
     'gas bottle cylinder stove cooker hob refill allumer eteindre allumage flamme casserole poele four brulure securite odeur accendere spegnere fiamma pentola forno odore sicurezza light turn on off flame pan oven smell safety',
+  /*
+   * LES MOTS NE DISENT PLUS OU EST LA CLE. Ils portaient « buffet salon »,
+   * « credenza salotto », « sideboard living room » : l'emplacement exact, en
+   * clair, dans un fichier servi au navigateur. Mag a demande qu'on retire
+   * l'endroit du site — le retirer de la page et le laisser dans l'index
+   * n'aurait rien retire du tout.
+   *
+   * La fiche repond toujours a « buanderie » et a « cle » ; elle renvoie
+   * desormais vers Mag, comme on le fait deja pour les numeros de telephone.
+   */
   'op-key':
-    'buanderie lave linge machine laver lessive etendre seche linge cle clef accrochee buffet salon bois '
-    + 'lavanderia lavatrice bucato stendere chiave credenza salotto legno '
-    + 'laundry washing machine wash clothes key sideboard living room',
+    'buanderie lave linge machine laver lessive etendre seche linge cle clef fermee a cle '
+    + 'lavanderia lavatrice bucato stendere chiave chiusa a chiave '
+    + 'laundry washing machine wash clothes key locked',
   'op-leaf':
     'plante plantes arroser arrosage eau litres jasmin jasmins bougainvillier bougainvilliers bougainvillee fleur fleurs jardin terrasse pot pots '
     + 'pianta piante annaffiare innaffiare annaffiatura gelsomino gelsomini bougainvillee fiori giardino vaso vasi litri '
