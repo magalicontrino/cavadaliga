@@ -88,6 +88,8 @@ const TRANCHES = {
    * apparait enfin sur une grille.
    */
   Ghaith: AMIS,
+  // Mag : « Xavier, c'est un ami ». Dit explicitement, donc pas devine.
+  Xavier: AMIS,
 } as const;
 
 type Personne = keyof typeof TRANCHES;
@@ -114,7 +116,7 @@ type Personne = keyof typeof TRANCHES;
  * C'est une etiquette TRADUITE, pas un bout de libelle : les libelles sont des
  * noms que Mag ecrit (« Angele +++ »), une phrase se traduit.
  */
-type Note = 'quinzaine';
+type Note = 'quinzaine' | 'semaine';
 type Sejour = { label: string; qui: Personne[]; start: string; end: string; tentative?: boolean; travaux?: boolean; note?: Note };
 
 const SEJOURS: Sejour[] = [
@@ -161,6 +163,30 @@ const SEJOURS: Sejour[] = [
    * la famille lit pour savoir si la maison est libre. Un trait plein aurait
    * reserve un mois au nom de quelqu'un qui n'a encore rien fixe.
    */
+  /*
+   * TROIS DEMANDES EN L'AIR POUR 2027, et c'est tout l'interet de les ecrire :
+   * Mag veut « que les gens voient a l'avance qui est en discussion pour y
+   * aller ». Un calendrier qui ne montre que le decide arrive toujours trop
+   * tard — on apprend qu'une periode etait convoitee le jour ou elle est prise.
+   *
+   * Toutes portent donc le pointille et leur mention : rien n'est joue, et la
+   * fiche le dit avant qu'on ait a le demander.
+   *
+   * LES DATES SONT DES FENETRES, PAS DES SEJOURS. Mag n'a donne ni jours ni
+   * semaines precises : elle a dit « quinze jours en mai », « une semaine »,
+   * « quinze jours avant Zoe ». On pose donc la fenetre ou elle la situe, et la
+   * mention « a caler » porte tout le reste.
+   */
+  { label: 'Mag, Stéphane, sa maman et ses sœurs', qui: ['Mag'], start: '2027-05-01', end: '2027-05-15', tentative: true, note: 'quinzaine' },
+  { label: 'Xavier', qui: ['Xavier'], start: '2027-05-17', end: '2027-05-23', tentative: true, note: 'semaine' },
+  /*
+   * MARIE PASSE DEVANT ZOE, ELLE NE SE SUPERPOSE PAS. Mag avait d'abord voulu
+   * les deux demandes sur la meme quinzaine, puis a tranche : « superpose pas
+   * alors, mais rajoute 15 jours avant ». Marie prend donc la premiere
+   * quinzaine d'aout, Zoe garde la sienne a partir du 15, et les deux se
+   * lisent cote a cote.
+   */
+  { label: 'Marie', qui: ['Marie'], start: '2027-08-01', end: '2027-08-14', tentative: true, note: 'quinzaine' },
   { label: 'Zoé', qui: ['Zoé'], start: '2027-08-15', end: '2027-09-15', tentative: true, note: 'quinzaine' },
 ];
 
@@ -436,6 +462,26 @@ const lire = (s: string) => {
 const sejourDuJour = (d: Date) => {
   const v = ymd(d);
   return SEJOURS.findIndex((s) => v >= ymd(lire(s.start)) && v <= ymd(lire(s.end)));
+};
+/*
+ * DEUX PERSONNES PEUVENT VOULOIR LE MEME JOUR, et le calendrier doit le dire.
+ *
+ * `sejourDuJour` ne rend que le PREMIER : tant que les sejours ne se
+ * chevauchaient pas, ça suffisait. Des que Mag a note deux demandes sur la
+ * meme quinzaine d'aout — Zoe et Marie, toutes deux « en cours de reflexion »
+ * — la grille se mettait a mentir : elle affichait une seule couleur, et la
+ * seconde demande disparaissait purement et simplement. Or c'est exactement
+ * ce que Mag veut rendre visible : « que les gens voient a l'avance qui est en
+ * discussion pour y aller ».
+ *
+ * On rend donc la LISTE. La case se partage entre les deux premieres couleurs,
+ * et l'infobulle les nomme toutes.
+ */
+const sejoursDuJour = (d: Date) => {
+  const v = ymd(d);
+  return SEJOURS.map((s, i) => i).filter(
+    (i) => v >= ymd(lire(SEJOURS[i].start)) && v <= ymd(lire(SEJOURS[i].end)),
+  );
 };
 
 /** Les semaines du mois, lundi en tete. Cellule vide = debord du mois voisin. */
@@ -744,8 +790,12 @@ export default function Occupancy() {
               <div className="grid grid-cols-7 gap-1">
                 {cases.map((d, di) => {
                   if (!d) return <div key={di} aria-hidden />;
-                  const si = sejourDuJour(d);
+                  const tous = sejoursDuJour(d);
+                  const si = tous.length ? tous[0] : -1;
                   const s = si >= 0 ? SEJOURS[si] : null;
+                  // La signature du jour : deux cases ne se relient que si
+                  // EXACTEMENT les memes sejours les couvrent.
+                  const signature = tous.join(',');
                   const passe = aujourdhui !== null && ymd(d) < aujourdhui;
                   const cejour = aujourdhui === ymd(d);
                   const parente = s ? parenteDu(s) : null;
@@ -765,7 +815,22 @@ export default function Occupancy() {
                    * personne n'a rien a raconter, et le colorier ferait du
                    * bruit autour des sejours qu'on cherche.
                    */
-                  const teinte = parente ? TEINTES[parente] : passe ? 'transparent' : LIBRE;
+                  /*
+                   * QUAND DEUX DEMANDES SE SUPERPOSENT, LA CASE SE PARTAGE —
+                   * une diagonale entre les deux teintes. C'est la seule facon
+                   * de montrer que le jour est convoite deux fois sans en
+                   * effacer une ; au-dela de deux, les deux premieres parlent
+                   * et l'infobulle dit le reste.
+                   */
+                  const teintes = tous.map((i) => TEINTES[parenteDu(SEJOURS[i])]);
+                  const teinte =
+                    teintes.length > 1
+                      ? `linear-gradient(135deg, ${teintes[0]} 0 50%, ${teintes[1]} 50% 100%)`
+                      : parente
+                        ? TEINTES[parente]
+                        : passe
+                          ? 'transparent'
+                          : LIBRE;
                   /*
                    * LE TRAIT — Mag : « quand les dates sont occupees fait
                    * plutot une ligne, c'est plus clair ».
@@ -784,7 +849,7 @@ export default function Occupancy() {
                    * particulier pour lui.
                    */
                   const suite = (autre: Date | null | undefined) =>
-                    !!s && !!autre && sejourDuJour(autre) === si;
+                    !!s && !!autre && sejoursDuJour(autre).join(',') === signature;
                   const versGauche = di % 7 > 0 && suite(cases[di - 1]);
                   const versDroite = di % 7 < 6 && suite(cases[di + 1]);
                   const rond = (coin: boolean) => (coin ? '0px' : '10px');
@@ -797,7 +862,14 @@ export default function Occupancy() {
                        * autant que savoir que c'est pris. La liste sous la
                        * grille le dit en clair — ceci n'est que le raccourci.
                        */
-                      title={s ? `${s.label} — ${jourFormat.format(lire(s.start))} → ${jourFormat.format(lire(s.end))}` : undefined}
+                      title={
+                        tous.length
+                          ? tous
+                              .map((i) => SEJOURS[i])
+                              .map((x) => `${x.label} — ${jourFormat.format(lire(x.start))} → ${jourFormat.format(lire(x.end))}`)
+                              .join('\n')
+                          : undefined
+                      }
                       className="flex aspect-square items-center justify-center text-[13px]"
                       style={{
                         background: teinte,
@@ -926,7 +998,7 @@ export default function Occupancy() {
                               caler » dit deja que rien n'est fixe, et le dire
                               deux fois de suite ferait bavard.
                             */}
-                            {s.note === 'quinzaine' ? c.legend.fortnight : c.legend.tentative}
+                            {s.note === 'quinzaine' ? c.legend.fortnight : s.note === 'semaine' ? c.legend.week : c.legend.tentative}
                           </span>
                         )}
                         {parenteDu(s) === 'inconnu' && (
