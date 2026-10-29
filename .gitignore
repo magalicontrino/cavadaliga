@@ -12,3 +12,9 @@ next-env.d.ts
 
 # Outil de fabrication des tuiles (binaire telecharge, hors depot)
 /pmtiles
+
+# Factures et papiers personnels — JAMAIS dans le depot, qui est PUBLIC.
+# Une facture d'eau porte le nom complet, le code fiscal, l'adresse privee et
+# les codes de paiement PagoPA. Rien de tout ça ne doit pouvoir partir sur
+# GitHub par un `git add -A` distrait.
+/facture/
