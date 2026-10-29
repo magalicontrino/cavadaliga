@@ -74,6 +74,20 @@ const TRANCHES = {
   // grand-pere de Mag.
   Angèle: 'famille',
   /*
+   * STEPHANE, ET MAG A TRANCHE CONTRE MA SUGGESTION. J'avais propose la
+   * belle-famille — c'est la tranche de Katia, et la maman et les sœurs d'un
+   * compagnon y tombent par definition. Sa reponse : « non c'est la famille ».
+   *
+   * C'est SA famille, et la distinction que porte ce tableau n'est pas une
+   * regle de parente mais une APPARTENANCE ressentie. Le meme raisonnement
+   * l'avait fait corriger Katia dans l'autre sens. On ecrit ce qu'elle dit.
+   *
+   * Sa maman et ses sœurs n'ont pas de prenom ici : Mag ne les a pas nommees.
+   * Elles restent donc dans le LIBELLE, comme les « +++ » — on dit qu'elles
+   * viennent sans pretendre savoir qui elles sont.
+   */
+  Stéphane: 'famille',
+  /*
    * Hors de l'arbre, et ça ne coute rien : ils partagent le sejour de
    * quelqu'un de plus proche, et c'est le plus proche qui donne la couleur.
    */
@@ -147,7 +161,7 @@ const SEJOURS: Sejour[] = [
    * garde-fou voulu : un nom inconnu doit arreter le build, jamais tomber en
    * silence chez les amis.
    */
-  { label: 'Mag et Steph', qui: ['Mag'], start: '2026-12-28', end: '2027-01-08' },
+  { label: 'Mag et Steph', qui: ['Mag', 'Stéphane'], start: '2026-12-28', end: '2027-01-08' },
   /*
    * 2027 ENTRE DANS LE CALENDRIER, et c'est la premiere entree qui saute
    * d'annee : la plage navigable se deduit des sejours eux-memes, elle s'etend
@@ -177,7 +191,7 @@ const SEJOURS: Sejour[] = [
    * « quinze jours avant Zoe ». On pose donc la fenetre ou elle la situe, et la
    * mention « a caler » porte tout le reste.
    */
-  { label: 'Mag, Stéphane, sa maman et ses sœurs', qui: ['Mag'], start: '2027-05-01', end: '2027-05-15', tentative: true, note: 'quinzaine' },
+  { label: 'Mag, Stéphane, sa maman et ses sœurs', qui: ['Mag', 'Stéphane'], start: '2027-05-01', end: '2027-05-15', tentative: true, note: 'quinzaine' },
   { label: 'Xavier', qui: ['Xavier'], start: '2027-05-17', end: '2027-05-23', tentative: true, note: 'semaine' },
   /*
    * MARIE PASSE DEVANT ZOE, ELLE NE SE SUPERPOSE PAS. Mag avait d'abord voulu
