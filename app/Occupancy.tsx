@@ -79,6 +79,15 @@ const TRANCHES = {
    */
   Alex: AMIS,
   Guillaume: AMIS,
+  /*
+   * GHAITH EST LE PREMIER A COLORER VRAIMENT CETTE TRANCHE. Mag : « c'est un
+   * collegue, donc ça fait pas partie de la famille ». Alex et Guillaume sont
+   * « amis » depuis le debut, mais ils partagent toujours le sejour de
+   * quelqu'un de plus proche, et c'est le plus proche qui l'emporte : leur
+   * couleur n'avait donc jamais ete affichee. Ghaith vient seul, et l'ocre
+   * apparait enfin sur une grille.
+   */
+  Ghaith: AMIS,
 } as const;
 
 type Personne = keyof typeof TRANCHES;
@@ -123,7 +132,20 @@ const SEJOURS: Sejour[] = [
   { label: 'Katia', qui: ['Katia Asaro'], start: '2026-09-08', end: '2026-09-16' },
   { label: 'Juliette', qui: ['Juliette', 'Régine'], start: '2026-09-17', end: '2026-09-21' },
   { label: 'Mag +++', qui: ['Mag'], start: '2026-09-22', end: '2026-10-01' },
-  { label: 'Marie & Guillaume', qui: ['Marie', 'Guillaume'], start: '2026-10-17', end: '2026-11-01' },
+  { label: 'Marie & Guillaume', qui: ['Marie', 'Guillaume'], start: '2026-10-21', end: '2026-10-25' },
+  { label: 'Ghaith', qui: ['Ghaith'], start: '2026-11-05', end: '2026-11-15' },
+  /*
+   * STEPH N'EST PAS ENCORE UNE PERSONNE DECLAREE, et le sejour s'en accommode
+   * comme il le fait depuis toujours des « +++ » : le libelle porte le nom,
+   * `qui` ne porte que les gens dont on connait la tranche. Mag vient (« on y
+   * va »), donc la case prend SA couleur ; Steph s'ajoutera a TRANCHES le jour
+   * ou Mag dira de quel cercle il releve.
+   *
+   * Mettre Steph dans `qui` sans le declarer ne compilerait pas — c'est le
+   * garde-fou voulu : un nom inconnu doit arreter le build, jamais tomber en
+   * silence chez les amis.
+   */
+  { label: 'Mag et Steph', qui: ['Mag'], start: '2026-12-28', end: '2027-01-08' },
   /*
    * 2027 ENTRE DANS LE CALENDRIER, et c'est la premiere entree qui saute
    * d'annee : la plage navigable se deduit des sejours eux-memes, elle s'etend
